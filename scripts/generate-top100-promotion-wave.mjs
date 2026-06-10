@@ -115,6 +115,13 @@ function waveYaml(rows) {
           medium: Number(row.scan_medium),
           gateDecisions: splitList(row.gate_decisions),
         },
+        currentState: {
+          supportLevel: row.current_support_level,
+          productionReadiness: row.current_production_readiness,
+          catalogStatus: row.current_catalog_status,
+          supportedVariants: splitList(row.supported_variants),
+        },
+        gaps: splitList(row.gaps),
         firstStep: row.first_step,
         doneWhen: row.done_when,
         evidence: splitList(row.evidence),
@@ -152,6 +159,16 @@ missing item: scan and production disposition
 | Chart | Variants | Scan/gate | Feature focus | First step |
 | --- | --- | --- | --- | --- |
 ${rows.map((row) => `| \`${row.chart_ref}\` | ${escapePipes(row.variants)} | high=${row.scan_high}, medium=${row.scan_medium}, gates=${escapePipes(row.gate_decisions)} | ${escapePipes(row.source_features || "-")} | ${escapePipes(row.first_step)} |`).join("\n")}
+
+## Review Details
+
+This table is the first promotion-review work packet. It shows what is known,
+what is missing, and what must be true before the chart can become a catalog
+offer.
+
+| Chart | Current state | Gaps to review | Done when |
+| --- | --- | --- | --- |
+${rows.map((row) => `| \`${row.chart_ref}\` | ${escapePipes(currentState(row))} | ${escapePipes(formatGaps(row.gaps))} | ${escapePipes(row.done_when)} |`).join("\n")}
 
 ## Feature Mix
 
@@ -264,6 +281,19 @@ function countFeatures(rows) {
     }
   }
   return counts;
+}
+
+function currentState(row) {
+  return [
+    `support=${row.current_support_level || "-"}`,
+    `production=${row.current_production_readiness || "-"}`,
+    `catalog=${row.current_catalog_status || "-"}`,
+  ].join("; ");
+}
+
+function formatGaps(value) {
+  const gaps = splitList(value);
+  return gaps.length ? gaps.join("<br>") : "-";
 }
 
 function splitList(value) {

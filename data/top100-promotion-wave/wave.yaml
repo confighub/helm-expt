@@ -28,6 +28,19 @@ spec:
         gateDecisions:
           - "allow"
           - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+        - "CRD lifecycle policy must be catalog-readable"
+        - "webhook readiness/observation policy must be catalog-readable"
       firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
       doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
       evidence:
@@ -60,6 +73,20 @@ spec:
         gateDecisions:
           - "allow"
           - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+        - "CRD lifecycle policy must be catalog-readable"
+        - "webhook readiness/observation policy must be catalog-readable"
+        - "stateful storage and rollback policy must be catalog-readable"
       firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
       doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
       evidence:
@@ -88,6 +115,15 @@ spec:
         medium: 0
         gateDecisions:
           - "allow"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "stateful storage and rollback policy must be catalog-readable"
       firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
       doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
       evidence:
@@ -118,6 +154,18 @@ spec:
         gateDecisions:
           - "allow"
           - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+        - "CRD lifecycle policy must be catalog-readable"
       firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
       doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
       evidence:
@@ -149,6 +197,18 @@ spec:
         gateDecisions:
           - "allow"
           - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+        - "CRD lifecycle policy must be catalog-readable"
       firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
       doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
       evidence:
@@ -180,6 +240,19 @@ spec:
         gateDecisions:
           - "allow"
           - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+        - "CRD lifecycle policy must be catalog-readable"
+        - "webhook readiness/observation policy must be catalog-readable"
       firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
       doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
       evidence:
@@ -207,6 +280,18 @@ spec:
         gateDecisions:
           - "allow"
           - "warn"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "medium scan findings require review or waiver before production support"
+        - "install gate warns"
+        - "production support requires documented disposition or acceptance"
+        - "stateful storage and rollback policy must be catalog-readable"
       firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
       doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
       evidence:
@@ -234,6 +319,15 @@ spec:
         medium: 0
         gateDecisions:
           - "allow"
+      currentState:
+        supportLevel: "machine-proof-only"
+        productionReadiness: "not-reviewed-for-production"
+        catalogStatus: "proof-grade"
+        supportedVariants:
+          []
+      gaps:
+        - "human review needed: confirm variants are the obvious Helm-user paths"
+        - "stateful storage and rollback policy must be catalog-readable"
       firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
       doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
       evidence:
