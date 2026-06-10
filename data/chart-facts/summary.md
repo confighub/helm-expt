@@ -5,6 +5,11 @@ a recommended capability we cannot yet build because **no solution/workaround ex
 kept distinct from **buildable_not_yet_run** — capabilities with a known build path that simply
 haven't been run through the variant generator.
 
+Hook counts in this file are scoped to the current recipe corpus. The retained
+source-scan top-100 hook inventory is separate because it can include charts
+that are not yet current recipe rows. Use
+`data/hook-lifecycle/summary.md` for source-scan hook totals.
+
 ## Headline
 
 ```text
@@ -15,6 +20,13 @@ charts with buildable backlog (path exists): 38
 charts with remote dependency risk surfaced: 18
 non-exact dependency rows frozen to lock:    4
 remote-risk rows missing Chart.lock digest:  11
+current recipe rows with Helm hooks:         5
+hook rows observed:                          3
+hook rows partially observed:                2
+hook rows route-selected only:               0
+hook rows source-reviewed but not maintained:0
+hook-like reviewed rows without hook annotation: 0
+hook rows still needing source route review: 0
 ```
 
 ## What the hard gaps are (charts affected)
@@ -32,7 +44,9 @@ other hard gap:                                         1
 | --- | --- |
 | `post_deploy_hooks` | Helm post-install / post-upgrade / post-delete hooks the chart ships |
 | `other_hooks` | pre-install / pre-upgrade / pre-delete / test hooks |
-| `hook_status` | hooks have an execution home (ConfigHub applies; Flux/Argo runs) — live receipt still pending |
+| `hook_status` | current hook route state: observed, partially observed, source reviewed, source detected, or n/a |
+| `hook_route_evidence` | receipt, queue, review, or source-scan file supporting the hook status |
+| `hook_route_next_action` | next concrete lifecycle step before stronger support can be claimed |
 | `generates_secrets` | chart generates secret material (random / cert / password funcs) |
 | `existing_secret` | bring-your-own-Secret path: built, a known gap, or n/a |
 | `no_crds_variant` | a CRDs-off variant: built, a known gap, or n/a |

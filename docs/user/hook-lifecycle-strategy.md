@@ -95,6 +95,26 @@ but it is still not lifecycle proof until execution or observation evidence
 exists. `blocked` is a valid catalog outcome when a hook does not fit the
 current model safely.
 
+## Where To Look Per Chart
+
+For the current recipe corpus, use:
+
+```text
+data/chart-facts/chart-facts.csv
+```
+
+The hook columns show the phases found for each chart, the current route state,
+the evidence file, and the next lifecycle action. That view is scoped to charts
+with current recipes. The broader source-scan hook inventory lives under:
+
+```text
+data/hook-lifecycle/
+```
+
+Keep the two views separate. The source scan answers "which public charts appear
+to use Helm hooks." Chart facts answer "what does this maintained recipe know
+about hooks now, and what remains before a stronger support claim."
+
 ## Classification
 
 | Hook class | Default disposition |
