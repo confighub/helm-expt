@@ -215,6 +215,9 @@ Strict two-cluster Helm-vs-installer parity now has committed receipts for all
 Use the generated rerun plan for the next command and expected remediation:
 [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md).
 
+For the shortest active queue, use:
+[Active Proof Queue](../../data/status-dashboard/active-proof-queue.csv).
+
 The current rerun queue has no semantic parity defects. Its 6 active non-pass
 rows are grouped by the next action needed before a rerun is useful. Each row
 links to a support artifact when the chart already has one.
