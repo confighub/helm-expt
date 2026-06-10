@@ -6,6 +6,9 @@ top100,variant-rich charts,54,100,partial,data/outcome-coverage/chart-outcomes.c
 top100,covered by top100 contract,20,100,partial,data/top100-coverage/coverage.csv,"Rows satisfying all top100 coverage contract items, including disposition and live witness route."
 top100,partial by top100 contract,80,100,partial,data/top100-coverage/coverage.csv,Rows with at least one coverage contract item still todo.
 top100,average top100 coverage,83,100,partial,data/top100-coverage/coverage.csv,Average of the generated per-chart coverage percentage.
+top100,top100 promotion-review queue,27,80,partial,data/top100-coverage/work-queue.csv,Partial top100 rows ready for catalog promotion review under the strict coverage contract.
+top100,top100 user-shaped variant queue,46,80,partial,data/top100-coverage/work-queue.csv,Partial top100 rows whose proof exists but whose current base is not yet a useful catalog offer.
+top100,top100 limitation-decision queue,7,80,partial,data/top100-coverage/work-queue.csv,"Partial top100 rows needing a support, disclosure, defer, or block decision before promotion."
 top500,source rows scanned,495,500,partial,data/top500-catalog-analysis/review.csv,Retained source-scan rows with source feature data.
 top500,rows with current recipe proof,91,500,partial,data/top500-catalog-analysis/review.csv,Retained source-scan rows matched to current recipe/package proof.
 top500,catalog-supported rows,20,500,partial,data/top500-catalog-analysis/review.csv,Rows promoted to the current public catalog; production gates still matter.

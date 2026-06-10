@@ -46,6 +46,7 @@ function buildReport() {
   const top20BaseReadinessRows = readCsv("data/top20-base-readiness/base-readiness.csv");
   const top100Rows = readCsv("data/top100-readiness/readiness.csv");
   const top100CoverageRows = readCsv("data/top100-coverage/coverage.csv");
+  const top100CoverageWorkRows = readCsv("data/top100-coverage/work-queue.csv");
   const top500Rows = readCsv("data/top500-catalog-analysis/review.csv");
   const quirkRows = readCsv("data/quirk-coverage/coverage.csv");
   const extensionRows = readCsv("data/extension-slots/extension-slots.csv");
@@ -76,6 +77,9 @@ function buildReport() {
   rows.push(metric("top100", "covered by top100 contract", count(top100CoverageRows, "coverage_status", "covered"), top100CoverageRows.length, "partial", "data/top100-coverage/coverage.csv", "Rows satisfying all top100 coverage contract items, including disposition and live witness route."));
   rows.push(metric("top100", "partial by top100 contract", count(top100CoverageRows, "coverage_status", "partial"), top100CoverageRows.length, "partial", "data/top100-coverage/coverage.csv", "Rows with at least one coverage contract item still todo."));
   rows.push(metric("top100", "average top100 coverage", averageNumber(top100CoverageRows, "coverage_percent"), 100, "partial", "data/top100-coverage/coverage.csv", "Average of the generated per-chart coverage percentage."));
+  rows.push(metric("top100", "top100 promotion-review queue", count(top100CoverageWorkRows, "queue", "promotion-review"), top100CoverageWorkRows.length, "partial", "data/top100-coverage/work-queue.csv", "Partial top100 rows ready for catalog promotion review under the strict coverage contract."));
+  rows.push(metric("top100", "top100 user-shaped variant queue", count(top100CoverageWorkRows, "queue", "user-shaped-variant"), top100CoverageWorkRows.length, "partial", "data/top100-coverage/work-queue.csv", "Partial top100 rows whose proof exists but whose current base is not yet a useful catalog offer."));
+  rows.push(metric("top100", "top100 limitation-decision queue", count(top100CoverageWorkRows, "queue", "limitation-decision"), top100CoverageWorkRows.length, "partial", "data/top100-coverage/work-queue.csv", "Partial top100 rows needing a support, disclosure, defer, or block decision before promotion."));
   rows.push(metric("top500", "source rows scanned", count(top500Rows, "source_status", "source-scanned"), top500Rows.length, "partial", "data/top500-catalog-analysis/review.csv", "Retained source-scan rows with source feature data."));
   rows.push(metric("top500", "rows with current recipe proof", top500Rows.filter((row) => row.recipe_status.startsWith("current-recipe")).length, top500Rows.length, "partial", "data/top500-catalog-analysis/review.csv", "Retained source-scan rows matched to current recipe/package proof."));
   rows.push(metric("top500", "catalog-supported rows", count(top500Rows, "catalog_status", "catalog-supported"), top500Rows.length, "partial", "data/top500-catalog-analysis/review.csv", "Rows promoted to the current public catalog; production gates still matter."));
@@ -144,7 +148,7 @@ function buildReport() {
 
   const chartByName = new Map(chartRows.map((row) => [row.chart, row]));
   const top20Rows = top20StatusRows(top100Rows, chartByName, top20BaseReadinessRows, productionSupportDecisionRows);
-  const nextWorkQueues = nextWorkQueueRows({ top100Rows, hookRows, lifecycleObservationRows, liveParityRerunRows, productionSupportDecisionRows });
+  const nextWorkQueues = nextWorkQueueRows({ top100Rows, top100CoverageWorkRows, hookRows, lifecycleObservationRows, liveParityRerunRows, productionSupportDecisionRows });
   const activeProofQueue = activeProofQueueRows(liveParityRerunRows);
   return {
     rows,
@@ -155,7 +159,7 @@ function buildReport() {
     nextWorkQueuesCsv: nextWorkQueuesToCsv(nextWorkQueues),
     activeProofQueue,
     activeProofQueueCsv: activeProofQueueToCsv(activeProofQueue),
-    summary: summary(rows, { chartRows, baseRows, top100Rows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, productionSupportDecisionRows, scanDispositionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues, activeProofQueue }),
+    summary: summary(rows, { chartRows, baseRows, top100Rows, top100CoverageWorkRows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, productionSupportDecisionRows, scanDispositionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues, activeProofQueue }),
   };
 }
 
@@ -476,6 +480,8 @@ lifecycle observation.
 | --- | --- |
 | Can I use this chart today? | [top100-readiness/readiness.csv](../top100-readiness/readiness.csv) |
 | Which top-100 rows satisfy the strict coverage contract? | [top100-coverage/coverage.csv](../top100-coverage/coverage.csv) |
+| Which top-100 partial rows should move next? | [top100-coverage/work-queue.md](../top100-coverage/work-queue.md) |
+| Which top-100 rows need a human limitation decision? | [top100-coverage/decisions-needed.md](../top100-coverage/decisions-needed.md) |
 | How much of the retained top500 source scan maps to current proof? | [top500-catalog-analysis/review.csv](../top500-catalog-analysis/review.csv) |
 | Which base variants have which proof lanes? | [outcome-coverage/base-outcomes.csv](../outcome-coverage/base-outcomes.csv) |
 | Which top-20 base variant should I start with? | [top20-base-readiness/summary.md](../top20-base-readiness/summary.md) |
@@ -687,23 +693,24 @@ function liveParityNextStepRows(counts) {
 }
 
 function nextWorkQueueRows(context) {
-  const top100Status = groupCount(context.top100Rows, "adoption_bucket");
   const liveParityRerunReadiness = groupCount(context.liveParityRerunRows, "rerun_readiness");
   return [
-    ...top100WorkQueueObjects(top100Status),
+    ...top100WorkQueueObjects(context.top100Rows, context.top100CoverageWorkRows),
     ...supportDecisionWorkstreamObjects(context.productionSupportDecisionRows),
     ...liveParityRerunReadinessObjects(liveParityRerunReadiness),
     ...hookWorkQueueObjects(context.hookRows, context.lifecycleObservationRows),
   ];
 }
 
-function top100WorkQueueObjects(counts) {
+function top100WorkQueueObjects(top100Rows, workRows) {
+  const queueCounts = groupCount(workRows, "queue");
+  const publicCatalogCount = top100Rows.filter((row) => row.adoption_bucket === "try-from-public-catalog").length;
   return [
     {
       section: "top100-catalog-work",
       item_type: "queue",
       item: "Use public catalog now",
-      count: counts.get("try-from-public-catalog") ?? 0,
+      count: publicCatalogCount,
       next_action: "Open CATALOG.md and top20 base readiness; choose a base with the lane you need.",
       source: "data/top100-readiness/readiness.csv",
       detail: "adoption_bucket=try-from-public-catalog",
@@ -712,28 +719,28 @@ function top100WorkQueueObjects(counts) {
       section: "top100-catalog-work",
       item_type: "queue",
       item: "Promote proof-grade charts",
-      count: counts.get("promote-after-review") ?? 0,
+      count: queueCounts.get("promotion-review") ?? 0,
       next_action: "Run catalog promotion review, select realistic bases, and add selected live lanes.",
-      source: "data/top100-readiness/readiness.csv",
-      detail: "adoption_bucket=promote-after-review",
+      source: "data/top100-coverage/work-queue.csv",
+      detail: previewChartRefs(workRows.filter((row) => row.queue === "promotion-review")),
     },
     {
       section: "top100-catalog-work",
       item_type: "queue",
       item: "Design useful base variants",
-      count: counts.get("needs-useful-variant") ?? 0,
+      count: queueCounts.get("user-shaped-variant") ?? 0,
       next_action: "Create the first user-shaped base before treating the chart as a catalog offer.",
-      source: "data/top100-readiness/readiness.csv",
-      detail: "adoption_bucket=needs-useful-variant",
+      source: "data/top100-coverage/work-queue.csv",
+      detail: previewChartRefs(workRows.filter((row) => row.queue === "user-shaped-variant")),
     },
     {
       section: "top100-catalog-work",
       item_type: "queue",
       item: "Resolve limitation decisions",
-      count: counts.get("limitation-decision-first") ?? 0,
+      count: queueCounts.get("limitation-decision") ?? 0,
       next_action: "Decide whether the named gap is supported, disclosed, deferred, or blocked.",
-      source: "data/top100-readiness/readiness.csv",
-      detail: "adoption_bucket=limitation-decision-first",
+      source: "data/top100-coverage/decisions-needed.md",
+      detail: previewChartRefs(workRows.filter((row) => row.queue === "limitation-decision")),
     },
   ];
 }
@@ -888,6 +895,13 @@ function activeProofQueueToCsv(rows) {
 
 function previewCharts(rows) {
   const values = rows.slice(0, 5).map((row) => `${row.chart}@${row.version} (${row.candidateBase || row.supported_base || row.base || "base"})`);
+  const remaining = rows.length - values.length;
+  if (remaining > 0) values.push(`and ${remaining} more`);
+  return values.join("; ");
+}
+
+function previewChartRefs(rows) {
+  const values = rows.slice(0, 5).map((row) => row.chart_ref);
   const remaining = rows.length - values.length;
   if (remaining > 0) values.push(`and ${remaining} more`);
   return values.join("; ");

@@ -23,6 +23,7 @@ smallest generated surface that answers it.
 | I want to know whether any top-20 chart/base is easy, partial, blocked, or watch. | [top20-base-readiness/summary.md](./top20-base-readiness/summary.md) |
 | I want one spreadsheet row per chart/base proof lane. | [outcome-coverage/base-outcomes.csv](./outcome-coverage/base-outcomes.csv) |
 | I want the top-100 coverage contract. | [top100-coverage/summary.md](./top100-coverage/summary.md)<br>[top100-coverage/coverage.csv](./top100-coverage/coverage.csv) |
+| I want the strict top-100 work queue. | [top100-coverage/work-queue.md](./top100-coverage/work-queue.md)<br>[top100-coverage/work-queue.csv](./top100-coverage/work-queue.csv)<br>[top100-coverage/decisions-needed.md](./top100-coverage/decisions-needed.md) |
 | I want the top-100 or top-500 planning picture. | [top100-readiness/summary.md](./top100-readiness/summary.md)<br>[top100-readiness/next80-queues.md](./top100-readiness/next80-queues.md)<br>[top500-catalog-analysis/review.csv](./top500-catalog-analysis/review.csv) |
 | I want live parity status. | [live-kind-parity/summary.md](./live-kind-parity/summary.md)<br>[live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md) |
 | I want hook, CRD, webhook, or lifecycle status. | [lifecycle-boundary/summary.md](./lifecycle-boundary/summary.md)<br>[outcome-coverage/feature-outcomes.csv](./outcome-coverage/feature-outcomes.csv) |
@@ -68,6 +69,9 @@ smallest generated surface that answers it.
 | [top100-readiness/next80-queues.md](./top100-readiness/next80-queues.md) | Next80 operating queue: proof-grade non-catalog charts split into promotion review, limitation review, and user-shaped variant work. |
 | [top100-coverage/summary.md](./top100-coverage/summary.md) | Top-100 coverage contract result: covered versus partial rows and item-by-item pass/todo breakdown. |
 | [top100-coverage/coverage.csv](./top100-coverage/coverage.csv) | One row per top-100 chart: strict coverage contract status, item statuses, evidence paths, and next action. |
+| [top100-coverage/work-queue.md](./top100-coverage/work-queue.md) | Top-100 strict coverage work queue: promotion review, user-shaped variants, limitation decisions, and first rows. |
+| [top100-coverage/work-queue.csv](./top100-coverage/work-queue.csv) | One row per partial top-100 chart: queue, priority, missing items, first step, done-when rule, evidence, and owner. |
+| [top100-coverage/decisions-needed.md](./top100-coverage/decisions-needed.md) | Human decision memos for top-100 limitation-decision rows. |
 | [next-ten-waves/summary.md](./next-ten-waves/summary.md) | Compact next work queues: gap review, latest-version promotion, variant build, production disposition, and import prototypes. |
 | [attack-plan-workdown/summary.md](./attack-plan-workdown/summary.md) | Broader execution workdown: import examples, hard gaps, variants, production, runtime/GitOps, latest candidates, and image digests. |
 | [top500-catalog-analysis/review.csv](./top500-catalog-analysis/review.csv) | Top-500 evidence map: retained source-scan rows joined to current recipe proof, catalog status, version drift, source features, and next action. |
@@ -193,7 +197,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 74 CSV files. Each row records the path, audience,
+It includes 75 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
