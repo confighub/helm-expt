@@ -48,6 +48,7 @@ for exact base-variant evidence.
 | Control points | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/control-points.yaml](control-points.yaml) |
 | Value model | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-model.yaml](value-model.yaml) |
 | Value source map | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-source-map.yaml](value-source-map.yaml) |
+| Production readiness plan | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/production-readiness-plan.yaml](production-readiness-plan.yaml) |
 | Weirdness and mitigations | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/weirdness-and-mitigations.md](weirdness-and-mitigations.md) |
 | Catalog status | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/catalog-status.yaml](catalog-status.yaml) |
 | Helm pain report | [recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml](helm-pain-report.yaml) |
