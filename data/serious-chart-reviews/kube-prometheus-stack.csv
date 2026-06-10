@@ -1,0 +1,13 @@
+dimension,status,evidence,limit
+render parity,proven (2/2 bases),data/status-dashboard/top20-status.csv,pinned chart + values profiles + capability profile 1.30
+local live e2e,pass with strict witness observed (3/4 checks on committed row),data/live-e2e/top20-local-kind.csv,default base; per-check detail in the run observation receipt
+two-cluster kind parity,pass (default and no-crds),data/live-kind-parity/summary.csv,install-time semantic parity on kind 1.30; not any-cluster
+live Helm-vs-ConfigHub comparison,pass (default),data/live-helm-confighub-compare/,selected lane; one base
+hook lifecycle,lifecycle-observed with committed receipt,data/hook-lifecycle/top100-hooks.csv;data/hook-lifecycle/receipt-index.csv,one chart's hooks on one base/profile; keep-fresh next action standing
+CRD install,covered (live lanes + explicit no-crds base),data/top20-base-readiness/base-readiness.csv,CRD ownership is a recorded user decision
+CRD upgrade,no receipt yet,-,classic footgun; named as a must-not-claim
+webhook runtime lifecycle,pattern demonstrated on other charts only,data/lifecycle-observations/cert-manager-eso/,not yet receipted for this chart's operator/webhook pair
+blast radius,measured for crds.enabled pair (accuracy 1.000),data/blast-radius-accuracy/,grafana.adminPassword recorded not-measured-yet
+security/scan,decision outstanding (54 findings; priority high),data/production-disposition/next-actions.csv,security acceptance or hardened base required
+image digests,workdown open,data/image-digest-workdown/,digest resolution needed for reproducible production OCI
+production support,production-review-ready; not production-supported,data/production-disposition/support-decision-queue.csv,per-target decision; none recorded supported

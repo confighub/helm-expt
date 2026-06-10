@@ -200,10 +200,12 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `production-disposition` | [production-disposition/summary.md](./production-disposition/summary.md) | top-20 production blockers and next actions |
 | `production-support-decisions` | [production-support-decisions/summary.md](./production-support-decisions/summary.md) | target-scoped production support decision artifacts |
 | `quirk-coverage` | [quirk-coverage/summary.md](./quirk-coverage/summary.md) | Helm quirk-axis coverage audit |
+| `quirk-inventory-audit` | [quirk-inventory-audit/summary.md](./quirk-inventory-audit/summary.md) | supporting generated evidence |
 | `quirk-review-queue` | [quirk-review-queue/summary.md](./quirk-review-queue/summary.md) | queue for chart quirks needing human or product review |
 | `refresh-survival` | [refresh-survival/summary.md](./refresh-survival/summary.md) | latest-version refresh survival and upgrade seed |
 | `runtime-gitops` | [runtime-gitops/summary.md](./runtime-gitops/summary.md) | Argo/Flux OCI live proof wave |
 | `scan-disposition-workdown` | [scan-disposition-workdown/summary.md](./scan-disposition-workdown/summary.md) | scan warning routes to fixes, hardened bases, or explicit dispositions |
+| `serious-chart-reviews` | - | supporting generated evidence |
 | `status-dashboard` | [status-dashboard/summary.md](./status-dashboard/summary.md) | one-page front-door status dashboard |
 | `top100-catalog-analysis` | [top100-catalog-analysis/summary.md](./top100-catalog-analysis/summary.md) | top-100 proof and promotion surface |
 | `top100-coverage` | [top100-coverage/summary.md](./top100-coverage/summary.md) | front-door top-100 coverage contract and work queue |
@@ -224,7 +226,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 89 CSV files. Each row records the path, audience,
+It includes 91 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
