@@ -19,13 +19,13 @@ It separates five cases:
 ```text
 update rows: 7
 replacement decisions to write: 0
-replacement decisions already written: 4
-retained candidates needing refresh: 3
+replacement decisions already written: 5
+retained candidates needing refresh: 2
 render candidates needing root/live work: 0
 new retained candidates needed: 0
-p0 rows: 3
+p0 rows: 2
 p1 rows: 0
-p2 rows: 4
+p2 rows: 5
 ```
 
 ## Queue
@@ -34,7 +34,7 @@ p2 rows: 4
 | --- | --- | --- | --- | --- | --- | --- |
 | `argo-cd/argo-cd` | `9.5.15` | `9.5.17` | `9.5.17` | replacement-deferred | p2 | keep argo-cd/argo-cd@9.5.15 pinned; revisit argo-cd/argo-cd@9.5.17 after the recorded replacement requirements are satisfied |
 | `bitnami/mongodb` | `19.0.7` | `19.1.0` | `19.0.9` | refresh-retained-candidate | p0 | refresh retained bitnami/mongodb@19.0.9 proof to upstream 19.1.0 |
-| `bitnami/nginx` | `24.0.2` | `25.0.0` | `24.0.4` | refresh-retained-candidate | p0 | refresh retained bitnami/nginx@24.0.4 proof to upstream 25.0.0 |
+| `bitnami/nginx` | `24.0.2` | `25.0.0` | `25.0.0` | replacement-deferred | p2 | keep bitnami/nginx@24.0.2 pinned; revisit bitnami/nginx@25.0.0 after the recorded replacement requirements are satisfied |
 | `bitnami/postgresql` | `18.6.7` | `18.7.0` | `18.6.10` | refresh-retained-candidate | p0 | refresh retained bitnami/postgresql@18.6.10 proof to upstream 18.7.0 |
 | `bitnami/redis` | `25.5.3` | `27.0.0` | `27.0.0` | replacement-deferred | p2 | keep bitnami/redis@25.5.3 pinned; revisit bitnami/redis@27.0.0 after the recorded replacement requirements are satisfied |
 | `prometheus-community/kube-prometheus-stack` | `85.3.3` | `86.1.0` | `86.1.0` | replacement-deferred | p2 | keep prometheus-community/kube-prometheus-stack@85.3.3 pinned; revisit prometheus-community/kube-prometheus-stack@86.1.0 after the recorded replacement requirements are satisfied |

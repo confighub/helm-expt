@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "nginx-existing-tls-ingress-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "864330d99854528374b315b7ce56efd9fe9539cd751fde38f7dc7618d8389090"
+    dependencyLockSHA256: "4b7045c2f466cec0aa77e629e7c1ec9aa0049c801e5a5e6d9a4feba71961ca1c"
+    effectiveValuesSHA256: "fbf4c8197b3a8e8fa72498d0c802fb7427342c92e2453c3cae3fe13b9455a036"
+  outputs:
+    renderedObjectSetSHA256: "6cbd96e9b63ddeab378f378b86e1b7821d850144539d1a6e367eb639f2b2166e"
+    renderedObjectInventorySHA256: "3bbda94b5a32186e51a9871591cdcda2eff576fb2f371057db2046c44ff30e27"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 6
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

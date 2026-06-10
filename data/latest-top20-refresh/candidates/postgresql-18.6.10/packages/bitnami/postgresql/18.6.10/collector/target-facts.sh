@@ -9,6 +9,8 @@ emit_empty() {
 targetFacts:
   requiredSecrets: []
   requiredCRDs: []
+  requiredValues: []
+  requiredObjectStores: []
 targetFactChecks:
   base: "$base"
   mode: not-required
@@ -57,12 +59,15 @@ case "$base" in
     cat <<YAML
 targetFacts:
   requiredSecrets:
-  - keys:
-    - postgres-password
-    name: postgresql-auth
-    namespace: postgresql
-    purpose: PostgreSQL administrator password
+  -
+    namespace: "postgresql"
+    name: "postgresql-auth"
+    keys:
+      - "postgres-password"
+    purpose: "PostgreSQL administrator password"
   requiredCRDs: []
+  requiredValues: []
+  requiredObjectStores: []
 targetFactChecks:
   base: "$base"
   mode: "$check_mode"

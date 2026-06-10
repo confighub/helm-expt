@@ -1,0 +1,55 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LatestCandidateReplacementDecision
+metadata:
+  name: bitnami-nginx-25-0-0-defer-public-catalog-replacement
+spec:
+  chart: bitnami/nginx
+  currentVersion: 24.0.2
+  currentSupportedVersion: 24.0.2
+  currentSupportedBase: http-clusterip
+  candidateVersion: 25.0.0
+  latestUpstreamVersion: 25.0.0
+  candidateFreshness: latest-upstream-aligned
+  candidateBase: http-clusterip
+  decision: defer-replacement
+  decisionDate: "2026-06-10"
+  catalogEffect: no-catalog-promotion
+  targetScope:
+    name: public-catalog-http-nginx
+    clusterClass: cub-lk-kind-vanilla
+    namespace: nginx
+    deliveryPath: confighub-oci
+    gitopsController: argo
+  summary: "Keep bitnami/nginx@24.0.2 as the supported public catalog version for now; retain bitnami/nginx@25.0.0 as a proof-complete candidate."
+  rationale:
+    - "The NGINX 25.0.0 candidate has render, ConfigHub, local live, and two-cluster live parity evidence for the http-clusterip base."
+    - "The current NGINX 24.0.2 supported scope already has target-scoped public catalog support evidence."
+    - "Replacing the supported web base still needs a target-scoped support decision that accepts the extension-slot, ingress/exposure, generated-fact, scan, and target-fact boundaries for the new rendered object set."
+  decisionTopicsReviewed:
+    - "extension slot provenance and scan policy"
+    - "generated fact ownership"
+    - "ingress and edge exposure policy"
+    - "scan/gate warning disposition"
+    - "target fact preflight"
+  requirementsBeforeReplacement:
+    - "Write an NGINX 25.0.0 target-scoped production support decision with the exact HTTP and optional TLS/ingress boundary."
+    - "Refresh ConfigHub OCI/Argo live evidence for the exact replacement scope after the candidate is selected."
+    - "Refresh scan disposition and extension-slot policy for the 25.0.0 rendered object set before treating it as the supported catalog version."
+    - "Record whether NGINX 24.0.2 remains a legacy patch/rollback reference after replacement."
+  evidence:
+    - path: data/production-support-decisions/bitnami-nginx/support-decision.yaml
+      claim: "Current NGINX 24.0.2 supported scope remains the public catalog support decision."
+    - path: recipes/bitnami/nginx/25.0.0/catalog-status.yaml
+      claim: "NGINX 25.0.0 is visible as a catalog-candidate, not catalog-supported."
+    - path: runs/latest-top20-refresh/nginx-25.0.0/confighub-proof/latest/confighub-proof-receipt.yaml
+      claim: "NGINX 25.0.0 ConfigHub proof passed for the http-clusterip base."
+    - path: runs/latest-top20-refresh/nginx-25.0.0/local-kind/observation-receipt.json
+      claim: "NGINX 25.0.0 local kind observation passed for the http-clusterip base."
+    - path: runs/latest-top20-refresh/nginx-25.0.0/live-parity/http-clusterip/receipt.yaml
+      claim: "NGINX 25.0.0 two-cluster Helm-vs-installer live parity passed for the http-clusterip base."
+    - path: data/production-disposition/receipts/bitnami-nginx/extension-slot-provenance-and-scan-policy.yaml
+      claim: "Extension slot provenance and scan policy is an explicit replacement topic for this chart."
+    - path: data/production-disposition/receipts/bitnami-nginx/scan-gate-warning-disposition.yaml
+      claim: "Scan gate warning disposition is an explicit replacement topic for this chart."
+    - path: data/production-disposition/receipts/bitnami-nginx/target-fact-preflight.yaml
+      claim: "Target fact preflight is an explicit replacement topic for this chart."

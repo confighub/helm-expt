@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  name: "bitnami-nginx-25.0.0-existing-tls-ingress-r001"
+spec:
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "6cbd96e9b63ddeab378f378b86e1b7821d850144539d1a6e367eb639f2b2166e"
+  objectCount: 6
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|nginx|nginx"
+      kind: "Deployment"
+      name: "nginx"
+      namespace: "nginx"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|Ingress|nginx|nginx"
+      kind: "Ingress"
+      name: "nginx"
+      namespace: "nginx"
+    -
+      apiVersion: "networking.k8s.io/v1"
+      identity: "networking.k8s.io/v1|NetworkPolicy|nginx|nginx"
+      kind: "NetworkPolicy"
+      name: "nginx"
+      namespace: "nginx"
+    -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget|nginx|nginx"
+      kind: "PodDisruptionBudget"
+      name: "nginx"
+      namespace: "nginx"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|nginx|nginx"
+      kind: "ServiceAccount"
+      name: "nginx"
+      namespace: "nginx"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|nginx|nginx"
+      kind: "Service"
+      name: "nginx"
+      namespace: "nginx"

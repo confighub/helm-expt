@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "nginx-existing-tls-ingress-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "6cbd96e9b63ddeab378f378b86e1b7821d850144539d1a6e367eb639f2b2166e"
+    objectCount: 6
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 7
+    uploadedManifestFiles: 7
+    separatedSecretFiles: 0
+    semanticObjectMatches: "6/6"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||nginx"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run nginx:compare"

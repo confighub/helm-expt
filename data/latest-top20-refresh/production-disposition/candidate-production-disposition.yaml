@@ -55,7 +55,7 @@ spec:
     -
       chart: "bitnami/nginx"
       currentVersion: "24.0.2"
-      candidateVersion: "24.0.4"
+      candidateVersion: "25.0.0"
       primaryBase: "http-clusterip"
       proofStatus: "proof-complete"
       productionSupportStatus: "not-production-supported"
@@ -67,12 +67,12 @@ spec:
         - "scan/gate warning disposition"
         - "target fact preflight"
       evidence:
-        candidateRecipe: "data/latest-top20-refresh/candidates/nginx-24.0.4/recipes/bitnami/nginx/24.0.4"
-        candidatePackage: "data/latest-top20-refresh/candidates/nginx-24.0.4/packages/bitnami/nginx/24.0.4"
-        configHubProofReceipt: "runs/latest-top20-refresh/nginx-24.0.4/confighub-proof/latest/confighub-proof-receipt.yaml"
-        localLiveReceipt: "runs/latest-top20-refresh/nginx-24.0.4/local-kind/observation-receipt.json"
-        liveParityReceipt: "runs/latest-top20-refresh/nginx-24.0.4/live-parity/http-clusterip/receipt.yaml"
-      nextAction: "review 5 production decision topic(s), then decide whether bitnami/nginx@24.0.4 can replace 24.0.2"
+        candidateRecipe: "data/latest-top20-refresh/candidates/nginx-25.0.0/recipes/bitnami/nginx/25.0.0"
+        candidatePackage: "data/latest-top20-refresh/candidates/nginx-25.0.0/packages/bitnami/nginx/25.0.0"
+        configHubProofReceipt: "runs/latest-top20-refresh/nginx-25.0.0/confighub-proof/latest/confighub-proof-receipt.yaml"
+        localLiveReceipt: "runs/latest-top20-refresh/nginx-25.0.0/local-kind/observation-receipt.json"
+        liveParityReceipt: "runs/latest-top20-refresh/nginx-25.0.0/live-parity/http-clusterip/receipt.yaml"
+      nextAction: "review 5 production decision topic(s), then decide whether bitnami/nginx@25.0.0 can replace 24.0.2"
     -
       chart: "bitnami/postgresql"
       currentVersion: "18.6.7"

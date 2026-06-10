@@ -15,7 +15,7 @@
     "top500Matched": 65,
     "noHardGap": 75,
     "hardGap": 25,
-    "retainedCandidateVersions": 7
+    "retainedCandidateVersions": 8
   },
   "entries": [
     {
@@ -2804,6 +2804,33 @@
     {
       "proof_surface": "top20-catalog-supported",
       "proof_surface_rank": 8,
+      "top20_rank": 4,
+      "top500_rank": 48,
+      "chart": "bitnami/nginx",
+      "version": "25.0.0",
+      "latest_version": "25.0.0",
+      "latest_status": "update-available",
+      "catalog_status": "catalog-candidate",
+      "support_level": "promotion-review-needed",
+      "production_readiness": "not-reviewed-for-production",
+      "supported_scopes": "",
+      "supported_variants": "",
+      "candidate_variants": "http-clusterip;existing-tls-ingress",
+      "variant_count": 2,
+      "start_variant": "http-clusterip",
+      "namespace": "nginx",
+      "source_features": "lookup;generated-facts;tpl;capabilities",
+      "source_classification": "P1 compiler policy needed",
+      "top500_next_action": "record target-scoped support decision and refresh live/e2e observation lane",
+      "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
+      "package_path": "packages/bitnami/nginx/25.0.0",
+      "recipe_path": "recipes/bitnami/nginx/25.0.0/recipe.yaml",
+      "catalog_path": "recipes/bitnami/nginx/25.0.0/CATALOG.md",
+      "helm_pain_report": "recipes/bitnami/nginx/25.0.0/helm-pain-report.yaml"
+    },
+    {
+      "proof_surface": "top20-catalog-supported",
+      "proof_surface_rank": 9,
       "top20_rank": 5,
       "top500_rank": 7,
       "chart": "bitnami/postgresql",
@@ -2830,7 +2857,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 12,
+      "proof_surface_rank": 13,
       "top20_rank": 7,
       "top500_rank": 6,
       "chart": "bitnami/redis",
@@ -2857,7 +2884,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 24,
+      "proof_surface_rank": 25,
       "top20_rank": 18,
       "top500_rank": 1,
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -2884,7 +2911,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 26,
+      "proof_surface_rank": 27,
       "top20_rank": 19,
       "top500_rank": 5,
       "chart": "prometheus-community/prometheus",

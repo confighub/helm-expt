@@ -1,0 +1,16 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "bitnami-nginx-25.0.0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "bitnami"
+  repositoryURL: "https://charts.bitnami.com/bitnami"
+  chart: "nginx"
+  version: "25.0.0"
+  appVersion: "1.31.1"
+  deprecated: false
+  packageSHA256: "69c9f72041d820b6f5a65a9330a3a4addc65ce69759c7f4ce008bf1183ef9c6a"
+  packageBytes: 61943
+  evidence:
+    harnessReceipt: "../../../../data/adversarial10/charts/bitnami-nginx-25.0.0/render-receipt.yaml"

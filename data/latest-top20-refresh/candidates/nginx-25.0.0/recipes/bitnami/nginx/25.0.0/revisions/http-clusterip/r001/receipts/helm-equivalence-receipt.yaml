@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  name: "nginx-http-clusterip-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  regularHelm:
+    renderedSHA256: "2e71065dc018fb37304a978d3bb6381f0628ac5ef4e0695b53fafe3680697780"
+    objectCount: 5
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 6
+    uploadedManifestFiles: 6
+    separatedSecretFiles: 0
+    semanticObjectMatches: "5/5"
+  semanticNormalizations:
+    - "prune-null-fields"
+  classifications:
+    -
+      identity: "v1|Namespace||nginx"
+      classification: "installer-support-object"
+      disposition: "allowed"
+  result: "pass"
+  evidenceCommand: "npm run nginx:compare"
