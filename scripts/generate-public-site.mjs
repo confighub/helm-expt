@@ -626,6 +626,7 @@ function html(catalog) {
         <li><a href="../data/top500-catalog-analysis/summary.md">Top-500 catalog analysis</a></li>
         <li><a href="../data/refresh-survival/summary.md">Refresh survival and upgrade seed</a></li>
         <li><a href="../data/latest-top20-refresh/promotion-readiness.md">Latest candidate promotion readiness</a></li>
+        <li><a href="../data/latest-top20-refresh/promotion-work-orders.md">Latest candidate promotion work orders</a></li>
         <li><a href="../data/runtime-gitops/summary.md">Runtime/GitOps first wave</a></li>
         <li><a href="../data/image-digest-workdown/summary.md">Image digest workdown</a></li>
         <li><a href="../data/scan-disposition-workdown/summary.md">Scan disposition workdown</a></li>

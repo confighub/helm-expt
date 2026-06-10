@@ -10,6 +10,8 @@ const candidateStatusPath = join(repoRoot, "data", "latest-top20-refresh", "cand
 const productionDispositionPath = join(repoRoot, "data", "production-disposition", "top20.csv");
 const outputCsvPath = join(repoRoot, "data", "latest-top20-refresh", "promotion-readiness.csv");
 const outputSummaryPath = join(repoRoot, "data", "latest-top20-refresh", "promotion-readiness.md");
+const workOrdersCsvPath = join(repoRoot, "data", "latest-top20-refresh", "promotion-work-orders.csv");
+const workOrdersSummaryPath = join(repoRoot, "data", "latest-top20-refresh", "promotion-work-orders.md");
 
 const requiredRecipeFiles = [
   "README.md",
@@ -54,25 +56,32 @@ if (mode === "--generate") {
 }
 
 function generate() {
-  const { csvText, summaryText, rows } = buildOutputs();
+  const { csvText, summaryText, workOrdersCsvText, workOrdersSummaryText, rows, workOrders } = buildOutputs();
   write(outputCsvPath, csvText);
   write(outputSummaryPath, summaryText);
+  write(workOrdersCsvPath, workOrdersCsvText);
+  write(workOrdersSummaryPath, workOrdersSummaryText);
   verify();
-  console.log(`wrote ${relativeRepo(outputCsvPath)} and ${relativeRepo(outputSummaryPath)} for ${rows.length} candidate(s)`);
+  console.log(`wrote latest candidate readiness for ${rows.length} candidate(s) and ${workOrders.length} work-order row(s)`);
 }
 
 function verify() {
   check(existsSync(outputCsvPath), `${relativeRepo(outputCsvPath)} is missing`);
   check(existsSync(outputSummaryPath), `${relativeRepo(outputSummaryPath)} is missing`);
-  const { csvText, summaryText, rows } = buildOutputs();
+  check(existsSync(workOrdersCsvPath), `${relativeRepo(workOrdersCsvPath)} is missing`);
+  check(existsSync(workOrdersSummaryPath), `${relativeRepo(workOrdersSummaryPath)} is missing`);
+  const { csvText, summaryText, workOrdersCsvText, workOrdersSummaryText, rows, workOrders } = buildOutputs();
   check(readFileSync(outputCsvPath, "utf8") === csvText, `${relativeRepo(outputCsvPath)} is stale`);
   check(readFileSync(outputSummaryPath, "utf8") === summaryText, `${relativeRepo(outputSummaryPath)} is stale`);
+  check(readFileSync(workOrdersCsvPath, "utf8") === workOrdersCsvText, `${relativeRepo(workOrdersCsvPath)} is stale`);
+  check(readFileSync(workOrdersSummaryPath, "utf8") === workOrdersSummaryText, `${relativeRepo(workOrdersSummaryPath)} is stale`);
   check(rows.length === 6, `expected 6 latest-version candidates; found ${rows.length}`);
+  check(workOrders.length === rows.length * 8, `expected ${rows.length * 8} work-order rows; found ${workOrders.length}`);
   const complete = rows.filter((row) => row.candidate_artifacts === "complete").length;
   const notPromoted = rows.filter((row) => row.catalog_promotion === "not-promoted").length;
   check(complete === rows.length, `expected all latest-version candidate artifacts to be complete; found ${complete}/${rows.length}`);
   check(notPromoted === rows.length, `expected no latest-version candidates to be promoted yet; found ${rows.length - notPromoted} promoted path(s)`);
-  console.log(`verified latest candidate promotion readiness: ${complete}/${rows.length} complete candidate artifact set(s), ${notPromoted}/${rows.length} not promoted`);
+  console.log(`verified latest candidate promotion readiness: ${complete}/${rows.length} complete candidate artifact set(s), ${notPromoted}/${rows.length} not promoted, ${workOrders.length} work-order row(s)`);
 }
 
 function buildOutputs() {
@@ -133,10 +142,15 @@ function buildOutputs() {
     };
   });
 
+  const workOrders = buildWorkOrders(rows);
+
   return {
     rows,
     csvText: csv(rows),
     summaryText: summary(rows),
+    workOrders,
+    workOrdersCsvText: workOrderCsv(workOrders),
+    workOrdersSummaryText: workOrderSummary(rows, workOrders),
   };
 }
 
@@ -190,12 +204,162 @@ The previous supported version remains the catalog version until those lanes
 produce receipts and the generated catalog, production-disposition, top-100, and
 top-500 outputs are regenerated.
 
+The generated lane work orders are:
+
+[promotion-work-orders.md](./promotion-work-orders.md)
+
 ## Verify
 
 \`\`\`sh
 npm run top20:latest-promotion-readiness:verify
 \`\`\`
 `;
+}
+
+function buildWorkOrders(rows) {
+  const laneDefinitions = [
+    {
+      lane: "candidate-render-proof",
+      phase: "already-generated",
+      evidence: (row) => `${row.candidate_recipe};${row.candidate_package}`,
+      firstAction: "keep the generated candidate recipe/package artifacts verified",
+      doneWhen: "top20:latest-candidates:verify and top20:latest-promotion-readiness:verify pass",
+      command: "npm run top20:latest-candidates:verify && npm run top20:latest-promotion-readiness:verify",
+    },
+    {
+      lane: "promote-versioned-root-paths",
+      phase: "todo",
+      evidence: (row) => `${row.promoted_recipe_path};${row.promoted_package_path}`,
+      firstAction: "promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version",
+      doneWhen: "new root recipe/package paths exist and current supported version is still retained",
+      command: "manual promotion, then npm run catalog:maps && npm run catalog:index",
+    },
+    {
+      lane: "confighub-proof",
+      phase: "todo",
+      evidence: (row) => `runs/latest-top20-refresh/${slug(row.chart)}-${row.candidate_version}/confighub-proof/`,
+      firstAction: "run ConfigHub upload, function scan, safe-ops, and server-side variant proof against the candidate package",
+      doneWhen: "candidate ConfigHub proof, function-scan, and safe-ops receipts are committed or summarized",
+      command: "adapt/run the top20:confighub-proof lane for the candidate package path",
+    },
+    {
+      lane: "local-live-e2e",
+      phase: "todo",
+      evidence: (row) => `runs/latest-top20-refresh/${slug(row.chart)}-${row.candidate_version}/local-kind/observation-receipt.json`,
+      firstAction: "apply the candidate rendered objects to a fresh kind target and observe workloads and prerequisites",
+      doneWhen: "fresh local observation receipt records pass, watch, or blocked with a route",
+      command: "run the chart-specific local-kind lane for the candidate package path",
+    },
+    {
+      lane: "live-parity",
+      phase: "todo",
+      evidence: (row) => `runs/latest-top20-refresh/${slug(row.chart)}-${row.candidate_version}/live-parity/receipt.yaml`,
+      firstAction: "compare regular Helm and ConfigHub/cub-installer delivery for the candidate on the declared Kubernetes profile",
+      doneWhen: "live parity receipt records pass, watch, or blocked with no silent semantic defect",
+      command: "run the two-cluster live parity lane for the candidate package path",
+    },
+    {
+      lane: "production-disposition",
+      phase: "todo",
+      evidence: (row) => `data/production-disposition/candidates/${slug(row.chart)}-${row.candidate_version}/`,
+      firstAction: "write scan, lifecycle, storage, RBAC, webhook, extension-slot, image, and target-fact dispositions for the candidate",
+      doneWhen: "production disposition or support-decision artifact states the target-scoped boundary",
+      command: "extend production disposition generators for candidate versions",
+    },
+    {
+      lane: "catalog-and-site",
+      phase: "todo",
+      evidence: () => "CATALOG.md;site/catalog.json;site/index.html",
+      firstAction: "regenerate the chart catalog and generated site after the candidate is accepted",
+      doneWhen: "catalog and site show the candidate as supported only after all proof lanes are present",
+      command: "npm run catalog:maps && npm run catalog:index && npm run site:generate",
+    },
+    {
+      lane: "top100-top500-refresh",
+      phase: "todo",
+      evidence: () => "data/top100-catalog-analysis/;data/top500-catalog-analysis/;data/status-dashboard/",
+      firstAction: "refresh top100, top500, status dashboard, data index, and refresh-survival after promotion",
+      doneWhen: "top100/top500/status/refresh outputs agree with the promoted catalog state",
+      command: "npm run top100:catalog && npm run top500:catalog && npm run refresh:survival && npm run status:dashboard && npm run data:index",
+    },
+  ];
+
+  return rows.flatMap((row) =>
+    laneDefinitions.map((definition, laneIndex) => ({
+      priority: laneIndex + 1,
+      chart: row.chart,
+      current_version: row.current_version,
+      candidate_version: row.candidate_version,
+      variants: row.variants,
+      lane: definition.lane,
+      phase: definition.phase,
+      evidence_target: definition.evidence(row),
+      first_action: definition.firstAction,
+      done_when: definition.doneWhen,
+      command_or_route: definition.command,
+    })),
+  );
+}
+
+function workOrderSummary(rows, workOrders) {
+  const byLane = new Map();
+  for (const row of workOrders) byLane.set(row.lane, (byLane.get(row.lane) ?? 0) + 1);
+  const laneRows = [...byLane.entries()].map(([lane, count]) => `| ${lane} | ${count} |`);
+  const candidateRows = rows.map(
+    (row) =>
+      `| \`${row.chart}\` | \`${row.current_version}\` | \`${row.candidate_version}\` | ${displayList(row.variants)} | [${slug(row.chart)} rows](./promotion-work-orders.csv) |`,
+  );
+
+  return `# Latest Candidate Promotion Work Orders
+
+This file turns the latest-version candidates into lane work orders.
+
+It does not say the candidate versions are supported. It says exactly what must
+happen before any candidate can replace the current supported catalog version.
+
+## Summary
+
+\`\`\`text
+candidate charts: ${rows.length}
+work-order rows: ${workOrders.length}
+candidate render proof: already generated
+candidate support status: not promoted
+\`\`\`
+
+## Candidates
+
+| Chart | Current supported version | Candidate version | Variants | Work orders |
+| --- | --- | --- | --- | --- |
+${candidateRows.join("\n")}
+
+## Lanes
+
+| Lane | Rows |
+| --- | ---: |
+${laneRows.join("\n")}
+
+## How To Use This
+
+Work through one candidate chart at a time. Keep the previous supported version
+available until every todo lane for the candidate has evidence and the generated
+catalog, status, top100, top500, and refresh-survival surfaces agree.
+
+The spreadsheet form is:
+
+\`\`\`text
+data/latest-top20-refresh/promotion-work-orders.csv
+\`\`\`
+
+## Verify
+
+\`\`\`sh
+npm run top20:latest-promotion-readiness:verify
+\`\`\`
+`;
+}
+
+function slug(chart) {
+  return chart.split("/").at(-1).replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase();
 }
 
 function displayList(value) {
@@ -222,6 +386,23 @@ function csv(rows) {
     "promoted_recipe_path",
     "promoted_package_path",
     "next_action",
+  ];
+  return `${headers.join(",")}\n${rows.map((row) => headers.map((header) => csvCell(row[header])).join(",")).join("\n")}\n`;
+}
+
+function workOrderCsv(rows) {
+  const headers = [
+    "priority",
+    "chart",
+    "current_version",
+    "candidate_version",
+    "variants",
+    "lane",
+    "phase",
+    "evidence_target",
+    "first_action",
+    "done_when",
+    "command_or_route",
   ];
   return `${headers.join(",")}\n${rows.map((row) => headers.map((header) => csvCell(row[header])).join(",")).join("\n")}\n`;
 }
