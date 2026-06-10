@@ -379,6 +379,24 @@ user-shaped-variant: ${counts.get("user-shaped-variant") ?? 0}
 | --- | --- |
 ${["promotion-review", "limitation-review", "user-shaped-variant"].map((queue) => `| \`${queue}\` | ${sampleQueueCharts(queueRows, queue)} |`).join("\n")}
 
+## First Action Rows
+
+These tables show the first rows a maintainer should open in each queue. They
+do not replace the CSV; they make the first review path visible without a
+spreadsheet.
+
+### Promotion Review
+
+${actionRowsTable(queueRows, "promotion-review")}
+
+### Limitation Review
+
+${actionRowsTable(queueRows, "limitation-review")}
+
+### User-Shaped Variant Work
+
+${actionRowsTable(queueRows, "user-shaped-variant")}
+
 ## How This Relates To Top100
 
 - Every row here already has a maintained recipe/package proof path.
@@ -414,6 +432,23 @@ function sampleQueueCharts(rows, queue) {
     .slice(0, 8)
     .map((row) => `\`${row.chart}\``);
   return values.length ? values.join("<br>") : "-";
+}
+
+function actionRowsTable(rows, queue) {
+  const values = rows.filter((row) => row.queue === queue).slice(0, 8);
+  if (!values.length) return "_No rows._";
+  return `| Chart | Candidate bases | Evidence | Gap | Next action |
+| --- | --- | --- | --- | --- |
+${values.map((row) => `| \`${row.chart}\` | ${formatVariants(row.variants)} | \`${row.strongest_evidence || "-"}\` | ${escapePipes(row.hard_gap || "-")} | ${escapePipes(row.next_action || row.first_step || "-")} |`).join("\n")}`;
+}
+
+function formatVariants(value) {
+  const variants = String(value || "")
+    .split(";")
+    .map((part) => part.trim())
+    .filter(Boolean);
+  if (!variants.length) return "-";
+  return variants.map((variant) => `\`${variant}\``).join("<br>");
 }
 
 function sampleCharts(rows) {
