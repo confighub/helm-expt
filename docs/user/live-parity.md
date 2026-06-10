@@ -19,7 +19,7 @@ The repo tracks two live parity lanes.
 | Lane | Current result | What it means |
 | --- | --- | --- |
 | Selected live Helm-vs-ConfigHub comparison | 20 pass, 0 watch, 0 blocked | The selected top-20 rows compare regular Helm against ConfigHub delivery paths. |
-| Two-cluster kind parity for all top-20 bases | 35 pass, 1 watch, 6 blocked, 0 semantic parity defects | Regular Helm runs in one vanilla kind cluster and `cub installer` output runs in another. |
+| Two-cluster kind parity for all top-20 bases | 39 pass, 0 watch, 3 blocked, 0 semantic parity defects | Regular Helm runs in one vanilla kind cluster and `cub installer` output runs in another. |
 
 Use the generated reports for exact rows:
 
@@ -28,16 +28,14 @@ Use the generated reports for exact rows:
 - [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md)
 - [Active Proof Queue](../../data/status-dashboard/active-proof-queue.csv)
 
-The current rerun queue has 6 active non-pass rows and no semantic parity
-defects. Each row now points at a support artifact when the chart already has
-one.
+The current rerun queue has 2 active non-pass rows and no semantic parity
+defects. Each row points at the support artifact or decision surface needed
+before another rerun is useful.
 
 | Next step | Rows | What to do first |
 | --- | ---: | --- |
-| stage prerequisite | 2 | Use the target-prerequisite plan, stage the target facts, then capture a fresh observation receipt. |
-| target fit review | 2 | Use the target topology or operating policy to choose a fitting target or a smaller base. |
-| lifecycle route | 1 | Use the lifecycle policy to execute or observe the selected route. |
-| operating policy | 1 | Record the operating-policy decision. |
+| operating policy | 1 | Record the operating-policy decision before treating the row as production-ready. |
+| target fit review | 1 | Choose a target that provides the required platform behavior, or create a base that fits the target. |
 
 ## How To Read Results
 
