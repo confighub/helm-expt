@@ -895,6 +895,7 @@ function offeringHtml(catalog) {
       <h2 id="links">Where To Go Next</h2>
       <div class="grid">
         <div class="card"><h3>Browse the catalog</h3><p><a href="./index.html">Open the generated catalog dashboard</a>.</p></div>
+        <div class="card"><h3>Check a chart</h3><p><a href="../data/chart-use-guide/summary.md">Open the chart-use guide</a>.</p></div>
         <div class="card"><h3>Try it</h3><p><a href="./try.html">Open the short try-now page</a>.</p></div>
         <div class="card"><h3>Pick a base variant</h3><p><a href="../data/top20-base-readiness/summary.md">Open top-20 base readiness</a>.</p></div>
         <div class="card"><h3>Read current proof status</h3><p><a href="../docs/user/current-proof-status.md">Open current proof status</a>.</p></div>
@@ -1058,6 +1059,7 @@ npm run kube-prometheus-stack:compare</pre>
       <h2 id="next">Next</h2>
       <div class="grid">
         <div class="card"><h3>Full tutorial</h3><p><a href="../docs/user/tutorial-sequence.md">Open the tutorial sequence</a>.</p></div>
+        <div class="card"><h3>Can I use this chart?</h3><p><a href="../data/chart-use-guide/summary.md">Open the chart-use guide</a>.</p></div>
         <div class="card"><h3>Current proof</h3><p><a href="../docs/user/current-proof-status.md">Open current proof status</a>.</p></div>
         <div class="card"><h3>Catalog</h3><p><a href="./index.html">Open the generated catalog dashboard</a>.</p></div>
         <div class="card"><h3>Base readiness</h3><p><a href="../data/top20-base-readiness/summary.md">Open top-20 base readiness</a>.</p></div>

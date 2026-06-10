@@ -120,5 +120,6 @@ plan.
 - [Tutorial Sequence](./tutorial-sequence.md)
 - [Chain Of Proof](./chain-of-proof.md)
 - [Current Proof Status](./current-proof-status.md)
+- [Chart Use Guide](../../data/chart-use-guide/summary.md)
 - [Catalog Dashboard](../../site/index.html)
 - [Top-20 Base Readiness](../../data/top20-base-readiness/summary.md)

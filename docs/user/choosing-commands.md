@@ -26,6 +26,12 @@ one-shot adoption paths.
 Each command path leaves the user at a different proof level. Check the matching
 surface before making a stronger claim.
 
+If the first question is "can I use this chart?", start with the generated
+[Chart Use Guide](../../data/chart-use-guide/summary.md). It tells you whether
+the chart is a public catalog entry, a promotion-review candidate, a
+better-base-variant task, or a limitation-decision row. Then choose the command
+path below.
+
 | After this path | Check | What you can claim |
 | --- | --- | --- |
 | `cub helm template` | The rendered output and any local diff or schema check you ran. | You inspected a Helm render. No ConfigHub or live-cluster claim is implied. |
