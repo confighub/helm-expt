@@ -7,11 +7,8 @@
 // fields, documented in docs/reference/top100-user-readiness.md.
 //
 // Usage:
-//   node scripts/generate-top100-user-readiness.mjs            # generate
-//   node scripts/generate-top100-user-readiness.mjs --verify   # check current
-//
-// There is intentionally no npm alias yet; package.json is owned by another
-// active workstream.
+//   npm run top100:user-readiness          # generate
+//   npm run top100:user-readiness:verify   # check current
 
 import { mkdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
@@ -238,8 +235,8 @@ function summaryMarkdown(rows) {
   lines.push("Generated. Do not edit by hand.");
   lines.push("");
   lines.push("```sh");
-  lines.push("node scripts/generate-top100-user-readiness.mjs            # regenerate");
-  lines.push("node scripts/generate-top100-user-readiness.mjs --verify   # check");
+  lines.push("npm run top100:user-readiness          # regenerate");
+  lines.push("npm run top100:user-readiness:verify   # check");
   lines.push("```");
   lines.push("");
   lines.push(
@@ -282,12 +279,12 @@ function verify() {
   for (const [key, path] of Object.entries(OUTPUTS)) {
     const absolute = join(repoRoot, path);
     if (!existsSync(absolute)) {
-      problems.push(`${path} is missing; run node scripts/generate-top100-user-readiness.mjs`);
+      problems.push(`${path} is missing; run npm run top100:user-readiness`);
       continue;
     }
     const expected = key === "csv" ? report.csv : report.summary;
     if (readFileSync(absolute, "utf8") !== expected) {
-      problems.push(`${path} is stale; run node scripts/generate-top100-user-readiness.mjs`);
+      problems.push(`${path} is stale; run npm run top100:user-readiness`);
     }
   }
   if (report.rows.length !== 100) problems.push(`expected 100 charts, derived ${report.rows.length}`);

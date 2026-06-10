@@ -3,8 +3,8 @@
 Generated. Do not edit by hand.
 
 ```sh
-node scripts/generate-top100-user-readiness.mjs            # regenerate
-node scripts/generate-top100-user-readiness.mjs --verify   # check
+npm run top100:user-readiness          # regenerate
+npm run top100:user-readiness:verify   # check
 ```
 
 One row per top-100 chart, in Helm-user language: can I try it, what must I provide, what does ConfigHub/installer absorb, and what happens next. Buckets are deterministic projections of curated repo data; the mapping rules and limits are in [the reference doc](../../docs/reference/top100-user-readiness.md). Full detail per chart is in [readiness.csv](./readiness.csv).

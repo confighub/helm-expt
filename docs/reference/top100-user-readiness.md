@@ -12,12 +12,9 @@ from three committed sources. If a bucket looks wrong, the fix belongs in the
 source data, not in this projection.
 
 ```sh
-node scripts/generate-top100-user-readiness.mjs            # regenerate
-node scripts/generate-top100-user-readiness.mjs --verify   # check committed outputs
+npm run top100:user-readiness          # regenerate
+npm run top100:user-readiness:verify   # check committed outputs
 ```
-
-There is intentionally no npm alias yet; `package.json` is owned by another
-active workstream.
 
 ## Sources
 
