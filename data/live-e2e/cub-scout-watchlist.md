@@ -25,3 +25,7 @@ variant that does not claim those fields.
 
 Machine-readable rows are in
 [cub-scout-watchlist.csv](./cub-scout-watchlist.csv).
+
+Accepted normalization rules are recorded in
+[normalization-rules.md](./normalization-rules.md). A strict witness block
+should appear either in this watchlist or in that normalization log.
