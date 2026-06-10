@@ -20,12 +20,13 @@ import {
   write,
   writeYaml,
 } from "./lib/proof-common.mjs";
-import { TOP20_CONFIGHUB_PROOF_CHARTS, chartBySlug } from "./lib/top20-confighub-proof.mjs";
+import { TOP20_CONFIGHUB_PROOF_CHARTS } from "./lib/top20-confighub-proof.mjs";
 
 const args = process.argv.slice(2);
 const force = args.includes("--force");
 const all = args.includes("--all");
 const cleanupSpaces = args.includes("--cleanup-spaces");
+const latestCandidates = args.includes("--latest-candidates");
 const chartsArg = optionValue("--charts");
 const smoke = args.includes("--smoke");
 const proofDate = process.env.PROOF_DATE ?? "2026-05-27";
@@ -54,9 +55,12 @@ function usage() {
   node scripts/run-top20-confighub-proof.mjs
   node scripts/run-top20-confighub-proof.mjs --charts ingress-nginx,rabbitmq
   node scripts/run-top20-confighub-proof.mjs --all --force
+  node scripts/run-top20-confighub-proof.mjs --latest-candidates --charts nginx --cleanup-spaces
   node scripts/run-top20-confighub-proof.mjs --cleanup-spaces
 
 Default: run top-20 charts whose ConfigHub proof receipt is missing.
+--latest-candidates runs against generated latest-version candidate packages
+under data/latest-top20-refresh/candidates/.
 --cleanup-spaces deletes the live proof spaces after receipts are written so
 large chart runs can stay inside the demo org quota.
 --smoke selects the first missing chart only.`);
@@ -69,6 +73,7 @@ function optionValue(name) {
 }
 
 function selectCharts() {
+  const sourceCharts = latestCandidates ? latestCandidateCharts() : TOP20_CONFIGHUB_PROOF_CHARTS;
   let charts;
   if (chartsArg) {
     charts = chartsArg
@@ -76,16 +81,57 @@ function selectCharts() {
       .map((slug) => slug.trim())
       .filter(Boolean)
       .map((slug) => {
-        const chart = chartBySlug(slug);
-        check(chart, `unknown top-20 chart slug: ${slug}`);
+        const chart = sourceCharts.find((candidate) =>
+          [
+            candidate.slug,
+            candidate.baseSlug,
+            candidate.chart,
+            candidate.chart.split("/").at(-1),
+          ].filter(Boolean).includes(slug),
+        );
+        check(chart, `unknown ${latestCandidates ? "latest-candidate" : "top-20"} chart selector: ${slug}`);
         return chart;
       });
   } else if (all) {
-    charts = TOP20_CONFIGHUB_PROOF_CHARTS;
+    charts = sourceCharts;
   } else {
-    charts = TOP20_CONFIGHUB_PROOF_CHARTS.filter((chart) => force || !existsSync(configHubProofReceiptPath(chart.slug)));
+    charts = sourceCharts.filter((chart) => force || !existsSync(configHubProofReceiptPath(chart)));
   }
   return smoke ? charts.slice(0, 1) : charts;
+}
+
+function latestCandidateCharts() {
+  const readinessPath = join(repoRoot, "data", "latest-top20-refresh", "promotion-readiness.csv");
+  const rows = parseCsv(readFileSync(readinessPath, "utf8"));
+  return rows.map((row) => {
+    const base = TOP20_CONFIGHUB_PROOF_CHARTS.find((chart) => chart.chart === row.chart);
+    check(base, `no top-20 ConfigHub proof base row for latest candidate ${row.chart}`);
+    const chartName = row.chart.split("/").at(-1);
+    const runPathKey = `${chartName}-${row.candidate_version}`;
+    const candidateSlug = `${base.slug}-${versionSlug(row.candidate_version)}`;
+    return {
+      ...base,
+      slug: candidateSlug,
+      baseSlug: base.slug,
+      displayName: `${base.displayName} ${row.candidate_version}`,
+      packagePath: row.candidate_package,
+      chartVersion: row.candidate_version,
+      defaultBase: undefined,
+      runRoot: join("runs", "latest-top20-refresh", runPathKey, "confighub-proof", "latest"),
+      workDir: join(".tmp", "latest-top20-refresh", runPathKey, "confighub-proof"),
+      archiveRoot: join(".tmp", "latest-top20-refresh", runPathKey, "archives"),
+      space: `helm-${candidateSlug}-candidate-proof`,
+      stagingSpace: `${base.component}-${candidateSlug}-staging`,
+      spaceNamePattern: `template:${base.component}-${candidateSlug}-{{.Labels.Variant}}`,
+      proofLabel: `${candidateSlug}-candidate-proof`,
+      skipDemoDocs: true,
+      candidate: {
+        currentVersion: row.current_version,
+        candidateVersion: row.candidate_version,
+        readiness: row.promotion_readiness,
+      },
+    };
+  });
 }
 
 function runChart(chart) {
@@ -100,15 +146,16 @@ function runChart(chart) {
   check(defaultBase, `${chart.packagePath} has no usable default base`);
   check(bases.some((base) => base.name === defaultBase), `${chart.slug} configured base ${defaultBase} is not in package bases`);
 
-  const runRoot = join(repoRoot, "runs", `${chart.slug}-confighub-proof`, "latest");
+  const runRoot = join(repoRoot, chart.runRoot ?? join("runs", `${chart.slug}-confighub-proof`, "latest"));
   const demoRoot = join(repoRoot, "docs", "demo", chart.slug);
-  const workDir = join(repoRoot, ".tmp", "confighub-proof", `${chart.slug}-${defaultBase}`);
-  const archiveRoot = join(repoRoot, ".tmp", "confighub-proof", `${chart.slug}-archives`);
+  const workDir = join(repoRoot, chart.workDir ?? join(".tmp", "confighub-proof", `${chart.slug}-${defaultBase}`));
+  const archiveRoot = join(repoRoot, chart.archiveRoot ?? join(".tmp", "confighub-proof", `${chart.slug}-archives`));
   const logRoot = join(runRoot, "logs");
-  const space = `helm-${chart.slug}-confighub-proof`;
+  const space = chart.space ?? `helm-${chart.slug}-confighub-proof`;
   const stagingVariant = "staging";
-  const stagingSpace = `${chart.component}-${stagingVariant}`;
-  const proofLabel = `${chart.slug}-confighub-proof`;
+  const stagingSpace = chart.stagingSpace ?? `${chart.component}-${stagingVariant}`;
+  const spaceNamePattern = chart.spaceNamePattern ?? "template:{{.Labels.Component}}-{{.Labels.Variant}}";
+  const proofLabel = chart.proofLabel ?? `${chart.slug}-confighub-proof`;
   const selector = `Labels.Proof = '${proofLabel}'`;
 
   rmSync(runRoot, { recursive: true, force: true });
@@ -222,7 +269,7 @@ function runChart(chart) {
       "--region",
       "local",
       "--space-name-pattern",
-      "template:{{.Labels.Component}}-{{.Labels.Variant}}",
+      spaceNamePattern,
       "--allow-exists",
       "--wait",
       "--timeout",
@@ -267,7 +314,7 @@ function runChart(chart) {
   );
 
   const validations = runFunctionScans({ chart, proofUnits, selector, space, logRoot });
-  const safeOps = runSafeOps({ chart, representative, selector, space, logRoot });
+  const safeOps = runSafeOps({ chart, representative, selector, space, proofLabel, logRoot });
 
   const receipt = {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
@@ -341,7 +388,7 @@ function runChart(chart) {
           "--region",
           "local",
           "--space-name-pattern",
-          "template:{{.Labels.Component}}-{{.Labels.Variant}}",
+          spaceNamePattern,
           "--allow-exists",
         ]),
         result: "pass",
@@ -438,7 +485,9 @@ function runChart(chart) {
   writeYaml(join(runRoot, "confighub-proof-receipt.yaml"), receipt);
   writeYaml(join(runRoot, "function-scan-receipt.yaml"), functionReceipt);
   writeYaml(join(runRoot, "safe-ops-receipt.yaml"), safeOpsReceipt);
-  writeDemoDocs({ chart, bases, defaultBase, receipt, functionReceipt, safeOpsReceipt, demoRoot });
+  if (!chart.skipDemoDocs) {
+    writeDemoDocs({ chart, bases, defaultBase, receipt, functionReceipt, safeOpsReceipt, demoRoot });
+  }
   if (cleanupSpaces) deleteProofSpaces({ space, stagingSpace, logRoot, name: "25-space-cleanup-post" });
   console.log(
     `${chart.slug}: ${manifestObjects.length} rendered object(s), ${proofUnits.length} ConfigHub Unit(s), ${clonedUnits.length} staging clone Unit(s)`,
@@ -486,7 +535,7 @@ function runFunctionScans({ chart, proofUnits, selector, space, logRoot }) {
   });
 }
 
-function runSafeOps({ chart, representative, selector, space, logRoot }) {
+function runSafeOps({ chart, representative, selector, space, proofLabel, logRoot }) {
   const changesetSlug = `${chart.slug}-safe-ops-${proofDateCompact}`;
   const createRun = run(
     "cub",
@@ -499,7 +548,7 @@ function runSafeOps({ chart, representative, selector, space, logRoot }) {
       "--description",
       `${chart.displayName} safe-ops proof: approve reviewed revisions, dry-run apply only`,
       "--label",
-      `Proof=${chart.slug}-confighub-proof`,
+      `Proof=${proofLabel}`,
       "--label",
       "Lane=safe-ops",
       "--annotation",
@@ -572,7 +621,7 @@ function runSafeOps({ chart, representative, selector, space, logRoot }) {
       updateResult: updateRun.status === 0 ? "pass" : "fail",
       description: `${chart.displayName} safe-ops proof: approve reviewed revisions, dry-run apply only`,
       labels: {
-        Proof: `${chart.slug}-confighub-proof`,
+        Proof: proofLabel,
         Lane: "safe-ops",
       },
       annotations: {
@@ -862,6 +911,45 @@ safe ops: ${safeOpsReceipt.spec.safetyResult}
   );
 }
 
-function configHubProofReceiptPath(slug) {
-  return join(repoRoot, "runs", `${slug}-confighub-proof`, "latest", "confighub-proof-receipt.yaml");
+function configHubProofReceiptPath(chart) {
+  return join(repoRoot, chart.runRoot ?? join("runs", `${chart.slug}-confighub-proof`, "latest"), "confighub-proof-receipt.yaml");
+}
+
+function versionSlug(value) {
+  return String(value)
+    .replace(/[^A-Za-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .toLowerCase();
+}
+
+function parseCsv(text) {
+  const lines = text.trim().split(/\r?\n/);
+  const headers = parseCsvLine(lines[0]);
+  return lines.slice(1).filter(Boolean).map((line) => {
+    const cells = parseCsvLine(line);
+    return Object.fromEntries(headers.map((header, index) => [header, cells[index] ?? ""]));
+  });
+}
+
+function parseCsvLine(line) {
+  const cells = [];
+  let cell = "";
+  let quoted = false;
+  for (let index = 0; index < line.length; index += 1) {
+    const char = line[index];
+    const next = line[index + 1];
+    if (char === '"' && quoted && next === '"') {
+      cell += '"';
+      index += 1;
+    } else if (char === '"') {
+      quoted = !quoted;
+    } else if (char === "," && !quoted) {
+      cells.push(cell);
+      cell = "";
+    } else {
+      cell += char;
+    }
+  }
+  cells.push(cell);
+  return cells;
 }
