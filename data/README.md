@@ -25,7 +25,7 @@ smallest generated surface that answers it.
 | I want the top-100 coverage contract. | [top100-coverage/summary.md](./top100-coverage/summary.md)<br>[top100-coverage/coverage.csv](./top100-coverage/coverage.csv) |
 | I want the strict top-100 work queue. | [top100-coverage/work-queue.md](./top100-coverage/work-queue.md)<br>[top100-coverage/work-queue.csv](./top100-coverage/work-queue.csv)<br>[top100-coverage/decisions-needed.md](./top100-coverage/decisions-needed.md) |
 | I want the first strict top-100 promotion wave. | [top100-promotion-wave/summary.md](./top100-promotion-wave/summary.md)<br>[top100-promotion-wave/wave.csv](./top100-promotion-wave/wave.csv) |
-| I want to know how upstream chart updates are handled. | [refresh-survival/summary.md](./refresh-survival/summary.md)<br>[refresh-survival/refreshes.csv](./refresh-survival/refreshes.csv)<br>[latest-top20-refresh/replacement-decisions/summary.md](./latest-top20-refresh/replacement-decisions/summary.md) |
+| I want to know how upstream chart updates are handled. | [refresh-survival/summary.md](./refresh-survival/summary.md)<br>[latest-top20-refresh/action-queue/summary.md](./latest-top20-refresh/action-queue/summary.md)<br>[latest-top20-refresh/replacement-decisions/summary.md](./latest-top20-refresh/replacement-decisions/summary.md) |
 | I want the top-100 or top-500 planning picture. | [top100-readiness/summary.md](./top100-readiness/summary.md)<br>[top100-readiness/next80-queues.md](./top100-readiness/next80-queues.md)<br>[top500-catalog-analysis/review.csv](./top500-catalog-analysis/review.csv) |
 | I want live parity status. | [live-kind-parity/summary.md](./live-kind-parity/summary.md)<br>[live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md) |
 | I want hook, CRD, webhook, or lifecycle status. | [lifecycle-boundary/summary.md](./lifecycle-boundary/summary.md)<br>[outcome-coverage/feature-outcomes.csv](./outcome-coverage/feature-outcomes.csv) |
@@ -79,6 +79,9 @@ smallest generated surface that answers it.
 | [top100-promotion-wave/wave.yaml](./top100-promotion-wave/wave.yaml) | Machine-readable strict top-100 promotion wave input. |
 | [refresh-survival/summary.md](./refresh-survival/summary.md) | Latest-version refresh survival: current supported chart versions, upstream update candidates, and promotion gates before replacement. |
 | [refresh-survival/refreshes.csv](./refresh-survival/refreshes.csv) | One row per top-20 chart in the latest refresh review: current version, latest version, candidate proof, promotion state, and next action. |
+| [latest-top20-refresh/action-queue/summary.md](./latest-top20-refresh/action-queue/summary.md) | Action queue for current top-20 upstream movement: replacement decisions, retained-candidate refreshes, and new-candidate creation. |
+| [latest-top20-refresh/action-queue/queue.csv](./latest-top20-refresh/action-queue/queue.csv) | Spreadsheet action queue for latest-refresh work: current version, latest upstream version, retained candidate, priority, command, evidence, and done-when rule. |
+| [latest-top20-refresh/action-queue/queue.yaml](./latest-top20-refresh/action-queue/queue.yaml) | Machine-readable latest-refresh action queue. |
 | [latest-top20-refresh/promotion-work-orders.md](./latest-top20-refresh/promotion-work-orders.md) | Per-candidate lane closure table for retained proof-complete update candidates. |
 | [latest-top20-refresh/promotion-work-orders.csv](./latest-top20-refresh/promotion-work-orders.csv) | Spreadsheet work orders for retained candidates: render proof, ConfigHub proof, local live, live parity, production disposition, catalog/site, and top100/top500 refresh. |
 | [latest-top20-refresh/replacement-decisions/summary.md](./latest-top20-refresh/replacement-decisions/summary.md) | Final review queue for retained proof-complete update candidates before any supported catalog version is replaced. |
@@ -211,7 +214,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 82 CSV files. Each row records the path, audience,
+It includes 83 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

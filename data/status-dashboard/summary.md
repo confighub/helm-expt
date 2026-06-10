@@ -31,6 +31,7 @@ Which detailed CSV should I open next?
 | refresh | top20 proofs still current | 13/20 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
 | refresh | top20 upstream update candidates | 7/20 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
 | refresh | update candidates with proof-complete root paths | 3/7 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
+| refresh | latest refresh p0 action rows | 5/7 | partial | [data/latest-top20-refresh/action-queue/queue.csv](../../data/latest-top20-refresh/action-queue/queue.csv) |
 | top500 | source rows scanned | 495/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | top500 | rows with current recipe proof | 91/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | top500 | catalog-supported rows | 20/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
@@ -109,6 +110,19 @@ evidence work before it becomes production-supported for a target scope.
 | Workstream | Charts | Next action |
 | --- | ---: | --- |
 | Supported scope evidence | 17 | Keep target-scoped evidence fresh before using the supported scope as a production example. |
+
+### Latest Refresh Work
+
+These rows are the current upstream-update queue for the supported top-20
+catalog. A row here does not replace the supported catalog version by itself.
+It identifies the next proof or review action before a replacement can be
+considered.
+
+| Action | Charts | Next action |
+| --- | ---: | --- |
+| Write replacement decisions | 3 | Review the latest-aligned candidate against the supported version and record a target-scoped replacement decision. |
+| Refresh superseded retained candidates | 3 | Regenerate candidate proof/package roots for the newer upstream version, then rerun the refresh surfaces. |
+| Create missing retained candidates | 1 | Make the needed generator support version/output overrides, then create the missing candidate proof. |
 
 ### Live Parity Work
 
@@ -439,6 +453,7 @@ lifecycle observation.
 | Which live rows should be rerun next? | [live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md) |
 | Which top-20 charts are production-supported? | [production-support-decisions/summary.md](../production-support-decisions/summary.md) |
 | Which production-support tasks can be assigned? | [production-support-decisions/work-items.csv](../production-support-decisions/work-items.csv) |
+| Which top-20 upstream updates should move next? | [latest-top20-refresh/action-queue/summary.md](../latest-top20-refresh/action-queue/summary.md) |
 | Which derived variants are specified or executed? | [variant-goldens/derived-expansion-wave/work-orders.csv](../variant-goldens/derived-expansion-wave/work-orders.csv) |
 
 Regenerate:

@@ -13,6 +13,7 @@ const top100Path = join(repoRoot, "data", "top100-catalog-analysis", "raw.json")
 const top500Path = join(repoRoot, "data", "top500-catalog-analysis", "raw.json");
 const latestReadinessPath = join(repoRoot, "data", "latest-top20-refresh", "promotion-readiness.csv");
 const latestReplacementDecisionsPath = join(repoRoot, "data", "latest-top20-refresh", "replacement-decisions", "decisions.csv");
+const latestActionQueuePath = join(repoRoot, "data", "latest-top20-refresh", "action-queue", "queue.csv");
 const runtimeWavePath = join(repoRoot, "data", "runtime-gitops", "wave1.csv");
 const imageDigestSubjectsPath = join(repoRoot, "data", "image-digest-workdown", "all-subjects.csv");
 const nextTenGapsPath = join(repoRoot, "data", "next-ten-waves", "gap-review-wave.csv");
@@ -65,6 +66,7 @@ function buildSite() {
   const latestReplacementDecisions = existsSync(latestReplacementDecisionsPath)
     ? parseCsv(readFileSync(latestReplacementDecisionsPath, "utf8"))
     : [];
+  const latestActionQueue = existsSync(latestActionQueuePath) ? parseCsv(readFileSync(latestActionQueuePath, "utf8")) : [];
   const runtimeWave = parseCsv(readFileSync(runtimeWavePath, "utf8"));
   const imageSubjects = parseCsv(readFileSync(imageDigestSubjectsPath, "utf8"));
   const nextTenGaps = parseCsv(readFileSync(nextTenGapsPath, "utf8"));
@@ -100,6 +102,7 @@ function buildSite() {
     });
   const proofGrade = top100.entries.filter((entry) => entry.proof_surface === "next80-proof-grade");
   const replacementByChart = new Map(latestReplacementDecisions.map((row) => [row.chart, row]));
+  const latestActionByChart = new Map(latestActionQueue.map((row) => [row.chart, row]));
   const latestCandidates = refreshSurvival
     .filter((row) => row.refresh_state === "upstream-update-candidate")
     .map((row) => {
@@ -110,12 +113,15 @@ function buildSite() {
           : replacement?.candidate_freshness === "superseded-by-newer-upstream"
             ? "refresh-candidate-first"
             : "no-candidate-yet";
+      const action = latestActionByChart.get(row.chart);
       return {
         chart: row.chart,
         currentVersion: row.current_version,
         candidateVersion: row.latest_version,
         proofStatus: row.candidate_proof,
         replacementDecision,
+        action: action?.action ?? "",
+        priority: action?.priority ?? "",
         nextAction: row.next_action,
       };
     });
@@ -126,6 +132,7 @@ function buildSite() {
       top500: "data/top500-catalog-analysis/raw.json",
       latestCandidates: "data/refresh-survival/refreshes.csv",
       latestReplacementDecisions: "data/latest-top20-refresh/replacement-decisions/decisions.csv",
+      latestActionQueue: "data/latest-top20-refresh/action-queue/queue.csv",
       runtimeWave: "data/runtime-gitops/wave1.csv",
       imageDigestSubjects: "data/image-digest-workdown/all-subjects.csv",
       nextTenGaps: "data/next-ten-waves/gap-review-wave.csv",
@@ -166,6 +173,7 @@ function buildSite() {
       refreshUpdateCandidates: refreshSurvival.filter((row) => row.refresh_state === "upstream-update-candidate").length,
       refreshCandidatesWithProof: refreshSurvival.filter((row) => row.candidate_proof.includes("proof")).length,
       latestCandidatesAwaitingReplacementDecision: latestCandidates.filter((row) => row.replacementDecision === "not-decided").length,
+      latestRefreshP0Rows: latestActionQueue.filter((row) => row.priority === "p0").length,
       top100ChartsWithLiveEvidence: top100ReadinessWithSupport.filter((row) =>
         ["live-helm-vs-confighub-parity", "gitops-oci-live", "local-kubernetes-live", "two-cluster-kind-parity"].includes(row.strongest_evidence),
       ).length,
@@ -592,10 +600,10 @@ function html(catalog) {
       <h2 id="latest">Latest-Version Candidates</h2>
       <p>New upstream versions are tracked separately from supported catalog versions. Some rows have proof-complete retained candidates; some retained candidates have already been superseded by newer upstream releases; some rows need a new candidate first. No row replaces a pinned supported version until a target-scoped replacement decision records whether to replace, defer, or keep both versions.</p>
       ${markdownLikeTable([
-        ["Chart", "Supported", "Latest upstream", "Candidate proof", "Replacement decision"],
-        ...catalog.latestCandidates.map((row) => [row.chart, row.currentVersion, row.candidateVersion, row.proofStatus, row.replacementDecision]),
+        ["Chart", "Supported", "Latest upstream", "Candidate proof", "Action", "Priority"],
+        ...catalog.latestCandidates.map((row) => [row.chart, row.currentVersion, row.candidateVersion, row.proofStatus, row.action, row.priority]),
       ])}
-      <p><a href="../data/refresh-survival/summary.md">Open the refresh survival report</a> or <a href="../data/latest-top20-refresh/replacement-decisions/summary.md">open the retained candidate replacement-decision queue</a>.</p>
+      <p><a href="../data/latest-top20-refresh/action-queue/summary.md">Open the latest refresh action queue</a>, <a href="../data/refresh-survival/summary.md">open the refresh survival report</a>, or <a href="../data/latest-top20-refresh/replacement-decisions/summary.md">open the retained candidate replacement-decision queue</a>.</p>
     </section>
 
     <section aria-labelledby="variants">
@@ -645,6 +653,7 @@ function html(catalog) {
         <li><a href="../data/top100-catalog-analysis/summary.md">Top-100 catalog analysis</a></li>
         <li><a href="../data/top500-catalog-analysis/summary.md">Top-500 catalog analysis</a></li>
         <li><a href="../data/refresh-survival/summary.md">Refresh survival and upgrade seed</a></li>
+        <li><a href="../data/latest-top20-refresh/action-queue/summary.md">Latest refresh action queue</a></li>
         <li><a href="../data/latest-top20-refresh/promotion-readiness.md">Latest candidate promotion readiness</a></li>
         <li><a href="../data/latest-top20-refresh/promotion-work-orders.md">Latest candidate promotion work orders</a></li>
         <li><a href="../data/latest-top20-refresh/replacement-decisions/summary.md">Latest candidate replacement decisions</a></li>
