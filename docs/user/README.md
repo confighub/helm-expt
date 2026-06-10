@@ -49,6 +49,7 @@ If your first question is "why is this better than `cub helm install` or
 | 29 | [Product Support Tiers](./product-support-tiers.md) | Which scenarios fit public catalog, managed import, or commercial support. |
 | 30 | [Maintenance SLA](./maintenance-sla.md) | How catalog entries are refreshed, patched, and supported. |
 | 31 | [Hook Lifecycle Strategy](./hook-lifecycle-strategy.md) | Why Helm hooks need explicit lifecycle routes and receipts. |
+| 32 | [Top-100 Status](./top100-status.md) | Plain-English answers: what works today, what needs prerequisites or review, and how it differs from plain Helm. |
 
 Detailed doctrine and historical design material now lives under
 [`docs/reference`](../reference/) so it does not look like the first-run user
