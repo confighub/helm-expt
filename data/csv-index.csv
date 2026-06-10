@@ -9,6 +9,7 @@ data/attack-plan-workdown/production-workdown.csv,attack-plan-workdown,planning,
 data/attack-plan-workdown/runtime-gitops-sweep.csv,attack-plan-workdown,verification,supporting generated CSV,data/attack-plan-workdown/summary.md,npm run attack-plan:generate,npm run attack-plan:verify
 data/attack-plan-workdown/secret-gap-workdown.csv,attack-plan-workdown,supporting,supporting generated CSV,data/attack-plan-workdown/summary.md,npm run attack-plan:generate,npm run attack-plan:verify
 data/attack-plan-workdown/variant-workdown.csv,attack-plan-workdown,supporting,supporting generated CSV,data/attack-plan-workdown/summary.md,npm run attack-plan:generate,npm run attack-plan:verify
+data/blast-radius-accuracy/cases.csv,blast-radius-accuracy,user/front-door,one row per value-source-map blast-radius case: measured score or unmeasured backlog,data/blast-radius-accuracy/summary.md,npm run blast-radius:accuracy,npm run blast-radius:accuracy:verify
 data/catalog-promotion-review/review.csv,catalog-promotion-review,planning,review or promotion worksheet,data/catalog-promotion-review/summary.md,npm run catalog:review,npm run catalog:review:verify
 data/catalog-promotion-wave2/review.csv,catalog-promotion-wave2,planning,review or promotion worksheet,data/catalog-promotion-wave2/summary.md,npm run catalog:wave2,npm run catalog:wave2:verify
 data/chart-facts/chart-facts.csv,chart-facts,corpus,chart facts and hard gaps,data/chart-facts/summary.md,npm run chart-facts,npm run chart-facts:verify

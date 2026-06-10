@@ -76,7 +76,7 @@ The newer sceptic plan adds two cross-cutting outcomes:
 | Task | Outcome to prove |
 | --- | --- |
 | 21 | Public claims are mapped to evidence, routes, or explicit refusals. No receipt or route means no claim. |
-| 22 | Blast-radius predictions are measured against actual rerenders so edge and inheritance claims are scored, not assumed. |
+| 22 | Blast-radius predictions are measured against actual rerenders so edge and inheritance claims are scored, not assumed. The first KPS CRD seed is in `data/blast-radius-accuracy/summary.md`; broader coverage is still open. |
 
 ## Now - derived variants and current CLI truth
 1. **Make `cub variant create` the explicit derived-variant substrate** (#143) - add the command-surface
@@ -145,11 +145,13 @@ The newer sceptic plan adds two cross-cutting outcomes:
     as the page that maps each public claim to the evidence lane, receipt,
     route, or refusal that supports it. It should stay current as serverless,
     commercial, lifecycle, scan, signing, and ConfigHub graph claims change.
-22. **Blast-radius prediction accuracy harness** - for selected density
+22. **Blast-radius prediction accuracy harness** - extend
+    [data/blast-radius-accuracy/summary.md](../../data/blast-radius-accuracy/summary.md)
+    beyond the first kube-prometheus-stack CRD seed. For selected density
     hotspots, mutate one input, predict affected objects/fields from the value
-    and graph data, rerender, diff, and publish misses/phantoms. Until this
-    exists, blast-radius and inheritance claims should stay scoped as design
-    intent or partial evidence.
+    and graph data, rerender, diff, and publish misses/phantoms. Until a row is
+    measured, blast-radius and inheritance claims should stay scoped as partial
+    evidence.
 
 ## Suggested order
 Treat 1-3 as the immediate correction: `helm-expt` needs more visible derived
