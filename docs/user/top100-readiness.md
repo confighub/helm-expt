@@ -45,6 +45,14 @@ The compact next80 work queue is:
 
 [Next80 Action Queues](../../data/top100-readiness/next80-queues.md)
 
+The strict coverage work queue is:
+
+[Top-100 Coverage Work Queue](../../data/top100-coverage/work-queue.md)
+
+The first strict promotion-review wave is:
+
+[Top-100 Promotion Wave](../../data/top100-promotion-wave/summary.md)
+
 The spreadsheet-friendly CSV is:
 
 [readiness.csv](../../data/top100-readiness/readiness.csv)
@@ -115,7 +123,8 @@ Then drill down:
 | What exact bases exist for this chart? | `recipes/<repo>/<chart>/<version>/CATALOG.md` |
 | Which lanes pass for each base? | [base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | Which chart features or gaps matter? | [feature-outcomes.csv](../../data/outcome-coverage/feature-outcomes.csv) |
-| Which charts are next for promotion? | [catalog-promotion-wave2](../../data/catalog-promotion-wave2/summary.md) |
+| Which charts are next for strict promotion review? | [Top-100 Promotion Wave](../../data/top100-promotion-wave/summary.md) |
+| Which older variant-design worksheet can inform future bases? | [catalog-promotion-wave2](../../data/catalog-promotion-wave2/summary.md) |
 | Which production decision is still missing? | [Production Next Actions](../../data/production-disposition/next-actions.csv) |
 
 ## Promotion Rule

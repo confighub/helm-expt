@@ -8,6 +8,7 @@ are the next rows to work, not the whole corpus.
 
 ```text
 gap-review first rows:             9
+strict promotion-review rows:      8
 latest-version promotion rows:     6
 variant-build rows:                5
 production-disposition first rows: 5
@@ -19,6 +20,7 @@ import prototype rows:             3
 | File | Purpose |
 | --- | --- |
 | `gap-review-wave.csv` | First existing-secret and CRD/no-CRDs hard gaps to review. |
+| `../top100-promotion-wave/wave.csv` | First strict top-100 promotion-review wave: proof-grade charts with two-cluster parity. |
 | `latest-promotion-wave.csv` | Six latest top-20 candidates that are ready for full lane promotion work. |
 | `variant-build-wave.csv` | Wave-2 chart variants to render and prove next. |
 | `production-disposition-wave.csv` | First five catalog-supported charts to move toward production disposition. |
@@ -41,6 +43,19 @@ receipts before the follow-up runtime/GitOps and image-digest lanes run.
 | 7 | argo-cd/argocd-image-updater | no-crds | proof-grade | source-review CRD values, then classify as chart-toggle-found or no-crds-not-offered |
 | 8 | minio-operator/operator | no-crds | proof-grade | source-review CRD values, then classify as chart-toggle-found or no-crds-not-offered |
 | 9 | rook-release/rook-ceph | no-crds | proof-grade | source-review CRD values, then classify as chart-toggle-found or no-crds-not-offered |
+
+## Strict Promotion Review Wave
+
+| Priority | Chart | Variants | Scan high | Scan medium | Next |
+| --- | --- | --- | --- | --- | --- |
+| 2 | cloudnative-pg/cloudnative-pg@0.28.2 | default;no-crds | 0 | 16 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| 2 | elastic/eck-operator@3.4.0 | default;ha;no-crds | 0 | 18 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| 2 | elastic/logstash@8.5.1 | default;ha | 0 | 0 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| 2 | external-dns/external-dns@1.21.1 | default;no-crds;dry-run-txt-registry | 0 | 3 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| 2 | grafana/alloy@1.8.2 | default;no-crds | 0 | 3 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| 2 | kedacore/keda@2.19.0 | default;no-crds | 0 | 17 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| 2 | nats/nats@2.14.0 | default;ha | 0 | 1 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
+| 2 | prometheus-community/alertmanager@1.37.0 | default;ha | 0 | 0 | review the existing variants, then write production disposition or support-decision artifacts before changing catalog status |
 
 ## Latest-Version Promotion Wave
 

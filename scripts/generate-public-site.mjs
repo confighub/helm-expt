@@ -21,6 +21,7 @@ const baseReadinessPath = join(repoRoot, "data", "top20-base-readiness", "base-r
 const extensionSlotsPath = join(repoRoot, "data", "extension-slots", "extension-slots.csv");
 const top100ReadinessPath = join(repoRoot, "data", "top100-readiness", "readiness.csv");
 const top100CoverageWorkQueuePath = join(repoRoot, "data", "top100-coverage", "work-queue.csv");
+const top100PromotionWavePath = join(repoRoot, "data", "top100-promotion-wave", "wave.csv");
 const liveParityRerunPlanPath = join(repoRoot, "data", "live-parity-rerun-plan", "rerun-plan.csv");
 const productionDispositionPath = join(repoRoot, "data", "production-disposition", "top20.csv");
 const productionSupportDecisionsPath = join(repoRoot, "data", "production-support-decisions", "decisions.csv");
@@ -69,6 +70,7 @@ function buildSite() {
   const top100Readiness = parseCsv(readFileSync(top100ReadinessPath, "utf8"));
   const top100CoverageWorkQueue = parseCsv(readFileSync(top100CoverageWorkQueuePath, "utf8"));
   const top100CoverageQueueCounts = countBy(top100CoverageWorkQueue, "queue");
+  const top100PromotionWave = parseCsv(readFileSync(top100PromotionWavePath, "utf8"));
   const liveParityRerunPlan = parseCsv(readFileSync(liveParityRerunPlanPath, "utf8"));
   const productionDisposition = parseCsv(readFileSync(productionDispositionPath, "utf8"));
   const productionSupportDecisions = parseCsv(readFileSync(productionSupportDecisionsPath, "utf8"));
@@ -113,6 +115,7 @@ function buildSite() {
       extensionSlots: "data/extension-slots/extension-slots.csv",
       top100Readiness: "data/top100-readiness/readiness.csv",
       top100CoverageWorkQueue: "data/top100-coverage/work-queue.csv",
+      top100PromotionWave: "data/top100-promotion-wave/wave.csv",
       liveParityRerunPlan: "data/live-parity-rerun-plan/rerun-plan.csv",
       productionDisposition: "data/production-disposition/top20.csv",
       productionSupportDecisions: "data/production-support-decisions/decisions.csv",
@@ -135,6 +138,7 @@ function buildSite() {
       top20ChartsWithExtensionSlots: extensionSlots.filter((row) => row.catalog_scope === "top20-catalog").length,
       top100ChartsWithExtensionSlots: extensionSlots.length,
       top100CoveragePromotionQueue: top100CoverageQueueCounts["promotion-review"] ?? 0,
+      top100PromotionWaveRows: top100PromotionWave.length,
       top100CoverageUserVariantQueue: top100CoverageQueueCounts["user-shaped-variant"] ?? 0,
       top100CoverageDecisionQueue: top100CoverageQueueCounts["limitation-decision"] ?? 0,
       top100ChartsWithLiveEvidence: top100ReadinessWithSupport.filter((row) =>
@@ -492,6 +496,7 @@ function html(catalog) {
         <div class="metric"><strong>${escapeHtml(top100WorkabilityCounts["works-as-proof-needs-catalog-review"] ?? 0)}/100</strong><span>Proof, review next</span></div>
         <div class="metric"><strong>${escapeHtml(top100WorkabilityCounts["not-yet-a-good-catalog-offer"] ?? 0)}/100</strong><span>Need useful variants</span></div>
         <div class="metric"><strong>${escapeHtml(catalog.summary.top100CoveragePromotionQueue)}/80</strong><span>Strict promotion queue</span></div>
+        <div class="metric"><strong>${escapeHtml(catalog.summary.top100PromotionWaveRows)}</strong><span>First strict promotion wave</span></div>
         <div class="metric"><strong>${escapeHtml(catalog.summary.top100CoverageDecisionQueue)}/80</strong><span>Decision rows</span></div>
       </div>
       ${markdownLikeTable([
@@ -507,7 +512,7 @@ function html(catalog) {
         ["Queue", "First rows"],
         ...top100QueueRows,
       ])}
-      <p><a href="../data/top100-readiness/summary.md">Open the full top-100 readiness report</a>, <a href="../data/top100-coverage/work-queue.md">open the strict coverage work queue</a>, or <a href="../data/top100-coverage/decisions-needed.md">open the limitation decision memos</a>.</p>
+      <p><a href="../data/top100-readiness/summary.md">Open the full top-100 readiness report</a>, <a href="../data/top100-coverage/work-queue.md">open the strict coverage work queue</a>, <a href="../data/top100-promotion-wave/summary.md">open the first strict promotion wave</a>, or <a href="../data/top100-coverage/decisions-needed.md">open the limitation decision memos</a>.</p>
     </section>
 
     <section aria-labelledby="top500-evidence">
@@ -1298,6 +1303,7 @@ Data source:
 - \`data/extension-slots/extension-slots.csv\`
 - \`data/top100-readiness/readiness.csv\`
 - \`data/top100-coverage/work-queue.csv\`
+- \`data/top100-promotion-wave/wave.csv\`
 - \`data/live-parity-rerun-plan/rerun-plan.csv\`
 - \`data/production-disposition/top20.csv\`
 - \`data/production-support-decisions/decisions.csv\`

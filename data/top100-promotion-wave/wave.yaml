@@ -1,0 +1,248 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Top100PromotionWave"
+metadata:
+  name: "strict-priority-2-promotion-review"
+  generatedBy: "scripts/generate-top100-promotion-wave.mjs"
+spec:
+  sourceQueue: "data/top100-coverage/work-queue.csv"
+  sourceReview: "data/catalog-promotion-review/review.csv"
+  scope: "Priority-2 top100 rows: proof-grade charts with multiple variants and two-cluster kind parity, but no production disposition yet."
+  boundary: "This wave is a promotion review queue, not a catalog support claim. Promotion still requires explicit support decisions and current target-scoped evidence."
+  rows:
+    -
+      chart: "cloudnative-pg/cloudnative-pg"
+      version: "0.28.2"
+      variants:
+        - "default"
+        - "no-crds"
+      strongestEvidence: "two-cluster-kind-parity"
+      sourceFeatures:
+        - "generated-facts"
+        - "tpl"
+        - "crds"
+        - "cluster-rbac"
+        - "webhooks"
+      scan:
+        high: 0
+        medium: 16
+        gateDecisions:
+          - "allow"
+          - "warn"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/variant-revision.yaml"
+        - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/helm-pain-report.yaml"
+        - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/control-points.yaml"
+        - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/value-model.yaml"
+        - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/helm-plan.yaml"
+        - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/CATALOG.md"
+        - "recipes/cloudnative-pg/cloudnative-pg/0.28.2/helm-pain-report.yaml"
+    -
+      chart: "elastic/eck-operator"
+      version: "3.4.0"
+      variants:
+        - "default"
+        - "ha"
+        - "no-crds"
+      strongestEvidence: "two-cluster-kind-parity"
+      sourceFeatures:
+        - "tpl"
+        - "capabilities"
+        - "cluster-rbac"
+        - "webhooks"
+        - "stateful-storage"
+      scan:
+        high: 0
+        medium: 18
+        gateDecisions:
+          - "allow"
+          - "warn"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/elastic/eck-operator/3.4.0/revisions/default/r001/variant-revision.yaml"
+        - "recipes/elastic/eck-operator/3.4.0/helm-pain-report.yaml"
+        - "recipes/elastic/eck-operator/3.4.0/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/elastic/eck-operator/3.4.0/control-points.yaml"
+        - "recipes/elastic/eck-operator/3.4.0/value-model.yaml"
+        - "recipes/elastic/eck-operator/3.4.0/helm-plan.yaml"
+        - "recipes/elastic/eck-operator/3.4.0/CATALOG.md"
+        - "recipes/elastic/eck-operator/3.4.0/helm-pain-report.yaml"
+    -
+      chart: "elastic/logstash"
+      version: "8.5.1"
+      variants:
+        - "default"
+        - "ha"
+      strongestEvidence: "two-cluster-kind-parity"
+      sourceFeatures:
+        - "tpl"
+        - "capabilities"
+        - "stateful-storage"
+      scan:
+        high: 0
+        medium: 0
+        gateDecisions:
+          - "allow"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/elastic/logstash/8.5.1/revisions/default/r001/variant-revision.yaml"
+        - "recipes/elastic/logstash/8.5.1/helm-pain-report.yaml"
+        - "recipes/elastic/logstash/8.5.1/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/elastic/logstash/8.5.1/control-points.yaml"
+        - "recipes/elastic/logstash/8.5.1/value-model.yaml"
+        - "recipes/elastic/logstash/8.5.1/helm-plan.yaml"
+        - "recipes/elastic/logstash/8.5.1/CATALOG.md"
+        - "recipes/elastic/logstash/8.5.1/helm-pain-report.yaml"
+    -
+      chart: "external-dns/external-dns"
+      version: "1.21.1"
+      variants:
+        - "default"
+        - "no-crds"
+        - "dry-run-txt-registry"
+      strongestEvidence: "two-cluster-kind-parity"
+      sourceFeatures:
+        - "tpl"
+        - "crds"
+        - "cluster-rbac"
+      scan:
+        high: 0
+        medium: 3
+        gateDecisions:
+          - "allow"
+          - "warn"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/external-dns/external-dns/1.21.1/revisions/default/r001/variant-revision.yaml"
+        - "recipes/external-dns/external-dns/1.21.1/helm-pain-report.yaml"
+        - "recipes/external-dns/external-dns/1.21.1/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/external-dns/external-dns/1.21.1/control-points.yaml"
+        - "recipes/external-dns/external-dns/1.21.1/value-model.yaml"
+        - "recipes/external-dns/external-dns/1.21.1/helm-plan.yaml"
+        - "recipes/external-dns/external-dns/1.21.1/CATALOG.md"
+        - "recipes/external-dns/external-dns/1.21.1/helm-pain-report.yaml"
+    -
+      chart: "grafana/alloy"
+      version: "1.8.2"
+      variants:
+        - "default"
+        - "no-crds"
+      strongestEvidence: "two-cluster-kind-parity"
+      sourceFeatures:
+        - "tpl"
+        - "capabilities"
+        - "crds"
+        - "cluster-rbac"
+        - "stateful-storage"
+      scan:
+        high: 0
+        medium: 3
+        gateDecisions:
+          - "allow"
+          - "warn"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/grafana/alloy/1.8.2/revisions/default/r001/variant-revision.yaml"
+        - "recipes/grafana/alloy/1.8.2/helm-pain-report.yaml"
+        - "recipes/grafana/alloy/1.8.2/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/grafana/alloy/1.8.2/control-points.yaml"
+        - "recipes/grafana/alloy/1.8.2/value-model.yaml"
+        - "recipes/grafana/alloy/1.8.2/helm-plan.yaml"
+        - "recipes/grafana/alloy/1.8.2/CATALOG.md"
+        - "recipes/grafana/alloy/1.8.2/helm-pain-report.yaml"
+    -
+      chart: "kedacore/keda"
+      version: "2.19.0"
+      variants:
+        - "default"
+        - "no-crds"
+      strongestEvidence: "two-cluster-kind-parity"
+      sourceFeatures:
+        - "tpl"
+        - "capabilities"
+        - "crds"
+        - "cluster-rbac"
+        - "webhooks"
+      scan:
+        high: 0
+        medium: 17
+        gateDecisions:
+          - "allow"
+          - "warn"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/kedacore/keda/2.19.0/revisions/default/r001/variant-revision.yaml"
+        - "recipes/kedacore/keda/2.19.0/helm-pain-report.yaml"
+        - "recipes/kedacore/keda/2.19.0/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/kedacore/keda/2.19.0/control-points.yaml"
+        - "recipes/kedacore/keda/2.19.0/value-model.yaml"
+        - "recipes/kedacore/keda/2.19.0/helm-plan.yaml"
+        - "recipes/kedacore/keda/2.19.0/CATALOG.md"
+        - "recipes/kedacore/keda/2.19.0/helm-pain-report.yaml"
+    -
+      chart: "nats/nats"
+      version: "2.14.0"
+      variants:
+        - "default"
+        - "ha"
+      strongestEvidence: "two-cluster-kind-parity"
+      sourceFeatures:
+        - "tpl"
+      scan:
+        high: 0
+        medium: 1
+        gateDecisions:
+          - "allow"
+          - "warn"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/nats/nats/2.14.0/revisions/default/r001/variant-revision.yaml"
+        - "recipes/nats/nats/2.14.0/helm-pain-report.yaml"
+        - "recipes/nats/nats/2.14.0/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/nats/nats/2.14.0/control-points.yaml"
+        - "recipes/nats/nats/2.14.0/value-model.yaml"
+        - "recipes/nats/nats/2.14.0/helm-plan.yaml"
+        - "recipes/nats/nats/2.14.0/CATALOG.md"
+        - "recipes/nats/nats/2.14.0/helm-pain-report.yaml"
+    -
+      chart: "prometheus-community/alertmanager"
+      version: "1.37.0"
+      variants:
+        - "default"
+        - "ha"
+      strongestEvidence: "two-cluster-kind-parity"
+      sourceFeatures:
+        - "tpl"
+        - "stateful-storage"
+      scan:
+        high: 0
+        medium: 0
+        gateDecisions:
+          - "allow"
+      firstStep: "review the existing variants, then write production disposition or support-decision artifacts before changing catalog status"
+      doneWhen: "a selected variant has explicit scan/gate disposition, production support boundary, and live evidence or routed deferral"
+      evidence:
+        - "recipes/prometheus-community/alertmanager/1.37.0/revisions/default/r001/variant-revision.yaml"
+        - "recipes/prometheus-community/alertmanager/1.37.0/helm-pain-report.yaml"
+        - "recipes/prometheus-community/alertmanager/1.37.0/control-points.yaml"
+        - "data/outcome-coverage/feature-outcomes.csv"
+        - "recipes/prometheus-community/alertmanager/1.37.0/control-points.yaml"
+        - "recipes/prometheus-community/alertmanager/1.37.0/value-model.yaml"
+        - "recipes/prometheus-community/alertmanager/1.37.0/helm-plan.yaml"
+        - "recipes/prometheus-community/alertmanager/1.37.0/CATALOG.md"
+        - "recipes/prometheus-community/alertmanager/1.37.0/helm-pain-report.yaml"

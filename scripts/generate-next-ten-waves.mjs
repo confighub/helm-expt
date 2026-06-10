@@ -55,6 +55,7 @@ function buildReport() {
   const latestCandidates = parseCsvFile(join(repoRoot, "data", "latest-top20-refresh", "promotion-readiness.csv"));
   const production = parseCsvFile(join(repoRoot, "data", "production-disposition", "top20.csv"));
   const importRows = parseCsvFile(join(repoRoot, "data", "attack-plan-workdown", "helm-import-contract.csv"));
+  const promotionReviewRows = parseCsvFile(join(repoRoot, "data", "top100-promotion-wave", "wave.csv"));
   const wave2 = readYaml(join(repoRoot, "data", "catalog-promotion-wave2", "variant-work-orders.yaml"));
 
   const gapRows = [
@@ -113,13 +114,14 @@ function buildReport() {
   }));
 
   check(gapRows.length === 9, `expected 9 first gap-review rows; found ${gapRows.length}`);
+  check(promotionReviewRows.length === 8, `expected 8 strict promotion-review rows; found ${promotionReviewRows.length}`);
   check(latestRows.length === 6, `expected 6 latest promotion rows; found ${latestRows.length}`);
   check(variantRows.length === 5, `expected 5 variant build rows; found ${variantRows.length}`);
   check(productionRows.length === 5, `expected 5 production disposition rows; found ${productionRows.length}`);
   check(importPrototypeRows.length === 3, `expected 3 import prototype rows; found ${importPrototypeRows.length}`);
 
   const outputs = {
-    summary: summary({ gapRows, latestRows, variantRows, productionRows, importPrototypeRows }),
+    summary: summary({ gapRows, promotionReviewRows, latestRows, variantRows, productionRows, importPrototypeRows }),
     gaps: csv(gapRows),
     latest: csv(latestRows),
     variants: csv(variantRows),
@@ -142,7 +144,7 @@ function gapRow(row, capability) {
   };
 }
 
-function summary({ gapRows, latestRows, variantRows, productionRows, importPrototypeRows }) {
+function summary({ gapRows, promotionReviewRows, latestRows, variantRows, productionRows, importPrototypeRows }) {
   return `# Next-Ten Waves
 
 This generated directory turns the current execution plan into small work
@@ -153,6 +155,7 @@ are the next rows to work, not the whole corpus.
 
 \`\`\`text
 gap-review first rows:             ${gapRows.length}
+strict promotion-review rows:      ${promotionReviewRows.length}
 latest-version promotion rows:     ${latestRows.length}
 variant-build rows:                ${variantRows.length}
 production-disposition first rows: ${productionRows.length}
@@ -164,6 +167,7 @@ import prototype rows:             ${importPrototypeRows.length}
 | File | Purpose |
 | --- | --- |
 | \`gap-review-wave.csv\` | First existing-secret and CRD/no-CRDs hard gaps to review. |
+| \`../top100-promotion-wave/wave.csv\` | First strict top-100 promotion-review wave: proof-grade charts with two-cluster parity. |
 | \`latest-promotion-wave.csv\` | Six latest top-20 candidates that are ready for full lane promotion work. |
 | \`variant-build-wave.csv\` | Wave-2 chart variants to render and prove next. |
 | \`production-disposition-wave.csv\` | First five catalog-supported charts to move toward production disposition. |
@@ -183,6 +187,20 @@ ${markdownTable(
     ["Capability", "capability"],
     ["Proof tier", "proof_tier"],
     ["Next action", "next_action"],
+  ],
+)}
+
+## Strict Promotion Review Wave
+
+${markdownTable(
+  promotionReviewRows,
+  [
+    ["Priority", "priority"],
+    ["Chart", "chart_ref"],
+    ["Variants", "variants"],
+    ["Scan high", "scan_high"],
+    ["Scan medium", "scan_medium"],
+    ["Next", "first_step"],
   ],
 )}
 
