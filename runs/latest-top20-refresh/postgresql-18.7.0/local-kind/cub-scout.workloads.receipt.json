@@ -1,0 +1,96 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "rendered-object-set://sha256/72a4efd1062dc9ea",
+      "digest": {
+        "sha256": "72a4efd1062dc9ead895e12a5ccafe29305195f45066da6654a3953f7dd14099"
+      }
+    },
+    {
+      "name": "k8s-live-workloads://namespace/postgresql",
+      "digest": {
+        "sha256": "368f0bb79a59b80113a815b3c159b50c436d65e9449ef8f3742ded9ceec3704e"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "desired workloads from /Users/alexis/code/helm-expt/runs/latest-top20-refresh/postgresql-18.7.0/local-kind/cub-scout.workloads.desired.yaml converged to a ready state in the live cluster",
+    "scope": {
+      "kind": "WorkloadSet",
+      "name": "rendered-install",
+      "namespace": "postgresql"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-06-10T17:30:56Z",
+    "freshness": {
+      "observedAt": "2026-06-10T17:30:56Z",
+      "expiresAt": "2026-06-10T18:30:56Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "workloads-converged",
+    "verdict": "PASS",
+    "evidence": {
+      "workloads": {
+        "desiredSource": {
+          "type": "file",
+          "ref": "/Users/alexis/code/helm-expt/runs/latest-top20-refresh/postgresql-18.7.0/local-kind/cub-scout.workloads.desired.yaml",
+          "digest": "199efbf31ac4d6a0e2ef7b708fcf1bcc66e9dc2f1065aba818dc16d9fcc78b63",
+          "objectCount": 1
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "postgresql"
+        },
+        "graceWindow": "5m0s",
+        "observedAt": "2026-06-10T17:30:56Z",
+        "desiredDigest": "72a4efd1062dc9ead895e12a5ccafe29305195f45066da6654a3953f7dd14099",
+        "liveDigest": "368f0bb79a59b80113a815b3c159b50c436d65e9449ef8f3742ded9ceec3704e",
+        "summary": {
+          "desired": 1,
+          "converged": 1,
+          "progressing": 0,
+          "failed": 0,
+          "missing": 0,
+          "inconclusive": 0
+        },
+        "workloads": [
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "StatefulSet",
+              "namespace": "postgresql",
+              "name": "postgresql"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Partition rollout complete. updated: 1",
+            "ageSeconds": 40
+          }
+        ]
+      }
+    },
+    "omissions": [
+      {
+        "missing": "workload-convergence-snapshot",
+        "reason": "workloads-converged reflects readiness observed at verifiedAt; it does not prove the workloads stay converged afterward",
+        "severity": "info"
+      }
+    ],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every desired workload reached a ready/converged state",
+        "nextCommand": "cub-scout doctor",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:ef7dfd17e8b7002b7f7a4ae6af1154c823d8045e4b5419f6c550f30ceedd3b1e"
+  }
+}

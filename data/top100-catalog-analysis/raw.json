@@ -15,7 +15,7 @@
     "top500Matched": 65,
     "noHardGap": 75,
     "hardGap": 25,
-    "retainedCandidateVersions": 8
+    "retainedCandidateVersions": 9
   },
   "entries": [
     {
@@ -2857,7 +2857,34 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 13,
+      "proof_surface_rank": 11,
+      "top20_rank": 5,
+      "top500_rank": 7,
+      "chart": "bitnami/postgresql",
+      "version": "18.7.0",
+      "latest_version": "18.7.0",
+      "latest_status": "update-available",
+      "catalog_status": "catalog-candidate",
+      "support_level": "promotion-review-needed",
+      "production_readiness": "not-reviewed-for-production",
+      "supported_scopes": "",
+      "supported_variants": "",
+      "candidate_variants": "generated-passwords;existing-secret",
+      "variant_count": 2,
+      "start_variant": "generated-passwords",
+      "namespace": "postgresql",
+      "source_features": "lookup;generated-facts;tpl;capabilities;stateful-storage",
+      "source_classification": "P1 compiler policy needed",
+      "top500_next_action": "record target-scoped support decision and refresh live/e2e observation lane",
+      "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed)",
+      "package_path": "packages/bitnami/postgresql/18.7.0",
+      "recipe_path": "recipes/bitnami/postgresql/18.7.0/recipe.yaml",
+      "catalog_path": "recipes/bitnami/postgresql/18.7.0/CATALOG.md",
+      "helm_pain_report": "recipes/bitnami/postgresql/18.7.0/helm-pain-report.yaml"
+    },
+    {
+      "proof_surface": "top20-catalog-supported",
+      "proof_surface_rank": 14,
       "top20_rank": 7,
       "top500_rank": 6,
       "chart": "bitnami/redis",
@@ -2884,7 +2911,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 25,
+      "proof_surface_rank": 26,
       "top20_rank": 18,
       "top500_rank": 1,
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -2911,7 +2938,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 27,
+      "proof_surface_rank": 28,
       "top20_rank": 19,
       "top500_rank": 5,
       "chart": "prometheus-community/prometheus",

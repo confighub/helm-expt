@@ -1,0 +1,71 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "bitnami-postgresql-18.7.0"
+spec:
+  chart:
+    repository: "bitnami"
+    name: "postgresql"
+    version: "18.7.0"
+  package:
+    path: "data/latest-top20-refresh/candidates/postgresql-18.7.0/packages/bitnami/postgresql/18.7.0"
+    name: "bitnami-postgresql"
+    version: "18.7.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "b5dab263a5aa95f608c19987f938c626f561e01f917f70b95c946af55c458dd3"
+        bytes: 191
+      -
+        path: "bases/existing-secret/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/existing-secret/upstream.yaml"
+        sha256: "bdcfa750a9553ede16f5718d0189d3616820e3ba1422eb82a8217f54c3c70dd2"
+        bytes: 9105
+      -
+        path: "bases/generated-passwords/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/generated-passwords/upstream.yaml"
+        sha256: "e640101bb1c3c9ee519e04bfb6e28254f7a894c6f49b394e73756b351e5b57d1"
+        bytes: 9707
+      -
+        path: "collector/target-facts.sh"
+        sha256: "5e247486f380881979a316e4c590605ed327c2720bfba9f898e7e80fcde94b83"
+        bytes: 1753
+      -
+        path: "installer.yaml"
+        sha256: "f823e09d5c22e7c95afebaa4373e7b621f73f45502ecf5ba42fc2b30655ad942"
+        bytes: 1264
+  deterministicBundle:
+    command: "cub installer package data/latest-top20-refresh/candidates/postgresql-18.7.0/packages/bitnami/postgresql/18.7.0 -o <tmp>/postgresql-18.7.0.tgz"
+    sha256: "53e9f9f0577f35826ea06d1919db4b7f9227b7688858ec625e121c20853e1cc1"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "generated-passwords"
+      base: "generated-passwords"
+      command: "cub installer setup --pull data/latest-top20-refresh/candidates/postgresql-18.7.0/packages/bitnami/postgresql/18.7.0 --base generated-passwords --work-dir <tmp> --non-interactive --namespace postgresql"
+      helmReleaseObjectCount: 7
+      cubInstallObjectCountIncludingSupport: 8
+      semanticObjectMatches: "7/7"
+      separatedSecretCount: 1
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      allowedCubOnlyObjects:
+        - "v1|Namespace||postgresql"
+    -
+      variant: "existing-secret"
+      base: "existing-secret"
+      command: "cub installer setup --pull data/latest-top20-refresh/candidates/postgresql-18.7.0/packages/bitnami/postgresql/18.7.0 --base existing-secret --work-dir <tmp> --non-interactive --namespace postgresql"
+      helmReleaseObjectCount: 6
+      cubInstallObjectCountIncludingSupport: 7
+      semanticObjectMatches: "6/6"
+      separatedSecretCount: 0
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
+      allowedCubOnlyObjects:
+        - "v1|Namespace||postgresql"

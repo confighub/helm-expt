@@ -2,7 +2,7 @@ chart,current_version,candidate_version,readiness,next_action
 argo-cd/argo-cd,9.5.15,9.5.17,root-path-promoted-review-required,"run ConfigHub proof, local/e2e, production disposition, catalog status, and top100/top500 regeneration before support"
 bitnami/mongodb,19.0.7,19.0.9,root-path-promoted-review-required,"run ConfigHub proof, local/e2e, production disposition, catalog status, and top100/top500 regeneration before support"
 bitnami/nginx,24.0.2,25.0.0,root-path-promoted-review-required,"run ConfigHub proof, local/e2e, production disposition, catalog status, and top100/top500 regeneration before support"
-bitnami/postgresql,18.6.7,18.6.10,root-path-promoted-review-required,"run ConfigHub proof, local/e2e, production disposition, catalog status, and top100/top500 regeneration before support"
+bitnami/postgresql,18.6.7,18.7.0,root-path-promoted-review-required,"run ConfigHub proof, local/e2e, production disposition, catalog status, and top100/top500 regeneration before support"
 bitnami/redis,25.5.3,27.0.0,root-path-promoted-review-required,"run ConfigHub proof, local/e2e, production disposition, catalog status, and top100/top500 regeneration before support"
 prometheus-community/kube-prometheus-stack,85.3.3,86.1.0,root-path-promoted-review-required,"run ConfigHub proof, local/e2e, production disposition, catalog status, and top100/top500 regeneration before support"
 prometheus-community/prometheus,29.8.0,29.9.0,root-path-promoted-review-required,"run ConfigHub proof, local/e2e, production disposition, catalog status, and top100/top500 regeneration before support"

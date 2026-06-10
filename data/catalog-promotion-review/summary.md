@@ -15,28 +15,28 @@ Catalog support must come from explicit catalog-status.yaml files.
 ## Summary
 
 ```text
-recipes reviewed: 108
-machine checks pass: 108
+recipes reviewed: 109
+machine checks pass: 109
 machine checks fail: 0
 proof-grade: 80
-catalog-candidate: 8
+catalog-candidate: 9
 catalog-supported: 20
 blocked: 0
 default-only recipes: 46
-multi-variant recipes: 62
-recipes with warning gates: 94
+multi-variant recipes: 63
+recipes with warning gates: 95
 recipes with non-current executable fixture path: 0
 ```
 
 ## Proof Tiers
 
-- `bespoke-top20`: 28
+- `bespoke-top20`: 29
 - `next80-full`: 80
 
 ## Support Levels
 
 - `machine-proof-only`: 80
-- `promotion-review-needed`: 8
+- `promotion-review-needed`: 9
 - `supported-for-declared-scopes`: 20
 
 ## Catalog Candidates
@@ -52,6 +52,7 @@ proof work.
 | `bitnami/nginx@24.0.4` | 2 | warn | run human catalog promotion review |
 | `bitnami/nginx@25.0.0` | 2 | warn | run human catalog promotion review |
 | `bitnami/postgresql@18.6.10` | 2 | warn | run human catalog promotion review |
+| `bitnami/postgresql@18.7.0` | 2 | warn | run human catalog promotion review |
 | `bitnami/redis@27.0.0` | 2 | warn | run human catalog promotion review |
 | `prometheus-community/kube-prometheus-stack@86.1.0` | 2 | warn | run human catalog promotion review |
 | `prometheus-community/prometheus@29.9.0` | 2 | warn | run human catalog promotion review |

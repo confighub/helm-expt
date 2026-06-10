@@ -76,7 +76,7 @@ spec:
     -
       chart: "bitnami/postgresql"
       currentVersion: "18.6.7"
-      candidateVersion: "18.6.10"
+      candidateVersion: "18.7.0"
       primaryBase: "generated-passwords"
       proofStatus: "proof-complete"
       productionSupportStatus: "not-production-supported"
@@ -90,12 +90,12 @@ spec:
         - "storage backup restore and rollback policy"
         - "target fact preflight"
       evidence:
-        candidateRecipe: "data/latest-top20-refresh/candidates/postgresql-18.6.10/recipes/bitnami/postgresql/18.6.10"
-        candidatePackage: "data/latest-top20-refresh/candidates/postgresql-18.6.10/packages/bitnami/postgresql/18.6.10"
-        configHubProofReceipt: "runs/latest-top20-refresh/postgresql-18.6.10/confighub-proof/latest/confighub-proof-receipt.yaml"
-        localLiveReceipt: "runs/latest-top20-refresh/postgresql-18.6.10/local-kind/observation-receipt.json"
-        liveParityReceipt: "runs/latest-top20-refresh/postgresql-18.6.10/live-parity/generated-passwords/receipt.yaml"
-      nextAction: "review 7 production decision topic(s), then decide whether bitnami/postgresql@18.6.10 can replace 18.6.7"
+        candidateRecipe: "data/latest-top20-refresh/candidates/postgresql-18.7.0/recipes/bitnami/postgresql/18.7.0"
+        candidatePackage: "data/latest-top20-refresh/candidates/postgresql-18.7.0/packages/bitnami/postgresql/18.7.0"
+        configHubProofReceipt: "runs/latest-top20-refresh/postgresql-18.7.0/confighub-proof/latest/confighub-proof-receipt.yaml"
+        localLiveReceipt: "runs/latest-top20-refresh/postgresql-18.7.0/local-kind/observation-receipt.json"
+        liveParityReceipt: "runs/latest-top20-refresh/postgresql-18.7.0/live-parity/generated-passwords/receipt.yaml"
+      nextAction: "review 7 production decision topic(s), then decide whether bitnami/postgresql@18.7.0 can replace 18.6.7"
     -
       chart: "bitnami/redis"
       currentVersion: "25.5.3"

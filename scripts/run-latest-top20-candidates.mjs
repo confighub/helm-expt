@@ -38,9 +38,9 @@ const candidates = [
   {
     chart: "bitnami/postgresql",
     currentVersion: "18.6.7",
-    latestVersion: "18.6.10",
+    latestVersion: "18.7.0",
     script: "scripts/postgresql-proof.mjs",
-    output: "postgresql-18.6.10",
+    output: "postgresql-18.7.0",
     variants: "generated-passwords;existing-secret",
   },
   {

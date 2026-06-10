@@ -24,6 +24,7 @@ bitnami/nginx,24.0.4,catalog-supported,top20-catalog-supported,2,0,4,0,0,0,0,non
 bitnami/nginx,25.0.0,catalog-supported,top20-catalog-supported,2,0,4,0,0,0,0,none
 bitnami/postgresql,18.6.10,catalog-supported,top20-catalog-supported,2,0,2,0,0,0,0,none
 bitnami/postgresql,18.6.7,catalog-supported,top20-catalog-supported,2,0,2,0,0,0,1,none
+bitnami/postgresql,18.7.0,catalog-supported,top20-catalog-supported,2,0,2,0,0,0,0,none
 bitnami/redis,25.5.3,catalog-supported,top20-catalog-supported,2,0,4,0,0,0,0,none
 bitnami/redis,27.0.0,catalog-supported,top20-catalog-supported,2,0,4,0,0,0,0,none
 ingress-nginx/ingress-nginx,4.15.1,catalog-supported,top20-catalog-supported,3,0,3,0,0,0,0,none

@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "bitnami-postgresql-18.7.0"
+spec:
+  chart: "bitnami/postgresql"
+  version: "18.7.0"
+  dependencies:
+    -
+      name: "common"
+      repository: "oci://registry-1.docker.io/bitnamicharts"
+      tags:
+        - "bitnami-common"
+      version: "2.40.0"
+  chartLockDigest: null

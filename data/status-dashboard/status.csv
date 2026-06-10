@@ -1,8 +1,8 @@
 section,metric,value,total,status,source,note
-top100,charts with model support,106,108,good,data/outcome-coverage/chart-outcomes.csv,The top100 corpus has honest chart models for the declared scope.
+top100,charts with model support,107,109,good,data/outcome-coverage/chart-outcomes.csv,The top100 corpus has honest chart models for the declared scope.
 top100,catalog-supported charts,20,100,partial,data/top100-readiness/readiness.csv,These are the current public catalog entries; production support still depends on lane status.
 top100,proof-grade non-catalog charts,80,100,partial,data/top100-readiness/readiness.csv,These charts have proof artifacts but are not promoted catalog entries.
-top100,variant-rich charts,62,108,partial,data/outcome-coverage/chart-outcomes.csv,Charts with more than one declared base variant.
+top100,variant-rich charts,63,109,partial,data/outcome-coverage/chart-outcomes.csv,Charts with more than one declared base variant.
 top100,covered by top100 contract,20,100,partial,data/top100-coverage/coverage.csv,"Rows satisfying all top100 coverage contract items, including disposition and live witness route."
 top100,partial by top100 contract,80,100,partial,data/top100-coverage/coverage.csv,Rows with at least one coverage contract item still todo.
 top100,average top100 coverage,83,100,partial,data/top100-coverage/coverage.csv,Average of the generated per-chart coverage percentage.
@@ -12,27 +12,27 @@ top100,top100 user-shaped variant queue,46,80,partial,data/top100-coverage/work-
 top100,top100 limitation-decision queue,7,80,partial,data/top100-coverage/work-queue.csv,"Partial top100 rows needing a support, disclosure, defer, or block decision before promotion."
 refresh,top20 proofs still current,13,20,partial,data/refresh-survival/refreshes.csv,Supported top-20 chart versions that still match the latest upstream Helm version in the retained refresh snapshot.
 refresh,top20 upstream update candidates,7,20,partial,data/refresh-survival/refreshes.csv,Supported top-20 charts with newer upstream Helm versions that must not be promoted until the full lane reruns.
-refresh,update candidates with proof-complete root paths,5,7,partial,data/refresh-survival/refreshes.csv,"Latest-version candidates that have root recipe/package paths and proof-complete evidence, but are not replacement catalog rows."
-refresh,latest refresh p0 action rows,2,7,partial,data/latest-top20-refresh/action-queue/queue.csv,"Upstream movement rows whose next action is replacement decision, candidate refresh, or new candidate creation before support changes."
+refresh,update candidates with proof-complete root paths,6,7,partial,data/refresh-survival/refreshes.csv,"Latest-version candidates that have root recipe/package paths and proof-complete evidence, but are not replacement catalog rows."
+refresh,latest refresh p0 action rows,1,7,partial,data/latest-top20-refresh/action-queue/queue.csv,"Upstream movement rows whose next action is replacement decision, candidate refresh, or new candidate creation before support changes."
 top500,source rows scanned,495,500,partial,data/top500-catalog-analysis/review.csv,Retained source-scan rows with source feature data.
 top500,rows with current recipe proof,91,500,partial,data/top500-catalog-analysis/review.csv,Retained source-scan rows matched to current recipe/package proof.
 top500,catalog-supported rows,20,500,partial,data/top500-catalog-analysis/review.csv,Rows promoted to the current public catalog; production gates still matter.
 top500,proof-grade rows,71,500,partial,data/top500-catalog-analysis/review.csv,Rows with deterministic proof that are not public catalog entries.
 top500,rows with no current recipe proof,409,500,gap,data/top500-catalog-analysis/review.csv,Source reconnaissance rows with no current recipe/package proof yet.
 top500,version-drift review rows,21,500,partial,data/top500-catalog-analysis/review.csv,Current recipe exists but the retained source-scan version differs.
-proof lanes,render parity rows,175,175,good,data/outcome-coverage/base-outcomes.csv,Every chart/base row has render parity under recorded inputs.
-proof lanes,in-ConfigHub proof rows,20,175,partial,data/outcome-coverage/base-outcomes.csv,"Rows with upload, scan, or safe-operation proof receipts."
-proof lanes,local live rows,23,175,partial,data/outcome-coverage/base-outcomes.csv,Rows with committed local Kubernetes observation receipts.
-proof lanes,GitOps/OCI live pass rows,22,175,partial,data/outcome-coverage/base-outcomes.csv,6 rows have non-pass GitOps/OCI receipts.
-proof lanes,live Helm-vs-ConfigHub parity pass rows,20,175,partial,data/outcome-coverage/base-outcomes.csv,2 rows have non-pass live parity receipts.
+proof lanes,render parity rows,177,177,good,data/outcome-coverage/base-outcomes.csv,Every chart/base row has render parity under recorded inputs.
+proof lanes,in-ConfigHub proof rows,20,177,partial,data/outcome-coverage/base-outcomes.csv,"Rows with upload, scan, or safe-operation proof receipts."
+proof lanes,local live rows,23,177,partial,data/outcome-coverage/base-outcomes.csv,Rows with committed local Kubernetes observation receipts.
+proof lanes,GitOps/OCI live pass rows,22,177,partial,data/outcome-coverage/base-outcomes.csv,6 rows have non-pass GitOps/OCI receipts.
+proof lanes,live Helm-vs-ConfigHub parity pass rows,20,177,partial,data/outcome-coverage/base-outcomes.csv,2 rows have non-pass live parity receipts.
 proof lanes,two-cluster kind parity pass rows,49,50,partial,data/live-kind-parity/summary.csv,"Regular Helm in one vanilla kind cluster, cub installer output in another, then semantic comparison."
-proof lanes,complete core lane rows,20,175,gap,data/outcome-coverage/base-outcomes.csv,"Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
+proof lanes,complete core lane rows,20,177,gap,data/outcome-coverage/base-outcomes.csv,"Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
 proof lanes,top20 start-here base variants,20,42,partial,data/top20-base-readiness/base-readiness.csv,Base variants that are the cleanest first catalog paths today.
 proof lanes,top20 bases needing unresolved prerequisite or runtime review,0,42,partial,data/top20-base-readiness/base-readiness.csv,"Base variants whose render parity is useful but whose target fit, runtime, or lifecycle behavior still needs review."
 derived variants,derived variant golden rows,10,10,good,data/variant-goldens/derived-expansion-wave/work-orders.csv,"Golden work orders that specify source base, downstream variant, current cub variant create command, and receipt targets."
 derived variants,derived variant live create receipts,10,10,good,runs/derived-variant-execution,Receipts from current cub variant create executions without hidden Helm rerender.
 derived variants,target-bound derived variant receipts,6,10,partial,runs/derived-variant-target-bound,"Derived variants that went further through target binding, ConfigHub OCI, Argo sync, and runtime observation."
-graph bridge,charts with recovered graph fragments,20,108,partial,data/edge-recovery/edges.csv,Catalog-supported recipe artifacts converted into desired-state graph fragments.
+graph bridge,charts with recovered graph fragments,20,109,partial,data/edge-recovery/edges.csv,Catalog-supported recipe artifacts converted into desired-state graph fragments.
 graph bridge,recovered graph edge rows,100,100,good,data/edge-recovery/edges.csv,"Recovered base, override, target-fact, generated-fact, and field-reachability rows."
 graph bridge,target-fact graph edges,57,100,partial,data/edge-recovery/edges.csv,"Edges from a variant to required target facts such as pre-existing Secrets, CRDs, or hook-produced material."
 graph bridge,generated-fact graph edges,1,100,partial,data/edge-recovery/edges.csv,Edges from generated facts to the rendered fields they affect where field reachability is available.
