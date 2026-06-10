@@ -340,6 +340,11 @@ data/top100-readiness/summary.md
   One chart-by-chart answer for current top-100 adoption bucket, strongest
   evidence, next action, and first work queues.
 
+data/top100-readiness/next80-queues.md
+  The compact operating queue for the 80 proof-grade charts that are not yet
+  catalog-supported: promotion review, limitation review, or user-shaped
+  variant work.
+
 data/extension-slots/summary.md
   NGINX-like extension slots: 13/20 top-20 catalog charts and 82/100 top-100 chart facts surface raw manifests, tpl snippets, config blocks, sidecars, or add-on slots. The top-500 source scan sees raw/extra manifest values in 254/500 charts and tpl or raw/extra manifest values in 363/500 charts.
 

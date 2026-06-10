@@ -22,7 +22,7 @@ smallest generated surface that answers it.
 | I want to know which catalog base to try first. | [top20-base-readiness/start-here.md](./top20-base-readiness/start-here.md) |
 | I want to know whether any top-20 chart/base is easy, partial, blocked, or watch. | [top20-base-readiness/summary.md](./top20-base-readiness/summary.md) |
 | I want one spreadsheet row per chart/base proof lane. | [outcome-coverage/base-outcomes.csv](./outcome-coverage/base-outcomes.csv) |
-| I want the top-100 or top-500 planning picture. | [top100-readiness/summary.md](./top100-readiness/summary.md)<br>[top500-catalog-analysis/review.csv](./top500-catalog-analysis/review.csv) |
+| I want the top-100 or top-500 planning picture. | [top100-readiness/summary.md](./top100-readiness/summary.md)<br>[top100-readiness/next80-queues.md](./top100-readiness/next80-queues.md)<br>[top500-catalog-analysis/review.csv](./top500-catalog-analysis/review.csv) |
 | I want live parity status. | [live-kind-parity/summary.md](./live-kind-parity/summary.md)<br>[live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md) |
 | I want hook, CRD, webhook, or lifecycle status. | [lifecycle-boundary/summary.md](./lifecycle-boundary/summary.md)<br>[outcome-coverage/feature-outcomes.csv](./outcome-coverage/feature-outcomes.csv) |
 | I want extension-slot or custom-config risk. | [extension-slots/summary.md](./extension-slots/summary.md)<br>[nginx-config-checks/summary.md](./nginx-config-checks/summary.md) |
@@ -64,6 +64,7 @@ smallest generated surface that answers it.
 | [image-digest-workdown/summary.md](./image-digest-workdown/summary.md) | Image digest workdown: rendered image references that need digest resolution, image overrides, or explicit proof receipts before reproducible production OCI support. |
 | [pain-point-coverage/summary.md](./pain-point-coverage/summary.md) | General Helm pain point coverage: current answers, handoffs, evidence, gaps, and next actions. |
 | [top100-readiness/summary.md](./top100-readiness/summary.md) | Top-100 readiness: one chart-by-chart answer for workability, adoption bucket, strongest evidence, hard gap, next action, and first work queues. |
+| [top100-readiness/next80-queues.md](./top100-readiness/next80-queues.md) | Next80 operating queue: proof-grade non-catalog charts split into promotion review, limitation review, and user-shaped variant work. |
 | [next-ten-waves/summary.md](./next-ten-waves/summary.md) | Compact next work queues: gap review, latest-version promotion, variant build, production disposition, and import prototypes. |
 | [attack-plan-workdown/summary.md](./attack-plan-workdown/summary.md) | Broader execution workdown: import examples, hard gaps, variants, production, runtime/GitOps, latest candidates, and image digests. |
 | [top500-catalog-analysis/review.csv](./top500-catalog-analysis/review.csv) | Top-500 evidence map: retained source-scan rows joined to current recipe proof, catalog status, version drift, source features, and next action. |
