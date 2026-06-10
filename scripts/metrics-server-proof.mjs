@@ -119,11 +119,19 @@ function metricsTargetPrerequisitePlan() {
         },
         externalTlsCa: {
           status: "target-prerequisite-needed",
+          currentProofLimit:
+            "The maintained proof currently renders a placeholder apiService.caBundle value. Object parity can still pass, but the live target will not be ready until the serving certificate Secret and the pre-render caBundle value are generated from the same CA.",
+          requiredToClearCurrentBlock: [
+            "Generate a CA and serving certificate with SANs for metrics-server.kube-system and metrics-server.kube-system.svc.",
+            "Render both regular Helm and cub installer with apiService.caBundle set from that CA.",
+            "Stage kube-system/metrics-server-tls from the matching serving certificate and key before apply.",
+            "Observe Deployment availability, APIService Available=True, and the metrics.k8s.io API after apply.",
+          ],
           requiredBeforeRender: [
             {
               kind: "Value",
               path: "apiService.caBundle",
-              purpose: "CA bundle embedded into the rendered APIService",
+              purpose: "CA bundle embedded into the rendered APIService; must be generated with the serving certificate target fact, not left as the placeholder value",
             },
           ],
           requiredBeforeApply: [

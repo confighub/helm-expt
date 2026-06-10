@@ -164,6 +164,9 @@ function reasonForTwoCluster(row) {
 }
 
 function diagnosisForTwoCluster(row, lifecycle) {
+  if (isMetricsServerExternalTlsCa(row)) {
+    return "Object parity passed, but the current rendered APIService caBundle is a placeholder. Generate target TLS material first, inject the matching CA as a pre-render value, then render both legs and stage the matching Secret before rerun.";
+  }
   if (lifecycle?.result === "pass" && row.reason?.startsWith("helm-hook:")) {
     return `Object parity passed. Helm hook execution blocked the regular Helm leg, while the related lifecycle observation passed: ${lifecycle.receipt}.`;
   }
@@ -196,6 +199,7 @@ function diagnosisForTwoCluster(row, lifecycle) {
 
 function followupForTwoCluster(row, lifecycle) {
   if (row.reason?.startsWith("parity:")) return "Open a parity issue only if the diff is not an intentional, documented normalization.";
+  if (isMetricsServerExternalTlsCa(row)) return "Do not rerun the existing placeholder render as-is; use the target-prerequisite plan to bind caBundle and metrics-server-tls from the same generated or supplied CA.";
   if (lifecycle?.result === "pass" && row.reason?.startsWith("helm-hook:")) return "Keep this as lifecycle-routed evidence unless the product decision is to emulate the Helm hook directly.";
   if (lifecycle?.result === "pass" && row.reason?.startsWith("target-prerequisite:")) return "Record the external prerequisite in the base variant and use the lifecycle receipt when explaining target readiness.";
   if (row.reason?.startsWith("target-prerequisite:")) return "Record the prerequisite in the chart facts, base variant, or install checks before promoting.";
@@ -207,6 +211,10 @@ function followupForTwoCluster(row, lifecycle) {
   }
   if (row.result === "watch") return "Do not change chart artifacts unless semantic parity or object readiness shows a real difference.";
   return "If blocked again, classify as recipe issue, target-fact/prerequisite issue, or chart runtime issue from the receipt.";
+}
+
+function isMetricsServerExternalTlsCa(row) {
+  return row.chart === "metrics-server/metrics-server" && row.base === "external-tls-ca";
 }
 
 function nextStepType(row) {
