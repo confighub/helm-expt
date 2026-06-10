@@ -1,0 +1,7 @@
+clusterrole.rbac.authorization.k8s.io/tigera-operator-secrets created
+clusterrole.rbac.authorization.k8s.io/tigera-operator created
+clusterrolebinding.rbac.authorization.k8s.io/tigera-operator created
+deployment.apps/tigera-operator created
+namespace/default configured
+rolebinding.rbac.authorization.k8s.io/tigera-operator-secrets created
+serviceaccount/tigera-operator created

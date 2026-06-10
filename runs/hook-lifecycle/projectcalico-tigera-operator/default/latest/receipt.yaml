@@ -1,0 +1,95 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HookLifecycleObservationReceipt"
+metadata:
+  name: "projectcalico-tigera-operator-default-delete-lifecycle"
+spec:
+  chart: "projectcalico/tigera-operator"
+  version: "v3.32.0"
+  base: "default"
+  result: "pass"
+  observedAt: "2026-06-10T21:23:36Z"
+  package:
+    path: "packages/projectcalico/tigera-operator/v3.32.0"
+  recipe:
+    path: "recipes/projectcalico/tigera-operator/v3.32.0"
+  variantRevision: "recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml"
+  lifecycleModel:
+    hookTypes:
+      - "pre-delete"
+    route: "explicit-delete-cleanup-action"
+    claim: "The Helm pre-delete hook is treated as an explicit delete cleanup action. The run observes operator bootstrap, operator-managed CRD establishment, rendered custom resource acceptance, execution of the upstream pre-delete cleanup Job, and package object deletion in a fresh kind target. This does not claim production uninstall safety for every target state."
+  run:
+    mode: "single-kind-cluster-cub-installer-projectcalico-delete-lifecycle-observation"
+    cluster: "hx-hook-calico-8ksslk"
+    namespace: "default"
+    cleanup:
+      result: "pass"
+      detail: "deleted kind cluster"
+  checks:
+    -
+      name: "kind-create"
+      result: "pass"
+      detail: "created fresh kind cluster"
+    -
+      name: "cub-installer-setup"
+      result: "pass"
+      detail: "rendered Project Calico cub installer package output"
+      evidencePath: "cub-installer-setup.txt"
+      evidenceSHA256: "d011f6171d20050909bb8f02e5e9283117d3bb9fbd6ba5bf324d06898c174bc7"
+    -
+      name: "kubectl-apply-operator-prerequisites"
+      result: "pass"
+      detail: "applied operator namespace, RBAC, ServiceAccount, and Deployment"
+      evidencePath: "kubectl-apply-operator-prerequisites.txt"
+      evidenceSHA256: "8ba07601bc61301fe6631cace0092a9420132cfc7b6731ef1709f00c5d2c3a49"
+      objectCount: 7
+    -
+      name: "operator-deployment-ready"
+      result: "pass"
+      detail: "tigera-operator Deployment rolled out"
+      evidencePath: "deployment-tigera-operator-rollout.txt"
+      evidenceSHA256: "ed171615acfc5f024515a3bb18876c3b2507473f0f71fb67661674ca79c189a5"
+    -
+      name: "operator-crds-established"
+      result: "pass"
+      detail: "operator-managed CRDs required by the rendered custom resources reached Established"
+      evidencePath: "operator-crds-established.txt"
+      evidenceSHA256: "0736f3b7f13a938328420c81162f4ac5051d43022fa433616ddf79679ee158ef"
+      crdCount: 4
+    -
+      name: "kubectl-apply-custom-resources"
+      result: "pass"
+      detail: "applied APIServer, Goldmane, Installation, and Whisker after the operator CRDs existed"
+      evidencePath: "kubectl-apply-custom-resources.txt"
+      evidenceSHA256: "7c092306949ab49433283b1e425079f8e34c0b6b27c549a672631cd7f3506d16"
+      objectCount: 4
+    -
+      name: "custom-resources-accepted"
+      result: "pass"
+      detail: "rendered operator custom resources were accepted by the live API server"
+      evidencePath: "custom-resources-accepted.yaml"
+      evidenceSHA256: "a6803cc037adbb815db1ccc6c5469fc16d1f417dbfc4df91c6fb5c63b17db284"
+    -
+      name: "render-pre-delete-hook-job"
+      result: "pass"
+      detail: "rendered upstream Helm pre-delete hook Job for explicit lifecycle execution"
+      evidencePath: "pre-delete-hook-job.yaml"
+      evidenceSHA256: "f444cee8c8c8175ad25044c1249c405b3e7b01eb3e356636d4e14009cb19d5ce"
+    -
+      name: "execute-pre-delete-cleanup-job"
+      result: "pass"
+      detail: "explicit pre-delete cleanup Job completed"
+      evidencePath: "pre-delete-hook-job-complete.txt"
+      evidenceSHA256: "e1343fc0add06329f3b2db00aa7e172706f2e56b1fda161307e62b519433f89e"
+    -
+      name: "custom-resources-after-cleanup-job"
+      result: "pass"
+      detail: "captured remaining operator custom resources after the pre-delete cleanup Job"
+      evidencePath: "custom-resources-after-cleanup-job.yaml"
+      evidenceSHA256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    -
+      name: "delete-rendered-objects"
+      result: "pass"
+      detail: "deleted rendered package objects after explicit cleanup action"
+      evidencePath: "kubectl-delete-rendered-objects.txt"
+      evidenceSHA256: "aa8fe7582d4ccf44a31dc27d53f85a3e6c7906c1105b4d1522c5a6df70445fb5"

@@ -154,7 +154,7 @@ function painPoints() {
       installer_answer: "Execute or hand off lifecycle steps only where the route is supported.",
       cub_scout_answer: "Observe post-hook resources, readiness, and failure conditions.",
       current_status: "partial-doctrine",
-      evidence_path: "data/hook-lifecycle/top100-hooks.csv;docs/user/hook-lifecycle-strategy.md",
+      evidence_path: "data/hook-lifecycle/source-top100-hooks.csv;data/hook-lifecycle/maintained-hook-queue.csv;docs/user/hook-lifecycle-strategy.md",
       remaining_gap: "Hook execution receipts are not complete for the hook-bearing catalog.",
       next_action: "Separate pre-install, post-install, upgrade, and delete hooks in variant-path coverage.",
     }),

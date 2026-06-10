@@ -31,7 +31,7 @@ if (mode === "--generate") {
 }
 
 function buildReport() {
-  const hookRows = parseCsvFile("data/hook-lifecycle/top100-hooks.csv");
+  const hookRows = parseCsvFile("data/hook-lifecycle/maintained-hook-queue.csv");
   const observationRows = parseCsvFile("data/lifecycle-observations/cert-manager-eso/summary.csv");
   const rows = [
     ...hookRows.map((row) => ({
@@ -42,7 +42,7 @@ function buildReport() {
       route_or_policy: row.route_hint,
       proves: hookQueueProof(row.receipt_status),
       does_not_prove: hookQueueNonProof(row.receipt_status),
-      evidence: `data/hook-lifecycle/top100-hooks.csv;${row.required_receipt}`,
+      evidence: `data/hook-lifecycle/maintained-hook-queue.csv;${row.required_receipt}`,
       next_action: row.next_action,
     })),
     ...observationRows.map((row) => ({
@@ -87,7 +87,7 @@ Helm hook.
 ## Current Reading
 
 ~~~text
-maintained hook-bearing chart rows:       ${hookRows.length}
+maintained hook queue rows:               ${hookRows.length}
 hook route receipts present:              ${hookRouteReceiptCount}/${hookRows.length}
 hook lifecycle observations present:      ${hookObservedCount}/${hookRows.length}
 hook partial lifecycle observations:      ${hookPartiallyObservedCount}/${hookRows.length}
@@ -107,7 +107,8 @@ ${rows.map((row) => `| ${row.lane} | \`${row.chart}\` | ${row.base} | ${row.stat
 | File | Purpose |
 | --- | --- |
 | \`data/lifecycle-boundary/lifecycle-boundary.csv\` | One row per hook queue item or lifecycle observation row. |
-| \`data/hook-lifecycle/top100-hooks.csv\` | Maintained charts whose source scan found Helm hooks. |
+| \`data/hook-lifecycle/source-top100-hooks.csv\` | Source-scan inventory of top-100 public charts where the retained source scan found Helm hooks. |
+| \`data/hook-lifecycle/maintained-hook-queue.csv\` | Maintained hook queue rows that need route, execution, or observation receipts. |
 | \`data/lifecycle-observations/cert-manager-eso/summary.csv\` | Current cert-manager and External Secrets lifecycle observations. |
 
 Regenerate:
