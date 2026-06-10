@@ -14,8 +14,11 @@ tests/* executables
   Kubernetes.
 ```
 
-Start with [npm-scripts.md](npm-scripts.md) when you want to know what each
-`npm run ...` command checks, why it exists, and whether it writes files.
+Start with [npm-scripts.md](npm-scripts.md) when you want the runbook for
+choosing the right `npm run ...` command. Use
+[npm-script-catalog.md](npm-script-catalog.md) when you need the generated
+inventory of every script in `package.json`, grouped by purpose, mode, file
+writes, and external state.
 
 ## Test Cadence
 
@@ -26,6 +29,7 @@ to create or refresh live evidence.
 | Question | Start with |
 | --- | --- |
 | Which check matches my edit? | [npm-scripts.md](npm-scripts.md) |
+| What does this exact `npm run ...` command do? | [npm-script-catalog.md](npm-script-catalog.md) |
 | What claim does each lane prove? | [strategy.md](strategy.md) |
 | What is the current chart/base status? | [../data/status-dashboard/summary.md](../data/status-dashboard/summary.md) |
 | Which live rows should be rerun next? | [../data/live-parity-rerun-plan/summary.md](../data/live-parity-rerun-plan/summary.md) |
