@@ -2,13 +2,15 @@
 
 This generated queue turns upstream Helm chart movement into concrete work.
 
-It separates three cases:
+It separates four cases:
 
 - a retained candidate still matches latest upstream and needs a replacement
   decision;
 - a retained candidate is proof-complete but already behind a newer upstream
   chart version and needs refresh work;
-- no retained candidate exists yet, so the proof chain must be created first.
+- no retained candidate exists yet, so the proof chain must be created first;
+- a retained render/package candidate exists and needs root-path promotion plus
+  the remaining ConfigHub and live lanes.
 
 ## Result
 
@@ -16,7 +18,8 @@ It separates three cases:
 update rows: 7
 replacement decisions ready: 3
 retained candidates needing refresh: 3
-new retained candidates needed: 1
+render candidates needing root/live work: 1
+new retained candidates needed: 0
 p0 rows: 5
 p1 rows: 2
 ```
@@ -29,7 +32,7 @@ p1 rows: 2
 | `bitnami/mongodb` | `19.0.7` | `19.1.0` | `19.0.9` | refresh-retained-candidate | p0 | refresh retained bitnami/mongodb@19.0.9 proof to upstream 19.1.0 |
 | `bitnami/nginx` | `24.0.2` | `25.0.0` | `24.0.4` | refresh-retained-candidate | p0 | refresh retained bitnami/nginx@24.0.4 proof to upstream 25.0.0 |
 | `bitnami/postgresql` | `18.6.7` | `18.7.0` | `18.6.10` | refresh-retained-candidate | p0 | refresh retained bitnami/postgresql@18.6.10 proof to upstream 18.7.0 |
-| `bitnami/redis` | `25.5.3` | `27.0.0` | `-` | create-retained-candidate | p0 | make the bespoke Redis proof/package generator version-output override capable or migrate Redis to proof-kit, then generate Redis 27.0.0 candidate proof |
+| `bitnami/redis` | `25.5.3` | `27.0.0` | `27.0.0` | promote-render-candidate | p0 | promote bitnami/redis@27.0.0 candidate root paths, then run ConfigHub proof, local live, and live parity lanes |
 | `prometheus-community/kube-prometheus-stack` | `85.3.3` | `86.1.0` | `86.1.0` | write-replacement-decision | p0 | review target-scoped replacement decision for prometheus-community/kube-prometheus-stack@86.1.0 |
 | `prometheus-community/prometheus` | `29.8.0` | `29.9.0` | `29.9.0` | write-replacement-decision | p1 | review target-scoped replacement decision for prometheus-community/prometheus@29.9.0 |
 

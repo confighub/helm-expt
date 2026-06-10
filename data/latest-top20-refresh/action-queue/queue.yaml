@@ -64,14 +64,16 @@ spec:
       chart: "bitnami/redis"
       currentVersion: "25.5.3"
       latestUpstreamVersion: "27.0.0"
-      retainedCandidateVersion: null
-      action: "create-retained-candidate"
+      retainedCandidateVersion: "27.0.0"
+      action: "promote-render-candidate"
       priority: "p0"
-      firstStep: "make the bespoke Redis proof/package generator version-output override capable or migrate Redis to proof-kit, then generate Redis 27.0.0 candidate proof"
-      doneWhen: "candidate-status.csv records bitnami/redis@27.0.0 and refresh-survival no longer shows missing candidate proof"
+      firstStep: "promote bitnami/redis@27.0.0 candidate root paths, then run ConfigHub proof, local live, and live parity lanes"
+      doneWhen: "root recipe/package paths exist and promotion readiness records the remaining live/proof lanes explicitly"
       evidence:
-        - "data/refresh-survival/summary.md"
-      command: "node scripts/generate-redis-proof.mjs and node scripts/generate-redis-installer-package.mjs need override support before this can be a one-command candidate"
+        - "data/latest-top20-refresh/candidates/README.md"
+        - "data/latest-top20-refresh/candidates/redis-27.0.0"
+        - "data/latest-top20-refresh/promotion-readiness.md"
+      command: "npm run top20:latest-promote-root-paths && npm run top20:latest-promotion-readiness"
     -
       chart: "prometheus-community/kube-prometheus-stack"
       currentVersion: "85.3.3"

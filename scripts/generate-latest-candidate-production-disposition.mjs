@@ -31,8 +31,12 @@ function verify() {
   check(readFileSync(yamlPath, "utf8") === report.yaml, `${relativeRepo(yamlPath)} is stale`);
   check(readFileSync(summaryPath, "utf8") === report.summary, `${relativeRepo(summaryPath)} is stale`);
   check(readFileSync(csvPath, "utf8") === report.csv, `${relativeRepo(csvPath)} is stale`);
-  check(report.rows.length === 6, `expected 6 latest candidate disposition rows; found ${report.rows.length}`);
-  check(report.rows.every((row) => row.proof_status === "proof-complete"), "latest candidate production disposition requires complete proof lanes");
+  const expectedRows = parseCsv(readFileSync(readinessPath, "utf8")).length;
+  check(report.rows.length === expectedRows, `expected ${expectedRows} latest candidate disposition rows; found ${report.rows.length}`);
+  check(
+    report.rows.every((row) => ["proof-complete", "proof-incomplete"].includes(row.proof_status)),
+    "latest candidate production disposition rows must classify proof status",
+  );
   check(report.rows.every((row) => row.production_support_status === "not-production-supported"), "candidate report must not promote production support");
   console.log(`verified latest candidate production disposition: ${report.rows.length} candidate(s), production support not claimed`);
 }
@@ -228,6 +232,7 @@ function primaryLatestCandidateBase(row) {
     ["bitnami/mongodb", "generated-passwords"],
     ["bitnami/nginx", "http-clusterip"],
     ["bitnami/postgresql", "generated-passwords"],
+    ["bitnami/redis", "default"],
     ["prometheus-community/kube-prometheus-stack", "default"],
     ["prometheus-community/prometheus", "server-only-ephemeral"],
   ]);

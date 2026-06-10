@@ -14,7 +14,7 @@ stand between a candidate and catalog replacement.
 Top-20 rows checked: 20
 Current chart proofs: 13 / 20
 Upstream update candidates: 7 / 20
-Candidates with render-only proof: 0 / 7
+Candidates with render-only proof: 1 / 7
 Candidates with proof-complete root paths: 3 / 7
 Retained candidates superseded by newer upstream versions: 3 / 7
 Candidates without root paths: 1 / 7
@@ -28,7 +28,7 @@ Candidates without root paths: 1 / 7
 | `bitnami/mongodb` | `19.0.7` | `19.1.0` | candidate-superseded-by-newer-upstream | root-path-promoted-review-required | refresh retained candidate 19.0.9 to latest upstream 19.1.0 before replacement decision |
 | `bitnami/nginx` | `24.0.2` | `25.0.0` | candidate-superseded-by-newer-upstream | root-path-promoted-review-required | refresh retained candidate 24.0.4 to latest upstream 25.0.0 before replacement decision |
 | `bitnami/postgresql` | `18.6.7` | `18.7.0` | candidate-superseded-by-newer-upstream | root-path-promoted-review-required | refresh retained candidate 18.6.10 to latest upstream 18.7.0 before replacement decision |
-| `bitnami/redis` | `25.5.3` | `27.0.0` | missing | missing | run ConfigHub proof, live e2e, production disposition, catalog, top100, and top500 lanes before replacement |
+| `bitnami/redis` | `25.5.3` | `27.0.0` | candidate-render-proof-present | ready-for-root-path-promotion | run ConfigHub proof, live e2e, production disposition, catalog, top100, and top500 lanes before replacement |
 | `prometheus-community/kube-prometheus-stack` | `85.3.3` | `86.1.0` | candidate-proof-complete-root-path-present | root-path-promoted-review-required | review target-scoped production support decision before replacing the supported version |
 | `prometheus-community/prometheus` | `29.8.0` | `29.9.0` | candidate-proof-complete-root-path-present | root-path-promoted-review-required | review target-scoped production support decision before replacing the supported version |
 

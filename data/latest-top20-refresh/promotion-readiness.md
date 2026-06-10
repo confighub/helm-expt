@@ -11,11 +11,11 @@ supported versions.
 ## Result
 
 ```text
-Retained candidates checked: 6
-Complete candidate artifact sets: 6 / 6
-Not yet promoted to root catalog paths: 0 / 6
-Root catalog paths present: 6 / 6
-Ready for root-path promotion work: 0 / 6
+Retained candidates checked: 7
+Complete candidate artifact sets: 7 / 7
+Not yet promoted to root catalog paths: 1 / 7
+Root catalog paths present: 6 / 7
+Ready for root-path promotion work: 1 / 7
 ```
 
 ## Candidates
@@ -26,6 +26,7 @@ Ready for root-path promotion work: 0 / 6
 | `bitnami/mongodb` | `19.0.7` | `19.0.9` | `generated-passwords`, `existing-secret-replicaset` | complete | root-path-present | root-path-promoted-review-required |
 | `bitnami/nginx` | `24.0.2` | `24.0.4` | `http-clusterip`, `existing-tls-ingress` | complete | root-path-present | root-path-promoted-review-required |
 | `bitnami/postgresql` | `18.6.7` | `18.6.10` | `generated-passwords`, `existing-secret` | complete | root-path-present | root-path-promoted-review-required |
+| `bitnami/redis` | `25.5.3` | `27.0.0` | `default`, `reuse-existing-secret` | complete | not-promoted | ready-for-root-path-promotion |
 | `prometheus-community/kube-prometheus-stack` | `85.3.3` | `86.1.0` | `default`, `no-crds` | complete | root-path-present | root-path-promoted-review-required |
 | `prometheus-community/prometheus` | `29.8.0` | `29.9.0` | `default`, `server-only-ephemeral` | complete | root-path-present | root-path-promoted-review-required |
 

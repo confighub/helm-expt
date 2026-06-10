@@ -1,0 +1,66 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallerPackageReceipt
+metadata:
+  name: bitnami-redis-27.0.0
+spec:
+  chart:
+    repository: bitnami
+    name: redis
+    version: 27.0.0
+  package:
+    path: data/latest-top20-refresh/candidates/redis-27.0.0/packages/bitnami/redis/27.0.0
+    name: bitnami-redis
+    version: 27.0.0
+    sourceFiles:
+      - path: README.md
+        sha256: da825abf741736ea829c8436bce20b127cd4d7fc2b39e5036aef6a7e3697d821
+        bytes: 1402
+      - path: bases/default/kustomization.yaml
+        sha256: 2fa9e5ecea086feda6e54659db22423415c4c80d5818d4b126856a6b08b49d05
+        bytes: 93
+      - path: bases/default/upstream.yaml
+        sha256: 758467319ec109764b55ee730ba51a37a2196744f45f5c064f212bfc176178f0
+        bytes: 24461
+      - path: bases/reuse-existing-secret/kustomization.yaml
+        sha256: 2fa9e5ecea086feda6e54659db22423415c4c80d5818d4b126856a6b08b49d05
+        bytes: 93
+      - path: bases/reuse-existing-secret/upstream.yaml
+        sha256: ff3e9532687b0826784a329dd1b10afea3a7bfd355bced74d5fa9064f7908eb4
+        bytes: 23936
+      - path: collector/target-facts.sh
+        sha256: 1dd15871b20468bde11a67b1576d6a242ffc23999f479119e8b01e251fa08e73
+        bytes: 1654
+      - path: installer.yaml
+        sha256: 716e5f0f6e12e6f273cc501a5d4fdfc3baf5b0b1bc45c8bb37aef1e2ec64c610
+        bytes: 882
+  deterministicBundle:
+    command: "cub installer package data/latest-top20-refresh/candidates/redis-27.0.0/packages/bitnami/redis/27.0.0 -o <tmp>/bitnami-redis-27.0.0.tgz"
+    sha256: 1bc966d9a327ef39c4a194dc17ba7a2c13e9609ee878d25e55d2e9d1a1e7c350
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    - variant: default
+      base: default
+      command: "cub installer setup --pull data/latest-top20-refresh/candidates/redis-27.0.0/packages/bitnami/redis/27.0.0 --base default --work-dir <tmp> --non-interactive --namespace redis"
+      helmReleaseObjectCount: 14
+      cubInstallObjectCountIncludingSupport: 15
+      semanticObjectMatches: 14/14
+      separatedSecretCount: 1
+      targetFactMode: not-required
+      targetFactsBound: false
+      allowedCubOnlyObjects:
+        - v1|Namespace||redis
+    - variant: reuse-existing-secret
+      base: reuse-existing-secret
+      command: "cub installer setup --pull data/latest-top20-refresh/candidates/redis-27.0.0/packages/bitnami/redis/27.0.0 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace redis"
+      helmReleaseObjectCount: 13
+      cubInstallObjectCountIncludingSupport: 14
+      semanticObjectMatches: 13/13
+      separatedSecretCount: 0
+      targetFactMode: collector-facts
+      targetFactsBound: true
+      allowedCubOnlyObjects:
+        - v1|Namespace||redis
+  ociPublication:
+    status: not-run
+    command: "REDIS_INSTALLER_OCI_REF=oci://<registry>/<repo>:<tag> npm run redis:publish-package"
+    reason: "No registry ref is supplied by default; publication is verified only against an explicit OCI endpoint."

@@ -1,0 +1,20 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HelmEquivalenceReceipt
+metadata:
+  name: bitnami-redis-reuse-existing-secret-r001
+spec:
+  variantRevision: ../variant-revision.yaml
+  regularHelm:
+    renderedSHA256: "ff3e9532687b0826784a329dd1b10afea3a7bfd355bced74d5fa9064f7908eb4"
+    objectCount: 13
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 14
+    uploadedManifestFiles: 14
+    separatedSecretFiles: 0
+    semanticObjectMatches: "13/13"
+  classifications:
+    - identity: v1|Namespace||redis
+      classification: installer-support-object
+      disposition: allowed
+  result: pass
+  evidenceCommand: npm run redis:compare

@@ -44,6 +44,19 @@ const candidates = [
     variants: "generated-passwords;existing-secret",
   },
   {
+    chart: "bitnami/redis",
+    currentVersion: "25.5.3",
+    latestVersion: "27.0.0",
+    output: "redis-27.0.0",
+    variants: "default;reuse-existing-secret",
+    commands: {
+      "--generate-proof": { script: "scripts/generate-redis-proof.mjs", args: [] },
+      "--generate-package": { script: "scripts/generate-redis-installer-package.mjs", args: [] },
+      "--verify-proof": { script: "scripts/verify-redis-proof.mjs", args: [] },
+      "--verify-package": { script: "scripts/verify-redis-installer-package.mjs", args: [] },
+    },
+  },
+  {
     chart: "prometheus-community/kube-prometheus-stack",
     currentVersion: "85.3.3",
     latestVersion: "86.1.0",
@@ -128,7 +141,9 @@ function writeCandidateOutputs(rows) {
 }
 
 function runCandidate(candidate, command) {
-  execFileSync("node", [candidate.script, command], {
+  const commandSpec = candidate.commands?.[command] ?? { script: candidate.script, args: [command] };
+  check(commandSpec.script, `${candidate.chart} has no script for ${command}`);
+  execFileSync("node", [commandSpec.script, ...commandSpec.args], {
     cwd: repoRoot,
     stdio: "inherit",
     env: {
@@ -198,7 +213,7 @@ function csv(rows) {
 function summary(rows) {
   return `# Latest Top-20 Candidate Proofs
 
-These are latest-version candidate proofs for the six top-20 charts whose
+These are latest-version candidate proofs for top-20 charts whose
 upstream Helm chart versions moved after the current supported catalog proofs.
 
 They are **not** catalog-supported replacements yet. They are candidate

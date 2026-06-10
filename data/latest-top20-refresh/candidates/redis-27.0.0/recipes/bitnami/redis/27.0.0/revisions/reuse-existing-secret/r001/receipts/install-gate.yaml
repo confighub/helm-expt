@@ -1,0 +1,17 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: InstallGate
+metadata:
+  name: bitnami-redis-reuse-existing-secret-r001
+spec:
+  variantRevision: ../variant-revision.yaml
+  renderedObjectSetSHA256: "ff3e9532687b0826784a329dd1b10afea3a7bfd355bced74d5fa9064f7908eb4"
+  decision: warn
+  allowedScopes:
+    - local-test
+  blockedScopes:
+    - production
+  reasons:
+    - local scan found 0 high and 2 medium finding(s)
+    - production publish is blocked until scan findings are resolved or explicitly waived
+    - Helm equivalence passed for reuse-existing-secret variant
+    - requires target Secret redis/redis-existing-secret with key redis-password

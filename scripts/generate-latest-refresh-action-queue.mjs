@@ -135,6 +135,25 @@ function actionRow(row, replacement) {
     };
   }
 
+  if (row.candidate_proof === "candidate-render-proof-present") {
+    return {
+      chart: row.chart,
+      current_version: row.current_version,
+      latest_upstream_version: row.latest_version,
+      retained_candidate_version: row.latest_version,
+      action: "promote-render-candidate",
+      priority: row.chart === "bitnami/redis" ? "p0" : "p1",
+      first_step: `promote ${row.chart}@${row.latest_version} candidate root paths, then run ConfigHub proof, local live, and live parity lanes`,
+      done_when: "root recipe/package paths exist and promotion readiness records the remaining live/proof lanes explicitly",
+      evidence: [
+        "data/latest-top20-refresh/candidates/README.md",
+        `data/latest-top20-refresh/candidates/${slug(row.chart)}-${row.latest_version}`,
+        "data/latest-top20-refresh/promotion-readiness.md",
+      ].join(";"),
+      command: "npm run top20:latest-promote-root-paths && npm run top20:latest-promotion-readiness",
+    };
+  }
+
   return {
     chart: row.chart,
     current_version: row.current_version,
@@ -172,13 +191,15 @@ function summary(rows) {
 
 This generated queue turns upstream Helm chart movement into concrete work.
 
-It separates three cases:
+It separates four cases:
 
 - a retained candidate still matches latest upstream and needs a replacement
   decision;
 - a retained candidate is proof-complete but already behind a newer upstream
   chart version and needs refresh work;
-- no retained candidate exists yet, so the proof chain must be created first.
+- no retained candidate exists yet, so the proof chain must be created first;
+- a retained render/package candidate exists and needs root-path promotion plus
+  the remaining ConfigHub and live lanes.
 
 ## Result
 
@@ -186,6 +207,7 @@ It separates three cases:
 update rows: ${rows.length}
 replacement decisions ready: ${counts.get("write-replacement-decision") ?? 0}
 retained candidates needing refresh: ${counts.get("refresh-retained-candidate") ?? 0}
+render candidates needing root/live work: ${counts.get("promote-render-candidate") ?? 0}
 new retained candidates needed: ${counts.get("create-retained-candidate") ?? 0}
 p0 rows: ${priorityCounts.get("p0") ?? 0}
 p1 rows: ${priorityCounts.get("p1") ?? 0}

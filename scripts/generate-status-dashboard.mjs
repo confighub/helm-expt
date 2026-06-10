@@ -756,6 +756,15 @@ function latestRefreshWorkQueueObjects(rows) {
       source: "data/latest-top20-refresh/action-queue/queue.csv",
       detail: previewLatestRefreshRows(actionRows("create-retained-candidate")),
     },
+    {
+      section: "latest-refresh-work",
+      item_type: "action",
+      item: "Promote render candidates and complete live lanes",
+      count: actionCounts.get("promote-render-candidate") ?? 0,
+      next_action: "Promote the candidate root paths, then run ConfigHub proof, local live, and live parity lanes before replacement.",
+      source: "data/latest-top20-refresh/action-queue/queue.csv",
+      detail: previewLatestRefreshRows(actionRows("promote-render-candidate")),
+    },
   ];
 }
 

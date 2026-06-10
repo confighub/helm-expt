@@ -13,8 +13,17 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, "..");
-const proofRoot = join(repoRoot, "recipes", "bitnami", "redis", "25.5.3");
-const packageRoot = join(repoRoot, "packages", "bitnami", "redis", "25.5.3");
+const defaultChartVersion = "25.5.3";
+const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? defaultChartVersion;
+const outputRoot = process.env.HELM_EXPT_PROOF_OUTPUT_ROOT
+  ? resolve(repoRoot, process.env.HELM_EXPT_PROOF_OUTPUT_ROOT)
+  : repoRoot;
+const proofRoot = process.env.HELM_EXPT_PROOF_OUTPUT_ROOT
+  ? join(outputRoot, "recipes", "bitnami", "redis", chartVersion)
+  : join(repoRoot, "recipes", "bitnami", "redis", chartVersion);
+const packageRoot = process.env.HELM_EXPT_PROOF_OUTPUT_ROOT
+  ? join(outputRoot, "packages", "bitnami", "redis", chartVersion)
+  : join(repoRoot, "packages", "bitnami", "redis", chartVersion);
 const receiptPath = join(proofRoot, "publication", "installer-package-receipt.yaml");
 const packageRelative = relative(repoRoot, packageRoot);
 
@@ -65,7 +74,7 @@ function verifyPackage() {
   const receipt = parseYamlFile(receiptPath);
   check(installer.kind === "Package", "installer.yaml must be a Package");
   check(installer.metadata?.name === "bitnami-redis", "package metadata.name must be bitnami-redis");
-  check(String(installer.metadata?.version) === "25.5.3", "package metadata.version must be 25.5.3");
+  check(String(installer.metadata?.version) === chartVersion, `package metadata.version must be ${chartVersion}`);
   check(installer.spec?.collector?.command === "/bin/sh", "package must declare the Redis target-facts collector");
   check(
     JSON.stringify(installer.spec?.collector?.args ?? []) === JSON.stringify(["collector/target-facts.sh"]),
@@ -122,8 +131,8 @@ function verifyPackage() {
   const tempRoot = mkdtempSync(join(tmpdir(), "redis-installer-package-verify-"));
   let ok = false;
   try {
-    const firstPackage = join(tempRoot, "bitnami-redis-25.5.3-a.tgz");
-    const secondPackage = join(tempRoot, "bitnami-redis-25.5.3-b.tgz");
+    const firstPackage = join(tempRoot, `bitnami-redis-${chartVersion}-a.tgz`);
+    const secondPackage = join(tempRoot, `bitnami-redis-${chartVersion}-b.tgz`);
     runCub(["installer", "package", packageRoot, "-o", firstPackage]);
     runCub(["installer", "package", packageRoot, "-o", secondPackage]);
     const firstSHA = sha256File(firstPackage);

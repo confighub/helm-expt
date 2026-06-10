@@ -83,7 +83,8 @@ function verify() {
   check(readFileSync(outputSummaryPath, "utf8") === summaryText, `${relativeRepo(outputSummaryPath)} is stale`);
   check(readFileSync(workOrdersCsvPath, "utf8") === workOrdersCsvText, `${relativeRepo(workOrdersCsvPath)} is stale`);
   check(readFileSync(workOrdersSummaryPath, "utf8") === workOrdersSummaryText, `${relativeRepo(workOrdersSummaryPath)} is stale`);
-  check(rows.length === 6, `expected 6 latest-version candidates; found ${rows.length}`);
+  const candidateStatusRows = parseCsv(readFileSync(candidateStatusPath, "utf8"));
+  check(rows.length === candidateStatusRows.length, `expected ${candidateStatusRows.length} latest-version candidates; found ${rows.length}`);
   check(workOrders.length === rows.length * 8, `expected ${rows.length * 8} work-order rows; found ${workOrders.length}`);
   const complete = rows.filter((row) => row.candidate_artifacts === "complete").length;
   const rootPathPresent = rows.filter((row) => row.catalog_promotion === "root-path-present").length;
@@ -451,6 +452,7 @@ function primaryLatestCandidateBase(row) {
     ["bitnami/mongodb", "generated-passwords"],
     ["bitnami/nginx", "http-clusterip"],
     ["bitnami/postgresql", "generated-passwords"],
+    ["bitnami/redis", "default"],
     ["prometheus-community/kube-prometheus-stack", "default"],
     ["prometheus-community/prometheus", "server-only-ephemeral"],
   ]);

@@ -1,0 +1,29 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ScanReceipt
+metadata:
+  name: bitnami-redis-default-r001
+spec:
+  variantRevision: ../variant-revision.yaml
+  renderedObjectSetSHA256: "b0138df792ca1ed660caf0b13e3d4ab5ba3ed09b81211a60eca3f919f8e9cd7b"
+  result: warn
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.1.0"
+  policyBundleDigest: "47cf09c23cef94058ab9ac9b4dfed4b825fba2d78732939422a33b8611138157"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 2
+    low: 0
+    info: 0
+  findings:
+    - id: "pdb-unhealthy-pod-eviction-policy:policy/v1|PodDisruptionBudget|redis|redis-master"
+      rule: "pdb-unhealthy-pod-eviction-policy"
+      severity: "medium"
+      object: "policy/v1|PodDisruptionBudget|redis|redis-master"
+      message: "PodDisruptionBudget does not set unhealthyPodEvictionPolicy"
+    - id: "pdb-unhealthy-pod-eviction-policy:policy/v1|PodDisruptionBudget|redis|redis-replicas"
+      rule: "pdb-unhealthy-pod-eviction-policy"
+      severity: "medium"
+      object: "policy/v1|PodDisruptionBudget|redis|redis-replicas"
+      message: "PodDisruptionBudget does not set unhealthyPodEvictionPolicy"

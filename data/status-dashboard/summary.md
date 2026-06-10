@@ -122,7 +122,8 @@ considered.
 | --- | ---: | --- |
 | Write replacement decisions | 3 | Review the latest-aligned candidate against the supported version and record a target-scoped replacement decision. |
 | Refresh superseded retained candidates | 3 | Regenerate candidate proof/package roots for the newer upstream version, then rerun the refresh surfaces. |
-| Create missing retained candidates | 1 | Make the needed generator support version/output overrides, then create the missing candidate proof. |
+| Create missing retained candidates | 0 | Make the needed generator support version/output overrides, then create the missing candidate proof. |
+| Promote render candidates and complete live lanes | 1 | Promote the candidate root paths, then run ConfigHub proof, local live, and live parity lanes before replacement. |
 
 ### Live Parity Work
 

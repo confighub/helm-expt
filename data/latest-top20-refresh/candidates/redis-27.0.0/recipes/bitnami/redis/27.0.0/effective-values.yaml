@@ -1,0 +1,23 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: EffectiveValues
+metadata:
+  name: bitnami-redis-27.0.0-default
+spec:
+  files:
+    - path: effective-values.yaml
+      source: inline-proof
+      sha256: "bf6827da91d89c34a366338b2548bec5be4ccabb5387e2a61270227f576e2e99"
+  mergedValuesCaptured: false
+  values:
+    image:
+      digest: sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25
+    auth:
+      password: "confighub-redis-password"
+  provenance:
+    - path: auth.password
+      source: generated-fact-receipt
+      receipt: revisions/default/r001/receipts/generated-fact-receipt.yaml
+      digest: "sha256:6486a1dce90d013579f3b52d6939524b23b3ca00c5702e409348e6c0ba782349"
+    - path: image.digest
+      source: catalog-policy
+      digest: "sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25"

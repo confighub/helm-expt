@@ -7,15 +7,75 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, "..");
-const proofRoot = join(repoRoot, "recipes", "bitnami", "redis", "25.5.3");
 const chartRef = "oci://registry-1.docker.io/bitnamicharts/redis";
-const chartVersion = "25.5.3";
-const chartAppVersion = "8.6.3";
-const chartArchiveSHA256 = "aa5360967bc1adadf69f0ce91d762f0bb4d80ca36758b37d7d8f1ef981257baf";
-const redisImageDigest = "sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25";
+const defaultChartVersion = "25.5.3";
+const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? defaultChartVersion;
+const outputRoot = process.env.HELM_EXPT_PROOF_OUTPUT_ROOT
+  ? resolve(repoRoot, process.env.HELM_EXPT_PROOF_OUTPUT_ROOT)
+  : repoRoot;
+const proofRoot = process.env.HELM_EXPT_PROOF_OUTPUT_ROOT
+  ? join(outputRoot, "recipes", "bitnami", "redis", chartVersion)
+  : join(repoRoot, "recipes", "bitnami", "redis", chartVersion);
+const chartMetadata = chartVersion === defaultChartVersion
+  ? {
+      appVersion: "8.6.3",
+      chartArchiveSHA256: "aa5360967bc1adadf69f0ce91d762f0bb4d80ca36758b37d7d8f1ef981257baf",
+      commonDependencyVersion: "2.39.0",
+    }
+  : resolveChartMetadata(chartVersion);
+const chartAppVersion = process.env.HELM_EXPT_CHART_APP_VERSION ?? chartMetadata.appVersion;
+const chartArchiveSHA256 = process.env.HELM_EXPT_CHART_ARCHIVE_SHA256 ?? chartMetadata.chartArchiveSHA256;
+const commonDependencyVersion = process.env.HELM_EXPT_COMMON_DEPENDENCY_VERSION ?? chartMetadata.commonDependencyVersion;
+const redisImageDigest = process.env.HELM_EXPT_REDIS_IMAGE_DIGEST ?? "sha256:6e7a020f1f6504698a7272c58783bdc2c23588c49febbae5aca1bb8dfa10af25";
 const releaseName = "redis";
 const namespace = "redis";
 const kubeVersion = "1.30.0";
+
+function resolveChartMetadata(version) {
+  const chartText = execFileSync("helm", ["show", "chart", chartRef, "--version", version], {
+    cwd: repoRoot,
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "inherit"],
+    maxBuffer: 1024 * 1024 * 10,
+  });
+  return {
+    appVersion: scalarField(chartText, "appVersion"),
+    chartArchiveSHA256: chartArchiveSHA256For(version),
+    commonDependencyVersion: parseCommonDependencyVersion(chartText),
+  };
+}
+
+function chartArchiveSHA256For(version) {
+  const tempRoot = mkdtempSync(join(tmpdir(), "helm-expt-redis-chart-"));
+  try {
+    execFileSync("helm", ["pull", chartRef, "--version", version, "-d", tempRoot], {
+      cwd: repoRoot,
+      stdio: ["ignore", "pipe", "inherit"],
+      maxBuffer: 1024 * 1024 * 10,
+    });
+    return sha256File(join(tempRoot, `redis-${version}.tgz`));
+  } finally {
+    rmSync(tempRoot, { recursive: true, force: true });
+  }
+}
+
+function scalarField(text, name) {
+  const match = text.match(new RegExp(`^${name}:\\s*"?([^"\\n]+)"?\\s*$`, "m"));
+  if (!match) throw new Error(`could not parse ${name} from helm show chart`);
+  return match[1].trim();
+}
+
+function parseCommonDependencyVersion(chartText) {
+  const lines = chartText.split(/\r?\n/);
+  const start = lines.findIndex((line) => line.trim() === "- name: common");
+  if (start === -1) throw new Error("could not find common dependency in helm show chart");
+  for (const line of lines.slice(start + 1)) {
+    if (line.startsWith("- name:")) break;
+    const match = line.match(/^\s+version:\s*"?([^"\n]+)"?\s*$/);
+    if (match) return match[1].trim();
+  }
+  throw new Error("could not parse common dependency version in helm show chart");
+}
 
 function revisionRootFor(variantName) {
   return join(proofRoot, "revisions", variantName, "r001");
@@ -326,7 +386,7 @@ function objectInventoryYaml(variantName, objects, releaseDigest) {
   return `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: RenderedObjectInventory
 metadata:
-  name: bitnami-redis-25.5.3-${variantName}-r001
+  name: bitnami-redis-${chartVersion}-${variantName}-r001
 spec:
   source: rendered/release-objects.yaml
   sourceSHA256: ${yamlQuote(releaseDigest)}
@@ -409,14 +469,14 @@ auth:
   const sourceLock = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: SourceLock
 metadata:
-  name: bitnami-redis-25.5.3
+  name: bitnami-redis-${chartVersion}
 spec:
   sourceType: HelmChart
   repositoryName: bitnami
   repositoryURL: https://charts.bitnami.com/bitnami
-  contentURL: oci://registry-1.docker.io/bitnamicharts/redis:25.5.3
+  contentURL: oci://registry-1.docker.io/bitnamicharts/redis:${chartVersion}
   chart: redis
-  version: 25.5.3
+  version: ${chartVersion}
   appVersion: ${yamlQuote(chartAppVersion)}
   archiveSHA256: ${yamlQuote(chartArchiveSHA256)}
   artifactHubDigest: ${yamlQuote(chartArchiveSHA256)}
@@ -428,13 +488,13 @@ spec:
   const dependencyLock = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: DependencyLock
 metadata:
-  name: bitnami-redis-25.5.3
+  name: bitnami-redis-${chartVersion}
 spec:
   chart: bitnami/redis
-  version: 25.5.3
+  version: ${chartVersion}
   dependencies:
     - name: common
-      version: "2.39.0"
+      version: "${commonDependencyVersion}"
       repository: oci://registry-1.docker.io/bitnamicharts
       type: library
 `;
@@ -443,7 +503,7 @@ spec:
   const valueModel = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ValueModel
 metadata:
-  name: bitnami-redis-25.5.3
+  name: bitnami-redis-${chartVersion}
 spec:
   checkedValues:
     - path: auth.password
@@ -473,7 +533,7 @@ spec:
   const controlPoints = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ControlPoints
 metadata:
-  name: bitnami-redis-25.5.3
+  name: bitnami-redis-${chartVersion}
 spec:
   points:
     - category: source-lock
@@ -517,20 +577,20 @@ spec:
 kind: Recipe
 metadata:
   name: bitnami-redis
-  version: 25.5.3
+  version: ${chartVersion}
 spec:
   chartRef:
     sourceLock: source-lock.yaml
     dependencyLock: dependency-lock.yaml
   importMode: render-and-vendor
   currentExecutableFixture:
-    installerPackage: ../../../../packages/bitnami/redis/25.5.3
+    installerPackage: ../../../../packages/bitnami/redis/${chartVersion}
     setupCommand:
       - cub
       - installer
       - setup
       - --pull
-      - ../../../../packages/bitnami/redis/25.5.3
+      - ../../../../packages/bitnami/redis/${chartVersion}
       - --non-interactive
       - --namespace
       - redis
@@ -582,7 +642,7 @@ ${variants.map((variant) => `    - variants/${variant.name}/variant.yaml`).join(
     const effectiveValues = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: EffectiveValues
 metadata:
-  name: bitnami-redis-25.5.3-${variant.name}
+  name: bitnami-redis-${chartVersion}-${variant.name}
 spec:
   files:
     - path: ${variant.effectiveValuesFile}
@@ -875,10 +935,10 @@ spec:
   const valuesDiagnostics = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ValuesDiagnostics
 metadata:
-  name: bitnami-redis-25.5.3
+  name: bitnami-redis-${chartVersion}
 spec:
   chart: bitnami/redis
-  version: 25.5.3
+  version: ${chartVersion}
   valueModel: value-model.yaml
   variants:
     - default
@@ -915,10 +975,10 @@ spec:
   const valueSourceMap = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ValueSourceMap
 metadata:
-  name: bitnami-redis-25.5.3
+  name: bitnami-redis-${chartVersion}
 spec:
   chart: bitnami/redis
-  version: 25.5.3
+  version: ${chartVersion}
   entries:
     - id: replica-count
       valuePath: replica.replicaCount
@@ -1012,8 +1072,8 @@ metadata:
 spec:
   scope: variant-transition
   chartVersions:
-    from: 25.5.3
-    to: 25.5.3
+    from: ${chartVersion}
+    to: ${chartVersion}
   fromRevision: ../../revisions/default/r001/variant-revision.yaml
   toRevision: ../../revisions/reuse-existing-secret/r001/variant-revision.yaml
   fromRenderedObjectSetSHA256: ${yamlQuote(defaultSummary.releaseDigest)}
@@ -1043,8 +1103,8 @@ metadata:
 spec:
   scope: variant-transition-rollback
   chartVersions:
-    from: 25.5.3
-    to: 25.5.3
+    from: ${chartVersion}
+    to: ${chartVersion}
   fromRevision: ../../revisions/reuse-existing-secret/r001/variant-revision.yaml
   toRevision: ../../revisions/default/r001/variant-revision.yaml
   fromRenderedObjectSetSHA256: ${yamlQuote(reuseSummary.releaseDigest)}
@@ -1070,12 +1130,12 @@ spec:
   const helmPlan = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: HelmPlan
 metadata:
-  name: bitnami-redis-25.5.3
+  name: bitnami-redis-${chartVersion}
 spec:
   readiness:
     status: usable-with-controls
     chart: bitnami/redis
-    version: 25.5.3
+    version: ${chartVersion}
     variants:
 ${summaries.map((summary) => `      - ${summary.name}`).join("\n")}
     helmObjectsByVariant:
@@ -1137,13 +1197,13 @@ spec:
 `;
   write(join(proofRoot, "chart-dossier.yaml"), chartDossier);
 
-  const readme = `# Redis Proof: bitnami/redis 25.5.3
+  const readme = `# Redis Proof: bitnami/redis ${chartVersion}
 
 ## Readiness Card
 
 | Field | Result |
 | --- | --- |
-| Chart | bitnami/redis 25.5.3 |
+| Chart | bitnami/redis ${chartVersion} |
 | Variants | default, reuse-existing-secret |
 | Status | usable with controls |
 | Helm objects | default: 14; reuse-existing-secret: 13 |
@@ -1166,7 +1226,7 @@ npm run redis:verify-proof
 
 This proof renders Redis with regular Helm under pinned inputs, stores the
 recipe/variant/revision proof artifacts under this directory, and verifies the
-current \`packages/bitnami/redis/25.5.3\` cub installer package against that
+current \`packages/bitnami/redis/${chartVersion}\` cub installer package against that
 regular Helm output.
 `;
   write(join(proofRoot, "README.md"), readme);
@@ -1174,18 +1234,18 @@ regular Helm output.
   const installChecks = `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: InstallChecks
 metadata:
-  name: bitnami-redis-25.5.3
+  name: bitnami-redis-${chartVersion}
 spec:
-  chart: bitnami/redis/25.5.3
+  chart: bitnami/redis/${chartVersion}
   canonicalNamespace: redis
   releaseName: redis
   receiptRoot: .tmp/verify-install
   variants:
     - name: default
       base: default
-      variantRevision: recipes/bitnami/redis/25.5.3/revisions/default/r001/variant-revision.yaml
-      renderedObjects: recipes/bitnami/redis/25.5.3/revisions/default/r001/rendered/release-objects.yaml
-      helmEquivalenceReceipt: recipes/bitnami/redis/25.5.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
+      variantRevision: recipes/bitnami/redis/${chartVersion}/revisions/default/r001/variant-revision.yaml
+      renderedObjects: recipes/bitnami/redis/${chartVersion}/revisions/default/r001/rendered/release-objects.yaml
+      helmEquivalenceReceipt: recipes/bitnami/redis/${chartVersion}/revisions/default/r001/receipts/helm-equivalence-receipt.yaml
       expected:
         helmObjects: 14
         cubInstallObjectsIncludingSupport: 15
@@ -1216,13 +1276,13 @@ spec:
         requiredLabels:
           Component: Redis
           HelmChart: bitnami-redis
-          HelmChartVersion: "25.5.3"
+          HelmChartVersion: "${chartVersion}"
           Variant: default
     - name: reuse-existing-secret
       base: reuse-existing-secret
-      variantRevision: recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/variant-revision.yaml
-      renderedObjects: recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml
-      helmEquivalenceReceipt: recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/receipts/helm-equivalence-receipt.yaml
+      variantRevision: recipes/bitnami/redis/${chartVersion}/revisions/reuse-existing-secret/r001/variant-revision.yaml
+      renderedObjects: recipes/bitnami/redis/${chartVersion}/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml
+      helmEquivalenceReceipt: recipes/bitnami/redis/${chartVersion}/revisions/reuse-existing-secret/r001/receipts/helm-equivalence-receipt.yaml
       targetFacts:
         requiredSecrets:
           - namespace: redis
@@ -1264,7 +1324,7 @@ spec:
         requiredLabels:
           Component: Redis
           HelmChart: bitnami-redis
-          HelmChartVersion: "25.5.3"
+          HelmChartVersion: "${chartVersion}"
           Variant: reuse-existing-secret
 `;
   write(join(proofRoot, "install-checks.yaml"), installChecks);
