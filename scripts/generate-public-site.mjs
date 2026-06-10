@@ -22,6 +22,7 @@ const activeProofQueuePath = join(repoRoot, "data", "status-dashboard", "active-
 const baseReadinessPath = join(repoRoot, "data", "top20-base-readiness", "base-readiness.csv");
 const extensionSlotsPath = join(repoRoot, "data", "extension-slots", "extension-slots.csv");
 const top100ReadinessPath = join(repoRoot, "data", "top100-readiness", "readiness.csv");
+const top100UserReadinessPath = join(repoRoot, "data", "top100-user-readiness", "readiness.csv");
 const top100CoverageWorkQueuePath = join(repoRoot, "data", "top100-coverage", "work-queue.csv");
 const top100PromotionWavePath = join(repoRoot, "data", "top100-promotion-wave", "wave.csv");
 const refreshSurvivalPath = join(repoRoot, "data", "refresh-survival", "refreshes.csv");
@@ -75,6 +76,7 @@ function buildSite() {
   const baseReadiness = parseCsv(readFileSync(baseReadinessPath, "utf8"));
   const extensionSlots = parseCsv(readFileSync(extensionSlotsPath, "utf8"));
   const top100Readiness = parseCsv(readFileSync(top100ReadinessPath, "utf8"));
+  const top100UserReadiness = parseCsv(readFileSync(top100UserReadinessPath, "utf8"));
   const top100CoverageWorkQueue = parseCsv(readFileSync(top100CoverageWorkQueuePath, "utf8"));
   const top100CoverageQueueCounts = countBy(top100CoverageWorkQueue, "queue");
   const top100PromotionWave = parseCsv(readFileSync(top100PromotionWavePath, "utf8"));
@@ -141,6 +143,7 @@ function buildSite() {
       baseReadiness: "data/top20-base-readiness/base-readiness.csv",
       extensionSlots: "data/extension-slots/extension-slots.csv",
       top100Readiness: "data/top100-readiness/readiness.csv",
+      top100UserReadiness: "data/top100-user-readiness/readiness.csv",
       top100CoverageWorkQueue: "data/top100-coverage/work-queue.csv",
       top100PromotionWave: "data/top100-promotion-wave/wave.csv",
       refreshSurvival: "data/refresh-survival/refreshes.csv",
@@ -199,6 +202,7 @@ function buildSite() {
     extensionSlots,
     refreshSurvival,
     top100Readiness: top100ReadinessWithSupport,
+    top100UserReadiness,
     liveParityRerunPlan,
     productionDisposition,
     productionSupportDecisions,
@@ -271,14 +275,15 @@ function html(catalog) {
   const top20ExtensionRows = catalog.extensionSlots
     .filter((row) => row.catalog_scope === "top20-catalog")
     .map((row) => [row.chart, row.surfaces, row.current_route]);
-  const top100WorkabilityCounts = countBy(catalog.top100Readiness, "workability");
-  const top100WorkabilityRows = [
-    ["try-now-public-catalog", "Try now from the public catalog; check exact base and proof lane before making a stronger claim."],
-    ["works-as-proof-needs-catalog-review", "Works as a maintained proof; needs catalog review and selected live lanes before promotion."],
-    ["not-yet-a-good-catalog-offer", "Default render proves the mechanism; add a realistic user-shaped base before presenting it as an offer."],
-    ["decision-needed-before-promotion", "A limitation such as existing-secret, HA, or CRD routing needs a support, disclosure, or defer decision."],
-  ].map(([workability, meaning]) => [workability, top100WorkabilityCounts[workability] ?? 0, meaning]);
+  const top100UserReadinessCounts = countBy(catalog.top100UserReadiness, "bucket");
   const top100HardGapRows = hardGapRowsByBucket(catalog.top100Readiness);
+  const top100UserReadinessRows = [
+    ["ready-to-try", "Catalog-supported with a reviewed first base and live evidence."],
+    ["works-with-target-prerequisites", "Works once the target provides a named prerequisite such as a Secret, StorageClass, or CRD ownership choice."],
+    ["works-with-operator-review", "Render proof exists, but an operator should review the named lifecycle, hook, HA, or shape concern before relying on it."],
+    ["needs-better-base-variant", "The mechanism is proven, but the useful install shape has not been built and reviewed yet."],
+    ["not-ready-yet", "A named limitation needs a support, disclose, defer, or block decision before this catalog should vouch for it."],
+  ].map(([bucket, meaning]) => [bucket, top100UserReadinessCounts[bucket] ?? 0, meaning]);
   const top100QueueRows = [
     ["Promotion review", "promote-after-review"],
     ["Needs useful variant", "needs-useful-variant"],
@@ -524,19 +529,20 @@ function html(catalog) {
 
     <section aria-labelledby="top100-readiness">
       <h2 id="top100-readiness">Top-100 Readiness</h2>
-      <p>The top-100 corpus is not one claim. It separates charts to try now, proof rows that need catalog review, charts that need better user-shaped bases, and charts that need a limitation decision before promotion.</p>
+      <p>The top-100 corpus is not one claim. It separates charts a Helm user can try now from charts that need target prerequisites, operator review, better base variants, or limitation decisions.</p>
       <div class="grid">
         <div class="metric"><strong>${escapeHtml(catalog.summary.top100ChartsWithLiveEvidence)}/100</strong><span>Charts with live evidence</span></div>
-        <div class="metric"><strong>${escapeHtml(top100WorkabilityCounts["try-now-public-catalog"] ?? 0)}/100</strong><span>Try now</span></div>
-        <div class="metric"><strong>${escapeHtml(top100WorkabilityCounts["works-as-proof-needs-catalog-review"] ?? 0)}/100</strong><span>Proof, review next</span></div>
-        <div class="metric"><strong>${escapeHtml(top100WorkabilityCounts["not-yet-a-good-catalog-offer"] ?? 0)}/100</strong><span>Need useful variants</span></div>
+        <div class="metric"><strong>${escapeHtml(top100UserReadinessCounts["ready-to-try"] ?? 0)}/100</strong><span>Ready to try</span></div>
+        <div class="metric"><strong>${escapeHtml(top100UserReadinessCounts["works-with-target-prerequisites"] ?? 0)}/100</strong><span>Need target input</span></div>
+        <div class="metric"><strong>${escapeHtml(top100UserReadinessCounts["works-with-operator-review"] ?? 0)}/100</strong><span>Need operator review</span></div>
+        <div class="metric"><strong>${escapeHtml(top100UserReadinessCounts["needs-better-base-variant"] ?? 0)}/100</strong><span>Need useful variants</span></div>
         <div class="metric"><strong>${escapeHtml(catalog.summary.top100CoveragePromotionQueue)}/80</strong><span>Strict promotion queue</span></div>
         <div class="metric"><strong>${escapeHtml(catalog.summary.top100PromotionWaveRows)}</strong><span>First strict promotion wave</span></div>
-        <div class="metric"><strong>${escapeHtml(catalog.summary.top100CoverageDecisionQueue)}/80</strong><span>Decision rows</span></div>
+        <div class="metric"><strong>${escapeHtml(top100UserReadinessCounts["not-ready-yet"] ?? 0)}/100</strong><span>Not ready yet</span></div>
       </div>
       ${markdownLikeTable([
-        ["Workability", "Charts", "Meaning"],
-        ...top100WorkabilityRows,
+        ["User-readiness group", "Charts", "Meaning"],
+        ...top100UserReadinessRows,
       ])}
       <p>Hard gaps are capability warnings, not automatic chart failures. Read them with the adoption bucket.</p>
       ${markdownLikeTable([
@@ -547,7 +553,7 @@ function html(catalog) {
         ["Queue", "First rows"],
         ...top100QueueRows,
       ])}
-      <p><a href="../data/top100-readiness/summary.md">Open the full top-100 readiness report</a>, <a href="../data/top100-coverage/work-queue.md">open the strict coverage work queue</a>, <a href="../data/top100-promotion-wave/summary.md">open the first strict promotion wave</a>, or <a href="../data/top100-coverage/decisions-needed.md">open the limitation decision memos</a>.</p>
+      <p><a href="../docs/user/top100-status.md">Open the plain-English top-100 status</a>, <a href="../data/top100-user-readiness/summary.md">open the user-readiness table</a>, <a href="../data/top100-coverage/work-queue.md">open the strict coverage work queue</a>, <a href="../data/top100-promotion-wave/summary.md">open the first strict promotion wave</a>, or <a href="../data/top100-coverage/decisions-needed.md">open the limitation decision memos</a>.</p>
     </section>
 
     <section aria-labelledby="top500-evidence">
@@ -662,6 +668,8 @@ function html(catalog) {
         <li><a href="../data/scan-disposition-workdown/summary.md">Scan disposition workdown</a></li>
         <li><a href="../data/next-ten-waves/summary.md">Next-ten execution waves</a></li>
         <li><a href="../data/top20-base-readiness/summary.md">Top-20 base readiness</a></li>
+        <li><a href="../docs/user/top100-status.md">Plain-English top-100 status</a></li>
+        <li><a href="../data/top100-user-readiness/summary.md">Top-100 user readiness</a></li>
         <li><a href="../data/extension-slots/summary.md">Extension slot coverage</a></li>
         <li><a href="../data/lifecycle-observations/cert-manager-eso/summary.md">Cert-manager and External Secrets lifecycle observations</a></li>
       </ul>
@@ -677,7 +685,7 @@ function html(catalog) {
 
 function offeringHtml(catalog) {
   const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
-  const top100WorkabilityCounts = countBy(catalog.top100Readiness, "workability");
+  const top100UserReadinessCounts = countBy(catalog.top100UserReadiness, "bucket");
   const publicCounters = [
     ["Catalog charts", `${catalog.summary.catalogSupported}/20`],
     ["Recipe proofs", metricValue(metric("charts with model support"))],
@@ -826,11 +834,13 @@ function offeringHtml(catalog) {
       <p>Top-100 readiness is also separated by usefulness:</p>
       ${markdownLikeTable([
         ["Bucket", "Charts", "Meaning"],
-        ["try-now-public-catalog", top100WorkabilityCounts["try-now-public-catalog"] ?? 0, "Public catalog chart with a supported first path."],
-        ["works-as-proof-needs-catalog-review", top100WorkabilityCounts["works-as-proof-needs-catalog-review"] ?? 0, "Recipe proof exists; needs catalog review before being presented as a user offer."],
-        ["not-yet-a-good-catalog-offer", top100WorkabilityCounts["not-yet-a-good-catalog-offer"] ?? 0, "Mechanism is proven, but useful variants still need product work."],
-        ["decision-needed-before-promotion", top100WorkabilityCounts["decision-needed-before-promotion"] ?? 0, "A limitation must be supported, disclosed, or deferred."],
+        ["ready-to-try", top100UserReadinessCounts["ready-to-try"] ?? 0, "Catalog-supported with a reviewed first base and live evidence."],
+        ["works-with-target-prerequisites", top100UserReadinessCounts["works-with-target-prerequisites"] ?? 0, "Works once the target provides the named prerequisite."],
+        ["works-with-operator-review", top100UserReadinessCounts["works-with-operator-review"] ?? 0, "Render proof exists, but an operator should review the named concern first."],
+        ["needs-better-base-variant", top100UserReadinessCounts["needs-better-base-variant"] ?? 0, "The useful install shape has not been built and reviewed yet."],
+        ["not-ready-yet", top100UserReadinessCounts["not-ready-yet"] ?? 0, "A limitation needs a support, disclose, defer, or block decision."],
       ])}
+      <p><a href="../docs/user/top100-status.md">Open the plain-English top-100 status</a> or <a href="../data/top100-user-readiness/summary.md">open the generated user-readiness table</a>.</p>
     </section>
 
     <section aria-labelledby="honesty">
@@ -1366,6 +1376,7 @@ Data source:
 - \`data/top20-base-readiness/base-readiness.csv\`
 - \`data/extension-slots/extension-slots.csv\`
 - \`data/top100-readiness/readiness.csv\`
+- \`data/top100-user-readiness/readiness.csv\`
 - \`data/top100-coverage/work-queue.csv\`
 - \`data/top100-promotion-wave/wave.csv\`
 - \`data/refresh-survival/refreshes.csv\`

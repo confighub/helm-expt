@@ -26,6 +26,7 @@ Data source:
 - `data/top20-base-readiness/base-readiness.csv`
 - `data/extension-slots/extension-slots.csv`
 - `data/top100-readiness/readiness.csv`
+- `data/top100-user-readiness/readiness.csv`
 - `data/top100-coverage/work-queue.csv`
 - `data/top100-promotion-wave/wave.csv`
 - `data/refresh-survival/refreshes.csv`

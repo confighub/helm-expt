@@ -263,19 +263,20 @@
 
     <section aria-labelledby="top100-readiness">
       <h2 id="top100-readiness">Top-100 Readiness</h2>
-      <p>The top-100 corpus is not one claim. It separates charts to try now, proof rows that need catalog review, charts that need better user-shaped bases, and charts that need a limitation decision before promotion.</p>
+      <p>The top-100 corpus is not one claim. It separates charts a Helm user can try now from charts that need target prerequisites, operator review, better base variants, or limitation decisions.</p>
       <div class="grid">
         <div class="metric"><strong>28/100</strong><span>Charts with live evidence</span></div>
-        <div class="metric"><strong>20/100</strong><span>Try now</span></div>
-        <div class="metric"><strong>27/100</strong><span>Proof, review next</span></div>
+        <div class="metric"><strong>20/100</strong><span>Ready to try</span></div>
+        <div class="metric"><strong>13/100</strong><span>Need target input</span></div>
+        <div class="metric"><strong>14/100</strong><span>Need operator review</span></div>
         <div class="metric"><strong>46/100</strong><span>Need useful variants</span></div>
         <div class="metric"><strong>27/80</strong><span>Strict promotion queue</span></div>
         <div class="metric"><strong>8</strong><span>First strict promotion wave</span></div>
-        <div class="metric"><strong>7/80</strong><span>Decision rows</span></div>
+        <div class="metric"><strong>7/100</strong><span>Not ready yet</span></div>
       </div>
       <div class="card"><table>
-        <thead><tr><th>Workability</th><th>Charts</th><th>Meaning</th></tr></thead>
-        <tbody><tr><td>try-now-public-catalog</td><td>20</td><td>Try now from the public catalog; check exact base and proof lane before making a stronger claim.</td></tr><tr><td>works-as-proof-needs-catalog-review</td><td>27</td><td>Works as a maintained proof; needs catalog review and selected live lanes before promotion.</td></tr><tr><td>not-yet-a-good-catalog-offer</td><td>46</td><td>Default render proves the mechanism; add a realistic user-shaped base before presenting it as an offer.</td></tr><tr><td>decision-needed-before-promotion</td><td>7</td><td>A limitation such as existing-secret, HA, or CRD routing needs a support, disclosure, or defer decision.</td></tr></tbody>
+        <thead><tr><th>User-readiness group</th><th>Charts</th><th>Meaning</th></tr></thead>
+        <tbody><tr><td>ready-to-try</td><td>20</td><td>Catalog-supported with a reviewed first base and live evidence.</td></tr><tr><td>works-with-target-prerequisites</td><td>13</td><td>Works once the target provides a named prerequisite such as a Secret, StorageClass, or CRD ownership choice.</td></tr><tr><td>works-with-operator-review</td><td>14</td><td>Render proof exists, but an operator should review the named lifecycle, hook, HA, or shape concern before relying on it.</td></tr><tr><td>needs-better-base-variant</td><td>46</td><td>The mechanism is proven, but the useful install shape has not been built and reviewed yet.</td></tr><tr><td>not-ready-yet</td><td>7</td><td>A named limitation needs a support, disclose, defer, or block decision before this catalog should vouch for it.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -304,7 +305,7 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p><a href="../data/top100-readiness/summary.md">Open the full top-100 readiness report</a>, <a href="../data/top100-coverage/work-queue.md">open the strict coverage work queue</a>, <a href="../data/top100-promotion-wave/summary.md">open the first strict promotion wave</a>, or <a href="../data/top100-coverage/decisions-needed.md">open the limitation decision memos</a>.</p>
+      <p><a href="../docs/user/top100-status.md">Open the plain-English top-100 status</a>, <a href="../data/top100-user-readiness/summary.md">open the user-readiness table</a>, <a href="../data/top100-coverage/work-queue.md">open the strict coverage work queue</a>, <a href="../data/top100-promotion-wave/summary.md">open the first strict promotion wave</a>, or <a href="../data/top100-coverage/decisions-needed.md">open the limitation decision memos</a>.</p>
     </section>
 
     <section aria-labelledby="top500-evidence">
@@ -705,6 +706,8 @@
         <li><a href="../data/scan-disposition-workdown/summary.md">Scan disposition workdown</a></li>
         <li><a href="../data/next-ten-waves/summary.md">Next-ten execution waves</a></li>
         <li><a href="../data/top20-base-readiness/summary.md">Top-20 base readiness</a></li>
+        <li><a href="../docs/user/top100-status.md">Plain-English top-100 status</a></li>
+        <li><a href="../data/top100-user-readiness/summary.md">Top-100 user readiness</a></li>
         <li><a href="../data/extension-slots/summary.md">Extension slot coverage</a></li>
         <li><a href="../data/lifecycle-observations/cert-manager-eso/summary.md">Cert-manager and External Secrets lifecycle observations</a></li>
       </ul>
