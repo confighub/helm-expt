@@ -56,6 +56,14 @@ to try first:
 It gives one row per top-20 base variant with `start-here`,
 `try-with-proof`, prerequisite, runtime, or hook lifecycle status.
 
+The next80 queue is the shortest answer for which proof-grade non-catalog chart
+to promote, review, or improve next:
+
+[Next80 Action Queues](../../data/top100-readiness/next80-queues.md)
+
+It separates the next80 into promotion review, limitation review, and
+user-shaped variant work, with source features and artifact links.
+
 Production support is tracked separately from test evidence:
 
 [Production Disposition](../../data/production-disposition/summary.md)

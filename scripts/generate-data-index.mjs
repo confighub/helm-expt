@@ -55,7 +55,7 @@ function readme(rows) {
     ["I want to know which catalog base to try first.", "data/top20-base-readiness/start-here.md"],
     ["I want to know whether any top-20 chart/base is easy, partial, blocked, or watch.", "data/top20-base-readiness/summary.md"],
     ["I want one spreadsheet row per chart/base proof lane.", "data/outcome-coverage/base-outcomes.csv"],
-    ["I want the top-100 or top-500 planning picture.", "data/top100-readiness/summary.md; data/top500-catalog-analysis/review.csv"],
+    ["I want the top-100 or top-500 planning picture.", "data/top100-readiness/summary.md; data/top100-readiness/next80-queues.md; data/top500-catalog-analysis/review.csv"],
     ["I want live parity status.", "data/live-kind-parity/summary.md; data/live-helm-confighub-compare/summary.md"],
     ["I want hook, CRD, webhook, or lifecycle status.", "data/lifecycle-boundary/summary.md; data/outcome-coverage/feature-outcomes.csv"],
     ["I want extension-slot or custom-config risk.", "data/extension-slots/summary.md; data/nginx-config-checks/summary.md"],
@@ -94,6 +94,7 @@ function readme(rows) {
     ["data/image-digest-workdown/summary.md", "Image digest workdown: rendered image references that need digest resolution, image overrides, or explicit proof receipts before reproducible production OCI support."],
     ["data/pain-point-coverage/summary.md", "General Helm pain point coverage: current answers, handoffs, evidence, gaps, and next actions."],
     ["data/top100-readiness/summary.md", "Top-100 readiness: one chart-by-chart answer for workability, adoption bucket, strongest evidence, hard gap, next action, and first work queues."],
+    ["data/top100-readiness/next80-queues.md", "Next80 operating queue: proof-grade non-catalog charts split into promotion review, limitation review, and user-shaped variant work."],
     ["data/next-ten-waves/summary.md", "Compact next work queues: gap review, latest-version promotion, variant build, production disposition, and import prototypes."],
     ["data/attack-plan-workdown/summary.md", "Broader execution workdown: import examples, hard gaps, variants, production, runtime/GitOps, latest candidates, and image digests."],
     ["data/top500-catalog-analysis/review.csv", "Top-500 evidence map: retained source-scan rows joined to current recipe proof, catalog status, version drift, source features, and next action."],
@@ -267,6 +268,7 @@ function roleFor(path) {
   if (path === "data/outcome-coverage/feature-outcomes.csv") return "one row per chart feature or quirk";
   if (path === "data/pain-point-coverage/pain-points.csv") return "one row per Helm pain point: answer, handoff, evidence, gap";
   if (path === "data/top100-readiness/readiness.csv") return "one row per top-100 chart: workability, adoption bucket, strongest evidence, gap, next action, and queue source";
+  if (path === "data/top100-readiness/next80-queues.csv") return "one row per next80 proof-grade chart: queue, rank, features, artifacts, and next action";
   if (path === "data/edge-recovery/edges.csv") return "recovered desired-state graph fragments from recipe artifacts";
   if (path === "data/variant-path-coverage/coverage-matrix.csv") return "one row per chart/base/path proof status";
   if (path === "data/quirk-coverage/coverage.csv") return "one row per Helm quirk axis: coverage tier, evidence, remaining gap, next action";

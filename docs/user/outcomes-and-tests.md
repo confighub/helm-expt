@@ -48,6 +48,7 @@ For the shortest chart-by-chart top-100 answer, start with:
 | [image digest workdown](../../data/image-digest-workdown/summary.md) | Rendered image references that need digest resolution, image overrides, or explicit proof receipts before reproducible production OCI support. |
 | [pain-points.csv](../../data/pain-point-coverage/pain-points.csv) | One row per common Helm pain point. Shows current answer, handoff, evidence, remaining gap, and next action. |
 | [readiness.csv](../../data/top100-readiness/readiness.csv) | One row per top-100 chart. Shows workability, adoption bucket, current user status, strongest evidence, hard gap, and next action. |
+| [next80-queues.csv](../../data/top100-readiness/next80-queues.csv) | One row per next80 chart. Shows whether the chart needs promotion review, limitation review, or user-shaped variant work, with source features and artifact links. |
 | [next-ten waves](../../data/next-ten-waves/summary.md) | Compact next work queues for gap review, latest-version promotion, variant build, production disposition, and import prototypes. |
 | [attack-plan workdown](../../data/attack-plan-workdown/summary.md) | Broader workdown across import examples, hard gaps, variants, production, runtime/GitOps, latest candidates, and image digests. |
 | [top500 review.csv](../../data/top500-catalog-analysis/review.csv) | One row per retained source-scan chart. Shows source-scan status, current recipe/package proof status, catalog status, version drift, source features, and next action. |
@@ -131,14 +132,15 @@ render, recipe, package, or `npm run verify` path.
 11. Check [next-ten waves](../../data/next-ten-waves/summary.md) when the question is "what compact work queue should we pick from next?"
 12. Check [attack-plan workdown](../../data/attack-plan-workdown/summary.md) when the question is "what is the broader generated workdown?"
 13. Check the `workability` column in [readiness.csv](../../data/top100-readiness/readiness.csv) when the question is "can I use this chart now?"
-14. Check [top500 review.csv](../../data/top500-catalog-analysis/review.csv) when the question is how the retained top500 source scan maps to current proof.
-15. Filter [base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) by chart to see each base variant.
-16. Check [feature-outcomes.csv](../../data/outcome-coverage/feature-outcomes.csv) for hooks, CRDs, generated facts, target facts, and other chart-specific behavior.
-17. Check [pain-points.csv](../../data/pain-point-coverage/pain-points.csv) for the general Helm pain being addressed.
-18. Check [coverage-matrix.csv](../../data/variant-path-coverage/coverage-matrix.csv) when the question is about one base, diff, operation, or derived variant path.
-19. Check [derived-variant-outcomes.csv](../../data/outcome-coverage/derived-variant-outcomes.csv) when the question is about post-render ConfigHub variants.
-20. Check [cert-manager and External Secrets lifecycle observations](../../data/lifecycle-observations/cert-manager-eso/summary.md) when the question is about controller-owned fields or post-apply readiness.
-21. Run the scoped verifier for the table you opened, or `npm run verify` only when you need the full corpus gate.
+14. Check [next80 queues](../../data/top100-readiness/next80-queues.csv) when the question is "which proof-grade non-catalog chart should we promote, review, or improve next?"
+15. Check [top500 review.csv](../../data/top500-catalog-analysis/review.csv) when the question is how the retained top500 source scan maps to current proof.
+16. Filter [base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) by chart to see each base variant.
+17. Check [feature-outcomes.csv](../../data/outcome-coverage/feature-outcomes.csv) for hooks, CRDs, generated facts, target facts, and other chart-specific behavior.
+18. Check [pain-points.csv](../../data/pain-point-coverage/pain-points.csv) for the general Helm pain being addressed.
+19. Check [coverage-matrix.csv](../../data/variant-path-coverage/coverage-matrix.csv) when the question is about one base, diff, operation, or derived variant path.
+20. Check [derived-variant-outcomes.csv](../../data/outcome-coverage/derived-variant-outcomes.csv) when the question is about post-render ConfigHub variants.
+21. Check [cert-manager and External Secrets lifecycle observations](../../data/lifecycle-observations/cert-manager-eso/summary.md) when the question is about controller-owned fields or post-apply readiness.
+22. Run the scoped verifier for the table you opened, or `npm run verify` only when you need the full corpus gate.
 
 ## Narrow Claim Rule
 
