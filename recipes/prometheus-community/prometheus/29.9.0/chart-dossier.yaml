@@ -1,0 +1,22 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "prometheus-29.9.0"
+spec:
+  chart: "prometheus-community/prometheus"
+  version: "29.9.0"
+  maintainedNotes:
+    - "The chart renders deterministically under pinned Helm, chart version, kube version, and values."
+    - "The default variant installs Prometheus server, Alertmanager, kube-state-metrics, node-exporter, pushgateway, server PVC, services, and cluster RBAC."
+    - "The server-only-ephemeral variant disables bundled components and server persistence as deliberate variant-controlled outputs."
+    - "Scrape config, remote read/write, ingress, network policy, PDB, and extra-manifest slots are extension surfaces that must be explicit before production."
+    - "Bundled dependency ownership, storage/retention, workload rollout, and cluster RBAC are scan/gate review points."
+    - "StatefulSet and HA behavior become future variants, not hidden defaults."
+  knownControlPoints:
+    - "bundle-dependencies"
+    - "monitoring-workloads"
+    - "storage-retention"
+    - "scrape-config"
+    - "component-selection"
+    - "rbac-review"
+    - "extension-slots"

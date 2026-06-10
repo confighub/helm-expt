@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  name: "existing-tls-ingress-r001"
+spec:
+  variant: "../../../variants/existing-tls-ingress/variant.yaml"
+  revision: "r001"
+  digest: "0d48591ebe834d65713a6fd9a4377ab6c583148cd4ee41fe938d76d9809c4413"
+  digestInputs:
+    recipeSHA256: "d7a45e0ebfe9e1b6f079f60a676e82b641e3ece91d82109db8a781818b5cf7bf"
+    variantSHA256: "88f7bf90c6a360f1346699989ec0bd1419d78bf3c3aa1d7ced35d6351547a86f"
+    effectiveValuesSHA256: "15914b7fbd01ee3e97f2ceeeaa4d06225adc3dcbba4df97744d27ece5fefc014"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    renderedObjectSetSHA256: "35c8f535452c33518088a067f035d6249750b0a67245138feaf84d728c94588f"
+  rendered:
+    releaseObjects: "rendered/release-objects.yaml"
+    objectInventory: "rendered/object-inventory.yaml"
+    objectCount: 6

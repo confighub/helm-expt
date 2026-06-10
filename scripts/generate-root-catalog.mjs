@@ -26,9 +26,13 @@ if (mode === "--generate") {
 function buildMarkdown() {
   const readinessByKey = top20BaseReadinessByKey();
   const entries = artifactIndexes().map((indexPath) => buildEntry(indexPath, readinessByKey));
-  const byChart = new Map(entries.map((entry) => [entry.chart, entry]));
-  const liveTested = TOP20_CONFIGHUB_PROOF_CHARTS.map((chart) => byChart.get(chart.chart)).filter(Boolean);
-  const remaining = entries.filter((entry) => !liveTested.some((live) => live.chart === entry.chart));
+  const byChartVersion = new Map(entries.map((entry) => [`${entry.chart}@${entry.version}`, entry]));
+  const liveKeys = new Set(TOP20_CONFIGHUB_PROOF_CHARTS.map((chart) => `${chart.chart}@${chart.chartVersion}`));
+  const liveTested = TOP20_CONFIGHUB_PROOF_CHARTS.map((chart) =>
+    byChartVersion.get(`${chart.chart}@${chart.chartVersion}`),
+  ).filter(Boolean);
+  const remaining = entries.filter((entry) => !liveKeys.has(`${entry.chart}@${entry.version}`));
+  const fullIndexEntries = [...liveTested, ...remaining];
   const lines = [
     generatedNotice(),
     "",
@@ -99,14 +103,16 @@ function buildMarkdown() {
     "### Chart Details",
     "",
     ...liveTested.flatMap(chartSection),
-    "## Full 100-Chart Proof Index",
+    `## Full Proof Index (${fullIndexEntries.length} Entries)`,
     "",
-    "The rows below include the live-tested top 20 plus 80 proof-grade",
-    "recipe/package artifacts. `catalog-supported` means reviewed variants for",
-    "the declared scope. `proof-grade` means machine-verified artifacts that",
-    "still need catalog promotion review before support is claimed.",
+    "The rows below include the live-tested top 20, proof-grade recipe/package",
+    "artifacts, and any retained newer chart-version candidates. `catalog-supported`",
+    "means reviewed variants for the declared scope. `catalog-candidate` means",
+    "a newer or richer candidate is visible for review but is not the supported",
+    "catalog version. `proof-grade` means machine-verified artifacts that still",
+    "need catalog promotion review before support is claimed.",
     "",
-    summaryTable([...liveTested, ...remaining]),
+    summaryTable(fullIndexEntries),
     "",
   ];
   return lines.join("\n");

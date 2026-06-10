@@ -49,16 +49,35 @@ function buildReport() {
   const productionByChart = new Map(productionRows.map((row, index) => [row.chart, { ...row, top20_rank: index + 1 }]));
   const latestRows = parseCsv(readFileSync(latestRefreshPath, "utf8"));
   const latestByChart = new Map(latestRows.map((row) => [row.chart, row]));
-  const entries = artifactEntries({ top500ByChart, productionByChart, latestByChart });
+  const allEntries = artifactEntries({ top500ByChart, productionByChart, latestByChart });
+  const entries = primaryChartEntries(allEntries);
   check(entries.length === 100, `expected 100 top100 proof entries; found ${entries.length}`);
   const summary = summarize(entries);
+  summary.retainedCandidateVersions = allEntries.length - entries.length;
   return {
     entries,
+    retainedVersionEntries: allEntries.filter((entry) => !entries.some((primary) => primary.recipe_path === entry.recipe_path)),
     summary,
-    rawJson: `${JSON.stringify({ generatedBy: "scripts/generate-top100-catalog-analysis.mjs", summary, entries }, null, 2)}\n`,
+    rawJson: `${JSON.stringify({ generatedBy: "scripts/generate-top100-catalog-analysis.mjs", summary, entries, retainedVersionEntries: allEntries.filter((entry) => !entries.some((primary) => primary.recipe_path === entry.recipe_path)) }, null, 2)}\n`,
     reviewCsv: toCsv(entries, reviewHeaders()),
     summaryText: toSummary(summary, entries),
   };
+}
+
+function primaryChartEntries(entries) {
+  const byChart = new Map();
+  for (const entry of entries) {
+    if (!byChart.has(entry.chart)) byChart.set(entry.chart, []);
+    byChart.get(entry.chart).push(entry);
+  }
+  return [...byChart.values()]
+    .map((items) => {
+      const supported = items.find((entry) => entry.catalog_status === "catalog-supported");
+      if (supported) return supported;
+      return items.sort((left, right) => sortKey(left).localeCompare(sortKey(right)))[0];
+    })
+    .sort((left, right) => sortKey(left).localeCompare(sortKey(right)))
+    .map((entry, index) => ({ ...entry, proof_surface_rank: index + 1 }));
 }
 
 function artifactEntries({ top500ByChart, productionByChart, latestByChart }) {
@@ -158,6 +177,7 @@ top-500 = source-feature reconnaissance plus any matching recipe proof
 rows: ${summary.rows}
 top-20 catalog-supported entries: ${summary.top20CatalogSupported}
 next-80 proof-grade entries: ${summary.next80ProofGrade}
+retained newer candidate versions: ${summary.retainedCandidateVersions}
 catalog-supported: ${summary.catalogSupported}
 proof-grade: ${summary.proofGrade}
 multi-variant entries: ${summary.multiVariant}
@@ -181,6 +201,8 @@ hard gap for at least one recommended capability: ${summary.hardGap}
 - Latest-version currentness is tracked only for the top-20 catalog-supported
   lane at the moment. The broader top-100 currentness lane should wait until
   the current top-20 update candidates are promoted or explicitly deferred.
+- Retained newer candidate versions are visible elsewhere in the catalog, but
+  they are not counted as additional top-100 chart identities.
 
 ## Readiness Tiers
 

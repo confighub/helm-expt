@@ -1,0 +1,221 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "bitnami-nginx-24.0.4"
+  chart: "bitnami/nginx"
+  version: "24.0.4"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "bitnami/nginx"
+    version: "24.0.4"
+    appVersion: "1.31.1"
+    sourceLock: "recipes/bitnami/nginx/24.0.4/source-lock.yaml"
+    dependencyLock: "recipes/bitnami/nginx/24.0.4/dependency-lock.yaml"
+    repository: "https://charts.bitnami.com/bitnami"
+    packageSHA256: "6040ee8d0da1aa514388845941d85b78cd38908eb375b2c551fbefbd1f3397d9"
+  recipe:
+    path: "recipes/bitnami/nginx/24.0.4/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/bitnami/nginx/24.0.4/helm-plan.yaml"
+    chartDossier: "recipes/bitnami/nginx/24.0.4/chart-dossier.yaml"
+    controlPoints: "recipes/bitnami/nginx/24.0.4/control-points.yaml"
+    valueModel: "recipes/bitnami/nginx/24.0.4/value-model.yaml"
+    weirdnessAndMitigations: ""
+    controlPointCategories:
+      - "availability-policy"
+      - "capability-profile"
+      - "dependency-lock"
+      - "deployment-workload"
+      - "edge-ingress-policy"
+      - "extension-slots"
+      - "generated-facts"
+      - "installer-support-object"
+      - "network-policy"
+      - "source-lock"
+      - "target-facts"
+  catalogStatus:
+    path: "recipes/bitnami/nginx/24.0.4/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "http-clusterip"
+      - "existing-tls-ingress"
+    deferredVariants:
+      []
+  proofSummary:
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
+    proofLanes:
+      renderParity: ""
+      inConfigHub: ""
+      localLive: ""
+      gitopsLive: ""
+      liveParity: ""
+    featureSummary: ""
+    hardGap: ""
+    nextAction: ""
+  installerPackage:
+    path: "packages/bitnami/nginx/24.0.4"
+    installer: "packages/bitnami/nginx/24.0.4/installer.yaml"
+    receipt: "recipes/bitnami/nginx/24.0.4/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "5823922869c4cdb546dfc8dd76ce7a982df0e808a9afb03dbff6c2d98eb104f4"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "http-clusterip"
+        path: "packages/bitnami/nginx/24.0.4/bases/http-clusterip"
+        default: true
+        description: "nginx plain HTTP ClusterIP variant rendered from bitnami/nginx@24.0.4"
+      -
+        name: "existing-tls-ingress"
+        path: "packages/bitnami/nginx/24.0.4/bases/existing-tls-ingress"
+        default: false
+        description: "nginx existing TLS with ingress variant rendered from bitnami/nginx@24.0.4"
+  variants:
+    -
+      name: "http-clusterip"
+      variant: "recipes/bitnami/nginx/24.0.4/variants/http-clusterip/variant.yaml"
+      namespace: "nginx"
+      releaseName: "nginx"
+      valuesProfile: "recipes/bitnami/nginx/24.0.4/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "http-clusterip"
+        path: "packages/bitnami/nginx/24.0.4/bases/http-clusterip"
+        default: true
+        description: "nginx plain HTTP ClusterIP variant rendered from bitnami/nginx@24.0.4"
+      setupCheck:
+        command: "cub installer setup --pull packages/bitnami/nginx/24.0.4 --base http-clusterip --work-dir <tmp> --non-interactive --namespace nginx"
+        helmReleaseObjectCount: 5
+        cubInstallObjectCountIncludingSupport: 6
+        semanticObjectMatches: "5/5"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||nginx"
+      revisions:
+        -
+          name: "http-clusterip-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/nginx/24.0.4/revisions/http-clusterip/r001/variant-revision.yaml"
+          digest: "ceed118795a568537e296fc27e12feb418db550e4a2cb9d40b8625bf15afa334"
+          renderedObjectSetSHA256: "5c175126acf3b7abd9fce0c17791cfce7236eac8f51e9781d20814cad14b0bac"
+          renderedObjects: "recipes/bitnami/nginx/24.0.4/revisions/http-clusterip/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/nginx/24.0.4/revisions/http-clusterip/r001/rendered/object-inventory.yaml"
+          objectCount: 5
+          helmObjectCount: 5
+          cubInstallObjectCountIncludingSupport: 6
+          semanticObjectMatches: "5/5"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/nginx/24.0.4/revisions/http-clusterip/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "5c175126acf3b7abd9fce0c17791cfce7236eac8f51e9781d20814cad14b0bac"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/nginx/24.0.4/revisions/http-clusterip/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "5c175126acf3b7abd9fce0c17791cfce7236eac8f51e9781d20814cad14b0bac"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/nginx/24.0.4/revisions/http-clusterip/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "5c175126acf3b7abd9fce0c17791cfce7236eac8f51e9781d20814cad14b0bac"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/nginx/24.0.4/revisions/http-clusterip/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "5c175126acf3b7abd9fce0c17791cfce7236eac8f51e9781d20814cad14b0bac"
+    -
+      name: "existing-tls-ingress"
+      variant: "recipes/bitnami/nginx/24.0.4/variants/existing-tls-ingress/variant.yaml"
+      namespace: "nginx"
+      releaseName: "nginx"
+      valuesProfile: "recipes/bitnami/nginx/24.0.4/effective-values-existing-tls-ingress.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredSecrets:
+          -
+            keys:
+              - "tls.crt"
+              - "tls.key"
+              - "ca.crt"
+            name: "nginx-backend-tls"
+            namespace: "nginx"
+            purpose: "TLS certificate material mounted by the NGINX pod"
+          -
+            keys:
+              - "tls.crt"
+              - "tls.key"
+            name: "nginx-ingress-tls"
+            namespace: "nginx"
+            purpose: "TLS certificate material referenced by the Ingress"
+      targetFactSummary: "required Secret nginx/nginx-backend-tls keys tls.crt,tls.key,ca.crt; required Secret nginx/nginx-ingress-tls keys tls.crt,tls.key"
+      packageBase:
+        name: "existing-tls-ingress"
+        path: "packages/bitnami/nginx/24.0.4/bases/existing-tls-ingress"
+        default: false
+        description: "nginx existing TLS with ingress variant rendered from bitnami/nginx@24.0.4"
+      setupCheck:
+        command: "cub installer setup --pull packages/bitnami/nginx/24.0.4 --base existing-tls-ingress --work-dir <tmp> --non-interactive --namespace nginx"
+        helmReleaseObjectCount: 6
+        cubInstallObjectCountIncludingSupport: 7
+        semanticObjectMatches: "6/6"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||nginx"
+      revisions:
+        -
+          name: "existing-tls-ingress-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/variant-revision.yaml"
+          digest: "0d48591ebe834d65713a6fd9a4377ab6c583148cd4ee41fe938d76d9809c4413"
+          renderedObjectSetSHA256: "35c8f535452c33518088a067f035d6249750b0a67245138feaf84d728c94588f"
+          renderedObjects: "recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/rendered/object-inventory.yaml"
+          objectCount: 6
+          helmObjectCount: 6
+          cubInstallObjectCountIncludingSupport: 7
+          semanticObjectMatches: "6/6"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "35c8f535452c33518088a067f035d6249750b0a67245138feaf84d728c94588f"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "35c8f535452c33518088a067f035d6249750b0a67245138feaf84d728c94588f"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "35c8f535452c33518088a067f035d6249750b0a67245138feaf84d728c94588f"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "35c8f535452c33518088a067f035d6249750b0a67245138feaf84d728c94588f"

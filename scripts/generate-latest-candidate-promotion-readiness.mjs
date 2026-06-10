@@ -86,10 +86,13 @@ function verify() {
   check(rows.length === 6, `expected 6 latest-version candidates; found ${rows.length}`);
   check(workOrders.length === rows.length * 8, `expected ${rows.length * 8} work-order rows; found ${workOrders.length}`);
   const complete = rows.filter((row) => row.candidate_artifacts === "complete").length;
-  const notPromoted = rows.filter((row) => row.catalog_promotion === "not-promoted").length;
+  const rootPathPresent = rows.filter((row) => row.catalog_promotion === "root-path-present").length;
   check(complete === rows.length, `expected all latest-version candidate artifacts to be complete; found ${complete}/${rows.length}`);
-  check(notPromoted === rows.length, `expected no latest-version candidates to be promoted yet; found ${rows.length - notPromoted} promoted path(s)`);
-  console.log(`verified latest candidate promotion readiness: ${complete}/${rows.length} complete candidate artifact set(s), ${notPromoted}/${rows.length} not promoted, ${workOrders.length} work-order row(s)`);
+  check(
+    rows.every((row) => ["not-promoted", "root-path-present"].includes(row.catalog_promotion)),
+    "latest-version candidates must be either not-promoted or root-path-present",
+  );
+  console.log(`verified latest candidate promotion readiness: ${complete}/${rows.length} complete candidate artifact set(s), ${rootPathPresent}/${rows.length} root path set(s) present, ${workOrders.length} work-order row(s)`);
 }
 
 function buildOutputs() {
@@ -120,14 +123,27 @@ function buildOutputs() {
     ]);
 
     const candidateArtifacts = missingCandidateFiles.length === 0 ? "complete" : "missing-files";
-    const catalogPromotion = !existsSync(rootRecipePath) && !existsSync(rootPackagePath) ? "not-promoted" : "root-path-present";
+    const rootRecipeExists = existsSync(rootRecipePath);
+    const rootPackageExists = existsSync(rootPackagePath);
+    const catalogPromotion =
+      rootRecipeExists && rootPackageExists
+        ? "root-path-present"
+        : !rootRecipeExists && !rootPackageExists
+          ? "not-promoted"
+          : "partial-root-path-present";
     const promotionReadiness =
-      candidateArtifacts === "complete" && catalogPromotion === "not-promoted"
-        ? "ready-for-full-lane-promotion"
-        : "review-required";
+      candidateArtifacts !== "complete"
+        ? "candidate-files-missing"
+        : catalogPromotion === "not-promoted"
+          ? "ready-for-root-path-promotion"
+          : catalogPromotion === "root-path-present"
+            ? "root-path-promoted-review-required"
+            : "review-required";
     const nextAction =
-      promotionReadiness === "ready-for-full-lane-promotion"
-        ? "run ConfigHub proof, live e2e, catalog status, production disposition, root catalog, top-100, and top-500 lanes before replacing the supported version"
+      promotionReadiness === "ready-for-root-path-promotion"
+        ? "copy the candidate recipe/package into normal root paths, regenerate catalog status and catalog indexes, then keep the current supported version unchanged"
+        : promotionReadiness === "root-path-promoted-review-required"
+          ? "refresh catalog, site, top-100, top-500, status, and refresh-survival surfaces; then run target-scoped product review before any support replacement"
         : "fix missing candidate files or inspect unexpected promoted root paths before continuing";
 
     return {
@@ -169,7 +185,8 @@ function missingFiles(paths) {
 function summary(rows) {
   const complete = rows.filter((row) => row.candidate_artifacts === "complete").length;
   const notPromoted = rows.filter((row) => row.catalog_promotion === "not-promoted").length;
-  const ready = rows.filter((row) => row.promotion_readiness === "ready-for-full-lane-promotion").length;
+  const rootPathPresent = rows.filter((row) => row.catalog_promotion === "root-path-present").length;
+  const readyForRoot = rows.filter((row) => row.promotion_readiness === "ready-for-root-path-promotion").length;
 
   const tableRows = rows.map(
     (row) =>
@@ -192,7 +209,8 @@ versions.
 Latest-version candidates checked: ${rows.length}
 Complete candidate artifact sets: ${complete} / ${rows.length}
 Not yet promoted to root catalog paths: ${notPromoted} / ${rows.length}
-Ready for full-lane promotion work: ${ready} / ${rows.length}
+Root catalog paths present: ${rootPathPresent} / ${rows.length}
+Ready for root-path promotion work: ${readyForRoot} / ${rows.length}
 \`\`\`
 
 ## Candidates
@@ -208,9 +226,9 @@ catalog version:
 
 ${requiredPromotionLanes.map((lane) => `- ${lane}`).join("\n")}
 
-The previous supported version remains the catalog version until those lanes
-produce receipts and the generated catalog, production-disposition, top-100, and
-top-500 outputs are regenerated.
+The previous supported version remains the supported catalog version until those
+lanes produce receipts and the generated catalog, production-disposition,
+top-100, and top-500 outputs are regenerated and explicitly reviewed.
 
 The generated lane work orders are:
 
@@ -295,23 +313,29 @@ function buildWorkOrders(rows) {
     },
     {
       lane: "promote-versioned-root-paths",
-      phase: "todo",
+      phase: (row) => candidateRootPromotionComplete(row) ? "done" : "todo",
       evidence: (row) => `${row.promoted_recipe_path};${row.promoted_package_path}`,
-      firstAction: "promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version",
+      firstAction: (row) =>
+        candidateRootPromotionComplete(row)
+          ? "keep the candidate recipe/package visible at normal root paths while retaining the previous supported version"
+          : "promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version",
       doneWhen: "new root recipe/package paths exist and current supported version is still retained",
-      command: "manual promotion, then npm run catalog:maps && npm run catalog:index",
+      command: (row) =>
+        candidateRootPromotionComplete(row)
+          ? "npm run top20:latest-promote-root-paths:verify"
+          : "npm run top20:latest-promote-root-paths && npm run catalog:status && npm run catalog:maps && npm run catalog:index",
     },
     {
       lane: "catalog-and-site",
-      phase: "todo",
+      phase: (row) => catalogAndSiteFresh(row) ? "done" : "todo",
       evidence: () => "CATALOG.md;site/catalog.json;site/index.html",
-      firstAction: "regenerate the chart catalog and generated site after the candidate is accepted",
-      doneWhen: "catalog and site show the candidate as supported only after all proof lanes are present",
+      firstAction: "regenerate the chart catalog and generated site after the candidate root paths are present",
+      doneWhen: "catalog and site show the candidate as a candidate, not as supported, until support review accepts it",
       command: "npm run catalog:maps && npm run catalog:index && npm run site:generate",
     },
     {
       lane: "top100-top500-refresh",
-      phase: "todo",
+      phase: (row) => aggregateSurfacesFresh(row) ? "done" : "todo",
       evidence: () => "data/top100-catalog-analysis/;data/top500-catalog-analysis/;data/status-dashboard/",
       firstAction: "refresh top100, top500, status dashboard, data index, and refresh-survival after promotion",
       doneWhen: "top100/top500/status/refresh outputs agree with the promoted catalog state",
@@ -379,6 +403,49 @@ function candidateProductionDispositionComplete(row) {
   return item?.proofStatus === "proof-complete" && item?.productionSupportStatus === "not-production-supported";
 }
 
+function candidateRootPromotionComplete(row) {
+  return (
+    existsSync(join(repoRoot, row.promoted_recipe_path, "recipe.yaml")) &&
+    existsSync(join(repoRoot, row.promoted_package_path, "installer.yaml")) &&
+    existsSync(join(repoRoot, row.current_supported_recipe, "recipe.yaml")) &&
+    existsSync(join(repoRoot, row.current_supported_package, "installer.yaml"))
+  );
+}
+
+function catalogAndSiteFresh(row) {
+  const marker = `${row.chart}@${row.candidate_version}`;
+  return filesExist([
+    "CATALOG.md",
+    "site/catalog.json",
+    "site/index.html",
+    "site/try.html",
+  ]) && fileContains("CATALOG.md", marker);
+}
+
+function aggregateSurfacesFresh(row) {
+  const marker = row.candidate_version;
+  return filesExist([
+    "data/top100-catalog-analysis/summary.md",
+    "data/top100-catalog-analysis/review.csv",
+    "data/top500-catalog-analysis/summary.md",
+    "data/top500-catalog-analysis/review.csv",
+    "data/status-dashboard/summary.md",
+    "data/status-dashboard/status.csv",
+    "data/refresh-survival/summary.md",
+    "data/README.md",
+    "data/csv-index.csv",
+  ]) && fileContains("data/refresh-survival/summary.md", marker);
+}
+
+function filesExist(paths) {
+  return paths.every((path) => existsSync(join(repoRoot, path)));
+}
+
+function fileContains(path, text) {
+  const fullPath = join(repoRoot, path);
+  return existsSync(fullPath) && readFileSync(fullPath, "utf8").includes(text);
+}
+
 function primaryLatestCandidateBase(row) {
   const primaryByChart = new Map([
     ["argo-cd/argo-cd", "default"],
@@ -431,7 +498,7 @@ work-order rows: ${workOrders.length}
 candidate render proof: already generated
 completed work-order rows: ${doneRows}
 todo work-order rows: ${todoRows}
-candidate support status: not promoted
+candidate support status: not support-promoted
 \`\`\`
 
 ## Candidates

@@ -48,14 +48,23 @@ function buildReport() {
     const candidate = candidateByChart.get(row.chart);
     const readiness = readinessByChart.get(row.chart);
     const refreshState = row.status === "current" ? "current-proof-still-current" : "upstream-update-candidate";
-    const candidateProof = candidate ? "candidate-render-proof-present" : row.status === "current" ? "not-needed" : "missing";
+    const candidateProof =
+      candidate && readiness?.catalog_promotion === "root-path-present"
+        ? "candidate-proof-complete-root-path-present"
+        : candidate
+          ? "candidate-render-proof-present"
+          : row.status === "current"
+            ? "not-needed"
+            : "missing";
     const catalogState = readiness?.catalog_promotion ?? "current-catalog-path";
     const promotionState = readiness?.promotion_readiness ?? (row.status === "current" ? "current-supported-version" : "missing");
     const liveState = candidate ? "not-yet-live-promoted" : row.status === "current" ? "current-supported-version" : "missing";
     const route =
       row.status === "current"
         ? "keep current catalog proof; refresh on next upstream movement"
-        : "run ConfigHub proof, live e2e, production disposition, catalog, top100, and top500 lanes before replacement";
+        : readiness?.catalog_promotion === "root-path-present"
+          ? "review target-scoped production support decision before replacing the supported version"
+          : "run ConfigHub proof, live e2e, production disposition, catalog, top100, and top500 lanes before replacement";
     return {
       chart: row.chart,
       current_version: row.current_version,
@@ -76,6 +85,7 @@ function buildReport() {
   const updateCandidates = rows.filter((row) => row.refresh_state === "upstream-update-candidate");
   const currentRows = rows.filter((row) => row.refresh_state === "current-proof-still-current");
   const candidateProofs = updateCandidates.filter((row) => row.candidate_proof === "candidate-render-proof-present");
+  const proofCompleteRootPaths = updateCandidates.filter((row) => row.candidate_proof === "candidate-proof-complete-root-path-present");
   const notPromoted = updateCandidates.filter((row) => row.catalog_state === "not-promoted");
   const kps = rows.find((row) => row.chart === "prometheus-community/kube-prometheus-stack");
   check(kps, "missing kube-prometheus-stack row in latest refresh");
@@ -84,21 +94,21 @@ function buildReport() {
     rows,
     updateCandidates,
     csv: csv(rows),
-    summary: summary({ rows, currentRows, updateCandidates, candidateProofs, notPromoted }),
+    summary: summary({ rows, currentRows, updateCandidates, candidateProofs, proofCompleteRootPaths, notPromoted }),
     kpsSeed: kpsUpgradeSeed(kps),
   };
 }
 
-function summary({ rows, currentRows, updateCandidates, candidateProofs, notPromoted }) {
+function summary({ rows, currentRows, updateCandidates, candidateProofs, proofCompleteRootPaths, notPromoted }) {
   return `# Refresh Survival
 
 This generated report shows whether the catalog survives upstream Helm chart
 movement without silently changing what users install.
 
 It is not a live upgrade proof. It is the refresh control surface that says
-which chart versions remain current, which upstream charts moved, and which
-candidate versions have only passed the recipe/package/render/compare lane so
-far.
+which chart versions remain current, which upstream charts moved, which
+candidate versions have proof-complete root paths, and which decisions still
+stand between a candidate and catalog replacement.
 
 ## Result
 
@@ -106,8 +116,9 @@ far.
 Top-20 rows checked: ${rows.length}
 Current chart proofs: ${currentRows.length} / ${rows.length}
 Upstream update candidates: ${updateCandidates.length} / ${rows.length}
-Candidates with render proof: ${candidateProofs.length} / ${updateCandidates.length}
-Candidates not yet promoted: ${notPromoted.length} / ${updateCandidates.length}
+Candidates with render-only proof: ${candidateProofs.length} / ${updateCandidates.length}
+Candidates with proof-complete root paths: ${proofCompleteRootPaths.length} / ${updateCandidates.length}
+Candidates without root paths: ${notPromoted.length} / ${updateCandidates.length}
 \`\`\`
 
 ## Update Candidates
@@ -124,11 +135,11 @@ ${updateCandidates
 ## What This Proves
 
 - Supported catalog rows do not roll forward just because upstream Helm changed.
-- New upstream versions can be tested as candidate artifacts while the previous
-  supported version remains pinned.
-- Candidate render proof is only the first lane. Support still needs ConfigHub
-  proof, live e2e, production disposition, catalog regeneration, and top100/top500
-  regeneration.
+- New upstream versions can be retained as candidate root paths while the
+  previous supported version remains pinned.
+- Proof-complete root paths make candidates visible for review. They do not
+  replace the supported catalog version without an explicit target-scoped
+  support decision.
 
 ## What This Does Not Prove
 
@@ -156,8 +167,8 @@ npm run refresh:survival:verify
 function kpsUpgradeSeed(row) {
   const currentDefault = objectCount("recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/object-inventory.yaml");
   const currentNoCrds = objectCount("recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/object-inventory.yaml");
-  const candidateDefault = objectCount("data/latest-top20-refresh/candidates/kube-prometheus-stack-86.1.0/recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/rendered/object-inventory.yaml");
-  const candidateNoCrds = objectCount("data/latest-top20-refresh/candidates/kube-prometheus-stack-86.1.0/recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/no-crds/r001/rendered/object-inventory.yaml");
+  const candidateDefault = objectCount("recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/rendered/object-inventory.yaml");
+  const candidateNoCrds = objectCount("recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/no-crds/r001/rendered/object-inventory.yaml");
 
   return `# kube-prometheus-stack Upgrade Seed
 
@@ -180,14 +191,16 @@ dependencies, cluster RBAC, and many rendered monitoring resources.
 
 | Variant | Current object count | Candidate object count | Current evidence | Candidate evidence |
 | --- | ---: | ---: | --- | --- |
-| \`default\` | ${currentDefault} | ${candidateDefault} | \`recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/object-inventory.yaml\` | \`data/latest-top20-refresh/candidates/kube-prometheus-stack-86.1.0/recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/rendered/object-inventory.yaml\` |
-| \`no-crds\` | ${currentNoCrds} | ${candidateNoCrds} | \`recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/object-inventory.yaml\` | \`data/latest-top20-refresh/candidates/kube-prometheus-stack-86.1.0/recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/no-crds/r001/rendered/object-inventory.yaml\` |
+| \`default\` | ${currentDefault} | ${candidateDefault} | \`recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/object-inventory.yaml\` | \`recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/rendered/object-inventory.yaml\` |
+| \`no-crds\` | ${currentNoCrds} | ${candidateNoCrds} | \`recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/object-inventory.yaml\` | \`recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/no-crds/r001/rendered/object-inventory.yaml\` |
 
-The candidate has render proof only. It is not a supported catalog replacement.
+The candidate has proof-complete root paths. It is not a supported catalog
+replacement.
 
 ## Required Upgrade Proof
 
-Before replacing the supported catalog version, the upgrade lane must produce:
+Before replacing the supported catalog version, the upgrade lane must produce
+or confirm:
 
 1. old rendered object set versus new rendered object set;
 2. field-level diff with provenance where available;
@@ -197,7 +210,8 @@ Before replacing the supported catalog version, the upgrade lane must produce:
 6. ConfigHub upload, function scan, safe-ops, and server-side variant receipts;
 7. live kind observation before and after upgrade;
 8. live Helm-vs-ConfigHub parity for the upgraded target profile;
-9. updated catalog, production disposition, top100, and top500 outputs.
+9. updated catalog, production disposition, top100, and top500 outputs;
+10. target-scoped production support decision for the replacement.
 
 ## Current Decision
 

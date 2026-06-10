@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderReceipt"
+metadata:
+  name: "mongodb-existing-secret-replicaset-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderer:
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+    kubeVersion: "1.30.0"
+    flags:
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+  inputs:
+    sourceLockSHA256: "df2275c23a0fbad8d1e33c20765af6043757a26e9c77fad55a4502f7b05dfafd"
+    dependencyLockSHA256: "e3e56f81555af924cd0815a880943e9717c3f7888afc5e99d9354425b446063b"
+    effectiveValuesSHA256: "adf9115a6e6536c916277b1020246f7e33118641e15c76d5362556aa9e2cdb83"
+  outputs:
+    renderedObjectSetSHA256: "ba28659f7a827714941ba587c403de0e7afec7bf77a35512ff751bf6c2fdd3a2"
+    renderedObjectInventorySHA256: "95a96b49e58e1d612e05dae9ed20eb4d5f06da6759103752e8c4a4c906298dc1"
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 10
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0

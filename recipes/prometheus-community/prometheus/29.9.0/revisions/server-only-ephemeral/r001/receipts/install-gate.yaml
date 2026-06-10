@@ -1,0 +1,20 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "prometheus-server-only-ephemeral-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "a1ff9f44451cc28aaeed183a5d36fdf2551dbc4647714a2565c30d9512a4af8b"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for server-only-ephemeral"
+    - "Bundled component ownership and dependency policy must be explicit before production"
+    - "Prometheus scrape configuration and service discovery scope need production review"
+    - "Storage, retention, Alertmanager, and rollback policy need production review"
+    - "Cluster RBAC and workload exposure need production review"
+    - "Remote read/write, ingress, network policy, PDB, and extra-manifest slots must be reviewed when populated"
+    - "removes bundled components and PVC as a deliberate lightweight install variant"

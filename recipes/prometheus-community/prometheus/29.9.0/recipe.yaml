@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "prometheus"
+  version: "29.9.0"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/prometheus-community/prometheus/29.9.0"
+    setupCommand:
+      - "cub"
+      - "installer"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/prometheus-community/prometheus/29.9.0"
+      - "--non-interactive"
+      - "--namespace"
+      - "monitoring"
+  variants:
+    - "variants/default/variant.yaml"
+    - "variants/server-only-ephemeral/variant.yaml"

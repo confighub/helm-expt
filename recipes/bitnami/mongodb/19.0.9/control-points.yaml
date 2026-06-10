@@ -1,0 +1,68 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "bitnami-mongodb-19.0.9"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      note: "chart declares the Bitnami common dependency; promoted variants lock its metadata."
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.30.0"
+      note: "Kubernetes API and version branches are bound to the named Kubernetes capability profile."
+    -
+      category: "generated-facts"
+      status: "variant-controlled"
+      evidence: "auth.rootPassword"
+      note: "The generated-passwords variant binds the generated root password before render so Helm output is deterministic."
+    -
+      category: "target-facts"
+      status: "variant-controlled"
+      evidence: "auth.existingSecret"
+      note: "The existing-secret-replicaset variant declares the target Secret instead of rendering one."
+    -
+      category: "image-digest"
+      status: "handled"
+      digest: "sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e"
+      note: "Supported bases pin the Bitnami MongoDB image by digest."
+    -
+      category: "hook-policy"
+      status: "handled-for-render"
+      policy: "no-hooks"
+      note: "The retained source scan records hook count 0 for this pinned chart line. Supported bases render no hook objects; future hook-producing paths must map to lifecycle policy before production."
+    -
+      category: "replicaset-topology"
+      status: "variant-controlled"
+      object: "apps/v1|StatefulSet|mongodb|mongodb"
+    -
+      category: "stateful-workload"
+      status: "scan-and-review"
+      note: "MongoDB Deployment/PVC and StatefulSet workloads need storage, retention, upgrade, and rollback policy."
+    -
+      category: "pvc-policy"
+      status: "scan-and-review"
+      note: "Persistent volumes and StatefulSet volumeClaimTemplates need storage class, retention, backup, restore, and rollback policy."
+    -
+      category: "network-policy"
+      status: "scan-and-review"
+      object: "networking.k8s.io/v1|NetworkPolicy|mongodb|mongodb"
+    -
+      category: "pdb-policy"
+      status: "scan-and-review"
+      object: "policy/v1|PodDisruptionBudget|mongodb|mongodb"
+    -
+      category: "tpl"
+      status: "controlled-by-empty-defaults"
+      note: "initdb and extended configuration slots use templating; promoted variants do not populate them."
+    -
+      category: "installer-support-object"
+      status: "handled"
+      object: "v1|Namespace||mongodb"

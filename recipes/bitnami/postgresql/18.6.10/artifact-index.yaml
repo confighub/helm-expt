@@ -1,0 +1,212 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "bitnami-postgresql-18.6.10"
+  chart: "bitnami/postgresql"
+  version: "18.6.10"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "bitnami/postgresql"
+    version: "18.6.10"
+    appVersion: "18.4.0"
+    sourceLock: "recipes/bitnami/postgresql/18.6.10/source-lock.yaml"
+    dependencyLock: "recipes/bitnami/postgresql/18.6.10/dependency-lock.yaml"
+    repository: "https://charts.bitnami.com/bitnami"
+    packageSHA256: "d8ed293532c059480fa785d41e96af5c683cd9cdf7781e33231942f15ad2c5b0"
+  recipe:
+    path: "recipes/bitnami/postgresql/18.6.10/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/bitnami/postgresql/18.6.10/helm-plan.yaml"
+    chartDossier: "recipes/bitnami/postgresql/18.6.10/chart-dossier.yaml"
+    controlPoints: "recipes/bitnami/postgresql/18.6.10/control-points.yaml"
+    valueModel: "recipes/bitnami/postgresql/18.6.10/value-model.yaml"
+    weirdnessAndMitigations: ""
+    controlPointCategories:
+      - "capability-profile"
+      - "dependency-lock"
+      - "generated-facts"
+      - "hook-policy"
+      - "image-digest"
+      - "installer-support-object"
+      - "pvc-policy"
+      - "source-lock"
+      - "stateful-workload"
+      - "target-facts"
+      - "tpl"
+  catalogStatus:
+    path: "recipes/bitnami/postgresql/18.6.10/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "generated-passwords"
+      - "existing-secret"
+    deferredVariants:
+      []
+  proofSummary:
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
+    proofLanes:
+      renderParity: ""
+      inConfigHub: ""
+      localLive: ""
+      gitopsLive: ""
+      liveParity: ""
+    featureSummary: ""
+    hardGap: ""
+    nextAction: ""
+  installerPackage:
+    path: "packages/bitnami/postgresql/18.6.10"
+    installer: "packages/bitnami/postgresql/18.6.10/installer.yaml"
+    receipt: "recipes/bitnami/postgresql/18.6.10/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "1b970b1b323629e730e14c74473ebca7adb192665003aee89fff12bdf400e278"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "generated-passwords"
+        path: "packages/bitnami/postgresql/18.6.10/bases/generated-passwords"
+        default: true
+        description: "postgresql generated passwords variant rendered from bitnami/postgresql@18.6.10"
+      -
+        name: "existing-secret"
+        path: "packages/bitnami/postgresql/18.6.10/bases/existing-secret"
+        default: false
+        description: "postgresql existing Secret variant rendered from bitnami/postgresql@18.6.10"
+  variants:
+    -
+      name: "generated-passwords"
+      variant: "recipes/bitnami/postgresql/18.6.10/variants/generated-passwords/variant.yaml"
+      namespace: "postgresql"
+      releaseName: "postgresql"
+      valuesProfile: "recipes/bitnami/postgresql/18.6.10/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "generated-passwords"
+        path: "packages/bitnami/postgresql/18.6.10/bases/generated-passwords"
+        default: true
+        description: "postgresql generated passwords variant rendered from bitnami/postgresql@18.6.10"
+      setupCheck:
+        command: "cub installer setup --pull packages/bitnami/postgresql/18.6.10 --base generated-passwords --work-dir <tmp> --non-interactive --namespace postgresql"
+        helmReleaseObjectCount: 7
+        cubInstallObjectCountIncludingSupport: 8
+        semanticObjectMatches: "7/7"
+        separatedSecretCount: 1
+        allowedCubOnlyObjects:
+          - "v1|Namespace||postgresql"
+      revisions:
+        -
+          name: "generated-passwords-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/postgresql/18.6.10/revisions/generated-passwords/r001/variant-revision.yaml"
+          digest: "32074b6285042b6224c734591a8e97758acf8da37365567b31981d63c3680c05"
+          renderedObjectSetSHA256: "3813cd50ce20e68fab8ac09137d36e9164c718df62da7eb0b3df35ede0ce7f69"
+          renderedObjects: "recipes/bitnami/postgresql/18.6.10/revisions/generated-passwords/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/postgresql/18.6.10/revisions/generated-passwords/r001/rendered/object-inventory.yaml"
+          objectCount: 7
+          helmObjectCount: 7
+          cubInstallObjectCountIncludingSupport: 8
+          semanticObjectMatches: "7/7"
+          separatedSecretFiles: 1
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/postgresql/18.6.10/revisions/generated-passwords/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "3813cd50ce20e68fab8ac09137d36e9164c718df62da7eb0b3df35ede0ce7f69"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/postgresql/18.6.10/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "3813cd50ce20e68fab8ac09137d36e9164c718df62da7eb0b3df35ede0ce7f69"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/postgresql/18.6.10/revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "3813cd50ce20e68fab8ac09137d36e9164c718df62da7eb0b3df35ede0ce7f69"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/postgresql/18.6.10/revisions/generated-passwords/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "3813cd50ce20e68fab8ac09137d36e9164c718df62da7eb0b3df35ede0ce7f69"
+    -
+      name: "existing-secret"
+      variant: "recipes/bitnami/postgresql/18.6.10/variants/existing-secret/variant.yaml"
+      namespace: "postgresql"
+      releaseName: "postgresql"
+      valuesProfile: "recipes/bitnami/postgresql/18.6.10/effective-values-existing-secret.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredSecrets:
+          -
+            keys:
+              - "postgres-password"
+            name: "postgresql-auth"
+            namespace: "postgresql"
+            purpose: "PostgreSQL administrator password"
+      targetFactSummary: "required Secret postgresql/postgresql-auth keys postgres-password"
+      packageBase:
+        name: "existing-secret"
+        path: "packages/bitnami/postgresql/18.6.10/bases/existing-secret"
+        default: false
+        description: "postgresql existing Secret variant rendered from bitnami/postgresql@18.6.10"
+      setupCheck:
+        command: "cub installer setup --pull packages/bitnami/postgresql/18.6.10 --base existing-secret --work-dir <tmp> --non-interactive --namespace postgresql"
+        helmReleaseObjectCount: 6
+        cubInstallObjectCountIncludingSupport: 7
+        semanticObjectMatches: "6/6"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||postgresql"
+      revisions:
+        -
+          name: "existing-secret-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/postgresql/18.6.10/revisions/existing-secret/r001/variant-revision.yaml"
+          digest: "405f685ceaa082317180a153831b8cd0dd68873b099120e98fe3e2d7fc07e3f9"
+          renderedObjectSetSHA256: "dfbd333f2a1842ca8af06c501cf0b9719fd1b121fc5ee87b78a1cd3253f9497a"
+          renderedObjects: "recipes/bitnami/postgresql/18.6.10/revisions/existing-secret/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/postgresql/18.6.10/revisions/existing-secret/r001/rendered/object-inventory.yaml"
+          objectCount: 6
+          helmObjectCount: 6
+          cubInstallObjectCountIncludingSupport: 7
+          semanticObjectMatches: "6/6"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/postgresql/18.6.10/revisions/existing-secret/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "dfbd333f2a1842ca8af06c501cf0b9719fd1b121fc5ee87b78a1cd3253f9497a"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/postgresql/18.6.10/revisions/existing-secret/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "dfbd333f2a1842ca8af06c501cf0b9719fd1b121fc5ee87b78a1cd3253f9497a"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/postgresql/18.6.10/revisions/existing-secret/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "dfbd333f2a1842ca8af06c501cf0b9719fd1b121fc5ee87b78a1cd3253f9497a"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/postgresql/18.6.10/revisions/existing-secret/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "dfbd333f2a1842ca8af06c501cf0b9719fd1b121fc5ee87b78a1cd3253f9497a"

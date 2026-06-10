@@ -4,9 +4,9 @@ This generated report shows whether the catalog survives upstream Helm chart
 movement without silently changing what users install.
 
 It is not a live upgrade proof. It is the refresh control surface that says
-which chart versions remain current, which upstream charts moved, and which
-candidate versions have only passed the recipe/package/render/compare lane so
-far.
+which chart versions remain current, which upstream charts moved, which
+candidate versions have proof-complete root paths, and which decisions still
+stand between a candidate and catalog replacement.
 
 ## Result
 
@@ -14,29 +14,30 @@ far.
 Top-20 rows checked: 20
 Current chart proofs: 14 / 20
 Upstream update candidates: 6 / 20
-Candidates with render proof: 6 / 6
-Candidates not yet promoted: 6 / 6
+Candidates with render-only proof: 0 / 6
+Candidates with proof-complete root paths: 6 / 6
+Candidates without root paths: 0 / 6
 ```
 
 ## Update Candidates
 
 | Chart | Current proof | Latest candidate | Candidate proof | Promotion state | Next action |
 | --- | --- | --- | --- | --- | --- |
-| `argo-cd/argo-cd` | `9.5.15` | `9.5.17` | candidate-render-proof-present | ready-for-full-lane-promotion | run ConfigHub proof, live e2e, production disposition, catalog, top100, and top500 lanes before replacement |
-| `bitnami/mongodb` | `19.0.7` | `19.0.9` | candidate-render-proof-present | ready-for-full-lane-promotion | run ConfigHub proof, live e2e, production disposition, catalog, top100, and top500 lanes before replacement |
-| `bitnami/nginx` | `24.0.2` | `24.0.4` | candidate-render-proof-present | ready-for-full-lane-promotion | run ConfigHub proof, live e2e, production disposition, catalog, top100, and top500 lanes before replacement |
-| `bitnami/postgresql` | `18.6.7` | `18.6.10` | candidate-render-proof-present | ready-for-full-lane-promotion | run ConfigHub proof, live e2e, production disposition, catalog, top100, and top500 lanes before replacement |
-| `prometheus-community/kube-prometheus-stack` | `85.3.3` | `86.1.0` | candidate-render-proof-present | ready-for-full-lane-promotion | run ConfigHub proof, live e2e, production disposition, catalog, top100, and top500 lanes before replacement |
-| `prometheus-community/prometheus` | `29.8.0` | `29.9.0` | candidate-render-proof-present | ready-for-full-lane-promotion | run ConfigHub proof, live e2e, production disposition, catalog, top100, and top500 lanes before replacement |
+| `argo-cd/argo-cd` | `9.5.15` | `9.5.17` | candidate-proof-complete-root-path-present | root-path-promoted-review-required | review target-scoped production support decision before replacing the supported version |
+| `bitnami/mongodb` | `19.0.7` | `19.0.9` | candidate-proof-complete-root-path-present | root-path-promoted-review-required | review target-scoped production support decision before replacing the supported version |
+| `bitnami/nginx` | `24.0.2` | `24.0.4` | candidate-proof-complete-root-path-present | root-path-promoted-review-required | review target-scoped production support decision before replacing the supported version |
+| `bitnami/postgresql` | `18.6.7` | `18.6.10` | candidate-proof-complete-root-path-present | root-path-promoted-review-required | review target-scoped production support decision before replacing the supported version |
+| `prometheus-community/kube-prometheus-stack` | `85.3.3` | `86.1.0` | candidate-proof-complete-root-path-present | root-path-promoted-review-required | review target-scoped production support decision before replacing the supported version |
+| `prometheus-community/prometheus` | `29.8.0` | `29.9.0` | candidate-proof-complete-root-path-present | root-path-promoted-review-required | review target-scoped production support decision before replacing the supported version |
 
 ## What This Proves
 
 - Supported catalog rows do not roll forward just because upstream Helm changed.
-- New upstream versions can be tested as candidate artifacts while the previous
-  supported version remains pinned.
-- Candidate render proof is only the first lane. Support still needs ConfigHub
-  proof, live e2e, production disposition, catalog regeneration, and top100/top500
-  regeneration.
+- New upstream versions can be retained as candidate root paths while the
+  previous supported version remains pinned.
+- Proof-complete root paths make candidates visible for review. They do not
+  replace the supported catalog version without an explicit target-scoped
+  support decision.
 
 ## What This Does Not Prove
 
