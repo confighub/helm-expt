@@ -119,9 +119,9 @@ pull remote, vendored, or non-exact dependencies.
 | --- | ---: | --- |
 | Create recipe/import candidates | 30 | Create recipe/import candidates with source locks, dependency locks, first bases, render parity, and catalog decisions. |
 | Add dependency locks | 0 | Add dependency-lock.yaml or record that the dependency closure is intentionally empty. |
-| Record dependency range policy | 9 | Record non-exact dependency policy and refresh-survival evidence before promotion or upgrade. |
-| Backfill Chart.lock digest | 6 | Record a Chart.lock digest or explain why the dependency lock is source-derived. |
-| Promote closure facts | 4 | Expose dependency closure facts in chart facts and status surfaces. |
+| Record dependency range policy | 0 | Record non-exact dependency policy and refresh-survival evidence before promotion or upgrade. |
+| Backfill Chart.lock digest | 11 | Record a Chart.lock digest or explain why the dependency lock is source-derived. |
+| Promote closure facts | 8 | Expose dependency closure facts in chart facts and status surfaces. |
 
 ### Top20 Production Support Work
 
