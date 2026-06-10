@@ -1,0 +1,225 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: prometheus-community-kube-prometheus-stack-86.1.0-default-kind-parity-20260606
+spec:
+  chart: prometheus-community/kube-prometheus-stack
+  version: 86.1.0
+  base: default
+  result: pass
+  observedAt: '2026-06-10T12:22:29Z'
+  package:
+    path: data/latest-top20-refresh/candidates/kube-prometheus-stack-86.1.0/packages/prometheus-community/kube-prometheus-stack/86.1.0
+  recipe:
+    path: data/latest-top20-refresh/candidates/kube-prometheus-stack-86.1.0/recipes/prometheus-community/kube-prometheus-stack/86.1.0
+  variantRevision: data/latest-top20-refresh/candidates/kube-prometheus-stack-86.1.0/recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-kubepr-ccd1b-gx8d-helm
+    installerCluster: hx-kubepr-ccd1b-gx8d-installer
+    namespace: monitoring
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-kubepr-ccd1b-gx8d-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-kubepr-ccd1b-gx8d-helm" ...
+
+          Deleted nodes: ["hx-kubepr-ccd1b-gx8d-helm-control-plane"]'
+      - cluster: hx-kubepr-ccd1b-gx8d-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-kubepr-ccd1b-gx8d-installer" ...
+
+          Deleted nodes: ["hx-kubepr-ccd1b-gx8d-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install kube-prometheus-stack kube-prometheus-stack
+        --repo https://prometheus-community.github.io/helm-charts --version 86.1.0
+        --namespace monitoring --create-namespace --values /Users/alexis/code/helm-expt/runs/latest-top20-refresh/kube-prometheus-stack-86.1.0/live-parity/default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: monitoring
+      manifestSHA256: 58c19d82e70831986861de45eba5697418105140625afa840f5e329f1c21d1dd
+      objectCount: 124
+      liveHelmManifestSHA256: a5d181f356863e37121b9d311ef3a97a31259c65b202d23aaf84db4f35ac5573
+      liveHelmManifestObjectCount: 114
+      runtimeNamespaces: &id001
+      - monitoring
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# monitoring
+
+          deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     109s
+
+          deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     109s
+
+          deployment.apps/kube-prometheus-stack-operator             1/1   1     1     109s
+
+          statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1   97s
+
+          statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1   97s
+
+          daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   109s'
+        pods: '# monitoring
+
+          alertmanager-kube-prometheus-stack-alertmanager-0           2/2   Running   0     97s
+
+          kube-prometheus-stack-grafana-689f864759-r2fd5              3/3   Running   0     109s
+
+          kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-zxd6b   1/1   Running   0     109s
+
+          kube-prometheus-stack-operator-6cd9d8fb8d-78t48             1/1   Running   0     109s
+
+          kube-prometheus-stack-prometheus-node-exporter-q9twm        1/1   Running   0     109s
+
+          prometheus-kube-prometheus-stack-prometheus-0               2/2   Running   0     97s'
+        notReady: []
+        diagnostics: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/data/latest-top20-refresh/candidates/kube-prometheus-stack-86.1.0/packages/prometheus-community/kube-prometheus-stack/86.1.0
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-kubepr-ccd1b-gx8d-kube-prometheus-stack
+        --non-interactive --namespace monitoring
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: monitoring
+      manifestSHA256: 571577cdf30e1bd0d0f4f9e6f86686bbd2b09e4d7dd76c2beb62fb5e2bf03e9d
+      objectCount: 125
+      manifestNamespaces:
+      - kube-system
+      - monitoring
+      runtimeNamespaces: &id002
+      - monitoring
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# monitoring
+
+          deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     107s
+
+          deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     107s
+
+          deployment.apps/kube-prometheus-stack-operator             1/1   1     1     107s
+
+          statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1   98s
+
+          statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1   98s
+
+          daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   107s'
+        pods: '# monitoring
+
+          alertmanager-kube-prometheus-stack-alertmanager-0           2/2   Running   0     98s
+
+          kube-prometheus-stack-grafana-689f864759-v2s79              3/3   Running   0     107s
+
+          kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-9wtmz   1/1   Running   0     107s
+
+          kube-prometheus-stack-operator-6cd9d8fb8d-pjc8z             1/1   Running   0     107s
+
+          kube-prometheus-stack-prometheus-node-exporter-vvhld        1/1   Running   0     107s
+
+          prometheus-kube-prometheus-stack-prometheus-0               2/2   Running   0     98s'
+        notReady: []
+        diagnostics: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||monitoring
+    semanticNormalizations: &id003
+    - prune-null-fields
+    - prune-empty-metadata-maps
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 124
+      installerObjectCount: 125
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||monitoring
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 4472b0dababd206e1f005dd3d9f8e63cebe5cfea6a72b65bc9dfe6e66f822921
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=1 crds=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"kube-prometheus-stack\" does not exist. Installing it now.\n\
+      NAME: kube-prometheus-stack\nLAST DEPLOYED: Wed Jun 10 13:23:33 2026\nNAMESPACE:\
+      \ monitoring\nSTATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\n\
+      TEST SUITE: None\nNOTES:\nkube-prometheus-stack has been installed. Check its\
+      \ status by running:\n  kubectl --namespace monitoring get pods -l \"release=kube-prometheus-stack\"\
+      \n\nGet Grafana 'admin' user password by running:\n\n  kubectl --namespace monitoring\
+      \ get secrets kube-prometheus-stack-grafana -o jsonpath=\"{.data.admin-password}\"\
+      \ | base64 -d ; echo\n\nAccess Grafana local instance:\n\n  export POD_NAME=$(kubectl\
+      \ --namespace monitoring get pod -l \"app.kubernetes.io/name=grafana,app.kubernetes.io/instance=kube-prometheus-stack\"\
+      \ -oname)\n  kubectl --namespace monitoring port-forward $POD_NAME 3000\n\n\
+      Get your grafana admin user password by running:\n\n  kubectl get secret --namespace\
+      \ monitoring -l app.kubernetes.io/component=admin-secret -o jsonpath=\"{.items[0].data.admin-password}\"\
+      \ | "
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# monitoring
+
+      deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     107s
+
+      deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     107s
+
+      deployment.apps/kube-prometheus-stack-operator             1/1   1     1     107s
+
+      statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1   98s
+
+      statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1   98s
+
+      daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   107s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||monitoring'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets:
+      - namespace: monitoring
+        name: kube-prometheus-stack-admission
+        keys:
+        - cert
+        - key
+        lane: cubInstallerApply
+      stagedCRDs: []
+      stagedObjectStores: []
+      path: /Users/alexis/code/helm-expt/runs/latest-top20-refresh/kube-prometheus-stack-86.1.0/live-parity/default/target-facts-installer.yaml
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

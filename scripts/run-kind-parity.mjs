@@ -11,9 +11,11 @@ const baseOption = optionValue("--base");
 const recipeOption = optionValue("--recipe");
 const repoUrlOverride = optionValue("--repo-url");
 const top20 = process.argv.includes("--top20");
+const latestCandidates = process.argv.includes("--latest-candidates");
 const missingOnly = process.argv.includes("--missing");
 const continueOnFail = process.argv.includes("--continue-on-fail");
 const keep = process.argv.includes("--keep");
+const allBases = process.argv.includes("--all-bases");
 
 if (mode === "--run") {
   const selected = selectedTargets();
@@ -29,6 +31,9 @@ if (mode === "--run") {
   npm run kind-parity:run -- --chart bitnami/nginx --version 24.0.2 --base http-clusterip --repo-url oci://registry-1.docker.io/bitnamicharts
   npm run kind-parity:run -- --recipe recipes/grafana/loki/7.0.0 --base single-binary-filesystem
   npm run kind-parity:run -- --top20 --missing --continue-on-fail
+  npm run kind-parity:run -- --latest-candidates --chart nginx --continue-on-fail
+  npm run kind-parity:summary -- --latest-candidates
+  npm run kind-parity:verify -- --latest-candidates --chart nginx
   npm run kind-parity:summary
   npm run kind-parity:verify`);
 }
@@ -65,6 +70,15 @@ function runTarget(target) {
 }
 
 function selectedTargets() {
+  if (latestCandidates) {
+    check(!top20, "--latest-candidates cannot be combined with --top20");
+    let selected = latestCandidateTargets();
+    if (chartOption) selected = selected.filter((target) => matchesChart(target, chartOption));
+    if (baseOption) selected = selected.filter((target) => target.base === baseOption);
+    if (missingOnly) selected = selected.filter((target) => !existsSync(join(repoRoot, receiptPath(target))));
+    check(selected.length >= 1, "no latest-candidate parity targets selected");
+    return selected;
+  }
   if (top20) {
     let selected = top20Targets();
     if (missingOnly) selected = selected.filter((target) => !existsSync(join(repoRoot, receiptPath(target))));
@@ -107,6 +121,45 @@ function top20Targets() {
   return result;
 }
 
+function latestCandidateTargets() {
+  const csvPath = join(repoRoot, "data", "latest-top20-refresh", "promotion-readiness.csv");
+  check(existsSync(csvPath), "data/latest-top20-refresh/promotion-readiness.csv not found");
+  const rows = parseCsv(readFileSync(csvPath, "utf8"));
+  const result = [];
+  for (const row of rows) {
+    const variants = splitList(row.variants);
+    const selectedBases = allBases ? variants : [primaryLatestCandidateBase(row)];
+    for (const base of selectedBases) {
+      check(variants.includes(base), `${row.chart}@${row.candidate_version}: base ${base} is not a candidate variant`);
+      const pathKey = `${slug(row.chart)}-${row.candidate_version}`;
+      result.push({
+        chart: row.chart,
+        version: row.candidate_version,
+        base,
+        recipe: row.candidate_recipe,
+        packagePath: row.candidate_package,
+        slug: slug(row.chart),
+        receiptPath: `runs/latest-top20-refresh/${pathKey}/live-parity/${base}/receipt.yaml`,
+      });
+    }
+  }
+  return result;
+}
+
+function primaryLatestCandidateBase(row) {
+  const primaryByChart = new Map([
+    ["argo-cd/argo-cd", "default"],
+    ["bitnami/mongodb", "generated-passwords"],
+    ["bitnami/nginx", "http-clusterip"],
+    ["bitnami/postgresql", "generated-passwords"],
+    ["prometheus-community/kube-prometheus-stack", "default"],
+    ["prometheus-community/prometheus", "server-only-ephemeral"],
+  ]);
+  const base = primaryByChart.get(row.chart);
+  check(base, `no primary latest-candidate base configured for ${row.chart}`);
+  return base;
+}
+
 function targets() {
   const result = [];
   for (const artifactIndex of findArtifactIndexes(join(repoRoot, "recipes"))) {
@@ -145,7 +198,7 @@ function resolveTarget(target) {
   check(valuesProfile, `${target.chart} ${target.base} missing valuesProfile`);
   return {
     repositoryURL: repoUrlOverride ?? source.spec?.repositoryURL,
-    packagePath: `packages/${target.chart}/${target.version}`,
+    packagePath: target.packagePath ?? `packages/${target.chart}/${target.version}`,
     valuesPath: normalizeRelative(target.recipe, "variants/" + target.base, valuesProfile),
     variantRevision: `${target.recipe}/revisions/${target.base}/r001/variant-revision.yaml`,
     namespace: variant.spec?.namespace ?? target.slug,
@@ -154,6 +207,7 @@ function resolveTarget(target) {
 }
 
 function writeSummary() {
+  if (latestCandidates) return writeLatestCandidateSummary();
   const root = join(repoRoot, "data", "live-kind-parity");
   const rows = findReceipts().map((path) => {
     const receipt = readYaml(path);
@@ -279,25 +333,101 @@ function classifyReceipt(receipt) {
 }
 
 function verifyReceipts() {
+  if (latestCandidates) return verifyLatestCandidateReceipts();
   const receipts = findReceipts();
   check(receipts.length >= 1, "expected at least one two-cluster kind parity receipt");
-  for (const path of receipts) {
-    const receipt = readYaml(path);
-    const context = relativeRepo(path);
-    check(receipt.kind === "LiveHelmInstallerKindParityReceipt", `${context}: kind mismatch`);
-    check(receipt.spec?.run?.mode === "two-vanilla-kind-clusters", `${context}: mode mismatch`);
-    check(["pass", "watch", "blocked"].includes(receipt.spec?.result), `${context}: invalid result`);
-    const preInstallBlocked = receipt.spec?.result === "blocked" && Boolean(receipt.spec?.failure);
-    if (!preInstallBlocked) {
-      check(receipt.spec?.legs?.regularHelm, `${context}: missing regularHelm leg`);
-      check(receipt.spec?.legs?.cubInstallerApply, `${context}: missing cubInstallerApply leg`);
-      check(receipt.spec?.semanticComparison?.helmVsCubInstallerApply, `${context}: missing semantic comparison`);
-    }
-    if (receipt.spec?.run?.cleanup?.result !== "retained") {
-      check(receipt.spec?.run?.cleanup?.result === "pass", `${context}: cleanup must pass for non-retained parity clusters`);
-    }
-  }
+  for (const path of receipts) verifyReceipt(path);
   console.log(`verified ${receipts.length} two-cluster kind parity receipt(s)`);
+}
+
+function verifyLatestCandidateReceipts() {
+  const selected = selectedTargets();
+  for (const target of selected) {
+    const path = join(repoRoot, receiptPath(target));
+    check(existsSync(path), `${relativeRepo(path)} is missing`);
+    verifyReceipt(path);
+  }
+  console.log(`verified ${selected.length} latest-candidate two-cluster kind parity receipt(s)`);
+}
+
+function verifyReceipt(path) {
+  const receipt = readYaml(path);
+  const context = relativeRepo(path);
+  check(receipt.kind === "LiveHelmInstallerKindParityReceipt", `${context}: kind mismatch`);
+  check(receipt.spec?.run?.mode === "two-vanilla-kind-clusters", `${context}: mode mismatch`);
+  check(["pass", "watch", "blocked"].includes(receipt.spec?.result), `${context}: invalid result`);
+  const preInstallBlocked = receipt.spec?.result === "blocked" && Boolean(receipt.spec?.failure);
+  if (!preInstallBlocked) {
+    check(receipt.spec?.legs?.regularHelm, `${context}: missing regularHelm leg`);
+    check(receipt.spec?.legs?.cubInstallerApply, `${context}: missing cubInstallerApply leg`);
+    check(receipt.spec?.semanticComparison?.helmVsCubInstallerApply, `${context}: missing semantic comparison`);
+  }
+  if (receipt.spec?.run?.cleanup?.result !== "retained") {
+    check(receipt.spec?.run?.cleanup?.result === "pass", `${context}: cleanup must pass for non-retained parity clusters`);
+  }
+}
+
+function writeLatestCandidateSummary() {
+  const root = join(repoRoot, "data", "latest-top20-refresh", "live-parity");
+  const rows = latestCandidateTargets().map((target) => {
+    const path = join(repoRoot, receiptPath(target));
+    if (!existsSync(path)) {
+      return {
+        chart: target.chart,
+        version: target.version,
+        base: target.base,
+        result: "not-started",
+        reason: "candidate live parity not run",
+        receipt: receiptPath(target),
+      };
+    }
+    const receipt = readYaml(path);
+    return {
+      chart: receipt.spec?.chart,
+      version: receipt.spec?.version,
+      base: receipt.spec?.base,
+      result: receipt.spec?.result,
+      reason: classifyReceipt(receipt),
+      receipt: relativeRepo(path),
+    };
+  }).sort((a, b) => `${a.chart}@${a.version}/${a.base}`.localeCompare(`${b.chart}@${b.version}/${b.base}`));
+  const counts = new Map();
+  for (const row of rows) counts.set(row.result, (counts.get(row.result) ?? 0) + 1);
+  const nonPassRows = rows.filter((row) => row.result !== "pass");
+  const semanticDefectRows = rows.filter((row) => row.reason.startsWith("parity:"));
+  const reasonCounts = groupCount(nonPassRows, "reason");
+  const md = `# Latest Candidate Two-Cluster Helm-vs-Installer Kind Parity
+
+This report tracks the latest-version candidate parity lane. It uses two
+vanilla kind clusters per candidate: regular Helm on one cluster and
+\`cub installer\` render/apply on the other.
+
+It does not promote candidate versions. It records whether a candidate has
+started the same strict parity lane used by the supported catalog versions.
+
+\`\`\`text
+pass: ${counts.get("pass") ?? 0}
+watch: ${counts.get("watch") ?? 0}
+blocked: ${counts.get("blocked") ?? 0}
+not-started: ${counts.get("not-started") ?? 0}
+semantic parity defects: ${semanticDefectRows.length}
+\`\`\`
+
+## Non-Pass By Reason
+
+| Reason | Rows |
+| --- | ---: |
+${reasonCounts.size ? mapRows(reasonCounts) : "| - | 0 |"}
+
+## Rows
+
+| Chart | Base | Result | Reason | Receipt |
+| --- | --- | --- | --- | --- |
+${rows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.base} | ${row.result} | ${row.reason} | ${row.receipt} |`).join("\n")}
+`;
+  write(join(root, "summary.md"), md);
+  write(join(root, "summary.csv"), toCsv(rows));
+  console.log(`wrote ${relativeRepo(join(root, "summary.md"))}`);
 }
 
 function findReceipts() {
@@ -327,7 +457,12 @@ function normalizeRelative(recipe, variantDir, reference) {
 }
 
 function receiptPath(target) {
+  if (target.receiptPath) return target.receiptPath;
   return `runs/live-kind-parity/${target.chart.replaceAll("/", "-")}-${target.base}/receipt.yaml`;
+}
+
+function matchesChart(target, value) {
+  return [target.chart, target.slug, target.chart.split("/").at(-1)].includes(value);
 }
 
 function uniqueRunSuffix() {
@@ -370,4 +505,47 @@ function csvEscape(value) {
   const text = value === undefined || value === null ? "" : String(value);
   if (/[",\n]/.test(text)) return `"${text.replaceAll('"', '""')}"`;
   return text;
+}
+
+function parseCsv(text) {
+  const lines = text.trim().split(/\r?\n/);
+  const headers = parseCsvLine(lines[0]);
+  return lines.slice(1).filter(Boolean).map((line) => {
+    const cells = parseCsvLine(line);
+    return Object.fromEntries(headers.map((header, index) => [header, cells[index] ?? ""]));
+  });
+}
+
+function parseCsvLine(line) {
+  const cells = [];
+  let cell = "";
+  let quoted = false;
+  for (let index = 0; index < line.length; index += 1) {
+    const char = line[index];
+    const next = line[index + 1];
+    if (char === '"' && quoted && next === '"') {
+      cell += '"';
+      index += 1;
+    } else if (char === '"') {
+      quoted = !quoted;
+    } else if (char === "," && !quoted) {
+      cells.push(cell);
+      cell = "";
+    } else {
+      cell += char;
+    }
+  }
+  cells.push(cell);
+  return cells;
+}
+
+function splitList(value) {
+  return String(value ?? "")
+    .split(";")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function slug(chart) {
+  return chart.split("/").at(-1).replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase();
 }

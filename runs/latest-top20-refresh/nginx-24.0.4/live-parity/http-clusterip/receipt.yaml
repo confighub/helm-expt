@@ -1,0 +1,165 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: bitnami-nginx-24.0.4-http-clusterip-kind-parity-20260606
+spec:
+  chart: bitnami/nginx
+  version: 24.0.4
+  base: http-clusterip
+  result: pass
+  observedAt: '2026-06-10T12:10:41Z'
+  package:
+    path: data/latest-top20-refresh/candidates/nginx-24.0.4/packages/bitnami/nginx/24.0.4
+  recipe:
+    path: data/latest-top20-refresh/candidates/nginx-24.0.4/recipes/bitnami/nginx/24.0.4
+  variantRevision: data/latest-top20-refresh/candidates/nginx-24.0.4/recipes/bitnami/nginx/24.0.4/revisions/http-clusterip/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-nginx-a0471-1quq-helm
+    installerCluster: hx-nginx-a0471-1quq-installer
+    namespace: nginx
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-nginx-a0471-1quq-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-nginx-a0471-1quq-helm" ...
+
+          Deleted nodes: ["hx-nginx-a0471-1quq-helm-control-plane"]'
+      - cluster: hx-nginx-a0471-1quq-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-nginx-a0471-1quq-installer" ...
+
+          Deleted nodes: ["hx-nginx-a0471-1quq-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install nginx nginx --repo https://charts.bitnami.com/bitnami
+        --version 24.0.4 --namespace nginx --create-namespace --values /Users/alexis/code/helm-expt/runs/latest-top20-refresh/nginx-24.0.4/live-parity/http-clusterip/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: nginx
+      manifestSHA256: 5c175126acf3b7abd9fce0c17791cfce7236eac8f51e9781d20814cad14b0bac
+      objectCount: 5
+      liveHelmManifestSHA256: f162bb90f90b1506351beeb68c0232ca80a58cc78447f8a7c0ee8f1bc891f37a
+      liveHelmManifestObjectCount: 5
+      runtimeNamespaces: &id001
+      - nginx
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# nginx
+
+          deployment.apps/nginx   1/1   1     1     19s'
+        pods: '# nginx
+
+          nginx-84b4b7f585-9c4nh   1/1   Running   0     19s'
+        notReady: []
+        diagnostics: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/data/latest-top20-refresh/candidates/nginx-24.0.4/packages/bitnami/nginx/24.0.4
+        --base http-clusterip --work-dir /tmp/helm-expt-kind-parity-hx-nginx-a0471-1quq-nginx
+        --non-interactive --namespace nginx
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: nginx
+      manifestSHA256: 1cfe2c70f0deb19512a8813d5fa71f75f37869438208156f04cc2d1f5f73d9d4
+      objectCount: 6
+      manifestNamespaces:
+      - nginx
+      runtimeNamespaces: &id002
+      - nginx
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# nginx
+
+          deployment.apps/nginx   1/1   1     1     21s'
+        pods: '# nginx
+
+          nginx-84b4b7f585-d4x58   1/1   Running   0     21s'
+        notReady: []
+        diagnostics: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||nginx
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 5
+      installerObjectCount: 6
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||nginx
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 1f64b51473cd93ede52825fc67021deddba2e606605e31aa51bb92f5d50d460e
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"nginx\" does not exist. Installing it now.\nNAME: nginx\nLAST\
+      \ DEPLOYED: Wed Jun 10 13:11:46 2026\nNAMESPACE: nginx\nSTATUS: deployed\nREVISION:\
+      \ 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nCHART NAME: nginx\n\
+      CHART VERSION: 24.0.4\nAPP VERSION: 1.31.1\n\n\u26A0 WARNING: Since August 28th,\
+      \ 2025, only a limited subset of images/charts are available for free.\n   \
+      \ Subscribe to Bitnami Secure Images to receive continued support and security\
+      \ updates.\n    More info at https://bitnami.com and https://github.com/bitnami/containers/issues/83267\n\
+      \n** Please be patient while the chart is being deployed **\nNGINX can be accessed\
+      \ through the following DNS name from within your cluster:\n\n    nginx.nginx.svc.cluster.local\
+      \ (port 80)\n\nTo access NGINX from outside the cluster, follow the steps below:\n\
+      \n1. Get the NGINX URL by running these commands:\n\n    export SERVICE_PORT=$(kubectl\
+      \ get --namespace nginx -o jsonpath=\"{.spec.ports[0].port}\" services nginx)\n\
+      \    kubectl port-forward --namespace nginx svc/"
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# nginx
+
+      deployment.apps/nginx   1/1   1     1     21s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||nginx'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
