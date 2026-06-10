@@ -16,11 +16,11 @@ or runtime review.
 ~~~text
 base variants: 42
 start-here: 20
-try-with-proof: 17
+try-with-proof: 18
 runtime-watch: 0
 runtime-review-needed: 0
 operating-policy-needed: 1
-target-fit-needed: 2
+target-fit-needed: 1
 target-prerequisite-needed: 1
 hook-lifecycle-review-needed: 0
 lifecycle-observed: 1
@@ -31,7 +31,7 @@ render-only: 0
 Live rerun readiness for non-pass rows:
 
 ~~~text
-model-or-stage-first: 4
+model-or-stage-first: 3
 review-target-first: 0
 inspect-diff-first: 0
 rerun-now-after-cleanup: 0
@@ -80,7 +80,7 @@ rerun-now-after-cleanup: 0
 | `grafana/tempo@1.24.4` | local-persistent | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `grafana/tempo@1.24.4` | s3-query-observability | no | target-prerequisite-needed | model-or-stage-first | target-prerequisite: object store endpoint not satisfied (parity passed) | use recipes/grafana/tempo/1.24.4/target-prerequisite-plan.yaml to stage the prerequisite and capture a fresh observation receipt | [`recipes/grafana/tempo/1.24.4/target-prerequisite-plan.yaml`](../../recipes/grafana/tempo/1.24.4/target-prerequisite-plan.yaml) |
 | `hashicorp/consul@2.0.0` | default-control-plane | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
-| `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | no | target-fit-needed | model-or-stage-first | target-fit: secure mesh target topology not satisfied (parity passed) | use recipes/hashicorp/consul/2.0.0/target-topology.yaml to pick a fitting target or create a smaller base for this proof target | [`recipes/hashicorp/consul/2.0.0/target-topology.yaml`](../../recipes/hashicorp/consul/2.0.0/target-topology.yaml) |
+| `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims | - |
 | `hashicorp/vault@0.32.0` | dev-mode | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `hashicorp/vault@0.32.0` | default | no | operating-policy-needed | model-or-stage-first | operate-policy: Vault init/unseal required (parity passed) | use recipes/hashicorp/vault/0.32.0/operating-policy.yaml to run the post-render operation and capture an operation receipt | [`recipes/hashicorp/vault/0.32.0/operating-policy.yaml`](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) |
 | `hashicorp/vault@0.32.0` | ha-raft-ui | no | target-fit-needed | model-or-stage-first | target-fit: HA raft target topology not satisfied (parity passed) | use recipes/hashicorp/vault/0.32.0/operating-policy.yaml to pick a fitting target or create a smaller base for this proof target | [`recipes/hashicorp/vault/0.32.0/operating-policy.yaml`](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) |

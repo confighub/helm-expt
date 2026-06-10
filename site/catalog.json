@@ -85,7 +85,7 @@
     "top20ChartsWithExtensionSlots": 13,
     "top100ChartsWithExtensionSlots": 82,
     "top100ChartsWithLiveEvidence": 20,
-    "liveParityRerunRows": 4,
+    "liveParityRerunRows": 3,
     "liveParityRerunSemanticDefects": 0,
     "productionSupportedCharts": 17,
     "productionSupersededCharts": 2,
@@ -237,7 +237,7 @@
     {
       "section": "proof lanes",
       "metric": "two-cluster kind parity pass rows",
-      "value": "37",
+      "value": "38",
       "total": "42",
       "status": "partial",
       "source": "data/live-kind-parity/summary.csv",
@@ -264,7 +264,7 @@
     {
       "section": "proof lanes",
       "metric": "top20 bases needing unresolved prerequisite or runtime review",
-      "value": "4",
+      "value": "3",
       "total": "42",
       "status": "partial",
       "source": "data/top20-base-readiness/base-readiness.csv",
@@ -309,8 +309,8 @@
     {
       "section": "graph bridge",
       "metric": "recovered graph edge rows",
-      "value": "99",
-      "total": "99",
+      "value": "100",
+      "total": "100",
       "status": "good",
       "source": "data/edge-recovery/edges.csv",
       "note": "Recovered base, override, target-fact, generated-fact, and field-reachability rows."
@@ -318,8 +318,8 @@
     {
       "section": "graph bridge",
       "metric": "target-fact graph edges",
-      "value": "56",
-      "total": "99",
+      "value": "57",
+      "total": "100",
       "status": "partial",
       "source": "data/edge-recovery/edges.csv",
       "note": "Edges from a variant to required target facts such as pre-existing Secrets, CRDs, or hook-produced material."
@@ -328,7 +328,7 @@
       "section": "graph bridge",
       "metric": "generated-fact graph edges",
       "value": "1",
-      "total": "99",
+      "total": "100",
       "status": "partial",
       "source": "data/edge-recovery/edges.csv",
       "note": "Edges from generated facts to the rendered fields they affect where field reachability is available."
@@ -337,7 +337,7 @@
       "section": "graph bridge",
       "metric": "rows with field reachability",
       "value": "3",
-      "total": "99",
+      "total": "100",
       "status": "partial",
       "source": "data/edge-recovery/edges.csv",
       "note": "Rows that connect an input, generated fact, or variant change to rendered output fields."
@@ -372,8 +372,8 @@
     {
       "section": "live evidence",
       "metric": "live parity rerun rows needing decisions",
-      "value": "4",
-      "total": "4",
+      "value": "3",
+      "total": "3",
       "status": "partial",
       "source": "data/live-parity-rerun-plan/rerun-plan.csv",
       "note": "Non-pass live parity rows grouped by next action, such as runtime review, staged prerequisites, lifecycle route, or operating policy."
@@ -381,8 +381,8 @@
     {
       "section": "live evidence",
       "metric": "live parity rows needing model or staging first",
-      "value": "4",
-      "total": "4",
+      "value": "3",
+      "total": "3",
       "status": "partial",
       "source": "data/live-parity-rerun-plan/rerun-plan.csv",
       "note": "Rows where another rerun is not the next useful action until a prerequisite, lifecycle route, or operating policy is handled."
@@ -391,7 +391,7 @@
       "section": "live evidence",
       "metric": "live parity rows needing target review first",
       "value": "0",
-      "total": "4",
+      "total": "3",
       "status": "partial",
       "source": "data/live-parity-rerun-plan/rerun-plan.csv",
       "note": "Rows where object parity passed but runtime, storage, controller health, or wait conditions should be reviewed before rerun."
@@ -650,16 +650,6 @@
       "support_artifact": "recipes/grafana/tempo/1.24.4/target-prerequisite-plan.yaml",
       "receipt": "runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml",
       "rerun_command": "npm run kind-parity:run -- --chart grafana/tempo --version 1.24.4 --base s3-query-observability"
-    },
-    {
-      "chart": "hashicorp/consul@2.0.0",
-      "base": "secure-mesh-existing-secrets",
-      "current_result": "blocked",
-      "next_step_type": "target-fit-review",
-      "reason": "target-fit: secure mesh target topology not satisfied (parity passed)",
-      "support_artifact": "recipes/hashicorp/consul/2.0.0/target-topology.yaml",
-      "receipt": "runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml",
-      "rerun_command": "npm run kind-parity:run -- --chart hashicorp/consul --version 2.0.0 --base secure-mesh-existing-secrets"
     },
     {
       "chart": "hashicorp/vault@0.32.0",
@@ -4097,13 +4087,13 @@
       "chart": "hashicorp/consul@2.0.0",
       "base": "secure-mesh-existing-secrets",
       "recommended_first": "no",
-      "user_readiness": "target-fit-needed",
-      "why": "target-fit: secure mesh target topology not satisfied (parity passed)",
-      "next_action": "use recipes/hashicorp/consul/2.0.0/target-topology.yaml to pick a fitting target or create a smaller base for this proof target",
-      "support_artifact": "recipes/hashicorp/consul/2.0.0/target-topology.yaml",
-      "live_rerun_readiness": "model-or-stage-first",
-      "live_rerun_next_step": "target-fit-review",
-      "live_rerun_command": "npm run kind-parity:run -- --chart hashicorp/consul --version 2.0.0 --base secure-mesh-existing-secrets",
+      "user_readiness": "try-with-proof",
+      "why": "render parity and two-cluster live parity pass, but one or more broader lanes are missing",
+      "next_action": "run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims",
+      "support_artifact": "",
+      "live_rerun_readiness": "",
+      "live_rerun_next_step": "",
+      "live_rerun_command": "",
       "command": "cub installer setup --pull packages/hashicorp/consul/2.0.0 --base secure-mesh-existing-secrets --work-dir <tmp> --non-interactive --namespace consul",
       "target_facts": "required Secret consul/consul-ca-cert keys tls.crt; required Secret consul/consul-server-cert keys tls.crt,tls.key; required Secret consul/consul-gossip-encryption-key keys key; required Secret consul/consul-bootstrap-acl-token keys token",
       "render_parity": "pass",
@@ -4111,8 +4101,8 @@
       "local_live": "missing",
       "gitops_oci_live": "blocked",
       "live_helm_vs_confighub_parity": "missing",
-      "two_cluster_kind_parity": "blocked",
-      "two_cluster_kind_parity_reason": "target-fit: secure mesh target topology not satisfied (parity passed)",
+      "two_cluster_kind_parity": "pass",
+      "two_cluster_kind_parity_reason": "",
       "lifecycle_observation": "",
       "lifecycle_observation_receipt": "",
       "complete_core_lane_set": "no",
@@ -7646,24 +7636,6 @@
       "followup": "Record the prerequisite in the chart facts, base variant, or install checks before promoting.",
       "support_artifact": "recipes/grafana/tempo/1.24.4/target-prerequisite-plan.yaml",
       "receipt": "runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml",
-      "related_lifecycle_result": "",
-      "related_lifecycle_receipt": ""
-    },
-    {
-      "priority": "50",
-      "lane": "two-cluster-kind-parity",
-      "chart": "hashicorp/consul",
-      "version": "2.0.0",
-      "base": "secure-mesh-existing-secrets",
-      "current_result": "blocked",
-      "reason": "target-fit: secure mesh target topology not satisfied (parity passed)",
-      "next_step_type": "target-fit-review",
-      "rerun_readiness": "model-or-stage-first",
-      "diagnosis": "Object parity passed; the selected proof target does not provide the platform shape required by this base.",
-      "rerun_command": "npm run kind-parity:run -- --chart hashicorp/consul --version 2.0.0 --base secure-mesh-existing-secrets",
-      "followup": "Use a target that satisfies the base, or add a separate base for the smaller proof target.",
-      "support_artifact": "recipes/hashicorp/consul/2.0.0/target-topology.yaml",
-      "receipt": "runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml",
       "related_lifecycle_result": "",
       "related_lifecycle_receipt": ""
     },

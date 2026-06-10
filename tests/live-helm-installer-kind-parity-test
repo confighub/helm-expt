@@ -309,10 +309,19 @@ def kubectl_must(args: list[str], kubeconfig: Path, context: str, step: str, tim
     return out
 
 
+def cert_needs_refresh(cert: Path, key: Path) -> bool:
+    if not cert.exists() or not key.exists():
+        return True
+    rc, _out, _err = sh(["openssl", "x509", "-checkend", "3600", "-noout", "-in", str(cert)], timeout=30)
+    return rc != 0
+
+
 def ensure_tls_material(run_root: Path) -> tuple[str, str]:
     cert = run_root / "target-facts-tls.crt"
     key = run_root / "target-facts-tls.key"
-    if not cert.exists() or not key.exists():
+    if cert_needs_refresh(cert, key):
+        cert.unlink(missing_ok=True)
+        key.unlink(missing_ok=True)
         rc, out, err = sh([
             "openssl", "req", "-x509", "-newkey", "rsa:2048", "-nodes",
             "-keyout", str(key), "-out", str(cert), "-subj", "/CN=helm-expt.local",
@@ -323,11 +332,77 @@ def ensure_tls_material(run_root: Path) -> tuple[str, str]:
     return cert.read_text(), key.read_text()
 
 
+def ensure_consul_tls_material(run_root: Path) -> tuple[str, str, str]:
+    ca_cert = run_root / "consul-target-facts-ca.crt"
+    ca_key = run_root / "consul-target-facts-ca.key"
+    server_cert = run_root / "consul-target-facts-server.crt"
+    server_key = run_root / "consul-target-facts-server.key"
+    server_csr = run_root / "consul-target-facts-server.csr"
+    server_config = run_root / "consul-target-facts-server-openssl.cnf"
+    needs_refresh = (
+        cert_needs_refresh(ca_cert, ca_key)
+        or cert_needs_refresh(server_cert, server_key)
+        or not server_cert.exists()
+        or not server_key.exists()
+    )
+    if needs_refresh:
+        for path in (ca_cert, ca_key, server_cert, server_key, server_csr):
+            path.unlink(missing_ok=True)
+        rc, out, err = sh([
+            "openssl", "req", "-x509", "-newkey", "rsa:2048", "-nodes",
+            "-keyout", str(ca_key), "-out", str(ca_cert), "-subj", "/CN=helm-expt-consul-ca",
+            "-days", "1",
+        ], timeout=60)
+        if rc != 0:
+            raise RuntimeError(f"Consul target fact CA generation failed: {(err or out)[:1000]}")
+        server_config.write_text("""[req]
+distinguished_name = req_distinguished_name
+req_extensions = v3_req
+prompt = no
+
+[req_distinguished_name]
+CN = consul-consul-server.consul.svc
+
+[v3_req]
+basicConstraints = CA:FALSE
+keyUsage = critical,digitalSignature,keyEncipherment
+extendedKeyUsage = serverAuth,clientAuth
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = consul-consul-server
+DNS.2 = consul-consul-server.consul
+DNS.3 = consul-consul-server.consul.svc
+DNS.4 = consul-consul-server.consul.svc.cluster.local
+DNS.5 = server.consul.consul
+DNS.6 = server.dc1.consul
+DNS.7 = localhost
+IP.1 = 127.0.0.1
+""")
+        rc, out, err = sh([
+            "openssl", "req", "-new", "-newkey", "rsa:2048", "-nodes",
+            "-keyout", str(server_key), "-out", str(server_csr), "-config", str(server_config),
+        ], timeout=60)
+        if rc != 0:
+            raise RuntimeError(f"Consul target fact server CSR generation failed: {(err or out)[:1000]}")
+        rc, out, err = sh([
+            "openssl", "x509", "-req", "-in", str(server_csr),
+            "-CA", str(ca_cert), "-CAkey", str(ca_key), "-CAcreateserial",
+            "-out", str(server_cert), "-days", "1",
+            "-extensions", "v3_req", "-extfile", str(server_config),
+        ], timeout=60)
+        if rc != 0:
+            raise RuntimeError(f"Consul target fact server certificate generation failed: {(err or out)[:1000]}")
+    return ca_cert.read_text(), server_cert.read_text(), server_key.read_text()
+
+
 def ensure_metrics_server_tls_material(run_root: Path) -> tuple[str, str]:
     cert = run_root / "metrics-server-target-facts-tls.crt"
     key = run_root / "metrics-server-target-facts-tls.key"
     config = run_root / "metrics-server-target-facts-openssl.cnf"
-    if not cert.exists() or not key.exists():
+    if cert_needs_refresh(cert, key):
+        cert.unlink(missing_ok=True)
+        key.unlink(missing_ok=True)
         config.write_text("""[req]
 distinguished_name = req_distinguished_name
 x509_extensions = v3_req
@@ -359,6 +434,12 @@ DNS.4 = metrics-server.kube-system.svc.cluster.local
 
 
 def target_fact_value(secret_name: str, key: str, run_root: Path) -> str:
+    if secret_name == "consul-ca-cert" and key in ("tls.crt", "ca.crt"):
+        return ensure_consul_tls_material(run_root)[0]
+    if secret_name == "consul-server-cert" and key == "tls.crt":
+        return ensure_consul_tls_material(run_root)[1]
+    if secret_name == "consul-server-cert" and key == "tls.key":
+        return ensure_consul_tls_material(run_root)[2]
     if secret_name == "metrics-server-tls" and key in ("cert", "tls.crt", "ca.crt"):
         return ensure_metrics_server_tls_material(run_root)[0]
     if secret_name == "metrics-server-tls" and key in ("key", "tls.key"):
@@ -569,7 +650,9 @@ def ready_status(kubeconfig: Path, context: str, namespace: str) -> dict:
             continue
         name, ready, status = fields[:3]
         ok = status in ("Running", "Completed")
-        if "/" in ready:
+        if status == "Completed":
+            ok = True
+        elif "/" in ready:
             have, want = ready.split("/", 1)
             ok = ok and have == want
         if not ok:
@@ -681,9 +764,28 @@ def semantic_compare(
     }
 
 
-def create_kind_cluster(name: str, kubeconfig: Path) -> tuple[int, str, str]:
+def target_topology(variant: dict) -> dict:
+    facts = (variant.get("spec") or {}).get("targetFacts") or {}
+    topology = facts.get("requiredTopology") or {}
+    minimum_nodes = int(topology.get("minimumSchedulableNodes") or 1)
+    return {
+        "minimumSchedulableNodes": max(1, minimum_nodes),
+        "purpose": topology.get("purpose") or "",
+    }
+
+
+def create_kind_cluster(name: str, kubeconfig: Path, node_count: int = 1) -> tuple[int, str, str]:
     kubeconfig.parent.mkdir(parents=True, exist_ok=True)
-    return sh(["kind", "create", "cluster", "--name", name, "--kubeconfig", str(kubeconfig), "--wait", "300s"], timeout=720)
+    cmd = ["kind", "create", "cluster", "--name", name, "--kubeconfig", str(kubeconfig), "--wait", "300s"]
+    if node_count > 1:
+        config_path = kubeconfig.with_name(f"{name}-kind-config.yaml")
+        write_yaml(config_path, {
+            "kind": "Cluster",
+            "apiVersion": "kind.x-k8s.io/v1alpha4",
+            "nodes": [{"role": "control-plane"}, *({"role": "worker"} for _ in range(node_count))],
+        })
+        cmd.extend(["--config", str(config_path)])
+    return sh(cmd, timeout=900)
 
 
 def delete_kind_cluster(name: str, kubeconfig: Path) -> tuple[int, str, str]:
@@ -707,6 +809,10 @@ def apply_installer_manifest(manifest: str, manifests_dir: Path, secrets_dir: Pa
         ns_yaml = run_root / "installer-namespaces.yaml"
         write_text(ns_yaml, render_docs_to_yaml(namespace_docs))
         kubectl_must(["apply", "-f", str(ns_yaml)], kubeconfig, context, "namespace apply")
+
+    if manifests_dir.exists():
+        for path in sorted(manifests_dir.glob("serviceaccount-*.yaml")):
+            kubectl_must(["apply", "-f", str(path)], kubeconfig, context, f"service account apply {path.name}", timeout=120)
 
     if secrets_dir.exists():
         for secret_path in sorted(secrets_dir.glob("*.yaml")):
@@ -820,6 +926,8 @@ def main() -> int:
         semantic_normalizations = semantic_normalizations_for(revision_path)
         receipt["spec"]["semanticComparison"]["semanticNormalizations"] = semantic_normalizations
         variant = load_yaml(variant_path)
+        topology = target_topology(variant)
+        receipt["spec"]["run"]["targetTopology"] = topology
         write_text(run_root / "canonical-helm-render.yaml", canonical_helm_manifest)
         helm_values_path = raw_values_file(values_path, run_root / "regular-helm-values.yaml")
         helm_required_values = apply_helm_required_value_overrides(helm_values_path, variant, run_root)
@@ -830,10 +938,13 @@ def main() -> int:
             (helm_cluster, helm_kubeconfig, "helm"),
             (installer_cluster, installer_kubeconfig, "installer"),
         ]:
-            rc, out, err = create_kind_cluster(name, kubeconfig)
+            rc, out, err = create_kind_cluster(name, kubeconfig, topology["minimumSchedulableNodes"])
             if rc != 0:
                 raise RuntimeError(f"kind create {label} cluster failed: {(err or out)[:1000]}")
-            check_item(f"kind-create-{label}", "pass", out or f"{label} kind cluster created")
+            detail = out or f"{label} kind cluster created"
+            if topology["minimumSchedulableNodes"] > 1:
+                detail = f"{detail}\nminimumSchedulableNodes={topology['minimumSchedulableNodes']}"
+            check_item(f"kind-create-{label}", "pass", detail)
 
         helm_target_facts = stage_target_facts(variant, recipe_path, helm_kubeconfig, helm_context, args.namespace, run_root, "helm", "regularHelm")
         installer_target_facts = stage_target_facts(variant, recipe_path, installer_kubeconfig, installer_context, args.namespace, run_root, "installer", "cubInstallerApply")

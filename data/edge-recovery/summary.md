@@ -9,10 +9,10 @@ can become desired-state graph input.
 
 ~~~text
 charts with inheritance graphs: 20
-edge rows:                      99
-target-fact edges:              56
+edge rows:                      100
+target-fact edges:              57
 generated-fact edges:           1
-charts with target facts:        13
+charts with target facts:        14
 charts with field reachability:  2
 ~~~
 
@@ -33,7 +33,7 @@ charts with field reachability:  2
 | grafana/tempo@1.24.4 | [../../recipes/grafana/tempo/1.24.4/inheritance-graph.yaml](../../recipes/grafana/tempo/1.24.4/inheritance-graph.yaml) | Catalog-supported chart with 2 target fact edges captured from recipe artifacts. |
 | hashicorp/consul@2.0.0 | [../../recipes/hashicorp/consul/2.0.0/inheritance-graph.yaml](../../recipes/hashicorp/consul/2.0.0/inheritance-graph.yaml) | Catalog-supported chart with 4 target fact edges captured from recipe artifacts. |
 | hashicorp/vault@0.32.0 | [../../recipes/hashicorp/vault/0.32.0/inheritance-graph.yaml](../../recipes/hashicorp/vault/0.32.0/inheritance-graph.yaml) | Catalog-supported chart with base and variant inheritance captured from recipe artifacts. |
-| ingress-nginx/ingress-nginx@4.15.1 | [../../recipes/ingress-nginx/ingress-nginx/4.15.1/inheritance-graph.yaml](../../recipes/ingress-nginx/ingress-nginx/4.15.1/inheritance-graph.yaml) | Catalog-supported chart with base and variant inheritance captured from recipe artifacts. |
+| ingress-nginx/ingress-nginx@4.15.1 | [../../recipes/ingress-nginx/ingress-nginx/4.15.1/inheritance-graph.yaml](../../recipes/ingress-nginx/ingress-nginx/4.15.1/inheritance-graph.yaml) | Catalog-supported chart with 1 target fact edge captured from recipe artifacts. |
 | jetstack/cert-manager@v1.20.2 | [../../recipes/jetstack/cert-manager/v1.20.2/inheritance-graph.yaml](../../recipes/jetstack/cert-manager/v1.20.2/inheritance-graph.yaml) | Catalog-supported chart with base and variant inheritance captured from recipe artifacts. |
 | longhorn/longhorn@1.11.2 | [../../recipes/longhorn/longhorn/1.11.2/inheritance-graph.yaml](../../recipes/longhorn/longhorn/1.11.2/inheritance-graph.yaml) | Catalog-supported chart with base and variant inheritance captured from recipe artifacts. |
 | metrics-server/metrics-server@3.13.0 | [../../recipes/metrics-server/metrics-server/3.13.0/inheritance-graph.yaml](../../recipes/metrics-server/metrics-server/3.13.0/inheritance-graph.yaml) | Catalog-supported chart with 1 target fact edge captured from recipe artifacts. |
