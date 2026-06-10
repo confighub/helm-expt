@@ -1,0 +1,7 @@
+networkpolicy.networking.k8s.io/postgresql serverside-applied
+poddisruptionbudget.policy/postgresql serverside-applied
+serviceaccount/postgresql serverside-applied
+secret/postgresql serverside-applied
+service/postgresql-hl serverside-applied
+service/postgresql serverside-applied
+statefulset.apps/postgresql serverside-applied

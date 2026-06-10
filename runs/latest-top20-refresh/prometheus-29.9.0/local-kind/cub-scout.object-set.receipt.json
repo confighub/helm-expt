@@ -1,0 +1,146 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "rendered-object-set://sha256/365ff667c2c85ccd",
+      "digest": {
+        "sha256": "365ff667c2c85ccd2a6c7386f34dea01da709c2dd40d24b3bb892b751b86b7bc"
+      }
+    },
+    {
+      "name": "k8s-live-object-set://namespace/monitoring",
+      "digest": {
+        "sha256": "365ff667c2c85ccd2a6c7386f34dea01da709c2dd40d24b3bb892b751b86b7bc"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "live object set matches rendered manifests from /Users/alexis/code/helm-expt/runs/latest-top20-refresh/prometheus-29.9.0/local-kind/cub-scout.desired.yaml",
+    "scope": {
+      "kind": "ObjectSet",
+      "name": "rendered-install",
+      "namespace": "monitoring"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-06-10T11:53:47Z",
+    "freshness": {
+      "observedAt": "2026-06-10T11:53:47Z",
+      "expiresAt": "2026-06-10T12:53:47Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "object-set-matches",
+    "verdict": "PASS",
+    "evidence": {
+      "objectSet": {
+        "desiredSource": {
+          "type": "file",
+          "ref": "/Users/alexis/code/helm-expt/runs/latest-top20-refresh/prometheus-29.9.0/local-kind/cub-scout.desired.yaml",
+          "digest": "67f1ad0ad4ed2deef882b4cc69105df8548de7c212040e5a722b6b5d6bb562c2",
+          "objectCount": 6
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "monitoring"
+        },
+        "matchMode": "authored-fields",
+        "desiredDigest": "365ff667c2c85ccd2a6c7386f34dea01da709c2dd40d24b3bb892b751b86b7bc",
+        "liveDigest": "365ff667c2c85ccd2a6c7386f34dea01da709c2dd40d24b3bb892b751b86b7bc",
+        "summary": {
+          "desired": 6,
+          "matched": 6,
+          "missing": 0,
+          "mismatched": 0,
+          "inconclusive": 0
+        },
+        "objects": [
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "monitoring",
+              "name": "prometheus-server"
+            },
+            "status": "matched",
+            "desiredDigest": "f1c2a6e84c463ec124ec8707714aabffc7149bc1d143fddc6f4b59c48a514b99",
+            "liveDigest": "f1c2a6e84c463ec124ec8707714aabffc7149bc1d143fddc6f4b59c48a514b99"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRoleBinding",
+              "name": "prometheus-server"
+            },
+            "status": "matched",
+            "desiredDigest": "d953735cbe645beb4080eda0b6c2e285e3e9e34ac569ea58473a0c43f5d9ebdd",
+            "liveDigest": "d953735cbe645beb4080eda0b6c2e285e3e9e34ac569ea58473a0c43f5d9ebdd"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRole",
+              "name": "prometheus-server"
+            },
+            "status": "matched",
+            "desiredDigest": "702ee4d69709b25ead89d26c4cbff6a2083b1883d41a863cdc000ca4792fc60f",
+            "liveDigest": "702ee4d69709b25ead89d26c4cbff6a2083b1883d41a863cdc000ca4792fc60f"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "monitoring",
+              "name": "prometheus-server"
+            },
+            "status": "matched",
+            "desiredDigest": "7a6aab4164db5699b70cc51123f11e399f93173752ac65769318e3e16112901c",
+            "liveDigest": "7a6aab4164db5699b70cc51123f11e399f93173752ac65769318e3e16112901c"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "monitoring",
+              "name": "prometheus-server"
+            },
+            "status": "matched",
+            "desiredDigest": "f53efc2c8755ff62c2783728f25dcb3b2e3f95b159c82a684335ff93fad89e4a",
+            "liveDigest": "f53efc2c8755ff62c2783728f25dcb3b2e3f95b159c82a684335ff93fad89e4a"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "monitoring",
+              "name": "prometheus-server"
+            },
+            "status": "matched",
+            "desiredDigest": "7ed5f4307f5488ebd18001106465e7fef7055f5fcc5ee3092841a41ab35ff504",
+            "liveDigest": "7ed5f4307f5488ebd18001106465e7fef7055f5fcc5ee3092841a41ab35ff504"
+          }
+        ]
+      }
+    },
+    "omissions": [
+      {
+        "missing": "extra-live-object-coverage",
+        "reason": "object-set-matches verifies desired object identities and authored fields from the rendered manifests; it does not prove that no extra live objects exist outside that desired set",
+        "severity": "info"
+      }
+    ],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every desired rendered object was present and all authored fields matched live",
+        "nextCommand": "cub-scout doctor",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:b40c4c89d6803c5acbbbe1b83e9a39f25bb62cfae3914196c460c78e97296157"
+  }
+}

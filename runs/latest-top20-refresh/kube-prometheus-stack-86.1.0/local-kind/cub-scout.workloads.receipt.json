@@ -1,0 +1,132 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "rendered-object-set://sha256/cd41a0eeaaabb185",
+      "digest": {
+        "sha256": "cd41a0eeaaabb18506cc5f476bb0fcb2f9317bcebbacf26191c7f038580a73fc"
+      }
+    },
+    {
+      "name": "k8s-live-workloads://namespace/monitoring",
+      "digest": {
+        "sha256": "57172aa17b1f306a4d18d0a4e9ebe891906d76b3a0f3168d673d94de15d0ac59"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "desired workloads from /Users/alexis/code/helm-expt/runs/latest-top20-refresh/kube-prometheus-stack-86.1.0/local-kind/cub-scout.workloads.desired.yaml converged to a ready state in the live cluster",
+    "scope": {
+      "kind": "WorkloadSet",
+      "name": "rendered-install",
+      "namespace": "monitoring"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-06-10T11:58:43Z",
+    "freshness": {
+      "observedAt": "2026-06-10T11:58:43Z",
+      "expiresAt": "2026-06-10T12:58:43Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "workloads-converged",
+    "verdict": "PASS",
+    "evidence": {
+      "workloads": {
+        "desiredSource": {
+          "type": "file",
+          "ref": "/Users/alexis/code/helm-expt/runs/latest-top20-refresh/kube-prometheus-stack-86.1.0/local-kind/cub-scout.workloads.desired.yaml",
+          "digest": "0211b2313b6c27e87743b88f3972b1fb305651a08b9ccb90693e313bf5c8b7ff",
+          "objectCount": 4
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "monitoring"
+        },
+        "graceWindow": "5m0s",
+        "observedAt": "2026-06-10T11:58:43Z",
+        "desiredDigest": "cd41a0eeaaabb18506cc5f476bb0fcb2f9317bcebbacf26191c7f038580a73fc",
+        "liveDigest": "57172aa17b1f306a4d18d0a4e9ebe891906d76b3a0f3168d673d94de15d0ac59",
+        "summary": {
+          "desired": 4,
+          "converged": 4,
+          "progressing": 0,
+          "failed": 0,
+          "missing": 0,
+          "inconclusive": 0
+        },
+        "workloads": [
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "DaemonSet",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-prometheus-node-exporter"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "All replicas scheduled as expected. Replicas: 1",
+            "ageSeconds": 148
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-grafana"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Deployment is available. Replicas: 1",
+            "ageSeconds": 148
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-kube-state-metrics"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Deployment is available. Replicas: 1",
+            "ageSeconds": 148
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "monitoring",
+              "name": "kube-prometheus-stack-operator"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Deployment is available. Replicas: 1",
+            "ageSeconds": 148
+          }
+        ]
+      }
+    },
+    "omissions": [
+      {
+        "missing": "workload-convergence-snapshot",
+        "reason": "workloads-converged reflects readiness observed at verifiedAt; it does not prove the workloads stay converged afterward",
+        "severity": "info"
+      }
+    ],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every desired workload reached a ready/converged state",
+        "nextCommand": "cub-scout doctor",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:a73fc773e0f54f045fcf7264ab594af748f0b526b39a915422a3a22ceafea897"
+  }
+}

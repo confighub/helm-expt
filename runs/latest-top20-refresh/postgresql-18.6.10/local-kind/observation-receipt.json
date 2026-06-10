@@ -1,0 +1,86 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "postgresql-18-6-10-generated-passwords-local-kind"
+  },
+  "spec": {
+    "variantRevision": "data/latest-top20-refresh/candidates/postgresql-18.6.10/recipes/bitnami/postgresql/18.6.10/revisions/generated-passwords/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "3813cd50ce20e68fab8ac09137d36e9164c718df62da7eb0b3df35ede0ce7f69",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.2.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-postgresql-18-6-10",
+      "context": "kind-helm-expt-postgresql-18-6-10",
+      "namespace": "postgresql"
+    },
+    "observedAt": "2026-06-10T11:50:14.877Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "bitnami/postgresql",
+    "chartVersion": "18.6.10",
+    "rank": 8,
+    "variant": "generated-passwords",
+    "renderedObjectCount": 7,
+    "checks": [
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "b03b7a4719bbffc714917beb3bfff9b74f475d7792b9f46f719fec6101bb18bf"
+      },
+      {
+        "name": "statefulset-postgresql-rollout",
+        "result": "pass",
+        "object": "statefulset/postgresql",
+        "evidencePath": "statefulset-postgresql-rollout.txt",
+        "evidenceSHA256": "ed5b84bcca146527296068824610b6e880fa6b3496574c64be5774e5f939e141"
+      },
+      {
+        "name": "pvc-bound",
+        "result": "pass",
+        "count": 1,
+        "evidencePath": "pvc-status.json",
+        "evidenceSHA256": "254a86868e3d544c988d61f8a399b1015e9827104d1baa5dfc621cc389d9baba"
+      },
+      {
+        "name": "cub-scout-object-set-matches",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.object-set.receipt.json",
+        "evidenceSHA256": "23407c3bf18387dc6251c050baee2374215a78862f84316e40bce3faa29198b0",
+        "stderrPath": "cub-scout.object-set.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "cub-scout-closed-world-object-set",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.closed-world.receipt.json",
+        "evidenceSHA256": "ff39065358969c664bfcb39cd93bcc2b1882f5a74b1d625c77563e1473731de9",
+        "stderrPath": "cub-scout.closed-world.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "cub-scout-workloads-converged",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.workloads.receipt.json",
+        "evidenceSHA256": "b5ea82c91a67551cac76ef799917dcf95f5112aa2917f77d0e14a36b3b91ec06",
+        "stderrPath": "cub-scout.workloads.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "855c12f2f86be14176acaa6a63087e161d129008858e50279c1feddd37f71fac"
+    }
+  }
+}

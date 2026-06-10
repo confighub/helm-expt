@@ -21,6 +21,7 @@ objects before comparison. It currently prunes these API-dropped no-op fields:
 | probe-zero-delay | `*.livenessProbe.initialDelaySeconds`, `*.readinessProbe.initialDelaySeconds`, `*.startupProbe.initialDelaySeconds` when the value is `0` | Kubernetes omits probe delay fields when the authored value is the default. |
 | min-ready-seconds-zero | `spec.minReadySeconds` when the value is `0` | Kubernetes omits this deployment-style default on live objects. |
 | empty-ca-bundle | webhook `clientConfig.caBundle` and CRD conversion `spec.caBundle` when empty | Controllers or the API server may omit an empty CA bundle. Non-empty CA bundles are preserved and compared. |
+| empty-volume-mount-subpath | `spec.template.spec.containers[*].volumeMounts[*].subPath` when empty | Kubernetes omits empty `subPath` values on live container volume mounts. Non-empty `subPath` values are preserved and compared. |
 | false-host-flags | pod template `hostIPC`, `hostNetwork`, `hostPID` when `false` | Kubernetes omits false host namespace flags after apply. |
 | publish-not-ready-false | `spec.publishNotReadyAddresses` when `false` | Kubernetes omits the false service default. |
 | empty-security-context-lists | `securityContext.supplementalGroups` and `securityContext.sysctls` when empty | Kubernetes omits empty optional security context lists. |

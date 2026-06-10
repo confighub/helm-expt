@@ -1,0 +1,87 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "declared-prerequisites://sha256/0abdeed2d5139925",
+      "digest": {
+        "sha256": "0abdeed2d513992535b50a754e105581756726572318574d9d89b41c8104d112"
+      }
+    },
+    {
+      "name": "k8s-live-prerequisites://namespace/argocd",
+      "digest": {
+        "sha256": "3862443eeef97b3a11bb5f282b3d721cf477e9baf82062bf331108116babe8d5"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "declared prerequisites from /Users/alexis/code/helm-expt/runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/cub-scout.prerequisites.yaml are present in the live cluster",
+    "scope": {
+      "kind": "Prerequisites",
+      "name": "install-prerequisites",
+      "namespace": "argocd"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-06-10T11:55:34Z",
+    "freshness": {
+      "observedAt": "2026-06-10T11:55:34Z",
+      "expiresAt": "2026-06-10T12:55:34Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "prerequisites-met",
+    "verdict": "PASS",
+    "evidence": {
+      "prerequisites": {
+        "source": {
+          "type": "file",
+          "ref": "/Users/alexis/code/helm-expt/runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/cub-scout.prerequisites.yaml",
+          "digest": "bebd387933023f85f1ce0979535caf5025e2a2a0972b950a8715a4dc4d399252",
+          "objectCount": 1
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "argocd"
+        },
+        "declaredDigest": "0abdeed2d513992535b50a754e105581756726572318574d9d89b41c8104d112",
+        "liveDigest": "3862443eeef97b3a11bb5f282b3d721cf477e9baf82062bf331108116babe8d5",
+        "summary": {
+          "required": 1,
+          "present": 1,
+          "missing": 0,
+          "inconclusive": 0
+        },
+        "facts": [
+          {
+            "kind": "Secret",
+            "name": "argocd-redis",
+            "namespace": "argocd",
+            "detail": "keys: auth",
+            "status": "present"
+          }
+        ]
+      }
+    },
+    "omissions": [
+      {
+        "missing": "prerequisites-snapshot",
+        "reason": "prerequisites-met reflects the cluster facts observed at verifiedAt; it does not prove they remain present afterward",
+        "severity": "info"
+      }
+    ],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every declared prerequisite is present in the live cluster",
+        "nextCommand": "cub-scout doctor",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:cc73fac88cd962ef06997de558152ca135e4d04563021c0940edf2a21dd27bc0"
+  }
+}
