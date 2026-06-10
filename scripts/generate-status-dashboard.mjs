@@ -70,6 +70,8 @@ function buildReport() {
   ).length;
   const targetBoundDerivedReceiptCount = listFiles(join(repoRoot, "runs", "derived-variant-target-bound"))
     .filter((file) => /receipt\.ya?ml$/.test(file)).length;
+  const selectedLiveParityPassCount = resultCount(liveRows, "pass");
+  const selectedLiveParityStatus = selectedLiveParityPassCount === liveRows.length ? "good" : "partial";
 
   const rows = [];
 
@@ -116,7 +118,7 @@ function buildReport() {
   rows.push(metric("graph bridge", "rows with field reachability", edgeRows.filter((row) => row.field_reachability_paths).length, edgeRows.length, "partial", "data/edge-recovery/edges.csv", "Rows that connect an input, generated fact, or variant change to rendered output fields."));
 
   rows.push(metric("live evidence", "runtime/GitOps wave rows", runtimeRows.length, runtimeRows.length, "partial", "data/runtime-gitops/wave1.csv", "Selected Argo/Flux OCI wave rows; this is not the whole corpus."));
-  rows.push(metric("live evidence", "live Helm-vs-ConfigHub receipts", liveRows.length, liveRows.length, "partial", "data/live-helm-confighub-compare/summary.csv", "Committed live comparison receipts, including pass and non-pass results."));
+  rows.push(metric("live evidence", "selected live Helm-vs-ConfigHub parity receipts", selectedLiveParityPassCount, liveRows.length, selectedLiveParityStatus, "data/live-helm-confighub-compare/summary.csv", "Selected top-20 live comparison receipts. Good means every selected receipt currently passes; this is not a claim for every base row."));
   rows.push(metric("live evidence", "two-cluster kind parity receipts", kindParityRows.length, kindParityRows.length, "partial", "data/live-kind-parity/summary.csv", "Committed two-cluster parity receipts for the top-20 base variants, including pass and non-pass results."));
   rows.push(metric("live evidence", "live parity rerun rows needing decisions", liveParityRerunRows.length, liveParityRerunRows.length, "partial", "data/live-parity-rerun-plan/rerun-plan.csv", "Non-pass live parity rows grouped by next action, such as runtime review, staged prerequisites, lifecycle route, or operating policy."));
   rows.push(metric("live evidence", "live parity rows needing model or staging first", count(liveParityRerunRows, "rerun_readiness", "model-or-stage-first"), liveParityRerunRows.length, "partial", "data/live-parity-rerun-plan/rerun-plan.csv", "Rows where another rerun is not the next useful action until a prerequisite, lifecycle route, or operating policy is handled."));
