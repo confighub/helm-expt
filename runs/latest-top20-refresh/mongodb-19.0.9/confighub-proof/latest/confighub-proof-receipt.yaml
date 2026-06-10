@@ -1,0 +1,99 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "mongodb-19-0-9-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "data/latest-top20-refresh/candidates/mongodb-19.0.9/packages/bitnami/mongodb/19.0.9"
+    name: "bitnami-mongodb"
+    chart: "bitnami/mongodb"
+    chartVersion: "19.0.9"
+    bases:
+      - "generated-passwords"
+      - "existing-secret-replicaset"
+    selectedBase: "generated-passwords"
+    docVerified: true
+    targetFactRequirements:
+      -
+        base: "existing-secret-replicaset"
+        requirements:
+          -
+            kind: "ClusterFeature"
+            name: "Secret mongodb/mongodb-auth keys mongodb-root-password,mongodb-replica-set-key"
+            namespace: "mongodb"
+            suggestedSource: "kubectl -n mongodb create secret generic mongodb-auth --from-literal=mongodb-root-password=<value> --from-literal=mongodb-replica-set-key=<value>"
+  render:
+    command: "cub installer setup --pull data/latest-top20-refresh/candidates/mongodb-19.0.9/packages/bitnami/mongodb/19.0.9 --base generated-passwords --work-dir .tmp/latest-top20-refresh/mongodb-19.0.9/confighub-proof --non-interactive --namespace mongodb"
+    result: "pass"
+    manifestCount: 8
+    separatedSecretCount: 1
+    facts:
+      targetFactChecks:
+        base: "generated-passwords"
+        mode: "not-required"
+        result: "pass"
+      targetFacts:
+        requiredCRDs:
+          []
+        requiredSecrets:
+          []
+  rerender:
+    command: "cub installer render --work-dir .tmp/latest-top20-refresh/mongodb-19.0.9/confighub-proof"
+    result: "pass"
+    manifestCount: 8
+    separatedSecretCount: 1
+  deterministicPackage:
+    command: "cub installer package data/latest-top20-refresh/candidates/mongodb-19.0.9/packages/bitnami/mongodb/19.0.9 -o .tmp/latest-top20-refresh/mongodb-19.0.9/archives/mongodb-19-0-9-a.tgz"
+    sha256: "5f85bd35400dd0f8a489cb98ae0df849f80ada939396716ba1c33f61fa6dd65c"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/latest-top20-refresh/mongodb-19.0.9/confighub-proof"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/latest-top20-refresh/mongodb-19.0.9/confighub-proof --space helm-mongodb-19-0-9-candidate-proof --component MongoDB --layer App --environment Demo --owner ConfigHubHelm --variant generated-passwords --unit-label Component=MongoDB --unit-label HelmChart=bitnami-mongodb --unit-label HelmChartVersion=19.0.9 --unit-label Variant=generated-passwords --unit-label Proof=mongodb-19-0-9-candidate-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-mongodb-19-0-9-candidate-proof"
+    unitCount: 9
+    kubernetesUnitCount: 8
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      - "v1/Secret mongodb/mongodb"
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/latest-top20-refresh/mongodb-19.0.9/confighub-proof"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/latest-top20-refresh/mongodb-19.0.9/confighub-proof"
+    result: "pass"
+    summary: "No changes.\nImages in helm-mongodb-19-0-9-candidate-proof (post-render):\n  init  Deployment/mongodb [log-dir] registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e\n      Deployment/mongodb [mongodb] registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e"
+  serverSideVariant:
+    command: "cub variant create staging helm-mongodb-19-0-9-candidate-proof --environment Staging --region local --space-name-pattern template:MongoDB-mongodb-19-0-9-{{.Labels.Variant}} --allow-exists"
+    result: "pass"
+    upstreamSpace: "helm-mongodb-19-0-9-candidate-proof"
+    downstreamSpace: "MongoDB-mongodb-19-0-9-staging"
+    clonedUnitCount: 9
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-mongodb-mongodb"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-mongodb-19-0-9-candidate-proof"
+      - "MongoDB-mongodb-19-0-9-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."
