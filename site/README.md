@@ -22,6 +22,7 @@ Data source:
 - `data/image-digest-workdown/all-subjects.csv`
 - `data/next-ten-waves/gap-review-wave.csv`
 - `data/status-dashboard/status.csv`
+- `data/status-dashboard/active-proof-queue.csv`
 - `data/top20-base-readiness/base-readiness.csv`
 - `data/extension-slots/extension-slots.csv`
 - `data/top100-readiness/readiness.csv`

@@ -234,8 +234,8 @@
         <div class="metric"><strong>6</strong><span>Two-cluster rows to resolve</span></div>
       </div>
       <div class="card"><table>
-        <thead><tr><th>Lane</th><th>Chart</th><th>Base</th><th>Current</th><th>Lifecycle</th><th>Reason</th></tr></thead>
-        <tbody><tr><td>two-cluster-kind-parity</td><td>grafana/tempo@1.24.4</td><td>s3-query-observability</td><td>blocked</td><td>-</td><td>target-prerequisite: object store endpoint not satisfied (parity passed)</td></tr><tr><td>two-cluster-kind-parity</td><td>hashicorp/consul@2.0.0</td><td>secure-mesh-existing-secrets</td><td>blocked</td><td>-</td><td>target-fit: secure mesh target topology not satisfied (parity passed)</td></tr><tr><td>two-cluster-kind-parity</td><td>hashicorp/vault@0.32.0</td><td>default</td><td>blocked</td><td>-</td><td>operate-policy: Vault init/unseal required (parity passed)</td></tr><tr><td>two-cluster-kind-parity</td><td>hashicorp/vault@0.32.0</td><td>ha-raft-ui</td><td>blocked</td><td>-</td><td>target-fit: HA raft target topology not satisfied (parity passed)</td></tr><tr><td>two-cluster-kind-parity</td><td>metrics-server/metrics-server@3.13.0</td><td>external-tls-ca</td><td>blocked</td><td>-</td><td>target-prerequisite: serving certificate and APIService trust not satisfied (parity passed)</td></tr><tr><td>two-cluster-kind-parity</td><td>ingress-nginx/ingress-nginx@4.15.1</td><td>default</td><td>watch</td><td>-</td><td>helm-hook: admission webhook certificate secret not supplied by config-only apply (parity passed)</td></tr></tbody>
+        <thead><tr><th>Chart</th><th>Base</th><th>Current</th><th>Next step</th><th>Reason</th><th>Support artifact</th></tr></thead>
+        <tbody><tr><td>grafana/tempo@1.24.4</td><td>s3-query-observability</td><td>blocked</td><td>stage-prerequisite</td><td>target-prerequisite: object store endpoint not satisfied (parity passed)</td><td>recipes/grafana/tempo/1.24.4/target-prerequisite-plan.yaml</td></tr><tr><td>hashicorp/consul@2.0.0</td><td>secure-mesh-existing-secrets</td><td>blocked</td><td>target-fit-review</td><td>target-fit: secure mesh target topology not satisfied (parity passed)</td><td>recipes/hashicorp/consul/2.0.0/target-topology.yaml</td></tr><tr><td>hashicorp/vault@0.32.0</td><td>default</td><td>blocked</td><td>operating-policy</td><td>operate-policy: Vault init/unseal required (parity passed)</td><td>recipes/hashicorp/vault/0.32.0/operating-policy.yaml</td></tr><tr><td>hashicorp/vault@0.32.0</td><td>ha-raft-ui</td><td>blocked</td><td>target-fit-review</td><td>target-fit: HA raft target topology not satisfied (parity passed)</td><td>recipes/hashicorp/vault/0.32.0/operating-policy.yaml</td></tr><tr><td>metrics-server/metrics-server@3.13.0</td><td>external-tls-ca</td><td>blocked</td><td>stage-prerequisite</td><td>target-prerequisite: serving certificate and APIService trust not satisfied (parity passed)</td><td>recipes/metrics-server/metrics-server/3.13.0/target-prerequisite-plan.yaml</td></tr><tr><td>ingress-nginx/ingress-nginx@4.15.1</td><td>default</td><td>watch</td><td>lifecycle-route</td><td>helm-hook: admission webhook certificate secret not supplied by config-only apply (parity passed)</td><td>recipes/ingress-nginx/ingress-nginx/4.15.1/lifecycle-policy.yaml</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -243,7 +243,7 @@
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>
-      <p><a href="../data/live-parity-rerun-plan/summary.md">Open the full live parity rerun plan</a>.</p>
+      <p><a href="../data/status-dashboard/active-proof-queue.csv">Open the active proof queue</a> or <a href="../data/live-parity-rerun-plan/summary.md">open the full live parity rerun plan</a>.</p>
     </section>
 
     <section aria-labelledby="top100-readiness">

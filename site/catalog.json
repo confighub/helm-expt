@@ -8,6 +8,7 @@
     "imageDigestSubjects": "data/image-digest-workdown/all-subjects.csv",
     "nextTenGaps": "data/next-ten-waves/gap-review-wave.csv",
     "statusDashboard": "data/status-dashboard/status.csv",
+    "activeProofQueue": "data/status-dashboard/active-proof-queue.csv",
     "baseReadiness": "data/top20-base-readiness/base-readiness.csv",
     "extensionSlots": "data/extension-slots/extension-slots.csv",
     "top100Readiness": "data/top100-readiness/readiness.csv",
@@ -637,6 +638,68 @@
       "status": "good",
       "source": "data/lifecycle-observations/cert-manager-eso/summary.csv",
       "note": "Cert-manager and External Secrets receipts for CRD/webhook/controller behavior that rendered YAML alone cannot prove."
+    }
+  ],
+  "activeProofQueue": [
+    {
+      "chart": "grafana/tempo@1.24.4",
+      "base": "s3-query-observability",
+      "current_result": "blocked",
+      "next_step_type": "stage-prerequisite",
+      "reason": "target-prerequisite: object store endpoint not satisfied (parity passed)",
+      "support_artifact": "recipes/grafana/tempo/1.24.4/target-prerequisite-plan.yaml",
+      "receipt": "runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml",
+      "rerun_command": "npm run kind-parity:run -- --chart grafana/tempo --version 1.24.4 --base s3-query-observability"
+    },
+    {
+      "chart": "hashicorp/consul@2.0.0",
+      "base": "secure-mesh-existing-secrets",
+      "current_result": "blocked",
+      "next_step_type": "target-fit-review",
+      "reason": "target-fit: secure mesh target topology not satisfied (parity passed)",
+      "support_artifact": "recipes/hashicorp/consul/2.0.0/target-topology.yaml",
+      "receipt": "runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml",
+      "rerun_command": "npm run kind-parity:run -- --chart hashicorp/consul --version 2.0.0 --base secure-mesh-existing-secrets"
+    },
+    {
+      "chart": "hashicorp/vault@0.32.0",
+      "base": "default",
+      "current_result": "blocked",
+      "next_step_type": "operating-policy",
+      "reason": "operate-policy: Vault init/unseal required (parity passed)",
+      "support_artifact": "recipes/hashicorp/vault/0.32.0/operating-policy.yaml",
+      "receipt": "runs/live-kind-parity/hashicorp-vault-default/receipt.yaml",
+      "rerun_command": "npm run kind-parity:run -- --chart hashicorp/vault --version 0.32.0 --base default"
+    },
+    {
+      "chart": "hashicorp/vault@0.32.0",
+      "base": "ha-raft-ui",
+      "current_result": "blocked",
+      "next_step_type": "target-fit-review",
+      "reason": "target-fit: HA raft target topology not satisfied (parity passed)",
+      "support_artifact": "recipes/hashicorp/vault/0.32.0/operating-policy.yaml",
+      "receipt": "runs/live-kind-parity/hashicorp-vault-ha-raft-ui/receipt.yaml",
+      "rerun_command": "npm run kind-parity:run -- --chart hashicorp/vault --version 0.32.0 --base ha-raft-ui"
+    },
+    {
+      "chart": "metrics-server/metrics-server@3.13.0",
+      "base": "external-tls-ca",
+      "current_result": "blocked",
+      "next_step_type": "stage-prerequisite",
+      "reason": "target-prerequisite: serving certificate and APIService trust not satisfied (parity passed)",
+      "support_artifact": "recipes/metrics-server/metrics-server/3.13.0/target-prerequisite-plan.yaml",
+      "receipt": "runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/receipt.yaml",
+      "rerun_command": "npm run kind-parity:run -- --chart metrics-server/metrics-server --version 3.13.0 --base external-tls-ca"
+    },
+    {
+      "chart": "ingress-nginx/ingress-nginx@4.15.1",
+      "base": "default",
+      "current_result": "watch",
+      "next_step_type": "lifecycle-route",
+      "reason": "helm-hook: admission webhook certificate secret not supplied by config-only apply (parity passed)",
+      "support_artifact": "recipes/ingress-nginx/ingress-nginx/4.15.1/lifecycle-policy.yaml",
+      "receipt": "runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml",
+      "rerun_command": "npm run kind-parity:run -- --chart ingress-nginx/ingress-nginx --version 4.15.1 --base default"
     }
   ],
   "catalogEntries": [
