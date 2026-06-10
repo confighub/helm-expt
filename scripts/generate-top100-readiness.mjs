@@ -38,6 +38,10 @@ if (mode === "--generate") {
 function buildReport() {
   const top100Rows = parseCsvFile("data/top100-catalog-analysis/review.csv");
   const outcomeRows = parseCsvFile("data/outcome-coverage/chart-outcomes.csv");
+  const hookRows = parseCsvFile("data/hook-lifecycle/maintained-hook-queue.csv");
+  const sourceHookRows = parseCsvFile("data/hook-lifecycle/source-top100-hooks.csv");
+  const hookReviewRows = parseCsvFile("data/hook-lifecycle-review/top100-source-hook-route-review.csv");
+  const lifecycleObservationRows = parseCsvFile("data/lifecycle-observations/cert-manager-eso/summary.csv");
   const productionNextActions = productionNextActionIndex();
   const outcomeByChart = new Map(outcomeRows.map((row) => [row.chart, row]));
 
@@ -85,7 +89,7 @@ function buildReport() {
   return {
     rows,
     csv: toCsv(rows),
-    summary: summary(rows),
+    summary: summary(rows, { hookRows, sourceHookRows, hookReviewRows, lifecycleObservationRows }),
     next80QueuesCsv: toCsv(next80QueueRows(rows)),
     next80QueuesSummary: next80QueuesSummary(rows),
   };
@@ -153,7 +157,7 @@ function productionNextActionIndex() {
   return result;
 }
 
-function summary(rows) {
+function summary(rows, hookContext) {
   const counts = countBy(rows, (row) => row.user_status);
   const adoptionCounts = countBy(rows, (row) => row.adoption_bucket);
   const evidenceCounts = countBy(rows, (row) => row.strongest_evidence);
@@ -168,6 +172,7 @@ function summary(rows) {
   const promotionReview = rows.filter((row) => row.user_status === "proof-grade-ready-for-promotion-review");
   const needsVariant = rows.filter((row) => row.user_status === "proof-grade-needs-user-shaped-variant");
   const namedLimitation = rows.filter((row) => row.user_status === "proof-grade-with-named-limitation");
+  const hookSummary = hookReadinessSummary(hookContext);
   return `# Top-100 Readiness
 
 This is the shortest chart-by-chart answer for the maintained top-100 corpus.
@@ -182,6 +187,9 @@ top-20 catalog-supported: ${top20.length}
 next-80 proof-grade: ${next80.length}
 charts with live evidence on at least one variant: ${liveEvidence.length}
 charts with named hard gaps: ${hardGaps.length}
+source top-100 charts with Helm hooks: ${hookSummary.sourceHooks}
+maintained hook lifecycle rows: ${hookSummary.maintainedHooks}
+source-reviewed hook routes not yet maintained: ${hookSummary.reviewedNotMaintained}
 ~~~
 
 ## Workability Lens
@@ -201,7 +209,26 @@ ${workabilityRows(rows).map((row) => `| ${row.question} | ${row.count} | ${row.a
 
 ## Next Workstreams
 
-${top100Workstreams({ top20, promotionReview, needsVariant, namedLimitation, liveEvidence, rows })}
+${top100Workstreams({ top20, promotionReview, needsVariant, namedLimitation, liveEvidence, rows, hookSummary })}
+
+## Hook And Lifecycle Work
+
+Hooks are not hidden inside render parity. The source scan, maintained hook
+queue, reviewed route candidates, and lifecycle observations are separate
+surfaces:
+
+| Surface | Rows | Use |
+| --- | ---: | --- |
+| Source top-100 hook rows | ${hookSummary.sourceHooks} | Find public top-100 charts whose retained source scan found Helm hooks. |
+| Maintained hook lifecycle rows | ${hookSummary.maintainedHooks} | Check current recipe/package rows with required lifecycle receipts. |
+| Observed hook rows | ${hookSummary.observedHooks} | Rows with runtime lifecycle observation or execution evidence. |
+| Partially observed hook rows | ${hookSummary.partialHooks} | Rows where one lifecycle phase remains, usually upgrade or delete. |
+| Source-reviewed routes not yet maintained | ${hookSummary.reviewedNotMaintained} | Promote the reviewed route into a maintained lifecycle receipt, candidate artifact, or blocker. |
+| Related lifecycle observation rows | ${hookSummary.relatedLifecycleObservations} | CRD/webhook/controller observations that rendered YAML alone cannot prove. |
+
+Start with [hook-lifecycle/summary.md](../hook-lifecycle/summary.md) for the
+maintained queue and [hook-lifecycle-review/summary.md](../hook-lifecycle-review/summary.md)
+for reviewed source routes that are not yet maintained.
 
 ## Adoption Buckets
 
@@ -282,6 +309,8 @@ ${rows.slice(0, 25).map((row) => `| \`${row.chart}\` | \`${row.adoption_bucket}\
 | \`data/top100-catalog-analysis/review.csv\` | Catalog analysis and promotion surface. |
 | \`data/outcome-coverage/chart-outcomes.csv\` | Detailed outcome counts per chart. |
 | \`data/outcome-coverage/base-outcomes.csv\` | Per base-variant proof lane status. |
+| \`data/hook-lifecycle/summary.md\` | Maintained hook lifecycle queue and receipt state. |
+| \`data/hook-lifecycle-review/summary.md\` | Source-reviewed hook routes not yet maintained. |
 
 Regenerate:
 
@@ -456,7 +485,7 @@ function sampleCharts(rows) {
   return rows.slice(0, 5).map((row) => `\`${row.chart}\``).join("<br>");
 }
 
-function top100Workstreams({ top20, promotionReview, needsVariant, namedLimitation, liveEvidence, rows }) {
+function top100Workstreams({ top20, promotionReview, needsVariant, namedLimitation, liveEvidence, rows, hookSummary }) {
   const liveGap = rows.length - liveEvidence.length;
   const workstreams = [
     {
@@ -494,10 +523,35 @@ function top100Workstreams({ top20, promotionReview, needsVariant, namedLimitati
       done: "The strongest evidence moves beyond render parity for the selected chart/base.",
       examples: sampleCharts(rows.filter((row) => row.strongest_evidence === "render-parity")),
     },
+    {
+      name: "Promote reviewed hook routes",
+      count: hookSummary.reviewedNotMaintained,
+      start: "Open `data/hook-lifecycle-review/summary.md` and choose one reviewed route candidate.",
+      done: "The route has a maintained lifecycle receipt, candidate artifact, or explicit blocker.",
+      examples: hookSummary.reviewedNotMaintainedExamples,
+    },
   ].filter((row) => row.count > 0);
   return `| Workstream | Rows | Start with | Done when | First examples |
 | --- | ---: | --- | --- | --- |
 ${workstreams.map((row) => `| ${row.name} | ${row.count} | ${escapePipes(row.start)} | ${escapePipes(row.done)} | ${row.examples} |`).join("\n")}`;
+}
+
+function hookReadinessSummary({ hookRows, sourceHookRows, hookReviewRows, lifecycleObservationRows }) {
+  const reviewedNotMaintained = hookReviewRows.filter((row) => row.in_maintained_queue === "no");
+  return {
+    sourceHooks: sourceHookRows.length,
+    maintainedHooks: hookRows.length,
+    observedHooks: hookRows.filter((row) => row.lifecycle_disposition === "lifecycle-observed").length,
+    partialHooks: hookRows.filter((row) => row.lifecycle_disposition === "install-lifecycle-observed-upgrade-pending").length,
+    reviewedNotMaintained: reviewedNotMaintained.length,
+    reviewedNotMaintainedExamples: sampleHookReviewCharts(reviewedNotMaintained),
+    relatedLifecycleObservations: lifecycleObservationRows.length,
+  };
+}
+
+function sampleHookReviewCharts(rows) {
+  if (!rows.length) return "-";
+  return rows.slice(0, 5).map((row) => `\`${row.chart}@${row.version}\``).join("<br>");
 }
 
 function workabilityFor(status) {

@@ -58,6 +58,12 @@ The first strict promotion-review wave is:
 
 [Top-100 Promotion Wave](../../data/top100-promotion-wave/summary.md)
 
+Hook and lifecycle work is tracked separately from render proof:
+
+[Hook Lifecycle Queue](../../data/hook-lifecycle/summary.md)
+
+[Reviewed Source Hook Routes](../../data/hook-lifecycle-review/summary.md)
+
 The spreadsheet-friendly CSV is:
 
 [readiness.csv](../../data/top100-readiness/readiness.csv)
@@ -133,6 +139,7 @@ Then drill down:
 | What exact bases exist for this chart? | `recipes/<repo>/<chart>/<version>/CATALOG.md` |
 | Which lanes pass for each base? | [base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | Which chart features or gaps matter? | [feature-outcomes.csv](../../data/outcome-coverage/feature-outcomes.csv) |
+| Which hook routes still need lifecycle receipts? | [Hook Lifecycle Queue](../../data/hook-lifecycle/summary.md) and [Reviewed Source Hook Routes](../../data/hook-lifecycle-review/summary.md) |
 | Which charts are next for strict promotion review? | [Top-100 Promotion Wave](../../data/top100-promotion-wave/summary.md) |
 | Which older variant-design worksheet can inform future bases? | [catalog-promotion-wave2](../../data/catalog-promotion-wave2/summary.md) |
 | Which production decision is still missing? | [Production Next Actions](../../data/production-disposition/next-actions.csv) |
