@@ -105,6 +105,7 @@ belong in managed ConfigHub workflows.
 ## Next
 
 - [Catalog dashboard](../../site/index.html)
+- [Chart Use Guide](../../data/chart-use-guide/summary.md)
 - [Static offering page](../../site/offering.html)
 - [What You Get](./what-you-get.md)
 - [Choosing Commands](./choosing-commands.md)
