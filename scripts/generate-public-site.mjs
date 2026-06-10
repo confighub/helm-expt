@@ -740,6 +740,19 @@ function offeringHtml(catalog) {
       ])}
     </section>
 
+    <section aria-labelledby="stages">
+      <h2 id="stages">Start At Your Stage</h2>
+      <p>Each stage asks for more trust and gives more value. Stages 1 and 2 are direct fast paths that skip the catalog; stage 3 is the maintained catalog path; stage 4 lets you check the claims yourself before relying on them.</p>
+      ${markdownLikeTable([
+        ["Stage", "Command or surface", "ConfigHub account?"],
+        ["1. Curious: see exactly what a chart renders", "cub helm template", "No"],
+        ["2. Fast adoption: one Helm render into ConfigHub Units", "cub helm install", "Yes"],
+        ["3. Supported catalog: maintained base with receipts and live evidence", "cub installer setup --pull <package> --base <base>", "No, for public packages"],
+        ["4. Trust proof: check the claims on your own machine", "repo verifiers and kind parity lanes", "No"],
+        ["5. Operations: variants, scans, approvals, OCI/GitOps, observations", "cub variant create, cub unit diff, changesets", "Yes"],
+      ])}
+    </section>
+
     <section aria-labelledby="two-uses">
       <h2 id="two-uses">Why This Helps</h2>
       <div class="split">
@@ -873,6 +886,17 @@ npm run docs:verify</pre>
       <pre>cub version
 cub plugin install confighub/installer
 cub installer --help</pre>
+    </section>
+
+    <section aria-labelledby="fastest">
+      <h2 id="fastest">Path 0: Fastest Look, No Catalog Needed</h2>
+      <p>If you only want to see what a chart renders, you do not need this repo at all. These are the direct fast paths; the catalog paths below add reviewed bases, receipts, and live evidence on top.</p>
+      <pre># See the exact objects a chart produces. No ConfigHub account.
+cub helm template
+
+# Load one Helm render into ConfigHub Units. Needs an account.
+cub helm install</pre>
+      <p>The trade-off: fast paths give you this render, today. The catalog paths give you a named, maintained base with render parity against regular Helm, scans, and committed live receipts.</p>
     </section>
 
     <section aria-labelledby="redis">

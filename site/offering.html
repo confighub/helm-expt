@@ -130,6 +130,21 @@
       </style>
     </section>
 
+    <section aria-labelledby="stages">
+      <h2 id="stages">Start At Your Stage</h2>
+      <p>Each stage asks for more trust and gives more value. Stages 1 and 2 are direct fast paths that skip the catalog; stage 3 is the maintained catalog path; stage 4 lets you check the claims yourself before relying on them.</p>
+      <div class="card"><table>
+        <thead><tr><th>Stage</th><th>Command or surface</th><th>ConfigHub account?</th></tr></thead>
+        <tbody><tr><td>1. Curious: see exactly what a chart renders</td><td>cub helm template</td><td>No</td></tr><tr><td>2. Fast adoption: one Helm render into ConfigHub Units</td><td>cub helm install</td><td>Yes</td></tr><tr><td>3. Supported catalog: maintained base with receipts and live evidence</td><td>cub installer setup --pull &lt;package&gt; --base &lt;base&gt;</td><td>No, for public packages</td></tr><tr><td>4. Trust proof: check the claims on your own machine</td><td>repo verifiers and kind parity lanes</td><td>No</td></tr><tr><td>5. Operations: variants, scans, approvals, OCI/GitOps, observations</td><td>cub variant create, cub unit diff, changesets</td><td>Yes</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+    </section>
+
     <section aria-labelledby="two-uses">
       <h2 id="two-uses">Why This Helps</h2>
       <div class="split">

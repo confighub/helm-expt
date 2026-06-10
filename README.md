@@ -2,6 +2,9 @@
 
 Use Helm charts. Ship ConfigHub variants.
 
+Before you `helm install`, see exactly what you are installing. After you
+install, keep proof of what was rendered, checked, delivered, and observed.
+
 This repo shows how popular public Helm charts can become `cub installer`
 packages with named base variants, exact rendered Kubernetes objects, optional
 derived ConfigHub variants, scans, gates, receipts, and live proof.
@@ -22,6 +25,44 @@ Public entry points:
 - [Catalog dashboard](./site/index.html): generated status, catalog, and proof data.
 - [Current proof status](./docs/user/current-proof-status.md): what is proven, watch, blocked, or still backlog.
 - [Chain of proof](./docs/user/chain-of-proof.md): which tool proves which boundary.
+
+## New Here? Start With These Five Stages
+
+Each stage asks for more trust and gives more value. You can stop at any stage.
+
+| Stage | You want | Command or surface | Needs a ConfigHub account? |
+| --- | --- | --- | --- |
+| 1. Curious | See exactly what a chart renders. | `cub helm template` | No |
+| 2. Fast adoption | Load one Helm render into ConfigHub Units. | `cub helm install` | Yes |
+| 3. Supported catalog | A maintained base variant with rendered objects, receipts, scans, and live evidence. | `cub installer setup --pull <package> --base <base>` | No, for public packages |
+| 4. Trust proof | Check the catalog's claims on your own machine. | `npm run top20:verify-local-e2e`, `npm run redis:verify-install:render`, kind parity lanes | No |
+| 5. Operations | Variants, diffs, scans, approvals, OCI/GitOps delivery, observations. | `cub variant create`, `cub unit diff`, `cub function vet`, changesets | Yes |
+
+Stages 1 and 2 are direct fast paths and skip the catalog. Stage 3 is the
+durable catalog path this repo maintains. For when each command fits, see
+[Choosing Commands](./docs/user/choosing-commands.md).
+
+Four questions, answered up front:
+
+- **What can I try without signing up?** Browse the
+  [catalog](./CATALOG.md) and [site](./site/index.html), render any chart with
+  `cub helm template`, run `cub installer setup` on public packages, and run
+  the repo verifiers locally. See [the offering](./docs/user/offering.md).
+- **When do I need ConfigHub?** When you want rendered objects stored as Units,
+  derived environment/customer/target variants, approvals, private inputs, or
+  fleet operations. See [Product Support Tiers](./docs/user/product-support-tiers.md).
+- **What is better than Helm here?** You review exact rendered objects instead
+  of values files, changes route through named variants with receipts, and
+  failures surface as routed watch/blocked rows instead of silent drift. See
+  [Why This Exists](./docs/user/why-this-exists.md).
+- **What is not claimed yet?** Helm hook *execution* is routed but not yet
+  proven by execution receipts; the GitOps/OCI runtime lane is partial; the
+  stricter in-ConfigHub proof lane covers a minority of chart/base rows; live
+  claims are bounded to the tested Kubernetes capability profile; and
+  production support is a per-target decision, never implied by a green render.
+  Current counts live in the
+  [status dashboard](./data/status-dashboard/summary.md); deliberate refusals
+  live in [What We Refuse To Claim](./docs/user/what-we-refuse-to-claim.md).
 
 Core flow:
 
