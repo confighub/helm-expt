@@ -52,6 +52,7 @@ function buildReport() {
   const latestRefreshActionRows = readCsv("data/latest-top20-refresh/action-queue/queue.csv");
   const top500Rows = readCsv("data/top500-catalog-analysis/review.csv");
   const quirkRows = readCsv("data/quirk-coverage/coverage.csv");
+  const quirkWorkQueueRows = readCsv("data/quirk-work-queue/top100-queue.csv");
   const extensionRows = readCsv("data/extension-slots/extension-slots.csv");
   const sourceTop100HookRows = readCsv("data/hook-lifecycle/source-top100-hooks.csv");
   const hookRows = readCsv("data/hook-lifecycle/maintained-hook-queue.csv");
@@ -144,6 +145,7 @@ function buildReport() {
   rows.push(metric("quirks", "partly tracked axes", quirkTierCounts.get("partly-tracked") ?? 0, quirkRows.length, "partial", "data/quirk-coverage/coverage.csv", "Visible quirk axes that still need lifecycle or proof coverage."));
   rows.push(metric("quirks", "source-scanned but not surfaced axes", quirkTierCounts.get("source-scanned-not-surfaced") ?? 0, quirkRows.length, "gap", "data/quirk-coverage/coverage.csv", "Detected in source scan but not promoted to front-door chart facts."));
   rows.push(metric("quirks", "not-scanned axes", quirkTierCounts.get("not-scanned") ?? 0, quirkRows.length, "gap", "data/quirk-coverage/coverage.csv", "Known blind spots in the scanner/data model."));
+  rows.push(metric("quirks", "P0 source quirk work queue rows", quirkWorkQueueRows.filter((row) => row.priority === "P0").length, quirkWorkQueueRows.length, "gap", "data/quirk-work-queue/top100-queue.csv", "Chart-level work items that convert source-scan quirk findings into modeled, reviewable, or provable catalog facts."));
   rows.push(metric("extension slots", "top20 charts with extension slots", extensionRows.filter((row) => row.catalog_scope === "top20-catalog").length, 20, "partial", "data/extension-slots/extension-slots.csv", "Top-20 catalog charts that expose raw manifests, tpl snippets, config blocks, sidecars, or add-on slots."));
   rows.push(metric("extension slots", "top100 charts with extension slots", extensionRows.length, 100, "partial", "data/extension-slots/extension-slots.csv", "Top-100 chart facts where NGINX-like extension slots are surfaced."));
   rows.push(metric("extension slots", "top500 source rows using tpl", Number(quirkRows.find((row) => row.axis === "tpl-extension-slots")?.source_top500_count ?? 0), top500Rows.length, "partial", "data/quirk-coverage/coverage.csv", "Broader source-scan signal for template-powered inputs; not every tpl use is an explicit supported slot."));
@@ -514,6 +516,7 @@ lifecycle observation.
 | Which hooks, CRDs, generated facts, or target facts matter? | [outcome-coverage/feature-outcomes.csv](../outcome-coverage/feature-outcomes.csv) |
 | Which charts have NGINX-like extension slots? | [extension-slots/summary.md](../extension-slots/summary.md) |
 | Which Helm quirk axes are still blind spots? | [quirk-coverage/coverage.csv](../quirk-coverage/coverage.csv) |
+| Which source-scan quirk gaps should move first? | [quirk-work-queue/summary.md](../quirk-work-queue/summary.md) |
 | Which top-100 source rows contain Helm hooks? | [hook-lifecycle/source-top100-hooks.csv](../hook-lifecycle/source-top100-hooks.csv) |
 | Which maintained hook rows need lifecycle receipts? | [hook-lifecycle/maintained-hook-queue.csv](../hook-lifecycle/maintained-hook-queue.csv) |
 | Which hook claims are queued versus observed? | [lifecycle-boundary/summary.md](../lifecycle-boundary/summary.md) |

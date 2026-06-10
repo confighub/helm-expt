@@ -59,6 +59,7 @@ function readme(rows) {
     ["I want to know whether value-change blast radius is measured or still assumed.", "data/blast-radius-accuracy/summary.md; data/blast-radius-accuracy/cases.csv"],
     ["I want the top-100 coverage contract.", "data/top100-coverage/summary.md; data/top100-coverage/coverage.csv"],
     ["I want the strict top-100 work queue.", "data/top100-coverage/work-queue.md; data/top100-coverage/work-queue.csv; data/top100-coverage/decisions-needed.md"],
+    ["I want the source-scan quirk work queue.", "data/quirk-work-queue/summary.md; data/quirk-work-queue/top100-queue.csv"],
     ["I want the first strict top-100 promotion wave.", "data/top100-promotion-wave/summary.md; data/top100-promotion-wave/wave.csv"],
     ["I want to know how upstream chart updates are handled.", "data/refresh-survival/summary.md; data/latest-top20-refresh/action-queue/summary.md; data/latest-top20-refresh/replacement-decisions/summary.md"],
     ["I want the top-100 or top-500 planning picture.", "data/top100-readiness/summary.md; data/top100-readiness/next80-queues.md; data/top500-catalog-analysis/review.csv"],
@@ -128,6 +129,7 @@ function readme(rows) {
     ["data/top500-catalog-analysis/review.csv", "Top-500 evidence map: retained source-scan rows joined to current recipe proof, catalog status, version drift, source features, and next action."],
     ["data/variant-path-coverage/summary.md", "Per chart/base/path matrix for base variants, diffs, operations, and derived ConfigHub variants."],
     ["data/quirk-coverage/summary.md", "Coverage audit for Helm quirks: tracked, partly tracked, source-scanned only, or not scanned."],
+    ["data/quirk-work-queue/summary.md", "Chart-level work queue for converting public top-100 source-scan quirks into modeled, reviewable, and eventually provable catalog facts."],
     ["data/high-fanout-demo/summary.md", "Prometheus/kube-prometheus-stack example showing how one base choice changes many objects and prerequisites."],
     ["data/high-fanout-demo/operation-preview.md", "Pre-ship operation preview for kube-prometheus-stack high-fanout inputs: route, reach, guardrail, and next proof."],
     ["data/edge-recovery/summary.md", "Recovered graph fragments from catalog-supported recipe artifacts."],
@@ -313,6 +315,7 @@ function roleFor(path) {
   if (path === "data/edge-recovery/edges.csv") return "recovered desired-state graph fragments from recipe artifacts";
   if (path === "data/variant-path-coverage/coverage-matrix.csv") return "one row per chart/base/path proof status";
   if (path === "data/quirk-coverage/coverage.csv") return "one row per Helm quirk axis: coverage tier, evidence, remaining gap, next action";
+  if (path === "data/quirk-work-queue/top100-queue.csv") return "one row per affected public top-100 source chart: open quirk set, priority, first action, and next artifact";
   if (path === "data/extension-slots/extension-slots.csv") return "one row per chart with NGINX-like extension slots and the route for populated slots";
   if (path === "data/nginx-config-checks/checks.csv") return "NGINX supported-base checks for config extension slots and rendered object shape";
   if (path === "data/lifecycle-boundary/lifecycle-boundary.csv") return "one row per hook queue item or hook-like lifecycle observation";
@@ -359,6 +362,7 @@ function familyRole(family) {
     "edge-recovery": "recovered desired-state graph fragments",
     "variant-path-coverage": "chart/base/path proof status matrix",
     "quirk-coverage": "Helm quirk-axis coverage audit",
+    "quirk-work-queue": "source-scan quirk work queue for top-100 charts",
     "extension-slots": "NGINX-like extension-slot coverage and routing",
     "nginx-config-checks": "NGINX supported-base config extension checks",
     "lifecycle-boundary": "hook queue and hook-like lifecycle observation boundary",
@@ -442,6 +446,7 @@ function commandMap() {
     "edge-recovery": { generate: "npm run edges:generate", verify: "npm run edges:verify" },
     "variant-path-coverage": { generate: "npm run variant-paths:generate", verify: "npm run variant-paths:verify" },
     "quirk-coverage": { generate: "npm run quirk-coverage", verify: "npm run quirk-coverage:verify" },
+    "quirk-work-queue": { generate: "npm run quirk-work-queue", verify: "npm run quirk-work-queue:verify" },
     "extension-slots": { generate: "npm run extension-slots", verify: "npm run extension-slots:verify" },
     "nginx-config-checks": { generate: "npm run nginx:config-checks", verify: "npm run nginx:config-checks:verify" },
     "lifecycle-boundary": { generate: "npm run lifecycle:boundary", verify: "npm run lifecycle:boundary:verify" },

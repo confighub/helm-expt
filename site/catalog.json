@@ -665,6 +665,15 @@
       "note": "Known blind spots in the scanner/data model."
     },
     {
+      "section": "quirks",
+      "metric": "P0 source quirk work queue rows",
+      "value": "51",
+      "total": "95",
+      "status": "gap",
+      "source": "data/quirk-work-queue/top100-queue.csv",
+      "note": "Chart-level work items that convert source-scan quirk findings into modeled, reviewable, or provable catalog facts."
+    },
+    {
       "section": "extension slots",
       "metric": "top20 charts with extension slots",
       "value": "13",
