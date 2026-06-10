@@ -24,6 +24,7 @@ Public entry points:
 - [Static HTML try page](./site/try.html): generated try-now page for a public site.
 - [Catalog dashboard](./site/index.html): generated status, catalog, and proof data.
 - [Current proof status](./docs/user/current-proof-status.md): what is proven, watch, blocked, or still backlog.
+- [Top-100 status](./docs/user/top100-status.md): plain-English groups for Helm users.
 - [Chain of proof](./docs/user/chain-of-proof.md): which tool proves which boundary.
 
 ## New Here? Start With These Five Stages
@@ -380,8 +381,16 @@ data/top20-base-readiness/summary.md
   One row per top-20 base variant: which bases are clean first paths and which need prerequisites, runtime review, or hook lifecycle work.
 
 data/top100-readiness/summary.md
-  One chart-by-chart answer for current top-100 adoption bucket, strongest
+  The curated planning view: current top-100 adoption bucket, strongest
   evidence, next action, and first work queues.
+
+docs/user/top100-status.md
+  The plain-English top-100 answer for Helm users: what is ready to try, what
+  needs target prerequisites, what needs operator review, and where plain Helm
+  is still more direct.
+
+data/top100-user-readiness/summary.md
+  The generated chart-by-chart version of that user-readiness view.
 
 data/top100-readiness/next80-queues.md
   The compact operating queue for the 80 proof-grade charts that are not yet
