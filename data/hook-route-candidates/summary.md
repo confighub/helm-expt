@@ -16,6 +16,8 @@ Per-chart plans: [kong](./kong-kong.yaml) ·
 [thanos](./bitnami-thanos.yaml) ·
 [airflow](./apache-airflow-airflow.yaml).
 Compact table: [candidates.csv](./candidates.csv).
+Assignable next work: [work-orders.md](./work-orders.md) ·
+[work-orders.csv](./work-orders.csv).
 
 ## Why These Eight
 

@@ -28,6 +28,7 @@ data/hook-lifecycle/receipt-index.csv,hook-lifecycle,corpus,required receipt pat
 data/hook-lifecycle/source-top100-hooks.csv,hook-lifecycle,corpus,supporting generated CSV,data/hook-lifecycle/summary.md,npm run hooks:lifecycle,npm run hooks:lifecycle:verify
 data/hook-lifecycle/top100-hooks.csv,hook-lifecycle,corpus,supporting generated CSV,data/hook-lifecycle/summary.md,npm run hooks:lifecycle,npm run hooks:lifecycle:verify
 data/hook-route-candidates/candidates.csv,hook-route-candidates,corpus,"one row per source-top-100 hook route candidate: pattern, dependency source, candidate route, and promotion step",data/hook-route-candidates/summary.md,,
+data/hook-route-candidates/work-orders.csv,hook-route-candidates,corpus,"one row per hook route candidate work order: review task, done-when rule, and evidence target",data/hook-route-candidates/summary.md,,
 data/image-digest-workdown/all-subjects.csv,image-digest-workdown,corpus,supporting generated CSV,data/image-digest-workdown/summary.md,npm run image-digests:workdown,npm run image-digests:workdown:verify
 data/image-digest-workdown/chart-summary.csv,image-digest-workdown,corpus,machine-readable summary,data/image-digest-workdown/summary.md,npm run image-digests:workdown,npm run image-digests:workdown:verify
 data/image-digest-workdown/priority-subjects.csv,image-digest-workdown,corpus,supporting generated CSV,data/image-digest-workdown/summary.md,npm run image-digests:workdown,npm run image-digests:workdown:verify
