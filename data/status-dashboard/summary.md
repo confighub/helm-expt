@@ -17,10 +17,10 @@ Which detailed CSV should I open next?
 
 | Section | Metric | Value | Status | Source |
 | --- | --- | ---: | --- | --- |
-| top100 | charts with model support | 108/110 | good | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
+| outcome coverage | maintained chart rows with model support | 108/110 | good | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
 | top100 | catalog-supported charts | 20/100 | partial | [data/top100-readiness/readiness.csv](../../data/top100-readiness/readiness.csv) |
 | top100 | proof-grade non-catalog charts | 80/100 | partial | [data/top100-readiness/readiness.csv](../../data/top100-readiness/readiness.csv) |
-| top100 | variant-rich charts | 64/110 | partial | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
+| outcome coverage | variant-rich maintained chart rows | 64/110 | partial | [data/outcome-coverage/chart-outcomes.csv](../../data/outcome-coverage/chart-outcomes.csv) |
 | top100 | covered by top100 contract | 20/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
 | top100 | partial by top100 contract | 80/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
 | top100 | average top100 coverage | 83/100 | partial | [data/top100-coverage/coverage.csv](../../data/top100-coverage/coverage.csv) |
