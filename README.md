@@ -242,7 +242,7 @@ chart/base row has every lane complete.
 The selected top-20 live Helm-vs-ConfigHub comparison lane has 20 pass,
 0 watch, and 0 blocked receipts.
 The top-20 base-variant two-cluster kind parity lane has 42 committed
-receipts: 39 pass, 0 watch, 3 blocked, and 0 semantic parity defects.
+receipts: 40 pass, 0 watch, 2 blocked, and 0 semantic parity defects.
 5/5 maintained hook-bearing top-100 charts have hook route receipts;
 0/5 of those hook-queue rows have hook execution or observation receipts yet.
 Separately, cert-manager and External Secrets have lifecycle-observation
@@ -777,7 +777,7 @@ a running GitOps controller and cluster. The current generated status is:
 ```text
 runtime/GitOps first wave: 5 pass, 5 non-pass target-fit receipts
 selected top-20 live Helm-vs-ConfigHub comparison: 20 pass, 0 watch, 0 blocked
-all-base top-20 two-cluster kind parity: 39 pass, 0 watch, 3 blocked, 0 semantic defects
+all-base top-20 two-cluster kind parity: 40 pass, 0 watch, 2 blocked, 0 semantic defects
 ```
 
 Use the generated summaries for exact chart/base status:
