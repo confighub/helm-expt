@@ -22,6 +22,7 @@ spec:
     - "The ha-raft-ui variant enables integrated Raft HA and the UI Service as deliberate variant-controlled outputs."
     - "The dev-mode variant uses the upstream chart's dev server path for local proof and demos; it starts without init/unseal and is not a production support claim."
     - "The chart does not initialize or unseal Vault; init/unseal and recovery material are operating controls, not hidden render inputs."
+    - "operating-policy.yaml records the post-render procedure required before default and HA bases can be called ready."
     - "The HA Raft variant needs a target that can schedule three Vault server replicas; one-node kind is useful for object parity but not for HA readiness."
     - "Injector webhook, cluster RBAC, TLS posture, storage, and service exposure are scan/gate review points."
     - "extra environment, Secret, volume, plugin, init, and sidecar extension slots are powerful config surfaces; promoted variants keep them empty."
@@ -100,13 +101,13 @@ spec:
       supportedVariantStatus: "scan-and-review"
     -
       id: "operate-policy"
-      detectedPainPoint: "Vault init, unseal, seal migration, and recovery material are post-render operating controls."
+      detectedPainPoint: "Vault init, unseal, seal migration, recovery material, and freshness evidence are post-render operating controls."
       evidence:
-        - "control-points.yaml"
+        - "operating-policy.yaml"
       configHubHome: "recipe"
-      disposition: "handled-by-scan-or-gate"
+      disposition: "needs-operator-decision"
       linkedReceipt: "revisions/dev-mode/r001/receipts/install-gate.yaml"
-      supportedVariantStatus: "scan-and-review"
+      supportedVariantStatus: "policy-required"
     -
       id: "target-topology"
       detectedPainPoint: "The ha-raft-ui base renders three Vault server replicas. A one-node kind target is useful for object parity, but HA live readiness needs a target that can schedule the declared topology plus an init/unseal operating path."
