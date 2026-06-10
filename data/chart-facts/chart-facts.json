@@ -2,501 +2,901 @@
   "aqua/trivy-operator": {
     "version": "0.32.1",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "argo-cd/argo-cd": {
     "version": "9.5.15",
     "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "locked 1 deps; Chart.lock digest",
+    "remote_dependency_risk": "1 remote repos; vendored subcharts",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "not-in-refresh-survival-surface"
   },
   "argo-cd/argo-events": {
     "version": "2.4.21",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "argo-cd/argo-rollouts": {
     "version": "2.40.9",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "argo-cd/argo-workflows": {
     "version": "1.0.14",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "argo-cd/argocd-image-updater": {
     "version": "1.2.2",
     "not_yet_enabled": "no-crds (template-baked CRDs; no clean chart toggle yet)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "autoscaler/cluster-autoscaler": {
     "version": "9.57.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "autoscaler/vertical-pod-autoscaler": {
     "version": "0.9.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "aws-ebs-csi-driver/aws-ebs-csi-driver": {
     "version": "2.60.1",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "bitnami/apache": {
     "version": "11.4.29",
     "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 1 deps; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "bitnami/contour": {
     "version": "21.1.4",
     "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 1 deps; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "bitnami/elasticsearch": {
     "version": "22.1.6",
     "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 2 deps; no Chart.lock digest",
+    "remote_dependency_risk": "3 remote repos; 3 non-exact constraints; vendored subcharts",
+    "dependency_range_policy": "blocked-until-chart-lock-digest",
+    "dependency_refresh_survival": "not-in-refresh-survival-surface"
   },
   "bitnami/memcached": {
     "version": "8.5.5",
     "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 1 deps; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "bitnami/mongodb": {
     "version": "19.0.7",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 1 deps; no Chart.lock digest",
+    "remote_dependency_risk": "1 remote repos; vendored subcharts",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "candidate-visible:candidate-proof-complete-root-path-present"
   },
   "bitnami/mysql": {
     "version": "14.0.3",
     "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 1 deps; Chart.lock digest",
+    "remote_dependency_risk": "1 remote repos; 1 non-exact constraints; vendored subcharts",
+    "dependency_range_policy": "freeze-to-chart-lock",
+    "dependency_refresh_survival": "current-proof-still-current"
   },
   "bitnami/nginx": {
     "version": "24.0.2",
     "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 1 deps; no Chart.lock digest",
+    "remote_dependency_risk": "1 remote repos; vendored subcharts",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "candidate-visible:candidate-proof-complete-root-path-present"
   },
   "bitnami/opensearch": {
     "version": "2.0.10",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "locked 1 deps; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "bitnami/phpmyadmin": {
     "version": "20.0.0",
     "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 2 deps; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "bitnami/postgresql": {
     "version": "18.6.7",
     "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 1 deps; no Chart.lock digest",
+    "remote_dependency_risk": "1 remote repos; vendored subcharts",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "candidate-visible:candidate-proof-complete-root-path-present"
   },
   "bitnami/rabbitmq": {
     "version": "16.0.14",
     "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 1 deps; Chart.lock digest",
+    "remote_dependency_risk": "1 remote repos; 1 non-exact constraints; vendored subcharts",
+    "dependency_range_policy": "freeze-to-chart-lock",
+    "dependency_refresh_survival": "current-proof-still-current"
   },
   "bitnami/redis": {
     "version": "25.5.3",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 1 deps; no Chart.lock digest",
+    "remote_dependency_risk": "1 remote repos; vendored subcharts",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "candidate-visible:candidate-proof-complete-root-path-present"
   },
   "bitnami/spark": {
     "version": "10.0.3",
     "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 1 deps; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "bitnami/zookeeper": {
     "version": "13.8.7",
     "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 1 deps; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "cloudnative-pg/cloudnative-pg": {
     "version": "0.28.2",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "locked 1 deps; no Chart.lock digest",
+    "remote_dependency_risk": "1 remote repos; 1 non-exact constraints; vendored subcharts",
+    "dependency_range_policy": "blocked-until-chart-lock-digest",
+    "dependency_refresh_survival": "not-in-refresh-survival-surface"
   },
   "coredns/coredns": {
     "version": "1.45.2",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "crossplane-stable/crossplane": {
     "version": "2.3.1",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "descheduler/descheduler": {
     "version": "0.36.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "dex/dex": {
     "version": "0.24.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "elastic/eck-operator": {
     "version": "3.4.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "locked 1 deps; no Chart.lock digest",
+    "remote_dependency_risk": "vendored subcharts",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "not-in-refresh-survival-surface"
   },
   "elastic/filebeat": {
     "version": "8.5.1",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "elastic/kibana": {
     "version": "8.5.1",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "elastic/logstash": {
     "version": "8.5.1",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "elastic/metricbeat": {
     "version": "8.5.1",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "external-dns/external-dns": {
     "version": "1.21.1",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "external-secrets/external-secrets": {
     "version": "2.5.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "locked 1 deps; Chart.lock digest",
+    "remote_dependency_risk": "1 remote repos; vendored subcharts",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "not-in-refresh-survival-surface"
   },
   "fairwinds-stable/goldilocks": {
     "version": "10.3.0",
     "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 2 deps; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "fairwinds-stable/vpa": {
     "version": "4.11.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 1 deps; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "falcosecurity/falco": {
     "version": "9.0.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "locked 3 deps; no Chart.lock digest",
+    "remote_dependency_risk": "3 remote repos; 3 non-exact constraints; vendored subcharts",
+    "dependency_range_policy": "blocked-until-chart-lock-digest",
+    "dependency_refresh_survival": "not-in-refresh-survival-surface"
   },
   "falcosecurity/falcosidekick": {
     "version": "0.13.1",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "fluent/fluent-bit": {
     "version": "0.57.6",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "fluent/fluentd": {
     "version": "0.5.3",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "gatekeeper/gatekeeper": {
     "version": "3.22.2",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "gitlab/gitlab-runner": {
     "version": "0.89.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "grafana/alloy": {
     "version": "1.8.2",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 1 deps; no Chart.lock digest",
+    "remote_dependency_risk": "vendored subcharts",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "not-in-refresh-survival-surface"
   },
   "grafana/grafana": {
     "version": "10.5.15",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "grafana/loki": {
     "version": "7.0.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 3 deps; Chart.lock digest",
+    "remote_dependency_risk": "3 remote repos; vendored subcharts",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "current-proof-still-current"
   },
   "grafana/promtail": {
     "version": "6.17.1",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "grafana/pyroscope": {
     "version": "2.0.2",
     "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 3 deps; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "grafana/rollout-operator": {
     "version": "0.49.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 1 deps; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "grafana/tempo": {
     "version": "1.24.4",
     "not_yet_enabled": "ha (tempo single-binary chart; HA is the separate tempo-distributed chart)",
-    "buildable_not_yet_run": "ingress-tls (buildable — not yet run)"
+    "buildable_not_yet_run": "no-crds (buildable — not yet run); ingress-tls (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "haproxytech/kubernetes-ingress": {
     "version": "1.52.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "hashicorp/consul": {
     "version": "2.0.0",
     "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed)",
-    "buildable_not_yet_run": "no-crds (buildable — not yet run); ingress-tls (buildable — not yet run)"
+    "buildable_not_yet_run": "no-crds (buildable — not yet run); ingress-tls (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "hashicorp/terraform": {
     "version": "1.1.2",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "hashicorp/vault": {
     "version": "0.32.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "ingress-tls (buildable — not yet run); tls (buildable — not yet run)"
+    "buildable_not_yet_run": "ingress-tls (buildable — not yet run); tls (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "ingress-nginx/ingress-nginx": {
     "version": "4.15.1",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "istio/gateway": {
     "version": "1.30.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "istio/istiod": {
     "version": "1.30.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "jaegertracing/jaeger-operator": {
     "version": "2.57.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "jaegertracing/jaeger": {
     "version": "4.8.0",
     "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 1 deps; no Chart.lock digest",
+    "remote_dependency_risk": "1 remote repos; 1 non-exact constraints; vendored subcharts",
+    "dependency_range_policy": "blocked-until-chart-lock-digest",
+    "dependency_refresh_survival": "not-in-refresh-survival-surface"
   },
   "jetstack/cert-manager-csi-driver": {
     "version": "v0.14.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "jetstack/cert-manager": {
     "version": "v1.20.2",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "jetstack/trust-manager": {
     "version": "v0.22.1",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "kedacore/keda": {
     "version": "2.19.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "kyverno/kyverno-policies": {
     "version": "3.8.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "kyverno/kyverno": {
     "version": "3.8.1",
     "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 5 deps; no Chart.lock digest",
+    "remote_dependency_risk": "5 remote repos; 1 non-exact constraints; vendored subcharts",
+    "dependency_range_policy": "blocked-until-chart-lock-digest",
+    "dependency_refresh_survival": "not-in-refresh-survival-surface"
   },
   "linkerd/linkerd-crds": {
     "version": "1.8.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "locked 1 deps; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "longhorn/longhorn": {
     "version": "1.11.2",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "no-crds (buildable — not yet run)"
+    "buildable_not_yet_run": "no-crds (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "metrics-server/metrics-server": {
     "version": "3.13.0",
     "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "minio-operator/operator": {
     "version": "7.1.1",
     "not_yet_enabled": "no-crds (template-baked CRDs; no clean chart toggle yet)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "minio-operator/tenant": {
     "version": "7.1.1",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "nats/nack": {
     "version": "0.34.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "nats/nats": {
     "version": "2.14.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "nats/surveyor": {
     "version": "0.20.9",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "nfs-subdir-external-provisioner/nfs-subdir-external-provisioner": {
     "version": "4.0.18",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "open-telemetry/opentelemetry-operator": {
     "version": "0.114.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "opencost/opencost": {
     "version": "2.5.21",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "percona/pg-operator": {
     "version": "3.0.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "percona/psmdb-operator": {
     "version": "1.22.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "percona/pxc-operator": {
     "version": "1.19.1",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "projectcalico/tigera-operator": {
     "version": "v3.32.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "prometheus-community/alertmanager": {
     "version": "1.37.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "prometheus-community/kube-prometheus-stack": {
     "version": "85.3.3",
     "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 5 deps; Chart.lock digest",
+    "remote_dependency_risk": "4 remote repos; 1 non-exact constraints; vendored subcharts",
+    "dependency_range_policy": "freeze-to-chart-lock",
+    "dependency_refresh_survival": "candidate-visible:candidate-proof-complete-root-path-present"
   },
   "prometheus-community/kube-state-metrics": {
     "version": "7.4.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "prometheus-community/prometheus-adapter": {
     "version": "5.3.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "prometheus-community/prometheus-blackbox-exporter": {
     "version": "11.10.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "prometheus-community/prometheus-node-exporter": {
     "version": "4.55.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "prometheus-community/prometheus-operator-crds": {
     "version": "29.0.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "locked 1 deps; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "prometheus-community/prometheus-pushgateway": {
     "version": "3.6.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "prometheus-community/prometheus": {
     "version": "29.8.0",
     "not_yet_enabled": "ha (curated proof lane — bespoke teaching needed)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 4 deps; Chart.lock digest",
+    "remote_dependency_risk": "4 remote repos; 4 non-exact constraints; vendored subcharts",
+    "dependency_range_policy": "freeze-to-chart-lock",
+    "dependency_refresh_survival": "candidate-visible:candidate-proof-complete-root-path-present"
   },
   "rook-release/rook-ceph-cluster": {
     "version": "v1.19.5",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "locked 1 deps; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "rook-release/rook-ceph": {
     "version": "v1.19.5",
     "not_yet_enabled": "no-crds (template-baked CRDs; no clean chart toggle yet)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 2 deps; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "runix/pgadmin4": {
     "version": "1.62.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "sealed-secrets/sealed-secrets": {
     "version": "2.18.6",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "secrets-store-csi-driver/secrets-store-csi-driver": {
     "version": "1.6.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "no-crds (buildable — not yet run)"
+    "buildable_not_yet_run": "no-crds (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "stakater/reloader": {
     "version": "2.2.12",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "strimzi/strimzi-kafka-operator": {
     "version": "1.0.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "traefik/traefik": {
     "version": "40.2.0",
     "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "velero/velero": {
     "version": "12.0.1",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "empty closure; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "vm/victoria-logs-single": {
     "version": "0.12.5",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "existing-secret (buildable — not yet run)"
+    "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
+    "dependency_lock": "locked 2 deps; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   },
   "vm/victoria-metrics-single": {
     "version": "0.39.0",
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
-    "buildable_not_yet_run": "—"
+    "buildable_not_yet_run": "—",
+    "dependency_lock": "locked 1 deps; no Chart.lock digest",
+    "remote_dependency_risk": "—",
+    "dependency_range_policy": "not-needed",
+    "dependency_refresh_survival": "—"
   }
 }
