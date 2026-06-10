@@ -31,8 +31,10 @@ if (mode === "--generate") {
 }
 
 function buildReport() {
-  const measured = [measureKubePrometheusNoCrds(), measureRedisExistingSecret()];
-  const measuredKeys = new Set(measured.map((row) => `${row.chart}@${row.version}|${row.value_path}`));
+  const measured = [measureKubePrometheusNoCrds(), measureRedisExistingSecret(), measureNginxExistingTlsIngress()];
+  const measuredKeys = new Set(
+    measured.flatMap((row) => (row.measured_value_paths ?? [row.value_path]).map((valuePath) => `${row.chart}@${row.version}|${valuePath}`)),
+  );
   const unmeasured = valueSourceEntries()
     .filter((entry) => !measuredKeys.has(`${entry.chart}@${entry.version}|${entry.value_path}`))
     .map((entry) => ({
@@ -123,15 +125,47 @@ function measureRedisExistingSecret() {
   });
 }
 
-function measureBasePair({ chart, version, recipeRel, case_id, value_path, from_variant, to_variant, expected_removed, expected_added, expected_changed, extra_evidence, limit }) {
+function measureNginxExistingTlsIngress() {
+  const chart = "bitnami/nginx";
+  const version = "24.0.2";
+  const recipeRel = `recipes/bitnami/nginx/${version}`;
+  return measureBasePair({
+    chart,
+    version,
+    recipeRel,
+    case_id: "nginx-ingress-enabled-http-clusterip-to-existing-tls-ingress",
+    value_path: "ingress.enabled + tls.existingSecret",
+    measured_value_paths: ["ingress.enabled", "tls.existingSecret"],
+    from_variant: "http-clusterip",
+    to_variant: "existing-tls-ingress",
+    expected_removed: 0,
+    expected_added: 1,
+    expected_changed: 1,
+    extra_evidence: [
+      `${recipeRel}/value-source-map.yaml`,
+      `${recipeRel}/inheritance-graph.yaml`,
+      `${recipeRel}/value-model.yaml`,
+      `${recipeRel}/revisions/http-clusterip/r001/rendered/release-objects.yaml`,
+      `${recipeRel}/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml`,
+      `${recipeRel}/helm-pain-report.yaml`,
+    ],
+    limit: "This measures the supported NGINX http-clusterip to existing-tls-ingress base-pair diff for the ingress and backend TLS Secret choice. It does not prove every NGINX value path or every extension slot.",
+  });
+}
+
+function measureBasePair({ chart, version, recipeRel, case_id, value_path, measured_value_paths, from_variant, to_variant, expected_removed, expected_added, expected_changed, extra_evidence, limit }) {
   const recipeDir = join(repoRoot, recipeRel);
   const valueSourceMap = readYaml(join(recipeDir, "value-source-map.yaml"));
-  const entry = valueSourceMap.spec.entries.find((item) => item.valuePath === value_path);
-  check(entry, `missing ${chart}@${version} ${value_path} value-source-map entry`);
+  const valuePaths = measured_value_paths ?? [value_path];
+  const entries = valuePaths.map((path) => {
+    const entry = valueSourceMap.spec.entries.find((item) => item.valuePath === path);
+    check(entry, `missing ${chart}@${version} ${path} value-source-map entry`);
+    return entry;
+  });
 
   const fromObjects = objectMap(join(recipeDir, "revisions", from_variant, "r001", "rendered", "release-objects.yaml"));
   const toObjects = objectMap(join(recipeDir, "revisions", to_variant, "r001", "rendered", "release-objects.yaml"));
-  const predicted = new Set(entry.renderedFields.map((field) => field.object).sort());
+  const predicted = new Set(entries.flatMap((entry) => entry.renderedFields.map((field) => field.object)).sort());
   const actualRemoved = [...fromObjects.keys()].filter((identity) => !toObjects.has(identity)).sort();
   const actualAdded = [...toObjects.keys()].filter((identity) => !fromObjects.has(identity)).sort();
   const actualChanged = [...fromObjects.keys()]
@@ -149,7 +183,7 @@ function measureBasePair({ chart, version, recipeRel, case_id, value_path, from_
   check(actualAdded.length === expected_added, `expected ${case_id} to add ${expected_added} objects, got ${actualAdded.length}`);
   check(actualChanged.length === expected_changed, `expected ${case_id} to change ${expected_changed} shared objects, got ${actualChanged.length}`);
 
-  return {
+  const row = {
     chart,
     version,
     case_id,
@@ -169,6 +203,10 @@ function measureBasePair({ chart, version, recipeRel, case_id, value_path, from_
     evidence: extra_evidence.join("; "),
     limit,
   };
+  if (measured_value_paths) {
+    Object.defineProperty(row, "measured_value_paths", { value: measured_value_paths });
+  }
+  return row;
 }
 
 function valueSourceEntries() {
@@ -240,7 +278,7 @@ that the predicted affected objects match the actual affected objects.
 | Unmeasured value-source rows | ${unmeasured.length} |
 | Total rows | ${rows.length} |
 
-The measured cases now cover two different risk shapes:
+The measured cases now cover three different risk shapes:
 
 - kube-prometheus-stack \`crds.enabled=false\`: the prediction says exactly the
   Prometheus Operator CRD objects are affected, and the committed \`default\`
@@ -250,6 +288,10 @@ The measured cases now cover two different risk shapes:
   Redis StatefulSets are affected when moving to \`reuse-existing-secret\`, and
   the committed rendered object sets confirm one removed Secret and two changed
   StatefulSets.
+- NGINX \`ingress.enabled + tls.existingSecret\`: the prediction says the
+  reviewed \`existing-tls-ingress\` base adds an Ingress and changes the NGINX
+  Deployment to mount the backend TLS Secret, and the committed rendered object
+  sets confirm exactly that.
 
 This is useful evidence, not a general guarantee. The broader blast-radius
 claim stays partial until more value paths are measured across more charts.

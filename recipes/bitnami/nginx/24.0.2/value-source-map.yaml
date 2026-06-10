@@ -1,0 +1,47 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ValueSourceMap
+metadata:
+  name: bitnami-nginx-24.0.2
+spec:
+  chart: bitnami/nginx
+  version: 24.0.2
+  entries:
+    - id: ingress-enabled
+      valuePath: ingress.enabled
+      effectiveValueByVariant:
+        http-clusterip: false
+        existing-tls-ingress: true
+      source: existing-tls-ingress-base
+      renderedFields:
+        - object: networking.k8s.io/v1|Ingress|nginx|nginx
+          field: metadata.name
+          value: nginx
+      relatedFacts:
+        - inheritance-graph.yaml
+        - effective-values-existing-tls-ingress.yaml
+      relatedPolicies:
+        - extension-slot-policy
+        - target-fact-preflight
+      rolloutImpact: adds-ingress-object-for-reviewed-edge-exposure
+      immutableFieldRisk: false
+    - id: backend-tls-existing-secret
+      valuePath: tls.existingSecret
+      effectiveValueByVariant:
+        http-clusterip: ""
+        existing-tls-ingress: nginx-backend-tls
+      source: existing-tls-ingress-base
+      renderedFields:
+        - object: apps/v1|Deployment|nginx|nginx
+          field: spec.template.spec.volumes[certificate].secret.secretName
+          value: nginx-backend-tls
+        - object: apps/v1|Deployment|nginx|nginx
+          field: spec.template.spec.containers[nginx].volumeMounts[/certs].name
+          value: certificate
+      relatedFacts:
+        - inheritance-graph.yaml
+        - effective-values-existing-tls-ingress.yaml
+      relatedPolicies:
+        - target-fact-preflight
+        - secret-delivery-policy
+      rolloutImpact: changes-nginx-pod-template-to-mount-existing-backend-tls-secret
+      immutableFieldRisk: false

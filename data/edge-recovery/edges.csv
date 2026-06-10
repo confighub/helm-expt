@@ -13,7 +13,7 @@ bitnami/mysql@14.0.3,base-self,generated-passwords,generated-passwords,5,,,,,0,0
 bitnami/mysql@14.0.3,inherits-with-overrides,generated-passwords,existing-secret,2,,auth.existingSecret,auth.password;auth.replicationPassword;auth.rootPassword,,1,0,recipes/bitnami/mysql/14.0.3/inheritance-graph.yaml
 bitnami/mysql@14.0.3,target-fact,,existing-secret,,,Secret/mysql/mysql-auth:mysql-root-password+mysql-password+mysql-replication-password,,,1,0,recipes/bitnami/mysql/14.0.3/inheritance-graph.yaml
 bitnami/nginx@24.0.2,base-self,http-clusterip,http-clusterip,3,,,,,0,0,recipes/bitnami/nginx/24.0.2/inheritance-graph.yaml
-bitnami/nginx@24.0.2,inherits-with-overrides,http-clusterip,existing-tls-ingress,2,tls.enabled,ingress.enabled;ingress.extraTls;ingress.hostname;ingress.ingressClassName;ingress.tls;tls.existingSecret,,,2,0,recipes/bitnami/nginx/24.0.2/inheritance-graph.yaml
+bitnami/nginx@24.0.2,inherits-with-overrides,http-clusterip,existing-tls-ingress,2,tls.enabled,ingress.enabled;ingress.extraTls;ingress.hostname;ingress.ingressClassName;ingress.tls;tls.existingSecret,,ingress.enabled;tls.existingSecret,2,0,recipes/bitnami/nginx/24.0.2/inheritance-graph.yaml
 bitnami/nginx@24.0.2,target-fact,,existing-tls-ingress,,,Secret/nginx/nginx-backend-tls:tls.crt+tls.key+ca.crt,,,1,0,recipes/bitnami/nginx/24.0.2/inheritance-graph.yaml
 bitnami/nginx@24.0.2,target-fact,,existing-tls-ingress,,,Secret/nginx/nginx-ingress-tls:tls.crt+tls.key,,,1,0,recipes/bitnami/nginx/24.0.2/inheritance-graph.yaml
 bitnami/postgresql@18.6.7,base-self,generated-passwords,generated-passwords,2,,,,,0,0,recipes/bitnami/postgresql/18.6.7/inheritance-graph.yaml

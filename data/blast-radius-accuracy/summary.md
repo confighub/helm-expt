@@ -9,13 +9,13 @@ that the predicted affected objects match the actual affected objects.
 
 | Metric | Count |
 | --- | ---: |
-| Measured cases | 2 |
-| Passing measured cases | 2 |
+| Measured cases | 3 |
+| Passing measured cases | 3 |
 | Failing measured cases | 0 |
 | Unmeasured value-source rows | 10 |
-| Total rows | 12 |
+| Total rows | 13 |
 
-The measured cases now cover two different risk shapes:
+The measured cases now cover three different risk shapes:
 
 - kube-prometheus-stack `crds.enabled=false`: the prediction says exactly the
   Prometheus Operator CRD objects are affected, and the committed `default`
@@ -25,6 +25,10 @@ The measured cases now cover two different risk shapes:
   Redis StatefulSets are affected when moving to `reuse-existing-secret`, and
   the committed rendered object sets confirm one removed Secret and two changed
   StatefulSets.
+- NGINX `ingress.enabled + tls.existingSecret`: the prediction says the
+  reviewed `existing-tls-ingress` base adds an Ingress and changes the NGINX
+  Deployment to mount the backend TLS Secret, and the committed rendered object
+  sets confirm exactly that.
 
 This is useful evidence, not a general guarantee. The broader blast-radius
 claim stays partial until more value paths are measured across more charts.
@@ -35,6 +39,7 @@ claim stays partial until more value paths are measured across more charts.
 | --- | --- | --- | ---: | ---: | ---: | ---: | --- |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | `crds.enabled` | `default` -> `no-crds` | 10 | 10 | 0 | 0 | `pass` |
 | `bitnami/redis@25.5.3` | `auth.password` | `default` -> `reuse-existing-secret` | 3 | 3 | 0 | 0 | `pass` |
+| `bitnami/nginx@24.0.2` | `ingress.enabled + tls.existingSecret` | `http-clusterip` -> `existing-tls-ingress` | 2 | 2 | 0 | 0 | `pass` |
 
 ## Unmeasured Value-Source Rows
 

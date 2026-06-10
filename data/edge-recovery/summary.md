@@ -13,7 +13,7 @@ edge rows:                      100
 target-fact edges:              57
 generated-fact edges:           1
 charts with target facts:        14
-charts with field reachability:  2
+charts with field reachability:  3
 ~~~
 
 ## Catalog Graph Coverage
@@ -23,7 +23,7 @@ charts with field reachability:  2
 | argo-cd/argo-cd@9.5.15 | [../../recipes/argo-cd/argo-cd/9.5.15/inheritance-graph.yaml](../../recipes/argo-cd/argo-cd/9.5.15/inheritance-graph.yaml) | Catalog-supported chart with 5 target fact edges captured from recipe artifacts. |
 | bitnami/mongodb@19.0.7 | [../../recipes/bitnami/mongodb/19.0.7/inheritance-graph.yaml](../../recipes/bitnami/mongodb/19.0.7/inheritance-graph.yaml) | Catalog-supported chart with 1 target fact edge captured from recipe artifacts. |
 | bitnami/mysql@14.0.3 | [../../recipes/bitnami/mysql/14.0.3/inheritance-graph.yaml](../../recipes/bitnami/mysql/14.0.3/inheritance-graph.yaml) | Catalog-supported chart with 1 target fact edge captured from recipe artifacts. |
-| bitnami/nginx@24.0.2 | [../../recipes/bitnami/nginx/24.0.2/inheritance-graph.yaml](../../recipes/bitnami/nginx/24.0.2/inheritance-graph.yaml) | Catalog-supported chart with 2 target fact edges captured from recipe artifacts. |
+| bitnami/nginx@24.0.2 | [../../recipes/bitnami/nginx/24.0.2/inheritance-graph.yaml](../../recipes/bitnami/nginx/24.0.2/inheritance-graph.yaml) | Catalog-supported chart with 2 target fact edges, field reachability captured from recipe artifacts. |
 | bitnami/postgresql@18.6.7 | [../../recipes/bitnami/postgresql/18.6.7/inheritance-graph.yaml](../../recipes/bitnami/postgresql/18.6.7/inheritance-graph.yaml) | Catalog-supported chart with 1 target fact edge captured from recipe artifacts. |
 | bitnami/rabbitmq@16.0.14 | [../../recipes/bitnami/rabbitmq/16.0.14/inheritance-graph.yaml](../../recipes/bitnami/rabbitmq/16.0.14/inheritance-graph.yaml) | Catalog-supported chart with 2 target fact edges captured from recipe artifacts. |
 | bitnami/redis@25.5.3 | [../../recipes/bitnami/redis/25.5.3/inheritance-graph.yaml](../../recipes/bitnami/redis/25.5.3/inheritance-graph.yaml) | Teaching chart for generated facts, target facts, and secret variants. |
