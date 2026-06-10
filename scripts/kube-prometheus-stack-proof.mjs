@@ -139,10 +139,104 @@ const scanPolicy = {
   ],
 };
 
+function kubePrometheusProductionReadinessPlan(ctx) {
+  return {
+    apiVersion: "helm-expt.confighub.com/v1alpha1",
+    kind: "ProductionReadinessPlan",
+    metadata: {
+      name: "prometheus-community-kube-prometheus-stack",
+      chart: "prometheus-community/kube-prometheus-stack",
+      version: ctx.chart.version,
+    },
+    spec: {
+      role:
+        "Serious-chart proof for Helm-to-ConfigHub catalog promotion. This chart exercises CRDs, admission webhooks, generated facts, umbrella dependencies, cluster RBAC, raw/tpl extension slots, and target prerequisites.",
+      currentProof: {
+        renderParity: "pass for default and no-crds bases",
+        liveParity: "pass for default base",
+        configHubLanes: "recorded for default base",
+        noCrdsBase: "render-parity pass; broader live and ConfigHub lanes still need receipts before broader claims",
+      },
+      baseRouting: {
+        default: {
+          useWhen: "ConfigHub owns initial Prometheus Operator CRD publication for the target scope.",
+          includesCRDs: true,
+          requiredTargetFacts: [
+            "Secret monitoring/kube-prometheus-stack-admission with cert and key",
+          ],
+          requiredBeforeProduction: [
+            "CRD install and upgrade policy",
+            "admission webhook TLS lifecycle receipt",
+            "fresh webhook observation receipt",
+            "Grafana credential custody and rotation decision",
+            "cluster RBAC and security acceptance or hardened base",
+          ],
+        },
+        noCrds: {
+          useWhen: "CRDs are owned by a platform team, cluster bootstrap lane, or separate GitOps application.",
+          includesCRDs: false,
+          requiredTargetFacts: [
+            "10 Prometheus Operator CRDs already present and schema-compatible",
+            "Secret monitoring/kube-prometheus-stack-admission with cert and key",
+          ],
+          requiredBeforeProduction: [
+            "CRD ownership receipt",
+            "schema compatibility receipt for the target Kubernetes version",
+            "fresh webhook observation receipt",
+            "cluster RBAC and security acceptance or hardened base",
+          ],
+        },
+      },
+      quirkControls: [
+        {
+          quirk: "umbrella dependencies",
+          configHubHome: "dependency-lock.yaml",
+          requiredReceipt: "dependency-lock review",
+        },
+        {
+          quirk: "CRD lifecycle",
+          configHubHome: "base routing and target facts",
+          requiredReceipt: "crd-lifecycle-receipt",
+        },
+        {
+          quirk: "admission webhook hook lifecycle",
+          configHubHome: "target facts plus lifecycle observation",
+          requiredReceipt: "admission-webhook-observation-receipt",
+        },
+        {
+          quirk: "generated Grafana password",
+          configHubHome: "generated fact bound before render",
+          requiredReceipt: "credential-custody-receipt",
+        },
+        {
+          quirk: "raw/tpl monitoring extension slots",
+          configHubHome: "new reviewed base when populated",
+          requiredReceipt: "extension-slot-review-receipt",
+        },
+        {
+          quirk: "cluster RBAC and security posture",
+          configHubHome: "scan gate and production disposition",
+          requiredReceipt: "security-acceptance-or-hardened-base-receipt",
+        },
+      ],
+      notProvenBy: [
+        "render parity alone",
+        "one live default-base parity run",
+        "the no-crds render proof without CRD ownership evidence",
+        "empty extension slots without a rule for future populated slots",
+      ],
+    },
+  };
+}
+
 runProofCli({
   chart,
   variants,
   scanPolicy,
+  extraRequiredFiles: ["production-readiness-plan.yaml"],
+  extraProofDocuments: ({ ctx }) => [
+    { path: "production-readiness-plan.yaml", document: kubePrometheusProductionReadinessPlan(ctx) },
+  ],
   // single cub-only support object (the created Namespace)
   supportObjects: ["v1|Namespace||monitoring"],
   expectedDependencyCount: 5,
@@ -337,7 +431,26 @@ runProofCli({
     return findings;
   },
   // Chart-specific verify assertions the generic kit cannot infer.
-  verifyExtra({ controlPoints, dependencyLock, variants, perVariant, check }) {
+  verifyExtra({ root, controlPoints, dependencyLock, variants, perVariant, check, readYaml, join }) {
+    const readinessPlan = readYaml(join(root, "production-readiness-plan.yaml"));
+    check(readinessPlan.kind === "ProductionReadinessPlan", "production-readiness-plan.yaml must be a ProductionReadinessPlan");
+    check(readinessPlan.spec.role?.includes("Serious-chart proof"), "serious-chart proof role missing");
+    check(readinessPlan.spec.currentProof?.renderParity?.includes("default and no-crds"), "render parity proof summary missing");
+    check(readinessPlan.spec.baseRouting?.default?.includesCRDs === true, "default base CRD routing mismatch");
+    check(readinessPlan.spec.baseRouting?.noCrds?.includesCRDs === false, "no-crds base CRD routing mismatch");
+    check(
+      readinessPlan.spec.baseRouting?.noCrds?.requiredTargetFacts?.some((item) => item.includes("10 Prometheus Operator CRDs")),
+      "no-crds CRD target fact summary missing",
+    );
+    check(
+      readinessPlan.spec.quirkControls?.some((item) => item.quirk === "admission webhook hook lifecycle"),
+      "admission webhook quirk control missing",
+    );
+    check(
+      readinessPlan.spec.quirkControls?.some((item) => item.quirk === "raw/tpl monitoring extension slots"),
+      "extension slot quirk control missing",
+    );
+    check(readinessPlan.spec.notProvenBy?.includes("render parity alone"), "render parity limitation must be explicit");
     for (const dependencyName of ["crds", "kube-state-metrics", "prometheus-node-exporter", "grafana", "prometheus-windows-exporter"]) {
       check(
         dependencyLock.spec.dependencies?.some((dependency) => dependency.name === dependencyName),
