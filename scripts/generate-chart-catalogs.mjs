@@ -319,6 +319,7 @@ function optionalArtifactRows(root) {
   const artifacts = [
     { label: "Operating policy", path: "operating-policy.yaml" },
     { label: "Target topology", path: "target-topology.yaml" },
+    { label: "Lifecycle policy", path: "lifecycle-policy.yaml" },
     { label: "Render blocker", path: "default-render-blocker.yaml" },
   ];
   const rows = artifacts
