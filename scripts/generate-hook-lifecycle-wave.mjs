@@ -102,6 +102,9 @@ function buildReport() {
   check(top500HookRows.length === 54, `expected 54 top500 hook rows; found ${top500HookRows.length}`);
   check(hookRows.length === 5, `expected 5 maintained top100 hook rows; found ${hookRows.length}`);
   check(receiptRows.every((row) => ["not-yet-written", "route-selected", "observed", "blocked", "needs-classification"].includes(row.receipt_status)), "hook lifecycle receipt status must be explicit");
+  for (const row of hookRows) {
+    if (row.receipt_status === "observed") verifyObservedReceipt(row.required_receipt);
+  }
 
   const outputs = {
     corpus: csv(hookRows),
@@ -139,6 +142,16 @@ function hookReceiptState(path) {
     };
   }
   if (["pass", "observed", "observed-pass", "lifecycle-observed"].includes(result)) {
+    const observedAt = fieldValue(text, "observedAt");
+    const runtimeObserved = fieldValue(text, "runtimeObserved");
+    const evidencePaths = receiptEvidencePaths(text);
+    const missingEvidence = evidencePaths.filter((evidencePath) => !existsSync(join(repoRoot, evidencePath)));
+    if (!observedAt || runtimeObserved !== "true" || missingEvidence.length > 0) {
+      return {
+        receiptStatus: "needs-classification",
+        lifecycleDisposition: "observed-receipt-incomplete",
+      };
+    }
     return {
       receiptStatus: "observed",
       lifecycleDisposition: "lifecycle-observed",
@@ -160,6 +173,25 @@ function fieldValue(text, field) {
   const pattern = new RegExp(`^\\s*${field}:\\s*["']?([^"'\\n#]+)`, "m");
   const match = text.match(pattern);
   return match?.[1]?.trim() ?? "";
+}
+
+function receiptEvidencePaths(text) {
+  return [...text.matchAll(/^(\s*)-?\s*path:\s*["']?([^"'\n#]+)["']?/gm)]
+    .map((match) => match[2].trim())
+    .filter(Boolean);
+}
+
+function verifyObservedReceipt(path) {
+  const text = readFileSync(join(repoRoot, path), "utf8");
+  const observedAt = fieldValue(text, "observedAt");
+  const runtimeObserved = fieldValue(text, "runtimeObserved");
+  const evidencePaths = receiptEvidencePaths(text);
+  check(Boolean(observedAt), `${path} is observed but missing observedAt`);
+  check(runtimeObserved === "true", `${path} is observed but missing runtimeObserved: true`);
+  check(evidencePaths.length > 0, `${path} is observed but has no evidence paths`);
+  for (const evidencePath of evidencePaths) {
+    check(existsSync(join(repoRoot, evidencePath)), `${path} references missing evidence ${evidencePath}`);
+  }
 }
 
 function nextActionFor(receipt) {

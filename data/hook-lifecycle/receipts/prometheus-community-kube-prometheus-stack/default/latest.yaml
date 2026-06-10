@@ -6,8 +6,9 @@ spec:
   chart: prometheus-community/kube-prometheus-stack
   version: 85.3.3
   base: default
-  result: route-selected
+  result: observed
   selectedAt: "2026-06-09"
+  observedAt: "2026-06-09T13:09:35.333Z"
   route:
     summary: Admission webhook patch hooks are handled as explicit lifecycle work, not as hidden render parity.
     phases:
@@ -25,16 +26,34 @@ spec:
       claim: Source scan found admission webhook patch hook templates.
     - path: recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml
       claim: Chart pain report records CRD, webhook, generated fact, and hook lifecycle risk.
-    - path: data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/default/
-      claim: Production disposition receipts record the current review evidence for this base.
+    - path: data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/crd-lifecycle-and-upgrade-policy.yaml
+      claim: Production disposition records CRD ownership, install ordering, and upgrade policy for this base.
+    - path: data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml
+      claim: Production disposition records webhook readiness and failure handling for this base.
     - path: runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml
       claim: Live Helm-vs-ConfigHub parity exists for selected non-hook objects.
+    - path: data/production-support-decisions/prometheus-community-kube-prometheus-stack/lifecycle-decision.yaml
+      claim: Target-scoped lifecycle decision binds the selected hook route to observed proof-scope evidence.
+    - path: runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json
+      claim: Local kind observation records webhook TLS prerequisite staging, CRD bootstrap, CRD Established checks, workload rollout, and cub-scout checks.
+    - path: runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml
+      claim: Two-cluster kind parity records regular Helm and cub installer runtime convergence plus semantic parity.
   execution:
     helmHooksExecutedByHarness: false
-    runtimeObserved: false
+    runtimeObserved: true
+    observedRoute:
+      supportSecretStaged: true
+      crdBootstrapObserved: true
+      crdsEstablished: 10
+      workloadRollouts: 6
+      cubScoutPrerequisites: pass
+      cubScoutWorkloads: pass
+      confighubOciArgoRuntime: pass
     notes:
       - Render parity does not claim Helm hook execution.
-      - This receipt records the selected lifecycle route only.
+      - This receipt records the selected lifecycle route and the proof-scope runtime observations for that route.
+      - Helm hook objects are not executed by Helm in the config-only path; equivalent behavior is made explicit as target facts, preflight, apply ordering, and observation.
   remainingWork:
-    - Execute or observe the selected lifecycle route in a live target.
-    - Record webhook readiness, cleanup, ordering, and upgrade behavior with freshness.
+    - Refresh the observation for each declared production target and artifact digest.
+    - Record cleanup ordering and upgrade behavior before expanding support beyond initial install.
+    - Keep closed-world runtime differences as WATCH unless they are classified for the target.
