@@ -86,6 +86,7 @@ Which detailed CSV should I open next?
 | extension slots | top500 source rows using tpl | 362/500 | partial | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
 | hooks | top100 source-scan hook charts | 11/100 | partial | [data/hook-lifecycle/source-top100-hooks.csv](../../data/hook-lifecycle/source-top100-hooks.csv) |
 | hooks | maintained hook queue rows | 5/11 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
+| hooks | source-reviewed hook rows not yet maintained | 8/11 | gap | [data/hook-lifecycle-review/top100-source-hook-route-review.csv](../../data/hook-lifecycle-review/top100-source-hook-route-review.csv) |
 | hooks | hook route receipts present | 5/5 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
 | hooks | hook lifecycle observations present | 3/5 | gap | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
 | hooks | hook partial lifecycle observations present | 2/5 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
@@ -163,6 +164,7 @@ lifecycle route, target fit, or operating policy.
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
+| Reviewed source hook routes not yet maintained | 8 | Promote the reviewed route into a maintained lifecycle receipt, candidate artifact, or explicit blocker before support claims. |
 | Hook route selected, observation pending | 0 | Run the selected lifecycle path and commit execution or observation receipts. |
 | Hook install lifecycle observed, remaining phase pending | 2 | Run the remaining lifecycle phase, such as upgrade, and commit the execution or observation receipt. |
 | Hook-bearing rows observed | 3 | Keep receipt freshness current when the supported target changes. |
