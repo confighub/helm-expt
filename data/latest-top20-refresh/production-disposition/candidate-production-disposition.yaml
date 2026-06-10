@@ -97,6 +97,27 @@ spec:
         liveParityReceipt: "runs/latest-top20-refresh/postgresql-18.6.10/live-parity/generated-passwords/receipt.yaml"
       nextAction: "review 7 production decision topic(s), then decide whether bitnami/postgresql@18.6.10 can replace 18.6.7"
     -
+      chart: "bitnami/redis"
+      currentVersion: "25.5.3"
+      candidateVersion: "27.0.0"
+      primaryBase: "default"
+      proofStatus: "proof-incomplete"
+      productionSupportStatus: "not-production-supported"
+      productionBoundary: "candidate may proceed to production review only after target-scoped support decisions accept or route each topic"
+      decisionTopics:
+        - "generated fact ownership"
+        - "hook and lifecycle phase policy"
+        - "image digest support decision"
+        - "scan/gate warning disposition"
+        - "target fact preflight"
+      evidence:
+        candidateRecipe: "data/latest-top20-refresh/candidates/redis-27.0.0/recipes/bitnami/redis/27.0.0"
+        candidatePackage: "data/latest-top20-refresh/candidates/redis-27.0.0/packages/bitnami/redis/27.0.0"
+        configHubProofReceipt: "runs/latest-top20-refresh/redis-27.0.0/confighub-proof/latest/confighub-proof-receipt.yaml"
+        localLiveReceipt: "runs/latest-top20-refresh/redis-27.0.0/local-kind/observation-receipt.json"
+        liveParityReceipt: "runs/latest-top20-refresh/redis-27.0.0/live-parity/default/receipt.yaml"
+      nextAction: "finish ConfigHub proof, local live e2e, and live parity before production review"
+    -
       chart: "prometheus-community/kube-prometheus-stack"
       currentVersion: "85.3.3"
       candidateVersion: "86.1.0"

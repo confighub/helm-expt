@@ -46,7 +46,9 @@ function verify() {
   check(readFileSync(csvPath, "utf8") === report.csv, `${relativeRepo(csvPath)} is stale`);
   check(readFileSync(summaryPath, "utf8") === report.summary, `${relativeRepo(summaryPath)} is stale`);
   check(readFileSync(yamlPath, "utf8") === `${toYaml(report.yaml)}\n`, `${relativeRepo(yamlPath)} is stale`);
-  check(report.rows.length === 6, `expected 6 latest candidate replacement rows; found ${report.rows.length}`);
+  const expectedRows = parseCsv(readFileSync(readinessPath, "utf8"))
+    .filter((row) => row.catalog_promotion === "root-path-present").length;
+  check(report.rows.length === expectedRows, `expected ${expectedRows} latest candidate replacement rows; found ${report.rows.length}`);
   const undecided = report.rows.filter((row) => row.replacement_decision === "not-decided").length;
   check(undecided === report.rows.length, `latest candidates must remain not-decided until a target-scoped replacement decision is written; found ${report.rows.length - undecided} decided`);
   console.log(`verified latest candidate replacement decisions: ${report.rows.length} candidate(s), ${undecided} not decided`);
@@ -59,7 +61,7 @@ function buildReport() {
   const dispositionRows = new Map((disposition.spec?.rows ?? []).map((row) => [row.chart, row]));
   const currentSupportRows = new Map(parseCsv(readFileSync(currentSupportDecisionPath, "utf8")).map((row) => [row.chart, row]));
 
-  const rows = readinessRows.map((readiness) => {
+  const rows = readinessRows.filter((readiness) => readiness.catalog_promotion === "root-path-present").map((readiness) => {
     const dispositionRow = dispositionRows.get(readiness.chart);
     check(dispositionRow, `missing candidate production disposition for ${readiness.chart}`);
     const currentSupport = currentSupportRows.get(readiness.chart);

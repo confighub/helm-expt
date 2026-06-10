@@ -1,0 +1,16 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: SourceLock
+metadata:
+  name: bitnami-redis-27.0.0
+spec:
+  sourceType: HelmChart
+  repositoryName: bitnami
+  repositoryURL: https://charts.bitnami.com/bitnami
+  contentURL: oci://registry-1.docker.io/bitnamicharts/redis:27.0.0
+  chart: redis
+  version: 27.0.0
+  appVersion: "8.8.0"
+  archiveSHA256: "aa9818db65663181b1469588526ad18244477b709ac1a4d009b44711bab2f3a7"
+  artifactHubDigest: "aa9818db65663181b1469588526ad18244477b709ac1a4d009b44711bab2f3a7"
+  evidence:
+    installerPackageReceipt: publication/installer-package-receipt.yaml

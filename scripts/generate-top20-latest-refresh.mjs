@@ -35,6 +35,10 @@ function generate() {
     const status = row.version === latest ? "current" : "update-available";
     const readiness = promotionReadiness.get(row.chart);
     const proofComplete = readiness?.candidate_version === latest && readiness?.catalog_promotion === "root-path-present";
+    const renderCandidate =
+      readiness?.candidate_version === latest &&
+      readiness?.candidate_artifacts === "complete" &&
+      readiness?.catalog_promotion !== "root-path-present";
     const retainedCandidateSuperseded = readiness && readiness.candidate_version !== latest;
     return {
       rank: index + 1,
@@ -50,6 +54,8 @@ function generate() {
           ? "keep current proof; deepen variants or production disposition"
           : proofComplete
             ? "write target-scoped replacement decision before changing catalog support"
+            : renderCandidate
+              ? "promote candidate root paths and complete remaining proof lanes before replacement decision"
             : retainedCandidateSuperseded
               ? `refresh candidate from retained ${readiness.candidate_version} proof to latest ${latest} before replacement decision`
               : "create new recipe/package version and rerun proof chain before catalog promotion",
@@ -104,13 +110,14 @@ function summary(rows, { generatedAt, helmVersion }) {
   const updates = rows.filter((row) => row.status === "update-available");
   const replacementDecisionReady = updates.filter((row) => row.nextAction === "write target-scoped replacement decision before changing catalog support");
   const supersededRetainedCandidates = updates.filter((row) => row.nextAction.startsWith("refresh candidate from retained"));
-  const noCandidateYet = updates.length - replacementDecisionReady.length - supersededRetainedCandidates.length;
+  const renderCandidates = updates.filter((row) => row.nextAction === "promote candidate root paths and complete remaining proof lanes before replacement decision");
+  const noCandidateYet = updates.length - replacementDecisionReady.length - supersededRetainedCandidates.length - renderCandidates.length;
   const candidateStatusPath = join(outputRoot, "candidates", "candidate-status.csv");
   const replacementDecisionPath = join(outputRoot, "replacement-decisions", "summary.md");
   const candidateSection = existsSync(candidateStatusPath)
     ? `## Candidate Proofs
 
-The retained update candidates have proof-complete root paths under:
+Some retained update candidates have proof-complete root paths under:
 
 \`\`\`text
 recipes/
@@ -134,11 +141,14 @@ npm run top20:latest-replacement-decisions:verify
 
 Some retained candidates may already be behind the latest upstream chart
 version. For those rows, refresh the candidate before making a replacement
-decision. For rows where the retained candidate still matches the latest
-upstream version, the proof shows that the candidate has its own recipe/package
-paths, rendered objects, Helm-equivalence evidence, ConfigHub proof receipts,
-live e2e receipts, live parity receipts, production-disposition boundary,
-catalog status, and top-100/top-500 refresh coverage.
+decision. Some retained candidates may have render/package proof but no root
+paths or live lanes yet. For those rows, promote the candidate root paths and
+complete the remaining proof lanes before making a replacement decision. For
+rows where the retained candidate still matches the latest upstream version and
+has proof-complete root paths, the proof shows that the candidate has its own
+recipe/package paths, rendered objects, Helm-equivalence evidence, ConfigHub
+proof receipts, live e2e receipts, live parity receipts, production-disposition
+boundary, catalog status, and top-100/top-500 refresh coverage.
 
 They are still not catalog-supported replacements. The next step is a
 target-scoped replacement decision that chooses whether to replace, defer, or
@@ -150,6 +160,7 @@ ${existsSync(replacementDecisionPath) ? "The replacement-decision queue records 
 update rows: ${updates.length}
 replacement-decision-ready candidates: ${replacementDecisionReady.length}
 retained candidates superseded by newer upstream versions: ${supersededRetainedCandidates.length}
+retained render/package candidates needing root/live work: ${renderCandidates.length}
 update rows without a retained candidate: ${noCandidateYet}
 \`\`\`
 

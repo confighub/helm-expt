@@ -200,9 +200,10 @@ function verifyProof(root) {
   check(sourceLock.kind === "SourceLock", "source-lock.yaml must be SourceLock");
   check(sourceLock.spec.repositoryName === "bitnami", "source repository must be bitnami");
   check(sourceLock.spec.chart === "redis", "source chart must be redis");
-  check(sourceLock.spec.version === "25.5.3", "source chart version must be 25.5.3");
+  const chartVersion = String(sourceLock.spec.version ?? "");
+  check(Boolean(chartVersion), "source chart version must be present");
   check(
-    sourceLock.spec.contentURL === "oci://registry-1.docker.io/bitnamicharts/redis:25.5.3",
+    sourceLock.spec.contentURL === `oci://registry-1.docker.io/bitnamicharts/redis:${chartVersion}`,
     "source content URL mismatch",
   );
   check(Boolean(sourceLock.spec.archiveSHA256), "source archive SHA must be present");
@@ -226,13 +227,13 @@ function verifyProof(root) {
     "source lock version must match installer package receipt",
   );
   check(
-    packageReceipt.spec.package?.path === "packages/bitnami/redis/25.5.3",
-    "installer package receipt must point at current packages/ path",
+    String(packageReceipt.spec.package?.path ?? "").endsWith(`packages/bitnami/redis/${chartVersion}`),
+    "installer package receipt must point at the matching packages path",
   );
 
   check(dependencyLock.kind === "DependencyLock", "dependency-lock.yaml must be DependencyLock");
   const common = dependencyLock.spec.dependencies?.find((dependency) => dependency.name === "common");
-  check(common?.version === "2.39.0", "dependency lock must include common 2.39.0");
+  check(Boolean(common?.version), "dependency lock must include common dependency version");
   check(recipe.spec.chartRef.sourceLock === "source-lock.yaml", "recipe must reference source-lock.yaml");
   check(recipe.spec.chartRef.dependencyLock === "dependency-lock.yaml", "recipe must reference dependency-lock.yaml");
   check(recipe.spec.variants?.includes("variants/default/variant.yaml"), "recipe must include default variant");

@@ -1,0 +1,24 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: Recipe
+metadata:
+  name: bitnami-redis
+  version: 27.0.0
+spec:
+  chartRef:
+    sourceLock: source-lock.yaml
+    dependencyLock: dependency-lock.yaml
+  importMode: render-and-vendor
+  currentExecutableFixture:
+    installerPackage: ../../../../packages/bitnami/redis/27.0.0
+    setupCommand:
+      - cub
+      - installer
+      - setup
+      - --pull
+      - ../../../../packages/bitnami/redis/27.0.0
+      - --non-interactive
+      - --namespace
+      - redis
+  variants:
+    - variants/default/variant.yaml
+    - variants/reuse-existing-secret/variant.yaml

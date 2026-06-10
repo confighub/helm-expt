@@ -15,8 +15,17 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, "..");
-const proofRoot = join(repoRoot, "recipes", "bitnami", "redis", "25.5.3");
-const packageRoot = join(repoRoot, "packages", "bitnami", "redis", "25.5.3");
+const defaultChartVersion = "25.5.3";
+const chartVersion = process.env.HELM_EXPT_CHART_VERSION ?? defaultChartVersion;
+const outputRoot = process.env.HELM_EXPT_PROOF_OUTPUT_ROOT
+  ? resolve(repoRoot, process.env.HELM_EXPT_PROOF_OUTPUT_ROOT)
+  : repoRoot;
+const proofRoot = process.env.HELM_EXPT_PROOF_OUTPUT_ROOT
+  ? join(outputRoot, "recipes", "bitnami", "redis", chartVersion)
+  : join(repoRoot, "recipes", "bitnami", "redis", chartVersion);
+const packageRoot = process.env.HELM_EXPT_PROOF_OUTPUT_ROOT
+  ? join(outputRoot, "packages", "bitnami", "redis", chartVersion)
+  : join(repoRoot, "packages", "bitnami", "redis", chartVersion);
 const receiptPath = join(proofRoot, "publication", "installer-package-receipt.yaml");
 const packageRelative = relative(repoRoot, packageRoot);
 
@@ -24,7 +33,7 @@ const variants = [
   {
     name: "default",
     base: "default",
-    description: "Redis default variant rendered from bitnami/redis@25.5.3",
+    description: `Redis default variant rendered from bitnami/redis@${chartVersion}`,
     releaseObjects: join(proofRoot, "revisions", "default", "r001", "rendered", "release-objects.yaml"),
     helmObjectCount: 14,
     cubObjectCount: 15,
@@ -63,13 +72,13 @@ write(
 kind: Package
 metadata:
   name: bitnami-redis
-  version: "25.5.3"
+  version: "${chartVersion}"
 spec:
   bases:
     - name: default
       path: bases/default
       default: true
-      description: "Redis default variant rendered from bitnami/redis@25.5.3"
+      description: "Redis default variant rendered from bitnami/redis@${chartVersion}"
     - name: reuse-existing-secret
       path: bases/reuse-existing-secret
       description: "Redis variant that uses an existing Secret target fact"
@@ -88,7 +97,7 @@ spec:
 
 write(
   join(packageRoot, "README.md"),
-  `# bitnami/redis 25.5.3 Installer Package
+  `# bitnami/redis ${chartVersion} Installer Package
 
 This is the current executable Redis installer package proof.
 
@@ -188,7 +197,7 @@ targetFactChecks:
   mode: "$check_mode"
   result: "$result"
   liveCheck:
-    command: "TARGET_FACT_CHECK_MODE=live cub installer setup --pull packages/bitnami/redis/25.5.3 --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace redis"
+    command: "TARGET_FACT_CHECK_MODE=live cub installer setup --pull ${packageRelative} --base reuse-existing-secret --work-dir <tmp> --non-interactive --namespace redis"
 YAML
 `,
 );
@@ -216,8 +225,8 @@ const files = listFiles(packageRoot).map((path) => ({
 const tempRoot = mkdtempSync(join(tmpdir(), "redis-installer-package-"));
 let ok = false;
 try {
-  const firstPackage = join(tempRoot, "bitnami-redis-25.5.3-a.tgz");
-  const secondPackage = join(tempRoot, "bitnami-redis-25.5.3-b.tgz");
+  const firstPackage = join(tempRoot, `bitnami-redis-${chartVersion}-a.tgz`);
+  const secondPackage = join(tempRoot, `bitnami-redis-${chartVersion}-b.tgz`);
   runCub(["installer", "package", packageRoot, "-o", firstPackage]);
   runCub(["installer", "package", packageRoot, "-o", secondPackage]);
   const firstSHA = sha256File(firstPackage);
@@ -233,20 +242,20 @@ try {
     `apiVersion: helm-expt.confighub.com/v1alpha1
 kind: InstallerPackageReceipt
 metadata:
-  name: bitnami-redis-25.5.3
+  name: bitnami-redis-${chartVersion}
 spec:
   chart:
     repository: bitnami
     name: redis
-    version: 25.5.3
+    version: ${chartVersion}
   package:
     path: ${packageRelative}
     name: bitnami-redis
-    version: 25.5.3
+    version: ${chartVersion}
     sourceFiles:
 ${files.map((file) => `      - path: ${file.path}\n        sha256: ${file.sha256}\n        bytes: ${file.bytes}`).join("\n")}
   deterministicBundle:
-    command: "cub installer package ${packageRelative} -o <tmp>/bitnami-redis-25.5.3.tgz"
+    command: "cub installer package ${packageRelative} -o <tmp>/bitnami-redis-${chartVersion}.tgz"
     sha256: ${firstSHA}
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
