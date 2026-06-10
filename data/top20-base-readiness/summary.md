@@ -18,10 +18,10 @@ base variants: 42
 start-here: 20
 try-with-proof: 14
 runtime-watch: 1
-runtime-review-needed: 2
+runtime-review-needed: 1
 operating-policy-needed: 1
 target-fit-needed: 2
-target-prerequisite-needed: 1
+target-prerequisite-needed: 2
 hook-lifecycle-review-needed: 0
 lifecycle-observed: 1
 prerequisite-observed: 0
@@ -31,8 +31,8 @@ render-only: 0
 Live rerun readiness for non-pass rows:
 
 ~~~text
-model-or-stage-first: 4
-review-target-first: 3
+model-or-stage-first: 5
+review-target-first: 2
 inspect-diff-first: 0
 rerun-now-after-cleanup: 0
 ~~~
@@ -92,7 +92,7 @@ rerun-now-after-cleanup: 0
 | `longhorn/longhorn@1.11.2` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
 | `longhorn/longhorn@1.11.2` | ui-ingress | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `metrics-server/metrics-server@3.13.0` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
-| `metrics-server/metrics-server@3.13.0` | external-tls-ca | no | runtime-review-needed | review-target-first | helm-runtime: upstream not ready (parity passed) | inspect runtime state; keep the recipe stable unless semantic object comparison starts failing |
+| `metrics-server/metrics-server@3.13.0` | external-tls-ca | no | target-prerequisite-needed | model-or-stage-first | target-prerequisite: serving certificate and APIService trust not satisfied (parity passed) | stage or model the prerequisite, then rerun the same base; keep render parity separate from target fit |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `prometheus-community/prometheus@29.8.0` | server-only-ephemeral | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
