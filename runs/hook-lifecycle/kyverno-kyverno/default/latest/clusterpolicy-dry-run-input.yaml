@@ -1,0 +1,20 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: helm-expt-kyverno-lifecycle-check
+spec:
+  validationFailureAction: Audit
+  background: false
+  rules:
+    - name: require-owner-label
+      match:
+        any:
+          - resources:
+              kinds:
+                - Namespace
+      validate:
+        message: "namespace should carry an owner label"
+        pattern:
+          metadata:
+            labels:
+              owner: "?*"
