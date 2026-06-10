@@ -278,9 +278,7 @@ function markdown(rows, lifecycleRoutedRows = []) {
   const infraRows = rows.filter((row) => row.reason?.startsWith("infra:")).length;
   const prerequisiteRows = rows.filter((row) => row.reason?.startsWith("target-prerequisite:") || row.reason?.startsWith("helm-hook:")).length;
   const runtimeRows = rows.filter((row) =>
-    row.reason?.startsWith("target-runtime:")
-    || row.reason?.startsWith("helm-runtime:")
-    || row.current_result === "watch",
+    ["runtime-review", "gitops-runtime-review"].includes(row.next_step_type)
   ).length;
   return `# Live Parity Rerun Plan
 

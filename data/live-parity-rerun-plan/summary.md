@@ -19,7 +19,7 @@ two-cluster-kind-parity: 6
 semantic-parity-defects: 0
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 3
-runtime-or-watch-rows: 1
+runtime-or-watch-rows: 0
 ```
 
 ## Lane Breakdown
