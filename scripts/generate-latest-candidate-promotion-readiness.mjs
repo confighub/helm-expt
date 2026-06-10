@@ -321,13 +321,27 @@ function candidateConfighubProofComplete(row) {
 }
 
 function workOrderSummary(rows, workOrders) {
-  const byLane = new Map();
-  for (const row of workOrders) byLane.set(row.lane, (byLane.get(row.lane) ?? 0) + 1);
-  const laneRows = [...byLane.entries()].map(([lane, count]) => `| ${lane} | ${count} |`);
+  const laneOrder = [...new Set(workOrders.map((row) => row.lane))];
+  const laneRows = laneOrder.map((lane) => {
+    const laneOrders = workOrders.filter((row) => row.lane === lane);
+    const done = laneOrders.filter((row) => row.phase === "done" || row.phase === "already-generated").length;
+    const todo = laneOrders.filter((row) => row.phase === "todo").length;
+    const other = laneOrders.length - done - todo;
+    return `| ${lane} | ${done} | ${todo} | ${other} |`;
+  });
+  const candidateProgressRows = rows.map((row) => {
+    const orders = workOrders.filter((order) => order.chart === row.chart && order.candidate_version === row.candidate_version);
+    const done = orders.filter((order) => order.phase === "done" || order.phase === "already-generated").length;
+    const todo = orders.filter((order) => order.phase === "todo").length;
+    const next = orders.find((order) => order.phase === "todo");
+    return `| \`${row.chart}@${row.candidate_version}\` | ${done} / ${orders.length} | ${todo} | ${next?.lane ?? "none"} | ${next?.first_action ?? "all lanes complete"} |`;
+  });
   const candidateRows = rows.map(
     (row) =>
       `| \`${row.chart}\` | \`${row.current_version}\` | \`${row.candidate_version}\` | ${displayList(row.variants)} | [${slug(row.chart)} rows](./promotion-work-orders.csv) |`,
   );
+  const doneRows = workOrders.filter((row) => row.phase === "done" || row.phase === "already-generated").length;
+  const todoRows = workOrders.filter((row) => row.phase === "todo").length;
 
   return `# Latest Candidate Promotion Work Orders
 
@@ -342,6 +356,8 @@ happen before any candidate can replace the current supported catalog version.
 candidate charts: ${rows.length}
 work-order rows: ${workOrders.length}
 candidate render proof: already generated
+completed work-order rows: ${doneRows}
+todo work-order rows: ${todoRows}
 candidate support status: not promoted
 \`\`\`
 
@@ -353,9 +369,15 @@ ${candidateRows.join("\n")}
 
 ## Lanes
 
-| Lane | Rows |
-| --- | ---: |
+| Lane | Done or generated | Todo | Other |
+| --- | ---: | ---: | ---: |
 ${laneRows.join("\n")}
+
+## Candidate Progress
+
+| Candidate | Done or generated lanes | Todo lanes | Next lane | Next action |
+| --- | ---: | ---: | --- | --- |
+${candidateProgressRows.join("\n")}
 
 ## How To Use This
 
