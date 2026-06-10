@@ -152,6 +152,7 @@ decision before catalog promotion.
 | File | Use |
 | --- | --- |
 | `data/top100-readiness/readiness.csv` | One row per top-100 chart: workability, user status, strongest evidence, lane counts, gap, next action, next receipt path where available, and next-action source. |
+| `data/top100-readiness/next80-queues.csv` | Compact next80 action queue: promotion review, user-shaped variant work, and limitation review. |
 | `data/top100-catalog-analysis/review.csv` | Catalog analysis and promotion surface. |
 | `data/outcome-coverage/chart-outcomes.csv` | Detailed outcome counts per chart. |
 | `data/outcome-coverage/base-outcomes.csv` | Per base-variant proof lane status. |

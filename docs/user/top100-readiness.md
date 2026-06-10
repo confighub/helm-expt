@@ -41,6 +41,10 @@ The generated source of truth is:
 
 [Top-100 Readiness](../../data/top100-readiness/summary.md)
 
+The compact next80 work queue is:
+
+[Next80 Action Queues](../../data/top100-readiness/next80-queues.md)
+
 The spreadsheet-friendly CSV is:
 
 [readiness.csv](../../data/top100-readiness/readiness.csv)
@@ -92,6 +96,14 @@ Use the CSV when comparing many charts:
 Start with the `workability` column when you want the simple answer:
 try now from the public catalog, use as proof pending catalog review, add a
 real user-shaped variant first, or make a limitation decision before promotion.
+
+For the next80 specifically, use the generated action queue:
+
+| Question | Use |
+| --- | --- |
+| Which next80 charts are closest to catalog promotion? | [next80-queues.csv](../../data/top100-readiness/next80-queues.csv), queue `promotion-review` |
+| Which next80 charts need a named limitation decision? | [next80-queues.csv](../../data/top100-readiness/next80-queues.csv), queue `limitation-review` |
+| Which next80 charts need a better base variant first? | [next80-queues.csv](../../data/top100-readiness/next80-queues.csv), queue `user-shaped-variant` |
 
 Then drill down:
 
