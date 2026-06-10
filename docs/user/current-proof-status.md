@@ -206,23 +206,24 @@ Live Helm-vs-ConfigHub parity has started:
 Strict two-cluster Helm-vs-installer parity now has committed receipts for all
 42 maintained top-20 base variants:
 
-- 34 rows pass;
+- 35 rows pass;
 - 1 row is watch;
-- 7 rows are blocked by target prerequisites, runtime readiness, storage,
+- 6 rows are blocked by target prerequisites, runtime readiness, storage,
   hooks, or operating-policy decisions;
 - 0 rows currently report a semantic parity defect.
 
 Use the generated rerun plan for the next command and expected remediation:
 [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md).
 
-The current rerun queue has no semantic parity defects. Its 9 non-pass rows
-are grouped by the next decision needed before a rerun is useful:
+The current rerun queue has no semantic parity defects. Its 6 active non-pass
+rows are grouped by the next action needed before a rerun is useful. Each row
+links to a support artifact when the chart already has one.
 
 | Next step | Rows | Meaning |
 | --- | ---: | --- |
-| runtime review | 6 | Inspect readiness, waits, storage, capacity, or application initialization. |
-| stage prerequisite | 1 | Stage or model CRDs, APIs, Secrets, storage, or another target prerequisite. |
-| lifecycle route | 1 | Choose the hook or lifecycle observation route. |
+| stage prerequisite | 2 | Use the target-prerequisite plan, stage the target facts, then capture a fresh observation receipt. |
+| target fit review | 2 | Use the target topology or operating policy to choose a fitting target or a smaller base. |
+| lifecycle route | 1 | Use the lifecycle policy to execute or observe the selected route. |
 | operating policy | 1 | Record the operating decision before expecting a different readiness result. |
 
 Production support decisions are now closed for the top-20 catalog:
