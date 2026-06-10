@@ -7,7 +7,7 @@ spec:
   version: 2.0.0
   base: secure-mesh-existing-secrets
   result: blocked
-  observedAt: '2026-06-08T14:52:41Z'
+  observedAt: '2026-06-10T00:25:49Z'
   package:
     path: packages/hashicorp/consul/2.0.0
   recipe:
@@ -15,24 +15,24 @@ spec:
   variantRevision: recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-consul-8b514-ydor-helm
-    installerCluster: hx-consul-8b514-ydor-installer
+    helmCluster: hx-consul-8b514-va4q-helm
+    installerCluster: hx-consul-8b514-va4q-installer
     namespace: consul
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-consul-8b514-ydor-helm
+      - cluster: hx-consul-8b514-va4q-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-consul-8b514-ydor-helm" ...
+        detail: 'Deleting cluster "hx-consul-8b514-va4q-helm" ...
 
-          Deleted nodes: ["hx-consul-8b514-ydor-helm-control-plane"]'
-      - cluster: hx-consul-8b514-ydor-installer
+          Deleted nodes: ["hx-consul-8b514-va4q-helm-control-plane"]'
+      - cluster: hx-consul-8b514-va4q-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-consul-8b514-ydor-installer" ...
+        detail: 'Deleting cluster "hx-consul-8b514-va4q-installer" ...
 
-          Deleted nodes: ["hx-consul-8b514-ydor-installer-control-plane"]'
+          Deleted nodes: ["hx-consul-8b514-va4q-installer-control-plane"]'
   legs:
     regularHelm:
       result: blocked
@@ -64,12 +64,12 @@ spec:
           statefulset.apps/consul-consul-server   0/3   12m'
         pods: '# consul
 
-          consul-consul-connect-injector-5f47dfbd9-g7dh9        0/1   CrashLoopBackOff   7
-          (15s ago)   12m
+          consul-consul-connect-injector-5f47dfbd9-96tv6        0/1   CrashLoopBackOff   7
+          (32s ago)   12m
 
-          consul-consul-ingress-gateway-7c9f6b86f8-s6j52        0/1   Init:0/1           0             12m
+          consul-consul-ingress-gateway-7c9f6b86f8-47dhk        0/1   Init:0/1           0             12m
 
-          consul-consul-mesh-gateway-746b9dc7df-slvc6           0/1   Init:0/1           0             12m
+          consul-consul-mesh-gateway-746b9dc7df-htfhk           0/1   Init:0/1           0             12m
 
           consul-consul-server-0                                0/1   Running            0             12m
 
@@ -77,22 +77,22 @@ spec:
 
           consul-consul-server-2                                0/1   Pending            0             12m
 
-          consul-consul-server-acl-init-4zrkm                   1/1   Running            0             12m
+          consul-consul-server-acl-init-ktgtx                   1/1   Running            0             12m
 
-          consul-consul-terminating-gateway-5496cd6fbd-qwvff    0/1   Init:0/1           0             12m
+          consul-consul-terminating-gateway-5496cd6fbd-x5szx    0/1   Init:0/1           0             12m
 
-          consul-consul-webhook-cert-manager-7b7958cdff-2vhwc   1/1   Running            0             12m'
+          consul-consul-webhook-cert-manager-7b7958cdff-lj4nh   1/1   Running            0             12m'
         notReady:
         - namespace: consul
-          pod: consul-consul-connect-injector-5f47dfbd9-g7dh9
+          pod: consul-consul-connect-injector-5f47dfbd9-96tv6
           ready: 0/1
           status: CrashLoopBackOff
         - namespace: consul
-          pod: consul-consul-ingress-gateway-7c9f6b86f8-s6j52
+          pod: consul-consul-ingress-gateway-7c9f6b86f8-47dhk
           ready: 0/1
           status: Init:0/1
         - namespace: consul
-          pod: consul-consul-mesh-gateway-746b9dc7df-slvc6
+          pod: consul-consul-mesh-gateway-746b9dc7df-htfhk
           ready: 0/1
           status: Init:0/1
         - namespace: consul
@@ -108,10 +108,10 @@ spec:
           ready: 0/1
           status: Pending
         - namespace: consul
-          pod: consul-consul-terminating-gateway-5496cd6fbd-qwvff
+          pod: consul-consul-terminating-gateway-5496cd6fbd-x5szx
           ready: 0/1
           status: Init:0/1
-      stderr: 'I0608 15:53:32.049622   67842 warnings.go:107] "Warning: unrecognized
+      stderr: 'I0610 01:26:42.583549    6978 warnings.go:107] "Warning: unrecognized
         format \"int32\""
 
         Error: resource Deployment/consul/consul-consul-connect-injector not ready.
@@ -134,12 +134,12 @@ spec:
     cubInstallerApply:
       result: watch
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/consul/2.0.0
-        --base secure-mesh-existing-secrets --work-dir /tmp/helm-expt-kind-parity-hx-consul-8b514-ydor-consul
+        --base secure-mesh-existing-secrets --work-dir /tmp/helm-expt-kind-parity-hx-consul-8b514-va4q-consul
         --non-interactive --namespace consul
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
       namespace: consul
-      manifestSHA256: aabaf90d106fd57ad263ea5f054c51df7093d636002f8e76381711e6387ab1a4
+      manifestSHA256: d0c7b2dace3ea7b2d732ac243969c035c2d9c28020416b96fc3639f9a735b16a
       objectCount: 98
       manifestNamespaces:
       - consul
@@ -163,12 +163,12 @@ spec:
           statefulset.apps/consul-consul-server   0/3   4m53s'
         pods: '# consul
 
-          consul-consul-connect-injector-5f47dfbd9-nbbjf        0/1   Running    4
+          consul-consul-connect-injector-5f47dfbd9-7kk79        0/1   Running    4
           (37s ago)   4m53s
 
-          consul-consul-ingress-gateway-7c9f6b86f8-khmmd        0/1   Init:0/1   0             4m53s
+          consul-consul-ingress-gateway-7c9f6b86f8-2k64l        0/1   Init:0/1   0             4m53s
 
-          consul-consul-mesh-gateway-746b9dc7df-xcdws           0/1   Init:0/1   0             4m53s
+          consul-consul-mesh-gateway-746b9dc7df-cbnbz           0/1   Init:0/1   0             4m53s
 
           consul-consul-server-0                                0/1   Running    0             4m53s
 
@@ -176,22 +176,22 @@ spec:
 
           consul-consul-server-2                                0/1   Pending    0             4m53s
 
-          consul-consul-server-acl-init-k5249                   1/1   Running    0             4m52s
+          consul-consul-server-acl-init-58qhn                   1/1   Running    0             4m52s
 
-          consul-consul-terminating-gateway-5496cd6fbd-29nhg    0/1   Init:0/1   0             4m53s
+          consul-consul-terminating-gateway-5496cd6fbd-jv65v    0/1   Init:0/1   0             4m53s
 
-          consul-consul-webhook-cert-manager-7b7958cdff-qxlzt   1/1   Running    0             4m53s'
+          consul-consul-webhook-cert-manager-7b7958cdff-dz4p6   1/1   Running    0             4m53s'
         notReady:
         - namespace: consul
-          pod: consul-consul-connect-injector-5f47dfbd9-nbbjf
+          pod: consul-consul-connect-injector-5f47dfbd9-7kk79
           ready: 0/1
           status: Running
         - namespace: consul
-          pod: consul-consul-ingress-gateway-7c9f6b86f8-khmmd
+          pod: consul-consul-ingress-gateway-7c9f6b86f8-2k64l
           ready: 0/1
           status: Init:0/1
         - namespace: consul
-          pod: consul-consul-mesh-gateway-746b9dc7df-xcdws
+          pod: consul-consul-mesh-gateway-746b9dc7df-cbnbz
           ready: 0/1
           status: Init:0/1
         - namespace: consul
@@ -207,7 +207,7 @@ spec:
           ready: 0/1
           status: Pending
         - namespace: consul
-          pod: consul-consul-terminating-gateway-5496cd6fbd-29nhg
+          pod: consul-consul-terminating-gateway-5496cd6fbd-jv65v
           ready: 0/1
           status: Init:0/1
   semanticComparison:
@@ -216,6 +216,8 @@ spec:
     semanticNormalizations: &id003
     - prune-null-fields
     - trim-leading-command-block-newline
+    - consul-namespace-reference-normalization
+    - consul-statefulset-gitops-defaults
     helmVsCubInstallerApply:
       result: pass
       helmObjectCount: 97
@@ -225,7 +227,7 @@ spec:
       - v1|Namespace||consul
       semanticDiffs: []
       semanticNormalizations: *id003
-      comparisonSHA256: e29877851daaa06262af9013447e8e10dc7256ada4b416560f87be8a7265e9eb
+      comparisonSHA256: 7891cc6ef40b47534716dbe42d3994c1ebb4e17ade5a29417342c678d62eeab4
   checks:
   - name: kind-create-helm
     result: pass
@@ -235,13 +237,13 @@ spec:
     detail: installer kind cluster created
   - name: target-facts-helm
     result: pass
-    detail: staged=4
+    detail: secrets=4 crds=0
   - name: target-facts-installer
     result: pass
-    detail: staged=4
+    detail: secrets=4 crds=0
   - name: regular-helm-live
     result: blocked
-    detail: 'I0608 15:53:32.049622   67842 warnings.go:107] "Warning: unrecognized
+    detail: 'I0610 01:26:42.583549    6978 warnings.go:107] "Warning: unrecognized
       format \"int32\""
 
       Error: resource Deployment/consul/consul-consul-connect-injector not ready.
@@ -286,19 +288,24 @@ spec:
         name: consul-ca-cert
         keys:
         - tls.crt
+        lane: regularHelm
       - namespace: consul
         name: consul-server-cert
         keys:
         - tls.crt
         - tls.key
+        lane: regularHelm
       - namespace: consul
         name: consul-gossip-encryption-key
         keys:
         - key
+        lane: regularHelm
       - namespace: consul
         name: consul-bootstrap-acl-token
         keys:
         - token
+        lane: regularHelm
+      stagedCRDs: []
       path: /Users/alexis/code/helm-expt/runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
@@ -307,17 +314,22 @@ spec:
         name: consul-ca-cert
         keys:
         - tls.crt
+        lane: cubInstallerApply
       - namespace: consul
         name: consul-server-cert
         keys:
         - tls.crt
         - tls.key
+        lane: cubInstallerApply
       - namespace: consul
         name: consul-gossip-encryption-key
         keys:
         - key
+        lane: cubInstallerApply
       - namespace: consul
         name: consul-bootstrap-acl-token
         keys:
         - token
+        lane: cubInstallerApply
+      stagedCRDs: []
       path: /Users/alexis/code/helm-expt/runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/target-facts-installer.yaml

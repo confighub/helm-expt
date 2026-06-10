@@ -13,6 +13,7 @@ What this proves:
 - `default-control-plane` captures the chart-default Consul posture, including disabled TLS/ACLs, server StatefulSet, injector webhook, webhook cert manager, 28 CRDs, and RBAC;
 - `secure-mesh-existing-secrets` enables TLS, ACLs, gossip encryption, mesh gateways, and UI ingress using declared target Secrets;
 - CRD ownership, cluster RBAC, admission webhooks, lifecycle Jobs, rendered Secrets, StatefulSet storage, gateway topology, UI ingress, and raw/template extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.
+- the secure mesh base is explicit about target topology: three server replicas with anti-affinity need a multi-node target, while one-node kind is only a parity target.
 
 Useful commands:
 

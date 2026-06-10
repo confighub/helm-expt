@@ -19,7 +19,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Production readiness | production-review-ready |
 | Supported variants | default-control-plane, secure-mesh-existing-secrets |
 | Candidate variants | none |
-| Control points | admission-webhook, capability-profile, cluster-rbac, crd-ownership, dependency-lock, extension-slots, installer-support-object, lifecycle-policy, mesh-gateway-policy, source-lock, stateful-workload, target-facts, ui-ingress-policy |
+| Control points | admission-webhook, capability-profile, cluster-rbac, crd-ownership, dependency-lock, extension-slots, installer-support-object, lifecycle-policy, mesh-gateway-policy, source-lock, stateful-workload, target-facts, target-topology, ui-ingress-policy |
 
 ## Feature And Proof Summary
 
