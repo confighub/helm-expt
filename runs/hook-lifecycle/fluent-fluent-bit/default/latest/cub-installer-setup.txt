@@ -1,0 +1,5 @@
+Wizard wrote /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-fluent-bit-hook-rD1liY/out/spec/selection.yaml and inputs.yaml
+Base: default; components: []
+Namespace: default
+Rendered 7 manifest(s) to /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-fluent-bit-hook-rD1liY/out/manifests
+Next: cub installer upload --work-dir /var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-fluent-bit-hook-rD1liY --space <slug>

@@ -1,0 +1,69 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HookLifecycleObservationReceipt"
+metadata:
+  name: "fluent-fluent-bit-default-test-hook-lifecycle"
+spec:
+  chart: "fluent/fluent-bit"
+  version: "0.57.6"
+  base: "default"
+  result: "pass"
+  observedAt: "2026-06-10T18:21:50Z"
+  package:
+    path: "packages/fluent/fluent-bit/0.57.6"
+  recipe:
+    path: "recipes/fluent/fluent-bit/0.57.6"
+  variantRevision: "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/variant-revision.yaml"
+  lifecycleModel:
+    hookTypes:
+      - "test"
+    route: "explicit-post-install-check"
+    claim: "The Helm test hook is treated as an explicit post-install health check against the installed Service."
+  run:
+    mode: "single-kind-cluster-cub-installer-hook-observation"
+    cluster: "hx-hook-fluent-bit-8eb22a"
+    namespace: "default"
+    cleanup:
+      result: "pass"
+      detail: "deleted kind cluster"
+  checks:
+    -
+      name: "kind-create"
+      result: "pass"
+      detail: "created fresh kind cluster"
+    -
+      name: "cub-installer-setup"
+      result: "pass"
+      detail: "rendered cub installer package output"
+      evidencePath: "cub-installer-setup.txt"
+      evidenceSHA256: "1a94cf2948889e089f76e12333e426b190c6b5bdb296e931a58a23798b8b3bfd"
+    -
+      name: "kubectl-apply"
+      result: "pass"
+      detail: "applied cub installer manifests"
+      evidencePath: "kubectl-apply.txt"
+      evidenceSHA256: "61c82de398c0b6ff69dcd2ff00b68f6eb895409908341312beed8f5c58e04f49"
+    -
+      name: "daemonset-ready"
+      result: "pass"
+      detail: "fluent-bit DaemonSet rolled out"
+      evidencePath: "daemonset-fluent-bit-rollout.txt"
+      evidenceSHA256: "30b681ce33d2576c33e40f253a7818038512f9bc7bf3d8cce3deaa43544c9584"
+    -
+      name: "service-endpoints"
+      result: "pass"
+      detail: "fluent-bit Service has ready endpoints"
+      evidencePath: "service-fluent-bit-endpoints.yaml"
+      evidenceSHA256: "ac68afa923fce84f80f2f26d71cf39743931fd69d681e90b533fe81bcafb1d3f"
+    -
+      name: "explicit-post-install-health-check"
+      result: "pass"
+      detail: "fluent-bit health endpoint returned ok"
+      evidencePath: "fluent-bit-health.json"
+      evidenceSHA256: "c474bde7ae8ddbc6f10a51a414ce948db4eddb6a96cd2f393662cf3f2a4c81aa"
+      health:
+        status: "ok"
+        errors: 0
+        retries_failed: 0
+        error_limit: 5
+        retry_failure_limit: 5
+        period_limit: 60

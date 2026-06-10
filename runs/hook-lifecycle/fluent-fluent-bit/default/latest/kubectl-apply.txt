@@ -1,0 +1,7 @@
+clusterrole.rbac.authorization.k8s.io/fluent-bit created
+clusterrolebinding.rbac.authorization.k8s.io/fluent-bit created
+configmap/fluent-bit created
+daemonset.apps/fluent-bit created
+namespace/default configured
+service/fluent-bit created
+serviceaccount/fluent-bit created

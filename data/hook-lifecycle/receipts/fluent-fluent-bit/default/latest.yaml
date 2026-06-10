@@ -6,8 +6,9 @@ spec:
   chart: fluent/fluent-bit
   version: 0.57.6
   base: default
-  result: route-selected
+  result: observed
   selectedAt: "2026-06-09"
+  observedAt: "2026-06-10T18:21:50Z"
   route:
     summary: The chart hook is a test hook and is routed to an explicit post-install check.
     phases:
@@ -19,11 +20,18 @@ spec:
       claim: Source scan found one test hook template.
     - path: recipes/fluent/fluent-bit/0.57.6/helm-pain-report.yaml
       claim: Chart pain report records the test-hook route.
+    - path: runs/hook-lifecycle/fluent-fluent-bit/default/latest/receipt.yaml
+      claim: Live kind observation records cub installer setup, apply, DaemonSet rollout, Service endpoint, and health endpoint result for the explicit post-install check.
   execution:
     helmHooksExecutedByHarness: false
-    runtimeObserved: false
+    runtimeObserved: true
+    observedRoute:
+      daemonSetReady: true
+      serviceEndpointReady: true
+      healthEndpoint: pass
     notes:
-      - This route is likely straightforward, but still needs a committed live check receipt.
+      - The Helm test hook is not executed by Helm in the config-only path.
+      - Equivalent behavior is an explicit post-install health check with a committed receipt.
   remainingWork:
-    - Run the selected post-install check in a live target.
-    - Record the result and freshness.
+    - Keep the check fresh when chart, base, or cluster version changes.
+    - Add broader log pipeline checks before promoting Fluent Bit as a catalog-supported logging component.
