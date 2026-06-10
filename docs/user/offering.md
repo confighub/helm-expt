@@ -63,7 +63,7 @@ The current catalog proves a lot, but not everything:
 
 - 20 top-chart entries have public catalog bases;
 - 100 charts have recipe/package proof artifacts;
-- 158 chart/base rows have render parity against regular Helm;
+- 159 chart/base rows have render parity against regular Helm;
 - local, GitOps, parity, lifecycle, and production support lanes are tracked
   separately.
 
@@ -74,8 +74,9 @@ review-ready to supported is described in
 
 The catalog is also meant to expose hard cases. For example, the strict
 cub-scout witness found Kubernetes 1.30 CRD capability issues in cert-manager
-and External Secrets: workloads converged, but strict rendered-object/live
-parity blocked because live CRDs omitted rendered `selectableFields` fields.
+and External Secrets, and a Grafana RBAC server-normalization watch item:
+workloads converged, but strict rendered-object/live parity stayed blocked
+until the target behavior is modeled or accepted.
 
 That is the point of the model: tell the user what is true, what is watch, what
 is blocked, and what decision is needed next.

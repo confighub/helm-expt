@@ -237,8 +237,8 @@
     {
       "section": "proof lanes",
       "metric": "two-cluster kind parity pass rows",
-      "value": "42",
-      "total": "43",
+      "value": "43",
+      "total": "44",
       "status": "partial",
       "source": "data/live-kind-parity/summary.csv",
       "note": "Regular Helm in one vanilla kind cluster, cub installer output in another, then semantic comparison."
@@ -363,8 +363,8 @@
     {
       "section": "live evidence",
       "metric": "two-cluster kind parity receipts",
-      "value": "43",
-      "total": "43",
+      "value": "44",
+      "total": "44",
       "status": "partial",
       "source": "data/live-kind-parity/summary.csv",
       "note": "Committed two-cluster parity receipts for the top-20 base variants, including pass and non-pass results."
@@ -409,7 +409,7 @@
       "section": "live evidence",
       "metric": "two-cluster semantic parity defect receipts",
       "value": "0",
-      "total": "43",
+      "total": "44",
       "status": "good",
       "source": "data/live-kind-parity/summary.csv",
       "note": "Rows whose committed two-cluster receipt currently points at a semantic object comparison defect."
@@ -6044,7 +6044,7 @@
       "workability": "works-as-proof-needs-catalog-review",
       "adoption_bucket": "promote-after-review",
       "user_status": "proof-grade-ready-for-promotion-review",
-      "strongest_evidence": "render-parity",
+      "strongest_evidence": "two-cluster-kind-parity",
       "variant_count": "2",
       "variants": "default;no-crds",
       "render_parity": "2/2",
@@ -6052,7 +6052,7 @@
       "local_live": "0/2",
       "gitops_live": "0/2",
       "live_parity": "0/2",
-      "two_cluster_kind_parity": "0/2",
+      "two_cluster_kind_parity": "1/2",
       "hard_gap": "-",
       "source_features": "generated-facts;tpl;crds;cluster-rbac;webhooks",
       "next_action": "run catalog promotion review",
