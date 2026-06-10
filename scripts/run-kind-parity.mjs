@@ -236,6 +236,16 @@ function classifyReceipt(receipt) {
   if (text.includes("startupapicheck") || text.includes("failed post-install")) {
     return `helm-hook: post-install hook failed${paritySuffix}`;
   }
+  if (spec.chart === "hashicorp/vault" && spec.base === "ha-raft-ui" && text.includes("pending")) {
+    return `target-fit: HA raft target topology not satisfied${paritySuffix}`;
+  }
+  if (
+    spec.chart === "hashicorp/vault"
+    && text.includes("vault-0")
+    && (text.includes("ready: 0/1") || text.includes('"ready":"0/1"'))
+  ) {
+    return `operate-policy: Vault init/unseal required${paritySuffix}`;
+  }
   if (text.includes("crashloopbackoff")) return `target-runtime: pod crash loop${paritySuffix}`;
   if (text.includes("pending")) return `target-runtime: pods pending${paritySuffix}`;
   if (text.includes("available: 0/1") || text.includes("ready: 0/1") || text.includes('"ready":"0/1"') || text.includes("context deadline exceeded")) {

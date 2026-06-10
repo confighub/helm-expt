@@ -235,7 +235,7 @@
       </div>
       <div class="card"><table>
         <thead><tr><th>Lane</th><th>Chart</th><th>Base</th><th>Current</th><th>Lifecycle</th><th>Reason</th></tr></thead>
-        <tbody><tr><td>two-cluster-kind-parity</td><td>bitnami/mongodb@19.0.7</td><td>existing-secret-replicaset</td><td>blocked</td><td>-</td><td>target-runtime: pod crash loop (parity passed)</td></tr><tr><td>two-cluster-kind-parity</td><td>grafana/tempo@1.24.4</td><td>s3-query-observability</td><td>blocked</td><td>-</td><td>target-runtime: pod crash loop (parity passed)</td></tr><tr><td>two-cluster-kind-parity</td><td>hashicorp/consul@2.0.0</td><td>secure-mesh-existing-secrets</td><td>blocked</td><td>-</td><td>target-runtime: pod crash loop (parity passed)</td></tr><tr><td>two-cluster-kind-parity</td><td>hashicorp/vault@0.32.0</td><td>default</td><td>blocked</td><td>-</td><td>helm-runtime: upstream not ready (parity passed)</td></tr><tr><td>two-cluster-kind-parity</td><td>hashicorp/vault@0.32.0</td><td>ha-raft-ui</td><td>blocked</td><td>-</td><td>target-runtime: pods pending (parity passed)</td></tr><tr><td>two-cluster-kind-parity</td><td>ingress-nginx/ingress-nginx@4.15.1</td><td>default</td><td>watch</td><td>-</td><td>helm-runtime: upstream not ready (parity passed)</td></tr><tr><td>two-cluster-kind-parity</td><td>metrics-server/metrics-server@3.13.0</td><td>external-tls-ca</td><td>blocked</td><td>-</td><td>helm-runtime: upstream not ready (parity passed)</td></tr></tbody>
+        <tbody><tr><td>two-cluster-kind-parity</td><td>hashicorp/vault@0.32.0</td><td>default</td><td>blocked</td><td>-</td><td>operate-policy: Vault init/unseal required (parity passed)</td></tr><tr><td>two-cluster-kind-parity</td><td>hashicorp/vault@0.32.0</td><td>ha-raft-ui</td><td>blocked</td><td>-</td><td>target-fit: HA raft target topology not satisfied (parity passed)</td></tr><tr><td>two-cluster-kind-parity</td><td>bitnami/mongodb@19.0.7</td><td>existing-secret-replicaset</td><td>blocked</td><td>-</td><td>target-runtime: pod crash loop (parity passed)</td></tr><tr><td>two-cluster-kind-parity</td><td>grafana/tempo@1.24.4</td><td>s3-query-observability</td><td>blocked</td><td>-</td><td>target-runtime: pod crash loop (parity passed)</td></tr><tr><td>two-cluster-kind-parity</td><td>hashicorp/consul@2.0.0</td><td>secure-mesh-existing-secrets</td><td>blocked</td><td>-</td><td>target-runtime: pod crash loop (parity passed)</td></tr><tr><td>two-cluster-kind-parity</td><td>ingress-nginx/ingress-nginx@4.15.1</td><td>default</td><td>watch</td><td>-</td><td>helm-runtime: upstream not ready (parity passed)</td></tr><tr><td>two-cluster-kind-parity</td><td>metrics-server/metrics-server@3.13.0</td><td>external-tls-ca</td><td>blocked</td><td>-</td><td>helm-runtime: upstream not ready (parity passed)</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -316,9 +316,11 @@
       <p>Each catalog chart has named base variants. The table below shows the recommended first base for each top-20 chart and whether that base is ready as a clean first path, needs extra proof, has related lifecycle evidence, or needs runtime/prerequisite review.</p>
       <div class="lanes">
         <div class="metric"><strong>1</strong><span>lifecycle-observed</span></div>
-        <div class="metric"><strong>6</strong><span>runtime-review-needed</span></div>
+        <div class="metric"><strong>1</strong><span>operating-policy-needed</span></div>
+        <div class="metric"><strong>4</strong><span>runtime-review-needed</span></div>
         <div class="metric"><strong>1</strong><span>runtime-watch</span></div>
         <div class="metric"><strong>20</strong><span>start-here</span></div>
+        <div class="metric"><strong>1</strong><span>target-fit-needed</span></div>
         <div class="metric"><strong>14</strong><span>try-with-proof</span></div>
       </div>
       <div class="card"><table>

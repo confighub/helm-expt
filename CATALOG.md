@@ -727,7 +727,7 @@ Receipts: [per-chart receipts](recipes/hashicorp/vault/0.32.0/CATALOG.md)
 ##### default
 
 When to use: vault default server with injector variant rendered from hashicorp/vault@0.32.0
-Readiness: runtime-review-needed
+Readiness: operating-policy-needed
 Namespace: vault
 Target facts: none
 Package base: [packages/hashicorp/vault/0.32.0/bases/default](packages/hashicorp/vault/0.32.0/bases/default)
@@ -739,7 +739,7 @@ Receipts: [per-chart receipts](recipes/hashicorp/vault/0.32.0/CATALOG.md)
 ##### ha-raft-ui
 
 When to use: vault HA Raft with UI variant rendered from hashicorp/vault@0.32.0
-Readiness: runtime-review-needed
+Readiness: target-fit-needed
 Namespace: vault
 Target facts: none
 Package base: [packages/hashicorp/vault/0.32.0/bases/ha-raft-ui](packages/hashicorp/vault/0.32.0/bases/ha-raft-ui)

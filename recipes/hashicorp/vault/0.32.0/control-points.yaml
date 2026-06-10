@@ -43,6 +43,10 @@ spec:
       status: "scan-and-review"
       note: "Vault init, unseal, seal migration, and recovery material are post-render operating controls."
     -
+      category: "target-topology"
+      status: "target-review"
+      note: "The ha-raft-ui base renders three Vault server replicas. A one-node kind target is useful for object parity, but HA live readiness needs a target that can schedule the declared topology plus an init/unseal operating path."
+    -
       category: "extension-slots"
       status: "controlled-by-empty-defaults"
       note: "extra environment, Secret, volume, plugin, init, and sidecar slots are empty in promoted variants."

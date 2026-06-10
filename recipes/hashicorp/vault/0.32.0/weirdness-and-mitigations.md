@@ -26,6 +26,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 - The ha-raft-ui variant enables integrated Raft HA and the UI Service as deliberate variant-controlled outputs.
 - The dev-mode variant uses the upstream chart's dev server path for local proof and demos; it starts without init/unseal and is not a production support claim.
 - The chart does not initialize or unseal Vault; init/unseal and recovery material are operating controls, not hidden render inputs.
+- The HA Raft variant needs a target that can schedule three Vault server replicas; one-node kind is useful for object parity but not for HA readiness.
 - Injector webhook, cluster RBAC, TLS posture, storage, and service exposure are scan/gate review points.
 - extra environment, Secret, volume, plugin, init, and sidecar extension slots are powerful config surfaces; promoted variants keep them empty.
 
@@ -50,6 +51,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 | tls-posture | scan-and-review | v1\|ConfigMap\|vault\|vault-config |
 | cluster-rbac | scan-and-review | rbac.authorization.k8s.io/v1\|ClusterRole\|\|vault-agent-injector-clusterrole |
 | operate-policy | scan-and-review | Vault init, unseal, seal migration, and recovery material are post-render operating controls. |
+| target-topology | target-review | The ha-raft-ui base renders three Vault server replicas. A one-node kind target is useful for object parity, but HA live readiness needs a target that can schedule the declared topology plus an init/unseal operating path. |
 | extension-slots | controlled-by-empty-defaults | extra environment, Secret, volume, plugin, init, and sidecar slots are empty in promoted variants. |
 | installer-support-object | handled | v1\|Namespace\|\|vault |
 
@@ -67,6 +69,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 - service-exposure
 - source-lock
 - stateful-workload
+- target-topology
 - tls-posture
 
 ## Proof Links

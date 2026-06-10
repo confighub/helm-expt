@@ -22,6 +22,7 @@ spec:
     - "The ha-raft-ui variant enables integrated Raft HA and the UI Service as deliberate variant-controlled outputs."
     - "The dev-mode variant uses the upstream chart's dev server path for local proof and demos; it starts without init/unseal and is not a production support claim."
     - "The chart does not initialize or unseal Vault; init/unseal and recovery material are operating controls, not hidden render inputs."
+    - "The HA Raft variant needs a target that can schedule three Vault server replicas; one-node kind is useful for object parity but not for HA readiness."
     - "Injector webhook, cluster RBAC, TLS posture, storage, and service exposure are scan/gate review points."
     - "extra environment, Secret, volume, plugin, init, and sidecar extension slots are powerful config surfaces; promoted variants keep them empty."
   painPoints:
@@ -107,6 +108,15 @@ spec:
       linkedReceipt: "revisions/dev-mode/r001/receipts/install-gate.yaml"
       supportedVariantStatus: "scan-and-review"
     -
+      id: "target-topology"
+      detectedPainPoint: "The ha-raft-ui base renders three Vault server replicas. A one-node kind target is useful for object parity, but HA live readiness needs a target that can schedule the declared topology plus an init/unseal operating path."
+      evidence:
+        - "control-points.yaml"
+      configHubHome: "target-fact-requirement"
+      disposition: "handled-by-target-fact-values"
+      linkedReceipt: "value-model.yaml"
+      supportedVariantStatus: "target-review"
+    -
       id: "extension-slots"
       detectedPainPoint: "extra environment, Secret, volume, plugin, init, and sidecar slots are empty in promoted variants."
       evidence:
@@ -144,4 +154,4 @@ spec:
       disposition: "absorbed-into-value-model"
       linkedReceipt: "value-model.yaml"
       supportedVariantStatus: "unknown=not-checked; dead=not-checked; ignored=not-checked"
-  answerForSkepticalHelmUser: "hashicorp/vault@0.32.0 maps its detected Helm pain to 9 ConfigHub control areas: source-lock, dependency-lock, capability-profile, operate-policy, lifecycle-policy, recipe, scan-gate, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains production-review-ready."
+  answerForSkepticalHelmUser: "hashicorp/vault@0.32.0 maps its detected Helm pain to 10 ConfigHub control areas: source-lock, dependency-lock, capability-profile, operate-policy, lifecycle-policy, recipe, scan-gate, target-fact-requirement, extension-slot, value-model. Supported scopes have explicit variants, receipts, scans/gates, and control-point dispositions; production readiness remains production-review-ready."
