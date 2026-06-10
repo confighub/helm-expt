@@ -23,7 +23,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 
 - Chart.yaml marks this chart version deprecated, and the proof records that status.
 - local-persistent uses local Tempo storage and explicit PVC settings.
-- s3-query-observability switches to S3 storage, nulls local storage to avoid Helm merge residue, and references S3 credentials from a target Secret; live readiness still requires a reachable object-store endpoint and bucket.
+- s3-query-observability switches to S3 storage, nulls local storage to avoid Helm merge residue, records endpoint/bucket/region as pre-render target values, and references S3 credentials from a target Secret.
 - s3-query-observability adds Tempo Query ingress, NetworkPolicy, and ServiceMonitor behind explicit capability and policy checks; the ServiceMonitor CRD is recorded as a target fact.
 - The chart StatefulSet references serviceName tempo-headless, but these variants render no headless Service; the proof records this as an upstream/runtime risk.
 - config, structuredConfig, extra volumes/mounts, and tpl-controlled strings are powerful extension surfaces; promoted variants keep them controlled.
@@ -32,7 +32,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 
 - Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.
 - local-persistent is the simplest local Tempo path, with storage/runtime caveats recorded for review.
-- s3-query-observability is supported when the S3 target Secret and Prometheus Operator ServiceMonitor API are staged in the target cluster.
+- s3-query-observability is supported when the S3 endpoint, bucket, region, credential Secret, and Prometheus Operator ServiceMonitor API are staged for the target.
 - Chart deprecation, storage/backup/rollback policy, target facts, extension slots, runtime service risk, and scan/gate warnings are recorded as production review input.
 - Production recommendation remains a separate decision; the final decision should choose the maintained successor chart or explicit legacy support and target runtime checks.
 
@@ -44,8 +44,8 @@ operating-policy dispositions plus a final target-scoped support decision.
 | dependency-lock | handled | chart declares no subchart dependencies; the empty closure is recorded explicitly. |
 | capability-profile | handled | Kubernetes API and version branches are bound to the named Kubernetes capability profile. |
 | chart-deprecation | noted | The literal grafana/tempo chart is deprecated; the proof records that status and notes the maintained successor chart separately. |
-| target-facts | variant-controlled | The s3-query-observability variant declares the target Secret for S3 credentials instead of embedding access keys in rendered ConfigMaps. |
-| object-store-runtime-prerequisite | runtime-watch | The S3 variant needs a reachable S3-compatible endpoint and bucket before Tempo becomes ready; dummy credentials alone are not a live proof. |
+| target-facts | variant-controlled | The s3-query-observability variant declares S3 endpoint, bucket, and region as pre-render values, and references credentials from a target Secret instead of embedding access keys in rendered ConfigMaps. |
+| object-store-runtime-prerequisite | runtime-watch | The S3 variant needs the declared endpoint, bucket, region, and credentials to be real before Tempo becomes ready; dummy credentials alone are not a live proof. |
 | capability-profile | variant-controlled | The ServiceMonitor variant records the Prometheus Operator API as an explicit target capability. |
 | servicemonitor-crd-target-fact | target-fact | The Tempo chart renders a ServiceMonitor when the API is declared, but the Prometheus Operator CRD must already exist in the target cluster. |
 | stateful-workload | scan-and-review | apps/v1\|StatefulSet\|tempo\|tempo |

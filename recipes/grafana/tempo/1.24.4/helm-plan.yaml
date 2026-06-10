@@ -20,7 +20,7 @@ spec:
       local-persistent: "4/4"
       s3-query-observability: "8/8"
     scanGate: "warn-production-blocked"
-    nextAction: "publish only after chart deprecation review, storage backend policy, reachable object-store proof, S3 credential Secret ownership, query ingress, ServiceMonitor capability, StatefulSet/headless-Service runtime risk, and raw/template extension-slot review are satisfied"
+    nextAction: "publish only after chart deprecation review, storage backend policy, reachable object-store proof for the declared endpoint/bucket/region, S3 credential Secret ownership, query ingress, ServiceMonitor capability, StatefulSet/headless-Service runtime risk, and raw/template extension-slot review are satisfied"
   receipts:
     - "revisions/local-persistent/r001/receipts/helm-equivalence-receipt.yaml"
     - "revisions/local-persistent/r001/receipts/render-receipt.yaml"

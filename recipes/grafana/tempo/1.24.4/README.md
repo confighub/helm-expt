@@ -12,8 +12,8 @@ What this proves:
 - regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;
 - the literal `grafana/tempo` chart is deprecated, and the proof records that fact instead of hiding it;
 - `local-persistent` captures local single-binary storage and PVC settings;
-- `s3-query-observability` uses a declared target Secret for S3 credentials, does not render a Secret, and adds query ingress, NetworkPolicy, and ServiceMonitor;
-- `s3-query-observability` needs a reachable object-store endpoint and bucket for live readiness; this is recorded as a runtime prerequisite, not hidden as a Helm/ConfigHub mismatch;
+- `s3-query-observability` records S3 endpoint, bucket, and region as pre-render target values, uses a declared target Secret for S3 credentials, does not render a Secret, and adds query ingress, NetworkPolicy, and ServiceMonitor;
+- `s3-query-observability` needs the declared object-store endpoint, bucket, region, and credentials for live readiness; this is recorded as a runtime prerequisite, not hidden as a Helm/ConfigHub mismatch;
 - `s3-query-observability` records the Prometheus Operator ServiceMonitor CRD as a target prerequisite instead of hiding it in apply-time failure;
 - storage backend, target fact, object-store runtime, ingress, NetworkPolicy, ServiceMonitor capability, StatefulSet runtime, chart deprecation, and raw/template extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.
 

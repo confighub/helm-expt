@@ -23,6 +23,6 @@ spec:
   notes:
     - "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts."
     - "default is the expected quick path for a standard metrics-server install."
-    - "external-tls-ca is supported when the declared metrics-server-tls target fact is satisfied."
+    - "external-tls-ca is supported when the metrics-server-tls Secret and matching APIService caBundle target value are satisfied."
     - "Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state."
     - "external-tls-ca remains target-sensitive: the Secret and APIService certificate chain must be validated for the target cluster."

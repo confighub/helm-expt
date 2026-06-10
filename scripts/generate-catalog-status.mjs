@@ -116,7 +116,7 @@ const supportedCatalogEntries = {
     notes: [
       "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.",
       "local-persistent is the simplest local Tempo path, with storage/runtime caveats recorded for review.",
-      "s3-query-observability is supported when the S3 target Secret and Prometheus Operator ServiceMonitor API are staged in the target cluster.",
+      "s3-query-observability is supported when the S3 endpoint, bucket, region, credential Secret, and Prometheus Operator ServiceMonitor API are staged for the target.",
       "Chart deprecation, storage/backup/rollback policy, target facts, extension slots, runtime service risk, and scan/gate warnings are recorded as production review input.",
       "Production recommendation remains a separate decision; the final decision should choose the maintained successor chart or explicit legacy support and target runtime checks.",
     ],
@@ -148,7 +148,7 @@ const supportedCatalogEntries = {
     notes: [
       "Supported for local-test and proof-demo usage through real cub installer and ConfigHub receipts.",
       "default is the expected quick path for a standard metrics-server install.",
-      "external-tls-ca is supported when the declared metrics-server-tls target fact is satisfied.",
+      "external-tls-ca is supported when the metrics-server-tls Secret and matching APIService caBundle target value are satisfied.",
       "Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state.",
       "external-tls-ca remains target-sensitive: the Secret and APIService certificate chain must be validated for the target cluster.",
     ],

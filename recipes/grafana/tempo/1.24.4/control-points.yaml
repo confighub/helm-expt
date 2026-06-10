@@ -25,13 +25,13 @@ spec:
     -
       category: "target-facts"
       status: "variant-controlled"
-      evidence: "tempo.extraEnv secretKeyRef"
-      note: "The s3-query-observability variant declares the target Secret for S3 credentials instead of embedding access keys in rendered ConfigMaps."
+      evidence: "tempo.storage.trace.s3 and tempo.extraEnv secretKeyRef"
+      note: "The s3-query-observability variant declares S3 endpoint, bucket, and region as pre-render values, and references credentials from a target Secret instead of embedding access keys in rendered ConfigMaps."
     -
       category: "object-store-runtime-prerequisite"
       status: "runtime-watch"
       evidence: "tempo.storage.trace.s3"
-      note: "The S3 variant needs a reachable S3-compatible endpoint and bucket before Tempo becomes ready; dummy credentials alone are not a live proof."
+      note: "The S3 variant needs the declared endpoint, bucket, region, and credentials to be real before Tempo becomes ready; dummy credentials alone are not a live proof."
     -
       category: "capability-profile"
       status: "variant-controlled"

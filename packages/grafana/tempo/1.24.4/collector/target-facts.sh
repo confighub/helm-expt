@@ -9,6 +9,7 @@ emit_empty() {
 targetFacts:
   requiredSecrets: []
   requiredCRDs: []
+  requiredValues: []
 targetFactChecks:
   base: "$base"
   mode: not-required
@@ -59,27 +60,39 @@ case "$base" in
     cat <<YAML
 targetFacts:
   requiredSecrets:
-  - keys:
-    - access_key
-    - secret_key
-    name: tempo-s3-credentials
-    namespace: tempo
-    purpose: S3 access credentials referenced by Tempo environment variables
-
+  -
+    namespace: "tempo"
+    name: "tempo-s3-credentials"
+    keys:
+      - "access_key"
+      - "secret_key"
+    purpose: "S3 access credentials referenced by Tempo environment variables"
   requiredCRDs:
-  - deliveryLanes:
-    - regularHelm
-    - cubInstallerApply
-    - configHubKubectlApply
-    - configHubOciArgo
-    name: servicemonitors.monitoring.coreos.com
-    purpose: Prometheus Operator ServiceMonitor CRD required by Tempo's ServiceMonitor
-      object
-    sourcePath: ../../../prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml
-    sourceVariant: prometheus-community/kube-prometheus-stack@85.3.3/default
-
+  -
+    name: "servicemonitors.monitoring.coreos.com"
+    sourcePath: "../../../prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+    sourceVariant: "prometheus-community/kube-prometheus-stack@85.3.3/default"
+    purpose: "Prometheus Operator ServiceMonitor CRD required by Tempo's ServiceMonitor object"
+    deliveryLanes:
+      - "regularHelm"
+      - "cubInstallerApply"
+      - "configHubKubectlApply"
+      - "configHubOciArgo"
+  requiredValues:
+  -
+    path: "tempo.storage.trace.s3.endpoint"
+    purpose: "S3-compatible endpoint that Tempo will write traces to"
+    stage: "pre-render"
+  -
+    path: "tempo.storage.trace.s3.bucket"
+    purpose: "Existing bucket for Tempo trace blocks"
+    stage: "pre-render"
+  -
+    path: "tempo.storage.trace.s3.region"
+    purpose: "Object-store region used with the selected endpoint and bucket"
+    stage: "pre-render"
 targetFactChecks:
-  base: "s3-query-observability"
+  base: "$base"
   mode: "$check_mode"
   result: "$result"
 YAML

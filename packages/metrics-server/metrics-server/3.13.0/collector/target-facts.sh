@@ -9,6 +9,7 @@ emit_empty() {
 targetFacts:
   requiredSecrets: []
   requiredCRDs: []
+  requiredValues: []
 targetFactChecks:
   base: "$base"
   mode: not-required
@@ -58,13 +59,19 @@ case "$base" in
     cat <<YAML
 targetFacts:
   requiredSecrets:
-  - keys:
-    - tls.crt
-    - tls.key
-    name: metrics-server-tls
-    namespace: kube-system
-    purpose: metrics-server serving certificate
+  -
+    namespace: "kube-system"
+    name: "metrics-server-tls"
+    keys:
+      - "tls.crt"
+      - "tls.key"
+    purpose: "metrics-server serving certificate"
   requiredCRDs: []
+  requiredValues:
+  -
+    path: "apiService.caBundle"
+    purpose: "APIService CA bundle that validates kube-system/metrics-server-tls"
+    stage: "pre-render"
 targetFactChecks:
   base: "$base"
   mode: "$check_mode"

@@ -4,16 +4,13 @@ metadata:
   name: "grafana-tempo-1.24.4"
 spec:
   chart:
-    name: "tempo"
     repository: "grafana"
+    name: "tempo"
     version: "1.24.4"
-  deterministicBundle:
-    byteIdenticalAcrossTwoLocalBundles: true
-    command: "cub installer package packages/grafana/tempo/1.24.4 -o <tmp>/tempo-1.24.4.tgz"
-    sha256: "5201328651cf3dd741b4664b4b93f7809723150c0588316f81f44ac6eec73678"
   package:
-    name: "grafana-tempo"
     path: "packages/grafana/tempo/1.24.4"
+    name: "grafana-tempo"
+    version: "1.24.4"
     sourceFiles:
       -
         path: "README.md"
@@ -37,35 +34,38 @@ spec:
         bytes: 9391
       -
         path: "collector/target-facts.sh"
-        sha256: "42b2dd4749e18d2b9997c24cddfb4bae4e36039987df96c3498fb21def043b43"
-        bytes: 2293
+        sha256: "50f90019097d299c21006ece0df13a89ca3da3e1089c518ae4b44eef3e37c488"
+        bytes: 2767
       -
         path: "installer.yaml"
-        sha256: "03d62ed1fed5f5536989834a7f1817ecd982ae37019c43167e21436e9df1a31c"
-        bytes: 1190
-    version: "1.24.4"
+        sha256: "99724ccf20b7a6111a5a2051ce8babb1c0459cf6b23f5cbe57c85d68e717c7c4"
+        bytes: 1205
+  deterministicBundle:
+    command: "cub installer package packages/grafana/tempo/1.24.4 -o <tmp>/tempo-1.24.4.tgz"
+    sha256: "3ef9fa243f1982e62961f9ccf3f772b27a0f78de0f3ca592cbe9b8c7c441be9e"
+    byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
-      allowedCubOnlyObjects:
-        - "v1|Namespace||tempo"
+      variant: "local-persistent"
       base: "local-persistent"
       command: "cub installer setup --pull packages/grafana/tempo/1.24.4 --base local-persistent --work-dir <tmp> --non-interactive --namespace tempo"
-      cubInstallObjectCountIncludingSupport: 5
       helmReleaseObjectCount: 4
+      cubInstallObjectCountIncludingSupport: 5
       semanticObjectMatches: "4/4"
       separatedSecretCount: 0
       targetFactMode: "not-required"
       targetFactsBound: false
-      variant: "local-persistent"
-    -
       allowedCubOnlyObjects:
         - "v1|Namespace||tempo"
+    -
+      variant: "s3-query-observability"
       base: "s3-query-observability"
       command: "cub installer setup --pull packages/grafana/tempo/1.24.4 --base s3-query-observability --work-dir <tmp> --non-interactive --namespace tempo"
-      cubInstallObjectCountIncludingSupport: 9
       helmReleaseObjectCount: 8
+      cubInstallObjectCountIncludingSupport: 9
       semanticObjectMatches: "8/8"
       separatedSecretCount: 0
       targetFactMode: "collector-facts"
       targetFactsBound: true
-      variant: "s3-query-observability"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||tempo"

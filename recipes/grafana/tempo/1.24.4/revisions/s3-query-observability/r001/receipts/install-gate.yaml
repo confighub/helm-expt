@@ -15,4 +15,4 @@ spec:
     - "Tempo storage backend and query/observability posture are explicit variant choices"
     - "Helm hook behavior needs explicit lifecycle policy before production"
     - "Tempo StatefulSet, storage, S3 credential Secret, query ingress, NetworkPolicy, ServiceMonitor, and extension slots need production review"
-    - "requires target Secret tempo/tempo-s3-credentials and a reachable S3-compatible bucket before runtime readiness; ServiceMonitor also requires the Prometheus Operator CRD in the target cluster"
+    - "requires target Secret tempo/tempo-s3-credentials, pre-render S3 endpoint/bucket/region values, and the Prometheus Operator ServiceMonitor CRD before runtime readiness"

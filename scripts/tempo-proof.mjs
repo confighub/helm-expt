@@ -110,7 +110,8 @@ serviceMonitor:
     expectedCRDCount: 0,
     expectedSecretCount: 0,
     apiVersions: ["networking.k8s.io/v1", "monitoring.coreos.com/v1"],
-    targetFactNote: "requires target Secret tempo/tempo-s3-credentials and a reachable S3-compatible bucket before runtime readiness; ServiceMonitor also requires the Prometheus Operator CRD in the target cluster",
+    targetFactNote:
+      "requires target Secret tempo/tempo-s3-credentials, pre-render S3 endpoint/bucket/region values, and the Prometheus Operator ServiceMonitor CRD before runtime readiness",
     targetFacts: {
       requiredSecrets: [
         {
@@ -118,6 +119,23 @@ serviceMonitor:
           name: "tempo-s3-credentials",
           keys: ["access_key", "secret_key"],
           purpose: "S3 access credentials referenced by Tempo environment variables",
+        },
+      ],
+      requiredValues: [
+        {
+          path: "tempo.storage.trace.s3.endpoint",
+          purpose: "S3-compatible endpoint that Tempo will write traces to",
+          stage: "pre-render",
+        },
+        {
+          path: "tempo.storage.trace.s3.bucket",
+          purpose: "Existing bucket for Tempo trace blocks",
+          stage: "pre-render",
+        },
+        {
+          path: "tempo.storage.trace.s3.region",
+          purpose: "Object-store region used with the selected endpoint and bucket",
+          stage: "pre-render",
         },
       ],
       requiredCRDs: [serviceMonitorCRD],
@@ -154,7 +172,7 @@ runProofCli({
     checkedValues: [
       { path: "persistence.enabled / persistence.storageClassName / persistence.size", variant: "local-persistent", disposition: "storage-profile-bound", reason: "local single-binary storage and the kind-compatible StorageClass are captured explicitly as a deterministic install variant" },
       { path: "tempo.storage.trace.backend / tempo.storage.trace.local / tempo.storage.trace.wal", variant: "local-persistent", disposition: "storage-backend-bound", reason: "the local backend and WAL/traces paths are pinned before render" },
-      { path: "tempo.storage.trace.s3 / tempo.extraEnv", variant: "s3-query-observability", disposition: "target-fact-bound", reason: "S3 credentials are referenced from a declared target Secret; live readiness also requires the referenced object-store endpoint and bucket to exist" },
+      { path: "tempo.storage.trace.s3 / tempo.extraEnv", variant: "s3-query-observability", disposition: "target-fact-bound", reason: "S3 endpoint, bucket, and region are pre-render target values, and credentials are referenced from a declared target Secret" },
       { path: "tempo.storage.trace.local", variant: "s3-query-observability", disposition: "merge-cleanup-bound", reason: "set to null so Helm's values merge does not accidentally keep local storage alongside S3" },
       { path: "tempoQuery.enabled / tempoQuery.ingress.*", variant: "s3-query-observability", disposition: "query-exposure-bound", reason: "query UI exposure is only added by an explicit variant with host and ingress class captured" },
       { path: "serviceMonitor.enabled", variant: "s3-query-observability", disposition: "target-capability-bound", reason: "ServiceMonitor rendering is tied to an explicit Prometheus Operator API version requirement" },
@@ -167,8 +185,13 @@ runProofCli({
     { category: "dependency-lock", status: "handled", evidence: "dependency-lock.yaml", note: "chart declares no subchart dependencies; the empty closure is recorded explicitly." },
     { category: "capability-profile", status: "handled", kubeVersion: chart.kubeVersion, note: "Kubernetes API and version branches are bound to the named Kubernetes capability profile." },
     { category: "chart-deprecation", status: "noted", note: "The literal grafana/tempo chart is deprecated; the proof records that status and notes the maintained successor chart separately." },
-    { category: "target-facts", status: "variant-controlled", evidence: "tempo.extraEnv secretKeyRef", note: "The s3-query-observability variant declares the target Secret for S3 credentials instead of embedding access keys in rendered ConfigMaps." },
-    { category: "object-store-runtime-prerequisite", status: "runtime-watch", evidence: "tempo.storage.trace.s3", note: "The S3 variant needs a reachable S3-compatible endpoint and bucket before Tempo becomes ready; dummy credentials alone are not a live proof." },
+    {
+      category: "target-facts",
+      status: "variant-controlled",
+      evidence: "tempo.storage.trace.s3 and tempo.extraEnv secretKeyRef",
+      note: "The s3-query-observability variant declares S3 endpoint, bucket, and region as pre-render values, and references credentials from a target Secret instead of embedding access keys in rendered ConfigMaps.",
+    },
+    { category: "object-store-runtime-prerequisite", status: "runtime-watch", evidence: "tempo.storage.trace.s3", note: "The S3 variant needs the declared endpoint, bucket, region, and credentials to be real before Tempo becomes ready; dummy credentials alone are not a live proof." },
     { category: "capability-profile", status: "variant-controlled", evidence: "monitoring.coreos.com/v1", note: "The ServiceMonitor variant records the Prometheus Operator API as an explicit target capability." },
     {
       category: "servicemonitor-crd-target-fact",
@@ -194,7 +217,7 @@ runProofCli({
     maintainedNotes: [
       "Chart.yaml marks this chart version deprecated, and the proof records that status.",
       "local-persistent uses local Tempo storage and explicit PVC settings.",
-      "s3-query-observability switches to S3 storage, nulls local storage to avoid Helm merge residue, and references S3 credentials from a target Secret; live readiness still requires a reachable object-store endpoint and bucket.",
+      "s3-query-observability switches to S3 storage, nulls local storage to avoid Helm merge residue, records endpoint/bucket/region as pre-render target values, and references S3 credentials from a target Secret.",
       "s3-query-observability adds Tempo Query ingress, NetworkPolicy, and ServiceMonitor behind explicit capability and policy checks; the ServiceMonitor CRD is recorded as a target fact.",
       "The chart StatefulSet references serviceName tempo-headless, but these variants render no headless Service; the proof records this as an upstream/runtime risk.",
       "config, structuredConfig, extra volumes/mounts, and tpl-controlled strings are powerful extension surfaces; promoted variants keep them controlled.",
@@ -215,7 +238,7 @@ runProofCli({
   plan: {
     status: "usable-with-controls",
     scanGate: "warn-production-blocked",
-    nextAction: "publish only after chart deprecation review, storage backend policy, reachable object-store proof, S3 credential Secret ownership, query ingress, ServiceMonitor capability, StatefulSet/headless-Service runtime risk, and raw/template extension-slot review are satisfied",
+    nextAction: "publish only after chart deprecation review, storage backend policy, reachable object-store proof for the declared endpoint/bucket/region, S3 credential Secret ownership, query ingress, ServiceMonitor capability, StatefulSet/headless-Service runtime risk, and raw/template extension-slot review are satisfied",
   },
   readme: {
     intro: "This is the promoted proof slice for the Tempo public Helm chart.",
@@ -223,8 +246,8 @@ runProofCli({
       "regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;",
       "the literal `grafana/tempo` chart is deprecated, and the proof records that fact instead of hiding it;",
       "`local-persistent` captures local single-binary storage and PVC settings;",
-      "`s3-query-observability` uses a declared target Secret for S3 credentials, does not render a Secret, and adds query ingress, NetworkPolicy, and ServiceMonitor;",
-      "`s3-query-observability` needs a reachable object-store endpoint and bucket for live readiness; this is recorded as a runtime prerequisite, not hidden as a Helm/ConfigHub mismatch;",
+      "`s3-query-observability` records S3 endpoint, bucket, and region as pre-render target values, uses a declared target Secret for S3 credentials, does not render a Secret, and adds query ingress, NetworkPolicy, and ServiceMonitor;",
+      "`s3-query-observability` needs the declared object-store endpoint, bucket, region, and credentials for live readiness; this is recorded as a runtime prerequisite, not hidden as a Helm/ConfigHub mismatch;",
       "`s3-query-observability` records the Prometheus Operator ServiceMonitor CRD as a target prerequisite instead of hiding it in apply-time failure;",
       "storage backend, target fact, object-store runtime, ingress, NetworkPolicy, ServiceMonitor capability, StatefulSet runtime, chart deprecation, and raw/template extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.",
     ],
@@ -347,7 +370,7 @@ runProofCli({
     }
     return findings;
   },
-  verifyExtra({ controlPoints, perVariant, check }) {
+  verifyExtra({ root, controlPoints, perVariant, check, readYaml, join }) {
     check(controlPoints.spec.points?.some((point) => point.category === "chart-deprecation"), "chart-deprecation control point missing");
     check(controlPoints.spec.points?.some((point) => point.category === "target-facts"), "target-facts control point missing");
     check(controlPoints.spec.points?.some((point) => point.category === "object-store-runtime-prerequisite"), "object-store-runtime-prerequisite control point missing");
@@ -373,6 +396,16 @@ runProofCli({
         check(!identities.includes("networking.k8s.io/v1|NetworkPolicy|tempo|tempo"), "local-persistent must not render a NetworkPolicy");
       }
       if (variant.name === "s3-query-observability") {
+        const variantDoc = readYaml(join(root, "variants", "s3-query-observability", "variant.yaml"));
+        const requiredValues = variantDoc.spec.targetFacts?.requiredValues ?? [];
+        for (const path of [
+          "tempo.storage.trace.s3.endpoint",
+          "tempo.storage.trace.s3.bucket",
+          "tempo.storage.trace.s3.region",
+        ]) {
+          const requiredValue = requiredValues.find((item) => item.path === path);
+          check(requiredValue?.stage === "pre-render", `s3-query-observability ${path} target value must be pre-render`);
+        }
         check(identities.includes("networking.k8s.io/v1|Ingress|tempo|tempo"), "s3-query-observability Ingress missing");
         check(identities.includes("networking.k8s.io/v1|NetworkPolicy|tempo|tempo"), "s3-query-observability NetworkPolicy missing");
         check(identities.includes("monitoring.coreos.com/v1|ServiceMonitor|tempo|tempo"), "s3-query-observability ServiceMonitor missing");
