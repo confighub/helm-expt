@@ -19,7 +19,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Production readiness | production-review-ready |
 | Supported variants | dev-mode, default, ha-raft-ui |
 | Candidate variants | none |
-| Control points | admission-webhook, capability-profile, cluster-rbac, dependency-lock, extension-slots, installer-support-object, operate-policy, service-exposure, source-lock, stateful-workload, tls-posture |
+| Control points | admission-webhook, capability-profile, cluster-rbac, dependency-lock, extension-slots, installer-support-object, operate-policy, service-exposure, source-lock, stateful-workload, target-topology, tls-posture |
 
 ## Feature And Proof Summary
 

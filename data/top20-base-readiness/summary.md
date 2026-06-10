@@ -18,7 +18,9 @@ base variants: 42
 start-here: 20
 try-with-proof: 14
 runtime-watch: 1
-runtime-review-needed: 6
+runtime-review-needed: 4
+operating-policy-needed: 1
+target-fit-needed: 1
 target-prerequisite-needed: 0
 hook-lifecycle-review-needed: 0
 lifecycle-observed: 1
@@ -29,8 +31,8 @@ render-only: 0
 Live rerun readiness for non-pass rows:
 
 ~~~text
-model-or-stage-first: 0
-review-target-first: 7
+model-or-stage-first: 2
+review-target-first: 5
 inspect-diff-first: 0
 rerun-now-after-cleanup: 0
 ~~~
@@ -43,6 +45,8 @@ rerun-now-after-cleanup: 0
 | `try-with-proof` | Render parity and two-cluster parity pass, but one or more broader ConfigHub/live lanes are still missing for this base. |
 | `runtime-watch` | Object parity passed, but the live target did not fully settle during the run. |
 | `runtime-review-needed` | Object parity passed, but runtime state needs investigation before this base is presented as easy. |
+| `operating-policy-needed` | Object parity passed, but the app needs a post-render operating procedure before it can be called ready. |
+| `target-fit-needed` | Object parity passed, but the selected target does not provide the platform shape this base declares. |
 | `target-prerequisite-needed` | The base expects CRDs, APIs, Secrets, storage, or another target prerequisite to exist or be staged. |
 | `hook-lifecycle-review-needed` | Helm hook or hook-like lifecycle behavior needs an explicit route and receipt. |
 | `lifecycle-observed` | Strict parity remains blocked or watch, but the hook-like lifecycle route has a passing observation receipt. |
@@ -78,8 +82,8 @@ rerun-now-after-cleanup: 0
 | `hashicorp/consul@2.0.0` | default-control-plane | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
 | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | no | runtime-review-needed | review-target-first | target-runtime: pod crash loop (parity passed) | inspect runtime state; keep the recipe stable unless semantic object comparison starts failing |
 | `hashicorp/vault@0.32.0` | dev-mode | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
-| `hashicorp/vault@0.32.0` | default | no | runtime-review-needed | review-target-first | helm-runtime: upstream not ready (parity passed) | inspect runtime state; keep the recipe stable unless semantic object comparison starts failing |
-| `hashicorp/vault@0.32.0` | ha-raft-ui | no | runtime-review-needed | review-target-first | target-runtime: pods pending (parity passed) | inspect runtime state; keep the recipe stable unless semantic object comparison starts failing |
+| `hashicorp/vault@0.32.0` | default | no | operating-policy-needed | model-or-stage-first | operate-policy: Vault init/unseal required (parity passed) | record the operating policy and use a receipt for the post-render operation before presenting this as ready |
+| `hashicorp/vault@0.32.0` | ha-raft-ui | no | target-fit-needed | model-or-stage-first | target-fit: HA raft target topology not satisfied (parity passed) | use a target that provides the required platform behavior, or create a separate base that fits the proof target |
 | `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
 | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `ingress-nginx/ingress-nginx@4.15.1` | default | no | runtime-watch | review-target-first | helm-runtime: upstream not ready (parity passed) | inspect the receipt and rerun after target resources, storage, and waits are appropriate |

@@ -124,6 +124,8 @@ start-here: ${counts.get("start-here") ?? 0}
 try-with-proof: ${counts.get("try-with-proof") ?? 0}
 runtime-watch: ${counts.get("runtime-watch") ?? 0}
 runtime-review-needed: ${counts.get("runtime-review-needed") ?? 0}
+operating-policy-needed: ${counts.get("operating-policy-needed") ?? 0}
+target-fit-needed: ${counts.get("target-fit-needed") ?? 0}
 target-prerequisite-needed: ${counts.get("target-prerequisite-needed") ?? 0}
 hook-lifecycle-review-needed: ${counts.get("hook-lifecycle-review-needed") ?? 0}
 lifecycle-observed: ${counts.get("lifecycle-observed") ?? 0}
@@ -148,6 +150,8 @@ rerun-now-after-cleanup: ${rerunCounts.get("rerun-now-after-cleanup") ?? 0}
 | \`try-with-proof\` | Render parity and two-cluster parity pass, but one or more broader ConfigHub/live lanes are still missing for this base. |
 | \`runtime-watch\` | Object parity passed, but the live target did not fully settle during the run. |
 | \`runtime-review-needed\` | Object parity passed, but runtime state needs investigation before this base is presented as easy. |
+| \`operating-policy-needed\` | Object parity passed, but the app needs a post-render operating procedure before it can be called ready. |
+| \`target-fit-needed\` | Object parity passed, but the selected target does not provide the platform shape this base declares. |
 | \`target-prerequisite-needed\` | The base expects CRDs, APIs, Secrets, storage, or another target prerequisite to exist or be staged. |
 | \`hook-lifecycle-review-needed\` | Helm hook or hook-like lifecycle behavior needs an explicit route and receipt. |
 | \`lifecycle-observed\` | Strict parity remains blocked or watch, but the hook-like lifecycle route has a passing observation receipt. |
@@ -286,6 +290,20 @@ function readinessFor(row, lifecycle) {
       status: "hook-lifecycle-review-needed",
       why: reason,
       nextAction: "choose a lifecycle route and commit a lifecycle or observation receipt",
+    };
+  }
+  if (reason.startsWith("operate-policy")) {
+    return {
+      status: "operating-policy-needed",
+      why: reason,
+      nextAction: "record the operating policy and use a receipt for the post-render operation before presenting this as ready",
+    };
+  }
+  if (reason.startsWith("target-fit")) {
+    return {
+      status: "target-fit-needed",
+      why: reason,
+      nextAction: "use a target that provides the required platform behavior, or create a separate base that fits the proof target",
     };
   }
   if (row.two_cluster_kind_parity === "watch") {

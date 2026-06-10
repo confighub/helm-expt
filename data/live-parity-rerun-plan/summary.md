@@ -19,7 +19,7 @@ two-cluster-kind-parity: 7
 semantic-parity-defects: 0
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 0
-runtime-or-watch-rows: 7
+runtime-or-watch-rows: 5
 ```
 
 ## Lane Breakdown
@@ -48,7 +48,9 @@ The `blocked` rows are currently from the two-cluster kind parity lane.
 
 | Next step | Rows | What to do |
 | --- | ---: | --- |
-| runtime-review | 7 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
+| operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
+| runtime-review | 5 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
+| target-fit-review | 1 | Choose a target that provides the required platform behavior, or create a base that fits the target. |
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
 usually need a model or target decision before another rerun is useful. Rows in
@@ -63,7 +65,8 @@ reasonable live rerun candidates.
 
 | Readiness | Rows | Meaning |
 | --- | ---: | --- |
-| review-target-first | 7 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| model-or-stage-first | 2 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| review-target-first | 5 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Run Safety
 
@@ -87,11 +90,11 @@ faithful to the locked chart/version without changing the recipe.
 
 | Priority | Readiness | Next step | Lane | Chart | Base | Current | Reason | Command |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
+| 50 | model-or-stage-first | operating-policy | two-cluster-kind-parity | `hashicorp/vault@0.32.0` | default | blocked | operate-policy: Vault init/unseal required (parity passed) | `npm run kind-parity:run -- --chart hashicorp/vault --version 0.32.0 --base default` |
+| 50 | model-or-stage-first | target-fit-review | two-cluster-kind-parity | `hashicorp/vault@0.32.0` | ha-raft-ui | blocked | target-fit: HA raft target topology not satisfied (parity passed) | `npm run kind-parity:run -- --chart hashicorp/vault --version 0.32.0 --base ha-raft-ui` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | blocked | target-runtime: pod crash loop (parity passed) | `npm run kind-parity:run -- --chart bitnami/mongodb --version 19.0.7 --base existing-secret-replicaset --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `grafana/tempo@1.24.4` | s3-query-observability | blocked | target-runtime: pod crash loop (parity passed) | `npm run kind-parity:run -- --chart grafana/tempo --version 1.24.4 --base s3-query-observability` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | blocked | target-runtime: pod crash loop (parity passed) | `npm run kind-parity:run -- --chart hashicorp/consul --version 2.0.0 --base secure-mesh-existing-secrets` |
-| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `hashicorp/vault@0.32.0` | default | blocked | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart hashicorp/vault --version 0.32.0 --base default` |
-| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `hashicorp/vault@0.32.0` | ha-raft-ui | blocked | target-runtime: pods pending (parity passed) | `npm run kind-parity:run -- --chart hashicorp/vault --version 0.32.0 --base ha-raft-ui` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `ingress-nginx/ingress-nginx@4.15.1` | default | watch | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart ingress-nginx/ingress-nginx --version 4.15.1 --base default` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `metrics-server/metrics-server@3.13.0` | external-tls-ca | blocked | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart metrics-server/metrics-server --version 3.13.0 --base external-tls-ca` |
 

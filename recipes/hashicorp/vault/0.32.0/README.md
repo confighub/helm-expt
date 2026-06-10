@@ -15,6 +15,7 @@ What this proves:
 - the ha-raft-ui variant deliberately enables integrated Raft HA and UI exposure;
 - the dev-mode variant deliberately uses the upstream local dev server path so Vault can be tried without pretending init/unseal is solved;
 - init, unseal, recovery material, and seal migration are not hidden Helm render inputs; they are post-render operating controls;
+- the HA Raft variant is explicit about target topology: three server replicas need an appropriate target, while one-node kind remains a parity target;
 - TLS posture, injector webhook, RBAC, service exposure, StatefulSet storage, and Secret/env extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.
 
 Useful commands:

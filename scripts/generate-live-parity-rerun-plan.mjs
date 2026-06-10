@@ -177,6 +177,12 @@ function diagnosisForTwoCluster(row, lifecycle) {
   if (row.reason?.startsWith("helm-hook:")) {
     return "This is Helm lifecycle behavior. Decide whether the hook maps to desired config, a lifecycle operation, or an observation check.";
   }
+  if (row.reason?.startsWith("operate-policy:")) {
+    return "Object parity passed; the remaining condition is a post-render operating procedure, not a recipe drift.";
+  }
+  if (row.reason?.startsWith("target-fit:")) {
+    return "Object parity passed; the selected proof target does not provide the platform shape required by this base.";
+  }
   if (row.reason?.startsWith("target-runtime:") || row.reason?.startsWith("helm-runtime:")) {
     return "Object parity passed; rerun only after target resources, storage, and readiness waits are appropriate.";
   }
@@ -192,6 +198,8 @@ function followupForTwoCluster(row, lifecycle) {
   if (lifecycle?.result === "pass" && row.reason?.startsWith("target-prerequisite:")) return "Record the external prerequisite in the base variant and use the lifecycle receipt when explaining target readiness.";
   if (row.reason?.startsWith("target-prerequisite:")) return "Record the prerequisite in the chart facts, base variant, or install checks before promoting.";
   if (row.reason?.startsWith("helm-hook:")) return "Keep desired object parity separate from hook execution and document the lifecycle route.";
+  if (row.reason?.startsWith("operate-policy:")) return "Record the operating procedure and a receipt for it; rerun strict parity only if the expected readiness contract changes.";
+  if (row.reason?.startsWith("target-fit:")) return "Use a target that satisfies the base, or add a separate base for the smaller proof target.";
   if (row.reason?.startsWith("target-runtime:") || row.reason?.startsWith("helm-runtime:")) {
     return "Keep the recipe stable unless the rendered object comparison starts failing.";
   }

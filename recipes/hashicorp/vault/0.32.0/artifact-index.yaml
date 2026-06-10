@@ -35,6 +35,7 @@ spec:
       - "service-exposure"
       - "source-lock"
       - "stateful-workload"
+      - "target-topology"
       - "tls-posture"
   catalogStatus:
     path: "recipes/hashicorp/vault/0.32.0/catalog-status.yaml"
