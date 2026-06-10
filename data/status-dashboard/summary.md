@@ -84,6 +84,7 @@ Which detailed CSV should I open next?
 | hooks | top100 maintained hook charts | 5/5 | partial | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
 | hooks | hook route receipts present | 5/5 | partial | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
 | hooks | hook lifecycle observations present | 2/5 | gap | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
+| hooks | hook partial lifecycle observations present | 1/5 | partial | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
 | hooks | hook/lifecycle boundary rows | 9/9 | partial | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
 | hooks | hook queue rows still needing route receipts | 0/5 | good | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
 | hooks | hook routes still needing execution or observation | 3/5 | gap | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
@@ -145,7 +146,8 @@ lifecycle route, target fit, or operating policy.
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
-| Hook route selected, observation pending | 3 | Run the selected lifecycle path and commit execution or observation receipts. |
+| Hook route selected, observation pending | 2 | Run the selected lifecycle path and commit execution or observation receipts. |
+| Hook install lifecycle observed, remaining phase pending | 1 | Run the remaining lifecycle phase, such as upgrade, and commit the execution or observation receipt. |
 | Hook-bearing rows observed | 2 | Keep receipt freshness current when the supported target changes. |
 | Related CRD/webhook/controller observations | 4 | Use these as examples for hook-like lifecycle proof, not as universal hook support. |
 
@@ -412,7 +414,7 @@ NGINX-style extension-slot report.
 | kyverno/kyverno@3.8.1 | default | route-selected | run selected lifecycle path and commit observation or execution receipt |
 | fluent/fluent-bit@0.57.6 | default | lifecycle-observed | keep receipt fresh when chart, base, or cluster version changes |
 | projectcalico/tigera-operator@v3.32.0 | default | route-selected | run selected lifecycle path and commit observation or execution receipt |
-| gatekeeper/gatekeeper@3.22.2 | default | route-selected | run selected lifecycle path and commit observation or execution receipt |
+| gatekeeper/gatekeeper@3.22.2 | default | install-lifecycle-observed-upgrade-pending | run remaining lifecycle route and commit additional observation or execution receipt |
 
 Hook rows are not support claims. Route-selected means the chart has an
 explicit handling plan; lifecycle-observed means that plan has runtime or

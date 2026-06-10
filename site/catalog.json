@@ -719,6 +719,15 @@
     },
     {
       "section": "hooks",
+      "metric": "hook partial lifecycle observations present",
+      "value": "1",
+      "total": "5",
+      "status": "partial",
+      "source": "data/hook-lifecycle/top100-hooks.csv",
+      "note": "Hook-bearing rows whose fresh-install route has live observation while another hook phase remains pending."
+    },
+    {
+      "section": "hooks",
       "metric": "hook/lifecycle boundary rows",
       "value": "9",
       "total": "9",
@@ -742,7 +751,7 @@
       "total": "5",
       "status": "gap",
       "source": "data/lifecycle-boundary/lifecycle-boundary.csv",
-      "note": "Hook-bearing rows with a selected route but no committed runtime observation or execution receipt."
+      "note": "Hook-bearing rows with a selected route and at least one missing runtime observation or execution receipt."
     },
     {
       "section": "hooks",

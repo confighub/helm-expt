@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Endpoints
+metadata:
+  annotations:
+    endpoints.kubernetes.io/last-change-trigger-time: "2026-06-10T18:54:29Z"
+  creationTimestamp: "2026-06-10T18:54:13Z"
+  labels:
+    app: gatekeeper
+    chart: gatekeeper
+    endpoints.kubernetes.io/managed-by: endpoint-controller
+    gatekeeper.sh/system: "yes"
+    heritage: Helm
+    release: gatekeeper
+  name: gatekeeper-webhook-service
+  namespace: default
+  resourceVersion: "705"
+  uid: 21285d78-e6d0-499d-8ab8-4d16cf4f04be
+subsets:
+- addresses:
+  - ip: 10.244.0.5
+    nodeName: hx-hook-gatekeeper-8ffua6-control-plane
+    targetRef:
+      kind: Pod
+      name: gatekeeper-controller-manager-6988f9c779-486rw
+      namespace: default
+      uid: 6c624d5f-2404-47a7-9b5b-84caf843b126
+  - ip: 10.244.0.7
+    nodeName: hx-hook-gatekeeper-8ffua6-control-plane
+    targetRef:
+      kind: Pod
+      name: gatekeeper-controller-manager-6988f9c779-m8wgs
+      namespace: default
+      uid: 283d321f-76a5-4c1a-81c7-389805a74705
+  - ip: 10.244.0.8
+    nodeName: hx-hook-gatekeeper-8ffua6-control-plane
+    targetRef:
+      kind: Pod
+      name: gatekeeper-controller-manager-6988f9c779-t7p8c
+      namespace: default
+      uid: aabce380-419d-4cbe-94ae-755e0d215215
+  ports:
+  - name: https-webhook-server
+    port: 8443
+    protocol: TCP

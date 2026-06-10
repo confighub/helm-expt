@@ -11,10 +11,10 @@ Accepted disposition receipts recorded: 104
 | Chart | Local-test variants | Production state | Accepted | Open | Source hooks | Lifecycle basis | Live/e2e receipts |
 | --- | --- | --- | ---: | ---: | ---: | --- | --- |
 | `argo-cd/argo-cd@9.5.15` | default, no-crds | production-review-ready | 7 | 0 | 0 | recipe-hook-policy:no-hooks | 2 |
-| `bitnami/mongodb@19.0.7` | generated-passwords, existing-secret-replicaset | production-review-ready | 6 | 0 | 0 | recipe-hook-policy:no-hooks | 2 |
+| `bitnami/mongodb@19.0.7` | generated-passwords, existing-secret-replicaset | production-review-ready | 6 | 0 | 0 | recipe-hook-policy:no-hooks | 3 |
 | `bitnami/mysql@14.0.3` | generated-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
-| `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | production-review-ready | 4 | 0 | 0 | none | 2 |
-| `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 2 |
+| `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | production-review-ready | 4 | 0 | 0 | none | 3 |
+| `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 3 |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
 | `bitnami/redis@25.5.3` | default, reuse-existing-secret | production-review-ready | 4 | 0 | 0 | recipe-hook-policy:no-hooks | 3 |
 | `external-secrets/external-secrets@2.5.0` | default, no-crds | production-review-ready | 6 | 0 | 0 | lifecycle-observations:2/2 | 1 |
