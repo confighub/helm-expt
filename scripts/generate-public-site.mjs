@@ -131,7 +131,7 @@ function buildSite() {
       top20ChartsWithExtensionSlots: extensionSlots.filter((row) => row.catalog_scope === "top20-catalog").length,
       top100ChartsWithExtensionSlots: extensionSlots.length,
       top100ChartsWithLiveEvidence: top100ReadinessWithSupport.filter((row) =>
-        ["live-helm-vs-confighub-parity", "gitops-oci-live", "local-kubernetes-live"].includes(row.strongest_evidence),
+        ["live-helm-vs-confighub-parity", "gitops-oci-live", "local-kubernetes-live", "two-cluster-kind-parity"].includes(row.strongest_evidence),
       ).length,
       liveParityRerunRows: liveParityRerunPlan.length,
       liveParityRerunSemanticDefects: liveParityRerunPlan.filter((row) => row.reason.startsWith("parity:")).length,

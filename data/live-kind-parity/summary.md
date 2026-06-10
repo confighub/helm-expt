@@ -11,7 +11,7 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 45
+pass: 46
 watch: 0
 blocked: 1
 semantic parity defects: 0
@@ -54,6 +54,7 @@ data/live-parity-rerun-plan/summary.md
 | `external-dns/external-dns@1.21.1` | dry-run-txt-registry | pass |  | runs/live-kind-parity/external-dns-external-dns-dry-run-txt-registry/receipt.yaml |
 | `external-secrets/external-secrets@2.5.0` | default | pass |  | runs/live-kind-parity/external-secrets-external-secrets-default/receipt.yaml |
 | `external-secrets/external-secrets@2.5.0` | no-crds | pass |  | runs/live-kind-parity/external-secrets-external-secrets-no-crds/receipt.yaml |
+| `grafana/alloy@1.8.2` | default | pass |  | runs/live-kind-parity/grafana-alloy-default/receipt.yaml |
 | `grafana/grafana@10.5.15` | existing-secret-ingress | pass |  | runs/live-kind-parity/grafana-grafana-existing-secret-ingress/receipt.yaml |
 | `grafana/grafana@10.5.15` | generated-passwords | pass |  | runs/live-kind-parity/grafana-grafana-generated-passwords/receipt.yaml |
 | `grafana/loki@7.0.0` | simple-scalable-minio | pass |  | runs/live-kind-parity/grafana-loki-simple-scalable-minio/receipt.yaml |
