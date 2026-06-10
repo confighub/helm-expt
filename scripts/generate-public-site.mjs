@@ -174,6 +174,7 @@ function html(catalog) {
   const metric = (name) => catalog.statusMetrics.find((row) => row.metric === name) ?? {};
   const counters = [
     ["Model-supported charts", metricValue(metric("charts with model support"))],
+    ["Top100 contract covered", metricValue(metric("covered by top100 contract"))],
     ["Render parity rows", metricValue(metric("render parity rows"))],
     ["Catalog-supported charts", metricValue(metric("catalog-supported charts"))],
     ["Proof-grade non-catalog", metricValue(metric("proof-grade non-catalog charts"))],
