@@ -175,7 +175,7 @@ Receipts: [per-chart receipts](recipes/metrics-server/metrics-server/3.13.0/CATA
 ##### external-tls-ca
 
 When to use: metrics-server external TLS with explicit CA variant rendered from metrics-server/metrics-server@3.13.0
-Readiness: runtime-review-needed
+Readiness: target-prerequisite-needed
 Namespace: kube-system
 Target facts: required Secret kube-system/metrics-server-tls keys tls.crt,tls.key
 Package base: [packages/metrics-server/metrics-server/3.13.0/bases/external-tls-ca](packages/metrics-server/metrics-server/3.13.0/bases/external-tls-ca)
@@ -874,7 +874,7 @@ Receipts: [per-chart receipts](recipes/bitnami/mongodb/19.0.7/CATALOG.md)
 ##### existing-secret-replicaset
 
 When to use: mongodb existing Secret replica set variant rendered from bitnami/mongodb@19.0.7
-Readiness: runtime-review-needed
+Readiness: try-with-proof
 Namespace: mongodb
 Target facts: required Secret mongodb/mongodb-auth keys mongodb-root-password,mongodb-replica-set-key
 Package base: [packages/bitnami/mongodb/19.0.7/bases/existing-secret-replicaset](packages/bitnami/mongodb/19.0.7/bases/existing-secret-replicaset)
@@ -964,7 +964,7 @@ Receipts: [per-chart receipts](recipes/grafana/tempo/1.24.4/CATALOG.md)
 ##### s3-query-observability
 
 When to use: tempo S3 query and observability variant rendered from grafana/tempo@1.24.4
-Readiness: runtime-review-needed
+Readiness: target-prerequisite-needed
 Namespace: tempo
 Target facts: required Secret tempo/tempo-s3-credentials keys access_key,secret_key; required CRD servicemonitors.monitoring.coreos.com
 Package base: [packages/grafana/tempo/1.24.4/bases/s3-query-observability](packages/grafana/tempo/1.24.4/bases/s3-query-observability)
@@ -1009,7 +1009,7 @@ Receipts: [per-chart receipts](recipes/hashicorp/consul/2.0.0/CATALOG.md)
 ##### secure-mesh-existing-secrets
 
 When to use: consul secure mesh with existing Secrets variant rendered from hashicorp/consul@2.0.0
-Readiness: runtime-review-needed
+Readiness: target-fit-needed
 Namespace: consul
 Target facts: required Secret consul/consul-ca-cert keys tls.crt; required Secret consul/consul-server-cert keys tls.crt,tls.key; required Secret consul/consul-gossip-encryption-key keys key; required Secret consul/consul-bootstrap-acl-token keys token
 Package base: [packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets](packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets)

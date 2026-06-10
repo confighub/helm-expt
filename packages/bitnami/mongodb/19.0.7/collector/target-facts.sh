@@ -63,12 +63,10 @@ targetFacts:
     - mongodb-replica-set-key
     name: mongodb-auth
     namespace: mongodb
-    purpose: MongoDB root password and replica-set key
-
+    purpose: MongoDB root password and MongoDB-valid replica-set key
   requiredCRDs: []
-
 targetFactChecks:
-  base: "existing-secret-replicaset"
+  base: "$base"
   mode: "$check_mode"
   result: "$result"
 YAML

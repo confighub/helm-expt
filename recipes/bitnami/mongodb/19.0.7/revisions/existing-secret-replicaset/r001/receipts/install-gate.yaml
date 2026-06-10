@@ -16,4 +16,4 @@ spec:
     - "The no-hooks lifecycle boundary is explicit; any future hook-producing path needs a separate lifecycle route before production"
     - "MongoDB Deployment/StatefulSet storage, upgrade, and rollback policy need production review"
     - "Replica-set topology, arbiter behavior, NetworkPolicy, and PDB need production review"
-    - "requires target Secret mongodb/mongodb-auth with root password and replica-set key before apply"
+    - "requires target Secret mongodb/mongodb-auth with root password and MongoDB-valid replica-set key before apply"

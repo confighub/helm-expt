@@ -11,9 +11,9 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 34
+pass: 35
 watch: 1
-blocked: 7
+blocked: 6
 semantic parity defects: 0
 ```
 
@@ -36,7 +36,6 @@ data/live-parity-rerun-plan/summary.md
 | target-prerequisite: object store endpoint not satisfied (parity passed) | 1 |
 | target-prerequisite: serving certificate and APIService trust not satisfied (parity passed) | 1 |
 | target-runtime: installer-applied workload not ready at observation cutoff (parity passed) | 1 |
-| target-runtime: pod crash loop (parity passed) | 1 |
 
 ## Rows
 
@@ -44,7 +43,7 @@ data/live-parity-rerun-plan/summary.md
 | --- | --- | --- | --- | --- |
 | `argo-cd/argo-cd@9.5.15` | default | pass |  | runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml |
 | `argo-cd/argo-cd@9.5.15` | no-crds | pass |  | runs/live-kind-parity/argo-cd-argo-cd-no-crds/receipt.yaml |
-| `bitnami/mongodb@19.0.7` | existing-secret-replicaset | blocked | target-runtime: pod crash loop (parity passed) | runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml |
+| `bitnami/mongodb@19.0.7` | existing-secret-replicaset | pass |  | runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml |
 | `bitnami/mongodb@19.0.7` | generated-passwords | pass |  | runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml |
 | `bitnami/mysql@14.0.3` | existing-secret | pass |  | runs/live-kind-parity/bitnami-mysql-existing-secret/receipt.yaml |
 | `bitnami/mysql@14.0.3` | generated-passwords | pass |  | runs/live-kind-parity/bitnami-mysql-generated-passwords/receipt.yaml |

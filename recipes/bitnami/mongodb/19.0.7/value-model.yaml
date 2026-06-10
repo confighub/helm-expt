@@ -13,7 +13,7 @@ spec:
       path: "auth.existingSecret"
       variant: "existing-secret-replicaset"
       disposition: "target-fact-bound"
-      reason: "externalizes root password and replica-set key into a declared target Secret instead of rendering a Secret"
+      reason: "externalizes root password and MongoDB-valid replica-set key into a declared target Secret instead of rendering a Secret"
     -
       path: "architecture"
       variant: "existing-secret-replicaset"
@@ -23,7 +23,7 @@ spec:
       path: "auth.existingSecret keys"
       variant: "existing-secret-replicaset"
       disposition: "target-secret-key"
-      reason: "documents the expected root password and replica-set key in the target Secret"
+      reason: "documents the expected root password and MongoDB-valid replica-set key in the target Secret"
     -
       path: "image.digest"
       variant: "all"

@@ -24,6 +24,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 - Default chart rendering is nondeterministic unless auth.rootPassword is bound before render.
 - generated-passwords variant persists auth.rootPassword as a generated fact and renders the Secret deterministically.
 - existing-secret-replicaset variant does not render a Secret and instead declares mongodb/mongodb-auth as a target fact.
+- The mongodb-replica-set-key target fact must be valid MongoDB keyfile material; a generic password-like string can pass presence checks but fail runtime bootstrap.
 - existing-secret-replicaset variant changes architecture to replicaset and renders primary plus arbiter StatefulSets.
 - Supported bases pin the Bitnami MongoDB image by digest instead of rendering the chart default latest tag.
 - Chart declares the Bitnami common dependency and records it in dependency-lock.yaml.
@@ -38,7 +39,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 - existing-secret-replicaset is supported when the declared MongoDB Secret target facts are satisfied.
 - Production recommendation remains a separate decision; the production disposition lane records current review-ready or blocking state.
 - Target production review must choose storage class, MongoDB backup/restore mechanism, and whether the replica-set base is appropriate for the target.
-- The existing-secret-replicaset base is still marked runtime-review-needed in the base-readiness table.
+- The existing-secret-replicaset base now passes two-cluster parity when the target Secret supplies MongoDB-valid replica-set key material.
 
 ## Control Points
 
@@ -48,7 +49,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 | dependency-lock | handled | chart declares the Bitnami common dependency; promoted variants lock its metadata. |
 | capability-profile | handled | Kubernetes API and version branches are bound to the named Kubernetes capability profile. |
 | generated-facts | variant-controlled | The generated-passwords variant binds the generated root password before render so Helm output is deterministic. |
-| target-facts | variant-controlled | The existing-secret-replicaset variant declares the target Secret instead of rendering one. |
+| target-facts | variant-controlled | The existing-secret-replicaset variant declares the target Secret and its MongoDB-valid replica-set key requirement instead of rendering one. |
 | image-digest | handled | Supported bases pin the Bitnami MongoDB image by digest. |
 | hook-policy | handled-for-render | The retained source scan records hook count 0 for this pinned chart line. Supported bases render no hook objects; future hook-producing paths must map to lifecycle policy before production. |
 | replicaset-topology | variant-controlled | apps/v1\|StatefulSet\|mongodb\|mongodb |
