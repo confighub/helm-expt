@@ -6,8 +6,8 @@ spec:
   chart: hashicorp/vault
   version: 0.32.0
   base: default
-  result: blocked
-  observedAt: '2026-06-06T08:51:25Z'
+  result: pass
+  observedAt: '2026-06-10T07:11:21Z'
   package:
     path: packages/hashicorp/vault/0.32.0
   recipe:
@@ -15,27 +15,30 @@ spec:
   variantRevision: recipes/hashicorp/vault/0.32.0/revisions/default/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-vault-a44b2-635n-helm
-    installerCluster: hx-vault-a44b2-635n-installer
+    helmCluster: hx-vault-a44b2-cskq-helm
+    installerCluster: hx-vault-a44b2-cskq-installer
     namespace: vault
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-vault-a44b2-635n-helm
+      - cluster: hx-vault-a44b2-cskq-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-vault-a44b2-635n-helm" ...
+        detail: 'Deleting cluster "hx-vault-a44b2-cskq-helm" ...
 
-          Deleted nodes: ["hx-vault-a44b2-635n-helm-control-plane"]'
-      - cluster: hx-vault-a44b2-635n-installer
+          Deleted nodes: ["hx-vault-a44b2-cskq-helm-control-plane"]'
+      - cluster: hx-vault-a44b2-cskq-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-vault-a44b2-635n-installer" ...
+        detail: 'Deleting cluster "hx-vault-a44b2-cskq-installer" ...
 
-          Deleted nodes: ["hx-vault-a44b2-635n-installer-control-plane"]'
+          Deleted nodes: ["hx-vault-a44b2-cskq-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
   legs:
     regularHelm:
-      result: blocked
+      result: pass
       command: helm upgrade --install vault vault --repo https://helm.releases.hashicorp.com
         --version 0.32.0 --namespace vault --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/hashicorp-vault-default/regular-helm-values.yaml
         --wait --timeout 8m
@@ -47,29 +50,26 @@ spec:
       runtimeNamespaces: &id001
       - vault
       runtime:
-        result: watch
+        result: pass
         namespaces: *id001
         workloads: '# vault
 
-          deployment.apps/vault-agent-injector   1/1   1     1     5m13s
+          deployment.apps/vault-agent-injector   1/1   1     1     41s
 
-          statefulset.apps/vault   0/1   5m14s'
+          statefulset.apps/vault   1/1   41s'
         pods: '# vault
 
-          vault-0                                0/1   Running   0     5m14s
+          vault-0                                1/1   Running   0     40s
 
-          vault-agent-injector-8c76487db-h9979   1/1   Running   0     5m14s'
-        notReady:
-        - namespace: vault
-          pod: vault-0
-          ready: 0/1
-          status: Running
+          vault-agent-injector-8c76487db-flgc9   1/1   Running   0     41s'
+        notReady: []
+        diagnostics: []
       stderr: ''
       getManifestError: ''
     cubInstallerApply:
-      result: watch
+      result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/hashicorp/vault/0.32.0
-        --base default --work-dir /tmp/helm-expt-kind-parity-hx-vault-a44b2-635n-vault
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-vault-a44b2-cskq-vault
         --non-interactive --namespace vault
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
@@ -81,26 +81,25 @@ spec:
       runtimeNamespaces: &id002
       - vault
       runtime:
-        result: watch
+        result: pass
         namespaces: *id002
         workloads: '# vault
 
-          deployment.apps/vault-agent-injector   1/1   1     1     4m52s
+          deployment.apps/vault-agent-injector   1/1   1     1     41s
 
-          statefulset.apps/vault   0/1   4m52s'
+          statefulset.apps/vault   1/1   41s'
         pods: '# vault
 
-          vault-0                                0/1   Running   0     4m52s
+          vault-0                                1/1   Running   0     41s
 
-          vault-agent-injector-8c76487db-wvfpl   1/1   Running   0     4m52s'
-        notReady:
-        - namespace: vault
-          pod: vault-0
-          ready: 0/1
-          status: Running
+          vault-agent-injector-8c76487db-2hfcr   1/1   Running   0     41s'
+        notReady: []
+        diagnostics: []
   semanticComparison:
     allowedExtraInstallerObjects:
     - v1|Namespace||vault
+    semanticNormalizations: &id003
+    - prune-null-fields
     helmVsCubInstallerApply:
       result: pass
       helmObjectCount: 12
@@ -109,7 +108,8 @@ spec:
       extraInInstaller:
       - v1|Namespace||vault
       semanticDiffs: []
-      comparisonSHA256: 4177e8aa1a235185d22c4c9518153e89e23b9b19a6215a629c70d893e83cdd5f
+      semanticNormalizations: *id003
+      comparisonSHA256: c45badac8df5197f317ecd414eba9355285db2a4467ac1c6a8b1ea78c7b38504
   checks:
   - name: kind-create-helm
     result: pass
@@ -117,22 +117,93 @@ spec:
   - name: kind-create-installer
     result: pass
     detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: vault-init-unseal
   - name: regular-helm-live
-    result: blocked
+    result: pass
     detail: "Release \"vault\" does not exist. Installing it now.\nNAME: vault\nLAST\
-      \ DEPLOYED: Sat Jun  6 09:52:17 2026\nNAMESPACE: vault\nSTATUS: deployed\nREVISION:\
+      \ DEPLOYED: Wed Jun 10 08:12:14 2026\nNAMESPACE: vault\nSTATUS: deployed\nREVISION:\
       \ 1\nDESCRIPTION: Install complete\nNOTES:\nThank you for installing HashiCorp\
       \ Vault!\n\nNow that you have deployed Vault, you should look over the docs\
       \ on using\nVault with Kubernetes available here:\n\nhttps://developer.hashicorp.com/vault/docs\n\
       \n\nYour release is named vault. To learn more about the release, try:\n\n \
       \ $ helm status vault\n  $ helm get manifest vault"
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: vault-init-unseal
   - name: cub-installer-apply-live
-    result: watch
+    result: pass
     detail: '# vault
 
-      deployment.apps/vault-agent-injector   1/1   1     1     4m52s
+      deployment.apps/vault-agent-injector   1/1   1     1     41s
 
-      statefulset.apps/vault   0/1   4m52s'
+      statefulset.apps/vault   1/1   41s'
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||vault'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: vault-init-unseal
+      pod: vault-0
+      statusBefore:
+        initialized: false
+        sealed: true
+        version: 1.21.2
+        storage_type: file
+        rawSHA256: c9f146ea5b610e1721965505ba7e2a1437c62552ddcc80e3902b591e4a499286
+      initResult: pass
+      unsealResult: pass
+      statusAfter:
+        initialized: true
+        sealed: false
+        version: 1.21.2
+        storage_type: file
+        cluster_name: vault-cluster-1956ead3
+        cluster_id: 6a2c6fc8-5d84-08c9-e5cf-0d404532bcf1
+        rawSHA256: 0bc929afae18957976524f3e224e5e0e718f8ea5b5c7308ed794ffa7881e1cdc
+      custody: unseal key and root token were held in process memory only and not
+        written to the receipt
+      detail: ''
+    cubInstallerApply:
+      result: pass
+      operation: vault-init-unseal
+      pod: vault-0
+      statusBefore:
+        initialized: false
+        sealed: true
+        version: 1.21.2
+        storage_type: file
+        rawSHA256: c9f146ea5b610e1721965505ba7e2a1437c62552ddcc80e3902b591e4a499286
+      initResult: pass
+      unsealResult: pass
+      statusAfter:
+        initialized: true
+        sealed: false
+        version: 1.21.2
+        storage_type: file
+        cluster_name: vault-cluster-6a8e4dc3
+        cluster_id: ab1b3137-b372-dfe5-a125-102e01b9c0f3
+        rawSHA256: f7a0bafaa5afda7f0309187c1a6edff0f1940dfe46779c997f9aa724aa5c0131
+      custody: unseal key and root token were held in process memory only and not
+        written to the receipt
+      detail: ''

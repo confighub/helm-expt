@@ -29,8 +29,8 @@ Current live parity status is generated, not hand-maintained in this plan:
 | [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md) | Current non-pass rows, next action, and rerun command. |
 
 At the current snapshot, the selected live comparison has 20 pass, 0 watch,
-and 0 blocked receipts. The all-base two-cluster parity lane has 39 pass,
-0 watch, 3 blocked, and 0 semantic parity defects. Use the generated reports
+and 0 blocked receipts. The all-base two-cluster parity lane has 40 pass,
+0 watch, 2 blocked, and 0 semantic parity defects. Use the generated reports
 above before copying any count into a user-facing claim.
 
 The next public improvement is not another abstract plan. It is a better first

@@ -19,7 +19,7 @@ GitOps/OCI non-pass receipts:        6
 live Helm-vs-ConfigHub pass rows:    20/158
 live Helm-vs-ConfigHub non-pass receipts: 2
 selected live parity receipts:       20 pass, 0 watch, 0 blocked
-two-cluster kind parity receipts:    39 pass, 0 watch, 3 blocked
+two-cluster kind parity receipts:    40 pass, 0 watch, 2 blocked
 derived intended-state pass rows:    10
 target-bound derived pass rows:      5
 target-bound derived blocked rows:   1
@@ -70,7 +70,7 @@ related lifecycle observations:      4/4
 | `grafana/loki@7.0.0` | single-binary-filesystem;simple-scalable-minio | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | - |
 | `grafana/tempo@1.24.4` | local-persistent;s3-query-observability | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
 | `hashicorp/consul@2.0.0` | default-control-plane;secure-mesh-existing-secrets | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
-| `hashicorp/vault@0.32.0` | dev-mode;default;ha-raft-ui | yes | 1/3 | 2/3 | 1/3 | 1/3 | 1/3 | - |
+| `hashicorp/vault@0.32.0` | dev-mode;default;ha-raft-ui | yes | 1/3 | 2/3 | 1/3 | 1/3 | 2/3 | - |
 | `ingress-nginx/ingress-nginx@4.15.1` | default;admission-disabled;internal-clusterip | yes | 1/3 | 2/3 | 1/3 | 1/3 | 3/3 | - |
 | `jetstack/cert-manager@v1.20.2` | default;crds-enabled | yes | 1/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 | `longhorn/longhorn@1.11.2` | default;ui-ingress | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | - |
