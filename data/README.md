@@ -203,6 +203,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `quirk-coverage` | [quirk-coverage/summary.md](./quirk-coverage/summary.md) | Helm quirk-axis coverage audit |
 | `quirk-inventory-audit` | [quirk-inventory-audit/summary.md](./quirk-inventory-audit/summary.md) | supporting generated evidence |
 | `quirk-review-queue` | [quirk-review-queue/summary.md](./quirk-review-queue/summary.md) | queue for chart quirks needing human or product review |
+| `quirk-work-queue` | [quirk-work-queue/summary.md](./quirk-work-queue/summary.md) | supporting generated evidence |
 | `refresh-survival` | [refresh-survival/summary.md](./refresh-survival/summary.md) | latest-version refresh survival and upgrade seed |
 | `runtime-gitops` | [runtime-gitops/summary.md](./runtime-gitops/summary.md) | Argo/Flux OCI live proof wave |
 | `scan-disposition-workdown` | [scan-disposition-workdown/summary.md](./scan-disposition-workdown/summary.md) | scan warning routes to fixes, hardened bases, or explicit dispositions |
@@ -227,7 +228,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 92 CSV files. Each row records the path, audience,
+It includes 93 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

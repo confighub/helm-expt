@@ -69,6 +69,7 @@ data/production-support-decisions/work-items.csv,production-support-decisions,us
 data/quirk-coverage/coverage.csv,quirk-coverage,user/front-door,"one row per Helm quirk axis: coverage tier, evidence, remaining gap, next action",data/quirk-coverage/summary.md,npm run quirk-coverage,npm run quirk-coverage:verify
 data/quirk-inventory-audit/top100-source-vs-modeled.csv,quirk-inventory-audit,corpus,supporting generated CSV,data/quirk-inventory-audit/summary.md,,
 data/quirk-review-queue/queue.csv,quirk-review-queue,corpus,review queue,data/quirk-review-queue/summary.md,npm run quirk-queue:generate,npm run quirk-queue:verify
+data/quirk-work-queue/top100-queue.csv,quirk-work-queue,corpus,review queue,data/quirk-work-queue/summary.md,,
 data/refresh-survival/refreshes.csv,refresh-survival,user/front-door,"one row per top-20 latest-version refresh: current proof, latest upstream version, retained candidate state, and promotion route",data/refresh-survival/summary.md,npm run refresh:survival,npm run refresh:survival:verify
 data/runtime-gitops/receipt-index.csv,runtime-gitops,verification,required receipt paths and minimum checks,data/runtime-gitops/summary.md,npm run runtime-gitops:wave,npm run runtime-gitops:wave:verify
 data/runtime-gitops/wave1.csv,runtime-gitops,verification,first runtime/GitOps wave,data/runtime-gitops/summary.md,npm run runtime-gitops:wave,npm run runtime-gitops:wave:verify
