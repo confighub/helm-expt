@@ -93,6 +93,9 @@ function buildReport() {
 function actionRow(row, replacement) {
   const retainedVersion = retainedCandidateVersion(row, replacement);
   if (row.candidate_proof === "candidate-proof-complete-root-path-present") {
+    if (replacement?.replacement_decision && replacement.replacement_decision !== "not-decided") {
+      return explicitReplacementAction(row, replacement, retainedVersion);
+    }
     return {
       chart: row.chart,
       current_version: row.current_version,
@@ -174,6 +177,69 @@ function actionRow(row, replacement) {
   };
 }
 
+function explicitReplacementAction(row, replacement, retainedVersion) {
+  const evidence = [
+    "data/latest-top20-refresh/replacement-decisions/summary.md",
+    replacement.replacement_decision_path,
+    replacement.current_support_decision,
+    replacement.candidate_recipe,
+    replacement.candidate_package,
+  ]
+    .filter(Boolean)
+    .join(";");
+
+  const common = {
+    chart: row.chart,
+    current_version: row.current_version,
+    latest_upstream_version: row.latest_version,
+    retained_candidate_version: retainedVersion,
+    evidence,
+    command: "npm run top20:latest-replacement-decisions:verify",
+  };
+
+  if (replacement.replacement_decision === "defer-replacement") {
+    return {
+      ...common,
+      action: "replacement-deferred",
+      priority: "p2",
+      first_step: `keep ${row.chart}@${row.current_version} pinned; revisit ${row.chart}@${retainedVersion} after the recorded replacement requirements are satisfied`,
+      done_when: "defer decision remains current or a later target-scoped decision replaces it",
+    };
+  }
+
+  if (replacement.replacement_decision === "keep-current-supported") {
+    return {
+      ...common,
+      action: "current-version-retained",
+      priority: "p2",
+      first_step: `keep ${row.chart}@${row.current_version} as the supported catalog version for this target scope`,
+      done_when: "retention decision remains current or a later target-scoped decision replaces it",
+    };
+  }
+
+  if (replacement.replacement_decision === "supersede-candidate") {
+    return {
+      ...common,
+      action: "candidate-superseded-by-decision",
+      priority: "p0",
+      first_step: `create or refresh the retained candidate that supersedes ${row.chart}@${retainedVersion}`,
+      done_when: "replacement queue points at the newer retained candidate and this superseded candidate is kept only as legacy evidence",
+    };
+  }
+
+  if (replacement.replacement_decision === "replace-supported-version") {
+    return {
+      ...common,
+      action: "promote-supported-replacement",
+      priority: "p0",
+      first_step: `promote ${row.chart}@${retainedVersion} into the supported catalog scope named by the replacement decision`,
+      done_when: "production support decision, catalog status, and live evidence all name the replacement version",
+    };
+  }
+
+  check(false, `unsupported replacement decision ${replacement.replacement_decision} for ${row.chart}`);
+}
+
 function retainedCandidateVersion(row, replacement) {
   if (replacement?.candidate_version) return replacement.candidate_version;
   const match = row.next_action.match(/refresh retained candidate ([^ ]+) to latest upstream/);
@@ -194,10 +260,12 @@ function summary(rows) {
 
 This generated queue turns upstream Helm chart movement into concrete work.
 
-It separates four cases:
+It separates five cases:
 
 - a retained candidate still matches latest upstream and needs a replacement
   decision;
+- a retained candidate has a written replacement decision and needs only the
+  follow-up named by that decision;
 - a retained candidate is proof-complete but already behind a newer upstream
   chart version and needs refresh work;
 - no retained candidate exists yet, so the proof chain must be created first;
@@ -208,12 +276,19 @@ It separates four cases:
 
 \`\`\`text
 update rows: ${rows.length}
-replacement decisions ready: ${counts.get("write-replacement-decision") ?? 0}
+replacement decisions to write: ${counts.get("write-replacement-decision") ?? 0}
+replacement decisions already written: ${
+    (counts.get("replacement-deferred") ?? 0) +
+    (counts.get("current-version-retained") ?? 0) +
+    (counts.get("candidate-superseded-by-decision") ?? 0) +
+    (counts.get("promote-supported-replacement") ?? 0)
+  }
 retained candidates needing refresh: ${counts.get("refresh-retained-candidate") ?? 0}
 render candidates needing root/live work: ${counts.get("promote-render-candidate") ?? 0}
 new retained candidates needed: ${counts.get("create-retained-candidate") ?? 0}
 p0 rows: ${priorityCounts.get("p0") ?? 0}
 p1 rows: ${priorityCounts.get("p1") ?? 0}
+p2 rows: ${priorityCounts.get("p2") ?? 0}
 \`\`\`
 
 ## Queue

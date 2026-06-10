@@ -16,7 +16,8 @@ candidate charts: 7
 proof-complete root paths: 7 / 7
 latest-upstream aligned: 4 / 7
 superseded by newer upstream: 3 / 7
-replacement decisions not written: 7 / 7
+replacement decisions not written: 6 / 7
+replacement decisions written: 1 / 7
 support-promoted candidates: 0 / 7
 ```
 
@@ -28,7 +29,7 @@ support-promoted candidates: 0 / 7
 | `bitnami/mongodb` | `19.0.7` | `19.0.9` | `19.1.0` | superseded-by-newer-upstream | generated-passwords | proof-complete-root-path-present | not-decided | 7 | candidate bitnami/mongodb@19.0.9 is behind latest upstream 19.1.0; decide whether to supersede it or keep it for legacy patch/rollback evidence before replacing 19.0.7 |
 | `bitnami/nginx` | `24.0.2` | `24.0.4` | `25.0.0` | superseded-by-newer-upstream | http-clusterip | proof-complete-root-path-present | not-decided | 5 | candidate bitnami/nginx@24.0.4 is behind latest upstream 25.0.0; decide whether to supersede it or keep it for legacy patch/rollback evidence before replacing 24.0.2 |
 | `bitnami/postgresql` | `18.6.7` | `18.6.10` | `18.7.0` | superseded-by-newer-upstream | generated-passwords | proof-complete-root-path-present | not-decided | 7 | candidate bitnami/postgresql@18.6.10 is behind latest upstream 18.7.0; decide whether to supersede it or keep it for legacy patch/rollback evidence before replacing 18.6.7 |
-| `bitnami/redis` | `25.5.3` | `27.0.0` | `27.0.0` | latest-upstream-aligned | default | proof-complete-root-path-present | not-decided | 5 | write target-scoped replacement decision for bitnami/redis@27.0.0; review 5 topic(s), then choose replace, defer, or keep 25.5.3 pinned |
+| `bitnami/redis` | `25.5.3` | `27.0.0` | `27.0.0` | latest-upstream-aligned | default | proof-complete-root-path-present | [defer-replacement](./decision-artifacts/bitnami-redis-27.0.0.yaml) | 5 | replacement decision defers bitnami/redis@27.0.0; keep 25.5.3 pinned and revisit after the recorded requirements are satisfied |
 | `prometheus-community/kube-prometheus-stack` | `85.3.3` | `86.1.0` | `86.1.0` | latest-upstream-aligned | default | proof-complete-root-path-present | not-decided | 6 | write target-scoped replacement decision for prometheus-community/kube-prometheus-stack@86.1.0; review 6 topic(s), then choose replace, defer, or keep 85.3.3 pinned |
 | `prometheus-community/prometheus` | `29.8.0` | `29.9.0` | `29.9.0` | latest-upstream-aligned | server-only-ephemeral | proof-complete-root-path-present | not-decided | 4 | write target-scoped replacement decision for prometheus-community/prometheus@29.9.0; review 4 topic(s), then choose replace, defer, or keep 29.8.0 pinned |
 
@@ -51,6 +52,7 @@ Until that decision exists, the current supported version remains pinned.
 | --- | --- |
 | [decisions.csv](./decisions.csv) | Spreadsheet replacement queue. |
 | [decisions.yaml](./decisions.yaml) | Machine-readable replacement queue. |
+| [decision-artifacts/](./decision-artifacts/) | Target-scoped replacement decisions that close individual rows. |
 | [../promotion-work-orders.md](../promotion-work-orders.md) | Closed proof-lane work orders for these candidates. |
 | [../production-disposition/summary.md](../production-disposition/summary.md) | Candidate production-disposition boundary. |
 

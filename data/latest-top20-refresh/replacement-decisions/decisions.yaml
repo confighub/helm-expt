@@ -17,6 +17,8 @@ spec:
       candidateCatalogStatus: "catalog-candidate"
       candidateProofStatus: "proof-complete-root-path-present"
       replacementDecision: "not-decided"
+      replacementDecisionArtifact: null
+      replacementDecisionSummary: null
       decisionTopics:
         - "CRD lifecycle and upgrade policy"
         - "cluster RBAC review"
@@ -44,6 +46,8 @@ spec:
       candidateCatalogStatus: "catalog-candidate"
       candidateProofStatus: "proof-complete-root-path-present"
       replacementDecision: "not-decided"
+      replacementDecisionArtifact: null
+      replacementDecisionSummary: null
       decisionTopics:
         - "extension slot provenance and scan policy"
         - "generated fact ownership"
@@ -71,6 +75,8 @@ spec:
       candidateCatalogStatus: "catalog-candidate"
       candidateProofStatus: "proof-complete-root-path-present"
       replacementDecision: "not-decided"
+      replacementDecisionArtifact: null
+      replacementDecisionSummary: null
       decisionTopics:
         - "extension slot provenance and scan policy"
         - "generated fact ownership"
@@ -96,6 +102,8 @@ spec:
       candidateCatalogStatus: "catalog-candidate"
       candidateProofStatus: "proof-complete-root-path-present"
       replacementDecision: "not-decided"
+      replacementDecisionArtifact: null
+      replacementDecisionSummary: null
       decisionTopics:
         - "extension slot provenance and scan policy"
         - "generated fact ownership"
@@ -122,7 +130,9 @@ spec:
       candidatePrimaryBase: "default"
       candidateCatalogStatus: "catalog-candidate"
       candidateProofStatus: "proof-complete-root-path-present"
-      replacementDecision: "not-decided"
+      replacementDecision: "defer-replacement"
+      replacementDecisionArtifact: "data/latest-top20-refresh/replacement-decisions/decision-artifacts/bitnami-redis-27.0.0.yaml"
+      replacementDecisionSummary: "Keep bitnami/redis@25.5.3 as the supported public catalog version for now; retain bitnami/redis@27.0.0 as a proof-complete candidate."
       decisionTopics:
         - "generated fact ownership"
         - "hook and lifecycle phase policy"
@@ -136,7 +146,7 @@ spec:
         configHubProofReceipt: "runs/latest-top20-refresh/redis-27.0.0/confighub-proof/latest/confighub-proof-receipt.yaml"
         localLiveReceipt: "runs/latest-top20-refresh/redis-27.0.0/local-kind/observation-receipt.json"
         liveParityReceipt: "runs/latest-top20-refresh/redis-27.0.0/live-parity/default/receipt.yaml"
-      nextAction: "write target-scoped replacement decision for bitnami/redis@27.0.0; review 5 topic(s), then choose replace, defer, or keep 25.5.3 pinned"
+      nextAction: "replacement decision defers bitnami/redis@27.0.0; keep 25.5.3 pinned and revisit after the recorded requirements are satisfied"
     -
       chart: "prometheus-community/kube-prometheus-stack"
       currentVersion: "85.3.3"
@@ -148,6 +158,8 @@ spec:
       candidateCatalogStatus: "catalog-candidate"
       candidateProofStatus: "proof-complete-root-path-present"
       replacementDecision: "not-decided"
+      replacementDecisionArtifact: null
+      replacementDecisionSummary: null
       decisionTopics:
         - "CRD lifecycle and upgrade policy"
         - "cluster RBAC review"
@@ -174,6 +186,8 @@ spec:
       candidateCatalogStatus: "catalog-candidate"
       candidateProofStatus: "proof-complete-root-path-present"
       replacementDecision: "not-decided"
+      replacementDecisionArtifact: null
+      replacementDecisionSummary: null
       decisionTopics:
         - "cluster RBAC review"
         - "extension slot provenance and scan policy"
