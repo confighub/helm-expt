@@ -105,6 +105,9 @@ For the next80 specifically, use the generated action queue:
 | Which next80 charts need a named limitation decision? | [next80-queues.csv](../../data/top100-readiness/next80-queues.csv), queue `limitation-review` |
 | Which next80 charts need a better base variant first? | [next80-queues.csv](../../data/top100-readiness/next80-queues.csv), queue `user-shaped-variant` |
 
+That queue also includes top-500 rank, source features, package path, and the
+per-chart Helm pain report so the first review does not start from a blank page.
+
 Then drill down:
 
 | Question | Use |
