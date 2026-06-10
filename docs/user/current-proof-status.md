@@ -63,6 +63,14 @@ It summarizes top100 readiness, the retained top500 evidence map, proof lanes,
 hook and quirk residues, derived ConfigHub variants, GitOps/OCI, and live
 parity in one place.
 
+The shortest generated answer for "can I use this chart?" is:
+
+[Chart Use Guide](../../data/chart-use-guide/summary.md)
+
+It gives one row per top-100 chart and routes the chart to one of four user
+answers: use the public catalog now, promote after review, design a useful base
+variant first, or decide a named limitation before promotion.
+
 The compact top-20 catalog status CSV is:
 
 [Top20 Catalog Status](../../data/status-dashboard/top20-status.csv)
