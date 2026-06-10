@@ -88,13 +88,16 @@ function candidateRow(row) {
   const configHubProofReceipt = `runs/latest-top20-refresh/${slug(row.chart)}-${row.candidate_version}/confighub-proof/latest/confighub-proof-receipt.yaml`;
   const localLiveReceipt = `runs/latest-top20-refresh/${slug(row.chart)}-${row.candidate_version}/local-kind/observation-receipt.json`;
   const liveParityReceipt = `runs/latest-top20-refresh/${slug(row.chart)}-${row.candidate_version}/live-parity/${primaryBase}/receipt.yaml`;
-  const proofChecks = [
-    existsSync(join(repoRoot, configHubProofReceipt)),
-    localLivePass(localLiveReceipt),
-    liveParityPass(liveParityReceipt),
-  ];
+  const proofChecks = {
+    "ConfigHub proof": existsSync(join(repoRoot, configHubProofReceipt)),
+    "local live e2e": localLivePass(localLiveReceipt),
+    "live parity": liveParityPass(liveParityReceipt),
+  };
   const topics = dispositionTopics(controls.spec?.points ?? []);
-  const proofStatus = proofChecks.every(Boolean) ? "proof-complete" : "proof-incomplete";
+  const missingProofLanes = Object.entries(proofChecks)
+    .filter(([, passed]) => !passed)
+    .map(([lane]) => lane);
+  const proofStatus = missingProofLanes.length === 0 ? "proof-complete" : "proof-incomplete";
   return {
     chart: row.chart,
     current_version: row.current_version,
@@ -106,7 +109,7 @@ function candidateRow(row) {
     production_boundary: "candidate may proceed to production review only after target-scoped support decisions accept or route each topic",
     decision_topics: topics.join(";"),
     scan_gate: helmPlan.spec?.readiness?.scanGate ?? "",
-    next_action: nextAction({ proofStatus, topics, row }),
+    next_action: nextAction({ proofStatus, missingProofLanes, topics, row }),
     candidate_recipe: row.candidate_recipe,
     candidate_package: row.candidate_package,
     confighub_proof_receipt: configHubProofReceipt,
@@ -150,9 +153,16 @@ function liveParityPass(path) {
   return receipt.spec?.result === "pass";
 }
 
-function nextAction({ proofStatus, topics, row }) {
-  if (proofStatus !== "proof-complete") return "finish ConfigHub proof, local live e2e, and live parity before production review";
+function nextAction({ proofStatus, missingProofLanes, topics, row }) {
+  if (proofStatus !== "proof-complete") return `finish ${joinHuman(missingProofLanes)} before production review`;
   return `review ${topics.length} production decision topic(s), then decide whether ${row.chart}@${row.candidate_version} can replace ${row.current_version}`;
+}
+
+function joinHuman(items) {
+  if (items.length === 0) return "";
+  if (items.length === 1) return items[0];
+  if (items.length === 2) return `${items[0]} and ${items[1]}`;
+  return `${items.slice(0, -1).join(", ")}, and ${items.at(-1)}`;
 }
 
 function toSummary(rows) {

@@ -116,7 +116,7 @@ spec:
         configHubProofReceipt: "runs/latest-top20-refresh/redis-27.0.0/confighub-proof/latest/confighub-proof-receipt.yaml"
         localLiveReceipt: "runs/latest-top20-refresh/redis-27.0.0/local-kind/observation-receipt.json"
         liveParityReceipt: "runs/latest-top20-refresh/redis-27.0.0/live-parity/default/receipt.yaml"
-      nextAction: "finish ConfigHub proof, local live e2e, and live parity before production review"
+      nextAction: "finish local live e2e and live parity before production review"
     -
       chart: "prometheus-community/kube-prometheus-stack"
       currentVersion: "85.3.3"

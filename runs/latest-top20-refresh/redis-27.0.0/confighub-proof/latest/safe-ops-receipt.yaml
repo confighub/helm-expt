@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "redis-27-0-0-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-redis-27-0-0-candidate-proof"
+    selector: "Labels.Proof = 'redis-27-0-0-candidate-proof'"
+  subject:
+    chart: "bitnami/redis"
+    chartVersion: "27.0.0"
+    packagePath: "data/latest-top20-refresh/candidates/redis-27.0.0/packages/bitnami/redis/27.0.0"
+    variant: "default"
+  changeset:
+    slug: "redis-27-0-0-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "Redis 27.0.0 safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "redis-27-0-0-candidate-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve statefulset-redis-redis-master --space helm-redis-27-0-0-candidate-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "statefulset-redis-redis-master"
+    output: "Unit statefulset-redis-redis-master (a7d35d8c-348a-438e-9aba-7eaba9941be5) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-redis-27-0-0-candidate-proof --where \"Labels.Proof = 'redis-27-0-0-candidate-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req RHNTHhgwxPMdotxGyNRAXIBsgZXfaXBx: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-redis-27-0-0-candidate-proof --where \"Labels.Proof = 'redis-27-0-0-candidate-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."
