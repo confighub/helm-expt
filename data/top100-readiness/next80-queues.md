@@ -28,6 +28,50 @@ user-shaped-variant: 46
 | `limitation-review` | `traefik/traefik@40.2.0`<br>`kyverno/kyverno@3.8.1`<br>`bitnami/elasticsearch@22.1.6`<br>`bitnami/spark@10.0.3`<br>`bitnami/zookeeper@13.8.7`<br>`bitnami/contour@21.1.4`<br>`grafana/pyroscope@2.0.2` |
 | `user-shaped-variant` | `gitlab/gitlab-runner@0.89.0`<br>`fluent/fluent-bit@0.57.6`<br>`runix/pgadmin4@1.62.0`<br>`nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18`<br>`prometheus-community/kube-state-metrics@7.4.0`<br>`elastic/kibana@8.5.1`<br>`descheduler/descheduler@0.36.0`<br>`prometheus-community/prometheus-blackbox-exporter@11.10.0` |
 
+## First Action Rows
+
+These tables show the first rows a maintainer should open in each queue. They
+do not replace the CSV; they make the first review path visible without a
+spreadsheet.
+
+### Promotion Review
+
+| Chart | Candidate bases | Evidence | Gap | Next action |
+| --- | --- | --- | --- | --- |
+| `external-dns/external-dns@1.21.1` | `default`<br>`no-crds`<br>`dry-run-txt-registry` | `two-cluster-kind-parity` | - | run catalog promotion review |
+| `cloudnative-pg/cloudnative-pg@0.28.2` | `default`<br>`no-crds` | `two-cluster-kind-parity` | - | run catalog promotion review |
+| `kedacore/keda@2.19.0` | `default`<br>`no-crds` | `two-cluster-kind-parity` | - | run catalog promotion review |
+| `elastic/eck-operator@3.4.0` | `default`<br>`ha`<br>`no-crds` | `two-cluster-kind-parity` | - | run catalog promotion review |
+| `grafana/alloy@1.8.2` | `default`<br>`no-crds` | `two-cluster-kind-parity` | - | run catalog promotion review |
+| `nats/nats@2.14.0` | `default`<br>`ha` | `two-cluster-kind-parity` | - | run catalog promotion review |
+| `prometheus-community/alertmanager@1.37.0` | `default`<br>`ha` | `two-cluster-kind-parity` | - | run catalog promotion review |
+| `elastic/logstash@8.5.1` | `default`<br>`ha` | `two-cluster-kind-parity` | - | run catalog promotion review |
+
+### Limitation Review
+
+| Chart | Candidate bases | Evidence | Gap | Next action |
+| --- | --- | --- | --- | --- |
+| `traefik/traefik@40.2.0` | `default`<br>`no-crds` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+| `kyverno/kyverno@3.8.1` | `default`<br>`no-crds` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+| `bitnami/elasticsearch@22.1.6` | `default`<br>`ha` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+| `bitnami/spark@10.0.3` | `default`<br>`ha` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+| `bitnami/zookeeper@13.8.7` | `default`<br>`ha` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+| `bitnami/contour@21.1.4` | `default`<br>`no-crds` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+| `grafana/pyroscope@2.0.2` | `default`<br>`ha`<br>`no-crds` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+
+### User-Shaped Variant Work
+
+| Chart | Candidate bases | Evidence | Gap | Next action |
+| --- | --- | --- | --- | --- |
+| `gitlab/gitlab-runner@0.89.0` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
+| `fluent/fluent-bit@0.57.6` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
+| `runix/pgadmin4@1.62.0` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
+| `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
+| `prometheus-community/kube-state-metrics@7.4.0` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
+| `elastic/kibana@8.5.1` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
+| `descheduler/descheduler@0.36.0` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
+| `prometheus-community/prometheus-blackbox-exporter@11.10.0` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
+
 ## How This Relates To Top100
 
 - Every row here already has a maintained recipe/package proof path.
