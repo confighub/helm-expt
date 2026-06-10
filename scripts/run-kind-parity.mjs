@@ -152,6 +152,7 @@ function primaryLatestCandidateBase(row) {
     ["bitnami/mongodb", "generated-passwords"],
     ["bitnami/nginx", "http-clusterip"],
     ["bitnami/postgresql", "generated-passwords"],
+    ["bitnami/redis", "default"],
     ["prometheus-community/kube-prometheus-stack", "default"],
     ["prometheus-community/prometheus", "server-only-ephemeral"],
   ]);

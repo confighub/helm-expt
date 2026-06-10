@@ -13,8 +13,8 @@ replaces, defers, or lives alongside the current supported catalog version.
 candidate charts: 7
 work-order rows: 56
 candidate proof lanes: closed
-completed work-order rows: 52
-todo work-order rows: 4
+completed work-order rows: 54
+todo work-order rows: 2
 candidate support status: not support-promoted
 ```
 
@@ -37,8 +37,8 @@ candidate support status: not support-promoted
 | candidate-render-proof | 7 | 0 | 0 |
 | confighub-proof | 7 | 0 | 0 |
 | local-live-e2e | 7 | 0 | 0 |
-| live-parity | 6 | 1 | 0 |
-| production-disposition | 6 | 1 | 0 |
+| live-parity | 7 | 0 | 0 |
+| production-disposition | 7 | 0 | 0 |
 | promote-versioned-root-paths | 6 | 1 | 0 |
 | catalog-and-site | 6 | 1 | 0 |
 | top100-top500-refresh | 7 | 0 | 0 |
@@ -51,7 +51,7 @@ candidate support status: not support-promoted
 | `bitnami/mongodb@19.0.9` | 8 / 8 | 0 | none | all lanes complete |
 | `bitnami/nginx@24.0.4` | 8 / 8 | 0 | none | all lanes complete |
 | `bitnami/postgresql@18.6.10` | 8 / 8 | 0 | none | all lanes complete |
-| `bitnami/redis@27.0.0` | 4 / 8 | 4 | live-parity | compare regular Helm and cub installer delivery for the candidate on the declared Kubernetes profile |
+| `bitnami/redis@27.0.0` | 6 / 8 | 2 | promote-versioned-root-paths | promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version |
 | `prometheus-community/kube-prometheus-stack@86.1.0` | 8 / 8 | 0 | none | all lanes complete |
 | `prometheus-community/prometheus@29.9.0` | 8 / 8 | 0 | none | all lanes complete |
 

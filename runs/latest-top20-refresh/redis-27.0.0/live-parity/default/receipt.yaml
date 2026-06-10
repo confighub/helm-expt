@@ -1,0 +1,182 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: bitnami-redis-27.0.0-default-kind-parity-20260606
+spec:
+  chart: bitnami/redis
+  version: 27.0.0
+  base: default
+  result: pass
+  observedAt: '2026-06-10T14:19:50Z'
+  package:
+    path: data/latest-top20-refresh/candidates/redis-27.0.0/packages/bitnami/redis/27.0.0
+  recipe:
+    path: data/latest-top20-refresh/candidates/redis-27.0.0/recipes/bitnami/redis/27.0.0
+  variantRevision: data/latest-top20-refresh/candidates/redis-27.0.0/recipes/bitnami/redis/27.0.0/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-redis-79aeb-nu15-helm
+    installerCluster: hx-redis-79aeb-nu15-installer
+    namespace: redis
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-redis-79aeb-nu15-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-redis-79aeb-nu15-helm" ...
+
+          Deleted nodes: ["hx-redis-79aeb-nu15-helm-control-plane"]'
+      - cluster: hx-redis-79aeb-nu15-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-redis-79aeb-nu15-installer" ...
+
+          Deleted nodes: ["hx-redis-79aeb-nu15-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install redis redis --repo https://charts.bitnami.com/bitnami
+        --version 27.0.0 --namespace redis --create-namespace --values /Users/alexis/code/helm-expt/runs/latest-top20-refresh/redis-27.0.0/live-parity/default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: redis
+      manifestSHA256: b0138df792ca1ed660caf0b13e3d4ab5ba3ed09b81211a60eca3f919f8e9cd7b
+      objectCount: 14
+      liveHelmManifestSHA256: b0138df792ca1ed660caf0b13e3d4ab5ba3ed09b81211a60eca3f919f8e9cd7b
+      liveHelmManifestObjectCount: 14
+      runtimeNamespaces: &id001
+      - redis
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# redis
+
+          statefulset.apps/redis-master     1/1   103s
+
+          statefulset.apps/redis-replicas   3/3   103s'
+        pods: '# redis
+
+          redis-master-0     1/1   Running   0     103s
+
+          redis-replicas-0   1/1   Running   0     103s
+
+          redis-replicas-1   1/1   Running   0     62s
+
+          redis-replicas-2   1/1   Running   0     31s'
+        notReady: []
+        diagnostics: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/data/latest-top20-refresh/candidates/redis-27.0.0/packages/bitnami/redis/27.0.0
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-redis-79aeb-nu15-redis
+        --non-interactive --namespace redis
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: redis
+      manifestSHA256: 54ceb4d9d1d98c4c38843d4a119ae2042c5d018cf3565afa8a24f4f0d659c564
+      objectCount: 15
+      manifestNamespaces:
+      - redis
+      runtimeNamespaces: &id002
+      - redis
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# redis
+
+          statefulset.apps/redis-master     1/1   104s
+
+          statefulset.apps/redis-replicas   3/3   104s'
+        pods: '# redis
+
+          redis-master-0     1/1   Running   0     104s
+
+          redis-replicas-0   1/1   Running   0     104s
+
+          redis-replicas-1   1/1   Running   0     68s
+
+          redis-replicas-2   1/1   Running   0     38s'
+        notReady: []
+        diagnostics: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||redis
+    semanticNormalizations: []
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 14
+      installerObjectCount: 15
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||redis
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: ea112fb4d1279713ea885f9b52c41480a34915c12262f81e8d31ba6f624ca9fa
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"redis\" does not exist. Installing it now.\nNAME: redis\nLAST\
+      \ DEPLOYED: Wed Jun 10 15:20:55 2026\nNAMESPACE: redis\nSTATUS: deployed\nREVISION:\
+      \ 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nCHART NAME: redis\n\
+      CHART VERSION: 27.0.0\nAPP VERSION: 8.8.0\n\n\u26A0 WARNING: Since August 28th,\
+      \ 2025, only a limited subset of images/charts are available for free.\n   \
+      \ Subscribe to Bitnami Secure Images to receive continued support and security\
+      \ updates.\n    More info at https://bitnami.com and https://github.com/bitnami/containers/issues/83267\n\
+      \n** Please be patient while the chart is being deployed **\n\nRedis(R) can\
+      \ be accessed on the following DNS names from within your cluster:\n\n    redis-master.redis.svc.cluster.local\
+      \ for read/write operations (port 6379)\n    redis-replicas.redis.svc.cluster.local\
+      \ for read-only operations (port 6379)\n\nTo get your password run:\n\n    export\
+      \ REDIS_PASSWORD=$(kubectl get secret --namespace redis redis -o jsonpath=\"\
+      {.data.redis-password}\" | base64 -d)\n\nTo conne"
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# redis
+
+      statefulset.apps/redis-master     1/1   104s
+
+      statefulset.apps/redis-replicas   3/3   104s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||redis'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
