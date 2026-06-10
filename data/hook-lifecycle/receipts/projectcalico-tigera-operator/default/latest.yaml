@@ -6,24 +6,33 @@ spec:
   chart: projectcalico/tigera-operator
   version: v3.32.0
   base: default
-  result: route-selected
+  result: observed
   selectedAt: "2026-06-09"
+  observedAt: "2026-06-10T21:23:36Z"
   route:
-    summary: The pre-delete hook is routed to delete and rollback lifecycle policy.
+    summary: The pre-delete hook is routed to an explicit delete cleanup action.
     phases:
       - hookTypes: [pre-delete]
-        action: delete-cleanup-policy
-        reason: Uninstall cleanup depends on target state and must not be hidden in render proof.
+        action: explicit-delete-cleanup-action
+        reason: Uninstall cleanup depends on target state and must be recorded as a lifecycle operation, not hidden in render proof.
   evidence:
     - path: data/hook-lifecycle/top100-hooks.csv
       claim: Source scan found a pre-delete uninstall hook.
     - path: recipes/projectcalico/tigera-operator/v3.32.0/helm-pain-report.yaml
       claim: Chart pain report records cluster-scope and lifecycle risk.
+    - path: runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml
+      claim: Fresh kind run observed operator bootstrap, operator-managed CRD establishment, rendered custom resource acceptance, explicit execution of the upstream pre-delete cleanup Job, and package object deletion.
   execution:
-    helmHooksExecutedByHarness: false
-    runtimeObserved: false
+    helmHooksExecutedByHarness: true
+    runtimeObserved: true
+    observedRoute:
+      route: explicit-delete-cleanup-action
+      result: pass
+      receipt: runs/hook-lifecycle/projectcalico-tigera-operator/default/latest/receipt.yaml
     notes:
       - This is a route selection for a proof-grade chart, not a production support claim.
+      - The upstream Helm pre-delete Job was rendered and applied as an explicit lifecycle action; it was not hidden inside render parity.
+      - The run proves the selected delete-cleanup route in a fresh kind target.
   remainingWork:
-    - Run uninstall or rollback in a live target.
-    - Record cleanup, ordering, and any operator-owned resources.
+    - Keep the receipt fresh when chart, base, or cluster version changes.
+    - Review production uninstall policy for clusters where Calico owns live networking.

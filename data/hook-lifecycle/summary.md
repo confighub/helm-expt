@@ -14,14 +14,17 @@ until chart-specific review finds a safe route.
 
 ```text
 top-500 charts with Helm hooks:        54
-top-100 maintained charts with hooks:  5
+top-100 source-scan hook rows:         11
+maintained hook queue rows:            5
 catalog-supported hook charts:         1
 proof-grade hook charts:               4
 hook route receipts present:           5/5
-hook lifecycle observations present:   2/5
+hook lifecycle observations present:   3/5
 hook partial lifecycle observations:   2/5
-hook routes awaiting observation:      1/5
+hook routes awaiting observation:      0/5
 hook rows still needing route receipt: 0/5
+related Helm-hook lifecycle rows:      2/2
+related Helm-hook lifecycle charts:    1
 related lifecycle observations passing: 4/4
 ```
 
@@ -29,7 +32,9 @@ related lifecycle observations passing: 4/4
 
 | File | Purpose |
 | --- | --- |
-| `top100-hooks.csv` | Maintained recipe/package entries whose source scan found Helm hooks. |
+| `source-top100-hooks.csv` | Source-scan inventory of top-100 public charts where the retained scanned source row contains Helm hooks. |
+| `maintained-hook-queue.csv` | Maintained recipe/package entries whose retained source-scan row found Helm hooks and need lifecycle receipts. |
+| `top100-hooks.csv` | Legacy alias for `maintained-hook-queue.csv`; prefer the clearer filenames above. |
 | `receipt-index.csv` | Required receipt path and minimum checks for each hook lifecycle proof. |
 
 ## Rule
@@ -40,11 +45,13 @@ execution or observation receipt with runtime outcome and freshness timestamp.
 
 Related lifecycle observations can exist outside this hook queue when a
 chart-specific lane is proving runtime behavior that rendered YAML alone cannot
-prove. The current cert-manager receipts cover the known
-`startupapicheck` Helm post-install hook route. The current External Secrets
-receipts cover controller/webhook behavior in bases that do not use a Helm
-hook. These receipts demonstrate the lifecycle-observation pattern, not
-universal hook support.
+prove. Cert-manager is the deliberate cross-lane hook case: its known
+`startupapicheck` Helm post-install hook is tracked in the lifecycle
+observation lane because the retained top-100 source-scan row does not carry
+the hook feature. External Secrets is different: the current receipts cover
+controller/webhook behavior in bases that do not use a Helm hook. These
+receipts demonstrate the lifecycle-observation pattern, not universal hook
+support.
 
 ## Related Lifecycle Observation Lane
 

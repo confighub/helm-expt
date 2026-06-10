@@ -14,14 +14,18 @@ import { check, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
 const mode = process.argv[2] ?? "--generate";
 const outputRoot = join(repoRoot, "data", "hook-lifecycle");
 const paths = {
-  corpus: join(outputRoot, "top100-hooks.csv"),
+  sourceTop100: join(outputRoot, "source-top100-hooks.csv"),
+  corpus: join(outputRoot, "maintained-hook-queue.csv"),
+  legacyCorpus: join(outputRoot, "top100-hooks.csv"),
   receiptIndex: join(outputRoot, "receipt-index.csv"),
   summary: join(outputRoot, "summary.md"),
 };
 
 if (mode === "--generate") {
   const report = buildReport();
+  write(paths.sourceTop100, report.outputs.sourceTop100);
   write(paths.corpus, report.outputs.corpus);
+  write(paths.legacyCorpus, report.outputs.corpus);
   write(paths.receiptIndex, report.outputs.receiptIndex);
   write(paths.summary, report.outputs.summary);
   console.log(`wrote hook lifecycle wave -> ${relativeRepo(outputRoot)}/`);
@@ -31,7 +35,7 @@ if (mode === "--generate") {
     check(existsSync(path), `${relativeRepo(path)} is missing; run npm run hooks:lifecycle`);
     check(readFileSync(path, "utf8") === report.outputs[key], `${relativeRepo(path)} is stale; run npm run hooks:lifecycle`);
   }
-  console.log(`verified hook lifecycle wave: ${report.hookRows.length} maintained hook chart(s)`);
+  console.log(`verified hook lifecycle wave: ${report.sourceTop100HookRows.length} top100 source hook chart(s), ${report.hookRows.length} maintained queue row(s)`);
 } else {
   console.log(`Usage:
   node scripts/generate-hook-lifecycle-wave.mjs --generate
@@ -48,6 +52,23 @@ function buildReport() {
   check(Array.isArray(sourceScanRows), "source feature scan raw JSON must contain rows");
 
   const top500HookRows = top500.rows.filter(hasHelmHooks);
+  const sourceTop100HookRows = sourceScanRows
+    .filter((row) => row.scanStatus === "scanned" && Number(row.rank) <= 100 && Number(row.hooks?.count ?? 0) > 0)
+    .map((row) => ({
+      rank: row.rank,
+      chart: row.chart,
+      version: row.version,
+      hook_count: row.hooks?.count ?? 0,
+      hook_types: row.hookTypesText ?? "",
+      hook_examples: (row.hooks?.examples ?? []).join(";"),
+      test_hook_count: row.testHooks?.count ?? 0,
+      hook_weight_count: row.hookWeights?.count ?? 0,
+      hook_delete_policy_count: row.hookDeletePolicies?.count ?? 0,
+      job_count: row.jobs ?? 0,
+      webhook_count: Number(row.validatingWebhooks ?? 0) + Number(row.mutatingWebhooks ?? 0),
+      crd_count: row.crdFiles ?? 0,
+      lookup_count: row.lookup?.count ?? 0,
+    }));
   const hookRows = top100.entries.filter(hasHelmHooks).map((entry) => {
     const sourceRow = sourceScanRows.find((row) => row.chart === entry.chart) ?? {};
     const base = firstListItem(entry.supported_variants) || firstListItem(entry.candidate_variants) || entry.start_variant || "default";
@@ -100,6 +121,7 @@ function buildReport() {
   }));
 
   check(top500HookRows.length === 54, `expected 54 top500 hook rows; found ${top500HookRows.length}`);
+  check(sourceTop100HookRows.length === 11, `expected 11 top100 source-scan hook rows; found ${sourceTop100HookRows.length}`);
   check(hookRows.length === 5, `expected 5 maintained top100 hook rows; found ${hookRows.length}`);
   check(receiptRows.every((row) => ["not-yet-written", "route-selected", "partially-observed", "observed", "blocked", "needs-classification"].includes(row.receipt_status)), "hook lifecycle receipt status must be explicit");
   for (const row of hookRows) {
@@ -107,11 +129,13 @@ function buildReport() {
   }
 
   const outputs = {
+    sourceTop100: csv(sourceTop100HookRows),
     corpus: csv(hookRows),
+    legacyCorpus: csv(hookRows),
     receiptIndex: csv(receiptRows),
-    summary: summary({ top500HookRows, hookRows, receiptRows, lifecycleObservationRows }),
+    summary: summary({ top500HookRows, sourceTop100HookRows, hookRows, receiptRows, lifecycleObservationRows }),
   };
-  return { outputs, hookRows };
+  return { outputs, sourceTop100HookRows, hookRows };
 }
 
 function hasHelmHooks(row) {
@@ -244,10 +268,13 @@ function routeHint(sourceRow) {
   return [...new Set(hints)].join(";");
 }
 
-function summary({ top500HookRows, hookRows, receiptRows, lifecycleObservationRows }) {
+function summary({ top500HookRows, sourceTop100HookRows, hookRows, receiptRows, lifecycleObservationRows }) {
   const catalogSupported = hookRows.filter((row) => row.catalog_status === "catalog-supported").length;
   const proofGrade = hookRows.filter((row) => row.catalog_status === "proof-grade").length;
   const lifecycleObservationPass = lifecycleObservationRows.filter((row) => row.result === "pass").length;
+  const relatedHelmHookObservationRows = lifecycleObservationRows.filter((row) => row.hook_policy && row.hook_policy !== "no-helm-hook");
+  const relatedHelmHookObservationPass = relatedHelmHookObservationRows.filter((row) => row.result === "pass").length;
+  const relatedHelmHookObservationCharts = new Set(relatedHelmHookObservationRows.map((row) => row.chart));
   const routeReceipts = receiptRows.filter((row) => ["route-selected", "partially-observed", "observed", "blocked"].includes(row.receipt_status)).length;
   const observedReceipts = receiptRows.filter((row) => row.receipt_status === "observed").length;
   const partiallyObservedReceipts = receiptRows.filter((row) => row.receipt_status === "partially-observed").length;
@@ -269,7 +296,8 @@ until chart-specific review finds a safe route.
 
 \`\`\`text
 top-500 charts with Helm hooks:        ${top500HookRows.length}
-top-100 maintained charts with hooks:  ${hookRows.length}
+top-100 source-scan hook rows:         ${sourceTop100HookRows.length}
+maintained hook queue rows:            ${hookRows.length}
 catalog-supported hook charts:         ${catalogSupported}
 proof-grade hook charts:               ${proofGrade}
 hook route receipts present:           ${routeReceipts}/${receiptRows.length}
@@ -277,6 +305,8 @@ hook lifecycle observations present:   ${observedReceipts}/${receiptRows.length}
 hook partial lifecycle observations:   ${partiallyObservedReceipts}/${receiptRows.length}
 hook routes awaiting observation:      ${routeOnlyReceipts}/${receiptRows.length}
 hook rows still needing route receipt: ${missingRoutes}/${receiptRows.length}
+related Helm-hook lifecycle rows:      ${relatedHelmHookObservationPass}/${relatedHelmHookObservationRows.length}
+related Helm-hook lifecycle charts:    ${relatedHelmHookObservationCharts.size}
 related lifecycle observations passing: ${lifecycleObservationPass}/${lifecycleObservationRows.length}
 \`\`\`
 
@@ -284,7 +314,9 @@ related lifecycle observations passing: ${lifecycleObservationPass}/${lifecycleO
 
 | File | Purpose |
 | --- | --- |
-| \`top100-hooks.csv\` | Maintained recipe/package entries whose source scan found Helm hooks. |
+| \`source-top100-hooks.csv\` | Source-scan inventory of top-100 public charts where the retained scanned source row contains Helm hooks. |
+| \`maintained-hook-queue.csv\` | Maintained recipe/package entries whose retained source-scan row found Helm hooks and need lifecycle receipts. |
+| \`top100-hooks.csv\` | Legacy alias for \`maintained-hook-queue.csv\`; prefer the clearer filenames above. |
 | \`receipt-index.csv\` | Required receipt path and minimum checks for each hook lifecycle proof. |
 
 ## Rule
@@ -295,11 +327,13 @@ execution or observation receipt with runtime outcome and freshness timestamp.
 
 Related lifecycle observations can exist outside this hook queue when a
 chart-specific lane is proving runtime behavior that rendered YAML alone cannot
-prove. The current cert-manager receipts cover the known
-\`startupapicheck\` Helm post-install hook route. The current External Secrets
-receipts cover controller/webhook behavior in bases that do not use a Helm
-hook. These receipts demonstrate the lifecycle-observation pattern, not
-universal hook support.
+prove. Cert-manager is the deliberate cross-lane hook case: its known
+\`startupapicheck\` Helm post-install hook is tracked in the lifecycle
+observation lane because the retained top-100 source-scan row does not carry
+the hook feature. External Secrets is different: the current receipts cover
+controller/webhook behavior in bases that do not use a Helm hook. These
+receipts demonstrate the lifecycle-observation pattern, not universal hook
+support.
 
 ## Related Lifecycle Observation Lane
 

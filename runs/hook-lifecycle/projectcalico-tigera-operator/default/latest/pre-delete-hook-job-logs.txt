@@ -1,0 +1,8 @@
+2026/06/10 21:24:11 [INFO] Version: v1.42.0
+2026/06/10 21:24:11 [INFO] Go Version: go1.25.9
+2026/06/10 21:24:11 [INFO] Go OS/Arch: linux/arm64
+{"level":"info","ts":"2026-06-10T21:24:11Z","logger":"apis","msg":"Failed to check DatastoreMigration CR, falling through to API discovery","error":"the server could not find the requested resource"}
+{"level":"info","ts":"2026-06-10T21:24:11Z","logger":"apis","msg":"Detected API groups from API server","v3present":false,"v1present":true}
+{"level":"info","ts":"2026-06-10T21:24:11Z","logger":"apis","msg":"Registering Calico CRD types with crd.projectcalico.org/v1 API group"}
+2026/06/10 21:24:11 [INFO] Waiting for Installation to be fully deleted
+2026/06/10 21:24:16 [INFO] preDelete hook exiting

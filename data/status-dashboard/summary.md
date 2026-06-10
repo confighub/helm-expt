@@ -81,13 +81,14 @@ Which detailed CSV should I open next?
 | extension slots | top20 charts with extension slots | 13/20 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
 | extension slots | top100 charts with extension slots | 82/100 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
 | extension slots | top500 source rows using tpl | 362/500 | partial | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
-| hooks | top100 maintained hook charts | 5/5 | partial | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
-| hooks | hook route receipts present | 5/5 | partial | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
-| hooks | hook lifecycle observations present | 2/5 | gap | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
-| hooks | hook partial lifecycle observations present | 2/5 | partial | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
+| hooks | top100 source-scan hook charts | 11/100 | partial | [data/hook-lifecycle/source-top100-hooks.csv](../../data/hook-lifecycle/source-top100-hooks.csv) |
+| hooks | maintained hook queue rows | 5/11 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
+| hooks | hook route receipts present | 5/5 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
+| hooks | hook lifecycle observations present | 3/5 | gap | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
+| hooks | hook partial lifecycle observations present | 2/5 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
 | hooks | hook/lifecycle boundary rows | 9/9 | partial | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
 | hooks | hook queue rows still needing route receipts | 0/5 | good | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
-| hooks | hook routes still needing execution or observation | 3/5 | gap | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
+| hooks | hook routes still needing execution or observation | 2/5 | gap | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
 | hooks | related lifecycle observation receipts passing | 4/4 | good | [data/lifecycle-observations/cert-manager-eso/summary.csv](../../data/lifecycle-observations/cert-manager-eso/summary.csv) |
 
 ## Next Work Queues
@@ -146,9 +147,9 @@ lifecycle route, target fit, or operating policy.
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
-| Hook route selected, observation pending | 1 | Run the selected lifecycle path and commit execution or observation receipts. |
+| Hook route selected, observation pending | 0 | Run the selected lifecycle path and commit execution or observation receipts. |
 | Hook install lifecycle observed, remaining phase pending | 2 | Run the remaining lifecycle phase, such as upgrade, and commit the execution or observation receipt. |
-| Hook-bearing rows observed | 2 | Keep receipt freshness current when the supported target changes. |
+| Hook-bearing rows observed | 3 | Keep receipt freshness current when the supported target changes. |
 | Related CRD/webhook/controller observations | 4 | Use these as examples for hook-like lifecycle proof, not as universal hook support. |
 
 Spreadsheet forms: [next-work-queues.csv](next-work-queues.csv) and
@@ -413,7 +414,7 @@ NGINX-style extension-slot report.
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | lifecycle-observed | keep receipt fresh when chart, base, or cluster version changes |
 | kyverno/kyverno@3.8.1 | default | install-lifecycle-observed-upgrade-pending | run remaining lifecycle route and commit additional observation or execution receipt |
 | fluent/fluent-bit@0.57.6 | default | lifecycle-observed | keep receipt fresh when chart, base, or cluster version changes |
-| projectcalico/tigera-operator@v3.32.0 | default | route-selected | run selected lifecycle path and commit observation or execution receipt |
+| projectcalico/tigera-operator@v3.32.0 | default | lifecycle-observed | keep receipt fresh when chart, base, or cluster version changes |
 | gatekeeper/gatekeeper@3.22.2 | default | install-lifecycle-observed-upgrade-pending | run remaining lifecycle route and commit additional observation or execution receipt |
 
 Hook rows are not support claims. Route-selected means the chart has an
@@ -449,7 +450,8 @@ lifecycle observation.
 | Which hooks, CRDs, generated facts, or target facts matter? | [outcome-coverage/feature-outcomes.csv](../outcome-coverage/feature-outcomes.csv) |
 | Which charts have NGINX-like extension slots? | [extension-slots/summary.md](../extension-slots/summary.md) |
 | Which Helm quirk axes are still blind spots? | [quirk-coverage/coverage.csv](../quirk-coverage/coverage.csv) |
-| Which hook charts need lifecycle receipts? | [hook-lifecycle/top100-hooks.csv](../hook-lifecycle/top100-hooks.csv) |
+| Which top-100 source rows contain Helm hooks? | [hook-lifecycle/source-top100-hooks.csv](../hook-lifecycle/source-top100-hooks.csv) |
+| Which maintained hook rows need lifecycle receipts? | [hook-lifecycle/maintained-hook-queue.csv](../hook-lifecycle/maintained-hook-queue.csv) |
 | Which hook claims are queued versus observed? | [lifecycle-boundary/summary.md](../lifecycle-boundary/summary.md) |
 | Which Helm artifacts have recovered graph fragments? | [edge-recovery/summary.md](../edge-recovery/summary.md) |
 | Which live comparisons passed or failed? | [live-helm-confighub-compare/summary.csv](../live-helm-confighub-compare/summary.csv) |

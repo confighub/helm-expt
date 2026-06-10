@@ -1,0 +1,4 @@
+customresourcedefinition.apiextensions.k8s.io/apiservers.operator.tigera.io condition met
+customresourcedefinition.apiextensions.k8s.io/goldmanes.operator.tigera.io condition met
+customresourcedefinition.apiextensions.k8s.io/installations.operator.tigera.io condition met
+customresourcedefinition.apiextensions.k8s.io/whiskers.operator.tigera.io condition met
