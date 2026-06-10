@@ -136,6 +136,33 @@
       "note": "Charts with more than one declared base variant."
     },
     {
+      "section": "top100",
+      "metric": "covered by top100 contract",
+      "value": "20",
+      "total": "100",
+      "status": "partial",
+      "source": "data/top100-coverage/coverage.csv",
+      "note": "Rows satisfying all top100 coverage contract items, including disposition and live witness route."
+    },
+    {
+      "section": "top100",
+      "metric": "partial by top100 contract",
+      "value": "80",
+      "total": "100",
+      "status": "partial",
+      "source": "data/top100-coverage/coverage.csv",
+      "note": "Rows with at least one coverage contract item still todo."
+    },
+    {
+      "section": "top100",
+      "metric": "average top100 coverage",
+      "value": "83",
+      "total": "100",
+      "status": "partial",
+      "source": "data/top100-coverage/coverage.csv",
+      "note": "Average of the generated per-chart coverage percentage."
+    },
+    {
       "section": "top500",
       "metric": "source rows scanned",
       "value": "495",

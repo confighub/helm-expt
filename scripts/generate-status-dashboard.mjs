@@ -45,6 +45,7 @@ function buildReport() {
   const baseRows = readCsv("data/outcome-coverage/base-outcomes.csv");
   const top20BaseReadinessRows = readCsv("data/top20-base-readiness/base-readiness.csv");
   const top100Rows = readCsv("data/top100-readiness/readiness.csv");
+  const top100CoverageRows = readCsv("data/top100-coverage/coverage.csv");
   const top500Rows = readCsv("data/top500-catalog-analysis/review.csv");
   const quirkRows = readCsv("data/quirk-coverage/coverage.csv");
   const extensionRows = readCsv("data/extension-slots/extension-slots.csv");
@@ -72,6 +73,9 @@ function buildReport() {
   rows.push(metric("top100", "catalog-supported charts", count(top100Rows, "catalog_tier", "top20-catalog-supported"), top100Rows.length, "partial", "data/top100-readiness/readiness.csv", "These are the current public catalog entries; production support still depends on lane status."));
   rows.push(metric("top100", "proof-grade non-catalog charts", top100Rows.filter((row) => row.catalog_tier !== "top20-catalog-supported").length, top100Rows.length, "partial", "data/top100-readiness/readiness.csv", "These charts have proof artifacts but are not promoted catalog entries."));
   rows.push(metric("top100", "variant-rich charts", chartRows.filter((row) => row.variant_rich === "yes").length, chartRows.length, "partial", "data/outcome-coverage/chart-outcomes.csv", "Charts with more than one declared base variant."));
+  rows.push(metric("top100", "covered by top100 contract", count(top100CoverageRows, "coverage_status", "covered"), top100CoverageRows.length, "partial", "data/top100-coverage/coverage.csv", "Rows satisfying all top100 coverage contract items, including disposition and live witness route."));
+  rows.push(metric("top100", "partial by top100 contract", count(top100CoverageRows, "coverage_status", "partial"), top100CoverageRows.length, "partial", "data/top100-coverage/coverage.csv", "Rows with at least one coverage contract item still todo."));
+  rows.push(metric("top100", "average top100 coverage", averageNumber(top100CoverageRows, "coverage_percent"), 100, "partial", "data/top100-coverage/coverage.csv", "Average of the generated per-chart coverage percentage."));
   rows.push(metric("top500", "source rows scanned", count(top500Rows, "source_status", "source-scanned"), top500Rows.length, "partial", "data/top500-catalog-analysis/review.csv", "Retained source-scan rows with source feature data."));
   rows.push(metric("top500", "rows with current recipe proof", top500Rows.filter((row) => row.recipe_status.startsWith("current-recipe")).length, top500Rows.length, "partial", "data/top500-catalog-analysis/review.csv", "Retained source-scan rows matched to current recipe/package proof."));
   rows.push(metric("top500", "catalog-supported rows", count(top500Rows, "catalog_status", "catalog-supported"), top500Rows.length, "partial", "data/top500-catalog-analysis/review.csv", "Rows promoted to the current public catalog; production gates still matter."));
@@ -471,6 +475,7 @@ lifecycle observation.
 | Question | Open |
 | --- | --- |
 | Can I use this chart today? | [top100-readiness/readiness.csv](../top100-readiness/readiness.csv) |
+| Which top-100 rows satisfy the strict coverage contract? | [top100-coverage/coverage.csv](../top100-coverage/coverage.csv) |
 | How much of the retained top500 source scan maps to current proof? | [top500-catalog-analysis/review.csv](../top500-catalog-analysis/review.csv) |
 | Which base variants have which proof lanes? | [outcome-coverage/base-outcomes.csv](../outcome-coverage/base-outcomes.csv) |
 | Which top-20 base variant should I start with? | [top20-base-readiness/summary.md](../top20-base-readiness/summary.md) |
@@ -497,6 +502,11 @@ npm run status:dashboard:verify
 
 function metric(section, metricName, value, total, status, source, note) {
   return { section, metric: metricName, value: String(value), total: String(total), status, source, note };
+}
+
+function averageNumber(rows, field) {
+  if (!rows.length) return 0;
+  return Math.round(rows.reduce((sum, row) => sum + Number(row[field] || 0), 0) / rows.length);
 }
 
 function readCsv(path) {
