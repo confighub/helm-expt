@@ -236,6 +236,12 @@ function classifyReceipt(receipt) {
   if (text.includes("startupapicheck") || text.includes("failed post-install")) {
     return `helm-hook: post-install hook failed${paritySuffix}`;
   }
+  if (spec.chart === "grafana/tempo" && spec.base === "s3-query-observability" && text.includes("crashloopbackoff")) {
+    return `target-prerequisite: object store endpoint not satisfied${paritySuffix}`;
+  }
+  if (spec.chart === "hashicorp/consul" && spec.base === "secure-mesh-existing-secrets" && text.includes("pending")) {
+    return `target-fit: secure mesh target topology not satisfied${paritySuffix}`;
+  }
   if (spec.chart === "hashicorp/vault" && spec.base === "ha-raft-ui" && text.includes("pending")) {
     return `target-fit: HA raft target topology not satisfied${paritySuffix}`;
   }

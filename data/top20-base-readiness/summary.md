@@ -18,10 +18,10 @@ base variants: 42
 start-here: 20
 try-with-proof: 14
 runtime-watch: 1
-runtime-review-needed: 4
+runtime-review-needed: 2
 operating-policy-needed: 1
-target-fit-needed: 1
-target-prerequisite-needed: 0
+target-fit-needed: 2
+target-prerequisite-needed: 1
 hook-lifecycle-review-needed: 0
 lifecycle-observed: 1
 prerequisite-observed: 0
@@ -31,8 +31,8 @@ render-only: 0
 Live rerun readiness for non-pass rows:
 
 ~~~text
-model-or-stage-first: 2
-review-target-first: 5
+model-or-stage-first: 4
+review-target-first: 3
 inspect-diff-first: 0
 rerun-now-after-cleanup: 0
 ~~~
@@ -78,9 +78,9 @@ rerun-now-after-cleanup: 0
 | `grafana/loki@7.0.0` | single-binary-filesystem | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
 | `grafana/loki@7.0.0` | simple-scalable-minio | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims |
 | `grafana/tempo@1.24.4` | local-persistent | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
-| `grafana/tempo@1.24.4` | s3-query-observability | no | runtime-review-needed | review-target-first | target-runtime: pod crash loop (parity passed) | inspect runtime state; keep the recipe stable unless semantic object comparison starts failing |
+| `grafana/tempo@1.24.4` | s3-query-observability | no | target-prerequisite-needed | model-or-stage-first | target-prerequisite: object store endpoint not satisfied (parity passed) | stage or model the prerequisite, then rerun the same base; keep render parity separate from target fit |
 | `hashicorp/consul@2.0.0` | default-control-plane | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
-| `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | no | runtime-review-needed | review-target-first | target-runtime: pod crash loop (parity passed) | inspect runtime state; keep the recipe stable unless semantic object comparison starts failing |
+| `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | no | target-fit-needed | model-or-stage-first | target-fit: secure mesh target topology not satisfied (parity passed) | use a target that provides the required platform behavior, or create a separate base that fits the proof target |
 | `hashicorp/vault@0.32.0` | dev-mode | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use |
 | `hashicorp/vault@0.32.0` | default | no | operating-policy-needed | model-or-stage-first | operate-policy: Vault init/unseal required (parity passed) | record the operating policy and use a receipt for the post-render operation before presenting this as ready |
 | `hashicorp/vault@0.32.0` | ha-raft-ui | no | target-fit-needed | model-or-stage-first | target-fit: HA raft target topology not satisfied (parity passed) | use a target that provides the required platform behavior, or create a separate base that fits the proof target |
