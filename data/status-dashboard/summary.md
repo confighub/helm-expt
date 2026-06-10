@@ -258,7 +258,7 @@ Current two-cluster kind parity non-pass receipts:
 | hashicorp/consul@2.0.0 | secure-mesh-existing-secrets | blocked | target-fit: secure mesh target topology not satisfied (parity passed) |
 | hashicorp/vault@0.32.0 | default | blocked | operate-policy: Vault init/unseal required (parity passed) |
 | hashicorp/vault@0.32.0 | ha-raft-ui | blocked | target-fit: HA raft target topology not satisfied (parity passed) |
-| ingress-nginx/ingress-nginx@4.15.1 | default | watch | helm-runtime: upstream not ready (parity passed) |
+| ingress-nginx/ingress-nginx@4.15.1 | default | watch | target-runtime: installer-applied workload not ready at observation cutoff (parity passed) |
 | jetstack/cert-manager@v1.20.2 | default | blocked | helm-hook: post-install hook failed (parity passed) |
 | metrics-server/metrics-server@3.13.0 | external-tls-ca | blocked | target-prerequisite: serving certificate and APIService trust not satisfied (parity passed) |
 

@@ -97,7 +97,7 @@ faithful to the locked chart/version without changing the recipe.
 | 50 | model-or-stage-first | target-fit-review | two-cluster-kind-parity | `hashicorp/vault@0.32.0` | ha-raft-ui | blocked | target-fit: HA raft target topology not satisfied (parity passed) | `npm run kind-parity:run -- --chart hashicorp/vault --version 0.32.0 --base ha-raft-ui` |
 | 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `metrics-server/metrics-server@3.13.0` | external-tls-ca | blocked | target-prerequisite: serving certificate and APIService trust not satisfied (parity passed) | `npm run kind-parity:run -- --chart metrics-server/metrics-server --version 3.13.0 --base external-tls-ca` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | blocked | target-runtime: pod crash loop (parity passed) | `npm run kind-parity:run -- --chart bitnami/mongodb --version 19.0.7 --base existing-secret-replicaset --repo-url oci://registry-1.docker.io/bitnamicharts` |
-| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `ingress-nginx/ingress-nginx@4.15.1` | default | watch | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart ingress-nginx/ingress-nginx --version 4.15.1 --base default` |
+| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `ingress-nginx/ingress-nginx@4.15.1` | default | watch | target-runtime: installer-applied workload not ready at observation cutoff (parity passed) | `npm run kind-parity:run -- --chart ingress-nginx/ingress-nginx --version 4.15.1 --base default` |
 
 ## Related Lifecycle Evidence
 
