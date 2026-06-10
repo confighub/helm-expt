@@ -1,0 +1,48 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LatestCandidateReplacementDecision
+metadata:
+  name: bitnami-redis-27-0-0-defer-public-catalog-replacement
+spec:
+  chart: bitnami/redis
+  currentVersion: 25.5.3
+  currentSupportedVersion: 25.5.3
+  currentSupportedBase: default
+  candidateVersion: 27.0.0
+  latestUpstreamVersion: 27.0.0
+  candidateFreshness: latest-upstream-aligned
+  candidateBase: default
+  decision: defer-replacement
+  decisionDate: "2026-06-10"
+  catalogEffect: no-catalog-promotion
+  targetScope:
+    name: public-catalog-default-redis
+    clusterClass: cub-lk-kind-vanilla
+    namespace: redis
+    deliveryPath: confighub-oci
+    gitopsController: argo
+  summary: "Keep bitnami/redis@25.5.3 as the supported public catalog version for now; retain bitnami/redis@27.0.0 as a proof-complete candidate."
+  rationale:
+    - "The Redis 27 candidate has render, ConfigHub, local live, and two-cluster live parity evidence."
+    - "The current Redis 25 supported scope already has a target-scoped production support decision."
+    - "Replacing a supported stateful catalog entry should not happen only because the candidate is proof-complete; the replacement needs a fresh target-scoped support decision and a clear upgrade/support boundary."
+  decisionTopicsReviewed:
+    - "generated fact ownership"
+    - "hook and lifecycle phase policy"
+    - "image digest support decision"
+    - "scan/gate warning disposition"
+    - "target fact preflight"
+  requirementsBeforeReplacement:
+    - "Write a Redis 27 target-scoped production support decision with support boundary, freshness TTL, and operator-owned storage/backup exclusions."
+    - "Refresh ConfigHub OCI/Argo live evidence for the exact replacement scope after the candidate is selected."
+    - "Record whether Redis 25.5.3 remains a legacy patch/rollback reference after replacement."
+  evidence:
+    - path: data/production-support-decisions/bitnami-redis/support-decision.yaml
+      claim: "Current Redis 25 supported scope remains the public catalog support decision."
+    - path: recipes/bitnami/redis/27.0.0/catalog-status.yaml
+      claim: "Redis 27 is visible as a catalog-candidate, not catalog-supported."
+    - path: runs/latest-top20-refresh/redis-27.0.0/confighub-proof/latest/confighub-proof-receipt.yaml
+      claim: "Redis 27 ConfigHub proof passed for the default base."
+    - path: runs/latest-top20-refresh/redis-27.0.0/local-kind/observation-receipt.json
+      claim: "Redis 27 local kind observation passed for the default base."
+    - path: runs/latest-top20-refresh/redis-27.0.0/live-parity/default/receipt.yaml
+      claim: "Redis 27 two-cluster Helm-vs-installer live parity passed for the default base."

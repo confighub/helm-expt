@@ -97,7 +97,7 @@
     "refreshCurrentRows": 13,
     "refreshUpdateCandidates": 7,
     "refreshCandidatesWithProof": 4,
-    "latestCandidatesAwaitingReplacementDecision": 4,
+    "latestCandidatesAwaitingReplacementDecision": 3,
     "latestRefreshP0Rows": 4,
     "top100ChartsWithLiveEvidence": 28,
     "liveParityRerunRows": 0,
@@ -3545,9 +3545,9 @@
       "currentVersion": "25.5.3",
       "candidateVersion": "27.0.0",
       "proofStatus": "candidate-proof-complete-root-path-present",
-      "replacementDecision": "not-decided",
-      "action": "write-replacement-decision",
-      "priority": "p1",
+      "replacementDecision": "defer-replacement",
+      "action": "replacement-deferred",
+      "priority": "p2",
       "nextAction": "review target-scoped production support decision before replacing the supported version"
     },
     {
