@@ -83,10 +83,10 @@ Which detailed CSV should I open next?
 | extension slots | top500 source rows using tpl | 362/500 | partial | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
 | hooks | top100 maintained hook charts | 5/5 | partial | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
 | hooks | hook route receipts present | 5/5 | partial | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
-| hooks | hook lifecycle observations present | 1/5 | gap | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
+| hooks | hook lifecycle observations present | 2/5 | gap | [data/hook-lifecycle/top100-hooks.csv](../../data/hook-lifecycle/top100-hooks.csv) |
 | hooks | hook/lifecycle boundary rows | 9/9 | partial | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
 | hooks | hook queue rows still needing route receipts | 0/5 | good | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
-| hooks | hook routes still needing execution or observation | 4/5 | gap | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
+| hooks | hook routes still needing execution or observation | 3/5 | gap | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
 | hooks | related lifecycle observation receipts passing | 4/4 | good | [data/lifecycle-observations/cert-manager-eso/summary.csv](../../data/lifecycle-observations/cert-manager-eso/summary.csv) |
 
 ## Next Work Queues
@@ -145,8 +145,8 @@ lifecycle route, target fit, or operating policy.
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
-| Hook route selected, observation pending | 4 | Run the selected lifecycle path and commit execution or observation receipts. |
-| Hook-bearing rows observed | 1 | Keep receipt freshness current when the supported target changes. |
+| Hook route selected, observation pending | 3 | Run the selected lifecycle path and commit execution or observation receipts. |
+| Hook-bearing rows observed | 2 | Keep receipt freshness current when the supported target changes. |
 | Related CRD/webhook/controller observations | 4 | Use these as examples for hook-like lifecycle proof, not as universal hook support. |
 
 Spreadsheet forms: [next-work-queues.csv](next-work-queues.csv) and
@@ -410,7 +410,7 @@ NGINX-style extension-slot report.
 | --- | --- | --- | --- |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | lifecycle-observed | keep receipt fresh when chart, base, or cluster version changes |
 | kyverno/kyverno@3.8.1 | default | route-selected | run selected lifecycle path and commit observation or execution receipt |
-| fluent/fluent-bit@0.57.6 | default | route-selected | run selected lifecycle path and commit observation or execution receipt |
+| fluent/fluent-bit@0.57.6 | default | lifecycle-observed | keep receipt fresh when chart, base, or cluster version changes |
 | projectcalico/tigera-operator@v3.32.0 | default | route-selected | run selected lifecycle path and commit observation or execution receipt |
 | gatekeeper/gatekeeper@3.22.2 | default | route-selected | run selected lifecycle path and commit observation or execution receipt |
 

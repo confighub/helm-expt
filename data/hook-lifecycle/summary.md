@@ -18,8 +18,8 @@ top-100 maintained charts with hooks:  5
 catalog-supported hook charts:         1
 proof-grade hook charts:               4
 hook route receipts present:           5/5
-hook lifecycle observations present:   1/5
-hook routes awaiting observation:      4/5
+hook lifecycle observations present:   2/5
+hook routes awaiting observation:      3/5
 hook rows still needing route receipt: 0/5
 related lifecycle observations passing: 4/4
 ```

@@ -231,6 +231,8 @@
     "lifecycle:cert-manager-eso:all": "node scripts/run-cert-manager-eso-lifecycle.mjs --run --all",
     "lifecycle:cert-manager-eso:summary": "node scripts/run-cert-manager-eso-lifecycle.mjs --summary",
     "lifecycle:cert-manager-eso:verify": "node scripts/run-cert-manager-eso-lifecycle.mjs --verify",
+    "lifecycle:fluent-bit-test-hook": "node scripts/run-fluent-bit-hook-lifecycle.mjs --run",
+    "lifecycle:fluent-bit-test-hook:verify": "node scripts/run-fluent-bit-hook-lifecycle.mjs --verify",
     "image-digests:workdown": "node scripts/generate-image-digest-workdown.mjs --generate",
     "image-digests:workdown:verify": "node scripts/generate-image-digest-workdown.mjs --verify",
     "kps:image-digests": "node scripts/generate-kps-image-digest-resolution.mjs --generate",

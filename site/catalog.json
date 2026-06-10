@@ -711,7 +711,7 @@
     {
       "section": "hooks",
       "metric": "hook lifecycle observations present",
-      "value": "1",
+      "value": "2",
       "total": "5",
       "status": "gap",
       "source": "data/hook-lifecycle/top100-hooks.csv",
@@ -738,7 +738,7 @@
     {
       "section": "hooks",
       "metric": "hook routes still needing execution or observation",
-      "value": "4",
+      "value": "3",
       "total": "5",
       "status": "gap",
       "source": "data/lifecycle-boundary/lifecycle-boundary.csv",

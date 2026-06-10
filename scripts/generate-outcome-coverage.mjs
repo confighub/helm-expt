@@ -238,7 +238,7 @@ function featureRowsForChart(facts, model, hookReceipt) {
     return {
       chart,
       feature,
-      status: featureStatus(feature, status),
+      status: featureStatus(feature, status, hookFeature ? hookReceipt : undefined),
       support_meaning: featureMeaning(feature, status, hookFeature ? hookReceipt : undefined),
       evidence: [
         "data/chart-facts/chart-facts.csv",
@@ -250,9 +250,10 @@ function featureRowsForChart(facts, model, hookReceipt) {
   });
 }
 
-function featureStatus(feature, status) {
+function featureStatus(feature, status, hookReceipt) {
   const text = String(status ?? "").trim();
   if (emptyFeatureStatus(text)) return "-";
+  if (feature === "hook_status" && hookReceipt?.receipt_status === "observed") return "lifecycle-observed: explicit receipt committed";
   if (feature === "crds" || feature === "webhooks") return "present";
   return text;
 }

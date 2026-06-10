@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Endpoints
+metadata:
+  annotations:
+    endpoints.kubernetes.io/last-change-trigger-time: "2026-06-10T18:22:43Z"
+  creationTimestamp: "2026-06-10T18:22:29Z"
+  labels:
+    app.kubernetes.io/instance: fluent-bit
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: fluent-bit
+    app.kubernetes.io/version: 5.0.6
+    endpoints.kubernetes.io/managed-by: endpoint-controller
+    helm.sh/chart: fluent-bit-0.57.6
+  name: fluent-bit
+  namespace: default
+  resourceVersion: "517"
+  uid: a09c97cb-d79c-4d4b-b5b3-886db8626d54
+subsets:
+- addresses:
+  - ip: 10.244.0.5
+    nodeName: hx-hook-fluent-bit-8eb22a-control-plane
+    targetRef:
+      kind: Pod
+      name: fluent-bit-29fhj
+      namespace: default
+      uid: ce5d821c-9442-415b-92b0-05ebe8932999
+  ports:
+  - name: http
+    port: 2020
+    protocol: TCP
