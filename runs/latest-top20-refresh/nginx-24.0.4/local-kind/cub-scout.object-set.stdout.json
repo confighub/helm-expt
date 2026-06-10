@@ -1,0 +1,137 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "rendered-object-set://sha256/32e7b689fa2839e9",
+      "digest": {
+        "sha256": "32e7b689fa2839e97156047c126cff3b1d7ba12fd53e6355e944d61d2b302c97"
+      }
+    },
+    {
+      "name": "k8s-live-object-set://namespace/nginx",
+      "digest": {
+        "sha256": "32e7b689fa2839e97156047c126cff3b1d7ba12fd53e6355e944d61d2b302c97"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "live object set matches rendered manifests from /Users/alexis/code/helm-expt/runs/latest-top20-refresh/nginx-24.0.4/local-kind/cub-scout.desired.yaml",
+    "scope": {
+      "kind": "ObjectSet",
+      "name": "rendered-install",
+      "namespace": "nginx"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-06-10T11:45:31Z",
+    "freshness": {
+      "observedAt": "2026-06-10T11:45:31Z",
+      "expiresAt": "2026-06-10T12:45:31Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "object-set-matches",
+    "verdict": "PASS",
+    "evidence": {
+      "objectSet": {
+        "desiredSource": {
+          "type": "file",
+          "ref": "/Users/alexis/code/helm-expt/runs/latest-top20-refresh/nginx-24.0.4/local-kind/cub-scout.desired.yaml",
+          "digest": "af649c542e3c7cf350e72a65a72f481905061f5839704334efdf30bdce411c96",
+          "objectCount": 5
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "nginx"
+        },
+        "matchMode": "authored-fields",
+        "desiredDigest": "32e7b689fa2839e97156047c126cff3b1d7ba12fd53e6355e944d61d2b302c97",
+        "liveDigest": "32e7b689fa2839e97156047c126cff3b1d7ba12fd53e6355e944d61d2b302c97",
+        "summary": {
+          "desired": 5,
+          "matched": 5,
+          "missing": 0,
+          "mismatched": 0,
+          "inconclusive": 0
+        },
+        "objects": [
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "nginx",
+              "name": "nginx"
+            },
+            "status": "matched",
+            "desiredDigest": "9346bf32eff5d79d6ff88022655c330d1777d3045c4919157227d7c004484a5e",
+            "liveDigest": "9346bf32eff5d79d6ff88022655c330d1777d3045c4919157227d7c004484a5e"
+          },
+          {
+            "id": {
+              "apiVersion": "networking.k8s.io/v1",
+              "kind": "NetworkPolicy",
+              "namespace": "nginx",
+              "name": "nginx"
+            },
+            "status": "matched",
+            "desiredDigest": "4f127bac8dc0bcaccbd817c106dc77ad5291818ae3e9f1348be985e906971f6f",
+            "liveDigest": "4f127bac8dc0bcaccbd817c106dc77ad5291818ae3e9f1348be985e906971f6f"
+          },
+          {
+            "id": {
+              "apiVersion": "policy/v1",
+              "kind": "PodDisruptionBudget",
+              "namespace": "nginx",
+              "name": "nginx"
+            },
+            "status": "matched",
+            "desiredDigest": "58854f44d12ad969e750b7fb1ba1d51465160a660979e7667869c42055f63e15",
+            "liveDigest": "58854f44d12ad969e750b7fb1ba1d51465160a660979e7667869c42055f63e15"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "nginx",
+              "name": "nginx"
+            },
+            "status": "matched",
+            "desiredDigest": "3ac3e7117910dccf227c57ebad00074da7b4cbf2673f37d88b5300e8717f2b89",
+            "liveDigest": "3ac3e7117910dccf227c57ebad00074da7b4cbf2673f37d88b5300e8717f2b89"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "nginx",
+              "name": "nginx"
+            },
+            "status": "matched",
+            "desiredDigest": "efe229e8bde996991f485c0e8b4b169296585209517df8a304b4625609148285",
+            "liveDigest": "efe229e8bde996991f485c0e8b4b169296585209517df8a304b4625609148285"
+          }
+        ]
+      }
+    },
+    "omissions": [
+      {
+        "missing": "extra-live-object-coverage",
+        "reason": "object-set-matches verifies desired object identities and authored fields from the rendered manifests; it does not prove that no extra live objects exist outside that desired set",
+        "severity": "info"
+      }
+    ],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every desired rendered object was present and all authored fields matched live",
+        "nextCommand": "cub-scout doctor",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:d93187e0a3dff8ded177b3caa398c79088f2925d5a9403cf82c566ac7e1de32e"
+  }
+}

@@ -21,7 +21,10 @@ const selectedSlug = optionValue("--chart");
 const selectedFromRank = numberOption("--from-rank");
 const selectedToRank = numberOption("--to-rank");
 const continueOnFail = process.argv.includes("--continue-on-fail");
-const summaryRoot = join(repoRoot, "data", "live-e2e");
+const latestCandidates = process.argv.includes("--latest-candidates");
+const summaryRoot = latestCandidates
+  ? join(repoRoot, "data", "latest-top20-refresh", "local-live-e2e")
+  : join(repoRoot, "data", "live-e2e");
 const redisReceiptPath = join(repoRoot, "runs", "redis-local-kind", "latest", "observation-receipt.yaml");
 
 const targets = [
@@ -289,7 +292,7 @@ if (mode === "--run") {
   const selected = selectedTargets({ requireAllByDefault: true });
   if (shouldIncludeRedis()) verifyRedisTop20();
   for (const target of selected) verifyTarget(target);
-  console.log(`verified ${selected.length + (shouldIncludeRedis() ? 1 : 0)} top20 local kind e2e receipt(s)`);
+  console.log(`verified ${selected.length + (shouldIncludeRedis() ? 1 : 0)} ${latestCandidates ? "latest-candidate" : "top20"} local kind e2e receipt(s)`);
 } else if (mode === "--summary") {
   writeSummary();
 } else {
@@ -297,6 +300,7 @@ if (mode === "--run") {
   node scripts/run-top20-local-e2e.mjs --run --chart nginx
   node scripts/run-top20-local-e2e.mjs --run --from-rank 3 --to-rank 20 --continue-on-fail
   node scripts/run-top20-local-e2e.mjs --run --all --continue-on-fail
+  node scripts/run-top20-local-e2e.mjs --run --latest-candidates --chart nginx --continue-on-fail
   node scripts/run-top20-local-e2e.mjs --verify
   node scripts/run-top20-local-e2e.mjs --summary`);
 }
@@ -312,27 +316,56 @@ function numberOption(name) {
 }
 
 function selectedTargets({ onlyPassingReceiptsByDefault = false, requireAllByDefault = false } = {}) {
-  let selected = targets;
-  if (process.argv.includes("--all")) return targets;
+  const sourceTargets = targetSet();
+  let selected = sourceTargets;
+  if (process.argv.includes("--all")) return sourceTargets;
   if (selectedSlug) {
     if (selectedSlug === "redis") return [];
-    const target = targets.find((item) => item.slug === selectedSlug);
+    const target = sourceTargets.find((item) =>
+      [item.slug, item.baseSlug, item.chart, item.chart.split("/").at(-1)].filter(Boolean).includes(selectedSlug),
+    );
     check(Boolean(target), `unknown local e2e chart ${selectedSlug}`);
     return [target];
   }
   if (selectedFromRank !== null) selected = selected.filter((target) => target.rank >= selectedFromRank);
   if (selectedToRank !== null) selected = selected.filter((target) => target.rank <= selectedToRank);
   if (selectedFromRank !== null || selectedToRank !== null) return selected;
-  if (requireAllByDefault) return targets;
-  if (onlyPassingReceiptsByDefault) return targets.filter((target) => existingPassReceiptPath(target));
-  return targets.filter((target) => existingReceiptPath(target));
+  if (requireAllByDefault) return sourceTargets;
+  if (onlyPassingReceiptsByDefault) return sourceTargets.filter((target) => existingPassReceiptPath(target));
+  return sourceTargets.filter((target) => existingReceiptPath(target));
 }
 
 function shouldIncludeRedis() {
+  if (latestCandidates) return false;
   if (selectedSlug) return selectedSlug === "redis";
   if (selectedFromRank !== null && selectedFromRank > 1) return false;
   if (selectedToRank !== null && selectedToRank < 1) return false;
   return true;
+}
+
+function targetSet() {
+  return latestCandidates ? latestCandidateTargets() : targets;
+}
+
+function latestCandidateTargets() {
+  const readinessPath = join(repoRoot, "data", "latest-top20-refresh", "promotion-readiness.csv");
+  const rows = parseCsv(readFileSync(readinessPath, "utf8"));
+  return rows.map((row) => {
+    const base = targets.find((target) => target.chart === row.chart);
+    check(base, `no top-20 local e2e base target for latest candidate ${row.chart}`);
+    const chartName = row.chart.split("/").at(-1);
+    const runPathKey = `${chartName}-${row.candidate_version}`;
+    const candidateSlug = `${base.slug}-${versionSlug(row.candidate_version)}`;
+    return {
+      ...base,
+      slug: candidateSlug,
+      baseSlug: base.slug,
+      version: row.candidate_version,
+      revision: `${row.candidate_recipe}/revisions/${base.variant}/r001/variant-revision.yaml`,
+      rendered: `${row.candidate_recipe}/revisions/${base.variant}/r001/rendered/release-objects.yaml`,
+      runRoot: join("runs", "latest-top20-refresh", runPathKey, "local-kind"),
+    };
+  });
 }
 
 function runTarget(target) {
@@ -738,7 +771,10 @@ function collectDiagnostics(target, runRoot) {
 
 function writeSummary() {
   mkdirSync(summaryRoot, { recursive: true });
-  const rows = [redisSummaryRow(), ...targets.map((target) => {
+  const sourceTargets = targetSet();
+  const rows = [
+    ...(shouldIncludeRedis() ? [redisSummaryRow()] : []),
+    ...sourceTargets.map((target) => {
     const receiptPath = join(runRootFor(target), "observation-receipt.json");
     const receipt = existsSync(receiptPath) ? JSON.parse(readFileSync(receiptPath, "utf8")) : null;
     return {
@@ -756,14 +792,14 @@ function writeSummary() {
   const csv = toCsv(rows);
   const passCount = rows.filter((row) => row.result === "pass").length;
   const failCount = rows.filter((row) => row.result === "fail").length;
-  const summary = `# Top-20 Local Kind Live/E2E
+  const title = latestCandidates ? "Latest Candidate Local Kind Live/E2E" : "Top-20 Local Kind Live/E2E";
+  const summary = `# ${title}
 
-This report records live Kubernetes observation receipts for the top-20 chart
-proof set. A passing row means the rendered ConfigHub/cub installer package output
-was applied to a local kind cluster and the declared live checks passed. A
-failing row is still useful evidence: it tells us exactly which production
-disposition or local-kind limitation must be handled before we claim broader
-support.
+This report records live Kubernetes observation receipts for the ${latestCandidates ? "latest-version candidate chart proof set" : "top-20 chart proof set"}.
+A passing row means the rendered ConfigHub/cub installer package output was
+applied to a local kind cluster and the declared live checks passed. A failing
+row is still useful evidence: it tells us exactly which production disposition
+or local-kind limitation must be handled before we claim broader support.
 
 \`\`\`text
 pass: ${passCount}
@@ -892,6 +928,7 @@ function safeKubectl(args) {
 }
 
 function runRootFor(target) {
+  if (target.runRoot) return join(repoRoot, target.runRoot);
   return join(repoRoot, "runs", "top20-local-kind", `${target.slug}-${target.variant}`);
 }
 
@@ -904,4 +941,43 @@ function existingPassReceiptPath(target) {
   if (!existsSync(receiptPath)) return false;
   const receipt = JSON.parse(readFileSync(receiptPath, "utf8"));
   return receipt.spec?.result === "pass";
+}
+
+function versionSlug(value) {
+  return String(value)
+    .replace(/[^A-Za-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .toLowerCase();
+}
+
+function parseCsv(text) {
+  const lines = text.trim().split(/\r?\n/);
+  const headers = parseCsvLine(lines[0]);
+  return lines.slice(1).filter(Boolean).map((line) => {
+    const cells = parseCsvLine(line);
+    return Object.fromEntries(headers.map((header, index) => [header, cells[index] ?? ""]));
+  });
+}
+
+function parseCsvLine(line) {
+  const cells = [];
+  let cell = "";
+  let quoted = false;
+  for (let index = 0; index < line.length; index += 1) {
+    const char = line[index];
+    const next = line[index + 1];
+    if (char === '"' && quoted && next === '"') {
+      cell += '"';
+      index += 1;
+    } else if (char === '"') {
+      quoted = !quoted;
+    } else if (char === "," && !quoted) {
+      cells.push(cell);
+      cell = "";
+    } else {
+      cell += char;
+    }
+  }
+  cells.push(cell);
+  return cells;
 }

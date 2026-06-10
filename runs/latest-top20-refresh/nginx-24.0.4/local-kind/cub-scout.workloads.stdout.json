@@ -1,0 +1,96 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "rendered-object-set://sha256/ef4e5e03dd8ff6b1",
+      "digest": {
+        "sha256": "ef4e5e03dd8ff6b11dcb2eda87f150ecb44ae4089bdf535c1b47aae1565f4211"
+      }
+    },
+    {
+      "name": "k8s-live-workloads://namespace/nginx",
+      "digest": {
+        "sha256": "1c2b1867e09cef5aaaae6cca7976b5e5856ed73a0510ef1179bb8765f4399791"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "desired workloads from /Users/alexis/code/helm-expt/runs/latest-top20-refresh/nginx-24.0.4/local-kind/cub-scout.workloads.desired.yaml converged to a ready state in the live cluster",
+    "scope": {
+      "kind": "WorkloadSet",
+      "name": "rendered-install",
+      "namespace": "nginx"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-06-10T11:45:31Z",
+    "freshness": {
+      "observedAt": "2026-06-10T11:45:31Z",
+      "expiresAt": "2026-06-10T12:45:31Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "workloads-converged",
+    "verdict": "PASS",
+    "evidence": {
+      "workloads": {
+        "desiredSource": {
+          "type": "file",
+          "ref": "/Users/alexis/code/helm-expt/runs/latest-top20-refresh/nginx-24.0.4/local-kind/cub-scout.workloads.desired.yaml",
+          "digest": "62096628c9a51535a182b4f492762301af3c9547c702cac4df572854c2b09862",
+          "objectCount": 1
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "nginx"
+        },
+        "graceWindow": "5m0s",
+        "observedAt": "2026-06-10T11:45:31Z",
+        "desiredDigest": "ef4e5e03dd8ff6b11dcb2eda87f150ecb44ae4089bdf535c1b47aae1565f4211",
+        "liveDigest": "1c2b1867e09cef5aaaae6cca7976b5e5856ed73a0510ef1179bb8765f4399791",
+        "summary": {
+          "desired": 1,
+          "converged": 1,
+          "progressing": 0,
+          "failed": 0,
+          "missing": 0,
+          "inconclusive": 0
+        },
+        "workloads": [
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "nginx",
+              "name": "nginx"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Deployment is available. Replicas: 1",
+            "ageSeconds": 20
+          }
+        ]
+      }
+    },
+    "omissions": [
+      {
+        "missing": "workload-convergence-snapshot",
+        "reason": "workloads-converged reflects readiness observed at verifiedAt; it does not prove the workloads stay converged afterward",
+        "severity": "info"
+      }
+    ],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every desired workload reached a ready/converged state",
+        "nextCommand": "cub-scout doctor",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:21f31eeffa44c76eb7ff6e329af5da69cea01545e634677601c2255cc5be0356"
+  }
+}
