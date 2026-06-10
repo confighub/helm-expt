@@ -12,6 +12,9 @@ top-20 catalog-supported: 20
 next-80 proof-grade: 80
 charts with live evidence on at least one variant: 28
 charts with named hard gaps: 25
+source top-100 charts with Helm hooks: 11
+maintained hook lifecycle rows: 5
+source-reviewed hook routes not yet maintained: 8
 ~~~
 
 ## Workability Lens
@@ -41,6 +44,26 @@ charts with named hard gaps: 25
 | Design user-shaped variants | 46 | Add one realistic base variant that a Helm user would actually pick. | The chart stops being default-only and moves into promotion review or limitation review. | `gitlab/gitlab-runner@0.89.0`<br>`fluent/fluent-bit@0.57.6`<br>`runix/pgadmin4@1.62.0`<br>`nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18`<br>`prometheus-community/kube-state-metrics@7.4.0` |
 | Resolve named limitations | 7 | Decide whether to support, disclose, or defer the named gap. | The catalog page and hard-gap row agree on the supported path. | `traefik/traefik@40.2.0`<br>`kyverno/kyverno@3.8.1`<br>`bitnami/elasticsearch@22.1.6`<br>`bitnami/spark@10.0.3`<br>`bitnami/zookeeper@13.8.7` |
 | Expand live evidence | 72 | Select rows that only have render parity and add local, GitOps, or live Helm-vs-ConfigHub evidence. | The strongest evidence moves beyond render parity for the selected chart/base. | `traefik/traefik@40.2.0`<br>`gitlab/gitlab-runner@0.89.0`<br>`kyverno/kyverno@3.8.1`<br>`fluent/fluent-bit@0.57.6`<br>`runix/pgadmin4@1.62.0` |
+| Promote reviewed hook routes | 8 | Open `data/hook-lifecycle-review/summary.md` and choose one reviewed route candidate. | The route has a maintained lifecycle receipt, candidate artifact, or explicit blocker. | `k8s-dashboard/kubernetes-dashboard@7.14.0`<br>`gitlab/gitlab@10.0.0`<br>`bitnami/kafka@32.4.3`<br>`bitnami/minio@17.0.21`<br>`datadog/datadog@3.214.0` |
+
+## Hook And Lifecycle Work
+
+Hooks are not hidden inside render parity. The source scan, maintained hook
+queue, reviewed route candidates, and lifecycle observations are separate
+surfaces:
+
+| Surface | Rows | Use |
+| --- | ---: | --- |
+| Source top-100 hook rows | 11 | Find public top-100 charts whose retained source scan found Helm hooks. |
+| Maintained hook lifecycle rows | 5 | Check current recipe/package rows with required lifecycle receipts. |
+| Observed hook rows | 3 | Rows with runtime lifecycle observation or execution evidence. |
+| Partially observed hook rows | 2 | Rows where one lifecycle phase remains, usually upgrade or delete. |
+| Source-reviewed routes not yet maintained | 8 | Promote the reviewed route into a maintained lifecycle receipt, candidate artifact, or blocker. |
+| Related lifecycle observation rows | 4 | CRD/webhook/controller observations that rendered YAML alone cannot prove. |
+
+Start with [hook-lifecycle/summary.md](../hook-lifecycle/summary.md) for the
+maintained queue and [hook-lifecycle-review/summary.md](../hook-lifecycle-review/summary.md)
+for reviewed source routes that are not yet maintained.
 
 ## Adoption Buckets
 
@@ -159,6 +182,8 @@ decision before catalog promotion.
 | `data/top100-catalog-analysis/review.csv` | Catalog analysis and promotion surface. |
 | `data/outcome-coverage/chart-outcomes.csv` | Detailed outcome counts per chart. |
 | `data/outcome-coverage/base-outcomes.csv` | Per base-variant proof lane status. |
+| `data/hook-lifecycle/summary.md` | Maintained hook lifecycle queue and receipt state. |
+| `data/hook-lifecycle-review/summary.md` | Source-reviewed hook routes not yet maintained. |
 
 Regenerate:
 
