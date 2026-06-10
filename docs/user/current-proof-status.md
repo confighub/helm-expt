@@ -31,6 +31,21 @@ when you need to say exactly what has been proven for that chart/base. Use the
 production disposition pages when you need to decide whether a chart is ready
 for a specific production target.
 
+## Find The Answer Fast
+
+One generated file answers each common evidence question. Open the file; do
+not rely on prose summaries for counts.
+
+| Question | Open | What it gives you |
+| --- | --- | --- |
+| Which top-20 charts are live tested? | [Live E2E Summary](../../data/live-e2e/summary.md) | One row per chart: local kind live/e2e result and the strict witness columns. |
+| Which latest chart versions are ready for promotion work? | [Promotion Work Orders](../../data/latest-top20-refresh/promotion-work-orders.md) | Per-candidate work orders for newer upstream versions. |
+| Which top-100 charts are covered, partial, or decision-needed? | [Top-100 Coverage](../../data/top100-coverage/summary.md) and [Top-100 Readiness](../../data/top100-readiness/summary.md) | Coverage-contract status per chart, and the adoption bucket with next action. |
+| Which hard chart shows the model under serious Helm complexity? | [kube-prometheus-stack catalog page](../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md) and [Lifecycle Observations](../../data/lifecycle-observations/cert-manager-eso/summary.md) | CRDs, webhooks, RBAC, generated facts, and dependency locks on one chart; observed CRD/webhook/controller runtime behavior on cert-manager and External Secrets. |
+| Which watch/blocked rows are trust signals, not failures? | [cub-scout Watchlist](../../data/live-e2e/cub-scout-watchlist.md) and [What We Refuse To Claim](./what-we-refuse-to-claim.md) | Routed strict-witness findings with live effect and next action, and why publishing refusals is the trust model. |
+| Why is a live row non-pass, and what reruns it? | [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md) | Non-pass rows separated into semantic defects, target prerequisites, runtime watch, and lifecycle work. |
+| Is this chart ready for my production target? | [Production Disposition](../../data/production-disposition/summary.md) and [Production Support Decisions](./production-support-decisions.md) | What is still required per chart, and how review-ready becomes supported for one target scope. |
+
 ## Source Of Truth
 
 The shortest generated status page is:
