@@ -250,11 +250,21 @@ function buildWorkOrders(rows) {
     },
     {
       lane: "local-live-e2e",
-      phase: "todo",
-      evidence: (row) => `runs/latest-top20-refresh/${slug(row.chart)}-${row.candidate_version}/local-kind/observation-receipt.json`,
-      firstAction: "apply the candidate rendered objects to a fresh kind target and observe workloads and prerequisites",
+      phase: (row) => candidateLocalLiveE2ePhase(row),
+      evidence: (row) => candidateLocalLiveE2eReceipt(row),
+      firstAction: (row) => {
+        const phase = candidateLocalLiveE2ePhase(row);
+        if (phase === "done") return "keep the candidate local-kind observation receipt committed";
+        if (phase === "needs-route") return "inspect the candidate local-kind observation receipt and route the failure before promotion";
+        return "apply the candidate rendered objects to a fresh kind target and observe workloads and prerequisites";
+      },
       doneWhen: "fresh local observation receipt records pass, watch, or blocked with a route",
-      command: "run the chart-specific local-kind lane for the candidate package path",
+      command: (row) => {
+        const phase = candidateLocalLiveE2ePhase(row);
+        if (phase === "done") return `node scripts/run-top20-local-e2e.mjs --verify --latest-candidates --chart ${slug(row.chart)}`;
+        if (phase === "needs-route") return `inspect ${candidateLocalLiveE2eReceipt(row)} and add a routed watchlist/disposition before support`;
+        return `node scripts/run-top20-local-e2e.mjs --run --latest-candidates --chart ${slug(row.chart)} --cluster helm-expt-${slug(row.chart)}-${versionSlug(row.candidate_version)} --continue-on-fail`;
+      },
     },
     {
       lane: "live-parity",
@@ -318,6 +328,17 @@ function candidateConfighubProofReceipts(row) {
 
 function candidateConfighubProofComplete(row) {
   return candidateConfighubProofReceipts(row).every((path) => existsSync(join(repoRoot, path)));
+}
+
+function candidateLocalLiveE2eReceipt(row) {
+  return `runs/latest-top20-refresh/${slug(row.chart)}-${row.candidate_version}/local-kind/observation-receipt.json`;
+}
+
+function candidateLocalLiveE2ePhase(row) {
+  const receiptPath = join(repoRoot, candidateLocalLiveE2eReceipt(row));
+  if (!existsSync(receiptPath)) return "todo";
+  const receipt = JSON.parse(readFileSync(receiptPath, "utf8"));
+  return receipt.spec?.result === "pass" ? "done" : "needs-route";
 }
 
 function workOrderSummary(rows, workOrders) {
@@ -401,6 +422,13 @@ npm run top20:latest-promotion-readiness:verify
 
 function slug(chart) {
   return chart.split("/").at(-1).replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase();
+}
+
+function versionSlug(value) {
+  return String(value)
+    .replace(/[^A-Za-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .toLowerCase();
 }
 
 function displayList(value) {

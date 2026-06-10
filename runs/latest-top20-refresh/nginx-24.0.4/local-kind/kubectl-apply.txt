@@ -1,0 +1,5 @@
+networkpolicy.networking.k8s.io/nginx serverside-applied
+poddisruptionbudget.policy/nginx serverside-applied
+serviceaccount/nginx serverside-applied
+service/nginx serverside-applied
+deployment.apps/nginx serverside-applied
