@@ -32,7 +32,7 @@ spec:
     -
       chart: "bitnami/mongodb"
       currentVersion: "19.0.7"
-      candidateVersion: "19.0.9"
+      candidateVersion: "19.1.0"
       primaryBase: "generated-passwords"
       proofStatus: "proof-complete"
       productionSupportStatus: "not-production-supported"
@@ -46,12 +46,12 @@ spec:
         - "storage backup restore and rollback policy"
         - "target fact preflight"
       evidence:
-        candidateRecipe: "data/latest-top20-refresh/candidates/mongodb-19.0.9/recipes/bitnami/mongodb/19.0.9"
-        candidatePackage: "data/latest-top20-refresh/candidates/mongodb-19.0.9/packages/bitnami/mongodb/19.0.9"
-        configHubProofReceipt: "runs/latest-top20-refresh/mongodb-19.0.9/confighub-proof/latest/confighub-proof-receipt.yaml"
-        localLiveReceipt: "runs/latest-top20-refresh/mongodb-19.0.9/local-kind/observation-receipt.json"
-        liveParityReceipt: "runs/latest-top20-refresh/mongodb-19.0.9/live-parity/generated-passwords/receipt.yaml"
-      nextAction: "review 7 production decision topic(s), then decide whether bitnami/mongodb@19.0.9 can replace 19.0.7"
+        candidateRecipe: "data/latest-top20-refresh/candidates/mongodb-19.1.0/recipes/bitnami/mongodb/19.1.0"
+        candidatePackage: "data/latest-top20-refresh/candidates/mongodb-19.1.0/packages/bitnami/mongodb/19.1.0"
+        configHubProofReceipt: "runs/latest-top20-refresh/mongodb-19.1.0/confighub-proof/latest/confighub-proof-receipt.yaml"
+        localLiveReceipt: "runs/latest-top20-refresh/mongodb-19.1.0/local-kind/observation-receipt.json"
+        liveParityReceipt: "runs/latest-top20-refresh/mongodb-19.1.0/live-parity/generated-passwords/receipt.yaml"
+      nextAction: "review 7 production decision topic(s), then decide whether bitnami/mongodb@19.1.0 can replace 19.0.7"
     -
       chart: "bitnami/nginx"
       currentVersion: "24.0.2"

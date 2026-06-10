@@ -38,16 +38,16 @@ spec:
     -
       chart: "bitnami/mongodb"
       currentVersion: "19.0.7"
-      candidateVersion: "19.0.9"
+      candidateVersion: "19.1.0"
       latestUpstreamVersion: "19.1.0"
-      candidateFreshness: "superseded-by-newer-upstream"
+      candidateFreshness: "latest-upstream-aligned"
       currentSupportedBase: "generated-passwords"
       candidatePrimaryBase: "generated-passwords"
       candidateCatalogStatus: "catalog-candidate"
       candidateProofStatus: "proof-complete-root-path-present"
-      replacementDecision: "not-decided"
-      replacementDecisionArtifact: null
-      replacementDecisionSummary: null
+      replacementDecision: "defer-replacement"
+      replacementDecisionArtifact: "data/latest-top20-refresh/replacement-decisions/decision-artifacts/bitnami-mongodb-19.1.0.yaml"
+      replacementDecisionSummary: "Keep bitnami/mongodb@19.0.7 as the supported public catalog version for now; retain bitnami/mongodb@19.1.0 as a proof-complete candidate."
       decisionTopics:
         - "extension slot provenance and scan policy"
         - "generated fact ownership"
@@ -58,12 +58,12 @@ spec:
         - "target fact preflight"
       evidence:
         currentSupportDecision: "data/production-support-decisions/bitnami-mongodb/support-decision.yaml"
-        candidateRecipe: "recipes/bitnami/mongodb/19.0.9"
-        candidatePackage: "packages/bitnami/mongodb/19.0.9"
-        configHubProofReceipt: "runs/latest-top20-refresh/mongodb-19.0.9/confighub-proof/latest/confighub-proof-receipt.yaml"
-        localLiveReceipt: "runs/latest-top20-refresh/mongodb-19.0.9/local-kind/observation-receipt.json"
-        liveParityReceipt: "runs/latest-top20-refresh/mongodb-19.0.9/live-parity/generated-passwords/receipt.yaml"
-      nextAction: "candidate bitnami/mongodb@19.0.9 is behind latest upstream 19.1.0; decide whether to supersede it or keep it for legacy patch/rollback evidence before replacing 19.0.7"
+        candidateRecipe: "recipes/bitnami/mongodb/19.1.0"
+        candidatePackage: "packages/bitnami/mongodb/19.1.0"
+        configHubProofReceipt: "runs/latest-top20-refresh/mongodb-19.1.0/confighub-proof/latest/confighub-proof-receipt.yaml"
+        localLiveReceipt: "runs/latest-top20-refresh/mongodb-19.1.0/local-kind/observation-receipt.json"
+        liveParityReceipt: "runs/latest-top20-refresh/mongodb-19.1.0/live-parity/generated-passwords/receipt.yaml"
+      nextAction: "replacement decision defers bitnami/mongodb@19.1.0; keep 19.0.7 pinned and revisit after the recorded requirements are satisfied"
     -
       chart: "bitnami/nginx"
       currentVersion: "24.0.2"

@@ -1,0 +1,24 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Recipe"
+metadata:
+  name: "bitnami-mongodb"
+  version: "19.1.0"
+spec:
+  chartRef:
+    sourceLock: "source-lock.yaml"
+    dependencyLock: "dependency-lock.yaml"
+  importMode: "render-and-vendor"
+  currentExecutableFixture:
+    installerPackage: "../../../../packages/bitnami/mongodb/19.1.0"
+    setupCommand:
+      - "cub"
+      - "installer"
+      - "setup"
+      - "--pull"
+      - "../../../../packages/bitnami/mongodb/19.1.0"
+      - "--non-interactive"
+      - "--namespace"
+      - "mongodb"
+  variants:
+    - "variants/generated-passwords/variant.yaml"
+    - "variants/existing-secret-replicaset/variant.yaml"

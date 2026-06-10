@@ -12,7 +12,7 @@ top-100/top-500 outputs.
 | Chart | Current proof | Candidate version | Variants | Object counts | Status |
 | --- | --- | --- | --- | --- | --- |
 | `argo-cd/argo-cd` | `9.5.15` | `9.5.17` | `default;no-crds` | no-crds:46;default:49 | candidate-proof-generated |
-| `bitnami/mongodb` | `19.0.7` | `19.0.9` | `generated-passwords;existing-secret-replicaset` | generated-passwords:8;existing-secret-replicaset:10 | candidate-proof-generated |
+| `bitnami/mongodb` | `19.0.7` | `19.1.0` | `generated-passwords;existing-secret-replicaset` | generated-passwords:8;existing-secret-replicaset:10 | candidate-proof-generated |
 | `bitnami/nginx` | `24.0.2` | `25.0.0` | `http-clusterip;existing-tls-ingress` | existing-tls-ingress:6;http-clusterip:5 | candidate-proof-generated |
 | `bitnami/postgresql` | `18.6.7` | `18.7.0` | `generated-passwords;existing-secret` | generated-passwords:7;existing-secret:6 | candidate-proof-generated |
 | `bitnami/redis` | `25.5.3` | `27.0.0` | `default;reuse-existing-secret` | default:14;reuse-existing-secret:13 | candidate-proof-generated |

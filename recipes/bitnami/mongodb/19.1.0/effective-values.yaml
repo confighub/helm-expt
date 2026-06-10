@@ -1,0 +1,16 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "bitnami-mongodb-19.1.0-generated-passwords"
+spec:
+  files:
+    -
+      path: "effective-values.yaml"
+      source: "inline-proof"
+      sha256: "64a2ec2019571906f2d7db6db89cbdf51612204ac7efde429ff719baf92699b4"
+  mergedValuesCaptured: false
+  values:
+    auth:
+      rootPassword: "confighub-mongodb-root-password"
+    image:
+      digest: "sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e"

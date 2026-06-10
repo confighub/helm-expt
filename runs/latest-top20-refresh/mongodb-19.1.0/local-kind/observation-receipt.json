@@ -1,0 +1,79 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "mongodb-19-1-0-generated-passwords-local-kind"
+  },
+  "spec": {
+    "variantRevision": "data/latest-top20-refresh/candidates/mongodb-19.1.0/recipes/bitnami/mongodb/19.1.0/revisions/generated-passwords/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "2753c6bfaf61d7e60135c7a52e1e05bd4fde979c5796b4e2b54ffa2cb64c6911",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.2.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-mongodb-19-1-0",
+      "context": "kind-helm-expt-mongodb-19-1-0",
+      "namespace": "mongodb"
+    },
+    "observedAt": "2026-06-10T17:52:56.946Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "bitnami/mongodb",
+    "chartVersion": "19.1.0",
+    "rank": 17,
+    "variant": "generated-passwords",
+    "renderedObjectCount": 8,
+    "checks": [
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "aa02059db0932a632f931c85651ccbf4fa0c968a932bddad6d58c4019a23a672"
+      },
+      {
+        "name": "deployment-mongodb-rollout",
+        "result": "pass",
+        "object": "deployment/mongodb",
+        "evidencePath": "deployment-mongodb-rollout.txt",
+        "evidenceSHA256": "f52dfd80bd70853854cc9648e5c982df7a00b3854a445475ae6bc1c667a8057b"
+      },
+      {
+        "name": "cub-scout-object-set-matches",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.object-set.receipt.json",
+        "evidenceSHA256": "67c1634eca97a473b4aa76cc29ed4b545c080c1f16d5d24c5ad27bfac39861c0",
+        "stderrPath": "cub-scout.object-set.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "cub-scout-closed-world-object-set",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.closed-world.receipt.json",
+        "evidenceSHA256": "268fc29a760ea07807a928c552c022b9f746adb25b62e3684fde20aec0d7c0d3",
+        "stderrPath": "cub-scout.closed-world.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "cub-scout-workloads-converged",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.workloads.receipt.json",
+        "evidenceSHA256": "e6f5b4e45545009cd19464c4041fc27f635e6d2a26cb057b086ab8297b22e8dd",
+        "stderrPath": "cub-scout.workloads.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "aad8246346c3c9c7690cfe313c687ccb68778b66ce46a2a5f0dba07eace64ae1"
+    }
+  }
+}

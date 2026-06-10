@@ -15,28 +15,28 @@ Catalog support must come from explicit catalog-status.yaml files.
 ## Summary
 
 ```text
-recipes reviewed: 109
-machine checks pass: 109
+recipes reviewed: 110
+machine checks pass: 110
 machine checks fail: 0
 proof-grade: 80
-catalog-candidate: 9
+catalog-candidate: 10
 catalog-supported: 20
 blocked: 0
 default-only recipes: 46
-multi-variant recipes: 63
-recipes with warning gates: 95
+multi-variant recipes: 64
+recipes with warning gates: 96
 recipes with non-current executable fixture path: 0
 ```
 
 ## Proof Tiers
 
-- `bespoke-top20`: 29
+- `bespoke-top20`: 30
 - `next80-full`: 80
 
 ## Support Levels
 
 - `machine-proof-only`: 80
-- `promotion-review-needed`: 9
+- `promotion-review-needed`: 10
 - `supported-for-declared-scopes`: 20
 
 ## Catalog Candidates
@@ -49,6 +49,7 @@ proof work.
 | --- | ---: | --- | --- |
 | `argo-cd/argo-cd@9.5.17` | 2 | warn | run human catalog promotion review |
 | `bitnami/mongodb@19.0.9` | 2 | warn | run human catalog promotion review |
+| `bitnami/mongodb@19.1.0` | 2 | warn | run human catalog promotion review |
 | `bitnami/nginx@24.0.4` | 2 | warn | run human catalog promotion review |
 | `bitnami/nginx@25.0.0` | 2 | warn | run human catalog promotion review |
 | `bitnami/postgresql@18.6.10` | 2 | warn | run human catalog promotion review |

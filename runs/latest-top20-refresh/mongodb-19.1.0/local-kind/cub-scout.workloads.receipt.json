@@ -1,0 +1,96 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "rendered-object-set://sha256/420881337e9fc0c3",
+      "digest": {
+        "sha256": "420881337e9fc0c3d20ab9b62ad925881ec7349e76f8ace5377dd440018c8ab4"
+      }
+    },
+    {
+      "name": "k8s-live-workloads://namespace/mongodb",
+      "digest": {
+        "sha256": "9e78f5ad0f8e224a472fdbf12a29282c6265c2eda41891b4313407056a621f75"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "desired workloads from /Users/alexis/code/helm-expt/runs/latest-top20-refresh/mongodb-19.1.0/local-kind/cub-scout.workloads.desired.yaml converged to a ready state in the live cluster",
+    "scope": {
+      "kind": "WorkloadSet",
+      "name": "rendered-install",
+      "namespace": "mongodb"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-06-10T17:52:56Z",
+    "freshness": {
+      "observedAt": "2026-06-10T17:52:56Z",
+      "expiresAt": "2026-06-10T18:52:56Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "workloads-converged",
+    "verdict": "PASS",
+    "evidence": {
+      "workloads": {
+        "desiredSource": {
+          "type": "file",
+          "ref": "/Users/alexis/code/helm-expt/runs/latest-top20-refresh/mongodb-19.1.0/local-kind/cub-scout.workloads.desired.yaml",
+          "digest": "e9808e437c5ea1c68a4fff1a324d1e77d80a87da6ee1faa4070b9ee959112a67",
+          "objectCount": 1
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "mongodb"
+        },
+        "graceWindow": "5m0s",
+        "observedAt": "2026-06-10T17:52:56Z",
+        "desiredDigest": "420881337e9fc0c3d20ab9b62ad925881ec7349e76f8ace5377dd440018c8ab4",
+        "liveDigest": "9e78f5ad0f8e224a472fdbf12a29282c6265c2eda41891b4313407056a621f75",
+        "summary": {
+          "desired": 1,
+          "converged": 1,
+          "progressing": 0,
+          "failed": 0,
+          "missing": 0,
+          "inconclusive": 0
+        },
+        "workloads": [
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "mongodb",
+              "name": "mongodb"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Deployment is available. Replicas: 1",
+            "ageSeconds": 50
+          }
+        ]
+      }
+    },
+    "omissions": [
+      {
+        "missing": "workload-convergence-snapshot",
+        "reason": "workloads-converged reflects readiness observed at verifiedAt; it does not prove the workloads stay converged afterward",
+        "severity": "info"
+      }
+    ],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every desired workload reached a ready/converged state",
+        "nextCommand": "cub-scout doctor",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:4a68545a452ed9fae5a449e72d70e98bb4f46a3e76cd8596338e56819ed774bb"
+  }
+}

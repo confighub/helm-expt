@@ -26,7 +26,7 @@ semantic parity defects: 0
 | Chart | Base | Result | Reason | Receipt |
 | --- | --- | --- | --- | --- |
 | `argo-cd/argo-cd@9.5.17` | default | pass |  | runs/latest-top20-refresh/argo-cd-9.5.17/live-parity/default/receipt.yaml |
-| `bitnami/mongodb@19.0.9` | generated-passwords | pass |  | runs/latest-top20-refresh/mongodb-19.0.9/live-parity/generated-passwords/receipt.yaml |
+| `bitnami/mongodb@19.1.0` | generated-passwords | pass |  | runs/latest-top20-refresh/mongodb-19.1.0/live-parity/generated-passwords/receipt.yaml |
 | `bitnami/nginx@25.0.0` | http-clusterip | pass |  | runs/latest-top20-refresh/nginx-25.0.0/live-parity/http-clusterip/receipt.yaml |
 | `bitnami/postgresql@18.7.0` | generated-passwords | pass |  | runs/latest-top20-refresh/postgresql-18.7.0/live-parity/generated-passwords/receipt.yaml |
 | `bitnami/redis@27.0.0` | default | pass |  | runs/latest-top20-refresh/redis-27.0.0/live-parity/default/receipt.yaml |

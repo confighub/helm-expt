@@ -15,7 +15,7 @@
     "top500Matched": 65,
     "noHardGap": 75,
     "hardGap": 25,
-    "retainedCandidateVersions": 9
+    "retainedCandidateVersions": 10
   },
   "entries": [
     {
@@ -2776,7 +2776,34 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 7,
+      "proof_surface_rank": 5,
+      "top20_rank": 2,
+      "top500_rank": 28,
+      "chart": "bitnami/mongodb",
+      "version": "19.1.0",
+      "latest_version": "19.1.0",
+      "latest_status": "update-available",
+      "catalog_status": "catalog-candidate",
+      "support_level": "promotion-review-needed",
+      "production_readiness": "not-reviewed-for-production",
+      "supported_scopes": "",
+      "supported_variants": "",
+      "candidate_variants": "generated-passwords;existing-secret-replicaset",
+      "variant_count": 2,
+      "start_variant": "generated-passwords",
+      "namespace": "mongodb",
+      "source_features": "lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage",
+      "source_classification": "P1 compiler policy needed",
+      "top500_next_action": "review source/current-version drift and refresh recipe if needed",
+      "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
+      "package_path": "packages/bitnami/mongodb/19.1.0",
+      "recipe_path": "recipes/bitnami/mongodb/19.1.0/recipe.yaml",
+      "catalog_path": "recipes/bitnami/mongodb/19.1.0/CATALOG.md",
+      "helm_pain_report": "recipes/bitnami/mongodb/19.1.0/helm-pain-report.yaml"
+    },
+    {
+      "proof_surface": "top20-catalog-supported",
+      "proof_surface_rank": 8,
       "top20_rank": 4,
       "top500_rank": 48,
       "chart": "bitnami/nginx",
@@ -2803,7 +2830,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 8,
+      "proof_surface_rank": 9,
       "top20_rank": 4,
       "top500_rank": 48,
       "chart": "bitnami/nginx",
@@ -2830,7 +2857,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 9,
+      "proof_surface_rank": 10,
       "top20_rank": 5,
       "top500_rank": 7,
       "chart": "bitnami/postgresql",
@@ -2857,7 +2884,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 11,
+      "proof_surface_rank": 12,
       "top20_rank": 5,
       "top500_rank": 7,
       "chart": "bitnami/postgresql",
@@ -2884,7 +2911,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 14,
+      "proof_surface_rank": 15,
       "top20_rank": 7,
       "top500_rank": 6,
       "chart": "bitnami/redis",
@@ -2911,7 +2938,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 26,
+      "proof_surface_rank": 27,
       "top20_rank": 18,
       "top500_rank": 1,
       "chart": "prometheus-community/kube-prometheus-stack",
@@ -2938,7 +2965,7 @@
     },
     {
       "proof_surface": "top20-catalog-supported",
-      "proof_surface_rank": 28,
+      "proof_surface_rank": 29,
       "top20_rank": 19,
       "top500_rank": 5,
       "chart": "prometheus-community/prometheus",
