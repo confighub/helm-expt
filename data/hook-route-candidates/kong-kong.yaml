@@ -1,0 +1,55 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HookLifecycleRouteCandidate
+metadata:
+  name: kong-kong-hook-route-candidate
+spec:
+  chart: kong/kong
+  version: 3.2.0
+  base: none-yet (no maintained recipe; source-scan candidate)
+  result: candidate-route-plan
+  reviewedAt: "2026-06-10"
+  hooks:
+    count: 2
+    phases: [pre-upgrade, post-upgrade]
+    deletePolicies: present on both hook templates
+    weights: none
+    templates:
+      - kong/templates/migrations-pre-upgrade.yaml
+      - kong/templates/migrations-post-upgrade.yaml
+  dependencySource: chart-own templates (not vendored)
+  targetDependencies:
+    - a reachable database when the chart is not in DB-less mode; the
+      migration Jobs are values-conditional and may not render for DB-less
+      installs
+  route:
+    summary: Ordered database migration pair. The classic upgrade-hook case;
+      ordering is correctness-critical, so the route is an explicit upgrade
+      action with a receipt, never silent render parity.
+    phases:
+      - hookTypes: [pre-upgrade]
+        action: upgrade-action-with-receipt
+        reason: Schema migration must complete before workloads update.
+      - hookTypes: [post-upgrade]
+        action: upgrade-action-with-receipt
+        reason: Post-migration finish step must be recorded after rollout.
+    gitopsMapping: Argo CD PreSync / PostSync (or Flux dependsOn stages) carry
+      the same ordering for GitOps delivery.
+  evidence:
+    - path: data/top500-catalog-analysis/source/source-feature-scan.raw.json
+      claim: Static source scan found the migration hook pair, phases, and
+        delete policies at the pinned version.
+    - path: data/hook-lifecycle-review/top100-source-hook-route-review.csv
+      claim: Independent route review classified this chart as high risk,
+        upgrade-action route, not in the maintained queue.
+  execution:
+    helmHooksExecutedByHarness: false
+    runtimeObserved: false
+  promotionNextStep: Create the cub installer recipe with at least a DB-less
+    base and a database base; confirm which bases render the migration pair;
+    model the pair as ordered upgrade actions; then admit to the maintained
+    hook queue with a route receipt. Observed status requires a live run,
+    which this candidate does not claim.
+  notClaimed:
+    - production readiness
+    - runtime hook behavior
+    - that the migrations render under every values profile

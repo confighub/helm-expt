@@ -1,0 +1,53 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HookLifecycleRouteCandidate
+metadata:
+  name: k8s-dashboard-kubernetes-dashboard-hook-route-candidate
+spec:
+  chart: k8s-dashboard/kubernetes-dashboard
+  version: 7.14.0
+  base: none-yet (no maintained recipe; source-scan candidate)
+  result: candidate-route-plan
+  reviewedAt: "2026-06-10"
+  hooks:
+    count: 2
+    phases: [pre-upgrade, post-upgrade]
+    deletePolicies: present on both hook templates
+    weights: none
+    templates:
+      - kubernetes-dashboard/charts/kong/templates/migrations-pre-upgrade.yaml
+      - kubernetes-dashboard/charts/kong/templates/migrations-post-upgrade.yaml
+  dependencySource: vendored kong subchart (charts/kong). The dashboard chart
+    itself declares no hooks; hook behavior arrives through the dependency
+    closure and must not be hidden by chart-level review.
+  targetDependencies:
+    - none expected under the default values; the vendored kong is used as a
+      DB-less proxy, in which case the migration Jobs may not render at all
+  route:
+    summary: Same kong migration pair as the standalone kong chart, vendored.
+      The route question is conditional rendering first, ordering second.
+    phases:
+      - hookTypes: [pre-upgrade, post-upgrade]
+        action: upgrade-action-with-receipt
+        reason: If the migration pair renders for a base, it carries the same
+          ordering requirement as standalone kong.
+    gitopsMapping: Argo CD PreSync / PostSync when rendered.
+  evidence:
+    - path: data/top500-catalog-analysis/source/source-feature-scan.raw.json
+      claim: Static source scan found the vendored migration hook pair and
+        delete policies at the pinned version.
+    - path: data/hook-lifecycle-review/top100-source-hook-route-review.csv
+      claim: Independent route review flagged the vendored-subchart origin and
+        the unverified default-values rendering question.
+  execution:
+    helmHooksExecutedByHarness: false
+    runtimeObserved: false
+  promotionNextStep: Create the recipe and render the default base; determine
+    whether the vendored kong migration hooks materialize under default
+    values. If they do not render, record a hook-inert-under-default-values
+    fact for the base instead of a route, and keep the route plan for any
+    database-enabled base. Only then admit to the maintained queue.
+  notClaimed:
+    - production readiness
+    - runtime hook behavior
+    - whether the hooks render under default values (explicitly unresolved;
+      that determination is the promotion step)
