@@ -67,16 +67,16 @@ spec:
     -
       chart: "bitnami/nginx"
       currentVersion: "24.0.2"
-      candidateVersion: "24.0.4"
+      candidateVersion: "25.0.0"
       latestUpstreamVersion: "25.0.0"
-      candidateFreshness: "superseded-by-newer-upstream"
+      candidateFreshness: "latest-upstream-aligned"
       currentSupportedBase: "http-clusterip"
       candidatePrimaryBase: "http-clusterip"
       candidateCatalogStatus: "catalog-candidate"
       candidateProofStatus: "proof-complete-root-path-present"
-      replacementDecision: "not-decided"
-      replacementDecisionArtifact: null
-      replacementDecisionSummary: null
+      replacementDecision: "defer-replacement"
+      replacementDecisionArtifact: "data/latest-top20-refresh/replacement-decisions/decision-artifacts/bitnami-nginx-25.0.0.yaml"
+      replacementDecisionSummary: "Keep bitnami/nginx@24.0.2 as the supported public catalog version for now; retain bitnami/nginx@25.0.0 as a proof-complete candidate."
       decisionTopics:
         - "extension slot provenance and scan policy"
         - "generated fact ownership"
@@ -85,12 +85,12 @@ spec:
         - "target fact preflight"
       evidence:
         currentSupportDecision: "data/production-support-decisions/bitnami-nginx/support-decision.yaml"
-        candidateRecipe: "recipes/bitnami/nginx/24.0.4"
-        candidatePackage: "packages/bitnami/nginx/24.0.4"
-        configHubProofReceipt: "runs/latest-top20-refresh/nginx-24.0.4/confighub-proof/latest/confighub-proof-receipt.yaml"
-        localLiveReceipt: "runs/latest-top20-refresh/nginx-24.0.4/local-kind/observation-receipt.json"
-        liveParityReceipt: "runs/latest-top20-refresh/nginx-24.0.4/live-parity/http-clusterip/receipt.yaml"
-      nextAction: "candidate bitnami/nginx@24.0.4 is behind latest upstream 25.0.0; decide whether to supersede it or keep it for legacy patch/rollback evidence before replacing 24.0.2"
+        candidateRecipe: "recipes/bitnami/nginx/25.0.0"
+        candidatePackage: "packages/bitnami/nginx/25.0.0"
+        configHubProofReceipt: "runs/latest-top20-refresh/nginx-25.0.0/confighub-proof/latest/confighub-proof-receipt.yaml"
+        localLiveReceipt: "runs/latest-top20-refresh/nginx-25.0.0/local-kind/observation-receipt.json"
+        liveParityReceipt: "runs/latest-top20-refresh/nginx-25.0.0/live-parity/http-clusterip/receipt.yaml"
+      nextAction: "replacement decision defers bitnami/nginx@25.0.0; keep 24.0.2 pinned and revisit after the recorded requirements are satisfied"
     -
       chart: "bitnami/postgresql"
       currentVersion: "18.6.7"

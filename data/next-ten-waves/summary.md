@@ -63,7 +63,7 @@ receipts before the follow-up runtime/GitOps and image-digest lanes run.
 | --- | --- | --- | --- | --- |
 | 1 | argo-cd/argo-cd | 9.5.15 | 9.5.17 | root-path-promoted-review-required |
 | 2 | bitnami/mongodb | 19.0.7 | 19.0.9 | root-path-promoted-review-required |
-| 3 | bitnami/nginx | 24.0.2 | 24.0.4 | root-path-promoted-review-required |
+| 3 | bitnami/nginx | 24.0.2 | 25.0.0 | root-path-promoted-review-required |
 | 4 | bitnami/postgresql | 18.6.7 | 18.6.10 | root-path-promoted-review-required |
 | 5 | bitnami/redis | 25.5.3 | 27.0.0 | root-path-promoted-review-required |
 | 6 | prometheus-community/kube-prometheus-stack | 85.3.3 | 86.1.0 | root-path-promoted-review-required |

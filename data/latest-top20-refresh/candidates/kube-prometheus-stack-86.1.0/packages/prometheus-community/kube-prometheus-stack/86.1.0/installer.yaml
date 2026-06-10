@@ -70,4 +70,4 @@ spec:
     command: "/bin/sh"
     args:
       - "collector/target-facts.sh"
-    description: "Records target-fact bindings and can live-check existing Secret requirements."
+    description: "Records target-fact bindings and can live-check cluster-visible Secret and CRD requirements."

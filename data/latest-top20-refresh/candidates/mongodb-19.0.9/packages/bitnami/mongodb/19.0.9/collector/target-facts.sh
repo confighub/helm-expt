@@ -9,6 +9,8 @@ emit_empty() {
 targetFacts:
   requiredSecrets: []
   requiredCRDs: []
+  requiredValues: []
+  requiredObjectStores: []
 targetFactChecks:
   base: "$base"
   mode: not-required
@@ -58,13 +60,16 @@ case "$base" in
     cat <<YAML
 targetFacts:
   requiredSecrets:
-  - keys:
-    - mongodb-root-password
-    - mongodb-replica-set-key
-    name: mongodb-auth
-    namespace: mongodb
-    purpose: MongoDB root password and replica-set key
+  -
+    namespace: "mongodb"
+    name: "mongodb-auth"
+    keys:
+      - "mongodb-root-password"
+      - "mongodb-replica-set-key"
+    purpose: "MongoDB root password and MongoDB-valid replica-set key"
   requiredCRDs: []
+  requiredValues: []
+  requiredObjectStores: []
 targetFactChecks:
   base: "$base"
   mode: "$check_mode"

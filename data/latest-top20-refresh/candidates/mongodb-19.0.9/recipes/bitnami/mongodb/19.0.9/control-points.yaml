@@ -27,7 +27,7 @@ spec:
       category: "target-facts"
       status: "variant-controlled"
       evidence: "auth.existingSecret"
-      note: "The existing-secret-replicaset variant declares the target Secret instead of rendering one."
+      note: "The existing-secret-replicaset variant declares the target Secret and its MongoDB-valid replica-set key requirement instead of rendering one."
     -
       category: "image-digest"
       status: "handled"

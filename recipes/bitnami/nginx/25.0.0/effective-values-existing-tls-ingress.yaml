@@ -1,0 +1,29 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "bitnami-nginx-25.0.0-existing-tls-ingress"
+spec:
+  files:
+    -
+      path: "effective-values-existing-tls-ingress.yaml"
+      source: "inline-proof"
+      sha256: "584c6c8a96715555d02ff4f58d40ced788540c62421e70c686e3129a420a9af2"
+  mergedValuesCaptured: false
+  values:
+    image:
+      digest: "sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
+    ingress:
+      enabled: true
+      extraTls:
+        -
+          hosts:
+            - "nginx.example.test"
+          secretName: "nginx-ingress-tls"
+      hostname: "nginx.example.test"
+      ingressClassName: "nginx"
+      tls: true
+    service:
+      type: "ClusterIP"
+    tls:
+      enabled: true
+      existingSecret: "nginx-backend-tls"

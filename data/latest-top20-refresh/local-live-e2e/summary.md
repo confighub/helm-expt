@@ -16,7 +16,7 @@ not-started: 0
 | ---: | --- | --- | --- | --- | --- | --- | --- |
 | 6 | `argo-cd/argo-cd@9.5.17` | default | pass | observed | 3/4 pass | - | runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/observation-receipt.json |
 | 17 | `bitnami/mongodb@19.0.9` | generated-passwords | pass | observed | 3/3 pass | - | runs/latest-top20-refresh/mongodb-19.0.9/local-kind/observation-receipt.json |
-| 18 | `bitnami/nginx@24.0.4` | http-clusterip | pass | observed | 3/3 pass | - | runs/latest-top20-refresh/nginx-24.0.4/local-kind/observation-receipt.json |
+| 18 | `bitnami/nginx@25.0.0` | http-clusterip | pass | observed | 3/3 pass | - | runs/latest-top20-refresh/nginx-25.0.0/local-kind/observation-receipt.json |
 | 8 | `bitnami/postgresql@18.6.10` | generated-passwords | pass | observed | 3/3 pass | - | runs/latest-top20-refresh/postgresql-18.6.10/local-kind/observation-receipt.json |
 | 1 | `bitnami/redis@27.0.0` | default | pass | observed | 3/3 pass | - | runs/latest-top20-refresh/redis-27.0.0/local-kind/observation-receipt.json |
 | 7 | `prometheus-community/kube-prometheus-stack@86.1.0` | default | pass | observed | 3/4 pass | - | runs/latest-top20-refresh/kube-prometheus-stack-86.1.0/local-kind/observation-receipt.json |

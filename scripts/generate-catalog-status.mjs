@@ -352,13 +352,20 @@ function verifyStatuses() {
 }
 
 function promotedLatestCandidateCount() {
-  const path = join(repoRoot, "data", "latest-top20-refresh", "candidates", "candidate-status.csv");
-  if (!existsSync(path)) return 0;
-  return parseCsv(readFileSync(path, "utf8")).filter((row) => {
-    const recipePath = join(repoRoot, "recipes", row.chart, row.latest_version);
-    const packagePath = join(repoRoot, "packages", row.chart, row.latest_version);
-    return existsSync(recipePath) && existsSync(packagePath);
-  }).length;
+  const root = join(repoRoot, "data", "latest-top20-refresh", "candidates");
+  if (!existsSync(root)) return 0;
+  const promoted = new Set();
+  for (const file of listFiles(root).filter((candidateFile) => candidateFile.endsWith("/recipe.yaml"))) {
+    const candidateRoot = dirname(file);
+    const marker = "/recipes/";
+    const markerIndex = candidateRoot.indexOf(marker);
+    if (markerIndex === -1) continue;
+    const chartVersionPath = candidateRoot.slice(markerIndex + marker.length);
+    const recipePath = join(repoRoot, "recipes", chartVersionPath);
+    const packagePath = join(repoRoot, "packages", chartVersionPath);
+    if (existsSync(recipePath) && existsSync(packagePath)) promoted.add(chartVersionPath);
+  }
+  return promoted.size;
 }
 
 function listYaml(values) {

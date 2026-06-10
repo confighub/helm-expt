@@ -1,0 +1,71 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "nginx-25-0-0-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-nginx-25-0-0-candidate-proof"
+    selector: "Labels.Proof = 'nginx-25-0-0-candidate-proof'"
+  subject:
+    chart: "bitnami/nginx"
+    chartVersion: "25.0.0"
+    packagePath: "data/latest-top20-refresh/candidates/nginx-25.0.0/packages/bitnami/nginx/25.0.0"
+    variant: "http-clusterip"
+    configHubUnitCount: 6
+  unitRevisionBindings:
+    -
+      slug: "deployment-nginx-nginx"
+      headRevisionNum: 2
+      dataHash: "b016be0f4c04c04af8865aaaa9896b1fdc331610ab4003d6d2c5e8d6f134e0d1"
+    -
+      slug: "namespace-nginx"
+      headRevisionNum: 1
+      dataHash: "e0c34485f2751583c8a422a2fe1aba9c26de0fb4b4fe8399ebc25a98c9aee22b"
+    -
+      slug: "networkpolicy-nginx-nginx"
+      headRevisionNum: 2
+      dataHash: "0670e0634f5a0ff324bb6178347ab67984ce2fc6a042a760b5f5dc340b9bc767"
+    -
+      slug: "poddisruptionbudget-nginx-nginx"
+      headRevisionNum: 1
+      dataHash: "71a4a8493c6ad8983496b7d9d1a223eca16f1058bb6102eb90e07ffe9c94d419"
+    -
+      slug: "serviceaccount-nginx-nginx"
+      headRevisionNum: 1
+      dataHash: "ba85b5ab7d24dc037fb2cd4e65ea2b364d4ae8fa4a15f5d2f196be87a51a7684"
+    -
+      slug: "service-nginx-nginx"
+      headRevisionNum: 2
+      dataHash: "580880498070d664cb120acd7ab8a84f540bed4536faf6046e2f143243cd60e5"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 6
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 6
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 6
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "nginx-http-clusterip-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "2e71065dc018fb37304a978d3bb6381f0628ac5ef4e0695b53fafe3680697780"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for http-clusterip"
+    - "Default generated TLS is either disabled or replaced by explicit target Secret requirements"
+    - "Helm hook behavior needs explicit lifecycle policy before production"
+    - "NGINX deployment, NetworkPolicy, PDB, service exposure, ingress, and extension slots need production review"
+    - "avoids chart-generated TLS material and renders a simple internal NGINX service deterministically"

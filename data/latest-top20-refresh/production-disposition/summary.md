@@ -18,7 +18,7 @@ not production-supported: 7 / 7
 | --- | --- | --- | --- | ---: | --- | --- |
 | `argo-cd/argo-cd@9.5.17` | default | proof-complete | not-production-supported | 7 | warn-production-blocked | review 7 production decision topic(s), then decide whether argo-cd/argo-cd@9.5.17 can replace 9.5.15 |
 | `bitnami/mongodb@19.0.9` | generated-passwords | proof-complete | not-production-supported | 7 | warn-production-blocked | review 7 production decision topic(s), then decide whether bitnami/mongodb@19.0.9 can replace 19.0.7 |
-| `bitnami/nginx@24.0.4` | http-clusterip | proof-complete | not-production-supported | 5 | warn-production-blocked | review 5 production decision topic(s), then decide whether bitnami/nginx@24.0.4 can replace 24.0.2 |
+| `bitnami/nginx@25.0.0` | http-clusterip | proof-complete | not-production-supported | 5 | warn-production-blocked | review 5 production decision topic(s), then decide whether bitnami/nginx@25.0.0 can replace 24.0.2 |
 | `bitnami/postgresql@18.6.10` | generated-passwords | proof-complete | not-production-supported | 7 | warn-production-blocked | review 7 production decision topic(s), then decide whether bitnami/postgresql@18.6.10 can replace 18.6.7 |
 | `bitnami/redis@27.0.0` | default | proof-complete | not-production-supported | 5 | warn-production-blocked | review 5 production decision topic(s), then decide whether bitnami/redis@27.0.0 can replace 25.5.3 |
 | `prometheus-community/kube-prometheus-stack@86.1.0` | default | proof-complete | not-production-supported | 6 | warn-production-blocked | review 6 production decision topic(s), then decide whether prometheus-community/kube-prometheus-stack@86.1.0 can replace 85.3.3 |

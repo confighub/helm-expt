@@ -34,15 +34,15 @@ spec:
         bytes: 11300
       -
         path: "collector/target-facts.sh"
-        sha256: "4dca76e9bd4d1c4b729ff8840f6bc9e8f33b9d0180fc7e22d90ac29e64be2882"
-        bytes: 1763
+        sha256: "041a937521e063789af29eeaa9db01a19f4626b83d33216f9842e3634b74e0cc"
+        bytes: 1891
       -
         path: "installer.yaml"
-        sha256: "021b9ceb3ec8792d06aa23e0406d093b4ab82125e4f563906dee11e2682f5929"
-        bytes: 1333
+        sha256: "31207c71f02e4f52f51deefe587b287b2269dd3c84cc49f7fd17e9dbdf8dfa06"
+        bytes: 1348
   deterministicBundle:
     command: "cub installer package data/latest-top20-refresh/candidates/mongodb-19.0.9/packages/bitnami/mongodb/19.0.9 -o <tmp>/mongodb-19.0.9.tgz"
-    sha256: "5f85bd35400dd0f8a489cb98ae0df849f80ada939396716ba1c33f61fa6dd65c"
+    sha256: "5ceb1780b06c1fae3bc33ce34fd852e3e197e669934927d63594429441f0dd8c"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -

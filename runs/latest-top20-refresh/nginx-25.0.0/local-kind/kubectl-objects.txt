@@ -1,0 +1,21 @@
+NAME                        READY   STATUS    RESTARTS   AGE   IP           NODE                                   NOMINATED NODE   READINESS GATES
+pod/nginx-c76799dd6-tpdnf   1/1     Running   0          16s   10.244.0.2   helm-expt-nginx-25-0-0-control-plane   <none>           <none>
+
+NAME            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE   SELECTOR
+service/nginx   ClusterIP   10.96.239.98   <none>        80/TCP,443/TCP   16s   app.kubernetes.io/instance=nginx,app.kubernetes.io/name=nginx
+
+NAME                    READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                                                                                       SELECTOR
+deployment.apps/nginx   1/1     1            1           16s   nginx        registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f   app.kubernetes.io/instance=nginx,app.kubernetes.io/name=nginx
+
+NAME                              DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES                                                                                                       SELECTOR
+replicaset.apps/nginx-c76799dd6   1         1         1       16s   nginx        registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f   app.kubernetes.io/instance=nginx,app.kubernetes.io/name=nginx,pod-template-hash=c76799dd6
+
+NAME                               MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+poddisruptionbudget.policy/nginx   N/A             1                 1                     16s
+
+NAME                         DATA   AGE
+configmap/kube-root-ca.crt   1      16s
+
+NAME                     SECRETS   AGE
+serviceaccount/default   0         16s
+serviceaccount/nginx     0         16s

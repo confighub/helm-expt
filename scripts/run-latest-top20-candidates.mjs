@@ -30,9 +30,9 @@ const candidates = [
   {
     chart: "bitnami/nginx",
     currentVersion: "24.0.2",
-    latestVersion: "24.0.4",
+    latestVersion: "25.0.0",
     script: "scripts/nginx-proof.mjs",
-    output: "nginx-24.0.4",
+    output: "nginx-25.0.0",
     variants: "http-clusterip;existing-tls-ingress",
   },
   {

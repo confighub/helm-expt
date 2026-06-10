@@ -15,8 +15,8 @@ Top-20 rows checked: 20
 Current chart proofs: 13 / 20
 Upstream update candidates: 7 / 20
 Candidates with render-only proof: 0 / 7
-Candidates with proof-complete root paths: 4 / 7
-Retained candidates superseded by newer upstream versions: 3 / 7
+Candidates with proof-complete root paths: 5 / 7
+Retained candidates superseded by newer upstream versions: 2 / 7
 Candidates without root paths: 0 / 7
 ```
 
@@ -26,7 +26,7 @@ Candidates without root paths: 0 / 7
 | --- | --- | --- | --- | --- | --- |
 | `argo-cd/argo-cd` | `9.5.15` | `9.5.17` | candidate-proof-complete-root-path-present | root-path-promoted-review-required | review target-scoped production support decision before replacing the supported version |
 | `bitnami/mongodb` | `19.0.7` | `19.1.0` | candidate-superseded-by-newer-upstream | root-path-promoted-review-required | refresh retained candidate 19.0.9 to latest upstream 19.1.0 before replacement decision |
-| `bitnami/nginx` | `24.0.2` | `25.0.0` | candidate-superseded-by-newer-upstream | root-path-promoted-review-required | refresh retained candidate 24.0.4 to latest upstream 25.0.0 before replacement decision |
+| `bitnami/nginx` | `24.0.2` | `25.0.0` | candidate-proof-complete-root-path-present | root-path-promoted-review-required | review target-scoped production support decision before replacing the supported version |
 | `bitnami/postgresql` | `18.6.7` | `18.7.0` | candidate-superseded-by-newer-upstream | root-path-promoted-review-required | refresh retained candidate 18.6.10 to latest upstream 18.7.0 before replacement decision |
 | `bitnami/redis` | `25.5.3` | `27.0.0` | candidate-proof-complete-root-path-present | root-path-promoted-review-required | review target-scoped production support decision before replacing the supported version |
 | `prometheus-community/kube-prometheus-stack` | `85.3.3` | `86.1.0` | candidate-proof-complete-root-path-present | root-path-promoted-review-required | review target-scoped production support decision before replacing the supported version |
