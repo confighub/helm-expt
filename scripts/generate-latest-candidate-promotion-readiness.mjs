@@ -12,6 +12,13 @@ const outputCsvPath = join(repoRoot, "data", "latest-top20-refresh", "promotion-
 const outputSummaryPath = join(repoRoot, "data", "latest-top20-refresh", "promotion-readiness.md");
 const workOrdersCsvPath = join(repoRoot, "data", "latest-top20-refresh", "promotion-work-orders.csv");
 const workOrdersSummaryPath = join(repoRoot, "data", "latest-top20-refresh", "promotion-work-orders.md");
+const candidateProductionDispositionPath = join(
+  repoRoot,
+  "data",
+  "latest-top20-refresh",
+  "production-disposition",
+  "candidate-production-disposition.yaml",
+);
 
 const requiredRecipeFiles = [
   "README.md",
@@ -39,8 +46,8 @@ const requiredPromotionLanes = [
   "ConfigHub proof receipt",
   "live e2e observation receipt",
   "live parity receipt",
-  "catalog status",
   "production disposition",
+  "catalog status",
   "root catalog",
   "top-100 analysis",
   "top-500 analysis",
@@ -228,14 +235,6 @@ function buildWorkOrders(rows) {
       command: "npm run top20:latest-candidates:verify && npm run top20:latest-promotion-readiness:verify",
     },
     {
-      lane: "promote-versioned-root-paths",
-      phase: "todo",
-      evidence: (row) => `${row.promoted_recipe_path};${row.promoted_package_path}`,
-      firstAction: "promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version",
-      doneWhen: "new root recipe/package paths exist and current supported version is still retained",
-      command: "manual promotion, then npm run catalog:maps && npm run catalog:index",
-    },
-    {
       lane: "confighub-proof",
       phase: (row) => candidateConfighubProofComplete(row) ? "done" : "todo",
       evidence: (row) => candidateConfighubProofReceipts(row).join(";"),
@@ -282,11 +281,25 @@ function buildWorkOrders(rows) {
     },
     {
       lane: "production-disposition",
+      phase: (row) => candidateProductionDispositionComplete(row) ? "done" : "todo",
+      evidence: () => "data/latest-top20-refresh/production-disposition/",
+      firstAction: (row) =>
+        candidateProductionDispositionComplete(row)
+          ? "keep the candidate production-disposition boundary report committed"
+          : "write scan, lifecycle, storage, RBAC, webhook, extension-slot, image, and target-fact dispositions for the candidate",
+      doneWhen: "candidate production-disposition report states the target-scoped boundary without claiming production support",
+      command: (row) =>
+        candidateProductionDispositionComplete(row)
+          ? "npm run top20:latest-production-disposition:verify"
+          : "npm run top20:latest-production-disposition",
+    },
+    {
+      lane: "promote-versioned-root-paths",
       phase: "todo",
-      evidence: (row) => `data/production-disposition/candidates/${slug(row.chart)}-${row.candidate_version}/`,
-      firstAction: "write scan, lifecycle, storage, RBAC, webhook, extension-slot, image, and target-fact dispositions for the candidate",
-      doneWhen: "production disposition or support-decision artifact states the target-scoped boundary",
-      command: "extend production disposition generators for candidate versions",
+      evidence: (row) => `${row.promoted_recipe_path};${row.promoted_package_path}`,
+      firstAction: "promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version",
+      doneWhen: "new root recipe/package paths exist and current supported version is still retained",
+      command: "manual promotion, then npm run catalog:maps && npm run catalog:index",
     },
     {
       lane: "catalog-and-site",
@@ -356,6 +369,14 @@ function candidateLiveParityPhase(row) {
   if (!existsSync(receiptPath)) return "todo";
   const receipt = readYaml(receiptPath);
   return receipt.spec?.result === "pass" ? "done" : "needs-route";
+}
+
+function candidateProductionDispositionComplete(row) {
+  if (!existsSync(candidateProductionDispositionPath)) return false;
+  const report = readYaml(candidateProductionDispositionPath);
+  const rows = report.spec?.rows ?? [];
+  const item = rows.find((candidate) => candidate.chart === row.chart && String(candidate.candidateVersion) === row.candidate_version);
+  return item?.proofStatus === "proof-complete" && item?.productionSupportStatus === "not-production-supported";
 }
 
 function primaryLatestCandidateBase(row) {
