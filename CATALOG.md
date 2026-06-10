@@ -1111,7 +1111,7 @@ still need catalog promotion review before support is claimed.
 | percona/psmdb-operator@1.22.0 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/percona/psmdb-operator/1.22.0/CATALOG.md) |
 | percona/pxc-operator@1.19.1 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/percona/pxc-operator/1.19.1/CATALOG.md) |
 | projectcalico/tigera-operator@v3.32.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/projectcalico/tigera-operator/v3.32.0/CATALOG.md) |
-| prometheus-community/alertmanager@1.37.0 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/prometheus-community/alertmanager/1.37.0/CATALOG.md) |
+| prometheus-community/alertmanager@1.37.0 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/prometheus-community/alertmanager/1.37.0/CATALOG.md) |
 | prometheus-community/kube-state-metrics@7.4.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/prometheus-community/kube-state-metrics/7.4.0/CATALOG.md) |
 | prometheus-community/prometheus-adapter@5.3.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md) |
 | prometheus-community/prometheus-blackbox-exporter@11.10.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/CATALOG.md) |
