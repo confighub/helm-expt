@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import { check, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
 
 const args = process.argv.slice(2);
 const mode = args[0] ?? "--generate";
@@ -38,6 +38,7 @@ const requiredRevisionFiles = [
 const requiredPromotionLanes = [
   "ConfigHub proof receipt",
   "live e2e observation receipt",
+  "live parity receipt",
   "catalog status",
   "production disposition",
   "root catalog",
@@ -268,11 +269,16 @@ function buildWorkOrders(rows) {
     },
     {
       lane: "live-parity",
-      phase: "todo",
-      evidence: (row) => `runs/latest-top20-refresh/${slug(row.chart)}-${row.candidate_version}/live-parity/receipt.yaml`,
-      firstAction: "compare regular Helm and ConfigHub/cub-installer delivery for the candidate on the declared Kubernetes profile",
+      phase: (row) => candidateLiveParityPhase(row),
+      evidence: (row) => candidateLiveParityReceipt(row),
+      firstAction: "compare regular Helm and cub installer delivery for the candidate on the declared Kubernetes profile",
       doneWhen: "live parity receipt records pass, watch, or blocked with no silent semantic defect",
-      command: "run the two-cluster live parity lane for the candidate package path",
+      command: (row) => {
+        const phase = candidateLiveParityPhase(row);
+        if (phase === "done") return `node scripts/run-kind-parity.mjs --verify --latest-candidates --chart ${slug(row.chart)}`;
+        if (phase === "needs-route") return `inspect ${candidateLiveParityReceipt(row)} and add a routed watchlist/disposition before support`;
+        return `node scripts/run-kind-parity.mjs --run --latest-candidates --chart ${slug(row.chart)} --continue-on-fail`;
+      },
     },
     {
       lane: "production-disposition",
@@ -339,6 +345,31 @@ function candidateLocalLiveE2ePhase(row) {
   if (!existsSync(receiptPath)) return "todo";
   const receipt = JSON.parse(readFileSync(receiptPath, "utf8"));
   return receipt.spec?.result === "pass" ? "done" : "needs-route";
+}
+
+function candidateLiveParityReceipt(row) {
+  return `runs/latest-top20-refresh/${slug(row.chart)}-${row.candidate_version}/live-parity/${primaryLatestCandidateBase(row)}/receipt.yaml`;
+}
+
+function candidateLiveParityPhase(row) {
+  const receiptPath = join(repoRoot, candidateLiveParityReceipt(row));
+  if (!existsSync(receiptPath)) return "todo";
+  const receipt = readYaml(receiptPath);
+  return receipt.spec?.result === "pass" ? "done" : "needs-route";
+}
+
+function primaryLatestCandidateBase(row) {
+  const primaryByChart = new Map([
+    ["argo-cd/argo-cd", "default"],
+    ["bitnami/mongodb", "generated-passwords"],
+    ["bitnami/nginx", "http-clusterip"],
+    ["bitnami/postgresql", "generated-passwords"],
+    ["prometheus-community/kube-prometheus-stack", "default"],
+    ["prometheus-community/prometheus", "server-only-ephemeral"],
+  ]);
+  const base = primaryByChart.get(row.chart);
+  check(base, `no primary latest-candidate base configured for ${row.chart}`);
+  return base;
 }
 
 function workOrderSummary(rows, workOrders) {
