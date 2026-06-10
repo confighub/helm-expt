@@ -221,6 +221,8 @@ function featureRowsForChart(facts, model, hookReceipt) {
     ["post_deploy_hooks", facts.post_deploy_hooks],
     ["other_hooks", facts.other_hooks],
     ["hook_status", facts.hook_status],
+    ["hook_route_evidence", facts.hook_route_evidence],
+    ["hook_route_next_action", facts.hook_route_next_action],
     ["generates_secrets", facts.generates_secrets],
     ["existing_secret", facts.existing_secret],
     ["crds", facts.crds],
@@ -245,14 +247,19 @@ function featureRowsForChart(facts, model, hookReceipt) {
       feature,
       status: featureStatus(feature, status, hookFeature ? hookReceipt : undefined),
       support_meaning: featureMeaning(feature, status, hookFeature ? hookReceipt : undefined),
-      evidence: [
+      evidence: unique([
         "data/chart-facts/chart-facts.csv",
         `${recipePath}/helm-pain-report.yaml`,
         `${recipePath}/weirdness-and-mitigations.md`,
+        hookFeature && facts.hook_route_evidence !== "—" ? facts.hook_route_evidence : "",
         hookFeature ? hookReceipt?.required_receipt : "",
-      ].filter(Boolean).join(";"),
+      ].filter(Boolean)).join(";"),
     };
   });
+}
+
+function unique(values) {
+  return [...new Set(values)];
 }
 
 function featureStatus(feature, status, hookReceipt) {
@@ -260,6 +267,8 @@ function featureStatus(feature, status, hookReceipt) {
   if (emptyFeatureStatus(text)) return "-";
   if (feature === "hook_status" && hookReceipt?.receipt_status === "observed") return "lifecycle-observed: explicit receipt committed";
   if (feature === "hook_status" && hookReceipt?.receipt_status === "partially-observed") return "install-lifecycle-observed: remaining hook phase pending";
+  if (feature === "hook_route_evidence") return text;
+  if (feature === "hook_route_next_action") return text;
   if (feature === "crds" || feature === "webhooks") return "present";
   return text;
 }
@@ -269,6 +278,8 @@ function featureMeaning(feature, status, hookReceipt) {
   if (emptyFeatureStatus(text)) return "not observed or not applicable in chart facts";
   if (feature === "not_yet_enabled") return text.includes("no open gap") ? "no hard capability gap recorded" : "hard gap or curated proof lane remains";
   if (feature === "buildable_not_yet_run") return text === "-" ? "no buildable backlog recorded" : "known build path exists but has not been promoted";
+  if (feature === "hook_route_evidence") return "file that supports the hook route state";
+  if (feature === "hook_route_next_action") return "next lifecycle step before stronger hook support can be claimed";
   if (isHookFeature(feature)) return hookMeaning(hookReceipt);
   if (feature === "existing_secret") return "bring-your-own-secret route status";
   if (feature === "crds" && /^\d+$/.test(text)) return `CRDs are present; count ${text}; raw count is in chart-facts.csv`;
@@ -285,7 +296,7 @@ function featureMeaning(feature, status, hookReceipt) {
 }
 
 function isHookFeature(feature) {
-  return ["post_deploy_hooks", "other_hooks", "hook_status"].includes(feature);
+  return ["post_deploy_hooks", "other_hooks", "hook_status", "hook_route_evidence", "hook_route_next_action"].includes(feature);
 }
 
 function hookMeaning(hookReceipt) {

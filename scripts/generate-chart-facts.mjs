@@ -12,9 +12,10 @@
 //     Empty means every recommended capability is built and the quirks are modeled.
 //
 // Sources: per-chart helm-pain-report.yaml (dispositions), the source-feature scan (hook types,
-// secret-generating funcs, webhooks), the variant dirs, the variant-backlog (what's recommended but
-// unbuilt), the wave-results (why a variant was declined), dependency locks, and the generated
-// remote dependency closure report. Read-only; emits data/chart-facts/.
+// secret-generating funcs, webhooks), the hook lifecycle queue/review, the variant dirs, the
+// variant-backlog (what's recommended but unbuilt), the wave-results (why a variant was
+// declined), dependency locks, and the generated remote dependency closure report. Read-only;
+// emits data/chart-facts/.
 //
 //   node scripts/generate-chart-facts.mjs --generate
 //   node scripts/generate-chart-facts.mjs --verify
@@ -156,6 +157,35 @@ function loadDependencyLockFacts() {
   return map;
 }
 
+function loadHookRoutes() {
+  const maintainedPath = join(repoRoot, "data", "hook-lifecycle", "top100-hooks.csv");
+  const reviewPath = join(repoRoot, "data", "hook-lifecycle-review", "top100-source-hook-route-review.csv");
+  const maintained = new Map();
+  const sourceReviewed = new Map();
+
+  if (existsSync(maintainedPath)) {
+    const rows = parseCsvRows(readFileSync(maintainedPath, "utf8").trim());
+    const headers = rows[0] ?? [];
+    for (const cols of rows.slice(1)) {
+      const row = Object.fromEntries(headers.map((header, index) => [header, cols[index] ?? ""]));
+      const ref = normRef(row.chart);
+      if (ref) maintained.set(ref, row);
+    }
+  }
+
+  if (existsSync(reviewPath)) {
+    const rows = parseCsvRows(readFileSync(reviewPath, "utf8").trim());
+    const headers = rows[0] ?? [];
+    for (const cols of rows.slice(1)) {
+      const row = Object.fromEntries(headers.map((header, index) => [header, cols[index] ?? ""]));
+      const ref = normRef(row.chart);
+      if (ref) sourceReviewed.set(ref, row);
+    }
+  }
+
+  return { maintained, sourceReviewed };
+}
+
 function loadCurrentChartScope() {
   const path = join(repoRoot, "data", "top100-catalog-analysis", "review.csv");
   if (!existsSync(path)) return null;
@@ -202,6 +232,53 @@ function hookFacts(scan) {
   return { post, other };
 }
 
+function hookRouteFacts(ref, post, other, hookRoutes) {
+  const maintained = hookRoutes.maintained.get(ref);
+  if (maintained) {
+    const receiptStatus = maintained.receipt_status || maintained.lifecycle_disposition || "route-selected";
+    const disposition = maintained.lifecycle_disposition || receiptStatus;
+    const status = {
+      observed: `observed: ${disposition}`,
+      "partially-observed": `partially observed: ${disposition}`,
+      "route-selected": `route selected: ${disposition}`,
+      blocked: `blocked: ${disposition}`,
+      "not-yet-written": `route needed: ${disposition}`,
+    }[receiptStatus] ?? `${receiptStatus}: ${disposition}`;
+    return {
+      status,
+      evidence: maintained.required_receipt || "data/hook-lifecycle/top100-hooks.csv",
+      nextAction: maintained.next_action || "keep receipt fresh when chart, base, or cluster version changes",
+    };
+  }
+
+  const reviewed = hookRoutes.sourceReviewed.get(ref);
+  if (reviewed) {
+    const count = Number(reviewed.hook_count || "0");
+    const route = reviewed.likely_route || "reviewed route";
+    return {
+      status: count > 0
+        ? `source reviewed: ${route}; maintained receipt not yet written`
+        : `hook-like review: ${route}; no Helm hook annotations in source scan`,
+      evidence: "data/hook-lifecycle-review/top100-source-hook-route-review.csv",
+      nextAction: reviewed.next_action || "promote into the maintained hook queue before lifecycle support is claimed",
+    };
+  }
+
+  if (post.length || other.length) {
+    return {
+      status: "source detected: route review needed",
+      evidence: "data/top500-catalog-analysis/source/source-feature-scan.raw.json",
+      nextAction: "classify hook route and write a maintained lifecycle receipt or blocker",
+    };
+  }
+
+  return {
+    status: "—",
+    evidence: "—",
+    nextAction: "—",
+  };
+}
+
 function generatesSecrets(scan) {
   const n = (f) => scan?.[f]?.count ?? 0;
   return n("randFuncs") + n("certFuncs") + n("hashPasswordFuncs") > 0;
@@ -221,6 +298,7 @@ function buildRows() {
   const declines = loadWaveDeclines();
   const remoteClosure = loadRemoteDependencyClosure();
   const dependencyLocks = loadDependencyLockFacts();
+  const hookRoutes = loadHookRoutes();
   const currentChartScope = loadCurrentChartScope();
   const recipeFiles = listFiles(join(repoRoot, "recipes")).filter((f) => f.endsWith("/recipe.yaml")).sort();
 
@@ -243,7 +321,7 @@ function buildRows() {
 
     // hooks
     const { post, other } = hookFacts(s);
-    const hookStatus = post.length || other.length ? "lifecycle-policy: ConfigHub applies / Flux|Argo runs (live receipt pending)" : "—";
+    const hookRoute = hookRouteFacts(ref, post, other, hookRoutes);
 
     // pain-report quirks
     const painPath = join(recipeRoot, "helm-pain-report.yaml");
@@ -288,7 +366,9 @@ function buildRows() {
       version,
       post_deploy_hooks: post.length ? post.join("+") : "—",
       other_hooks: other.length ? other.join("+") : "—",
-      hook_status: hookStatus,
+      hook_status: hookRoute.status,
+      hook_route_evidence: hookRoute.evidence,
+      hook_route_next_action: hookRoute.nextAction,
       generates_secrets: secretsGen ? "yes" : "—",
       existing_secret: existingSecret,
       crds: crdCount > 0 ? String(crdCount) : hasCrds ? "yes" : "—",
@@ -328,7 +408,8 @@ function remoteDependencyRisk(row) {
 
 function render(rows) {
   const cols = [
-    "chart", "version", "post_deploy_hooks", "other_hooks", "hook_status", "generates_secrets",
+    "chart", "version", "post_deploy_hooks", "other_hooks", "hook_status", "hook_route_evidence",
+    "hook_route_next_action", "generates_secrets",
     "existing_secret", "crds", "no_crds_variant", "webhooks", "required_values", "values_schema",
     "install_vs_upgrade", "notes", "extension_slots", "dependency_lock", "remote_dependency_risk",
     "dependency_range_policy", "dependency_refresh_survival", "variants_built",
@@ -341,6 +422,13 @@ function render(rows) {
   const remoteRiskRows = rows.filter((r) => r.remote_dependency_risk !== "—");
   const frozenRangeRows = rows.filter((r) => r.dependency_range_policy === "freeze-to-chart-lock");
   const chartLockDigestGaps = rows.filter((r) => /no Chart\.lock digest/.test(r.dependency_lock) && r.remote_dependency_risk !== "—");
+  const hookSourceRows = rows.filter((r) => r.post_deploy_hooks !== "—" || r.other_hooks !== "—");
+  const hookObservedRows = rows.filter((r) => r.hook_status.startsWith("observed:"));
+  const hookPartialRows = rows.filter((r) => r.hook_status.startsWith("partially observed:"));
+  const hookRouteSelectedRows = rows.filter((r) => r.hook_status.startsWith("route selected:"));
+  const hookReviewedNotMaintainedRows = rows.filter((r) => r.hook_status.startsWith("source reviewed:"));
+  const hookLikeReviewedRows = rows.filter((r) => r.hook_status.startsWith("hook-like review:"));
+  const hookUnreviewedRows = rows.filter((r) => r.hook_status.startsWith("source detected:"));
   const tally = (re) => rows.filter((r) => re.test(r.not_yet_enabled)).length;
   const summary = `# Chart Facts — what each chart is, and what we can't yet easily enable
 
@@ -348,6 +436,11 @@ One row per chart with a recipe (${rows.length} charts). The headline column is 
 a recommended capability we cannot yet build because **no solution/workaround exists yet**. This is
 kept distinct from **buildable_not_yet_run** — capabilities with a known build path that simply
 haven't been run through the variant generator.
+
+Hook counts in this file are scoped to the current recipe corpus. The retained
+source-scan top-100 hook inventory is separate because it can include charts
+that are not yet current recipe rows. Use
+\`data/hook-lifecycle/summary.md\` for source-scan hook totals.
 
 ## Headline
 
@@ -359,6 +452,13 @@ charts with buildable backlog (path exists): ${buildable.length}
 charts with remote dependency risk surfaced: ${remoteRiskRows.length}
 non-exact dependency rows frozen to lock:    ${frozenRangeRows.length}
 remote-risk rows missing Chart.lock digest:  ${chartLockDigestGaps.length}
+current recipe rows with Helm hooks:         ${hookSourceRows.length}
+hook rows observed:                          ${hookObservedRows.length}
+hook rows partially observed:                ${hookPartialRows.length}
+hook rows route-selected only:               ${hookRouteSelectedRows.length}
+hook rows source-reviewed but not maintained:${hookReviewedNotMaintainedRows.length}
+hook-like reviewed rows without hook annotation: ${hookLikeReviewedRows.length}
+hook rows still needing source route review: ${hookUnreviewedRows.length}
 \`\`\`
 
 ## What the hard gaps are (charts affected)
@@ -376,7 +476,9 @@ other hard gap:                                         ${withGaps.filter((r) =>
 | --- | --- |
 | \`post_deploy_hooks\` | Helm post-install / post-upgrade / post-delete hooks the chart ships |
 | \`other_hooks\` | pre-install / pre-upgrade / pre-delete / test hooks |
-| \`hook_status\` | hooks have an execution home (ConfigHub applies; Flux/Argo runs) — live receipt still pending |
+| \`hook_status\` | current hook route state: observed, partially observed, source reviewed, source detected, or n/a |
+| \`hook_route_evidence\` | receipt, queue, review, or source-scan file supporting the hook status |
+| \`hook_route_next_action\` | next concrete lifecycle step before stronger support can be claimed |
 | \`generates_secrets\` | chart generates secret material (random / cert / password funcs) |
 | \`existing_secret\` | bring-your-own-Secret path: built, a known gap, or n/a |
 | \`no_crds_variant\` | a CRDs-off variant: built, a known gap, or n/a |
@@ -421,6 +523,9 @@ const jsonOut =
       not_yet_enabled: r.not_yet_enabled,
       buildable_not_yet_run: r.buildable_not_yet_run,
       dependency_lock: r.dependency_lock,
+      hook_status: r.hook_status,
+      hook_route_evidence: r.hook_route_evidence,
+      hook_route_next_action: r.hook_route_next_action,
       remote_dependency_risk: r.remote_dependency_risk,
       dependency_range_policy: r.dependency_range_policy,
       dependency_refresh_survival: r.dependency_refresh_survival,
