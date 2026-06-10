@@ -496,6 +496,7 @@ function toCsv(rows) {
     "related_lifecycle_result",
     "related_lifecycle_receipt",
   ];
+  if (rows.length === 0) return `${headers.join(",")}\n`;
   return `${headers.join(",")}\n${rows.map((row) => headers.map((header) => csvCell(row[header])).join(",")).join("\n")}\n`;
 }
 

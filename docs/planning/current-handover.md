@@ -76,7 +76,7 @@ There are two live parity surfaces, and they answer different questions:
 | Surface | Current reading | Use it for |
 | --- | --- | --- |
 | Selected live Helm-vs-ConfigHub comparison | 20 committed receipts: 20 pass, 0 watch, 0 blocked. | Comparing regular Helm with ConfigHub delivery for one selected row per top-20 chart. |
-| Live parity rerun queue | 1 active non-pass row in the two-cluster parity lane: 0 watch, 1 blocked, 0 semantic parity defects. | Choosing the next exact row that needs a target-fit decision before rerun. |
+| Live parity rerun queue | No active non-pass rerun rows; 0 watch, 0 blocked, 0 semantic parity defects in the active queue. | Strict non-pass cert-manager `default` is lifecycle-routed and should not be rerun unless the hook decision changes. |
 
 The watch and blocked rows are not currently object-set parity defects. They
 surface target prerequisites, hook/lifecycle routes, controller health, storage,
@@ -121,7 +121,7 @@ ConfigHub proof: partial by exact chart-recipe-variant row
 local live cluster proof: partial by exact chart-recipe-variant row
 GitOps/OCI live proof: partial by exact chart-recipe-variant row; use generated status for current pass, watch, blocked, and missing counts
 selected live Helm-vs-ConfigHub comparison: 20 top-20 rows pass, 0 watch, 0 blocked
-broader live parity rerun queue: 0 watch, 1 blocked, 0 semantic parity defects in the active two-cluster queue
+broader live parity rerun queue: 0 watch, 0 blocked, 0 semantic parity defects in the active two-cluster queue
 lifecycle observation proof: cert-manager and External Secrets exact rows pass, generic hook lifecycle support remains backlog
 ```
 

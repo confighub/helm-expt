@@ -25,7 +25,7 @@ hashicorp/consul,2.0.0,default-control-plane,pass,,runs/live-kind-parity/hashico
 hashicorp/consul,2.0.0,secure-mesh-existing-secrets,pass,,runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml
 hashicorp/vault,0.32.0,default,pass,,runs/live-kind-parity/hashicorp-vault-default/receipt.yaml
 hashicorp/vault,0.32.0,dev-mode,pass,,runs/live-kind-parity/hashicorp-vault-dev-mode/receipt.yaml
-hashicorp/vault,0.32.0,ha-raft-ui,blocked,target-fit: HA raft target topology not satisfied (parity passed),runs/live-kind-parity/hashicorp-vault-ha-raft-ui/receipt.yaml
+hashicorp/vault,0.32.0,ha-raft-ui,pass,,runs/live-kind-parity/hashicorp-vault-ha-raft-ui/receipt.yaml
 ingress-nginx/ingress-nginx,4.15.1,admission-disabled,pass,,runs/live-kind-parity/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml
 ingress-nginx/ingress-nginx,4.15.1,default,pass,,runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml
 ingress-nginx/ingress-nginx,4.15.1,internal-clusterip,pass,,runs/live-kind-parity/ingress-nginx-ingress-nginx-internal-clusterip/receipt.yaml

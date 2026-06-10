@@ -206,10 +206,10 @@ Live Helm-vs-ConfigHub parity has started:
 Strict two-cluster Helm-vs-installer parity now has committed receipts for all
 42 maintained top-20 base variants:
 
-- 35 rows pass;
-- 1 row is watch;
-- 6 rows are blocked by target prerequisites, runtime readiness, storage,
-  hooks, or operating-policy decisions;
+- 41 rows pass;
+- 0 rows are watch;
+- 1 row is blocked by a Helm post-install hook route that has separate
+  lifecycle observation evidence;
 - 0 rows currently report a semantic parity defect.
 
 Use the generated rerun plan for the next command and expected remediation:
@@ -218,16 +218,10 @@ Use the generated rerun plan for the next command and expected remediation:
 For the shortest active queue, use:
 [Active Proof Queue](../../data/status-dashboard/active-proof-queue.csv).
 
-The current rerun queue has no semantic parity defects. Its 6 active non-pass
-rows are grouped by the next action needed before a rerun is useful. Each row
-links to a support artifact when the chart already has one.
-
-| Next step | Rows | Meaning |
-| --- | ---: | --- |
-| stage prerequisite | 2 | Use the target-prerequisite plan, stage the target facts, then capture a fresh observation receipt. |
-| target fit review | 2 | Use the target topology or operating policy to choose a fitting target or a smaller base. |
-| lifecycle route | 1 | Use the lifecycle policy to execute or observe the selected route. |
-| operating policy | 1 | Record the operating decision before expecting a different readiness result. |
+The current rerun queue has no active non-pass rows and no semantic parity
+defects. The remaining strict non-pass row is cert-manager `default`; it is
+lifecycle-routed, with the hook-like behavior tracked in the separate lifecycle
+observation lane.
 
 Production support decisions are now closed for the top-20 catalog:
 

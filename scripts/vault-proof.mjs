@@ -64,6 +64,12 @@ ui:
     expectedCRDCount: 0,
     expectedSecretCount: 0,
     targetFactNote: "adds HA discovery, Raft storage, PDB, active/standby services, and UI exposure as variant-controlled outputs",
+    targetFacts: {
+      requiredTopology: {
+        minimumSchedulableNodes: 3,
+        purpose: "schedule the three Vault server replicas rendered by the HA Raft base",
+      },
+    },
   },
 ];
 

@@ -1195,7 +1195,7 @@ spec:
     -
       chart: "hashicorp/vault"
       version: "0.32.0"
-      status: "production-review-ready"
+      status: "production-blocked"
       supportedLocalTestVariants:
         - "dev-mode"
         - "default"
@@ -1274,6 +1274,15 @@ spec:
             - "backup/restore path"
             - "rollback constraints"
           unblockRule: "supported only when stateful rollback is not hand-waved"
+        -
+          name: "target fact preflight"
+          state: "required"
+          owner: "installer-review"
+          requiredEvidence:
+            - "installer externalRequires/facts"
+            - "preflight command or documented block"
+            - "freshness expectation"
+          unblockRule: "supported only when required target facts are checkable before apply"
         -
           name: "webhook readiness and failure policy"
           state: "accepted"

@@ -12,3 +12,7 @@ spec:
     apiVersions:
       []
   hookPolicy: "no-hooks"
+  targetFacts:
+    requiredTopology:
+      minimumSchedulableNodes: 3
+      purpose: "schedule the three Vault server replicas rendered by the HA Raft base"

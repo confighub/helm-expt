@@ -16,11 +16,11 @@ or runtime review.
 ~~~text
 base variants: 42
 start-here: 20
-try-with-proof: 20
+try-with-proof: 21
 runtime-watch: 0
 runtime-review-needed: 0
 operating-policy-needed: 0
-target-fit-needed: 1
+target-fit-needed: 0
 target-prerequisite-needed: 0
 hook-lifecycle-review-needed: 0
 lifecycle-observed: 1
@@ -31,7 +31,7 @@ render-only: 0
 Live rerun readiness for non-pass rows:
 
 ~~~text
-model-or-stage-first: 1
+model-or-stage-first: 0
 review-target-first: 0
 inspect-diff-first: 0
 rerun-now-after-cleanup: 0
@@ -83,7 +83,7 @@ rerun-now-after-cleanup: 0
 | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims | - |
 | `hashicorp/vault@0.32.0` | dev-mode | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `hashicorp/vault@0.32.0` | default | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims | - |
-| `hashicorp/vault@0.32.0` | ha-raft-ui | no | target-fit-needed | model-or-stage-first | target-fit: HA raft target topology not satisfied (parity passed) | use recipes/hashicorp/vault/0.32.0/operating-policy.yaml to pick a fitting target or create a smaller base for this proof target | [`recipes/hashicorp/vault/0.32.0/operating-policy.yaml`](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) |
+| `hashicorp/vault@0.32.0` | ha-raft-ui | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims | - |
 | `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | yes | start-here | - | all core lanes plus two-cluster parity pass for this base | use as the first catalog path; check production disposition before production use | - |
 | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims | - |
 | `ingress-nginx/ingress-nginx@4.15.1` | default | no | try-with-proof | - | render parity and two-cluster live parity pass, but one or more broader lanes are missing | run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims | - |
