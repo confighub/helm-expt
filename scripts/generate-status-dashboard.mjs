@@ -872,6 +872,7 @@ function nextWorkQueuesToCsv(rows) {
 
 function activeProofQueueToCsv(rows) {
   const headers = ["chart", "base", "current_result", "next_step_type", "reason", "support_artifact", "receipt", "rerun_command"];
+  if (rows.length === 0) return `${headers.join(",")}\n`;
   return `${headers.join(",")}\n${rows.map((row) => headers.map((header) => csvCell(row[header] ?? "")).join(",")).join("\n")}\n`;
 }
 

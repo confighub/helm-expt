@@ -702,7 +702,6 @@ Proof lanes: render parity 3/3; ConfigHub 1/3; local live 2/3; GitOps live 1/3; 
 Hard gap: -
 Package: [packages/hashicorp/vault/0.32.0](packages/hashicorp/vault/0.32.0)
 Per-chart catalog: [CATALOG.md](recipes/hashicorp/vault/0.32.0/CATALOG.md)
-Helm pain report: [helm-pain-report.yaml](recipes/hashicorp/vault/0.32.0/helm-pain-report.yaml)
 
 Start here:
 
@@ -727,7 +726,7 @@ Receipts: [per-chart receipts](recipes/hashicorp/vault/0.32.0/CATALOG.md)
 ##### default
 
 When to use: vault default server with injector variant rendered from hashicorp/vault@0.32.0
-Readiness: operating-policy-needed
+Readiness: try-with-proof
 Namespace: vault
 Target facts: none
 Package base: [packages/hashicorp/vault/0.32.0/bases/default](packages/hashicorp/vault/0.32.0/bases/default)
@@ -741,7 +740,7 @@ Receipts: [per-chart receipts](recipes/hashicorp/vault/0.32.0/CATALOG.md)
 When to use: vault HA Raft with UI variant rendered from hashicorp/vault@0.32.0
 Readiness: target-fit-needed
 Namespace: vault
-Target facts: none
+Target facts: see variant targetFacts
 Package base: [packages/hashicorp/vault/0.32.0/bases/ha-raft-ui](packages/hashicorp/vault/0.32.0/bases/ha-raft-ui)
 Variant file: [recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml](recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml)
 Rendered objects: [recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml](recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml)
@@ -964,7 +963,7 @@ Receipts: [per-chart receipts](recipes/grafana/tempo/1.24.4/CATALOG.md)
 ##### s3-query-observability
 
 When to use: tempo S3 query and observability variant rendered from grafana/tempo@1.24.4
-Readiness: target-prerequisite-needed
+Readiness: try-with-proof
 Namespace: tempo
 Target facts: required Secret tempo/tempo-s3-credentials keys access_key,secret_key; required CRD servicemonitors.monitoring.coreos.com; required Value tempo.storage.trace.s3.endpoint (pre-render); required Value tempo.storage.trace.s3.bucket (pre-render); required Value tempo.storage.trace.s3.region (pre-render)
 Package base: [packages/grafana/tempo/1.24.4/bases/s3-query-observability](packages/grafana/tempo/1.24.4/bases/s3-query-observability)
@@ -1009,7 +1008,7 @@ Receipts: [per-chart receipts](recipes/hashicorp/consul/2.0.0/CATALOG.md)
 ##### secure-mesh-existing-secrets
 
 When to use: consul secure mesh with existing Secrets variant rendered from hashicorp/consul@2.0.0
-Readiness: target-fit-needed
+Readiness: try-with-proof
 Namespace: consul
 Target facts: required Secret consul/consul-ca-cert keys tls.crt; required Secret consul/consul-server-cert keys tls.crt,tls.key; required Secret consul/consul-gossip-encryption-key keys key; required Secret consul/consul-bootstrap-acl-token keys token
 Package base: [packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets](packages/hashicorp/consul/2.0.0/bases/secure-mesh-existing-secrets)

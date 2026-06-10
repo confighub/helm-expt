@@ -224,8 +224,10 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredTopology:
+          minimumSchedulableNodes: 3
+          purpose: "schedule the three Vault server replicas rendered by the HA Raft base"
+      targetFactSummary: "see variant targetFacts"
       packageBase:
         name: "ha-raft-ui"
         path: "packages/hashicorp/vault/0.32.0/bases/ha-raft-ui"
@@ -244,7 +246,7 @@ spec:
           name: "ha-raft-ui-r001"
           revision: "r001"
           variantRevision: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/variant-revision.yaml"
-          digest: "3d43dd4d6483d895a502d416e3814f880ec3e1f3276a4a77f78d32ac279366e7"
+          digest: "8961fc7dfc008815d652289b9591f2c4ec407ff9f9869d6a91f835d72476c6be"
           renderedObjectSetSHA256: "734a212cbb2e8d11ed288d32bc8b709e859248ef5587090b04e0fa407b248b5f"
           renderedObjects: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/object-inventory.yaml"

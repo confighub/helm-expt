@@ -1,2 +1,1 @@
 chart,base,current_result,next_step_type,reason,support_artifact,receipt,rerun_command
-hashicorp/vault@0.32.0,ha-raft-ui,blocked,target-fit-review,target-fit: HA raft target topology not satisfied (parity passed),recipes/hashicorp/vault/0.32.0/operating-policy.yaml,runs/live-kind-parity/hashicorp-vault-ha-raft-ui/receipt.yaml,npm run kind-parity:run -- --chart hashicorp/vault --version 0.32.0 --base ha-raft-ui

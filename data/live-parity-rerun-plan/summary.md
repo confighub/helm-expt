@@ -10,12 +10,12 @@ row to diagnose failures. Do not treat an infrastructure or upstream-runtime
 block as a ConfigHub-vs-Helm parity defect unless the semantic comparison fails.
 
 ```text
-rows: 1
+rows: 0
 lifecycle-routed-not-active-rerun: 1
-blocked: 1
+blocked: 0
 watch: 0
 configHub-oci-live-comparison: 0
-two-cluster-kind-parity: 1
+two-cluster-kind-parity: 0
 semantic-parity-defects: 0
 infra-or-rig-rows: 0
 prerequisite-or-lifecycle-rows: 0
@@ -27,7 +27,7 @@ runtime-or-watch-rows: 0
 | Lane | Rows | Pass | Watch | Blocked | Fail |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | configHub-oci-live-comparison | 0 | 0 | 0 | 0 | 0 |
-| two-cluster-kind-parity | 1 | 0 | 0 | 1 | 0 |
+| two-cluster-kind-parity | 0 | 0 | 0 | 0 | 0 |
 
 The ConfigHub/OCI live comparison rows in this queue are current `watch` rows.
 They have semantic parity and need runtime, target, or controller-health review.
@@ -48,7 +48,7 @@ The `blocked` rows are currently from the two-cluster kind parity lane.
 
 | Next step | Rows | What to do |
 | --- | ---: | --- |
-| target-fit-review | 1 | Choose a target that provides the required platform behavior, or create a base that fits the target. |
+
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
 usually need a model or target decision before another rerun is useful. Rows in
@@ -63,7 +63,7 @@ reasonable live rerun candidates.
 
 | Readiness | Rows | Meaning |
 | --- | ---: | --- |
-| model-or-stage-first | 1 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+
 
 ## Run Safety
 
@@ -87,7 +87,7 @@ faithful to the locked chart/version without changing the recipe.
 
 | Priority | Readiness | Next step | Lane | Chart | Base | Current | Reason | Support artifact | Command |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 50 | model-or-stage-first | target-fit-review | two-cluster-kind-parity | `hashicorp/vault@0.32.0` | ha-raft-ui | blocked | target-fit: HA raft target topology not satisfied (parity passed) | [`recipes/hashicorp/vault/0.32.0/operating-policy.yaml`](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) | `npm run kind-parity:run -- --chart hashicorp/vault --version 0.32.0 --base ha-raft-ui` |
+
 
 ## Related Lifecycle Evidence
 

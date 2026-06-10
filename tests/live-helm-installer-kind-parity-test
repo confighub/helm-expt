@@ -965,9 +965,128 @@ def run_vault_default_operating_policy(kubeconfig: Path, context: str, namespace
     }
 
 
+def run_vault_ha_raft_operating_policy(kubeconfig: Path, context: str, namespace: str) -> dict:
+    pods = ["vault-0", "vault-1", "vault-2"]
+    pod_states = {pod: wait_for_pod_running(kubeconfig, context, namespace, pod, timeout_seconds=300) for pod in pods}
+    not_running = {pod: state for pod, state in pod_states.items() if state.get("result") != "pass"}
+    if not_running:
+        return {"result": "blocked", "operation": "vault-ha-raft-init-unseal", "pods": pod_states}
+
+    def vault_exec(pod: str, command: str, timeout: int = 120) -> tuple[int, str, str]:
+        return kubectl(["-n", namespace, "exec", pod, "--", "sh", "-ec", command], kubeconfig, context, timeout=timeout)
+
+    status_cmd = "VAULT_ADDR=http://127.0.0.1:8200 vault status -format=json || true"
+    _status_rc, status_before, _status_err = vault_exec("vault-0", status_cmd)
+    init_cmd = "VAULT_ADDR=http://127.0.0.1:8200 vault operator init -key-shares=1 -key-threshold=1 -format=json"
+    init_rc, init_out, init_err = vault_exec("vault-0", init_cmd)
+    if init_rc != 0:
+        return {
+            "result": "blocked",
+            "operation": "vault-ha-raft-init-unseal",
+            "statusBefore": redacted_vault_status(status_before),
+            "initResult": "blocked",
+            "detail": (init_err or init_out)[:1000],
+        }
+    try:
+        init_payload = json.loads(init_out)
+    except json.JSONDecodeError:
+        return {
+            "result": "blocked",
+            "operation": "vault-ha-raft-init-unseal",
+            "statusBefore": redacted_vault_status(status_before),
+            "initResult": "blocked",
+            "detail": "vault operator init did not return JSON",
+        }
+    unseal_keys = init_payload.get("unseal_keys_b64") or []
+    root_token = init_payload.get("root_token")
+    if not unseal_keys or not root_token:
+        return {
+            "result": "blocked",
+            "operation": "vault-ha-raft-init-unseal",
+            "statusBefore": redacted_vault_status(status_before),
+            "initResult": "blocked",
+            "detail": "vault operator init returned incomplete local proof material",
+        }
+
+    unseal_results = {}
+    join_results = {}
+    unseal_cmd = f"VAULT_ADDR=http://127.0.0.1:8200 vault operator unseal {unseal_keys[0]}"
+    unseal_rc, unseal_out, unseal_err = vault_exec("vault-0", unseal_cmd)
+    unseal_results["vault-0"] = {
+        "result": "pass" if unseal_rc == 0 else "blocked",
+        "detailSHA256": sha256_text(unseal_out if unseal_rc == 0 else (unseal_err or unseal_out)),
+    }
+    for pod in pods[1:]:
+        join_cmd = f"VAULT_ADDR=http://127.0.0.1:8200 VAULT_TOKEN={root_token} vault operator raft join http://vault-0.vault-internal:8200"
+        join_rc, join_out, join_err = vault_exec(pod, join_cmd)
+        join_results[pod] = {
+            "result": "pass" if join_rc == 0 else "blocked",
+            "detailSHA256": sha256_text(join_out if join_rc == 0 else (join_err or join_out)),
+        }
+        unseal_cmd = f"VAULT_ADDR=http://127.0.0.1:8200 vault operator unseal {unseal_keys[0]}"
+        unseal_rc, unseal_out, unseal_err = vault_exec(pod, unseal_cmd)
+        unseal_results[pod] = {
+            "result": "pass" if unseal_rc == 0 else "blocked",
+            "detailSHA256": sha256_text(unseal_out if unseal_rc == 0 else (unseal_err or unseal_out)),
+        }
+    if any(item["result"] != "pass" for item in join_results.values()) or any(item["result"] != "pass" for item in unseal_results.values()):
+        return {
+            "result": "blocked",
+            "operation": "vault-ha-raft-init-unseal",
+            "statusBefore": redacted_vault_status(status_before),
+            "initResult": "pass",
+            "joinResults": join_results,
+            "unsealResults": unseal_results,
+            "custody": "unseal key and root token were held in process memory only and not written to the receipt",
+        }
+
+    deadline = time.monotonic() + 300
+    statuses = {}
+    raft_peer_count = 0
+    while time.monotonic() < deadline:
+        statuses = {}
+        for pod in pods:
+            status_rc, status_out, _status_err = vault_exec(pod, status_cmd)
+            statuses[pod] = redacted_vault_status(status_out)
+            statuses[pod]["commandResult"] = "pass" if status_rc == 0 else "blocked"
+        peer_cmd = f"VAULT_ADDR=http://127.0.0.1:8200 VAULT_TOKEN={root_token} vault operator raft list-peers -format=json || true"
+        _peer_rc, peer_out, _peer_err = vault_exec("vault-0", peer_cmd)
+        try:
+            peer_payload = json.loads(peer_out)
+            raft_peer_count = len(peer_payload.get("data", {}).get("config", {}).get("servers", []) or [])
+        except json.JSONDecodeError:
+            raft_peer_count = 0
+        if (
+            all(item.get("initialized") is True and item.get("sealed") is False for item in statuses.values())
+            and raft_peer_count >= 3
+        ):
+            break
+        time.sleep(10)
+
+    passed = (
+        all(item.get("initialized") is True and item.get("sealed") is False for item in statuses.values())
+        and raft_peer_count >= 3
+    )
+    return {
+        "result": "pass" if passed else "blocked",
+        "operation": "vault-ha-raft-init-unseal",
+        "pods": pods,
+        "statusBefore": redacted_vault_status(status_before),
+        "initResult": "pass",
+        "joinResults": join_results,
+        "unsealResults": unseal_results,
+        "statusAfter": statuses,
+        "raftPeerCount": raft_peer_count,
+        "custody": "unseal key and root token were held in process memory only and not written to the receipt",
+        "detail": "" if passed else "Vault HA pods did not all report initialized=false/sealed=false with three Raft peers before timeout",
+    }
+
+
 def post_render_operations(chart: str, base: str, kubeconfig: Path, context: str, namespace: str) -> dict:
     if chart == "hashicorp/vault" and base == "default":
         return run_vault_default_operating_policy(kubeconfig, context, namespace)
+    if chart == "hashicorp/vault" and base == "ha-raft-ui":
+        return run_vault_ha_raft_operating_policy(kubeconfig, context, namespace)
     return {"result": "pass", "operation": "none"}
 
 

@@ -22,7 +22,7 @@ Accepted disposition receipts recorded: 104
 | `grafana/loki@7.0.0` | single-binary-filesystem, simple-scalable-minio | production-review-ready | 5 | 0 | 0 | recipe-lifecycle-policy | 1 |
 | `grafana/tempo@1.24.4` | local-persistent, s3-query-observability | production-review-ready | 4 | 0 | 0 | none | 1 |
 | `hashicorp/consul@2.0.0` | default-control-plane, secure-mesh-existing-secrets | production-review-ready | 8 | 0 | 0 | recipe-lifecycle-policy | 1 |
-| `hashicorp/vault@0.32.0` | dev-mode, default, ha-raft-ui | production-review-ready | 5 | 0 | 0 | none | 2 |
+| `hashicorp/vault@0.32.0` | dev-mode, default, ha-raft-ui | production-blocked | 5 | 1 | 0 | none | 2 |
 | `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled, internal-clusterip | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 2 |
 | `jetstack/cert-manager@v1.20.2` | default, crds-enabled | production-review-ready | 6 | 0 | 0 | recipe-hook-policy:no-hooks; lifecycle-observations:2/2 | 1 |
 | `longhorn/longhorn@1.11.2` | default, ui-ingress | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
@@ -50,7 +50,6 @@ The same queue is available as `next-actions.csv`.
 | `bitnami/rabbitmq@16.0.14` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `grafana/grafana@10.5.15` | 5 | 0 |  | - | existing-secret-ingress: warn, 3 finding(s) (no-read-only-root-fs:1;unset-cpu-requirements:1;unset-memory-requirements:1); generated-passwords: warn, 3 finding(s) (no-read-only-root-fs:1;unset-cpu-requirements:1;unset-memory-requirements:1) |
 | `grafana/loki@7.0.0` | 5 | 0 |  | - | simple-scalable-minio: warn, 18 finding(s) (unset-memory-requirements:9;unset-cpu-requirements:8;no-read-only-root-fs:1); single-binary-filesystem: warn, 12 finding(s) (unset-cpu-requirements:6;unset-memory-requirements:6) |
-| `hashicorp/vault@0.32.0` | 5 | 0 |  | - | default: warn, 9 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2;liveness-port:1;readiness-port:1); ha-raft-ui: warn, 12 finding(s) (dangling-service:2;no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2;liveness-port:1) |
 | `ingress-nginx/ingress-nginx@4.15.1` | 5 | 0 |  | - | admission-disabled: warn, 4 finding(s) (liveness-port:1;no-read-only-root-fs:1;readiness-port:1;unset-memory-requirements:1); default: warn, 4 finding(s) (liveness-port:1;no-read-only-root-fs:1;readiness-port:1;unset-memory-requirements:1) |
 | `longhorn/longhorn@1.11.2` | 5 | 0 |  | - | default: warn, 24 finding(s) (no-read-only-root-fs:5;run-as-non-root:5;unset-cpu-requirements:5;unset-memory-requirements:5;dangling-service:2); ui-ingress: warn, 24 finding(s) (no-read-only-root-fs:5;run-as-non-root:5;unset-cpu-requirements:5;unset-memory-requirements:5;dangling-service:2) |
 | `metrics-server/metrics-server@3.13.0` | 5 | 0 |  | - | default: warn, 1 finding(s) (unset-memory-requirements:1); external-tls-ca: warn, 1 finding(s) (unset-memory-requirements:1) |
@@ -59,6 +58,7 @@ The same queue is available as `next-actions.csv`.
 | `grafana/tempo@1.24.4` | 4 | 0 |  | - | local-persistent: warn, 3 finding(s) (no-read-only-root-fs:1;unset-cpu-requirements:1;unset-memory-requirements:1); s3-query-observability: warn, 6 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2) |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | 4 | 0 |  | - | default: warn, 8 finding(s) (no-read-only-root-fs:3;run-as-non-root:3;privilege-escalation-container:1;privileged-container:1); sync-secret-rotation: warn, 8 finding(s) (no-read-only-root-fs:3;run-as-non-root:3;privilege-escalation-container:1;privileged-container:1) |
 | `prometheus-community/prometheus@29.8.0` | 3 | 0 |  | - | default: warn, 21 finding(s) (unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:4;sensitive-host-mounts:3;host-network:1); server-only-ephemeral: warn, 6 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2) |
+| `hashicorp/vault@0.32.0` | 5 | 1 | target fact preflight | data/production-disposition/receipts/hashicorp-vault/target-fact-preflight.yaml | default: warn, 9 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2;liveness-port:1;readiness-port:1); ha-raft-ui: warn, 12 finding(s) (dangling-service:2;no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2;liveness-port:1) |
 
 ## Production Decision Queue
 
@@ -81,7 +81,7 @@ runtime fit, and final support scope.
 | `grafana/loki@7.0.0` | single-binary-filesystem | start-here | image-digest-resolution | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | `grafana/tempo@1.24.4` | local-persistent | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `hashicorp/consul@2.0.0` | default-control-plane | start-here | image-digest-resolution | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
-| `hashicorp/vault@0.32.0` | dev-mode | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
+| `hashicorp/vault@0.32.0` | dev-mode | start-here | missing-disposition | 2 | write or fix the receipt for target fact preflight |
 | `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | start-here | lifecycle-support-scope | 0 | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | start-here | image-digest-resolution | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | `longhorn/longhorn@1.11.2` | default | start-here | security-acceptance-or-hardened-base | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
