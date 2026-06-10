@@ -77,7 +77,11 @@ Grouped by which claim is attacked. Each entry: the attack, the current defense,
 
 Eight tests, ordered by leverage. T1 and T2 first: T1 is cheap and converts every other test into a public scoreboard; T2 covers the weakest high-value claim.
 
-**T1. Claims register.** One generated page: every public claim, mapped to the receipt or lane that backs it, with status. The sceptic doc's taxonomy becomes rows. Anything claimed without a receipt is either re-scoped or removed. Cost: small; mostly exists across lane matrices and needs assembling. This is also the page that turns "where are you weak" from a gotcha into a link.
+**T1. Claims register.** The generated register lives at
+`data/claims-register/summary.md`. It maps public claims to status, evidence,
+verification commands, and limits. Anything claimed without a receipt, route, or
+explicit planning status should be re-scoped or removed. The ongoing task is to
+keep this register current as new proof lanes and product claims are added.
 
 **T2. Blast-radius prediction accuracy harness.** The killer test for the edges layer. For each chart and variant: mutate one input value, predict the affected objects and fields from the inheritance graph and value-source map, then actually re-render and diff. Score predicted-versus-actual (misses and phantoms), publish accuracy per chart per axis. Run it across the density hotspots first. Until this number exists, the blast-radius claim is an assertion; after it exists, an attacker has to beat a published benchmark instead of finding one anecdote.
 

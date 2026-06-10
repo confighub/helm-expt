@@ -14,7 +14,7 @@ Three newer planning inputs sharpen this queue:
   operations model: factory scans, image digest inventory, signed artifacts,
   refresh SLAs, private catalogs, and fleet-wide queries.
 - `robust-sceptic-plan.md` defines the public attack model: every claim needs
-  a receipt or route, and the next hard tests are claims registration,
+  a receipt or route, and the next hard tests are claims-register maintenance,
   blast-radius accuracy, torture fixtures, environment matrices, and external
   reproduction.
 
@@ -140,10 +140,11 @@ The newer sceptic plan adds two cross-cutting outcomes:
 20. **Public story surfaces** - keep the Helm pain docs, `CATALOG.md`, status
     dashboard, and static site current, and make the first-run path simple
     enough for outside testers.
-21. **Claims register and sceptic scoreboard** - generate a page that maps each
-    public claim to the evidence lane, receipt, route, or refusal that supports
-    it. This should include serverless, commercial, lifecycle, scan, signing,
-    and ConfigHub graph claims.
+21. **Claims register and sceptic scoreboard** - maintain
+    [data/claims-register/summary.md](../../data/claims-register/summary.md)
+    as the page that maps each public claim to the evidence lane, receipt,
+    route, or refusal that supports it. It should stay current as serverless,
+    commercial, lifecycle, scan, signing, and ConfigHub graph claims change.
 22. **Blast-radius prediction accuracy harness** - for selected density
     hotspots, mutate one input, predict affected objects/fields from the value
     and graph data, rerender, diff, and publish misses/phantoms. Until this
@@ -154,7 +155,7 @@ The newer sceptic plan adds two cross-cutting outcomes:
 Treat 1-3 as the immediate correction: `helm-expt` needs more visible derived
 variants, and the docs must line up with the real `cub variant create` command.
 Tasks 18, 21, and 22 are now the strongest trust builders: lifecycle evidence,
-claim-to-receipt mapping, and measured blast-radius accuracy. Tasks 9-13 remain
+claim-to-receipt maintenance, and measured blast-radius accuracy. Tasks 9-13 remain
 the highest-value configuration-as-data lanes inside this repo. GitOps, release,
 and promotion UI come next because they make the product story legible without
 asking humans to follow every low-level CLI step.
