@@ -92,6 +92,7 @@ Which detailed CSV should I open next?
 | hooks | maintained hook queue rows | 5/11 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
 | hooks | source-reviewed hook rows not yet maintained | 8/11 | gap | [data/hook-lifecycle-review/top100-source-hook-route-review.csv](../../data/hook-lifecycle-review/top100-source-hook-route-review.csv) |
 | hooks | source-reviewed hook rows with candidate route plans | 8/8 | partial | [data/hook-route-candidates/candidates.csv](../../data/hook-route-candidates/candidates.csv) |
+| hooks | hook candidate route work orders | 60/60 | partial | [data/hook-route-candidates/work-orders.csv](../../data/hook-route-candidates/work-orders.csv) |
 | hooks | hook route receipts present | 5/5 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
 | hooks | hook lifecycle observations present | 3/5 | gap | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
 | hooks | hook partial lifecycle observations present | 2/5 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
@@ -170,6 +171,7 @@ lifecycle route, target fit, or operating policy.
 | Queue | Rows | Next action |
 | --- | ---: | --- |
 | Hook candidate route plans | 8 | Use these as reviewed inputs; do not treat them as maintained receipts or runtime proof. |
+| Hook candidate work orders | 60 | Assign base rendering, dependency closure, target preflight, GitOps mapping, receipt, and observation tasks from the generated work-order list. |
 | Hook candidates not yet maintained | 8 | Promote each candidate into a maintained lifecycle receipt, runtime observation path, or explicit blocker before support claims. |
 | Hook route selected, observation pending | 0 | Run the selected lifecycle path and commit execution or observation receipts. |
 | Hook install lifecycle observed, remaining phase pending | 2 | Run the remaining lifecycle phase, such as upgrade, and commit the execution or observation receipt. |
@@ -495,6 +497,7 @@ lifecycle observation.
 | Which remote dependency closures are locked? | [remote-dependency-closure/summary.md](../remote-dependency-closure/summary.md) |
 | Which top-100 source rows contain Helm hooks? | [hook-lifecycle/source-top100-hooks.csv](../hook-lifecycle/source-top100-hooks.csv) |
 | Which maintained hook rows need lifecycle receipts? | [hook-lifecycle/maintained-hook-queue.csv](../hook-lifecycle/maintained-hook-queue.csv) |
+| Which hook route candidates have assignable next work? | [hook-route-candidates/work-orders.md](../hook-route-candidates/work-orders.md) |
 | Which hook claims are queued versus observed? | [lifecycle-boundary/summary.md](../lifecycle-boundary/summary.md) |
 | Which Helm artifacts have recovered graph fragments? | [edge-recovery/summary.md](../edge-recovery/summary.md) |
 | Which live comparisons passed or failed? | [live-helm-confighub-compare/summary.csv](../live-helm-confighub-compare/summary.csv) |
