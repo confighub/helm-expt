@@ -1,0 +1,61 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  name: "prometheus-server-only-ephemeral-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "a1ff9f44451cc28aaeed183a5d36fdf2551dbc4647714a2565c30d9512a4af8b"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.1.0"
+  policyBundleDigest: "a6d4fd79aec5deaa2337167e5179de45fd2b7a2b8e9b4e33ac2e0a7511425cae"
+  findingCounts:
+    critical: 0
+    high: 0
+    medium: 7
+    low: 0
+    info: 0
+  findings:
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||prometheus-server"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||prometheus-server"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||prometheus-server"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||prometheus-server"
+      message: "Prometheus RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||prometheus-server"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||prometheus-server"
+      message: "Cluster-scoped RBAC requires production review"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||prometheus-server"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||prometheus-server"
+      message: "Prometheus RBAC requires production review"
+    -
+      id: "extension-slot-review:prometheus-values"
+      rule: "extension-slot-review"
+      severity: "medium"
+      object: "values|extraScrapeConfigs|scrapeConfigFiles|remoteWrite|remoteRead|extraManifests|ingress|networkPolicy|podDisruptionBudget"
+      message: "Extra scrape, remote read/write, ingress, network policy, PDB, and extra-manifest slots must be scanned when populated"
+    -
+      id: "monitoring-workload-review:apps/v1|Deployment|monitoring|prometheus-server"
+      rule: "monitoring-workload-review"
+      severity: "medium"
+      object: "apps/v1|Deployment|monitoring|prometheus-server"
+      message: "Monitoring workload rollout, storage, retention, and rollback policy require production review"
+    -
+      id: "scrape-config-review:v1|ConfigMap|monitoring|prometheus-server"
+      rule: "scrape-config-review"
+      severity: "medium"
+      object: "v1|ConfigMap|monitoring|prometheus-server"
+      message: "Prometheus scrape configuration, service discovery scope, and remote read/write settings require production review"

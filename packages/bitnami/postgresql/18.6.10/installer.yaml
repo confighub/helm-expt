@@ -1,0 +1,37 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "bitnami-postgresql"
+  version: "18.6.10"
+spec:
+  bases:
+    -
+      name: "generated-passwords"
+      path: "bases/generated-passwords"
+      default: true
+      description: "postgresql generated passwords variant rendered from bitnami/postgresql@18.6.10"
+    -
+      name: "existing-secret"
+      path: "bases/existing-secret"
+      description: "postgresql existing Secret variant rendered from bitnami/postgresql@18.6.10"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "Secret postgresql/postgresql-auth key postgres-password"
+          namespace: "postgresql"
+          suggestedSource: "kubectl -n postgresql create secret generic postgresql-auth --from-literal=postgres-password=<value>"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check existing Secret requirements."
+  transformers:
+    -
+      description: "Set the namespace on every namespaced resource."
+      invocations:
+        -
+          name: "set-namespace"
+          args:
+            - "{{ .Namespace }}"
+      toolchain: "Kubernetes/YAML"
+      whereResource: ""

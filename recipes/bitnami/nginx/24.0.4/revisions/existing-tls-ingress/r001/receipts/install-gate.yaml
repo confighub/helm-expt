@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "nginx-existing-tls-ingress-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "35c8f535452c33518088a067f035d6249750b0a67245138feaf84d728c94588f"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for existing-tls-ingress"
+    - "Default generated TLS is either disabled or replaced by explicit target Secret requirements"
+    - "Helm hook behavior needs explicit lifecycle policy before production"
+    - "NGINX deployment, NetworkPolicy, PDB, service exposure, ingress, and extension slots need production review"
+    - "requires target Secrets nginx/nginx-backend-tls and nginx/nginx-ingress-tls before apply"

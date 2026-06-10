@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "bitnami-mongodb-19.0.9"
+spec:
+  chart: "bitnami/mongodb"
+  version: "19.0.9"
+  dependencies:
+    -
+      name: "common"
+      repository: "oci://registry-1.docker.io/bitnamicharts"
+      tags:
+        - "bitnami-common"
+      version: "2.40.0"
+  chartLockDigest: null

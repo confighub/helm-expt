@@ -1,0 +1,49 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ValueModel"
+metadata:
+  name: "bitnami-nginx-24.0.4"
+spec:
+  checkedValues:
+    -
+      path: "image.digest"
+      variant: "all"
+      disposition: "pinned-image"
+      reason: "supported bases pin the Bitnami NGINX image by digest instead of rendering the chart default latest tag"
+    -
+      path: "tls.enabled"
+      variant: "http-clusterip"
+      disposition: "generated-fact-avoided"
+      reason: "default chart auto-generates self-signed TLS material; this variant disables TLS for a deterministic internal service"
+    -
+      path: "tls.existingSecret"
+      variant: "existing-tls-ingress"
+      disposition: "target-fact-bound"
+      reason: "externalizes backend TLS material into a declared target Secret instead of rendering generated certs"
+    -
+      path: "ingress.enabled / ingress.hostname / ingress.ingressClassName / ingress.extraTls"
+      variant: "existing-tls-ingress"
+      disposition: "ui-exposure-bound"
+      reason: "edge exposure is only added by an explicit variant with host, class, and external TLS Secret captured"
+    -
+      path: "service.type"
+      variant: "all"
+      disposition: "exposure-profile-bound"
+      reason: "promoted variants use ClusterIP to avoid implicit cloud load balancer behavior in the proof"
+    -
+      path: "serverBlock / streamServerBlock / extraDeploy"
+      variant: "all"
+      disposition: "extension-slot"
+      reason: "raw/template extension slots are powerful config surfaces; promoted variants keep them empty"
+    -
+      path: "cloneStaticSiteFromGit.*"
+      variant: "all"
+      disposition: "supply-chain-slot-disabled"
+      reason: "git-clone sidecars introduce external source and credential inputs; promoted variants keep them disabled"
+    -
+      path: "metrics.enabled / metrics.serviceMonitor.enabled"
+      variant: "all"
+      disposition: "observability-addons-disabled"
+      reason: "Prometheus exporter and ServiceMonitor objects are explicit later variants, not hidden defaults"
+  unknownValues: "not-checked"
+  deadValues: "not-checked"
+  ignoredValues: "not-checked"

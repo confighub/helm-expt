@@ -68,6 +68,7 @@ function buildReport() {
   summary.currentProofsTotal = proofIndex.proofs.length;
   summary.currentProofsMatched = usedProofIds.size;
   summary.currentProofsUnmatchedToOldMatrix = proofIndex.proofs.length - usedProofIds.size;
+  summary.retainedCandidateProofVersions = proofIndex.retainedCandidateProofs;
   return {
     rows,
     summary,
@@ -79,10 +80,7 @@ function buildReport() {
 }
 
 function currentProofIndex() {
-  const proofs = [];
-  const byChart = new Map();
-  const byNameVersion = new Map();
-  const byName = new Map();
+  const allProofs = [];
   for (const recipePath of listFiles(join(repoRoot, "recipes")).filter((file) => file.endsWith("/recipe.yaml"))) {
     const root = dirname(recipePath);
     const indexPath = join(root, "artifact-index.yaml");
@@ -155,8 +153,14 @@ function currentProofIndex() {
       weirdnessPath: index.spec?.recipe?.weirdnessAndMitigations ?? "",
       receiptKinds,
     };
-    proofs.push(proof);
-    byChart.set(chart, proof);
+    allProofs.push(proof);
+  }
+  const proofs = primaryProofs(allProofs);
+  const byChart = new Map();
+  const byNameVersion = new Map();
+  const byName = new Map();
+  for (const proof of proofs) {
+    byChart.set(proof.chart, proof);
     const nameVersion = `${proof.name}@${normalizeVersion(proof.version)}`;
     if (!byNameVersion.has(nameVersion)) byNameVersion.set(nameVersion, []);
     byNameVersion.get(nameVersion).push(proof);
@@ -164,7 +168,18 @@ function currentProofIndex() {
     byName.get(proof.name).push(proof);
   }
   check(proofs.length === 100, `expected 100 current recipe proofs, found ${proofs.length}`);
-  return { proofs, byChart, byNameVersion, byName };
+  return { proofs, retainedCandidateProofs: allProofs.length - proofs.length, byChart, byNameVersion, byName };
+}
+
+function primaryProofs(proofs) {
+  const byChart = new Map();
+  for (const proof of proofs) {
+    if (!byChart.has(proof.chart)) byChart.set(proof.chart, []);
+    byChart.get(proof.chart).push(proof);
+  }
+  return [...byChart.values()]
+    .map((items) => items.find((proof) => proof.catalogStatus === "catalog-supported") ?? items[0])
+    .sort((left, right) => left.chart.localeCompare(right.chart));
 }
 
 function matchProof(source, proofIndex, usedProofIds) {
@@ -357,6 +372,7 @@ rows: ${summary.rows}
 source scanned: ${summary.sourceScanned}
 source failed: ${summary.sourceFailed}
 current proof recipes in repo: ${summary.currentProofsTotal}
+retained newer candidate proof versions: ${summary.retainedCandidateProofVersions}
 current proof recipes matched to retained source-scan rows: ${summary.currentProofsMatched}
 current proof recipes not represented in retained source-scan rows: ${summary.currentProofsUnmatchedToOldMatrix}
 current recipe proofs: ${summary.currentRecipeRows}
@@ -378,7 +394,8 @@ catalog-supported production-review-ready: ${summary.productionReviewReadySuppor
 
 - Helm complexity is normal, not exceptional. The high-rank rows include CRDs,
   hooks, generated facts, lookup, tpl, RBAC, webhooks, and stateful storage.
-- ${summary.currentProofsTotal} current recipe/package/proof artifacts exist in this repo.
+- ${summary.currentProofsTotal} current chart recipe/package/proof artifacts exist in this repo.
+- ${summary.retainedCandidateProofVersions} newer candidate version artifact(s) are retained separately and are not counted as additional chart coverage.
 - ${summary.currentRecipeRows} of the top-500 source rows currently match those
   proof artifacts.
 - ${summary.catalogSupported} matched rows are catalog-supported for the

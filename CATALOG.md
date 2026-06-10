@@ -1019,12 +1019,14 @@ Helm equivalence: 97/97 objects matched
 Receipts: [per-chart receipts](recipes/hashicorp/consul/2.0.0/CATALOG.md)
 
 
-## Full 100-Chart Proof Index
+## Full Proof Index (106 Entries)
 
-The rows below include the live-tested top 20 plus 80 proof-grade
-recipe/package artifacts. `catalog-supported` means reviewed variants for
-the declared scope. `proof-grade` means machine-verified artifacts that
-still need catalog promotion review before support is claimed.
+The rows below include the live-tested top 20, proof-grade recipe/package
+artifacts, and any retained newer chart-version candidates. `catalog-supported`
+means reviewed variants for the declared scope. `catalog-candidate` means
+a newer or richer candidate is visible for review but is not the supported
+catalog version. `proof-grade` means machine-verified artifacts that still
+need catalog promotion review before support is claimed.
 
 | Chart | Status | Bucket | Evidence | Start With | Hard Gap | Catalog |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -1049,6 +1051,7 @@ still need catalog promotion review before support is claimed.
 | grafana/tempo@1.24.4 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | local-persistent | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) | [CATALOG.md](recipes/grafana/tempo/1.24.4/CATALOG.md) |
 | hashicorp/consul@2.0.0 | catalog-supported | try-from-public-catalog | live-helm-vs-confighub-parity | default-control-plane | ha (curated proof lane - bespoke teaching needed) | [CATALOG.md](recipes/hashicorp/consul/2.0.0/CATALOG.md) |
 | aqua/trivy-operator@0.32.1 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/aqua/trivy-operator/0.32.1/CATALOG.md) |
+| argo-cd/argo-cd@9.5.17 | catalog-candidate | - | - | default | - | [CATALOG.md](recipes/argo-cd/argo-cd/9.5.17/CATALOG.md) |
 | argo-cd/argo-events@2.4.21 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/argo-cd/argo-events/2.4.21/CATALOG.md) |
 | argo-cd/argo-rollouts@2.40.9 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/argo-cd/argo-rollouts/2.40.9/CATALOG.md) |
 | argo-cd/argo-workflows@1.0.14 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/argo-cd/argo-workflows/1.0.14/CATALOG.md) |
@@ -1060,8 +1063,11 @@ still need catalog promotion review before support is claimed.
 | bitnami/contour@21.1.4 | proof-grade | limitation-decision-first | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/contour/21.1.4/CATALOG.md) |
 | bitnami/elasticsearch@22.1.6 | proof-grade | limitation-decision-first | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/elasticsearch/22.1.6/CATALOG.md) |
 | bitnami/memcached@8.5.5 | proof-grade | needs-useful-variant | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/memcached/8.5.5/CATALOG.md) |
+| bitnami/mongodb@19.0.9 | catalog-candidate | - | - | generated-passwords | - | [CATALOG.md](recipes/bitnami/mongodb/19.0.9/CATALOG.md) |
+| bitnami/nginx@24.0.4 | catalog-candidate | - | - | http-clusterip | - | [CATALOG.md](recipes/bitnami/nginx/24.0.4/CATALOG.md) |
 | bitnami/opensearch@2.0.10 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/bitnami/opensearch/2.0.10/CATALOG.md) |
 | bitnami/phpmyadmin@20.0.0 | proof-grade | needs-useful-variant | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/phpmyadmin/20.0.0/CATALOG.md) |
+| bitnami/postgresql@18.6.10 | catalog-candidate | - | - | generated-passwords | - | [CATALOG.md](recipes/bitnami/postgresql/18.6.10/CATALOG.md) |
 | bitnami/spark@10.0.3 | proof-grade | limitation-decision-first | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/spark/10.0.3/CATALOG.md) |
 | bitnami/zookeeper@13.8.7 | proof-grade | limitation-decision-first | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/zookeeper/13.8.7/CATALOG.md) |
 | cloudnative-pg/cloudnative-pg@0.28.2 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/cloudnative-pg/cloudnative-pg/0.28.2/CATALOG.md) |
@@ -1112,12 +1118,14 @@ still need catalog promotion review before support is claimed.
 | percona/pxc-operator@1.19.1 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/percona/pxc-operator/1.19.1/CATALOG.md) |
 | projectcalico/tigera-operator@v3.32.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/projectcalico/tigera-operator/v3.32.0/CATALOG.md) |
 | prometheus-community/alertmanager@1.37.0 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/prometheus-community/alertmanager/1.37.0/CATALOG.md) |
+| prometheus-community/kube-prometheus-stack@86.1.0 | catalog-candidate | - | - | default | - | [CATALOG.md](recipes/prometheus-community/kube-prometheus-stack/86.1.0/CATALOG.md) |
 | prometheus-community/kube-state-metrics@7.4.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/prometheus-community/kube-state-metrics/7.4.0/CATALOG.md) |
 | prometheus-community/prometheus-adapter@5.3.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md) |
 | prometheus-community/prometheus-blackbox-exporter@11.10.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/CATALOG.md) |
 | prometheus-community/prometheus-node-exporter@4.55.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-node-exporter/4.55.0/CATALOG.md) |
 | prometheus-community/prometheus-operator-crds@29.0.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-operator-crds/29.0.0/CATALOG.md) |
 | prometheus-community/prometheus-pushgateway@3.6.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-pushgateway/3.6.0/CATALOG.md) |
+| prometheus-community/prometheus@29.9.0 | catalog-candidate | - | - | default | - | [CATALOG.md](recipes/prometheus-community/prometheus/29.9.0/CATALOG.md) |
 | rook-release/rook-ceph-cluster@v1.19.5 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/rook-release/rook-ceph-cluster/v1.19.5/CATALOG.md) |
 | rook-release/rook-ceph@v1.19.5 | proof-grade | needs-useful-variant | render-parity | default | no-crds (template-baked CRDs; no clean chart toggle yet) | [CATALOG.md](recipes/rook-release/rook-ceph/v1.19.5/CATALOG.md) |
 | runix/pgadmin4@1.62.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/runix/pgadmin4/1.62.0/CATALOG.md) |

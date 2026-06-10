@@ -1,0 +1,13 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "DependencyLock"
+metadata:
+  name: "argo-cd-argo-cd-9.5.17"
+spec:
+  chart: "argo-cd/argo-cd"
+  version: "9.5.17"
+  dependencies:
+    -
+      name: "redis-ha"
+      repository: "https://dandydeveloper.github.io/charts/"
+      version: "4.34.11"
+  chartLockDigest: "sha256:c8810d74bdcdbec4db273601203c1cf8a32c9a35c82caf0c9bfd7a750c7ca1fa"

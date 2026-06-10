@@ -1,4 +1,4 @@
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import {
   check,
@@ -248,7 +248,7 @@ function buildStatus(root) {
   const version = String(helmPlan.spec?.readiness?.version ?? sourceLock.spec?.version ?? recipe.metadata?.version ?? "");
   const variantNames = (recipe.spec?.variants ?? []).map((path) => dirname(path).split("/").at(-1));
   const proofTier = recipe.metadata?.labels?.["confighub.io/proof-tier"] ?? "bespoke-top20";
-  const status = statusFor(chart, proofTier, variantNames.length);
+  const status = statusFor(chart, version, proofTier, variantNames.length);
   const name = `${chart.replaceAll("/", "-")}-${version}`;
   const productionReadiness =
     status === "catalog-supported"
@@ -263,10 +263,11 @@ function buildStatus(root) {
   const supportedVariants = status === "catalog-supported" ? variantNames : [];
   const candidateVariants = status === "catalog-supported" ? [] : variantNames;
   const notes =
-    supportedCatalogEntries[chart]?.notes ??
-    (status === "catalog-candidate"
+    status === "catalog-supported"
+      ? (supportedCatalogEntries[chart]?.notes ?? [])
+      : status === "catalog-candidate"
         ? ["Machine proof exists; human product review must confirm the supported variants and production dispositions."]
-        : ["Machine proof exists; catalog support is not claimed until variant and product review are complete."]);
+        : ["Machine proof exists; catalog support is not claimed until variant and product review are complete."];
 
   return {
     path: join(root, "catalog-status.yaml"),
@@ -297,16 +298,28 @@ ${listYaml(notes)}
   };
 }
 
-function statusFor(chart, proofTier, variantCount) {
-  if (supportedCatalogEntries[chart]) return "catalog-supported";
+function statusFor(chart, version, proofTier, variantCount) {
+  if (supportedCatalogEntries[chart] && currentSupportedVersions().get(chart) === version) return "catalog-supported";
   if (proofTier === "next80-full") return "proof-grade";
   if (variantCount > 1) return "catalog-candidate";
   return "proof-grade";
 }
 
+function currentSupportedVersions() {
+  const path = join(repoRoot, "data", "production-disposition", "top20.csv");
+  const result = new Map();
+  if (!existsSync(path)) return result;
+  for (const row of parseCsv(readFileSync(path, "utf8"))) {
+    if (row.chart && row.version) result.set(row.chart, row.version);
+  }
+  return result;
+}
+
 function verifyStatuses() {
   const roots = recipeRoots();
-  check(roots.length === 100, `expected 100 recipe roots, found ${roots.length}`);
+  const promotedCandidates = promotedLatestCandidateCount();
+  const expectedRoots = 100 + promotedCandidates;
+  check(roots.length === expectedRoots, `expected ${expectedRoots} recipe roots, found ${roots.length}`);
   let supported = 0;
   const supportedCharts = new Set();
   for (const root of roots) {
@@ -338,6 +351,16 @@ function verifyStatuses() {
   }
 }
 
+function promotedLatestCandidateCount() {
+  const path = join(repoRoot, "data", "latest-top20-refresh", "candidates", "candidate-status.csv");
+  if (!existsSync(path)) return 0;
+  return parseCsv(readFileSync(path, "utf8")).filter((row) => {
+    const recipePath = join(repoRoot, "recipes", row.chart, row.latest_version);
+    const packagePath = join(repoRoot, "packages", row.chart, row.latest_version);
+    return existsSync(recipePath) && existsSync(packagePath);
+  }).length;
+}
+
 function listYaml(values) {
   if (!values.length) return "    []";
   return values.map((value) => `    - ${quote(value)}`).join("\n");
@@ -345,4 +368,36 @@ function listYaml(values) {
 
 function quote(value) {
   return JSON.stringify(String(value));
+}
+
+function parseCsv(text) {
+  const lines = text.trim().split(/\r?\n/);
+  const headers = parseCsvLine(lines[0]);
+  return lines.slice(1).filter(Boolean).map((line) => {
+    const cells = parseCsvLine(line);
+    return Object.fromEntries(headers.map((header, index) => [header, cells[index] ?? ""]));
+  });
+}
+
+function parseCsvLine(line) {
+  const cells = [];
+  let cell = "";
+  let quoted = false;
+  for (let index = 0; index < line.length; index += 1) {
+    const char = line[index];
+    const next = line[index + 1];
+    if (char === '"' && quoted && next === '"') {
+      cell += '"';
+      index += 1;
+    } else if (char === '"') {
+      quoted = !quoted;
+    } else if (char === "," && !quoted) {
+      cells.push(cell);
+      cell = "";
+    } else {
+      cell += char;
+    }
+  }
+  cells.push(cell);
+  return cells;
 }

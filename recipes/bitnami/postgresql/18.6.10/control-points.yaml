@@ -1,0 +1,56 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ControlPoints"
+metadata:
+  name: "bitnami-postgresql-18.6.10"
+spec:
+  points:
+    -
+      category: "source-lock"
+      status: "handled"
+      evidence: "source-lock.yaml"
+    -
+      category: "dependency-lock"
+      status: "handled"
+      evidence: "dependency-lock.yaml"
+      note: "chart declares the Bitnami common dependency; promoted variants lock its metadata."
+    -
+      category: "capability-profile"
+      status: "handled"
+      kubeVersion: "1.30.0"
+      note: "Kubernetes API and version branches are bound to the named Kubernetes capability profile."
+    -
+      category: "generated-facts"
+      status: "variant-controlled"
+      evidence: "auth.postgresPassword"
+      note: "The generated-passwords variant binds the generated password before render so Helm output is deterministic."
+    -
+      category: "target-facts"
+      status: "variant-controlled"
+      evidence: "auth.existingSecret"
+      note: "The existing-secret variant declares the target Secret instead of rendering one."
+    -
+      category: "image-digest"
+      status: "handled"
+      digest: "sha256:2d3c068e58f89e0e29c6d41ffa3d00ff253e87a9426662c3ef11d2a0942ee653"
+      note: "Supported bases pin the Bitnami PostgreSQL image by digest."
+    -
+      category: "hook-policy"
+      status: "handled-for-render"
+      policy: "no-hooks"
+      note: "The retained source scan records hook count 0 for this pinned chart version. Supported bases render no hook objects; future hook-producing paths must map to lifecycle policy before production."
+    -
+      category: "stateful-workload"
+      status: "scan-and-review"
+      object: "apps/v1|StatefulSet|postgresql|postgresql"
+    -
+      category: "pvc-policy"
+      status: "scan-and-review"
+      note: "StatefulSet volumeClaimTemplates need storage, retention, upgrade, and rollback policy."
+    -
+      category: "tpl"
+      status: "controlled-by-empty-defaults"
+      note: "initdb and extended configuration slots use templating; promoted variants do not populate them."
+    -
+      category: "installer-support-object"
+      status: "handled"
+      object: "v1|Namespace||postgresql"

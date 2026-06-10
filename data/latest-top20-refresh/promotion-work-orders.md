@@ -11,9 +11,9 @@ happen before any candidate can replace the current supported catalog version.
 candidate charts: 6
 work-order rows: 48
 candidate render proof: already generated
-completed work-order rows: 30
-todo work-order rows: 18
-candidate support status: not promoted
+completed work-order rows: 48
+todo work-order rows: 0
+candidate support status: not support-promoted
 ```
 
 ## Candidates
@@ -36,20 +36,20 @@ candidate support status: not promoted
 | local-live-e2e | 6 | 0 | 0 |
 | live-parity | 6 | 0 | 0 |
 | production-disposition | 6 | 0 | 0 |
-| promote-versioned-root-paths | 0 | 6 | 0 |
-| catalog-and-site | 0 | 6 | 0 |
-| top100-top500-refresh | 0 | 6 | 0 |
+| promote-versioned-root-paths | 6 | 0 | 0 |
+| catalog-and-site | 6 | 0 | 0 |
+| top100-top500-refresh | 6 | 0 | 0 |
 
 ## Candidate Progress
 
 | Candidate | Done or generated lanes | Todo lanes | Next lane | Next action |
 | --- | ---: | ---: | --- | --- |
-| `argo-cd/argo-cd@9.5.17` | 5 / 8 | 3 | promote-versioned-root-paths | promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version |
-| `bitnami/mongodb@19.0.9` | 5 / 8 | 3 | promote-versioned-root-paths | promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version |
-| `bitnami/nginx@24.0.4` | 5 / 8 | 3 | promote-versioned-root-paths | promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version |
-| `bitnami/postgresql@18.6.10` | 5 / 8 | 3 | promote-versioned-root-paths | promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version |
-| `prometheus-community/kube-prometheus-stack@86.1.0` | 5 / 8 | 3 | promote-versioned-root-paths | promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version |
-| `prometheus-community/prometheus@29.9.0` | 5 / 8 | 3 | promote-versioned-root-paths | promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version |
+| `argo-cd/argo-cd@9.5.17` | 8 / 8 | 0 | none | all lanes complete |
+| `bitnami/mongodb@19.0.9` | 8 / 8 | 0 | none | all lanes complete |
+| `bitnami/nginx@24.0.4` | 8 / 8 | 0 | none | all lanes complete |
+| `bitnami/postgresql@18.6.10` | 8 / 8 | 0 | none | all lanes complete |
+| `prometheus-community/kube-prometheus-stack@86.1.0` | 8 / 8 | 0 | none | all lanes complete |
+| `prometheus-community/prometheus@29.9.0` | 8 / 8 | 0 | none | all lanes complete |
 
 ## How To Use This
 

@@ -72,7 +72,8 @@
     "productionReviewReadySupported": 20,
     "currentProofsTotal": 100,
     "currentProofsMatched": 91,
-    "currentProofsUnmatchedToOldMatrix": 9
+    "currentProofsUnmatchedToOldMatrix": 9,
+    "retainedCandidateProofVersions": 6
   },
   "summary": {
     "catalogSupported": 20,
@@ -93,7 +94,7 @@
     "top100CoverageDecisionQueue": 7,
     "refreshCurrentRows": 14,
     "refreshUpdateCandidates": 6,
-    "refreshCandidatesWithRenderProof": 6,
+    "refreshCandidatesWithRenderProof": 0,
     "top100ChartsWithLiveEvidence": 28,
     "liveParityRerunRows": 0,
     "liveParityRerunSemanticDefects": 0,
@@ -229,7 +230,7 @@
     {
       "section": "refresh",
       "metric": "update candidates with render proof",
-      "value": "6",
+      "value": "0",
       "total": "6",
       "status": "partial",
       "source": "data/refresh-survival/refreshes.csv",
@@ -3490,43 +3491,43 @@
       "chart": "argo-cd/argo-cd",
       "currentVersion": "9.5.15",
       "candidateVersion": "9.5.17",
-      "readiness": "ready-for-full-lane-promotion",
-      "nextAction": "run ConfigHub proof, live e2e, catalog status, production disposition, root catalog, top-100, and top-500 lanes before replacing the supported version"
+      "readiness": "root-path-promoted-review-required",
+      "nextAction": "refresh catalog, site, top-100, top-500, status, and refresh-survival surfaces; then run target-scoped product review before any support replacement"
     },
     {
       "chart": "bitnami/mongodb",
       "currentVersion": "19.0.7",
       "candidateVersion": "19.0.9",
-      "readiness": "ready-for-full-lane-promotion",
-      "nextAction": "run ConfigHub proof, live e2e, catalog status, production disposition, root catalog, top-100, and top-500 lanes before replacing the supported version"
+      "readiness": "root-path-promoted-review-required",
+      "nextAction": "refresh catalog, site, top-100, top-500, status, and refresh-survival surfaces; then run target-scoped product review before any support replacement"
     },
     {
       "chart": "bitnami/nginx",
       "currentVersion": "24.0.2",
       "candidateVersion": "24.0.4",
-      "readiness": "ready-for-full-lane-promotion",
-      "nextAction": "run ConfigHub proof, live e2e, catalog status, production disposition, root catalog, top-100, and top-500 lanes before replacing the supported version"
+      "readiness": "root-path-promoted-review-required",
+      "nextAction": "refresh catalog, site, top-100, top-500, status, and refresh-survival surfaces; then run target-scoped product review before any support replacement"
     },
     {
       "chart": "bitnami/postgresql",
       "currentVersion": "18.6.7",
       "candidateVersion": "18.6.10",
-      "readiness": "ready-for-full-lane-promotion",
-      "nextAction": "run ConfigHub proof, live e2e, catalog status, production disposition, root catalog, top-100, and top-500 lanes before replacing the supported version"
+      "readiness": "root-path-promoted-review-required",
+      "nextAction": "refresh catalog, site, top-100, top-500, status, and refresh-survival surfaces; then run target-scoped product review before any support replacement"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
       "currentVersion": "85.3.3",
       "candidateVersion": "86.1.0",
-      "readiness": "ready-for-full-lane-promotion",
-      "nextAction": "run ConfigHub proof, live e2e, catalog status, production disposition, root catalog, top-100, and top-500 lanes before replacing the supported version"
+      "readiness": "root-path-promoted-review-required",
+      "nextAction": "refresh catalog, site, top-100, top-500, status, and refresh-survival surfaces; then run target-scoped product review before any support replacement"
     },
     {
       "chart": "prometheus-community/prometheus",
       "currentVersion": "29.8.0",
       "candidateVersion": "29.9.0",
-      "readiness": "ready-for-full-lane-promotion",
-      "nextAction": "run ConfigHub proof, live e2e, catalog status, production disposition, root catalog, top-100, and top-500 lanes before replacing the supported version"
+      "readiness": "root-path-promoted-review-required",
+      "nextAction": "refresh catalog, site, top-100, top-500, status, and refresh-survival surfaces; then run target-scoped product review before any support replacement"
     }
   ],
   "baseReadiness": [
@@ -5493,30 +5494,30 @@
       "current_version": "9.5.15",
       "latest_version": "9.5.17",
       "refresh_state": "upstream-update-candidate",
-      "candidate_proof": "candidate-render-proof-present",
+      "candidate_proof": "candidate-proof-complete-root-path-present",
       "candidate_variants": "default;no-crds",
       "candidate_object_counts": "no-crds:46;default:49",
-      "catalog_state": "not-promoted",
-      "promotion_state": "ready-for-full-lane-promotion",
+      "catalog_state": "root-path-present",
+      "promotion_state": "root-path-promoted-review-required",
       "live_promotion_state": "not-yet-live-promoted",
       "source_review": "data/latest-top20-refresh/review.csv",
       "candidate_evidence": "data/latest-top20-refresh/candidates/argo-cd-9.5.17/recipes/argo-cd/argo-cd/9.5.17",
-      "next_action": "run ConfigHub proof, live e2e, production disposition, catalog, top100, and top500 lanes before replacement"
+      "next_action": "review target-scoped production support decision before replacing the supported version"
     },
     {
       "chart": "bitnami/mongodb",
       "current_version": "19.0.7",
       "latest_version": "19.0.9",
       "refresh_state": "upstream-update-candidate",
-      "candidate_proof": "candidate-render-proof-present",
+      "candidate_proof": "candidate-proof-complete-root-path-present",
       "candidate_variants": "generated-passwords;existing-secret-replicaset",
       "candidate_object_counts": "generated-passwords:8;existing-secret-replicaset:10",
-      "catalog_state": "not-promoted",
-      "promotion_state": "ready-for-full-lane-promotion",
+      "catalog_state": "root-path-present",
+      "promotion_state": "root-path-promoted-review-required",
       "live_promotion_state": "not-yet-live-promoted",
       "source_review": "data/latest-top20-refresh/review.csv",
       "candidate_evidence": "data/latest-top20-refresh/candidates/mongodb-19.0.9/recipes/bitnami/mongodb/19.0.9",
-      "next_action": "run ConfigHub proof, live e2e, production disposition, catalog, top100, and top500 lanes before replacement"
+      "next_action": "review target-scoped production support decision before replacing the supported version"
     },
     {
       "chart": "bitnami/mysql",
@@ -5538,30 +5539,30 @@
       "current_version": "24.0.2",
       "latest_version": "24.0.4",
       "refresh_state": "upstream-update-candidate",
-      "candidate_proof": "candidate-render-proof-present",
+      "candidate_proof": "candidate-proof-complete-root-path-present",
       "candidate_variants": "http-clusterip;existing-tls-ingress",
       "candidate_object_counts": "existing-tls-ingress:6;http-clusterip:5",
-      "catalog_state": "not-promoted",
-      "promotion_state": "ready-for-full-lane-promotion",
+      "catalog_state": "root-path-present",
+      "promotion_state": "root-path-promoted-review-required",
       "live_promotion_state": "not-yet-live-promoted",
       "source_review": "data/latest-top20-refresh/review.csv",
       "candidate_evidence": "data/latest-top20-refresh/candidates/nginx-24.0.4/recipes/bitnami/nginx/24.0.4",
-      "next_action": "run ConfigHub proof, live e2e, production disposition, catalog, top100, and top500 lanes before replacement"
+      "next_action": "review target-scoped production support decision before replacing the supported version"
     },
     {
       "chart": "bitnami/postgresql",
       "current_version": "18.6.7",
       "latest_version": "18.6.10",
       "refresh_state": "upstream-update-candidate",
-      "candidate_proof": "candidate-render-proof-present",
+      "candidate_proof": "candidate-proof-complete-root-path-present",
       "candidate_variants": "generated-passwords;existing-secret",
       "candidate_object_counts": "generated-passwords:7;existing-secret:6",
-      "catalog_state": "not-promoted",
-      "promotion_state": "ready-for-full-lane-promotion",
+      "catalog_state": "root-path-present",
+      "promotion_state": "root-path-promoted-review-required",
       "live_promotion_state": "not-yet-live-promoted",
       "source_review": "data/latest-top20-refresh/review.csv",
       "candidate_evidence": "data/latest-top20-refresh/candidates/postgresql-18.6.10/recipes/bitnami/postgresql/18.6.10",
-      "next_action": "run ConfigHub proof, live e2e, production disposition, catalog, top100, and top500 lanes before replacement"
+      "next_action": "review target-scoped production support decision before replacing the supported version"
     },
     {
       "chart": "bitnami/rabbitmq",
@@ -5748,30 +5749,30 @@
       "current_version": "85.3.3",
       "latest_version": "86.1.0",
       "refresh_state": "upstream-update-candidate",
-      "candidate_proof": "candidate-render-proof-present",
+      "candidate_proof": "candidate-proof-complete-root-path-present",
       "candidate_variants": "default;no-crds",
       "candidate_object_counts": "no-crds:114;default:124",
-      "catalog_state": "not-promoted",
-      "promotion_state": "ready-for-full-lane-promotion",
+      "catalog_state": "root-path-present",
+      "promotion_state": "root-path-promoted-review-required",
       "live_promotion_state": "not-yet-live-promoted",
       "source_review": "data/latest-top20-refresh/review.csv",
       "candidate_evidence": "data/latest-top20-refresh/candidates/kube-prometheus-stack-86.1.0/recipes/prometheus-community/kube-prometheus-stack/86.1.0",
-      "next_action": "run ConfigHub proof, live e2e, production disposition, catalog, top100, and top500 lanes before replacement"
+      "next_action": "review target-scoped production support decision before replacing the supported version"
     },
     {
       "chart": "prometheus-community/prometheus",
       "current_version": "29.8.0",
       "latest_version": "29.9.0",
       "refresh_state": "upstream-update-candidate",
-      "candidate_proof": "candidate-render-proof-present",
+      "candidate_proof": "candidate-proof-complete-root-path-present",
       "candidate_variants": "default;server-only-ephemeral",
       "candidate_object_counts": "server-only-ephemeral:6;default:23",
-      "catalog_state": "not-promoted",
-      "promotion_state": "ready-for-full-lane-promotion",
+      "catalog_state": "root-path-present",
+      "promotion_state": "root-path-promoted-review-required",
       "live_promotion_state": "not-yet-live-promoted",
       "source_review": "data/latest-top20-refresh/review.csv",
       "candidate_evidence": "data/latest-top20-refresh/candidates/prometheus-29.9.0/recipes/prometheus-community/prometheus/29.9.0",
-      "next_action": "run ConfigHub proof, live e2e, production disposition, catalog, top100, and top500 lanes before replacement"
+      "next_action": "review target-scoped production support decision before replacing the supported version"
     },
     {
       "chart": "secrets-store-csi-driver/secrets-store-csi-driver",

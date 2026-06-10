@@ -13,20 +13,21 @@ versions.
 ```text
 Latest-version candidates checked: 6
 Complete candidate artifact sets: 6 / 6
-Not yet promoted to root catalog paths: 6 / 6
-Ready for full-lane promotion work: 6 / 6
+Not yet promoted to root catalog paths: 0 / 6
+Root catalog paths present: 6 / 6
+Ready for root-path promotion work: 0 / 6
 ```
 
 ## Candidates
 
 | Chart | Current supported version | Candidate version | Variants | Candidate artifacts | Catalog promotion | Readiness |
 | --- | --- | --- | --- | --- | --- | --- |
-| `argo-cd/argo-cd` | `9.5.15` | `9.5.17` | `default`, `no-crds` | complete | not-promoted | ready-for-full-lane-promotion |
-| `bitnami/mongodb` | `19.0.7` | `19.0.9` | `generated-passwords`, `existing-secret-replicaset` | complete | not-promoted | ready-for-full-lane-promotion |
-| `bitnami/nginx` | `24.0.2` | `24.0.4` | `http-clusterip`, `existing-tls-ingress` | complete | not-promoted | ready-for-full-lane-promotion |
-| `bitnami/postgresql` | `18.6.7` | `18.6.10` | `generated-passwords`, `existing-secret` | complete | not-promoted | ready-for-full-lane-promotion |
-| `prometheus-community/kube-prometheus-stack` | `85.3.3` | `86.1.0` | `default`, `no-crds` | complete | not-promoted | ready-for-full-lane-promotion |
-| `prometheus-community/prometheus` | `29.8.0` | `29.9.0` | `default`, `server-only-ephemeral` | complete | not-promoted | ready-for-full-lane-promotion |
+| `argo-cd/argo-cd` | `9.5.15` | `9.5.17` | `default`, `no-crds` | complete | root-path-present | root-path-promoted-review-required |
+| `bitnami/mongodb` | `19.0.7` | `19.0.9` | `generated-passwords`, `existing-secret-replicaset` | complete | root-path-present | root-path-promoted-review-required |
+| `bitnami/nginx` | `24.0.2` | `24.0.4` | `http-clusterip`, `existing-tls-ingress` | complete | root-path-present | root-path-promoted-review-required |
+| `bitnami/postgresql` | `18.6.7` | `18.6.10` | `generated-passwords`, `existing-secret` | complete | root-path-present | root-path-promoted-review-required |
+| `prometheus-community/kube-prometheus-stack` | `85.3.3` | `86.1.0` | `default`, `no-crds` | complete | root-path-present | root-path-promoted-review-required |
+| `prometheus-community/prometheus` | `29.8.0` | `29.9.0` | `default`, `server-only-ephemeral` | complete | root-path-present | root-path-promoted-review-required |
 
 ## Required Lanes Before Support
 
@@ -42,9 +43,9 @@ catalog version:
 - top-100 analysis
 - top-500 analysis
 
-The previous supported version remains the catalog version until those lanes
-produce receipts and the generated catalog, production-disposition, top-100, and
-top-500 outputs are regenerated.
+The previous supported version remains the supported catalog version until those
+lanes produce receipts and the generated catalog, production-disposition,
+top-100, and top-500 outputs are regenerated and explicitly reviewed.
 
 The generated lane work orders are:
 

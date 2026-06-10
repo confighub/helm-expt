@@ -16,6 +16,7 @@ top-500 = source-feature reconnaissance plus any matching recipe proof
 rows: 100
 top-20 catalog-supported entries: 20
 next-80 proof-grade entries: 80
+retained newer candidate versions: 6
 catalog-supported: 20
 proof-grade: 80
 multi-variant entries: 54
@@ -39,6 +40,8 @@ hard gap for at least one recommended capability: 25
 - Latest-version currentness is tracked only for the top-20 catalog-supported
   lane at the moment. The broader top-100 currentness lane should wait until
   the current top-20 update candidates are promoted or explicitly deferred.
+- Retained newer candidate versions are visible elsewhere in the catalog, but
+  they are not counted as additional top-100 chart identities.
 
 ## Readiness Tiers
 

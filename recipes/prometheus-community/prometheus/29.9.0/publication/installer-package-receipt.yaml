@@ -1,0 +1,67 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallerPackageReceipt"
+metadata:
+  name: "prometheus-29.9.0"
+spec:
+  chart:
+    repository: "prometheus-community"
+    name: "prometheus"
+    version: "29.9.0"
+  package:
+    path: "packages/prometheus-community/prometheus/29.9.0"
+    name: "prometheus"
+    version: "29.9.0"
+    sourceFiles:
+      -
+        path: "README.md"
+        sha256: "1b702354032d6ec3110d594ee1418058c29065e0e990c878159c3d47545a0dd0"
+        bytes: 204
+      -
+        path: "bases/default/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/default/upstream.yaml"
+        sha256: "08dacfbc1ecd3ef9956999398bbf30a7a8dd083dccde23c589853da525541d36"
+        bytes: 38656
+      -
+        path: "bases/server-only-ephemeral/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/server-only-ephemeral/upstream.yaml"
+        sha256: "a1ff9f44451cc28aaeed183a5d36fdf2551dbc4647714a2565c30d9512a4af8b"
+        bytes: 16492
+      -
+        path: "installer.yaml"
+        sha256: "0b66203af6fac0bd2015df69cd0b3b15159c1484c5c43a19f85f654ac282080c"
+        bytes: 532
+  deterministicBundle:
+    command: "cub installer package packages/prometheus-community/prometheus/29.9.0 -o <tmp>/prometheus-29.9.0.tgz"
+    sha256: "05ad4d8e8867b8240e1e1f5fa8efd112469e689651c72dbcbc62466a1b96e4e9"
+    byteIdenticalAcrossTwoLocalBundles: true
+  setupChecks:
+    -
+      variant: "default"
+      base: "default"
+      command: "cub installer setup --pull packages/prometheus-community/prometheus/29.9.0 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+      helmReleaseObjectCount: 23
+      cubInstallObjectCountIncludingSupport: 24
+      semanticObjectMatches: "23/23"
+      separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      allowedCubOnlyObjects:
+        - "v1|Namespace||monitoring"
+    -
+      variant: "server-only-ephemeral"
+      base: "server-only-ephemeral"
+      command: "cub installer setup --pull packages/prometheus-community/prometheus/29.9.0 --base server-only-ephemeral --work-dir <tmp> --non-interactive --namespace monitoring"
+      helmReleaseObjectCount: 6
+      cubInstallObjectCountIncludingSupport: 7
+      semanticObjectMatches: "6/6"
+      separatedSecretCount: 0
+      targetFactMode: "not-required"
+      targetFactsBound: false
+      allowedCubOnlyObjects:
+        - "v1|Namespace||monitoring"

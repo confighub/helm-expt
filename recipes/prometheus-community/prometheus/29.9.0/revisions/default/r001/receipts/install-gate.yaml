@@ -1,0 +1,20 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "prometheus-default-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "08dacfbc1ecd3ef9956999398bbf30a7a8dd083dccde23c589853da525541d36"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for default"
+    - "Bundled component ownership and dependency policy must be explicit before production"
+    - "Prometheus scrape configuration and service discovery scope need production review"
+    - "Storage, retention, Alertmanager, and rollback policy need production review"
+    - "Cluster RBAC and workload exposure need production review"
+    - "Remote read/write, ingress, network policy, PDB, and extra-manifest slots must be reviewed when populated"
+    - "installs the full bundled monitoring stack; scrape, storage, and alerting policy remain explicit operating decisions"

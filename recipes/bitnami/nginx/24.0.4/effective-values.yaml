@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "bitnami-nginx-24.0.4-http-clusterip"
+spec:
+  files:
+    -
+      path: "effective-values.yaml"
+      source: "inline-proof"
+      sha256: "ebcb5b64a5fd30c566d3619b5e98f744e5df7eebb3968fd949444f59d2dcab40"
+  mergedValuesCaptured: false
+  values:
+    image:
+      digest: "sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f"
+    service:
+      type: "ClusterIP"
+    tls:
+      enabled: false

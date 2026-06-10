@@ -19,14 +19,16 @@ dependencies, cluster RBAC, and many rendered monitoring resources.
 
 | Variant | Current object count | Candidate object count | Current evidence | Candidate evidence |
 | --- | ---: | ---: | --- | --- |
-| `default` | 124 | 124 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/object-inventory.yaml` | `data/latest-top20-refresh/candidates/kube-prometheus-stack-86.1.0/recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/rendered/object-inventory.yaml` |
-| `no-crds` | 114 | 114 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/object-inventory.yaml` | `data/latest-top20-refresh/candidates/kube-prometheus-stack-86.1.0/recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/no-crds/r001/rendered/object-inventory.yaml` |
+| `default` | 124 | 124 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/object-inventory.yaml` | `recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/rendered/object-inventory.yaml` |
+| `no-crds` | 114 | 114 | `recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/object-inventory.yaml` | `recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/no-crds/r001/rendered/object-inventory.yaml` |
 
-The candidate has render proof only. It is not a supported catalog replacement.
+The candidate has proof-complete root paths. It is not a supported catalog
+replacement.
 
 ## Required Upgrade Proof
 
-Before replacing the supported catalog version, the upgrade lane must produce:
+Before replacing the supported catalog version, the upgrade lane must produce
+or confirm:
 
 1. old rendered object set versus new rendered object set;
 2. field-level diff with provenance where available;
@@ -36,7 +38,8 @@ Before replacing the supported catalog version, the upgrade lane must produce:
 6. ConfigHub upload, function scan, safe-ops, and server-side variant receipts;
 7. live kind observation before and after upgrade;
 8. live Helm-vs-ConfigHub parity for the upgraded target profile;
-9. updated catalog, production disposition, top100, and top500 outputs.
+9. updated catalog, production disposition, top100, and top500 outputs;
+10. target-scoped production support decision for the replacement.
 
 ## Current Decision
 

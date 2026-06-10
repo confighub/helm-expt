@@ -1,0 +1,32 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "bitnami-nginx"
+  version: "24.0.4"
+spec:
+  bases:
+    -
+      name: "http-clusterip"
+      path: "bases/http-clusterip"
+      default: true
+      description: "nginx plain HTTP ClusterIP variant rendered from bitnami/nginx@24.0.4"
+    -
+      name: "existing-tls-ingress"
+      path: "bases/existing-tls-ingress"
+      description: "nginx existing TLS with ingress variant rendered from bitnami/nginx@24.0.4"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "Secret nginx/nginx-backend-tls keys tls.crt,tls.key,ca.crt"
+          namespace: "nginx"
+          suggestedSource: "kubectl -n nginx create secret generic nginx-backend-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value> --from-literal=ca.crt=<value>"
+        -
+          kind: "ClusterFeature"
+          name: "Secret nginx/nginx-ingress-tls keys tls.crt,tls.key"
+          namespace: "nginx"
+          suggestedSource: "kubectl -n nginx create secret generic nginx-ingress-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value>"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check existing Secret requirements."

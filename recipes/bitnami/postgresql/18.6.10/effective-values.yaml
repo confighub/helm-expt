@@ -1,0 +1,16 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "EffectiveValues"
+metadata:
+  name: "bitnami-postgresql-18.6.10-generated-passwords"
+spec:
+  files:
+    -
+      path: "effective-values.yaml"
+      source: "inline-proof"
+      sha256: "40505b37779bd9ea9b7b0200c7be1a240b5c0a1f150b55e8f5c9010a3d370a41"
+  mergedValuesCaptured: false
+  values:
+    auth:
+      postgresPassword: "confighub-postgres-password"
+    image:
+      digest: "sha256:2d3c068e58f89e0e29c6d41ffa3d00ff253e87a9426662c3ef11d2a0942ee653"
