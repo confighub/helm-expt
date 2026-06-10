@@ -55,6 +55,7 @@ function readme(rows) {
     ["I want to know which catalog base to try first.", "data/top20-base-readiness/start-here.md"],
     ["I want to know whether any top-20 chart/base is easy, partial, blocked, or watch.", "data/top20-base-readiness/summary.md"],
     ["I want one spreadsheet row per chart/base proof lane.", "data/outcome-coverage/base-outcomes.csv"],
+    ["I want to check whether a public claim is backed, partial, planned, or refused.", "data/claims-register/summary.md; data/claims-register/claims.csv"],
     ["I want the top-100 coverage contract.", "data/top100-coverage/summary.md; data/top100-coverage/coverage.csv"],
     ["I want the strict top-100 work queue.", "data/top100-coverage/work-queue.md; data/top100-coverage/work-queue.csv; data/top100-coverage/decisions-needed.md"],
     ["I want the first strict top-100 promotion wave.", "data/top100-promotion-wave/summary.md; data/top100-promotion-wave/wave.csv"],
@@ -78,6 +79,8 @@ function readme(rows) {
     ["data/outcome-coverage/base-outcomes.csv", "One row per chart/base variant: render parity, ConfigHub proof, local live, GitOps/OCI live, live Helm parity."],
     ["data/outcome-coverage/derived-variant-outcomes.csv", "One row per derived ConfigHub variant: intended-state proof and target-bound live status."],
     ["data/outcome-coverage/feature-outcomes.csv", "One row per chart feature: hooks, generated secrets, CRDs, webhooks, required values, schemas, extension slots, gaps."],
+    ["data/claims-register/summary.md", "Claim-to-evidence register: public claims, status, evidence paths, scoped verifiers, and limits."],
+    ["data/claims-register/claims.csv", "Spreadsheet form of the claim-to-evidence register."],
     ["data/extension-slots/extension-slots.csv", "One row per chart with NGINX-like extension slots: scope, built variants, surfaces, route, evidence."],
     ["data/nginx-config-checks/checks.csv", "NGINX supported-base checks for empty config extension slots, sidecars, metrics, raw objects, and ingress shape."],
     ["data/lifecycle-boundary/summary.md", "Hook and hook-like lifecycle boundary: hook queue rows, lifecycle observations, evidence, and current limits."],
@@ -257,6 +260,7 @@ function audienceFor(path) {
   if (path.startsWith("data/status-dashboard/")) return "user/front-door";
   if (path.startsWith("data/top20-base-readiness/")) return "user/front-door";
   if (path.startsWith("data/outcome-coverage/")) return "user/front-door";
+  if (path.startsWith("data/claims-register/")) return "user/front-door";
   if (path.startsWith("data/pain-point-coverage/")) return "user/front-door";
   if (path.startsWith("data/top100-readiness/")) return "user/front-door";
   if (path.startsWith("data/top100-coverage/")) return "user/front-door";
@@ -290,6 +294,7 @@ function roleFor(path) {
   if (path === "data/outcome-coverage/base-outcomes.csv") return "one row per chart/base: proof lane status";
   if (path === "data/outcome-coverage/derived-variant-outcomes.csv") return "one row per derived variant: intended and target-bound status";
   if (path === "data/outcome-coverage/feature-outcomes.csv") return "one row per chart feature or quirk";
+  if (path === "data/claims-register/claims.csv") return "one row per public claim: status, evidence paths, scoped verifier, and limit";
   if (path === "data/pain-point-coverage/pain-points.csv") return "one row per Helm pain point: answer, handoff, evidence, gap";
   if (path === "data/top100-readiness/readiness.csv") return "one row per top-100 chart: workability, adoption bucket, strongest evidence, gap, next action, and queue source";
   if (path === "data/top100-readiness/next80-queues.csv") return "one row per next80 proof-grade chart: queue, rank, features, artifacts, and next action";
@@ -337,6 +342,7 @@ function familyRole(family) {
   const roles = {
     adversarial10: "hard-chart readiness and control-point analysis",
     "outcome-coverage": "front-door outcome, test, and status map",
+    "claims-register": "front-door public claim-to-evidence register",
     "status-dashboard": "one-page front-door status dashboard",
     "top20-base-readiness": "top-20 base-variant readiness and first-path guidance",
     "pain-point-coverage": "front-door Helm pain point coverage map",
@@ -418,6 +424,7 @@ function verifyForPath(path, family) {
 function commandMap() {
   return {
     "outcome-coverage": { generate: "npm run outcomes:generate", verify: "npm run outcomes:verify" },
+    "claims-register": { generate: "npm run claims:register", verify: "npm run claims:register:verify" },
     "status-dashboard": { generate: "npm run status:dashboard", verify: "npm run status:dashboard:verify" },
     "top20-base-readiness": { generate: "npm run top20:base-readiness", verify: "npm run top20:base-readiness:verify" },
     "pain-point-coverage": { generate: "npm run pain-points:generate", verify: "npm run pain-points:verify" },
