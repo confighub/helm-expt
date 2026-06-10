@@ -5,13 +5,13 @@ metadata:
 spec:
   variant: "../../../variants/s3-query-observability/variant.yaml"
   revision: "r001"
-  digest: "e78cb41fbb2946e8148ea50c33aefaa448abf9eb07033d9aa277d2d0cae03d96"
+  digest: "7b0f4953c927613a0fe94df67ae5ec22b62672da793f0dd65f123536e7a24ed6"
   digestInputs:
     recipeSHA256: "7e554f219d6569e0a76cd4d3d9fe826d87de0cb314c5ac76e6dd011cdcb52263"
-    variantSHA256: "b0708c658ab94a67279a117083b29f5f3b702cfa13c1afeed8c082a7217b5825"
-    effectiveValuesSHA256: "f7a6dd3d9af24e53eb855ee845638a6412b508ef9781a1bc23ae0ae0ca8bec19"
+    variantSHA256: "2582730b6db6a1b26c3b026b04065fc178936818dc8facf30ced57215bdf26d0"
+    effectiveValuesSHA256: "8141cbd34b9457c01ee624b01fe0d02010661c0a42a294134b0c927634715c1b"
     rendererSHA256: "7a50b4c9b14348e4d1e06831b3edb00ed0ded7b664edd0a5026beafa3aaa042c"
-    renderedObjectSetSHA256: "e647ad22435c55910e4c77470263e05daf026af43b59bde1f0ae7db754d3d5ad"
+    renderedObjectSetSHA256: "4e981336df773cdd82b2551d35d27d61f4b39e6a3df0a9a693ac81fd0d3cf8ed"
   rendered:
     releaseObjects: "rendered/release-objects.yaml"
     objectInventory: "rendered/object-inventory.yaml"

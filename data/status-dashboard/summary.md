@@ -32,10 +32,10 @@ Which detailed CSV should I open next?
 | proof lanes | local live rows | 23/158 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | GitOps/OCI live pass rows | 22/158 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | live Helm-vs-ConfigHub parity pass rows | 20/158 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | two-cluster kind parity pass rows | 38/42 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| proof lanes | two-cluster kind parity pass rows | 39/42 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | complete core lane rows | 20/158 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | top20 start-here base variants | 20/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
-| proof lanes | top20 bases needing unresolved prerequisite or runtime review | 3/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
+| proof lanes | top20 bases needing unresolved prerequisite or runtime review | 2/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | derived variants | derived variant golden rows | 10/10 | good | [data/variant-goldens/derived-expansion-wave/work-orders.csv](../../data/variant-goldens/derived-expansion-wave/work-orders.csv) |
 | derived variants | derived variant live create receipts | 10/10 | good | [runs/derived-variant-execution](../../runs/derived-variant-execution) |
 | derived variants | target-bound derived variant receipts | 6/10 | partial | [runs/derived-variant-target-bound](../../runs/derived-variant-target-bound) |
@@ -47,9 +47,9 @@ Which detailed CSV should I open next?
 | live evidence | runtime/GitOps wave rows | 10/10 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
 | live evidence | live Helm-vs-ConfigHub receipts | 20/20 | partial | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 42/42 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| live evidence | live parity rerun rows needing decisions | 3/3 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing model or staging first | 3/3 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
-| live evidence | live parity rows needing target review first | 0/3 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rerun rows needing decisions | 2/2 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing model or staging first | 2/2 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
+| live evidence | live parity rows needing target review first | 0/2 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/20 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/42 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -104,7 +104,7 @@ evidence work before it becomes production-supported for a target scope.
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
-| model-or-stage-first | 3 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 2 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 
 ### Active Proof Queue
 
@@ -114,7 +114,6 @@ lifecycle route, target fit, or operating policy.
 
 | Chart | Base | Result | Next step | Support artifact |
 | --- | --- | --- | --- | --- |
-| grafana/tempo@1.24.4 | s3-query-observability | blocked | stage-prerequisite | [recipes/grafana/tempo/1.24.4/target-prerequisite-plan.yaml](../../recipes/grafana/tempo/1.24.4/target-prerequisite-plan.yaml) |
 | hashicorp/vault@0.32.0 | default | blocked | operating-policy | [recipes/hashicorp/vault/0.32.0/operating-policy.yaml](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) |
 | hashicorp/vault@0.32.0 | ha-raft-ui | blocked | target-fit-review | [recipes/hashicorp/vault/0.32.0/operating-policy.yaml](../../recipes/hashicorp/vault/0.32.0/operating-policy.yaml) |
 
@@ -192,7 +191,7 @@ spreadsheet.
 | external-secrets/external-secrets@2.5.0 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 | grafana/grafana@10.5.15 | generated-passwords (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
 | grafana/loki@7.0.0 | single-binary-filesystem (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
-| grafana/tempo@1.24.4 | local-persistent (start-here) | start-here:1; target-prerequisite-needed:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
+| grafana/tempo@1.24.4 | local-persistent (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
 | hashicorp/consul@2.0.0 | default-control-plane (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | hashicorp/vault@0.32.0 | dev-mode (start-here) | start-here:1; operating-policy-needed:1; target-fit-needed:1 | live-helm-vs-confighub-parity | 3/3 | 1/3 | 2/3 | 1/3 | 1/3 | - |
 | ingress-nginx/ingress-nginx@4.15.1 | internal-clusterip (start-here) | start-here:1; try-with-proof:2 | live-helm-vs-confighub-parity | 3/3 | 1/3 | 2/3 | 1/3 | 1/3 | - |
@@ -219,7 +218,7 @@ first.
 | local live | 23 | 0 | 135 | 158 |
 | GitOps/OCI live | 22 | 6 | 130 | 158 |
 | live Helm-vs-ConfigHub parity | 20 | 2 | 136 | 158 |
-| two-cluster kind parity | 38 | 4 | 0 | 42 |
+| two-cluster kind parity | 39 | 3 | 0 | 42 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
 prerequisite, runtime behavior, or provisioning boundary rather than a render
@@ -245,11 +244,10 @@ useful.
 
 | Rerun readiness | Rows | Meaning |
 | --- | ---: | --- |
-| model-or-stage-first | 3 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| model-or-stage-first | 2 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
 
 | Next step | Rows | Meaning |
 | --- | ---: | --- |
-| stage-prerequisite | 1 | Stage or model CRDs, APIs, Secrets, storage, or another target prerequisite before rerunning. |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if expected readiness changes. |
 | target-fit-review | 1 | Choose a target that provides the required platform behavior, or create a base that fits the target. |
 
@@ -263,7 +261,6 @@ Current two-cluster kind parity non-pass receipts:
 
 | Chart | Base | Result | Reason |
 | --- | --- | --- | --- |
-| grafana/tempo@1.24.4 | s3-query-observability | blocked | target-prerequisite: object store endpoint not satisfied (parity passed) |
 | hashicorp/vault@0.32.0 | default | blocked | operate-policy: Vault init/unseal required (parity passed) |
 | hashicorp/vault@0.32.0 | ha-raft-ui | blocked | target-fit: HA raft target topology not satisfied (parity passed) |
 | jetstack/cert-manager@v1.20.2 | default | blocked | helm-hook: post-install hook failed (parity passed) |

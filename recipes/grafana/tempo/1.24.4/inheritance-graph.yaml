@@ -60,6 +60,7 @@ spec:
         - "tempo.storage.trace.local"
         - "tempo.storage.trace.s3.bucket"
         - "tempo.storage.trace.s3.endpoint"
+        - "tempo.storage.trace.s3.forcepathstyle"
         - "tempo.storage.trace.s3.insecure"
         - "tempo.storage.trace.s3.region"
         - "tempoQuery.enabled"

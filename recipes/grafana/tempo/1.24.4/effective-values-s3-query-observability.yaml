@@ -7,7 +7,7 @@ spec:
     -
       path: "effective-values-s3-query-observability.yaml"
       source: "inline-proof"
-      sha256: "415fac9b10e0daaa22557eed344f33705577a61bd29f788246e29fc51270486e"
+      sha256: "6fc72bf032d344a631a6f12a0ba57c4b6880664e1502b17709841d9e8696d8d6"
   mergedValuesCaptured: false
   values:
     networkPolicy:
@@ -45,8 +45,9 @@ spec:
           local: null
           s3:
             bucket: "tempo-traces"
-            endpoint: "s3.us-east-1.amazonaws.com"
-            insecure: false
+            endpoint: "tempo-object-store.tempo.svc.cluster.local:9000"
+            forcepathstyle: true
+            insecure: true
             region: "us-east-1"
           wal:
             path: "/var/tempo/wal"

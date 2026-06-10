@@ -30,19 +30,19 @@ spec:
         bytes: 99
       -
         path: "bases/s3-query-observability/upstream.yaml"
-        sha256: "e647ad22435c55910e4c77470263e05daf026af43b59bde1f0ae7db754d3d5ad"
-        bytes: 9391
+        sha256: "4e981336df773cdd82b2551d35d27d61f4b39e6a3df0a9a693ac81fd0d3cf8ed"
+        bytes: 9446
       -
         path: "collector/target-facts.sh"
-        sha256: "50f90019097d299c21006ece0df13a89ca3da3e1089c518ae4b44eef3e37c488"
-        bytes: 2767
+        sha256: "b1af73e6344dcefdfefe90e05c2e36ae0eadaf1959cf86c6b600c51013f6a905"
+        bytes: 3471
       -
         path: "installer.yaml"
-        sha256: "99724ccf20b7a6111a5a2051ce8babb1c0459cf6b23f5cbe57c85d68e717c7c4"
-        bytes: 1205
+        sha256: "a9523553ef722c5837289a56782868883634e1cfc7d8b997642ad8fd9b1d165c"
+        bytes: 1455
   deterministicBundle:
     command: "cub installer package packages/grafana/tempo/1.24.4 -o <tmp>/tempo-1.24.4.tgz"
-    sha256: "3ef9fa243f1982e62961f9ccf3f772b27a0f78de0f3ca592cbe9b8c7c441be9e"
+    sha256: "f6e81e921022d4b3c00955926d81c676edb57c1b8e57b92a0f315fd97d33365a"
     byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -

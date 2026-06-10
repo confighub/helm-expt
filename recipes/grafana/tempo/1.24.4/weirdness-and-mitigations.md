@@ -23,7 +23,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 
 - Chart.yaml marks this chart version deprecated, and the proof records that status.
 - local-persistent uses local Tempo storage and explicit PVC settings.
-- s3-query-observability switches to S3 storage, nulls local storage to avoid Helm merge residue, records endpoint/bucket/region as pre-render target values, and references S3 credentials from a target Secret.
+- s3-query-observability switches to S3 storage, nulls local storage to avoid Helm merge residue, records endpoint/bucket/region in the base, and references S3 credentials from a target Secret.
 - s3-query-observability adds Tempo Query ingress, NetworkPolicy, and ServiceMonitor behind explicit capability and policy checks; the ServiceMonitor CRD is recorded as a target fact.
 - The chart StatefulSet references serviceName tempo-headless, but these variants render no headless Service; the proof records this as an upstream/runtime risk.
 - config, structuredConfig, extra volumes/mounts, and tpl-controlled strings are powerful extension surfaces; promoted variants keep them controlled.
@@ -45,7 +45,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 | capability-profile | handled | Kubernetes API and version branches are bound to the named Kubernetes capability profile. |
 | chart-deprecation | noted | The literal grafana/tempo chart is deprecated; the proof records that status and notes the maintained successor chart separately. |
 | target-facts | variant-controlled | The s3-query-observability variant declares S3 endpoint, bucket, and region as pre-render values, and references credentials from a target Secret instead of embedding access keys in rendered ConfigMaps. |
-| object-store-runtime-prerequisite | runtime-watch | The S3 variant needs the declared endpoint, bucket, region, and credentials to be real before Tempo becomes ready; dummy credentials alone are not a live proof. |
+| object-store-runtime-prerequisite | target-fact-required | The S3 variant needs the declared endpoint, bucket, region, and credentials to be real before Tempo becomes ready; the strict live parity lane stages a local S3-compatible target prerequisite. |
 | capability-profile | variant-controlled | The ServiceMonitor variant records the Prometheus Operator API as an explicit target capability. |
 | servicemonitor-crd-target-fact | target-fact | The Tempo chart renders a ServiceMonitor when the API is declared, but the Prometheus Operator CRD must already exist in the target cluster. |
 | stateful-workload | scan-and-review | apps/v1\|StatefulSet\|tempo\|tempo |

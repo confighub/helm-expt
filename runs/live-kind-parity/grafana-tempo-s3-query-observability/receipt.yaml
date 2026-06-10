@@ -6,8 +6,8 @@ spec:
   chart: grafana/tempo
   version: 1.24.4
   base: s3-query-observability
-  result: blocked
-  observedAt: '2026-06-09T22:50:27Z'
+  result: pass
+  observedAt: '2026-06-10T06:53:42Z'
   package:
     path: packages/grafana/tempo/1.24.4
   recipe:
@@ -15,86 +15,90 @@ spec:
   variantRevision: recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-tempo-b030a-gnf2-helm
-    installerCluster: hx-tempo-b030a-gnf2-installer
+    helmCluster: hx-tempo-b030a-q44y-helm
+    installerCluster: hx-tempo-b030a-q44y-installer
     namespace: tempo
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-tempo-b030a-gnf2-helm
+      - cluster: hx-tempo-b030a-q44y-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-tempo-b030a-gnf2-helm" ...
+        detail: 'Deleting cluster "hx-tempo-b030a-q44y-helm" ...
 
-          Deleted nodes: ["hx-tempo-b030a-gnf2-helm-control-plane"]'
-      - cluster: hx-tempo-b030a-gnf2-installer
+          Deleted nodes: ["hx-tempo-b030a-q44y-helm-control-plane"]'
+      - cluster: hx-tempo-b030a-q44y-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-tempo-b030a-gnf2-installer" ...
+        detail: 'Deleting cluster "hx-tempo-b030a-q44y-installer" ...
 
-          Deleted nodes: ["hx-tempo-b030a-gnf2-installer-control-plane"]'
+          Deleted nodes: ["hx-tempo-b030a-q44y-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
   legs:
     regularHelm:
-      result: blocked
+      result: pass
       command: helm upgrade --install tempo tempo --repo https://grafana.github.io/helm-charts
         --version 1.24.4 --namespace tempo --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-tempo-s3-query-observability/regular-helm-values.yaml
         --wait --timeout 8m
       namespace: tempo
-      manifestSHA256: e647ad22435c55910e4c77470263e05daf026af43b59bde1f0ae7db754d3d5ad
+      manifestSHA256: 4e981336df773cdd82b2551d35d27d61f4b39e6a3df0a9a693ac81fd0d3cf8ed
       objectCount: 8
-      liveHelmManifestSHA256: 4b42acad13a24f7b895d4fff8558f5621f0c9cf77f9949457f2385e496498de1
+      liveHelmManifestSHA256: 577e7be78faef0b5365e43ec2943f4439de3b7782284e62b1dfd74f78047c316
       liveHelmManifestObjectCount: 8
       runtimeNamespaces: &id001
       - tempo
       runtime:
-        result: watch
+        result: pass
         namespaces: *id001
         workloads: '# tempo
 
-          statefulset.apps/tempo   0/1   12m'
+          deployment.apps/tempo-object-store   1/1   1     1     95s
+
+          statefulset.apps/tempo   1/1   57s'
         pods: '# tempo
 
-          tempo-0   1/2   CrashLoopBackOff   7 (94s ago)   12m'
-        notReady:
-        - namespace: tempo
-          pod: tempo-0
-          ready: 1/2
-          status: CrashLoopBackOff
-      stderr: 'level=WARN msg="this chart is deprecated"
+          tempo-0                                  2/2   Running     0     57s
 
-        Error: resource StatefulSet/tempo/tempo not ready. status: InProgress, message:
-        Ready: 0/1
+          tempo-object-store-6f9fc7cc78-8kggr      1/1   Running     0     95s
 
-        context deadline exceeded'
+          tempo-object-store-create-bucket-c2d5x   0/1   Completed   0     95s'
+        notReady: []
+        diagnostics: []
+      stderr: ''
       getManifestError: ''
     cubInstallerApply:
-      result: watch
+      result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/grafana/tempo/1.24.4
-        --base s3-query-observability --work-dir /tmp/helm-expt-kind-parity-hx-tempo-b030a-gnf2-tempo
+        --base s3-query-observability --work-dir /tmp/helm-expt-kind-parity-hx-tempo-b030a-q44y-tempo
         --non-interactive --namespace tempo
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
       namespace: tempo
-      manifestSHA256: 609f69443be1964478fe7a4099668f05cad3bb4a70b964154155c269d1dd9479
+      manifestSHA256: 7980c3f7a0f6496c1158ea7c2a262839c258bfefd40ceedc4bb141476c35cc20
       objectCount: 9
       manifestNamespaces:
       - tempo
       runtimeNamespaces: &id002
       - tempo
       runtime:
-        result: watch
+        result: pass
         namespaces: *id002
         workloads: '# tempo
 
-          statefulset.apps/tempo   0/1   4m54s'
+          deployment.apps/tempo-object-store   1/1   1     1     2m18s
+
+          statefulset.apps/tempo   1/1   61s'
         pods: '# tempo
 
-          tempo-0   1/2   CrashLoopBackOff   5 (108s ago)   4m54s'
-        notReady:
-        - namespace: tempo
-          pod: tempo-0
-          ready: 1/2
-          status: CrashLoopBackOff
+          tempo-0                                  2/2   Running     0     61s
+
+          tempo-object-store-6f9fc7cc78-hrs7d      1/1   Running     0     2m17s
+
+          tempo-object-store-create-bucket-gx5gg   0/1   Completed   0     2m17s'
+        notReady: []
+        diagnostics: []
   semanticComparison:
     allowedExtraInstallerObjects:
     - v1|Namespace||tempo
@@ -124,18 +128,15 @@ spec:
     result: pass
     detail: secrets=1 crds=1
   - name: regular-helm-live
-    result: blocked
-    detail: 'level=WARN msg="this chart is deprecated"
-
-      Error: resource StatefulSet/tempo/tempo not ready. status: InProgress, message:
-      Ready: 0/1
-
-      context deadline exceeded'
+    result: pass
+    detail: level=WARN msg="this chart is deprecated"
   - name: cub-installer-apply-live
-    result: watch
+    result: pass
     detail: '# tempo
 
-      statefulset.apps/tempo   0/1   4m54s'
+      deployment.apps/tempo-object-store   1/1   1     1     2m18s
+
+      statefulset.apps/tempo   1/1   61s'
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||tempo'] diffs=0
@@ -153,6 +154,12 @@ spec:
       - name: servicemonitors.monitoring.coreos.com
         sourceVariant: prometheus-community/kube-prometheus-stack@85.3.3/default
         lane: regularHelm
+      stagedObjectStores:
+      - namespace: tempo
+        name: tempo-object-store
+        serviceName: tempo-object-store
+        bucket: tempo-traces
+        lane: regularHelm
       path: /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-tempo-s3-query-observability/target-facts-helm.yaml
     cubInstallerApply:
       result: pass
@@ -167,4 +174,11 @@ spec:
       - name: servicemonitors.monitoring.coreos.com
         sourceVariant: prometheus-community/kube-prometheus-stack@85.3.3/default
         lane: cubInstallerApply
+      stagedObjectStores:
+      - namespace: tempo
+        name: tempo-object-store
+        serviceName: tempo-object-store
+        bucket: tempo-traces
+        lane: cubInstallerApply
       path: /Users/alexis/code/helm-expt/runs/live-kind-parity/grafana-tempo-s3-query-observability/target-facts-installer.yaml
+    requiredValues: []

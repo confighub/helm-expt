@@ -5,7 +5,7 @@ metadata:
   chart: "grafana/tempo"
   version: "1.24.4"
 spec:
-  summary: "The s3-query-observability base is render-equivalent, but it is only target-ready when object storage, S3 credentials, the ServiceMonitor CRD, and query ingress policy are staged and observed. Dummy S3 values are not a live proof."
+  summary: "The s3-query-observability base is render-equivalent, but it is only target-ready when object storage, S3 credentials, the ServiceMonitor CRD, and query ingress policy are staged and observed."
   bases:
     localPersistent:
       status: "self-contained-for-local-proof"
@@ -44,8 +44,8 @@ spec:
           purpose: "Target must accept the rendered ServiceMonitor object"
         -
           kind: "ExternalService"
-          name: "object-store"
-          purpose: "Endpoint and bucket must exist and accept the declared credentials"
+          name: "tempo-object-store"
+          purpose: "S3-compatible endpoint and bucket must exist and accept the declared credentials"
       mustObserve:
         - "StatefulSet tempo/tempo is available after object-store credentials are staged"
         - "PVC for tempo storage is Bound"
@@ -60,7 +60,7 @@ spec:
         - "runtime-observation-receipt"
   notProvenBy:
     - "render parity alone"
-    - "dummy endpoint, bucket, region, or credentials"
+    - "endpoint, bucket, region, or credentials without a reachable object-store service"
     - "a Secret with the expected name but no object-store access"
     - "a ServiceMonitor object without the target CRD and operator behavior"
     - "one local filesystem proof of the local-persistent base"
