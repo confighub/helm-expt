@@ -22,8 +22,8 @@ Helm hook.
 ~~~text
 maintained hook-bearing chart rows:       5
 hook route receipts present:              5/5
-hook lifecycle observations present:      0/5
-hook routes awaiting observation:         5/5
+hook lifecycle observations present:      1/5
+hook routes awaiting observation:         4/5
 hook rows still needing route receipt:    0/5
 hook-like lifecycle observations passing: 4/4
 ~~~
@@ -32,7 +32,7 @@ hook-like lifecycle observations passing: 4/4
 
 | Lane | Chart | Base | Status | Route or policy | What it proves | What it does not prove |
 | --- | --- | --- | --- | --- | --- | --- |
-| helm-hook-lifecycle-queue | `prometheus-community/kube-prometheus-stack@85.3.3` | default | route-selected | preflight-or-presync;postsync-check-or-observation;upgrade-action-with-receipt;preserve-ordering;preserve-cleanup-policy;webhook-readiness-observation;target-facts-or-preflight | hook templates are inventoried and a route receipt records the selected handling | hook execution, cleanup, ordering, upgrade behavior, runtime outcome, or production support |
+| helm-hook-lifecycle-queue | `prometheus-community/kube-prometheus-stack@85.3.3` | default | lifecycle-observed | preflight-or-presync;postsync-check-or-observation;upgrade-action-with-receipt;preserve-ordering;preserve-cleanup-policy;webhook-readiness-observation;target-facts-or-preflight | hook route has a lifecycle observation or execution receipt | universal Helm hook support or support for unrelated hook-bearing charts |
 | helm-hook-lifecycle-queue | `kyverno/kyverno@3.8.1` | default | route-selected | upgrade-action-with-receipt;delete-cleanup-policy;explicit-test-check;preserve-ordering;preserve-cleanup-policy;target-facts-or-preflight | hook templates are inventoried and a route receipt records the selected handling | hook execution, cleanup, ordering, upgrade behavior, runtime outcome, or production support |
 | helm-hook-lifecycle-queue | `fluent/fluent-bit@0.57.6` | default | route-selected | explicit-test-check;preserve-cleanup-policy | hook templates are inventoried and a route receipt records the selected handling | hook execution, cleanup, ordering, upgrade behavior, runtime outcome, or production support |
 | helm-hook-lifecycle-queue | `projectcalico/tigera-operator@v3.32.0` | default | route-selected | delete-cleanup-policy;preserve-ordering;preserve-cleanup-policy;target-facts-or-preflight | hook templates are inventoried and a route receipt records the selected handling | hook execution, cleanup, ordering, upgrade behavior, runtime outcome, or production support |
