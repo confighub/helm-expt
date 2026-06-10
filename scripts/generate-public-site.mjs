@@ -20,6 +20,7 @@ const activeProofQueuePath = join(repoRoot, "data", "status-dashboard", "active-
 const baseReadinessPath = join(repoRoot, "data", "top20-base-readiness", "base-readiness.csv");
 const extensionSlotsPath = join(repoRoot, "data", "extension-slots", "extension-slots.csv");
 const top100ReadinessPath = join(repoRoot, "data", "top100-readiness", "readiness.csv");
+const top100CoverageWorkQueuePath = join(repoRoot, "data", "top100-coverage", "work-queue.csv");
 const liveParityRerunPlanPath = join(repoRoot, "data", "live-parity-rerun-plan", "rerun-plan.csv");
 const productionDispositionPath = join(repoRoot, "data", "production-disposition", "top20.csv");
 const productionSupportDecisionsPath = join(repoRoot, "data", "production-support-decisions", "decisions.csv");
@@ -66,6 +67,8 @@ function buildSite() {
   const baseReadiness = parseCsv(readFileSync(baseReadinessPath, "utf8"));
   const extensionSlots = parseCsv(readFileSync(extensionSlotsPath, "utf8"));
   const top100Readiness = parseCsv(readFileSync(top100ReadinessPath, "utf8"));
+  const top100CoverageWorkQueue = parseCsv(readFileSync(top100CoverageWorkQueuePath, "utf8"));
+  const top100CoverageQueueCounts = countBy(top100CoverageWorkQueue, "queue");
   const liveParityRerunPlan = parseCsv(readFileSync(liveParityRerunPlanPath, "utf8"));
   const productionDisposition = parseCsv(readFileSync(productionDispositionPath, "utf8"));
   const productionSupportDecisions = parseCsv(readFileSync(productionSupportDecisionsPath, "utf8"));
@@ -109,6 +112,7 @@ function buildSite() {
       baseReadiness: "data/top20-base-readiness/base-readiness.csv",
       extensionSlots: "data/extension-slots/extension-slots.csv",
       top100Readiness: "data/top100-readiness/readiness.csv",
+      top100CoverageWorkQueue: "data/top100-coverage/work-queue.csv",
       liveParityRerunPlan: "data/live-parity-rerun-plan/rerun-plan.csv",
       productionDisposition: "data/production-disposition/top20.csv",
       productionSupportDecisions: "data/production-support-decisions/decisions.csv",
@@ -130,6 +134,9 @@ function buildSite() {
       startHereBaseVariants: baseReadiness.filter((row) => row.user_readiness === "start-here").length,
       top20ChartsWithExtensionSlots: extensionSlots.filter((row) => row.catalog_scope === "top20-catalog").length,
       top100ChartsWithExtensionSlots: extensionSlots.length,
+      top100CoveragePromotionQueue: top100CoverageQueueCounts["promotion-review"] ?? 0,
+      top100CoverageUserVariantQueue: top100CoverageQueueCounts["user-shaped-variant"] ?? 0,
+      top100CoverageDecisionQueue: top100CoverageQueueCounts["limitation-decision"] ?? 0,
       top100ChartsWithLiveEvidence: top100ReadinessWithSupport.filter((row) =>
         ["live-helm-vs-confighub-parity", "gitops-oci-live", "local-kubernetes-live", "two-cluster-kind-parity"].includes(row.strongest_evidence),
       ).length,
@@ -484,6 +491,8 @@ function html(catalog) {
         <div class="metric"><strong>${escapeHtml(top100WorkabilityCounts["try-now-public-catalog"] ?? 0)}/100</strong><span>Try now</span></div>
         <div class="metric"><strong>${escapeHtml(top100WorkabilityCounts["works-as-proof-needs-catalog-review"] ?? 0)}/100</strong><span>Proof, review next</span></div>
         <div class="metric"><strong>${escapeHtml(top100WorkabilityCounts["not-yet-a-good-catalog-offer"] ?? 0)}/100</strong><span>Need useful variants</span></div>
+        <div class="metric"><strong>${escapeHtml(catalog.summary.top100CoveragePromotionQueue)}/80</strong><span>Strict promotion queue</span></div>
+        <div class="metric"><strong>${escapeHtml(catalog.summary.top100CoverageDecisionQueue)}/80</strong><span>Decision rows</span></div>
       </div>
       ${markdownLikeTable([
         ["Workability", "Charts", "Meaning"],
@@ -498,7 +507,7 @@ function html(catalog) {
         ["Queue", "First rows"],
         ...top100QueueRows,
       ])}
-      <p><a href="../data/top100-readiness/summary.md">Open the full top-100 readiness report</a>.</p>
+      <p><a href="../data/top100-readiness/summary.md">Open the full top-100 readiness report</a>, <a href="../data/top100-coverage/work-queue.md">open the strict coverage work queue</a>, or <a href="../data/top100-coverage/decisions-needed.md">open the limitation decision memos</a>.</p>
     </section>
 
     <section aria-labelledby="top500-evidence">
@@ -1288,6 +1297,7 @@ Data source:
 - \`data/top20-base-readiness/base-readiness.csv\`
 - \`data/extension-slots/extension-slots.csv\`
 - \`data/top100-readiness/readiness.csv\`
+- \`data/top100-coverage/work-queue.csv\`
 - \`data/live-parity-rerun-plan/rerun-plan.csv\`
 - \`data/production-disposition/top20.csv\`
 - \`data/production-support-decisions/decisions.csv\`

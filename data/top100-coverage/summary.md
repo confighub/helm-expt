@@ -61,6 +61,9 @@ average coverage: 83%
 | --- | --- |
 | [contract.md](./contract.md) | Human-readable definition of covered. |
 | [coverage.csv](./coverage.csv) | One row per top-100 chart with item statuses and evidence paths. |
+| [work-queue.md](./work-queue.md) | Human-readable queue for the remaining 80 partial rows. |
+| [work-queue.csv](./work-queue.csv) | Spreadsheet queue: promotion review, user-shaped variants, and limitation decisions. |
+| [decisions-needed.md](./decisions-needed.md) | Human decision memos for limitation-decision rows. |
 
 Regenerate:
 
