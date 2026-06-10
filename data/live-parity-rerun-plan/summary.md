@@ -18,8 +18,8 @@ configHub-oci-live-comparison: 0
 two-cluster-kind-parity: 7
 semantic-parity-defects: 0
 infra-or-rig-rows: 0
-prerequisite-or-lifecycle-rows: 1
-runtime-or-watch-rows: 3
+prerequisite-or-lifecycle-rows: 2
+runtime-or-watch-rows: 2
 ```
 
 ## Lane Breakdown
@@ -49,8 +49,8 @@ The `blocked` rows are currently from the two-cluster kind parity lane.
 | Next step | Rows | What to do |
 | --- | ---: | --- |
 | operating-policy | 1 | Record the operating policy decision, then rerun only if the expected readiness changes. |
-| runtime-review | 3 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
-| stage-prerequisite | 1 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning. |
+| runtime-review | 2 | Inspect runtime readiness, waits, storage, capacity, or app initialization before rerunning. |
+| stage-prerequisite | 2 | Stage or model CRDs, APIs, Secrets, storage, or another prerequisite before rerunning. |
 | target-fit-review | 2 | Choose a target that provides the required platform behavior, or create a base that fits the target. |
 
 Rows in `stage-prerequisite`, `lifecycle-route`, and `operating-policy`
@@ -66,8 +66,8 @@ reasonable live rerun candidates.
 
 | Readiness | Rows | Meaning |
 | --- | ---: | --- |
-| model-or-stage-first | 4 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
-| review-target-first | 3 | Review runtime, storage, controller health, or wait conditions before rerunning. |
+| model-or-stage-first | 5 | Stage the prerequisite, choose the lifecycle route, or record the operating policy before rerunning. |
+| review-target-first | 2 | Review runtime, storage, controller health, or wait conditions before rerunning. |
 
 ## Run Safety
 
@@ -95,9 +95,9 @@ faithful to the locked chart/version without changing the recipe.
 | 50 | model-or-stage-first | target-fit-review | two-cluster-kind-parity | `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | blocked | target-fit: secure mesh target topology not satisfied (parity passed) | `npm run kind-parity:run -- --chart hashicorp/consul --version 2.0.0 --base secure-mesh-existing-secrets` |
 | 50 | model-or-stage-first | operating-policy | two-cluster-kind-parity | `hashicorp/vault@0.32.0` | default | blocked | operate-policy: Vault init/unseal required (parity passed) | `npm run kind-parity:run -- --chart hashicorp/vault --version 0.32.0 --base default` |
 | 50 | model-or-stage-first | target-fit-review | two-cluster-kind-parity | `hashicorp/vault@0.32.0` | ha-raft-ui | blocked | target-fit: HA raft target topology not satisfied (parity passed) | `npm run kind-parity:run -- --chart hashicorp/vault --version 0.32.0 --base ha-raft-ui` |
+| 50 | model-or-stage-first | stage-prerequisite | two-cluster-kind-parity | `metrics-server/metrics-server@3.13.0` | external-tls-ca | blocked | target-prerequisite: serving certificate and APIService trust not satisfied (parity passed) | `npm run kind-parity:run -- --chart metrics-server/metrics-server --version 3.13.0 --base external-tls-ca` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | blocked | target-runtime: pod crash loop (parity passed) | `npm run kind-parity:run -- --chart bitnami/mongodb --version 19.0.7 --base existing-secret-replicaset --repo-url oci://registry-1.docker.io/bitnamicharts` |
 | 60 | review-target-first | runtime-review | two-cluster-kind-parity | `ingress-nginx/ingress-nginx@4.15.1` | default | watch | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart ingress-nginx/ingress-nginx --version 4.15.1 --base default` |
-| 60 | review-target-first | runtime-review | two-cluster-kind-parity | `metrics-server/metrics-server@3.13.0` | external-tls-ca | blocked | helm-runtime: upstream not ready (parity passed) | `npm run kind-parity:run -- --chart metrics-server/metrics-server --version 3.13.0 --base external-tls-ca` |
 
 ## Related Lifecycle Evidence
 

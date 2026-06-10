@@ -239,6 +239,13 @@ function classifyReceipt(receipt) {
   if (spec.chart === "grafana/tempo" && spec.base === "s3-query-observability" && text.includes("crashloopbackoff")) {
     return `target-prerequisite: object store endpoint not satisfied${paritySuffix}`;
   }
+  if (
+    spec.chart === "metrics-server/metrics-server"
+    && spec.base === "external-tls-ca"
+    && (text.includes("available: 0/1") || text.includes("ready: 0/1") || text.includes('"ready":"0/1"'))
+  ) {
+    return `target-prerequisite: serving certificate and APIService trust not satisfied${paritySuffix}`;
+  }
   if (spec.chart === "hashicorp/consul" && spec.base === "secure-mesh-existing-secrets" && text.includes("pending")) {
     return `target-fit: secure mesh target topology not satisfied${paritySuffix}`;
   }
