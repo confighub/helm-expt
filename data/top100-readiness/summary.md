@@ -124,7 +124,7 @@ decision before catalog promotion.
 
 | Chart | Adoption bucket | Evidence | Variants | Next action | Next receipt | Source |
 | --- | --- | --- | ---: | --- | --- | --- |
-| `argo-cd/argo-cd@9.5.15` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | finish digest-resolution receipts for remaining affected variants, then choose pinned bases or explicit mutable-image exceptions | - | `production-disposition` |
+| `argo-cd/argo-cd@9.5.15` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes | - | `production-disposition` |
 | `bitnami/mongodb@19.0.7` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope | - | `production-disposition` |
 | `bitnami/mysql@14.0.3` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes | - | `production-disposition` |
 | `bitnami/nginx@24.0.2` | `try-from-public-catalog` | `live-helm-vs-confighub-parity` | 2 | choose the supported production base and target scope, refresh live/e2e evidence, and record the final support decision | - | `production-disposition` |
