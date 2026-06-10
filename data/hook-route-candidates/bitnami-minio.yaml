@@ -1,0 +1,54 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HookLifecycleRouteCandidate
+metadata:
+  name: bitnami-minio-hook-route-candidate
+spec:
+  chart: bitnami/minio
+  version: 17.0.21
+  base: none-yet (no maintained recipe; source-scan candidate)
+  result: candidate-route-plan
+  reviewedAt: "2026-06-10"
+  hooks:
+    count: 1
+    phases: [post-install, post-upgrade]
+    deletePolicies: present on the hook template
+    weights: none
+    templates:
+      - minio/templates/provisioning/job.yaml
+  dependencySource: chart-own templates (not vendored). The same template is
+    consumed by bitnami/thanos through its vendored minio subchart, so this
+    route plan covers that vendored case too.
+  targetDependencies:
+    - the in-cluster object-store service the provisioning Job seeds; an
+      existing credentials Secret when the base avoids generated credentials.
+      The Job is values-conditional (provisioning is an opt-in feature).
+  route:
+    summary: The bitnami provisioning-Job pattern (bucket/policy/user
+      seeding). Same managed-action route as bitnami/kafka.
+    phases:
+      - hookTypes: [post-install, post-upgrade]
+        action: explicit-managed-action
+        reason: Seeding work should be a recorded post-install action with
+          its own outcome, separate from install parity.
+    gitopsMapping: Argo CD PostSync (or a Flux post-deploy Job) when the
+      provisioning base is enabled.
+  evidence:
+    - path: data/top500-catalog-analysis/source/source-feature-scan.raw.json
+      claim: Static source scan found the provisioning hook Job, phases, and
+        delete policy at the pinned version.
+    - path: data/hook-lifecycle-review/top100-source-hook-route-review.csv
+      claim: Independent route review classified the provisioning pattern as
+        a values-conditional explicit managed action and recorded the
+        thanos-vendored instance.
+  execution:
+    helmHooksExecutedByHarness: false
+    runtimeObserved: false
+  promotionNextStep: Create the recipe with a default base (provisioning off)
+    and a provisioning-enabled base; route the Job as an explicit managed
+    post-install action with a receipt; reuse the same route receipt shape
+    for bitnami/kafka and the thanos-vendored minio; then admit to the
+    maintained hook queue.
+  notClaimed:
+    - production readiness
+    - runtime hook behavior
+    - provisioning semantics beyond what the static template shows
