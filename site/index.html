@@ -170,6 +170,22 @@
       <p><a href="../data/status-dashboard/summary.md">Open the full status dashboard</a>.</p>
     </section>
 
+    <section aria-labelledby="chart-use">
+      <h2 id="chart-use">Can I Use This Chart?</h2>
+      <p>The chart-use guide gives one practical answer per top-100 chart. It is the fastest route when a user already knows the chart name and wants to know whether to try the public catalog, promote after review, design a better base, or settle a limitation first.</p>
+      <div class="card"><table>
+        <thead><tr><th>Answer</th><th>Charts</th><th>Meaning</th><th>First examples</th></tr></thead>
+        <tbody><tr><td>yes-public-catalog</td><td>20</td><td>Use the public catalog entry, then check the exact base and lane.</td><td>argo-cd/argo-cd@9.5.15, bitnami/mongodb@19.0.7, bitnami/mysql@14.0.3, bitnami/nginx@24.0.2</td></tr><tr><td>not-yet-public-catalog-proof-ready</td><td>27</td><td>Proof and useful variants exist, but catalog promotion review is not done.</td><td>external-dns/external-dns@1.21.1, cloudnative-pg/cloudnative-pg@0.28.2, kedacore/keda@2.19.0, elastic/eck-operator@3.4.0</td></tr><tr><td>not-yet-user-ready</td><td>46</td><td>The current proof is too default-shaped; design a better base variant first.</td><td>gitlab/gitlab-runner@0.89.0, fluent/fluent-bit@0.57.6, runix/pgadmin4@1.62.0, nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18</td></tr><tr><td>decision-needed-first</td><td>7</td><td>A named capability gap must be supported, disclosed, deferred, or blocked first.</td><td>traefik/traefik@40.2.0, kyverno/kyverno@3.8.1, bitnami/elasticsearch@22.1.6, bitnami/spark@10.0.3</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p><a href="../data/chart-use-guide/summary.md">Open the generated chart-use guide</a> or <a href="../data/chart-use-guide/chart-use-guide.csv">download the chart-use CSV</a>.</p>
+    </section>
+
     <section aria-labelledby="trust-surfaces">
       <h2 id="trust-surfaces">Trust Surfaces</h2>
       <p>The catalog is designed to show non-pass evidence instead of hiding it. A strict live witness block must be routed through the watchlist or a named normalization rule before anyone claims parity for that row.</p>
@@ -705,6 +721,7 @@
         <li><a href="../data/image-digest-workdown/summary.md">Image digest workdown</a></li>
         <li><a href="../data/scan-disposition-workdown/summary.md">Scan disposition workdown</a></li>
         <li><a href="../data/next-ten-waves/summary.md">Next-ten execution waves</a></li>
+        <li><a href="../data/chart-use-guide/summary.md">Chart use guide</a></li>
         <li><a href="../data/top20-base-readiness/summary.md">Top-20 base readiness</a></li>
         <li><a href="../docs/user/top100-status.md">Plain-English top-100 status</a></li>
         <li><a href="../data/top100-user-readiness/summary.md">Top-100 user readiness</a></li>

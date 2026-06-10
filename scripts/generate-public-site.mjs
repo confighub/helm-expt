@@ -21,6 +21,7 @@ const statusDashboardPath = join(repoRoot, "data", "status-dashboard", "status.c
 const activeProofQueuePath = join(repoRoot, "data", "status-dashboard", "active-proof-queue.csv");
 const baseReadinessPath = join(repoRoot, "data", "top20-base-readiness", "base-readiness.csv");
 const extensionSlotsPath = join(repoRoot, "data", "extension-slots", "extension-slots.csv");
+const chartUseGuidePath = join(repoRoot, "data", "chart-use-guide", "chart-use-guide.csv");
 const top100ReadinessPath = join(repoRoot, "data", "top100-readiness", "readiness.csv");
 const top100UserReadinessPath = join(repoRoot, "data", "top100-user-readiness", "readiness.csv");
 const top100CoverageWorkQueuePath = join(repoRoot, "data", "top100-coverage", "work-queue.csv");
@@ -75,6 +76,7 @@ function buildSite() {
   const activeProofQueue = parseCsv(readFileSync(activeProofQueuePath, "utf8"));
   const baseReadiness = parseCsv(readFileSync(baseReadinessPath, "utf8"));
   const extensionSlots = parseCsv(readFileSync(extensionSlotsPath, "utf8"));
+  const chartUseGuide = parseCsv(readFileSync(chartUseGuidePath, "utf8"));
   const top100Readiness = parseCsv(readFileSync(top100ReadinessPath, "utf8"));
   const top100UserReadiness = parseCsv(readFileSync(top100UserReadinessPath, "utf8"));
   const top100CoverageWorkQueue = parseCsv(readFileSync(top100CoverageWorkQueuePath, "utf8"));
@@ -142,6 +144,7 @@ function buildSite() {
       activeProofQueue: "data/status-dashboard/active-proof-queue.csv",
       baseReadiness: "data/top20-base-readiness/base-readiness.csv",
       extensionSlots: "data/extension-slots/extension-slots.csv",
+      chartUseGuide: "data/chart-use-guide/chart-use-guide.csv",
       top100Readiness: "data/top100-readiness/readiness.csv",
       top100UserReadiness: "data/top100-user-readiness/readiness.csv",
       top100CoverageWorkQueue: "data/top100-coverage/work-queue.csv",
@@ -200,6 +203,7 @@ function buildSite() {
     latestCandidates,
     baseReadiness,
     extensionSlots,
+    chartUseGuide,
     refreshSurvival,
     top100Readiness: top100ReadinessWithSupport,
     top100UserReadiness,
@@ -276,6 +280,20 @@ function html(catalog) {
     .filter((row) => row.catalog_scope === "top20-catalog")
     .map((row) => [row.chart, row.surfaces, row.current_route]);
   const top100UserReadinessCounts = countBy(catalog.top100UserReadiness, "bucket");
+  const chartUseCounts = countBy(catalog.chartUseGuide, "answer");
+  const chartUsePreviewRows = [
+    "yes-public-catalog",
+    "not-yet-public-catalog-proof-ready",
+    "not-yet-user-ready",
+    "decision-needed-first",
+  ].map((answer) => {
+    const examples = catalog.chartUseGuide
+      .filter((row) => row.answer === answer)
+      .slice(0, 4)
+      .map((row) => row.chart)
+      .join(", ");
+    return [answer, String(chartUseCounts[answer] ?? 0), chartUseMeaning(answer), examples];
+  });
   const top100HardGapRows = hardGapRowsByBucket(catalog.top100Readiness);
   const top100UserReadinessRows = [
     ["ready-to-try", "Catalog-supported with a reviewed first base and live evidence."],
@@ -464,6 +482,16 @@ function html(catalog) {
         ...statusRows.map((row) => [row.metric, metricValue(row), row.status]),
       ])}
       <p><a href="../data/status-dashboard/summary.md">Open the full status dashboard</a>.</p>
+    </section>
+
+    <section aria-labelledby="chart-use">
+      <h2 id="chart-use">Can I Use This Chart?</h2>
+      <p>The chart-use guide gives one practical answer per top-100 chart. It is the fastest route when a user already knows the chart name and wants to know whether to try the public catalog, promote after review, design a better base, or settle a limitation first.</p>
+      ${markdownLikeTable([
+        ["Answer", "Charts", "Meaning", "First examples"],
+        ...chartUsePreviewRows,
+      ])}
+      <p><a href="../data/chart-use-guide/summary.md">Open the generated chart-use guide</a> or <a href="../data/chart-use-guide/chart-use-guide.csv">download the chart-use CSV</a>.</p>
     </section>
 
     <section aria-labelledby="trust-surfaces">
@@ -667,6 +695,7 @@ function html(catalog) {
         <li><a href="../data/image-digest-workdown/summary.md">Image digest workdown</a></li>
         <li><a href="../data/scan-disposition-workdown/summary.md">Scan disposition workdown</a></li>
         <li><a href="../data/next-ten-waves/summary.md">Next-ten execution waves</a></li>
+        <li><a href="../data/chart-use-guide/summary.md">Chart use guide</a></li>
         <li><a href="../data/top20-base-readiness/summary.md">Top-20 base readiness</a></li>
         <li><a href="../docs/user/top100-status.md">Plain-English top-100 status</a></li>
         <li><a href="../data/top100-user-readiness/summary.md">Top-100 user readiness</a></li>
@@ -1133,6 +1162,15 @@ function hardGapBucketMeaning(bucket) {
     "needs-useful-variant": "Add realistic variants first; use any gap to shape or disclose the variant boundary.",
     "limitation-decision-first": "The named gap blocks promotion until it is supported, disclosed, or deferred.",
   }[bucket] ?? "Review before promotion.";
+}
+
+function chartUseMeaning(answer) {
+  return {
+    "yes-public-catalog": "Use the public catalog entry, then check the exact base and lane.",
+    "not-yet-public-catalog-proof-ready": "Proof and useful variants exist, but catalog promotion review is not done.",
+    "not-yet-user-ready": "The current proof is too default-shaped; design a better base variant first.",
+    "decision-needed-first": "A named capability gap must be supported, disclosed, deferred, or blocked first.",
+  }[answer] ?? "Review before recommending.";
 }
 
 function commandRoutes() {
