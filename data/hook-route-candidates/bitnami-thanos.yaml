@@ -1,0 +1,55 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HookLifecycleRouteCandidate
+metadata:
+  name: bitnami-thanos-hook-route-candidate
+spec:
+  chart: bitnami/thanos
+  version: 17.3.1
+  base: none-yet (no maintained recipe; source-scan candidate)
+  result: candidate-route-plan
+  reviewedAt: "2026-06-11"
+  hooks:
+    count: 1
+    phases: [post-install, post-upgrade]
+    deletePolicies: present on the hook template
+    weights: none
+    templates:
+      - thanos/charts/minio/templates/provisioning/job.yaml
+  dependencySource: vendored minio subchart
+  targetDependencies:
+    - the vendored MinIO object store when enabled
+    - object-store credentials and provisioning inputs for the supported base
+  route:
+    summary: Vendored instance of the Bitnami MinIO provisioning-Job pattern.
+      Treat it as the same explicit managed action route as bitnami/minio and
+      bitnami/kafka, but record the dependency source so dependency closure is
+      not lost.
+    phases:
+      - hookTypes: [post-install, post-upgrade]
+        action: explicit-managed-action
+        reason: Bucket, policy, or user seeding is operational work with its
+          own result, not evidence that the rendered object set is correct.
+    gitopsMapping: Argo CD PostSync or a Flux post-deploy Job when the
+      provisioning-enabled base is selected.
+  evidence:
+    - path: data/top500-catalog-analysis/source/source-feature-scan.raw.json
+      claim: Static source scan found the vendored MinIO provisioning hook in
+        the Thanos dependency closure.
+    - path: data/hook-lifecycle-review/top100-source-hook-route-review.csv
+      claim: Independent route review classified this as the same
+        provisioning-job route as kafka and minio, with the hook supplied by a
+        vendored subchart.
+    - path: data/hook-route-candidates/bitnami-minio.yaml
+      claim: Shared route shape for the underlying Bitnami MinIO provisioning
+        template.
+  execution:
+    helmHooksExecutedByHarness: false
+    runtimeObserved: false
+  promotionNextStep: Create the Thanos recipe and distinguish a
+    provisioning-off base from any base that enables vendored MinIO
+    provisioning; reuse the shared provisioning Job receipt shape when the
+    hook renders.
+  notClaimed:
+    - production readiness
+    - runtime hook behavior
+    - that vendored MinIO provisioning is enabled in every Thanos values profile

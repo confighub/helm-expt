@@ -41,6 +41,7 @@ function buildReport() {
   const hookRows = parseCsvFile("data/hook-lifecycle/maintained-hook-queue.csv");
   const sourceHookRows = parseCsvFile("data/hook-lifecycle/source-top100-hooks.csv");
   const hookReviewRows = parseCsvFile("data/hook-lifecycle-review/top100-source-hook-route-review.csv");
+  const hookCandidateRows = parseCsvFile("data/hook-route-candidates/candidates.csv");
   const lifecycleObservationRows = parseCsvFile("data/lifecycle-observations/cert-manager-eso/summary.csv");
   const productionNextActions = productionNextActionIndex();
   const outcomeByChart = new Map(outcomeRows.map((row) => [row.chart, row]));
@@ -89,7 +90,7 @@ function buildReport() {
   return {
     rows,
     csv: toCsv(rows),
-    summary: summary(rows, { hookRows, sourceHookRows, hookReviewRows, lifecycleObservationRows }),
+    summary: summary(rows, { hookRows, sourceHookRows, hookReviewRows, hookCandidateRows, lifecycleObservationRows }),
     next80QueuesCsv: toCsv(next80QueueRows(rows)),
     next80QueuesSummary: next80QueuesSummary(rows),
   };
@@ -189,6 +190,7 @@ charts with live evidence on at least one variant: ${liveEvidence.length}
 charts with named hard gaps: ${hardGaps.length}
 source top-100 charts with Helm hooks: ${hookSummary.sourceHooks}
 maintained hook lifecycle rows: ${hookSummary.maintainedHooks}
+source-reviewed hook route candidate plans: ${hookSummary.candidateRoutes}
 source-reviewed hook routes not yet maintained: ${hookSummary.reviewedNotMaintained}
 ~~~
 
@@ -221,14 +223,16 @@ surfaces:
 | --- | ---: | --- |
 | Source top-100 hook rows | ${hookSummary.sourceHooks} | Find public top-100 charts whose retained source scan found Helm hooks. |
 | Maintained hook lifecycle rows | ${hookSummary.maintainedHooks} | Check current recipe/package rows with required lifecycle receipts. |
+| Source-reviewed hook route candidate plans | ${hookSummary.candidateRoutes} | Read candidate routes that are not receipts and do not claim runtime behavior. |
 | Observed hook rows | ${hookSummary.observedHooks} | Rows with runtime lifecycle observation or execution evidence. |
 | Partially observed hook rows | ${hookSummary.partialHooks} | Rows where one lifecycle phase remains, usually upgrade or delete. |
-| Source-reviewed routes not yet maintained | ${hookSummary.reviewedNotMaintained} | Promote the reviewed route into a maintained lifecycle receipt, candidate artifact, or blocker. |
+| Source-reviewed routes not yet maintained | ${hookSummary.reviewedNotMaintained} | Promote the candidate route into a maintained lifecycle receipt, runtime observation path, or blocker. |
 | Related lifecycle observation rows | ${hookSummary.relatedLifecycleObservations} | CRD/webhook/controller observations that rendered YAML alone cannot prove. |
 
-Start with [hook-lifecycle/summary.md](../hook-lifecycle/summary.md) for the
-maintained queue and [hook-lifecycle-review/summary.md](../hook-lifecycle-review/summary.md)
-for reviewed source routes that are not yet maintained.
+Start with [hook-route-candidates/summary.md](../hook-route-candidates/summary.md)
+for candidate route plans, [hook-lifecycle/summary.md](../hook-lifecycle/summary.md)
+for the maintained queue, and [hook-lifecycle-review/summary.md](../hook-lifecycle-review/summary.md)
+for the reviewed source-route inventory.
 
 ## Adoption Buckets
 
@@ -310,6 +314,7 @@ ${rows.slice(0, 25).map((row) => `| \`${row.chart}\` | \`${row.adoption_bucket}\
 | \`data/outcome-coverage/chart-outcomes.csv\` | Detailed outcome counts per chart. |
 | \`data/outcome-coverage/base-outcomes.csv\` | Per base-variant proof lane status. |
 | \`data/hook-lifecycle/summary.md\` | Maintained hook lifecycle queue and receipt state. |
+| \`data/hook-route-candidates/summary.md\` | Candidate hook route plans that are not maintained receipts. |
 | \`data/hook-lifecycle-review/summary.md\` | Source-reviewed hook routes not yet maintained. |
 
 Regenerate:
@@ -526,8 +531,8 @@ function top100Workstreams({ top20, promotionReview, needsVariant, namedLimitati
     {
       name: "Promote reviewed hook routes",
       count: hookSummary.reviewedNotMaintained,
-      start: "Open `data/hook-lifecycle-review/summary.md` and choose one reviewed route candidate.",
-      done: "The route has a maintained lifecycle receipt, candidate artifact, or explicit blocker.",
+      start: "Open `data/hook-route-candidates/summary.md` and choose one candidate route.",
+      done: "The route has a maintained lifecycle receipt, runtime observation path, or explicit blocker.",
       examples: hookSummary.reviewedNotMaintainedExamples,
     },
   ].filter((row) => row.count > 0);
@@ -536,11 +541,12 @@ function top100Workstreams({ top20, promotionReview, needsVariant, namedLimitati
 ${workstreams.map((row) => `| ${row.name} | ${row.count} | ${escapePipes(row.start)} | ${escapePipes(row.done)} | ${row.examples} |`).join("\n")}`;
 }
 
-function hookReadinessSummary({ hookRows, sourceHookRows, hookReviewRows, lifecycleObservationRows }) {
+function hookReadinessSummary({ hookRows, sourceHookRows, hookReviewRows, hookCandidateRows, lifecycleObservationRows }) {
   const reviewedNotMaintained = hookReviewRows.filter((row) => row.in_maintained_queue === "no");
   return {
     sourceHooks: sourceHookRows.length,
     maintainedHooks: hookRows.length,
+    candidateRoutes: hookCandidateRows.length,
     observedHooks: hookRows.filter((row) => row.lifecycle_disposition === "lifecycle-observed").length,
     partialHooks: hookRows.filter((row) => row.lifecycle_disposition === "install-lifecycle-observed-upgrade-pending").length,
     reviewedNotMaintained: reviewedNotMaintained.length,

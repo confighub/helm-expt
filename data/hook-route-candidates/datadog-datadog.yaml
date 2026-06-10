@@ -1,0 +1,57 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HookLifecycleRouteCandidate
+metadata:
+  name: datadog-datadog-hook-route-candidate
+spec:
+  chart: datadog/datadog
+  version: 3.214.0
+  base: none-yet (no maintained recipe; source-scan candidate)
+  result: candidate-route-plan
+  reviewedAt: "2026-06-11"
+  hooks:
+    count: 3
+    phases: [pre-install, pre-upgrade, post-install, post-upgrade]
+    deletePolicies: present on one hook template
+    weights: none recorded in source scan
+    templates:
+      - datadog/templates/gke_autopilot_allowlist_synchronizer.yaml
+      - datadog/templates/migration-job.yaml
+      - datadog/charts/datadog-csi-driver/templates/gke_autopilot_allowlist_synchronizer.yaml
+  dependencySource: chart-own templates plus vendored datadog-csi-driver subchart
+  targetDependencies:
+    - GKE Autopilot cluster class when the allowlist synchronizer is enabled
+    - Datadog migration state for the migration Job
+    - target-specific security and RBAC review before production support
+  route:
+    summary: Mixed environment-conditional hook set. The GKE Autopilot
+      allowlist synchronizers are preflight work for one target class, while
+      the migration Job is an upgrade action that needs its own receipt.
+    phases:
+      - hookTypes: [pre-install, pre-upgrade]
+        action: target-class-preflight
+        reason: The allowlist synchronizer only matters for GKE Autopilot and
+          should be gated by target facts, not run blindly for every target.
+      - hookTypes: [post-install, post-upgrade]
+        action: upgrade-or-install-action-with-receipt
+        reason: Migration work must have an outcome and freshness record
+          separate from render parity.
+    gitopsMapping: Argo CD PreSync for target-class preflight and PostSync for
+      migration or validation where the supported base enables those hooks.
+  evidence:
+    - path: data/top500-catalog-analysis/source/source-feature-scan.raw.json
+      claim: Static source scan found the Autopilot synchronizer hooks and
+        migration Job at the pinned Datadog chart version.
+    - path: data/hook-lifecycle-review/top100-source-hook-route-review.csv
+      claim: Independent route review classified this as an environment-
+        conditional route whose handling depends on target cluster class.
+  execution:
+    helmHooksExecutedByHarness: false
+    runtimeObserved: false
+  promotionNextStep: "Split the supported bases or target scopes first: a
+    normal target route where the Autopilot hooks are inert, a GKE Autopilot
+    route with explicit preflight, and an upgrade route with a migration
+    receipt where the migration Job renders."
+  notClaimed:
+    - production readiness
+    - runtime hook behavior
+    - that the same hook route applies to all Kubernetes targets
