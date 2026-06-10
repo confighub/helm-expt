@@ -22,6 +22,7 @@ spec:
     - "Both variants render 28 CRDs, including Gateway API CRDs that can conflict with cluster-managed CRD ownership."
     - "Helm hooks are excluded from proof renders, while the secure variant's normal ACL init Job remains visible as an install lifecycle object."
     - "secure-mesh-existing-secrets needs a target topology that can schedule three Consul server replicas with pod anti-affinity; one-node kind is useful for object parity but not for live readiness."
+    - "target-topology.yaml records the target shape required for the secure mesh base."
     - "server extra config, injector, controller, gateway, and tpl-controlled strings are powerful extension surfaces; promoted variants keep them controlled."
   painPoints:
     -
@@ -82,11 +83,11 @@ spec:
       id: "target-topology"
       detectedPainPoint: "The secure-mesh-existing-secrets base renders three Consul server replicas with pod anti-affinity, so the strict one-node kind target is expected to leave two server pods pending. Use a multi-node target or a separate single-node/evaluation base for live readiness."
       evidence:
-        - "control-points.yaml"
+        - "target-topology.yaml"
       configHubHome: "target-fact-requirement"
       disposition: "handled-by-target-fact-values"
       linkedReceipt: "value-model.yaml"
-      supportedVariantStatus: "target-review"
+      supportedVariantStatus: "target-fit-required"
     -
       id: "admission-webhook"
       detectedPainPoint: "admission-webhook affects admissionregistration.k8s.io/v1|MutatingWebhookConfiguration|consul|consul-consul-connect-injector"

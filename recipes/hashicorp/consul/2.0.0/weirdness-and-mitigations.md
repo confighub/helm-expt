@@ -27,6 +27,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 - Both variants render 28 CRDs, including Gateway API CRDs that can conflict with cluster-managed CRD ownership.
 - Helm hooks are excluded from proof renders, while the secure variant's normal ACL init Job remains visible as an install lifecycle object.
 - secure-mesh-existing-secrets needs a target topology that can schedule three Consul server replicas with pod anti-affinity; one-node kind is useful for object parity but not for live readiness.
+- target-topology.yaml records the target shape required for the secure mesh base.
 - server extra config, injector, controller, gateway, and tpl-controlled strings are powerful extension surfaces; promoted variants keep them controlled.
 
 ## Catalog Mitigations
@@ -35,7 +36,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 - default-control-plane is the simplest local Consul control-plane path.
 - secure-mesh-existing-secrets is supported when the declared Secret target facts are satisfied.
 - default-control-plane has regular Helm, ConfigHub kubectl apply, and ConfigHub OCI/Argo live parity with healthy runtime, and is the stronger first production-review base.
-- secure-mesh-existing-secrets is useful review input for TLS, ACL, gossip, gateway, UI ingress, and mesh topology, but remains runtime-review-needed until target capacity and bootstrap policy are proven.
+- secure-mesh-existing-secrets is useful review input for TLS, ACL, gossip, gateway, UI ingress, and mesh topology, but remains target-fit-needed until target capacity and bootstrap policy are proven.
 - CRD ownership, cluster RBAC, target Secret preflight, webhook readiness, lifecycle boundary, extension slots, storage/rollback, and scan/gate warnings are recorded as production review input.
 - Production recommendation remains a separate decision; Consul needs target CRD ownership, TLS/ACL/secret rotation, mesh/gateway posture, security policy, backup/restore, and fresh runtime checks before support.
 
@@ -49,7 +50,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 | target-facts | variant-controlled | The secure-mesh-existing-secrets variant declares target Secrets for TLS, gossip encryption, and ACL bootstrap material. |
 | crd-ownership | scan-and-review | The chart templates 28 CRDs, including Gateway API CRDs that may already be cluster-managed. |
 | stateful-workload | scan-and-review | apps/v1\|StatefulSet\|consul\|consul-consul-server |
-| target-topology | target-review | The secure-mesh-existing-secrets base renders three Consul server replicas with pod anti-affinity, so the strict one-node kind target is expected to leave two server pods pending. Use a multi-node target or a separate single-node/evaluation base for live readiness. |
+| target-topology | target-fit-required | The secure-mesh-existing-secrets base renders three Consul server replicas with pod anti-affinity, so the strict one-node kind target is expected to leave two server pods pending. Use a multi-node target or a separate single-node/evaluation base for live readiness. |
 | admission-webhook | scan-and-review | admissionregistration.k8s.io/v1\|MutatingWebhookConfiguration\|consul\|consul-consul-connect-injector |
 | cluster-rbac | scan-and-review | Default and secure variants render broad cluster RBAC for server, injector, gateway resources, and webhook certificate manager. |
 | mesh-gateway-policy | variant-controlled | The secure-mesh-existing-secrets variant enables mesh, ingress, and terminating gateways with ClusterIP services. |

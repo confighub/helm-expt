@@ -127,6 +127,8 @@ runProofCli({
   recordChartLockDigest: true,
   recordDeprecated: true,
   expectedDeprecated: false,
+  extraRequiredFiles: ["target-topology.yaml"],
+  extraProofDocuments: () => [{ path: "target-topology.yaml", document: consulTargetTopology() }],
   semanticNormalizations: [
     "prune-null-fields",
     "trim-leading-command-block-newline",
@@ -286,7 +288,12 @@ rewrite(r)
     { category: "target-facts", status: "variant-controlled", evidence: "global.tls.caCert / server.serverCert / gossipEncryption / acl bootstrap token", note: "The secure-mesh-existing-secrets variant declares target Secrets for TLS, gossip encryption, and ACL bootstrap material." },
     { category: "crd-ownership", status: "scan-and-review", evidence: "28 rendered CRDs", note: "The chart templates 28 CRDs, including Gateway API CRDs that may already be cluster-managed." },
     { category: "stateful-workload", status: "scan-and-review", object: "apps/v1|StatefulSet|consul|consul-consul-server" },
-    { category: "target-topology", status: "target-review", note: "The secure-mesh-existing-secrets base renders three Consul server replicas with pod anti-affinity, so the strict one-node kind target is expected to leave two server pods pending. Use a multi-node target or a separate single-node/evaluation base for live readiness." },
+    {
+      category: "target-topology",
+      status: "target-fit-required",
+      evidence: "target-topology.yaml",
+      note: "The secure-mesh-existing-secrets base renders three Consul server replicas with pod anti-affinity, so the strict one-node kind target is expected to leave two server pods pending. Use a multi-node target or a separate single-node/evaluation base for live readiness.",
+    },
     { category: "admission-webhook", status: "scan-and-review", object: "admissionregistration.k8s.io/v1|MutatingWebhookConfiguration|consul|consul-consul-connect-injector" },
     { category: "cluster-rbac", status: "scan-and-review", note: "Default and secure variants render broad cluster RBAC for server, injector, gateway resources, and webhook certificate manager." },
     { category: "mesh-gateway-policy", status: "variant-controlled", note: "The secure-mesh-existing-secrets variant enables mesh, ingress, and terminating gateways with ClusterIP services." },
@@ -303,6 +310,7 @@ rewrite(r)
       "Both variants render 28 CRDs, including Gateway API CRDs that can conflict with cluster-managed CRD ownership.",
       "Helm hooks are excluded from proof renders, while the secure variant's normal ACL init Job remains visible as an install lifecycle object.",
       "secure-mesh-existing-secrets needs a target topology that can schedule three Consul server replicas with pod anti-affinity; one-node kind is useful for object parity but not for live readiness.",
+      "target-topology.yaml records the target shape required for the secure mesh base.",
       "server extra config, injector, controller, gateway, and tpl-controlled strings are powerful extension surfaces; promoted variants keep them controlled.",
     ],
     knownControlPoints: [
@@ -331,6 +339,7 @@ rewrite(r)
       "`secure-mesh-existing-secrets` enables TLS, ACLs, gossip encryption, mesh gateways, and UI ingress using declared target Secrets;",
       "CRD ownership, cluster RBAC, admission webhooks, lifecycle Jobs, rendered Secrets, StatefulSet storage, gateway topology, UI ingress, and raw/template extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.",
       "the secure mesh base is explicit about target topology: three server replicas with anti-affinity need a multi-node target, while one-node kind is only a parity target.",
+      "target-topology.yaml records the target shape and receipts needed before secure mesh readiness can be claimed.",
     ],
   },
   installGate: (variant) => ({
@@ -478,7 +487,13 @@ rewrite(r)
     }
     return findings;
   },
-  verifyExtra({ sourceLock, dependencyLock, controlPoints, perVariant, check }) {
+  verifyExtra({ root, sourceLock, dependencyLock, controlPoints, perVariant, check, readYaml, join }) {
+    const topology = readYaml(join(root, "target-topology.yaml"));
+    check(topology.kind === "TargetTopology", "target-topology.yaml must be a TargetTopology");
+    check(topology.spec.bases.defaultControlPlane?.status === "single-node-compatible", "default-control-plane topology mismatch");
+    check(topology.spec.bases.secureMeshExistingSecrets?.targetFit.minimumSchedulableNodes === 3, "secure mesh minimum node count mismatch");
+    check(topology.spec.bases.secureMeshExistingSecrets?.requiredReceipts.includes("target-fit-observation-receipt"), "secure mesh target-fit receipt missing");
+    check(topology.spec.notProvenBy.includes("one-node kind runtime readiness"), "one-node limitation must be explicit");
     check(sourceLock.spec.deprecated === false, "source deprecation marker must be recorded");
     check((dependencyLock.spec.dependencies ?? []).length === 0, "consul dependency lock must be empty");
     check(controlPoints.spec.points?.some((point) => point.category === "target-facts"), "target-facts control point missing");
@@ -522,6 +537,65 @@ rewrite(r)
     }
   },
 });
+
+function consulTargetTopology() {
+  return {
+    apiVersion: "helm-expt.confighub.com/v1alpha1",
+    kind: "TargetTopology",
+    metadata: { name: "hashicorp-consul-2.0.0" },
+    spec: {
+      chart: "hashicorp/consul@2.0.0",
+      scope: "target shape required by each supported base after render parity has passed",
+      bases: {
+        defaultControlPlane: {
+          variant: "default-control-plane",
+          status: "single-node-compatible",
+          reason:
+            "the curated default base disables disruptive PDB behavior for local proof and has live parity on the standard proof target",
+        },
+        secureMeshExistingSecrets: {
+          variant: "secure-mesh-existing-secrets",
+          status: "target-fit-required",
+          targetFit: {
+            minimumSchedulableNodes: 3,
+            requiresPersistentStorage: true,
+            requiresIngressController: true,
+            requiresGatewayPolicyReview: true,
+            reason:
+              "the base renders three Consul server replicas with pod anti-affinity, mesh gateway, ingress gateway, terminating gateway, UI ingress, injector webhook, and ACL init Job",
+          },
+          prerequisites: {
+            secrets: [
+              "consul/consul-ca-cert tls.crt",
+              "consul/consul-server-cert tls.crt,tls.key",
+              "consul/consul-gossip-encryption-key key",
+              "consul/consul-bootstrap-acl-token token",
+            ],
+            policyReviews: [
+              "CRD ownership",
+              "cluster RBAC",
+              "injector webhook readiness",
+              "ACL bootstrap lifecycle",
+              "mesh, ingress, and terminating gateway exposure",
+              "UI ingress exposure",
+            ],
+          },
+          requiredReceipts: [
+            "target-fit-observation-receipt",
+            "secret-preflight-receipt",
+            "webhook-readiness-receipt",
+            "gateway-policy-receipt",
+          ],
+        },
+      },
+      notProvenBy: [
+        "one-node kind runtime readiness",
+        "render parity alone",
+        "presence of target Secret names without live Secret/preflight evidence",
+      ],
+    },
+  };
+}
 
 function normalizeCommandBlocks(value) {
   if (Array.isArray(value)) {

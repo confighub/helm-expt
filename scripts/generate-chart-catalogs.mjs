@@ -318,6 +318,7 @@ function receiptIndex(path, receipt, extra) {
 function optionalArtifactRows(root) {
   const artifacts = [
     { label: "Operating policy", path: "operating-policy.yaml" },
+    { label: "Target topology", path: "target-topology.yaml" },
     { label: "Render blocker", path: "default-render-blocker.yaml" },
   ];
   const rows = artifacts
