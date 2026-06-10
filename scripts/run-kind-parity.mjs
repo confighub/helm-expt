@@ -259,6 +259,9 @@ function classifyReceipt(receipt) {
   ) {
     return `operate-policy: Vault init/unseal required${paritySuffix}`;
   }
+  if (spec.legs?.regularHelm?.result === "pass" && spec.legs?.cubInstallerApply?.result === "watch") {
+    return `target-runtime: installer-applied workload not ready at observation cutoff${paritySuffix}`;
+  }
   if (text.includes("crashloopbackoff")) return `target-runtime: pod crash loop${paritySuffix}`;
   if (text.includes("pending")) return `target-runtime: pods pending${paritySuffix}`;
   if (text.includes("available: 0/1") || text.includes("ready: 0/1") || text.includes('"ready":"0/1"') || text.includes("context deadline exceeded")) {

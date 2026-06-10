@@ -30,12 +30,12 @@ data/live-parity-rerun-plan/summary.md
 | Reason | Rows |
 | --- | ---: |
 | helm-hook: post-install hook failed (parity passed) | 1 |
-| helm-runtime: upstream not ready (parity passed) | 1 |
 | operate-policy: Vault init/unseal required (parity passed) | 1 |
 | target-fit: HA raft target topology not satisfied (parity passed) | 1 |
 | target-fit: secure mesh target topology not satisfied (parity passed) | 1 |
 | target-prerequisite: object store endpoint not satisfied (parity passed) | 1 |
 | target-prerequisite: serving certificate and APIService trust not satisfied (parity passed) | 1 |
+| target-runtime: installer-applied workload not ready at observation cutoff (parity passed) | 1 |
 | target-runtime: pod crash loop (parity passed) | 1 |
 
 ## Rows
@@ -70,7 +70,7 @@ data/live-parity-rerun-plan/summary.md
 | `hashicorp/vault@0.32.0` | dev-mode | pass |  | runs/live-kind-parity/hashicorp-vault-dev-mode/receipt.yaml |
 | `hashicorp/vault@0.32.0` | ha-raft-ui | blocked | target-fit: HA raft target topology not satisfied (parity passed) | runs/live-kind-parity/hashicorp-vault-ha-raft-ui/receipt.yaml |
 | `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | pass |  | runs/live-kind-parity/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml |
-| `ingress-nginx/ingress-nginx@4.15.1` | default | watch | helm-runtime: upstream not ready (parity passed) | runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml |
+| `ingress-nginx/ingress-nginx@4.15.1` | default | watch | target-runtime: installer-applied workload not ready at observation cutoff (parity passed) | runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml |
 | `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | pass |  | runs/live-kind-parity/ingress-nginx-ingress-nginx-internal-clusterip/receipt.yaml |
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | pass |  | runs/live-kind-parity/jetstack-cert-manager-crds-enabled/receipt.yaml |
 | `jetstack/cert-manager@v1.20.2` | default | blocked | helm-hook: post-install hook failed (parity passed) | runs/live-kind-parity/jetstack-cert-manager-default/receipt.yaml |

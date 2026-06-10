@@ -7,7 +7,7 @@ spec:
   version: 4.15.1
   base: default
   result: watch
-  observedAt: '2026-06-09T23:34:34Z'
+  observedAt: '2026-06-10T01:25:41Z'
   package:
     path: packages/ingress-nginx/ingress-nginx/4.15.1
   recipe:
@@ -15,24 +15,24 @@ spec:
   variantRevision: recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-ingres-1c8ae-1dqu-helm
-    installerCluster: hx-ingres-1c8ae-1dqu-installer
+    helmCluster: hx-ingres-1c8ae-09iy-helm
+    installerCluster: hx-ingres-1c8ae-09iy-installer
     namespace: ingress-nginx
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-ingres-1c8ae-1dqu-helm
+      - cluster: hx-ingres-1c8ae-09iy-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-ingres-1c8ae-1dqu-helm" ...
+        detail: 'Deleting cluster "hx-ingres-1c8ae-09iy-helm" ...
 
-          Deleted nodes: ["hx-ingres-1c8ae-1dqu-helm-control-plane"]'
-      - cluster: hx-ingres-1c8ae-1dqu-installer
+          Deleted nodes: ["hx-ingres-1c8ae-09iy-helm-control-plane"]'
+      - cluster: hx-ingres-1c8ae-09iy-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-ingres-1c8ae-1dqu-installer" ...
+        detail: 'Deleting cluster "hx-ingres-1c8ae-09iy-installer" ...
 
-          Deleted nodes: ["hx-ingres-1c8ae-1dqu-installer-control-plane"]'
+          Deleted nodes: ["hx-ingres-1c8ae-09iy-installer-control-plane"]'
   legs:
     regularHelm:
       result: pass
@@ -51,17 +51,17 @@ spec:
         namespaces: *id001
         workloads: '# ingress-nginx
 
-          deployment.apps/ingress-nginx-controller   1/1   1     1     31s'
+          deployment.apps/ingress-nginx-controller   1/1   1     1     32s'
         pods: '# ingress-nginx
 
-          ingress-nginx-controller-6c7cd85885-hs6n2   1/1   Running   0     31s'
+          ingress-nginx-controller-6c7cd85885-72vnx   1/1   Running   0     32s'
         notReady: []
       stderr: ''
       getManifestError: ''
     cubInstallerApply:
       result: watch
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/ingress-nginx/ingress-nginx/4.15.1
-        --base default --work-dir /tmp/helm-expt-kind-parity-hx-ingres-1c8ae-1dqu-ingress-nginx
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-ingres-1c8ae-09iy-ingress-nginx
         --non-interactive --namespace ingress-nginx
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
@@ -80,10 +80,10 @@ spec:
           deployment.apps/ingress-nginx-controller   0/1   1     0     4m53s'
         pods: '# ingress-nginx
 
-          ingress-nginx-controller-6c7cd85885-4bnqb   0/1   ContainerCreating   0     4m53s'
+          ingress-nginx-controller-6c7cd85885-qvscm   0/1   ContainerCreating   0     4m53s'
         notReady:
         - namespace: ingress-nginx
-          pod: ingress-nginx-controller-6c7cd85885-4bnqb
+          pod: ingress-nginx-controller-6c7cd85885-qvscm
           ready: 0/1
           status: ContainerCreating
   semanticComparison:
@@ -117,7 +117,7 @@ spec:
   - name: regular-helm-live
     result: pass
     detail: "Release \"ingress-nginx\" does not exist. Installing it now.\nNAME: ingress-nginx\n\
-      LAST DEPLOYED: Wed Jun 10 00:35:25 2026\nNAMESPACE: ingress-nginx\nSTATUS: deployed\n\
+      LAST DEPLOYED: Wed Jun 10 02:26:33 2026\nNAMESPACE: ingress-nginx\nSTATUS: deployed\n\
       REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\nThe ingress-nginx\
       \ controller has been installed.\nIt may take a few minutes for the load balancer\
       \ IP to be available.\nYou can watch the status by running 'kubectl get service\
