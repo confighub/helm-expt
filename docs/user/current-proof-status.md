@@ -64,6 +64,14 @@ to promote, review, or improve next:
 It separates the next80 into promotion review, limitation review, and
 user-shaped variant work, with source features and artifact links.
 
+The refresh-survival report is the shortest answer for what happens when
+upstream Helm publishes a newer chart version:
+
+[Refresh Survival](../../data/refresh-survival/summary.md)
+
+It keeps supported versions pinned, lists upstream update candidates, and shows
+which candidate versions have only passed the render proof lane so far.
+
 Production support is tracked separately from test evidence:
 
 [Production Disposition](../../data/production-disposition/summary.md)

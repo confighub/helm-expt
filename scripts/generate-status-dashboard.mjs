@@ -48,6 +48,7 @@ function buildReport() {
   const top100CoverageRows = readCsv("data/top100-coverage/coverage.csv");
   const top100CoverageWorkRows = readCsv("data/top100-coverage/work-queue.csv");
   const top100PromotionWaveRows = readCsv("data/top100-promotion-wave/wave.csv");
+  const refreshSurvivalRows = readCsv("data/refresh-survival/refreshes.csv");
   const top500Rows = readCsv("data/top500-catalog-analysis/review.csv");
   const quirkRows = readCsv("data/quirk-coverage/coverage.csv");
   const extensionRows = readCsv("data/extension-slots/extension-slots.csv");
@@ -82,6 +83,9 @@ function buildReport() {
   rows.push(metric("top100", "first strict top100 promotion wave", top100PromotionWaveRows.length, count(top100CoverageWorkRows, "queue", "promotion-review"), "partial", "data/top100-promotion-wave/wave.csv", "Promotion-review rows with two-cluster kind parity selected for the first strict top100 promotion wave."));
   rows.push(metric("top100", "top100 user-shaped variant queue", count(top100CoverageWorkRows, "queue", "user-shaped-variant"), top100CoverageWorkRows.length, "partial", "data/top100-coverage/work-queue.csv", "Partial top100 rows whose proof exists but whose current base is not yet a useful catalog offer."));
   rows.push(metric("top100", "top100 limitation-decision queue", count(top100CoverageWorkRows, "queue", "limitation-decision"), top100CoverageWorkRows.length, "partial", "data/top100-coverage/work-queue.csv", "Partial top100 rows needing a support, disclosure, defer, or block decision before promotion."));
+  rows.push(metric("refresh", "top20 proofs still current", count(refreshSurvivalRows, "refresh_state", "current-proof-still-current"), refreshSurvivalRows.length, "partial", "data/refresh-survival/refreshes.csv", "Supported top-20 chart versions that still match the latest upstream Helm version in the retained refresh snapshot."));
+  rows.push(metric("refresh", "top20 upstream update candidates", count(refreshSurvivalRows, "refresh_state", "upstream-update-candidate"), refreshSurvivalRows.length, "partial", "data/refresh-survival/refreshes.csv", "Supported top-20 charts with newer upstream Helm versions that must not be promoted until the full lane reruns."));
+  rows.push(metric("refresh", "update candidates with render proof", count(refreshSurvivalRows, "candidate_proof", "candidate-render-proof-present"), count(refreshSurvivalRows, "refresh_state", "upstream-update-candidate"), "partial", "data/refresh-survival/refreshes.csv", "Latest-version candidates that have passed the recipe/package/render/compare lane but are not replacement catalog rows."));
   rows.push(metric("top500", "source rows scanned", count(top500Rows, "source_status", "source-scanned"), top500Rows.length, "partial", "data/top500-catalog-analysis/review.csv", "Retained source-scan rows with source feature data."));
   rows.push(metric("top500", "rows with current recipe proof", top500Rows.filter((row) => row.recipe_status.startsWith("current-recipe")).length, top500Rows.length, "partial", "data/top500-catalog-analysis/review.csv", "Retained source-scan rows matched to current recipe/package proof."));
   rows.push(metric("top500", "catalog-supported rows", count(top500Rows, "catalog_status", "catalog-supported"), top500Rows.length, "partial", "data/top500-catalog-analysis/review.csv", "Rows promoted to the current public catalog; production gates still matter."));
