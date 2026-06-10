@@ -1,0 +1,59 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LatestCandidateReplacementDecision
+metadata:
+  name: bitnami-mongodb-19-1-0-defer-public-catalog-replacement
+spec:
+  chart: bitnami/mongodb
+  currentVersion: 19.0.7
+  currentSupportedVersion: 19.0.7
+  currentSupportedBase: generated-passwords
+  candidateVersion: 19.1.0
+  latestUpstreamVersion: 19.1.0
+  candidateFreshness: latest-upstream-aligned
+  candidateBase: generated-passwords
+  decision: defer-replacement
+  decisionDate: "2026-06-10"
+  catalogEffect: no-catalog-promotion
+  targetScope:
+    name: public-catalog-generated-passwords-mongodb
+    clusterClass: cub-lk-kind-vanilla
+    namespace: mongodb
+    deliveryPath: confighub-oci
+    gitopsController: argo
+  summary: "Keep bitnami/mongodb@19.0.7 as the supported public catalog version for now; retain bitnami/mongodb@19.1.0 as a proof-complete candidate."
+  rationale:
+    - "The MongoDB 19.1.0 candidate has render, ConfigHub, local live, and two-cluster live parity evidence for the generated-passwords base."
+    - "The current MongoDB 19.0.7 supported scope already has target-scoped public catalog support evidence."
+    - "Replacing a supported stateful database base needs an explicit target-scoped support decision for generated credentials, storage, backup/restore, scan disposition, and target-fact policy."
+  decisionTopicsReviewed:
+    - "extension slot provenance and scan policy"
+    - "generated fact ownership"
+    - "hook and lifecycle phase policy"
+    - "image digest support decision"
+    - "scan/gate warning disposition"
+    - "storage backup restore and rollback policy"
+    - "target fact preflight"
+  requirementsBeforeReplacement:
+    - "Write a MongoDB 19.1.0 target-scoped production support decision with the exact stateful support boundary."
+    - "Refresh ConfigHub OCI/Argo live evidence for the exact replacement scope after the candidate is selected."
+    - "Refresh scan disposition, PDB warning acceptance, and image-digest policy for the 19.1.0 rendered object set before treating it as the supported catalog version."
+    - "Record whether MongoDB 19.0.7 remains a legacy patch/rollback reference after replacement."
+  evidence:
+    - path: data/production-support-decisions/bitnami-mongodb/support-decision.yaml
+      claim: "Current MongoDB 19.0.7 supported scope remains the public catalog support decision."
+    - path: recipes/bitnami/mongodb/19.1.0/catalog-status.yaml
+      claim: "MongoDB 19.1.0 is visible as a catalog-candidate, not catalog-supported."
+    - path: runs/latest-top20-refresh/mongodb-19.1.0/confighub-proof/latest/confighub-proof-receipt.yaml
+      claim: "MongoDB 19.1.0 ConfigHub proof passed for the generated-passwords base."
+    - path: runs/latest-top20-refresh/mongodb-19.1.0/local-kind/observation-receipt.json
+      claim: "MongoDB 19.1.0 local kind observation passed for the generated-passwords base."
+    - path: runs/latest-top20-refresh/mongodb-19.1.0/live-parity/generated-passwords/receipt.yaml
+      claim: "MongoDB 19.1.0 two-cluster Helm-vs-installer live parity passed for the generated-passwords base."
+    - path: data/production-disposition/receipts/bitnami-mongodb/generated-fact-ownership.yaml
+      claim: "Generated fact ownership is an explicit replacement topic for this chart."
+    - path: data/production-disposition/receipts/bitnami-mongodb/scan-gate-warning-disposition.yaml
+      claim: "Scan gate warning disposition is an explicit replacement topic for this chart."
+    - path: data/production-disposition/receipts/bitnami-mongodb/storage-backup-restore-and-rollback-policy.yaml
+      claim: "Storage backup, restore, and rollback policy is an explicit replacement topic for this chart."
+    - path: data/production-disposition/receipts/bitnami-mongodb/target-fact-preflight.yaml
+      claim: "Target fact preflight is an explicit replacement topic for this chart."

@@ -1,0 +1,15 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "SourceLock"
+metadata:
+  name: "bitnami-mongodb-19.1.0"
+spec:
+  sourceType: "HelmChart"
+  repositoryName: "bitnami"
+  repositoryURL: "https://charts.bitnami.com/bitnami"
+  chart: "mongodb"
+  version: "19.1.0"
+  appVersion: "8.3.2"
+  packageSHA256: "f55ff62750f654cf45d91bacd792352e19e3b7b943b2df11d73e281a343bb469"
+  packageBytes: 130659
+  evidence:
+    harnessReceipt: "../../../../data/adversarial10/charts/bitnami-mongodb-19.1.0/render-receipt.yaml"

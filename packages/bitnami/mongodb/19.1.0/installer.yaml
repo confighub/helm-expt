@@ -1,0 +1,37 @@
+apiVersion: "installer.confighub.com/v1alpha1"
+kind: "Package"
+metadata:
+  name: "bitnami-mongodb"
+  version: "19.1.0"
+spec:
+  bases:
+    -
+      name: "generated-passwords"
+      path: "bases/generated-passwords"
+      default: true
+      description: "mongodb generated passwords variant rendered from bitnami/mongodb@19.1.0"
+    -
+      name: "existing-secret-replicaset"
+      path: "bases/existing-secret-replicaset"
+      description: "mongodb existing Secret replica set variant rendered from bitnami/mongodb@19.1.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "Secret mongodb/mongodb-auth keys mongodb-root-password,mongodb-replica-set-key"
+          namespace: "mongodb"
+          suggestedSource: "kubectl -n mongodb create secret generic mongodb-auth --from-literal=mongodb-root-password=<value> --from-literal=mongodb-replica-set-key=<value>"
+  collector:
+    command: "/bin/sh"
+    args:
+      - "collector/target-facts.sh"
+    description: "Records target-fact bindings and can live-check cluster-visible Secret and CRD requirements."
+  transformers:
+    -
+      description: "Set the namespace on every namespaced resource."
+      invocations:
+        -
+          name: "set-namespace"
+          args:
+            - "{{ .Namespace }}"
+      toolchain: "Kubernetes/YAML"
+      whereResource: ""

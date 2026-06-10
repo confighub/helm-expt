@@ -1,0 +1,19 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  name: "mongodb-generated-passwords-r001"
+spec:
+  variantRevision: "../variant-revision.yaml"
+  renderedObjectSetSHA256: "2753c6bfaf61d7e60135c7a52e1e05bd4fde979c5796b4e2b54ffa2cb64c6911"
+  decision: "warn"
+  allowedScopes:
+    - "local-test"
+  blockedScopes:
+    - "production"
+  reasons:
+    - "Helm equivalence passed for generated-passwords"
+    - "Generated credential handling needs explicit generated fact or target fact policy before production"
+    - "The no-hooks lifecycle boundary is explicit; any future hook-producing path needs a separate lifecycle route before production"
+    - "MongoDB Deployment/StatefulSet storage, upgrade, and rollback policy need production review"
+    - "Replica-set topology, arbiter behavior, NetworkPolicy, and PDB need production review"
+    - "uses a persisted generated fact for auth.rootPassword and renders the chart Secret deterministically"

@@ -1,0 +1,217 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartArtifactIndex"
+metadata:
+  name: "bitnami-mongodb-19.1.0"
+  chart: "bitnami/mongodb"
+  version: "19.1.0"
+  generatedBy: "scripts/generate-chart-catalogs.mjs"
+spec:
+  doctrine: "1 Helm chart version -> 1 core recipe -> N variants -> M variant revisions -> package bases -> receipts"
+  chart:
+    ref: "bitnami/mongodb"
+    version: "19.1.0"
+    appVersion: "8.3.2"
+    sourceLock: "recipes/bitnami/mongodb/19.1.0/source-lock.yaml"
+    dependencyLock: "recipes/bitnami/mongodb/19.1.0/dependency-lock.yaml"
+    repository: "https://charts.bitnami.com/bitnami"
+    packageSHA256: "f55ff62750f654cf45d91bacd792352e19e3b7b943b2df11d73e281a343bb469"
+  recipe:
+    path: "recipes/bitnami/mongodb/19.1.0/recipe.yaml"
+    importMode: "render-and-vendor"
+    helmPlan: "recipes/bitnami/mongodb/19.1.0/helm-plan.yaml"
+    chartDossier: "recipes/bitnami/mongodb/19.1.0/chart-dossier.yaml"
+    controlPoints: "recipes/bitnami/mongodb/19.1.0/control-points.yaml"
+    valueModel: "recipes/bitnami/mongodb/19.1.0/value-model.yaml"
+    weirdnessAndMitigations: ""
+    helmPainReport: "recipes/bitnami/mongodb/19.1.0/helm-pain-report.yaml"
+    controlPointCategories:
+      - "capability-profile"
+      - "dependency-lock"
+      - "generated-facts"
+      - "hook-policy"
+      - "image-digest"
+      - "installer-support-object"
+      - "network-policy"
+      - "pdb-policy"
+      - "pvc-policy"
+      - "replicaset-topology"
+      - "source-lock"
+      - "stateful-workload"
+      - "target-facts"
+      - "tpl"
+  catalogStatus:
+    path: "recipes/bitnami/mongodb/19.1.0/catalog-status.yaml"
+    status: "catalog-candidate"
+    supportLevel: "promotion-review-needed"
+    supportedScopes:
+      []
+    productionReadiness: "not-reviewed-for-production"
+    supportedVariants:
+      []
+    candidateVariants:
+      - "generated-passwords"
+      - "existing-secret-replicaset"
+    deferredVariants:
+      []
+  proofSummary:
+    adoptionBucket: ""
+    userStatus: ""
+    strongestEvidence: ""
+    proofLanes:
+      renderParity: ""
+      inConfigHub: ""
+      localLive: ""
+      gitopsLive: ""
+      liveParity: ""
+    featureSummary: ""
+    hardGap: ""
+    nextAction: ""
+  installerPackage:
+    path: "packages/bitnami/mongodb/19.1.0"
+    installer: "packages/bitnami/mongodb/19.1.0/installer.yaml"
+    receipt: "recipes/bitnami/mongodb/19.1.0/publication/installer-package-receipt.yaml"
+    deterministicBundleSHA256: "33f19450a9acb2f2a8cf3e3d90f0d5dceff6c9fa017cf11d5bfe7a3b1c76e184"
+    deterministicAcrossTwoLocalBundles: true
+    bases:
+      -
+        name: "generated-passwords"
+        path: "packages/bitnami/mongodb/19.1.0/bases/generated-passwords"
+        default: true
+        description: "mongodb generated passwords variant rendered from bitnami/mongodb@19.1.0"
+      -
+        name: "existing-secret-replicaset"
+        path: "packages/bitnami/mongodb/19.1.0/bases/existing-secret-replicaset"
+        default: false
+        description: "mongodb existing Secret replica set variant rendered from bitnami/mongodb@19.1.0"
+  variants:
+    -
+      name: "generated-passwords"
+      variant: "recipes/bitnami/mongodb/19.1.0/variants/generated-passwords/variant.yaml"
+      namespace: "mongodb"
+      releaseName: "mongodb"
+      valuesProfile: "recipes/bitnami/mongodb/19.1.0/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "generated-passwords"
+        path: "packages/bitnami/mongodb/19.1.0/bases/generated-passwords"
+        default: true
+        description: "mongodb generated passwords variant rendered from bitnami/mongodb@19.1.0"
+      setupCheck:
+        command: "cub installer setup --pull packages/bitnami/mongodb/19.1.0 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mongodb"
+        helmReleaseObjectCount: 8
+        cubInstallObjectCountIncludingSupport: 9
+        semanticObjectMatches: "8/8"
+        separatedSecretCount: 1
+        allowedCubOnlyObjects:
+          - "v1|Namespace||mongodb"
+      revisions:
+        -
+          name: "generated-passwords-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/mongodb/19.1.0/revisions/generated-passwords/r001/variant-revision.yaml"
+          digest: "2405209a62223da30dd1d14f97ac5e7c94d8c29ea28068d28c72fc3970f11158"
+          renderedObjectSetSHA256: "2753c6bfaf61d7e60135c7a52e1e05bd4fde979c5796b4e2b54ffa2cb64c6911"
+          renderedObjects: "recipes/bitnami/mongodb/19.1.0/revisions/generated-passwords/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/mongodb/19.1.0/revisions/generated-passwords/r001/rendered/object-inventory.yaml"
+          objectCount: 8
+          helmObjectCount: 8
+          cubInstallObjectCountIncludingSupport: 9
+          semanticObjectMatches: "8/8"
+          separatedSecretFiles: 1
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/mongodb/19.1.0/revisions/generated-passwords/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "2753c6bfaf61d7e60135c7a52e1e05bd4fde979c5796b4e2b54ffa2cb64c6911"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/mongodb/19.1.0/revisions/generated-passwords/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "2753c6bfaf61d7e60135c7a52e1e05bd4fde979c5796b4e2b54ffa2cb64c6911"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/mongodb/19.1.0/revisions/generated-passwords/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "2753c6bfaf61d7e60135c7a52e1e05bd4fde979c5796b4e2b54ffa2cb64c6911"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/mongodb/19.1.0/revisions/generated-passwords/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "2753c6bfaf61d7e60135c7a52e1e05bd4fde979c5796b4e2b54ffa2cb64c6911"
+    -
+      name: "existing-secret-replicaset"
+      variant: "recipes/bitnami/mongodb/19.1.0/variants/existing-secret-replicaset/variant.yaml"
+      namespace: "mongodb"
+      releaseName: "mongodb"
+      valuesProfile: "recipes/bitnami/mongodb/19.1.0/effective-values-existing-secret-replicaset.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        requiredSecrets:
+          -
+            keys:
+              - "mongodb-root-password"
+              - "mongodb-replica-set-key"
+            name: "mongodb-auth"
+            namespace: "mongodb"
+            purpose: "MongoDB root password and MongoDB-valid replica-set key"
+      targetFactSummary: "required Secret mongodb/mongodb-auth keys mongodb-root-password,mongodb-replica-set-key"
+      packageBase:
+        name: "existing-secret-replicaset"
+        path: "packages/bitnami/mongodb/19.1.0/bases/existing-secret-replicaset"
+        default: false
+        description: "mongodb existing Secret replica set variant rendered from bitnami/mongodb@19.1.0"
+      setupCheck:
+        command: "cub installer setup --pull packages/bitnami/mongodb/19.1.0 --base existing-secret-replicaset --work-dir <tmp> --non-interactive --namespace mongodb"
+        helmReleaseObjectCount: 10
+        cubInstallObjectCountIncludingSupport: 11
+        semanticObjectMatches: "10/10"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||mongodb"
+      revisions:
+        -
+          name: "existing-secret-replicaset-r001"
+          revision: "r001"
+          variantRevision: "recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/variant-revision.yaml"
+          digest: "936f588e879134f4b3c370c6f02f64e45fe9cfdc521b8e63bb4b3a6dec7b3249"
+          renderedObjectSetSHA256: "b39a69abcab4c663d77a1176895385b5c864766a5ac19b16953d3cfd4597adcd"
+          renderedObjects: "recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/rendered/object-inventory.yaml"
+          objectCount: 10
+          helmObjectCount: 10
+          cubInstallObjectCountIncludingSupport: 11
+          semanticObjectMatches: "10/10"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "b39a69abcab4c663d77a1176895385b5c864766a5ac19b16953d3cfd4597adcd"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "b39a69abcab4c663d77a1176895385b5c864766a5ac19b16953d3cfd4597adcd"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "b39a69abcab4c663d77a1176895385b5c864766a5ac19b16953d3cfd4597adcd"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "b39a69abcab4c663d77a1176895385b5c864766a5ac19b16953d3cfd4597adcd"

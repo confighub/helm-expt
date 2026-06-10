@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ChartDossier"
+metadata:
+  name: "bitnami-mongodb-19.1.0"
+spec:
+  chart: "bitnami/mongodb"
+  version: "19.1.0"
+  maintainedNotes:
+    - "Default chart rendering is nondeterministic unless auth.rootPassword is bound before render."
+    - "generated-passwords variant persists auth.rootPassword as a generated fact and renders the Secret deterministically."
+    - "existing-secret-replicaset variant does not render a Secret and instead declares mongodb/mongodb-auth as a target fact."
+    - "The mongodb-replica-set-key target fact must be valid MongoDB keyfile material; a generic password-like string can pass presence checks but fail runtime bootstrap."
+    - "existing-secret-replicaset variant changes architecture to replicaset and renders primary plus arbiter StatefulSets."
+    - "Supported bases pin the Bitnami MongoDB image by digest instead of rendering the chart default latest tag."
+    - "Chart declares the Bitnami common dependency and records it in dependency-lock.yaml."
+    - "Retained source-scan evidence records hook count 0 for this pinned chart line; supported bases render no hook objects and keep the no-hooks lifecycle boundary explicit."
+    - "MongoDB renders persistent storage, NetworkPolicy, and PDB objects that need production policy."
+    - "initdb and extended configuration are template-powered extension slots; promoted variants keep them empty."
+  knownControlPoints:
+    - "generated-facts"
+    - "target-facts"
+    - "dependency-lock"
+    - "hook-lifecycle-policy"
+    - "replicaset-topology"
+    - "stateful-workload-policy"
+    - "network-policy"
+    - "pdb-policy"
+    - "tpl-extension-slot"

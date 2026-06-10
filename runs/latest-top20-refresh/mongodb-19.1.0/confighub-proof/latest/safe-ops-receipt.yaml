@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "mongodb-19-1-0-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-mongodb-19-1-0-candidate-proof"
+    selector: "Labels.Proof = 'mongodb-19-1-0-candidate-proof'"
+  subject:
+    chart: "bitnami/mongodb"
+    chartVersion: "19.1.0"
+    packagePath: "data/latest-top20-refresh/candidates/mongodb-19.1.0/packages/bitnami/mongodb/19.1.0"
+    variant: "generated-passwords"
+  changeset:
+    slug: "mongodb-19-1-0-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "MongoDB 19.1.0 safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "mongodb-19-1-0-candidate-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve deployment-mongodb-mongodb --space helm-mongodb-19-1-0-candidate-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "deployment-mongodb-mongodb"
+    output: "Unit deployment-mongodb-mongodb (f02111e8-aa15-473f-b037-3fa6a5a3eec9) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-mongodb-19-1-0-candidate-proof --where \"Labels.Proof = 'mongodb-19-1-0-candidate-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req ZwfNounqyYyozFmVpxVxpXNJtLpQAQfT: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-mongodb-19-1-0-candidate-proof --where \"Labels.Proof = 'mongodb-19-1-0-candidate-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."

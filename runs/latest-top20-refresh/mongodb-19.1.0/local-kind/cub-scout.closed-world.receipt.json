@@ -1,0 +1,165 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "rendered-object-set://sha256/6fc4f172ff8bea0f",
+      "digest": {
+        "sha256": "6fc4f172ff8bea0f44b48f2d729c93f79ecf4f09317d2437fc4d8b1732f415eb"
+      }
+    },
+    {
+      "name": "k8s-live-object-set://namespace/mongodb",
+      "digest": {
+        "sha256": "6fc4f172ff8bea0f44b48f2d729c93f79ecf4f09317d2437fc4d8b1732f415eb"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "live object set matches rendered manifests from /Users/alexis/code/helm-expt/runs/latest-top20-refresh/mongodb-19.1.0/local-kind/cub-scout.desired.yaml",
+    "scope": {
+      "kind": "ObjectSet",
+      "name": "rendered-install",
+      "namespace": "mongodb"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-06-10T17:52:56Z",
+    "freshness": {
+      "observedAt": "2026-06-10T17:52:56Z",
+      "expiresAt": "2026-06-10T18:52:56Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "object-set-matches",
+    "verdict": "PASS",
+    "evidence": {
+      "objectSet": {
+        "desiredSource": {
+          "type": "file",
+          "ref": "/Users/alexis/code/helm-expt/runs/latest-top20-refresh/mongodb-19.1.0/local-kind/cub-scout.desired.yaml",
+          "digest": "03c6b87a9cec7a224f3d45f271bfa5f493dc8c6ce1fbc042f030f48cd2fb3627",
+          "objectCount": 8
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "mongodb"
+        },
+        "matchMode": "authored-fields",
+        "desiredDigest": "6fc4f172ff8bea0f44b48f2d729c93f79ecf4f09317d2437fc4d8b1732f415eb",
+        "liveDigest": "6fc4f172ff8bea0f44b48f2d729c93f79ecf4f09317d2437fc4d8b1732f415eb",
+        "summary": {
+          "desired": 8,
+          "matched": 8,
+          "missing": 0,
+          "mismatched": 0,
+          "inconclusive": 0
+        },
+        "objects": [
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "mongodb",
+              "name": "mongodb"
+            },
+            "status": "matched",
+            "desiredDigest": "ea882864c14bcb0c270237ef5842af155b840cd84a79c664b90010457e316df4",
+            "liveDigest": "ea882864c14bcb0c270237ef5842af155b840cd84a79c664b90010457e316df4"
+          },
+          {
+            "id": {
+              "apiVersion": "networking.k8s.io/v1",
+              "kind": "NetworkPolicy",
+              "namespace": "mongodb",
+              "name": "mongodb"
+            },
+            "status": "matched",
+            "desiredDigest": "ca876170930fe9e8e4e068f0ece679f2108e5805e71c7adce9182e274d21cdc6",
+            "liveDigest": "ca876170930fe9e8e4e068f0ece679f2108e5805e71c7adce9182e274d21cdc6"
+          },
+          {
+            "id": {
+              "apiVersion": "policy/v1",
+              "kind": "PodDisruptionBudget",
+              "namespace": "mongodb",
+              "name": "mongodb"
+            },
+            "status": "matched",
+            "desiredDigest": "73de67d20e8f673b0eb6d27d1ae1bdfdc3bed39293375a64c213ea410404138f",
+            "liveDigest": "73de67d20e8f673b0eb6d27d1ae1bdfdc3bed39293375a64c213ea410404138f"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "mongodb",
+              "name": "mongodb-common-scripts"
+            },
+            "status": "matched",
+            "desiredDigest": "a8880b137995a86117357b7d5c734c2367eaec48eb60df577f39f750b946464a",
+            "liveDigest": "a8880b137995a86117357b7d5c734c2367eaec48eb60df577f39f750b946464a"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "PersistentVolumeClaim",
+              "namespace": "mongodb",
+              "name": "mongodb"
+            },
+            "status": "matched",
+            "desiredDigest": "cac9ef24abb2558f60903035ef5880f08421460494c434fbfc2db863d7d15c83",
+            "liveDigest": "cac9ef24abb2558f60903035ef5880f08421460494c434fbfc2db863d7d15c83"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Secret",
+              "namespace": "mongodb",
+              "name": "mongodb"
+            },
+            "status": "matched",
+            "desiredDigest": "3e28245fe037513ca6936c454db60bbd2901b84ea534f377a92bbf8587f132e8",
+            "liveDigest": "3e28245fe037513ca6936c454db60bbd2901b84ea534f377a92bbf8587f132e8"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "mongodb",
+              "name": "mongodb"
+            },
+            "status": "matched",
+            "desiredDigest": "a1ee4016e5c76f0a35103ebd1e5bd793b01ebc7e2532626f854cf10aba03a9a0",
+            "liveDigest": "a1ee4016e5c76f0a35103ebd1e5bd793b01ebc7e2532626f854cf10aba03a9a0"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "mongodb",
+              "name": "mongodb"
+            },
+            "status": "matched",
+            "desiredDigest": "07507be6c91cb124523e0c6a84fdad8c405810da1ca746a5a43b3d950f78720b",
+            "liveDigest": "07507be6c91cb124523e0c6a84fdad8c405810da1ca746a5a43b3d950f78720b"
+          }
+        ],
+        "extraChecked": true
+      }
+    },
+    "omissions": [],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every desired rendered object was present and all authored fields matched live",
+        "nextCommand": "cub-scout doctor",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:1d0bfc0703b5122e8033c47576b25a7d45f0c8ed74d6109123b5ba5287a784d7"
+  }
+}

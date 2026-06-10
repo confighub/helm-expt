@@ -1019,7 +1019,7 @@ Helm equivalence: 97/97 objects matched
 Receipts: [per-chart receipts](recipes/hashicorp/consul/2.0.0/CATALOG.md)
 
 
-## Full Proof Index (109 Entries)
+## Full Proof Index (110 Entries)
 
 The rows below include the live-tested top 20, proof-grade recipe/package
 artifacts, and any retained newer chart-version candidates. `catalog-supported`
@@ -1064,6 +1064,7 @@ need catalog promotion review before support is claimed.
 | bitnami/elasticsearch@22.1.6 | proof-grade | limitation-decision-first | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/elasticsearch/22.1.6/CATALOG.md) |
 | bitnami/memcached@8.5.5 | proof-grade | needs-useful-variant | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/memcached/8.5.5/CATALOG.md) |
 | bitnami/mongodb@19.0.9 | catalog-candidate | - | - | generated-passwords | - | [CATALOG.md](recipes/bitnami/mongodb/19.0.9/CATALOG.md) |
+| bitnami/mongodb@19.1.0 | catalog-candidate | - | - | generated-passwords | - | [CATALOG.md](recipes/bitnami/mongodb/19.1.0/CATALOG.md) |
 | bitnami/nginx@24.0.4 | catalog-candidate | - | - | http-clusterip | - | [CATALOG.md](recipes/bitnami/nginx/24.0.4/CATALOG.md) |
 | bitnami/nginx@25.0.0 | catalog-candidate | - | - | http-clusterip | - | [CATALOG.md](recipes/bitnami/nginx/25.0.0/CATALOG.md) |
 | bitnami/opensearch@2.0.10 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/bitnami/opensearch/2.0.10/CATALOG.md) |

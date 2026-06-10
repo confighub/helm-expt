@@ -19,13 +19,13 @@ It separates five cases:
 ```text
 update rows: 7
 replacement decisions to write: 0
-replacement decisions already written: 6
-retained candidates needing refresh: 1
+replacement decisions already written: 7
+retained candidates needing refresh: 0
 render candidates needing root/live work: 0
 new retained candidates needed: 0
-p0 rows: 1
+p0 rows: 0
 p1 rows: 0
-p2 rows: 6
+p2 rows: 7
 ```
 
 ## Queue
@@ -33,7 +33,7 @@ p2 rows: 6
 | Chart | Current supported | Latest upstream | Retained candidate | Action | Priority | First step |
 | --- | --- | --- | --- | --- | --- | --- |
 | `argo-cd/argo-cd` | `9.5.15` | `9.5.17` | `9.5.17` | replacement-deferred | p2 | keep argo-cd/argo-cd@9.5.15 pinned; revisit argo-cd/argo-cd@9.5.17 after the recorded replacement requirements are satisfied |
-| `bitnami/mongodb` | `19.0.7` | `19.1.0` | `19.0.9` | refresh-retained-candidate | p0 | refresh retained bitnami/mongodb@19.0.9 proof to upstream 19.1.0 |
+| `bitnami/mongodb` | `19.0.7` | `19.1.0` | `19.1.0` | replacement-deferred | p2 | keep bitnami/mongodb@19.0.7 pinned; revisit bitnami/mongodb@19.1.0 after the recorded replacement requirements are satisfied |
 | `bitnami/nginx` | `24.0.2` | `25.0.0` | `25.0.0` | replacement-deferred | p2 | keep bitnami/nginx@24.0.2 pinned; revisit bitnami/nginx@25.0.0 after the recorded replacement requirements are satisfied |
 | `bitnami/postgresql` | `18.6.7` | `18.7.0` | `18.7.0` | replacement-deferred | p2 | keep bitnami/postgresql@18.6.7 pinned; revisit bitnami/postgresql@18.7.0 after the recorded replacement requirements are satisfied |
 | `bitnami/redis` | `25.5.3` | `27.0.0` | `27.0.0` | replacement-deferred | p2 | keep bitnami/redis@25.5.3 pinned; revisit bitnami/redis@27.0.0 after the recorded replacement requirements are satisfied |

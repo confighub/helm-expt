@@ -15,6 +15,7 @@ bitnami/elasticsearch@22.1.6,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,proof-grade,n
 bitnami/memcached@8.5.5,yes,6/6,yes,yes,yes,yes,yes,yes,no,1,proof-grade,not-reviewed-for-production,none,recipes/bitnami/memcached/8.5.5
 bitnami/mongodb@19.0.7,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/bitnami/mongodb/19.0.7
 bitnami/mongodb@19.0.9,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/bitnami/mongodb/19.0.9
+bitnami/mongodb@19.1.0,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/bitnami/mongodb/19.1.0
 bitnami/mysql@14.0.3,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/bitnami/mysql/14.0.3
 bitnami/nginx@24.0.2,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-supported,production-review-ready,none,recipes/bitnami/nginx/24.0.2
 bitnami/nginx@24.0.4,yes,6/6,yes,yes,yes,yes,yes,yes,yes,2,catalog-candidate,not-reviewed-for-production,none,recipes/bitnami/nginx/24.0.4

@@ -75,7 +75,7 @@
     "currentProofsTotal": 100,
     "currentProofsMatched": 91,
     "currentProofsUnmatchedToOldMatrix": 9,
-    "retainedCandidateProofVersions": 9
+    "retainedCandidateProofVersions": 10
   },
   "summary": {
     "catalogSupported": 20,
@@ -96,9 +96,9 @@
     "top100CoverageDecisionQueue": 7,
     "refreshCurrentRows": 13,
     "refreshUpdateCandidates": 7,
-    "refreshCandidatesWithProof": 6,
+    "refreshCandidatesWithProof": 7,
     "latestCandidatesAwaitingReplacementDecision": 0,
-    "latestRefreshP0Rows": 1,
+    "latestRefreshP0Rows": 0,
     "top100ChartsWithLiveEvidence": 28,
     "liveParityRerunRows": 0,
     "liveParityRerunSemanticDefects": 0,
@@ -117,8 +117,8 @@
     {
       "section": "top100",
       "metric": "charts with model support",
-      "value": "107",
-      "total": "109",
+      "value": "108",
+      "total": "110",
       "status": "good",
       "source": "data/outcome-coverage/chart-outcomes.csv",
       "note": "The top100 corpus has honest chart models for the declared scope."
@@ -144,8 +144,8 @@
     {
       "section": "top100",
       "metric": "variant-rich charts",
-      "value": "63",
-      "total": "109",
+      "value": "64",
+      "total": "110",
       "status": "partial",
       "source": "data/outcome-coverage/chart-outcomes.csv",
       "note": "Charts with more than one declared base variant."
@@ -234,7 +234,7 @@
     {
       "section": "refresh",
       "metric": "update candidates with proof-complete root paths",
-      "value": "6",
+      "value": "7",
       "total": "7",
       "status": "partial",
       "source": "data/refresh-survival/refreshes.csv",
@@ -243,7 +243,7 @@
     {
       "section": "refresh",
       "metric": "latest refresh p0 action rows",
-      "value": "1",
+      "value": "0",
       "total": "7",
       "status": "partial",
       "source": "data/latest-top20-refresh/action-queue/queue.csv",
@@ -306,8 +306,8 @@
     {
       "section": "proof lanes",
       "metric": "render parity rows",
-      "value": "177",
-      "total": "177",
+      "value": "179",
+      "total": "179",
       "status": "good",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Every chart/base row has render parity under recorded inputs."
@@ -316,7 +316,7 @@
       "section": "proof lanes",
       "metric": "in-ConfigHub proof rows",
       "value": "20",
-      "total": "177",
+      "total": "179",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with upload, scan, or safe-operation proof receipts."
@@ -325,7 +325,7 @@
       "section": "proof lanes",
       "metric": "local live rows",
       "value": "23",
-      "total": "177",
+      "total": "179",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with committed local Kubernetes observation receipts."
@@ -334,7 +334,7 @@
       "section": "proof lanes",
       "metric": "GitOps/OCI live pass rows",
       "value": "22",
-      "total": "177",
+      "total": "179",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "6 rows have non-pass GitOps/OCI receipts."
@@ -343,7 +343,7 @@
       "section": "proof lanes",
       "metric": "live Helm-vs-ConfigHub parity pass rows",
       "value": "20",
-      "total": "177",
+      "total": "179",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "2 rows have non-pass live parity receipts."
@@ -361,7 +361,7 @@
       "section": "proof lanes",
       "metric": "complete core lane rows",
       "value": "20",
-      "total": "177",
+      "total": "179",
       "status": "gap",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
@@ -415,7 +415,7 @@
       "section": "graph bridge",
       "metric": "charts with recovered graph fragments",
       "value": "20",
-      "total": "109",
+      "total": "110",
       "status": "partial",
       "source": "data/edge-recovery/edges.csv",
       "note": "Catalog-supported recipe artifacts converted into desired-state graph fragments."
@@ -3514,11 +3514,11 @@
       "chart": "bitnami/mongodb",
       "currentVersion": "19.0.7",
       "candidateVersion": "19.1.0",
-      "proofStatus": "candidate-superseded-by-newer-upstream",
-      "replacementDecision": "refresh-candidate-first",
-      "action": "refresh-retained-candidate",
-      "priority": "p0",
-      "nextAction": "refresh retained candidate 19.0.9 to latest upstream 19.1.0 before replacement decision"
+      "proofStatus": "candidate-proof-complete-root-path-present",
+      "replacementDecision": "defer-replacement",
+      "action": "replacement-deferred",
+      "priority": "p2",
+      "nextAction": "review target-scoped production support decision before replacing the supported version"
     },
     {
       "chart": "bitnami/nginx",
@@ -5550,15 +5550,15 @@
       "current_version": "19.0.7",
       "latest_version": "19.1.0",
       "refresh_state": "upstream-update-candidate",
-      "candidate_proof": "candidate-superseded-by-newer-upstream",
+      "candidate_proof": "candidate-proof-complete-root-path-present",
       "candidate_variants": "generated-passwords;existing-secret-replicaset",
       "candidate_object_counts": "generated-passwords:8;existing-secret-replicaset:10",
       "catalog_state": "root-path-present",
       "promotion_state": "root-path-promoted-review-required",
       "live_promotion_state": "not-yet-live-promoted",
       "source_review": "data/latest-top20-refresh/review.csv",
-      "candidate_evidence": "data/latest-top20-refresh/candidates/mongodb-19.0.9/recipes/bitnami/mongodb/19.0.9",
-      "next_action": "refresh retained candidate 19.0.9 to latest upstream 19.1.0 before replacement decision"
+      "candidate_evidence": "data/latest-top20-refresh/candidates/mongodb-19.1.0/recipes/bitnami/mongodb/19.1.0",
+      "next_action": "review target-scoped production support decision before replacing the supported version"
     },
     {
       "chart": "bitnami/mysql",

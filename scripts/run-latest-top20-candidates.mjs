@@ -22,9 +22,9 @@ const candidates = [
   {
     chart: "bitnami/mongodb",
     currentVersion: "19.0.7",
-    latestVersion: "19.0.9",
+    latestVersion: "19.1.0",
     script: "scripts/mongodb-proof.mjs",
-    output: "mongodb-19.0.9",
+    output: "mongodb-19.1.0",
     variants: "generated-passwords;existing-secret-replicaset",
   },
   {

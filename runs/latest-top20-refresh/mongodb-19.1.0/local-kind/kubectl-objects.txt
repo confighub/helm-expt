@@ -1,0 +1,28 @@
+NAME                           READY   STATUS    RESTARTS   AGE   IP           NODE                                     NOMINATED NODE   READINESS GATES
+pod/mongodb-666547f466-nfv5n   1/1     Running   0          45s   10.244.0.6   helm-expt-mongodb-19-1-0-control-plane   <none>           <none>
+
+NAME              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)     AGE   SELECTOR
+service/mongodb   ClusterIP   10.96.124.147   <none>        27017/TCP   45s   app.kubernetes.io/component=mongodb,app.kubernetes.io/instance=mongodb,app.kubernetes.io/name=mongodb
+
+NAME                      READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                                                                                         SELECTOR
+deployment.apps/mongodb   1/1     1            1           45s   mongodb      registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e   app.kubernetes.io/component=mongodb,app.kubernetes.io/instance=mongodb,app.kubernetes.io/name=mongodb
+
+NAME                                 DESIRED   CURRENT   READY   AGE   CONTAINERS   IMAGES                                                                                                         SELECTOR
+replicaset.apps/mongodb-666547f466   1         1         1       45s   mongodb      registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e   app.kubernetes.io/component=mongodb,app.kubernetes.io/instance=mongodb,app.kubernetes.io/name=mongodb,pod-template-hash=666547f466
+
+NAME                            STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE   VOLUMEMODE
+persistentvolumeclaim/mongodb   Bound    pvc-a4d0d5a6-3990-460c-ab92-5e975c1a5ade   8Gi        RWO            standard       <unset>                 45s   Filesystem
+
+NAME                                 MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+poddisruptionbudget.policy/mongodb   N/A             1                 1                     45s
+
+NAME                               DATA   AGE
+configmap/kube-root-ca.crt         1      45s
+configmap/mongodb-common-scripts   3      45s
+
+NAME             TYPE     DATA   AGE
+secret/mongodb   Opaque   1      45s
+
+NAME                     SECRETS   AGE
+serviceaccount/default   0         45s
+serviceaccount/mongodb   1         45s
