@@ -1,0 +1,18 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  name: "dry-run-txt-registry"
+  labels:
+    confighub.io/chart: "external-dns/external-dns"
+    confighub.io/version: "1.21.1"
+    confighub.io/variant: "dry-run-txt-registry"
+spec:
+  recipe: "../../recipe.yaml"
+  namespace: "default"
+  releaseName: "external-dns"
+  valuesProfile: "../../effective-values-dry-run-txt-registry.yaml"
+  capabilityProfile:
+    kubeVersion: "1.30.0"
+    apiVersions:
+      []
+  hookPolicy: "no-hooks"

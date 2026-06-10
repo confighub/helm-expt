@@ -11,7 +11,7 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 41
+pass: 42
 watch: 0
 blocked: 1
 semantic parity defects: 0
@@ -49,6 +49,7 @@ data/live-parity-rerun-plan/summary.md
 | `bitnami/rabbitmq@16.0.14` | generated-passwords | pass |  | runs/live-kind-parity/bitnami-rabbitmq-generated-passwords/receipt.yaml |
 | `bitnami/redis@25.5.3` | default | pass |  | runs/live-kind-parity/bitnami-redis-default/receipt.yaml |
 | `bitnami/redis@25.5.3` | reuse-existing-secret | pass |  | runs/live-kind-parity/bitnami-redis-reuse-existing-secret/receipt.yaml |
+| `external-dns/external-dns@1.21.1` | dry-run-txt-registry | pass |  | runs/live-kind-parity/external-dns-external-dns-dry-run-txt-registry/receipt.yaml |
 | `external-secrets/external-secrets@2.5.0` | default | pass |  | runs/live-kind-parity/external-secrets-external-secrets-default/receipt.yaml |
 | `external-secrets/external-secrets@2.5.0` | no-crds | pass |  | runs/live-kind-parity/external-secrets-external-secrets-no-crds/receipt.yaml |
 | `grafana/grafana@10.5.15` | existing-secret-ingress | pass |  | runs/live-kind-parity/grafana-grafana-existing-secret-ingress/receipt.yaml |

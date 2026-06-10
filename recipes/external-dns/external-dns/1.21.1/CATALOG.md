@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default, no-crds |
+| Candidate variants | default, no-crds, dry-run-txt-registry |
 | Control points | capability-profile, cluster-rbac, crds, dependency-lock, extension-slots, generated-facts, helm-equivalence, rendered-manifest-scan, source-lock, tpl-extension-slots, variant-revision |
 
 ## Feature And Proof Summary
@@ -30,8 +30,8 @@ for exact base-variant evidence.
 | --- | --- |
 | Adoption bucket | promote-after-review |
 | User status | proof-grade-ready-for-promotion-review |
-| Strongest evidence | render-parity |
-| Proof lanes | render parity 2/2; ConfigHub 0/2; local live 0/2; GitOps live 0/2; live parity 0/2 |
+| Strongest evidence | two-cluster-kind-parity |
+| Proof lanes | render parity 3/3; ConfigHub 0/3; local live 0/3; GitOps live 0/3; live parity 0/3 |
 | Feature summary | crds;required-values;values-schema;extension-slots |
 | Hard gap | - |
 | Next action | run catalog promotion review |
@@ -59,6 +59,7 @@ for exact base-variant evidence.
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/external-dns/external-dns/1.21.1/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/external-dns/external-dns/1.21.1/bases/default](../../../../packages/external-dns/external-dns/1.21.1/bases/default) | [recipes/external-dns/external-dns/1.21.1/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 6 | 7 | 6/6 | pass | warn | warn | none |
 | no-crds | [recipes/external-dns/external-dns/1.21.1/variants/no-crds/variant.yaml](variants/no-crds/variant.yaml) | [packages/external-dns/external-dns/1.21.1/bases/no-crds](../../../../packages/external-dns/external-dns/1.21.1/bases/no-crds) | [recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/variant-revision.yaml](revisions/no-crds/r001/variant-revision.yaml) | 5 |  | 5/5 | pass |  | allow | none |
+| dry-run-txt-registry | [recipes/external-dns/external-dns/1.21.1/variants/dry-run-txt-registry/variant.yaml](variants/dry-run-txt-registry/variant.yaml) | [packages/external-dns/external-dns/1.21.1/bases/dry-run-txt-registry](../../../../packages/external-dns/external-dns/1.21.1/bases/dry-run-txt-registry) | [recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/variant-revision.yaml](revisions/dry-run-txt-registry/r001/variant-revision.yaml) | 4 |  | 4/4 | pass |  | allow | none |
 
 ## Package Bases
 
@@ -66,6 +67,7 @@ for exact base-variant evidence.
 | --- | --- | --- | --- |
 | default | [packages/external-dns/external-dns/1.21.1/bases/default](../../../../packages/external-dns/external-dns/1.21.1/bases/default) | yes | external-dns/external-dns default variant rendered from external-dns/external-dns@1.21.1 |
 | no-crds | [packages/external-dns/external-dns/1.21.1/bases/no-crds](../../../../packages/external-dns/external-dns/1.21.1/bases/no-crds) | no | external-dns/external-dns no-crds variant rendered from external-dns/external-dns@1.21.1 |
+| dry-run-txt-registry | [packages/external-dns/external-dns/1.21.1/bases/dry-run-txt-registry](../../../../packages/external-dns/external-dns/1.21.1/bases/dry-run-txt-registry) | no | external-dns/external-dns dry-run-txt-registry variant rendered from external-dns/external-dns@1.21.1 |
 
 ## Receipts
 
@@ -79,6 +81,10 @@ for exact base-variant evidence.
 | no-crds | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml](revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml) |
 | no-crds | r001 | scan | ScanReceipt |  | [recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/receipts/scan-receipt.yaml](revisions/no-crds/r001/receipts/scan-receipt.yaml) |
 | no-crds | r001 | installGate | InstallGate | allow | [recipes/external-dns/external-dns/1.21.1/revisions/no-crds/r001/receipts/install-gate.yaml](revisions/no-crds/r001/receipts/install-gate.yaml) |
+| dry-run-txt-registry | r001 | render | RenderReceipt | recorded | [recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/receipts/render-receipt.yaml](revisions/dry-run-txt-registry/r001/receipts/render-receipt.yaml) |
+| dry-run-txt-registry | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/receipts/helm-equivalence-receipt.yaml](revisions/dry-run-txt-registry/r001/receipts/helm-equivalence-receipt.yaml) |
+| dry-run-txt-registry | r001 | scan | ScanReceipt |  | [recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/receipts/scan-receipt.yaml](revisions/dry-run-txt-registry/r001/receipts/scan-receipt.yaml) |
+| dry-run-txt-registry | r001 | installGate | InstallGate | allow | [recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/receipts/install-gate.yaml](revisions/dry-run-txt-registry/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

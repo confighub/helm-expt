@@ -1,0 +1,157 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: external-dns-external-dns-1.21.1-dry-run-txt-registry-kind-parity-20260606
+spec:
+  chart: external-dns/external-dns
+  version: 1.21.1
+  base: dry-run-txt-registry
+  result: pass
+  observedAt: '2026-06-10T08:31:06Z'
+  package:
+    path: packages/external-dns/external-dns/1.21.1
+  recipe:
+    path: recipes/external-dns/external-dns/1.21.1
+  variantRevision: recipes/external-dns/external-dns/1.21.1/revisions/dry-run-txt-registry/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-extern-ada90-7crk-helm
+    installerCluster: hx-extern-ada90-7crk-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-extern-ada90-7crk-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-extern-ada90-7crk-helm" ...
+
+          Deleted nodes: ["hx-extern-ada90-7crk-helm-control-plane"]'
+      - cluster: hx-extern-ada90-7crk-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-extern-ada90-7crk-installer" ...
+
+          Deleted nodes: ["hx-extern-ada90-7crk-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install external-dns external-dns --repo https://kubernetes-sigs.github.io/external-dns/
+        --version 1.21.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/external-dns-external-dns-dry-run-txt-registry/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 8e3b831abefa8ca2b8754e4beb16fbc1e369965dc95b8f83e1de76cd8f2a3e62
+      objectCount: 4
+      liveHelmManifestSHA256: 3386f825b92c2ddcafecb5f92a8f6ef7810dde50a389760e00bac3aec2aeddf3
+      liveHelmManifestObjectCount: 3
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/external-dns   1/1   1     1     18s'
+        pods: '# default
+
+          external-dns-5fd5f9f5db-v895m   1/1   Running   0     18s'
+        notReady: []
+        diagnostics: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/external-dns/external-dns/1.21.1
+        --base dry-run-txt-registry --work-dir /tmp/helm-expt-kind-parity-hx-extern-ada90-7crk-external-dns
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 9bba759ae7cf71a9820fea3eb44ba5b6bf0ad06ae7a581d78d376a7da70a9050
+      objectCount: 5
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/external-dns   1/1   1     1     21s'
+        pods: '# default
+
+          external-dns-5fd5f9f5db-szh9x   1/1   Running   0     21s'
+        notReady: []
+        diagnostics: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 4
+      installerObjectCount: 5
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"external-dns\" does not exist. Installing it now.\nNAME: external-dns\n\
+      LAST DEPLOYED: Wed Jun 10 09:31:58 2026\nNAMESPACE: default\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n***********************************************************************\n\
+      * External DNS                                                        *\n***********************************************************************\n\
+      \  Chart version: 1.21.1\n  App version:   0.21.0\n  Image tag:     registry.k8s.io/external-dns/external-dns:v0.21.0\n\
+      ***********************************************************************"
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/external-dns   1/1   1     1     21s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

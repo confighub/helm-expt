@@ -26,3 +26,4 @@ spec:
   variants:
     - "variants/default/variant.yaml"
     - "variants/no-crds/variant.yaml"
+    - "variants/dry-run-txt-registry/variant.yaml"

@@ -11,6 +11,10 @@ spec:
       name: "default"
       path: "bases/default"
     -
+      description: "external-dns/external-dns no-crds variant rendered from external-dns/external-dns@1.21.1"
       name: "no-crds"
       path: "bases/no-crds"
-      description: "external-dns/external-dns no-crds variant rendered from external-dns/external-dns@1.21.1"
+    -
+      name: "dry-run-txt-registry"
+      path: "bases/dry-run-txt-registry"
+      description: "external-dns/external-dns dry-run-txt-registry variant rendered from external-dns/external-dns@1.21.1"
