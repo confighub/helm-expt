@@ -110,6 +110,19 @@ evidence work before it becomes production-supported for a target scope.
 | Design useful base variants | 46 | Create the first user-shaped base before treating the chart as a catalog offer. |
 | Resolve limitation decisions | 7 | Decide whether the named gap is supported, disclosed, deferred, or blocked. |
 
+### Remote Dependency Closure Work
+
+These rows close provenance and refresh-survival gaps for public charts that
+pull remote, vendored, or non-exact dependencies.
+
+| Workstream | Rows | Next action |
+| --- | ---: | --- |
+| Create recipe/import candidates | 30 | Create recipe/import candidates with source locks, dependency locks, first bases, render parity, and catalog decisions. |
+| Add dependency locks | 0 | Add dependency-lock.yaml or record that the dependency closure is intentionally empty. |
+| Record dependency range policy | 9 | Record non-exact dependency policy and refresh-survival evidence before promotion or upgrade. |
+| Backfill Chart.lock digest | 6 | Record a Chart.lock digest or explain why the dependency lock is source-derived. |
+| Promote closure facts | 4 | Expose dependency closure facts in chart facts and status surfaces. |
+
 ### Top20 Production Support Work
 
 | Workstream | Charts | Next action |

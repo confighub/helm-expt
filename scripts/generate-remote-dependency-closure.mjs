@@ -70,8 +70,11 @@ function rowFor(source, match, locks, quirk) {
   const modeledVersion = modeled?.version ?? "";
   const closureStatus = statusFor({ source, modeled, lock, sourceVersion, modeledVersion });
   const topQuirk = quirk?.top_quirk ?? "";
+  const workstream = workstreamFor({ source, lock, closureStatus, topQuirk });
   return {
     priority: priorityFor(source, closureStatus, quirk),
+    workstream,
+    done_when: doneWhenFor(workstream),
     source_rank: String(source.rank),
     chart: source.chart,
     source_version: sourceVersion,
@@ -94,7 +97,7 @@ function rowFor(source, match, locks, quirk) {
     lock_has_chart_lock_digest: String(Boolean(lock?.chartLockDigest)),
     dependency_names: deps.map((dep) => dep.name).filter(Boolean).join(";"),
     dependency_repositories: remoteRepos.join(";"),
-    next_action: nextActionFor({ source, modeled, lock, closureStatus, topQuirk }),
+    next_action: nextActionFor({ workstream }),
   };
 }
 
@@ -139,23 +142,35 @@ function statusFor({ source, modeled, lock, sourceVersion, modeledVersion }) {
   return "different-version-lock-present";
 }
 
-function nextActionFor({ source, modeled, lock, closureStatus, topQuirk }) {
-  if (closureStatus === "source-only-no-maintained-recipe") {
-    return "create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer";
-  }
-  if (closureStatus === "modeled-without-dependency-lock") {
-    return "add dependency-lock.yaml or mark the dependency closure explicitly empty";
-  }
-  if (number(source.nonExactDependencyConstraints) > 0) {
-    return "record dependency range policy and refresh-survival check for non-exact dependency constraints";
-  }
-  if (!lock?.chartLockDigest && lock?.dependencies?.length > 0) {
-    return "record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived";
-  }
-  if (topQuirk === "remote-dependencies") {
-    return "promote dependency closure facts into chart facts and keep refresh-survival evidence current";
-  }
-  return "keep dependency lock evidence current with the supported recipe version";
+function workstreamFor({ source, lock, closureStatus, topQuirk }) {
+  if (closureStatus === "source-only-no-maintained-recipe") return "create-recipe-import-candidate";
+  if (closureStatus === "modeled-without-dependency-lock") return "add-dependency-lock";
+  if (number(source.nonExactDependencyConstraints) > 0) return "dependency-range-policy";
+  if (!lock?.chartLockDigest && lock?.dependencies?.length > 0) return "chart-lock-digest";
+  if (topQuirk === "remote-dependencies") return "promote-closure-facts";
+  return "keep-current";
+}
+
+function nextActionFor({ workstream }) {
+  return {
+    "create-recipe-import-candidate": "create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer",
+    "add-dependency-lock": "add dependency-lock.yaml or mark the dependency closure explicitly empty",
+    "dependency-range-policy": "record dependency range policy and refresh-survival check for non-exact dependency constraints",
+    "chart-lock-digest": "record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived",
+    "promote-closure-facts": "promote dependency closure facts into chart facts and keep refresh-survival evidence current",
+    "keep-current": "keep dependency lock evidence current with the supported recipe version",
+  }[workstream] ?? "review dependency closure row";
+}
+
+function doneWhenFor(workstream) {
+  return {
+    "create-recipe-import-candidate": "recipe candidate exists with source lock, dependency lock, first base variant, render parity, and an explicit catalog decision",
+    "add-dependency-lock": "dependency-lock.yaml exists or the recipe records that the dependency closure is intentionally empty",
+    "dependency-range-policy": "non-exact dependency constraints have a recorded policy plus refresh-survival evidence for the supported version",
+    "chart-lock-digest": "dependency lock records a Chart.lock digest or explains the source of the locked dependency list",
+    "promote-closure-facts": "chart facts and status surfaces expose dependency closure, remote repositories, and refresh-survival expectation",
+    "keep-current": "dependency evidence is still current for the supported recipe version",
+  }[workstream] ?? "row has an explicit closure decision";
 }
 
 function priorityFor(source, closureStatus, quirk) {
@@ -201,6 +216,10 @@ function toSummary(rows) {
   const sourceOnly = rows.filter((row) => row.lock_status === "source-only-no-maintained-recipe").length;
   const noChartLockDigest = rows.filter((row) => row.lock_path && row.lock_dependency_count !== "0" && row.lock_has_chart_lock_digest !== "true").length;
   const p0Rows = rows.filter((row) => row.priority === "P0").slice(0, 20);
+  const workstreamCounts = countBy(rows, "workstream");
+  const workstreamTable = workstreamRows(workstreamCounts)
+    .map(([workstream, count]) => `| \`${workstream}\` | ${count} | ${escapePipes(nextActionFor({ workstream }))} | ${escapePipes(doneWhenFor(workstream))} |`)
+    .join("\n");
   const statusTable = [...statusCounts.entries()]
     .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
     .map(([status, count]) => `| \`${status}\` | ${count} | ${statusMeaning(status)} |`)
@@ -241,6 +260,12 @@ P2:                                                             ${priorityCounts
 | Status | Rows | Meaning |
 | --- | ---: | --- |
 ${statusTable}
+
+## Workstreams
+
+| Workstream | Rows | First action | Done when |
+| --- | ---: | --- | --- |
+${workstreamTable}
 
 ## Highest Priority Rows
 
@@ -296,6 +321,22 @@ function statusMeaning(status) {
     "modeled-without-dependency-lock": "The chart is modeled but no dependency lock was found.",
     "source-only-no-maintained-recipe": "The source chart is not currently represented by a maintained recipe row.",
   }[status] ?? "Unknown status.";
+}
+
+function workstreamRows(counts) {
+  const order = [
+    "create-recipe-import-candidate",
+    "add-dependency-lock",
+    "dependency-range-policy",
+    "chart-lock-digest",
+    "promote-closure-facts",
+    "keep-current",
+  ];
+  return [...counts.entries()].sort((left, right) => {
+    const leftRank = order.includes(left[0]) ? order.indexOf(left[0]) : order.length;
+    const rightRank = order.includes(right[0]) ? order.indexOf(right[0]) : order.length;
+    return leftRank - rightRank || left[0].localeCompare(right[0]);
+  });
 }
 
 function countRepositories(rows) {
@@ -355,6 +396,8 @@ function parseCsv(text) {
 function toCsv(rows) {
   const headers = [
     "priority",
+    "workstream",
+    "done_when",
     "source_rank",
     "chart",
     "source_version",
