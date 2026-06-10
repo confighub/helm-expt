@@ -4,16 +4,13 @@ metadata:
   name: "metrics-server-metrics-server-3.13.0"
 spec:
   chart:
-    name: "metrics-server"
     repository: "metrics-server"
+    name: "metrics-server"
     version: "3.13.0"
-  deterministicBundle:
-    byteIdenticalAcrossTwoLocalBundles: true
-    command: "cub installer package packages/metrics-server/metrics-server/3.13.0 -o <tmp>/metrics-server-3.13.0.tgz"
-    sha256: "f1d3c6f4598bcb84fce4fe86d43edec0c3f511965d3b66febeed5884f572bbfa"
   package:
-    name: "metrics-server-metrics-server"
     path: "packages/metrics-server/metrics-server/3.13.0"
+    name: "metrics-server-metrics-server"
+    version: "3.13.0"
     sourceFiles:
       -
         path: "README.md"
@@ -37,35 +34,38 @@ spec:
         bytes: 7242
       -
         path: "collector/target-facts.sh"
-        sha256: "7add2023f0b60861d7b32869a26360f90111d931ed3b85e1ecacdb13a547a505"
-        bytes: 1727
+        sha256: "e9d7ca62a6cb82a1aa2d933a40ced2ec65a4a96f1c44a0273722e9066928501b"
+        bytes: 1715
       -
         path: "installer.yaml"
-        sha256: "4ab059f6345530194110f5a4432655c742e16e0c45539a5b532e8dd2034120c6"
+        sha256: "17672bf7c28662366cb77ae59442b88a288162fd691c7a7d9de9b930aecb7176"
         bytes: 1297
-    version: "3.13.0"
+  deterministicBundle:
+    command: "cub installer package packages/metrics-server/metrics-server/3.13.0 -o <tmp>/metrics-server-3.13.0.tgz"
+    sha256: "22d87c4dc56a53b2c4ca11d187e65d1ecd37b2ea8bfa1130def0a23977328f17"
+    byteIdenticalAcrossTwoLocalBundles: true
   setupChecks:
     -
-      allowedCubOnlyObjects:
-        - "v1|Namespace||kube-system"
+      variant: "default"
       base: "default"
       command: "cub installer setup --pull packages/metrics-server/metrics-server/3.13.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system"
-      cubInstallObjectCountIncludingSupport: 10
       helmReleaseObjectCount: 9
+      cubInstallObjectCountIncludingSupport: 10
       semanticObjectMatches: "9/9"
       separatedSecretCount: 0
       targetFactMode: "not-required"
       targetFactsBound: false
-      variant: "default"
-    -
       allowedCubOnlyObjects:
         - "v1|Namespace||kube-system"
+    -
+      variant: "external-tls-ca"
       base: "external-tls-ca"
       command: "cub installer setup --pull packages/metrics-server/metrics-server/3.13.0 --base external-tls-ca --work-dir <tmp> --non-interactive --namespace kube-system"
-      cubInstallObjectCountIncludingSupport: 10
       helmReleaseObjectCount: 9
+      cubInstallObjectCountIncludingSupport: 10
       semanticObjectMatches: "9/9"
       separatedSecretCount: 0
       targetFactMode: "collector-facts"
       targetFactsBound: true
-      variant: "external-tls-ca"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||kube-system"

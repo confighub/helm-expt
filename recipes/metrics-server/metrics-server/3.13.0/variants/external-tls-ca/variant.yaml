@@ -21,3 +21,8 @@ spec:
           - "tls.crt"
           - "tls.key"
         purpose: "metrics-server serving certificate"
+    requiredValues:
+      -
+        path: "apiService.caBundle"
+        purpose: "APIService CA bundle that validates kube-system/metrics-server-tls"
+        stage: "pre-render"

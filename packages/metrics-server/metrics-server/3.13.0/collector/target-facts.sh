@@ -64,11 +64,9 @@ targetFacts:
     name: metrics-server-tls
     namespace: kube-system
     purpose: metrics-server serving certificate
-
   requiredCRDs: []
-
 targetFactChecks:
-  base: "external-tls-ca"
+  base: "$base"
   mode: "$check_mode"
   result: "$result"
 YAML

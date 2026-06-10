@@ -11,9 +11,8 @@ What this proves:
 
 - regular Helm output is preserved by `cub installer setup`, plus the explained Namespace support object;
 - default chart render is deterministic under the pinned Kubernetes capability profile;
-- the existing-secret TLS path avoids Helm lookup and generated certificate material by making the target Secret explicit;
-- APIService and cluster RBAC risks are visible as scan/gate findings with production-disposition receipts;
-- production support remains a target-scoped decision, especially for resource policy and external-tls-ca certificate validation.
+- the existing-secret TLS path avoids Helm lookup and generated certificate material by making the target Secret and matching APIService CA bundle explicit;
+- APIService and cluster RBAC risks are visible as scan/gate findings instead of hidden Helm behavior.
 
 Useful commands:
 

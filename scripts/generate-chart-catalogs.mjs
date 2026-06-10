@@ -331,6 +331,9 @@ function targetFactSummary(targetFacts) {
   for (const crd of targetFacts.requiredCRDs ?? []) {
     bits.push(`required CRD ${crd.name}`);
   }
+  for (const value of targetFacts.requiredValues ?? []) {
+    bits.push(`required Value ${value.path}${value.stage ? ` (${value.stage})` : ""}`);
+  }
   return bits.length ? bits.join("; ") : "see variant targetFacts";
 }
 
