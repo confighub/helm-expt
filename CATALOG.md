@@ -964,7 +964,7 @@ Receipts: [per-chart receipts](recipes/grafana/tempo/1.24.4/CATALOG.md)
 ##### s3-query-observability
 
 When to use: tempo S3 query and observability variant rendered from grafana/tempo@1.24.4
-Readiness: target-prerequisite-needed
+Readiness: runtime-review-needed
 Namespace: tempo
 Target facts: required Secret tempo/tempo-s3-credentials keys access_key,secret_key; required CRD servicemonitors.monitoring.coreos.com
 Package base: [packages/grafana/tempo/1.24.4/bases/s3-query-observability](packages/grafana/tempo/1.24.4/bases/s3-query-observability)

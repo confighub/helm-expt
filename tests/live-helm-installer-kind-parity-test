@@ -140,6 +140,22 @@ def trim_command_block_leading_newline(value, key: str | None = None):
     return value
 
 
+def normalize_json_configmap_data(doc: dict):
+    if doc.get("kind") != "ConfigMap":
+        return
+    data = doc.get("data")
+    if not isinstance(data, dict):
+        return
+    for key, value in list(data.items()):
+        if not key.endswith(".json") or not isinstance(value, str):
+            continue
+        try:
+            parsed = json.loads(value)
+        except json.JSONDecodeError:
+            continue
+        data[key] = json.dumps(parsed, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+
+
 def apply_semantic_normalizations(doc: dict, semantic_normalizations: list[str]) -> dict:
     identity = object_identity(doc)
     if (
@@ -151,6 +167,58 @@ def apply_semantic_normalizations(doc: dict, semantic_normalizations: list[str])
             doc["data"]["config.yaml"] = config[1:]
     if "trim-leading-command-block-newline" in semantic_normalizations:
         doc = trim_command_block_leading_newline(doc)
+    if (
+        "consul-namespace-reference-normalization" in semantic_normalizations
+        and doc.get("kind") == "RoleBinding"
+    ):
+        namespace = (doc.get("metadata") or {}).get("namespace")
+        if namespace:
+            for subject in doc.get("subjects") or []:
+                if subject.get("kind") == "ServiceAccount" and subject.get("namespace") == namespace:
+                    subject.pop("namespace", None)
+    if "consul-namespace-reference-normalization" in semantic_normalizations:
+        normalize_json_configmap_data(doc)
+    if (
+        "consul-statefulset-gitops-defaults" in semantic_normalizations
+        and identity == "apps/v1|StatefulSet|consul|consul-consul-server"
+    ):
+        spec = doc.get("spec") or {}
+        spec.pop("persistentVolumeClaimRetentionPolicy", None)
+        spec.pop("revisionHistoryLimit", None)
+        spec.pop("updateStrategy", None)
+        pod_spec = (((spec.get("template") or {}).get("spec")) or {})
+        pod_spec.pop("dnsPolicy", None)
+        pod_spec.pop("restartPolicy", None)
+        pod_spec.pop("schedulerName", None)
+        pod_spec.pop("serviceAccount", None)
+        for container in pod_spec.get("containers") or []:
+            container.pop("imagePullPolicy", None)
+            container.pop("terminationMessagePath", None)
+            container.pop("terminationMessagePolicy", None)
+            for env in container.get("env") or []:
+                (((env.get("valueFrom") or {}).get("fieldRef") or {})).pop("apiVersion", None)
+            for port in container.get("ports") or []:
+                port.pop("protocol", None)
+            for mount in container.get("volumeMounts") or []:
+                if mount.get("readOnly") is False:
+                    mount.pop("readOnly", None)
+        for container in pod_spec.get("initContainers") or []:
+            container.pop("imagePullPolicy", None)
+            if container.get("resources") == {}:
+                container.pop("resources", None)
+            container.pop("terminationMessagePath", None)
+            container.pop("terminationMessagePolicy", None)
+            for env in container.get("env") or []:
+                (((env.get("valueFrom") or {}).get("fieldRef") or {})).pop("apiVersion", None)
+        for volume in pod_spec.get("volumes") or []:
+            if isinstance(volume.get("configMap"), dict):
+                volume["configMap"].pop("defaultMode", None)
+        for claim in spec.get("volumeClaimTemplates") or []:
+            claim.pop("apiVersion", None)
+            claim.pop("kind", None)
+            claim.pop("status", None)
+            claim_spec = claim.get("spec") or {}
+            claim_spec.pop("volumeMode", None)
     return doc
 
 

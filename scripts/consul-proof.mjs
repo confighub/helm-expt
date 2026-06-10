@@ -286,6 +286,7 @@ rewrite(r)
     { category: "target-facts", status: "variant-controlled", evidence: "global.tls.caCert / server.serverCert / gossipEncryption / acl bootstrap token", note: "The secure-mesh-existing-secrets variant declares target Secrets for TLS, gossip encryption, and ACL bootstrap material." },
     { category: "crd-ownership", status: "scan-and-review", evidence: "28 rendered CRDs", note: "The chart templates 28 CRDs, including Gateway API CRDs that may already be cluster-managed." },
     { category: "stateful-workload", status: "scan-and-review", object: "apps/v1|StatefulSet|consul|consul-consul-server" },
+    { category: "target-topology", status: "target-review", note: "The secure-mesh-existing-secrets base renders three Consul server replicas with pod anti-affinity, so the strict one-node kind target is expected to leave two server pods pending. Use a multi-node target or a separate single-node/evaluation base for live readiness." },
     { category: "admission-webhook", status: "scan-and-review", object: "admissionregistration.k8s.io/v1|MutatingWebhookConfiguration|consul|consul-consul-connect-injector" },
     { category: "cluster-rbac", status: "scan-and-review", note: "Default and secure variants render broad cluster RBAC for server, injector, gateway resources, and webhook certificate manager." },
     { category: "mesh-gateway-policy", status: "variant-controlled", note: "The secure-mesh-existing-secrets variant enables mesh, ingress, and terminating gateways with ClusterIP services." },
@@ -301,6 +302,7 @@ rewrite(r)
       "The secure variant disables gossip auto-generation and uses existing Secrets for CA, server cert, gossip key, and ACL bootstrap token.",
       "Both variants render 28 CRDs, including Gateway API CRDs that can conflict with cluster-managed CRD ownership.",
       "Helm hooks are excluded from proof renders, while the secure variant's normal ACL init Job remains visible as an install lifecycle object.",
+      "secure-mesh-existing-secrets needs a target topology that can schedule three Consul server replicas with pod anti-affinity; one-node kind is useful for object parity but not for live readiness.",
       "server extra config, injector, controller, gateway, and tpl-controlled strings are powerful extension surfaces; promoted variants keep them controlled.",
     ],
     knownControlPoints: [
@@ -309,6 +311,7 @@ rewrite(r)
       "cluster-rbac",
       "admission-webhook",
       "stateful-workload",
+      "target-topology",
       "mesh-gateway-policy",
       "ui-ingress-policy",
       "lifecycle-policy",
@@ -327,6 +330,7 @@ rewrite(r)
       "`default-control-plane` captures the chart-default Consul posture, including disabled TLS/ACLs, server StatefulSet, injector webhook, webhook cert manager, 28 CRDs, and RBAC;",
       "`secure-mesh-existing-secrets` enables TLS, ACLs, gossip encryption, mesh gateways, and UI ingress using declared target Secrets;",
       "CRD ownership, cluster RBAC, admission webhooks, lifecycle Jobs, rendered Secrets, StatefulSet storage, gateway topology, UI ingress, and raw/template extension-slot risks are visible as scan/gate findings instead of hidden Helm behavior.",
+      "the secure mesh base is explicit about target topology: three server replicas with anti-affinity need a multi-node target, while one-node kind is only a parity target.",
     ],
   },
   installGate: (variant) => ({

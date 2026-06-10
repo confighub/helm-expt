@@ -82,11 +82,9 @@ targetFacts:
     name: consul-bootstrap-acl-token
     namespace: consul
     purpose: Consul ACL bootstrap token
-
   requiredCRDs: []
-
 targetFactChecks:
-  base: "secure-mesh-existing-secrets"
+  base: "$base"
   mode: "$check_mode"
   result: "$result"
 YAML
