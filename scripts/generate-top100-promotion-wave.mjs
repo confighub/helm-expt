@@ -13,6 +13,8 @@ const outDir = join(repoRoot, "data", "top100-promotion-wave");
 const wavePath = join(outDir, "wave.yaml");
 const csvPath = join(outDir, "wave.csv");
 const summaryPath = join(outDir, "summary.md");
+const workOrdersPath = join(outDir, "work-orders.md");
+const workOrdersCsvPath = join(outDir, "work-orders.csv");
 const workQueuePath = join(repoRoot, "data", "top100-coverage", "work-queue.csv");
 const catalogReviewPath = join(repoRoot, "data", "catalog-promotion-review", "review.csv");
 const mode = process.argv[2] ?? "--generate";
@@ -22,17 +24,25 @@ if (mode === "--generate") {
   write(wavePath, report.yaml);
   write(csvPath, report.csv);
   write(summaryPath, report.summary);
+  write(workOrdersPath, report.workOrders);
+  write(workOrdersCsvPath, report.workOrdersCsv);
   console.log(`wrote ${relativeRepo(wavePath)}`);
   console.log(`wrote ${relativeRepo(csvPath)}`);
   console.log(`wrote ${relativeRepo(summaryPath)}`);
+  console.log(`wrote ${relativeRepo(workOrdersPath)}`);
+  console.log(`wrote ${relativeRepo(workOrdersCsvPath)}`);
 } else if (mode === "--verify") {
   const report = buildReport();
   check(existsSync(wavePath), "missing top100 promotion wave YAML; run npm run top100:promotion-wave");
   check(existsSync(csvPath), "missing top100 promotion wave CSV; run npm run top100:promotion-wave");
   check(existsSync(summaryPath), "missing top100 promotion wave summary; run npm run top100:promotion-wave");
+  check(existsSync(workOrdersPath), "missing top100 promotion wave work orders; run npm run top100:promotion-wave");
+  check(existsSync(workOrdersCsvPath), "missing top100 promotion wave work order CSV; run npm run top100:promotion-wave");
   check(readFileSync(wavePath, "utf8") === report.yaml, "top100 promotion wave YAML is stale");
   check(readFileSync(csvPath, "utf8") === report.csv, "top100 promotion wave CSV is stale");
   check(readFileSync(summaryPath, "utf8") === report.summary, "top100 promotion wave summary is stale");
+  check(readFileSync(workOrdersPath, "utf8") === report.workOrders, "top100 promotion wave work orders are stale");
+  check(readFileSync(workOrdersCsvPath, "utf8") === report.workOrdersCsv, "top100 promotion wave work order CSV is stale");
   console.log(`verified top100 promotion wave for ${report.rows.length} chart(s)`);
 } else {
   console.log(`Usage:
@@ -55,6 +65,8 @@ function buildReport() {
     yaml: `${toYaml(waveYaml(rows))}\n`,
     csv: rowsToCsv(rows),
     summary: summary(rows),
+    workOrders: workOrdersMarkdown(rows),
+    workOrdersCsv: workOrdersToCsv(workOrders(rows)),
   };
 }
 
@@ -193,6 +205,8 @@ For each row:
 | --- | --- |
 | [wave.csv](./wave.csv) | Spreadsheet queue for the selected promotion-review rows. |
 | [wave.yaml](./wave.yaml) | Machine-readable wave input for future tooling. |
+| [work-orders.md](./work-orders.md) | Assignable chart-by-chart review tasks for the first promotion wave. |
+| [work-orders.csv](./work-orders.csv) | Spreadsheet form of the promotion review work orders. |
 | [../top100-coverage/work-queue.md](../top100-coverage/work-queue.md) | Full strict top-100 work queue. |
 | [../catalog-promotion-review/summary.md](../catalog-promotion-review/summary.md) | Machine proof and product gaps for all 100 recipes. |
 
@@ -229,6 +243,159 @@ function rowsToCsv(rows) {
     "recipe_path",
     "package_path",
   ];
+  return `${[headers.join(","), ...rows.map((row) => headers.map((header) => csvEscape(row[header])).join(","))].join("\n")}\n`;
+}
+
+function workOrdersMarkdown(rows) {
+  const orders = workOrders(rows);
+  return `# Top-100 Promotion Wave Work Orders
+
+These generated work orders turn the first promotion wave into assignable
+review tasks. They do not promote any chart by themselves.
+
+Each chart is already proof-grade and has two-cluster kind parity evidence.
+Promotion still requires selecting the user-facing base, closing scan/gate and
+lifecycle questions, choosing the support scope, and linking live evidence or a
+routed deferral.
+
+## Summary
+
+~~~text
+charts: ${rows.length}
+work orders: ${orders.length}
+~~~
+
+## Work Orders By Chart
+
+${rows.map((row) => chartWorkOrderSection(row, orders.filter((order) => order.chart_ref === row.chart_ref))).join("\n\n")}
+
+## Spreadsheet
+
+Use [work-orders.csv](./work-orders.csv) for assignment, filtering, and status
+tracking.
+`;
+}
+
+function chartWorkOrderSection(row, orders) {
+  return `### ${row.chart_ref}
+
+Variants: \`${row.variants || "-"}\`<br>
+Evidence: \`${row.strongest_evidence}\`<br>
+Feature focus: \`${row.source_features || "-"}\`<br>
+Current state: ${currentState(row)}
+
+| Order | Work type | Reviewer | Done when |
+| ---: | --- | --- | --- |
+${orders.map((order) => `| ${order.order} | ${order.work_type} | ${order.reviewer} | ${escapePipes(order.done_when)} |`).join("\n")}`;
+}
+
+function workOrders(rows) {
+  return rows.flatMap((row) => {
+    let order = 1;
+    const add = (workType, reviewer, reason, doneWhen, evidence) => ({
+      chart: row.chart,
+      version: row.version,
+      chart_ref: row.chart_ref,
+      order: order++,
+      work_type: workType,
+      reviewer,
+      reason,
+      done_when: doneWhen,
+      evidence,
+    });
+    const features = new Set(splitList(row.source_features));
+    const chartOrders = [
+      add(
+        "variant-selection",
+        "catalog reviewer",
+        "Confirm the promoted base is a real Helm-user path, not merely the first rendered baseline.",
+        `A selected variant is named from ${row.variants || "the chart variants"} and the non-selected variants have a written promote/defer reason.`,
+        `${row.recipe_path}/CATALOG.md`,
+      ),
+      add(
+        "scan-and-gate-disposition",
+        "security reviewer",
+        `Scan/gate state is high=${row.scan_high}, medium=${row.scan_medium}, gates=${row.gate_decisions || "-"}.`,
+        "Every warning is fixed, accepted with rationale, or routed to a narrower base before catalog support.",
+        "data/catalog-promotion-review/review.csv",
+      ),
+    ];
+    if (features.has("crds")) {
+      chartOrders.push(add(
+        "crd-lifecycle",
+        "platform reviewer",
+        "The chart includes CRDs or CRD-like lifecycle concerns.",
+        "CRD install, upgrade, ownership, and no-CRDs behavior are recorded or explicitly deferred for the selected base.",
+        `${row.recipe_path}/helm-pain-report.yaml`,
+      ));
+    }
+    if (features.has("webhooks")) {
+      chartOrders.push(add(
+        "webhook-readiness",
+        "platform reviewer",
+        "The chart includes webhook resources or webhook runtime dependencies.",
+        "Webhook readiness, CA/material injection, failure policy, and observation path are recorded or explicitly deferred.",
+        `${row.recipe_path}/helm-pain-report.yaml`,
+      ));
+    }
+    if (features.has("stateful-storage")) {
+      chartOrders.push(add(
+        "storage-and-rollback-policy",
+        "operator reviewer",
+        "The chart has persistent or stateful behavior.",
+        "Storage class assumptions, PVC behavior, backup/rollback boundary, and destructive-change policy are written for the selected base.",
+        `${row.recipe_path}/helm-pain-report.yaml`,
+      ));
+    }
+    if (features.has("generated-facts")) {
+      chartOrders.push(add(
+        "generated-fact-policy",
+        "catalog reviewer",
+        "The chart has generated or once-only values that can affect repeatability.",
+        "Generated facts are persisted, replaced by target facts, or explicitly scoped out of the promoted base.",
+        `${row.recipe_path}/control-points.yaml`,
+      ));
+    }
+    if (features.has("cluster-rbac")) {
+      chartOrders.push(add(
+        "rbac-scope",
+        "security reviewer",
+        "The chart creates cluster-scoped RBAC or similar permissions.",
+        "Cluster permissions are accepted for the support scope or a narrower base is selected.",
+        `${row.recipe_path}/helm-pain-report.yaml`,
+      ));
+    }
+    if (features.has("tpl") || features.has("capabilities")) {
+      chartOrders.push(add(
+        "template-and-capability-boundary",
+        "catalog reviewer",
+        "The chart has template-powered inputs or Kubernetes capability branches.",
+        "The supported values, capability profile, and extension-slot policy are catalog-readable for the selected base.",
+        `${row.recipe_path}/helm-plan.yaml`,
+      ));
+    }
+    chartOrders.push(
+      add(
+        "selected-live-evidence",
+        "operator reviewer",
+        "Two-cluster kind parity exists; catalog promotion needs the selected runtime evidence boundary.",
+        "The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale.",
+        "data/live-kind-parity/summary.csv",
+      ),
+      add(
+        "target-scoped-support-decision",
+        "catalog owner",
+        "Catalog support is not implied by machine proof.",
+        "A target-scoped support decision exists with supported, deferred, superseded, or blocked outcome.",
+        "data/production-support-decisions/summary.md",
+      ),
+    );
+    return chartOrders;
+  });
+}
+
+function workOrdersToCsv(rows) {
+  const headers = ["chart", "version", "chart_ref", "order", "work_type", "reviewer", "reason", "done_when", "evidence"];
   return `${[headers.join(","), ...rows.map((row) => headers.map((header) => csvEscape(row[header])).join(","))].join("\n")}\n`;
 }
 

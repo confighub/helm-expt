@@ -79,6 +79,8 @@ For each row:
 | --- | --- |
 | [wave.csv](./wave.csv) | Spreadsheet queue for the selected promotion-review rows. |
 | [wave.yaml](./wave.yaml) | Machine-readable wave input for future tooling. |
+| [work-orders.md](./work-orders.md) | Assignable chart-by-chart review tasks for the first promotion wave. |
+| [work-orders.csv](./work-orders.csv) | Spreadsheet form of the promotion review work orders. |
 | [../top100-coverage/work-queue.md](../top100-coverage/work-queue.md) | Full strict top-100 work queue. |
 | [../catalog-promotion-review/summary.md](../catalog-promotion-review/summary.md) | Machine proof and product gaps for all 100 recipes. |
 

@@ -29,7 +29,7 @@ smallest generated surface that answers it.
 | I want the strict top-100 work queue. | [top100-coverage/work-queue.md](./top100-coverage/work-queue.md)<br>[top100-coverage/work-queue.csv](./top100-coverage/work-queue.csv)<br>[top100-coverage/decisions-needed.md](./top100-coverage/decisions-needed.md) |
 | I want the source-scan quirk work queue. | [quirk-work-queue/summary.md](./quirk-work-queue/summary.md)<br>[quirk-work-queue/top100-queue.csv](./quirk-work-queue/top100-queue.csv) |
 | I want remote dependency closure status. | [remote-dependency-closure/summary.md](./remote-dependency-closure/summary.md)<br>[remote-dependency-closure/top100.csv](./remote-dependency-closure/top100.csv) |
-| I want the first strict top-100 promotion wave. | [top100-promotion-wave/summary.md](./top100-promotion-wave/summary.md)<br>[top100-promotion-wave/wave.csv](./top100-promotion-wave/wave.csv) |
+| I want the first strict top-100 promotion wave. | [top100-promotion-wave/summary.md](./top100-promotion-wave/summary.md)<br>[top100-promotion-wave/wave.csv](./top100-promotion-wave/wave.csv)<br>[top100-promotion-wave/work-orders.md](./top100-promotion-wave/work-orders.md) |
 | I want to know how upstream chart updates are handled. | [refresh-survival/summary.md](./refresh-survival/summary.md)<br>[latest-top20-refresh/action-queue/summary.md](./latest-top20-refresh/action-queue/summary.md)<br>[latest-top20-refresh/replacement-decisions/summary.md](./latest-top20-refresh/replacement-decisions/summary.md) |
 | I want the top-100 or top-500 planning picture. | [top100-readiness/summary.md](./top100-readiness/summary.md)<br>[top100-readiness/next80-queues.md](./top100-readiness/next80-queues.md)<br>[top500-catalog-analysis/review.csv](./top500-catalog-analysis/review.csv) |
 | I want live parity status. | [live-kind-parity/summary.md](./live-kind-parity/summary.md)<br>[live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md) |
@@ -89,6 +89,8 @@ smallest generated surface that answers it.
 | [top100-promotion-wave/summary.md](./top100-promotion-wave/summary.md) | First strict top-100 promotion-review wave: proof-grade charts with two-cluster parity that need production disposition and support decisions. |
 | [top100-promotion-wave/wave.csv](./top100-promotion-wave/wave.csv) | One row per selected top-100 promotion wave chart: variants, evidence, scan/gate status, first step, and done-when rule. |
 | [top100-promotion-wave/wave.yaml](./top100-promotion-wave/wave.yaml) | Machine-readable strict top-100 promotion wave input. |
+| [top100-promotion-wave/work-orders.md](./top100-promotion-wave/work-orders.md) | Assignable chart-by-chart review tasks for the first top-100 promotion wave. |
+| [top100-promotion-wave/work-orders.csv](./top100-promotion-wave/work-orders.csv) | Spreadsheet work orders for the first top-100 promotion wave: variant selection, scan/gate, lifecycle, live evidence, and support decision tasks. |
 | [refresh-survival/summary.md](./refresh-survival/summary.md) | Latest-version refresh survival: current supported chart versions, upstream update candidates, and promotion gates before replacement. |
 | [refresh-survival/refreshes.csv](./refresh-survival/refreshes.csv) | One row per top-20 chart in the latest refresh review: current version, latest version, candidate proof, promotion state, and next action. |
 | [latest-top20-refresh/action-queue/summary.md](./latest-top20-refresh/action-queue/summary.md) | Action queue for current top-20 upstream movement: replacement decisions, retained-candidate refreshes, and new-candidate creation. |
@@ -238,7 +240,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 95 CSV files. Each row records the path, audience,
+It includes 96 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

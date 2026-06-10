@@ -62,7 +62,7 @@ function readme(rows) {
     ["I want the strict top-100 work queue.", "data/top100-coverage/work-queue.md; data/top100-coverage/work-queue.csv; data/top100-coverage/decisions-needed.md"],
     ["I want the source-scan quirk work queue.", "data/quirk-work-queue/summary.md; data/quirk-work-queue/top100-queue.csv"],
     ["I want remote dependency closure status.", "data/remote-dependency-closure/summary.md; data/remote-dependency-closure/top100.csv"],
-    ["I want the first strict top-100 promotion wave.", "data/top100-promotion-wave/summary.md; data/top100-promotion-wave/wave.csv"],
+    ["I want the first strict top-100 promotion wave.", "data/top100-promotion-wave/summary.md; data/top100-promotion-wave/wave.csv; data/top100-promotion-wave/work-orders.md"],
     ["I want to know how upstream chart updates are handled.", "data/refresh-survival/summary.md; data/latest-top20-refresh/action-queue/summary.md; data/latest-top20-refresh/replacement-decisions/summary.md"],
     ["I want the top-100 or top-500 planning picture.", "data/top100-readiness/summary.md; data/top100-readiness/next80-queues.md; data/top500-catalog-analysis/review.csv"],
     ["I want live parity status.", "data/live-kind-parity/summary.md; data/live-helm-confighub-compare/summary.md"],
@@ -119,6 +119,8 @@ function readme(rows) {
     ["data/top100-promotion-wave/summary.md", "First strict top-100 promotion-review wave: proof-grade charts with two-cluster parity that need production disposition and support decisions."],
     ["data/top100-promotion-wave/wave.csv", "One row per selected top-100 promotion wave chart: variants, evidence, scan/gate status, first step, and done-when rule."],
     ["data/top100-promotion-wave/wave.yaml", "Machine-readable strict top-100 promotion wave input."],
+    ["data/top100-promotion-wave/work-orders.md", "Assignable chart-by-chart review tasks for the first top-100 promotion wave."],
+    ["data/top100-promotion-wave/work-orders.csv", "Spreadsheet work orders for the first top-100 promotion wave: variant selection, scan/gate, lifecycle, live evidence, and support decision tasks."],
     ["data/refresh-survival/summary.md", "Latest-version refresh survival: current supported chart versions, upstream update candidates, and promotion gates before replacement."],
     ["data/refresh-survival/refreshes.csv", "One row per top-20 chart in the latest refresh review: current version, latest version, candidate proof, promotion state, and next action."],
     ["data/latest-top20-refresh/action-queue/summary.md", "Action queue for current top-20 upstream movement: replacement decisions, retained-candidate refreshes, and new-candidate creation."],
@@ -316,6 +318,7 @@ function roleFor(path) {
   if (path === "data/top100-coverage/coverage.csv") return "one row per top-100 chart: strict coverage contract status, item statuses, evidence paths, and next action";
   if (path === "data/top100-coverage/work-queue.csv") return "one row per partial top-100 chart: strict coverage queue, priority, missing items, first step, and done-when rule";
   if (path === "data/top100-promotion-wave/wave.csv") return "one row per selected strict top-100 promotion wave chart";
+  if (path === "data/top100-promotion-wave/work-orders.csv") return "one row per promotion-review task for the first strict top-100 wave";
   if (path === "data/refresh-survival/refreshes.csv") return "one row per top-20 latest-version refresh: current proof, latest upstream version, retained candidate state, and promotion route";
   if (path === "data/latest-top20-refresh/action-queue/queue.csv") return "one row per top-20 upstream update row: action, priority, first step, command, evidence, and done-when rule";
   if (path === "data/latest-top20-refresh/promotion-work-orders.csv") return "one row per candidate chart and support lane needed before latest-version promotion";
