@@ -5,10 +5,17 @@
 This guide explains how a Helm user should think about variants in this
 project.
 
-There are two variant stages. A **base variant** is the rendered install shape
-created by `cub installer`. A **derived ConfigHub variant** starts from a
-reviewed uploaded base and applies approved post-render refinements without
-running Helm again. If those names feel similar, use this rule first:
+There are two variant stages, and the one-line definitions are:
+
+```text
+Base variant = the render-time Helm install shape.
+Derived ConfigHub variant = the post-render environment, region, customer, or target refinement.
+```
+
+A **base variant** is the rendered install shape created by `cub installer`. A
+**derived ConfigHub variant** starts from a reviewed uploaded base and applies
+approved post-render refinements without running Helm again. If those names
+feel similar, use this rule first:
 
 ```text
 Helm render inputs or object shape change -> base variant.
@@ -161,6 +168,46 @@ The production variant keeps the same Prometheus install shape. It may change
 target, labels, namespace fields, fact bindings, gates, links, checks, and
 observation policy through the Creator contract.
 
+## One Worked Path, End To End
+
+This is the compact day-1 value story, using shipped commands only. It keeps
+the Prometheus install shape fixed and changes only the operating context.
+
+```text
+prometheus/server-only-ephemeral        (reviewed, uploaded base)
+-> prod-us-east derived variant         (cub variant create)
+-> labels, target, approval, observation policy
+-> preview the changed paths            (cub unit diff against the upstream Units)
+-> checks                               (install shape preserved, Unit count preserved, links intact)
+-> receipt                              (committed run evidence)
+```
+
+The shipped commands for that sequence:
+
+```sh
+# 1. Create the derived variant from the uploaded base Space.
+cub variant create prod-us-east helm-prometheus-server-only \
+  --environment Prod \
+  --region us-east
+
+# 2. Preview what actually changed: diff a cloned Unit against its upstream.
+cub unit diff <unit> --space <derived-space>
+
+# 3. Check the preservation rule: same Units, same rendered shape, links intact.
+cub unit list --space <derived-space> \
+  --columns Unit.Slug,Unit.Labels.Variant,Unit.Labels.Environment
+```
+
+The expected preview is small: labels, environment, region, and any approved
+post-render fills. If the diff shows decoded Kubernetes data changing without
+an allowed mutation receipt, stop and treat it as drift, not a variant.
+
+A committed example receipt for exactly this path is
+`runs/derived-variant-target-bound/prometheus-server-only-prod-us-east/receipt.yaml`,
+created from a clean uploaded base, cloned with `cub variant create --target`,
+and reconciled by Argo CD. The richer guided preview screens shown later in
+this doc are proposals layered over these same commands.
+
 ## Delivery Prerequisites
 
 Before OCI publication or GitOps sync, the artifact should already represent
@@ -183,6 +230,10 @@ Do not publish a generic artifact and rely on an untracked cluster patch to make
 it correct later.
 
 ## Human Flow
+
+**Status: UX proposal.** The screen below is a product sketch. The shipped
+surface today is the `cub variant create` command and the ConfigHub web UI;
+the worked path above uses only shipped commands.
 
 The user-facing flow should be short and concrete.
 
@@ -265,6 +316,10 @@ separate variant system.
 
 ## AI Assistant Flow
 
+**Status: AX proposal.** The structured task below is the target contract for
+assistants, not a shipped command or API. Assistants today drive the same
+shipped commands as the worked path above.
+
 An AI assistant should receive the same request as structured work.
 
 Example:
@@ -302,6 +357,9 @@ post-render contract, the assistant should route the work back to the
 `cub installer` base path.
 
 ## Bulk Creation Flow
+
+**Status: proposal.** Bulk rows are the target shape; today each row is an
+individual `cub variant create` invocation.
 
 The same creation pattern should also work across many environments, regions,
 or customers.
