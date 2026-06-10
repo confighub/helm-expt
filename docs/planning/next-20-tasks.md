@@ -76,7 +76,7 @@ The newer sceptic plan adds two cross-cutting outcomes:
 | Task | Outcome to prove |
 | --- | --- |
 | 21 | Public claims are mapped to evidence, routes, or explicit refusals. No receipt or route means no claim. |
-| 22 | Blast-radius predictions are measured against actual rerenders so edge and inheritance claims are scored, not assumed. The first KPS and Redis seeds are in `data/blast-radius-accuracy/summary.md`; broader coverage is still open. |
+| 22 | Blast-radius predictions are measured against actual rerenders so edge and inheritance claims are scored, not assumed. The first KPS, Redis, and NGINX seeds are in `data/blast-radius-accuracy/summary.md`; broader coverage is still open. |
 
 ## Now - derived variants and current CLI truth
 1. **Make `cub variant create` the explicit derived-variant substrate** (#143) - add the command-surface

@@ -141,7 +141,7 @@ Principle: a strong upsell sells the next recurring feared event, and fires at t
 
 Receipt footer line, on every serverless receipt: "This receipt proves one install. Sign in to prove all of them, and to be asked before a change, not after."
 
-Discipline that keeps the wedge healthy: never gate the local basics (diff, rollback, observe-once) to force the upgrade. The upsell argument is "the graph does what local provably cannot," and it stays credible only if nothing local was crippled to make it.
+Discipline that keeps the wedge healthy: never gate the local basics (diff, rollback, observe-once) to force the upgrade. The upsell argument is "the graph does what local provably cannot," and it stays credible only if nothing local was artificially limited to make it.
 
 ## 9. What changes when you sign in
 

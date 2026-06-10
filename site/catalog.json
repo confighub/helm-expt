@@ -451,7 +451,7 @@
     {
       "section": "graph bridge",
       "metric": "rows with field reachability",
-      "value": "3",
+      "value": "4",
       "total": "100",
       "status": "partial",
       "source": "data/edge-recovery/edges.csv",

@@ -36,7 +36,7 @@ graph bridge,charts with recovered graph fragments,20,110,partial,data/edge-reco
 graph bridge,recovered graph edge rows,100,100,good,data/edge-recovery/edges.csv,"Recovered base, override, target-fact, generated-fact, and field-reachability rows."
 graph bridge,target-fact graph edges,57,100,partial,data/edge-recovery/edges.csv,"Edges from a variant to required target facts such as pre-existing Secrets, CRDs, or hook-produced material."
 graph bridge,generated-fact graph edges,1,100,partial,data/edge-recovery/edges.csv,Edges from generated facts to the rendered fields they affect where field reachability is available.
-graph bridge,rows with field reachability,3,100,partial,data/edge-recovery/edges.csv,"Rows that connect an input, generated fact, or variant change to rendered output fields."
+graph bridge,rows with field reachability,4,100,partial,data/edge-recovery/edges.csv,"Rows that connect an input, generated fact, or variant change to rendered output fields."
 live evidence,runtime/GitOps wave rows,10,10,partial,data/runtime-gitops/wave1.csv,Selected Argo/Flux OCI wave rows; this is not the whole corpus.
 live evidence,selected live Helm-vs-ConfigHub parity receipts,20,20,good,data/live-helm-confighub-compare/summary.csv,Selected top-20 live comparison receipts. Good means every selected receipt currently passes; this is not a claim for every base row.
 live evidence,two-cluster kind parity receipts,50,50,partial,data/live-kind-parity/summary.csv,"Committed two-cluster parity receipts for the top-20 base variants, including pass and non-pass results."

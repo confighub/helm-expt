@@ -222,7 +222,7 @@ const claims = [
       "data/high-fanout-demo/summary.md",
     ],
     verify: "npm run blast-radius:accuracy:verify; npm run edges:verify; npm run high-fanout:verify",
-    limit: "Only two base-pair cases are measured so far: KPS CRDs and Redis existing-secret. Most value-source-map rows are still unmeasured backlog.",
+    limit: "Only three base-pair cases are measured so far: KPS CRDs, Redis existing-secret, and NGINX existing-TLS ingress. Most value-source-map rows are still unmeasured backlog.",
   },
   {
     id: "refused-blanket-verification",

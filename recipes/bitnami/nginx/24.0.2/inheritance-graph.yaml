@@ -52,7 +52,8 @@ spec:
       removedValuePaths:
         []
       valueSourceMapCoverage:
-        []
+        - "ingress.enabled"
+        - "tls.existingSecret"
   targetFactEdges:
     -
       variant: "existing-tls-ingress"
@@ -78,7 +79,23 @@ spec:
   generatedFactEdges:
     []
   fieldReachability:
-    []
+    -
+      valuePath: "ingress.enabled"
+      source: "existing-tls-ingress-base"
+      renderedFieldCount: 1
+      renderedFields:
+        - "networking.k8s.io/v1|Ingress|nginx|nginx:metadata.name"
+      immutableFieldRisk: false
+      rolloutImpact: "adds-ingress-object-for-reviewed-edge-exposure"
+    -
+      valuePath: "tls.existingSecret"
+      source: "existing-tls-ingress-base"
+      renderedFieldCount: 2
+      renderedFields:
+        - "apps/v1|Deployment|nginx|nginx:spec.template.spec.volumes[certificate].secret.secretName"
+        - "apps/v1|Deployment|nginx|nginx:spec.template.spec.containers[nginx].volumeMounts[/certs].name"
+      immutableFieldRisk: false
+      rolloutImpact: "changes-nginx-pod-template-to-mount-existing-backend-tls-secret"
   notes:
     - "This graph is recovered from checked-in recipe artifacts."
     - "It is a desired-state graph fragment, not a live-cluster observation."
