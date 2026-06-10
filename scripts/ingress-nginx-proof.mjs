@@ -72,10 +72,99 @@ const scanPolicy = {
   ],
 };
 
+function ingressLifecyclePolicy() {
+  return {
+    apiVersion: "helm-expt.confighub.com/v1alpha1",
+    kind: "LifecyclePolicy",
+    metadata: {
+      name: "ingress-nginx-ingress-nginx-4.15.1",
+      chart: "ingress-nginx/ingress-nginx",
+      version: chart.version,
+    },
+    spec: {
+      summary:
+        "The default ingress-nginx base preserves the admission webhook objects rendered by Helm, but Helm hook Jobs that create and patch the webhook certificate are not part of the rendered object set. Production use needs an explicit lifecycle route and fresh observation receipt.",
+      bases: {
+        default: {
+          status: "route-selected-observation-needed",
+          renderedObjects: [
+            "v1|Service|ingress-nginx|ingress-nginx-controller-admission",
+            "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||ingress-nginx-admission",
+          ],
+          omittedHelmHookObjects: [
+            "admission-create Job",
+            "admission-patch Job",
+          ],
+          observedFailureWhenMissingLifecycle:
+            "MountVolume.SetUp failed for volume webhook-cert: secret ingress-nginx-admission not found.",
+          supportedRoutes: [
+            {
+              route: "run-equivalent-webhook-cert-lifecycle",
+              description:
+                "Create and patch the admission webhook certificate Secret before or during apply, then observe the webhook Service and ValidatingWebhookConfiguration.",
+              requiredReceipts: [
+                "lifecycle-operation-receipt",
+                "admission-webhook-observation-receipt",
+                "secret-preflight-receipt",
+              ],
+            },
+            {
+              route: "use-target-certificate-provider",
+              description:
+                "Use a target-approved certificate provider, such as cert-manager, and record the Secret, CA bundle, and webhook readiness evidence.",
+              requiredReceipts: [
+                "target-fact-receipt",
+                "admission-webhook-observation-receipt",
+              ],
+            },
+            {
+              route: "choose-non-webhook-base",
+              description:
+                "Use admission-disabled or internal-clusterip when the target does not need the ingress-nginx admission webhook.",
+              requiredReceipts: [
+                "variant-selection-receipt",
+              ],
+            },
+          ],
+          mustObserve: [
+            "Secret ingress-nginx/ingress-nginx-admission exists with tls.crt, tls.key, and ca",
+            "ValidatingWebhookConfiguration ingress-nginx-admission has caBundle populated",
+            "Service ingress-nginx/ingress-nginx-controller-admission has ready endpoints",
+            "controller Deployment is available after the webhook certificate route runs",
+          ],
+        },
+        admissionDisabled: {
+          status: "webhook-not-rendered",
+          renderedObjects: [],
+          note: "This base deliberately removes the admission Service and ValidatingWebhookConfiguration.",
+          requiredReceipts: [
+            "variant-selection-receipt",
+          ],
+        },
+        internalClusterIP: {
+          status: "webhook-not-rendered",
+          renderedObjects: [],
+          note: "This base deliberately removes the admission webhook and changes the controller Service to ClusterIP for local or internal targets.",
+          requiredReceipts: [
+            "variant-selection-receipt",
+          ],
+        },
+      },
+      notProvenBy: [
+        "render parity alone",
+        "presence of a ValidatingWebhookConfiguration alone",
+        "one kubectl apply without the webhook certificate lifecycle route",
+      ],
+    },
+  };
+}
+
 runProofCli({
   chart,
   variants,
   scanPolicy,
+  extraRequiredFiles: ["lifecycle-policy.yaml"],
+  extraProofDocuments: () => [{ path: "lifecycle-policy.yaml", document: ingressLifecyclePolicy() }],
   supportObjects: [`v1|Namespace||${chart.namespace}`],
   packageTransformers: [
     {
@@ -203,7 +292,25 @@ runProofCli({
     return findings;
   },
   // Chart-specific verify assertions the generic kit cannot infer.
-  verifyExtra({ controlPoints, perVariant, check, readFileSync }) {
+  verifyExtra({ root, controlPoints, perVariant, check, readYaml, readFileSync, join }) {
+    const lifecyclePolicy = readYaml(join(root, "lifecycle-policy.yaml"));
+    check(lifecyclePolicy.kind === "LifecyclePolicy", "lifecycle-policy.yaml must be a LifecyclePolicy");
+    check(lifecyclePolicy.spec.bases.default?.status === "route-selected-observation-needed", "default lifecycle status mismatch");
+    check(
+      lifecyclePolicy.spec.bases.default?.observedFailureWhenMissingLifecycle?.includes("ingress-nginx-admission"),
+      "default lifecycle failure evidence must name the admission Secret",
+    );
+    check(
+      lifecyclePolicy.spec.bases.default?.supportedRoutes?.some((route) => route.route === "run-equivalent-webhook-cert-lifecycle"),
+      "webhook cert lifecycle route missing",
+    );
+    check(
+      lifecyclePolicy.spec.bases.default?.mustObserve?.some((item) => item.includes("caBundle")),
+      "webhook caBundle observation missing",
+    );
+    check(lifecyclePolicy.spec.bases.admissionDisabled?.status === "webhook-not-rendered", "admission-disabled lifecycle status mismatch");
+    check(lifecyclePolicy.spec.bases.internalClusterIP?.status === "webhook-not-rendered", "internal-clusterip lifecycle status mismatch");
+    check(lifecyclePolicy.spec.notProvenBy.includes("render parity alone"), "render parity limitation must be explicit");
     check(controlPoints.spec.points?.some((point) => point.category === "capability-profile"), "capability-profile control point missing");
     check(controlPoints.spec.points?.some((point) => point.category === "hook-policy"), "hook-policy control point missing");
     check(controlPoints.spec.points?.some((point) => point.category === "admission-webhook"), "admission-webhook control point missing");
