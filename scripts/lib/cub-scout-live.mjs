@@ -198,6 +198,9 @@ function pruneApiDroppedNoops(value, path = []) {
   if (value === "" && last === "caBundle" && parent === "spec") {
     return undefined;
   }
+  if (value === "" && last === "subPath" && path.at(-3) === "volumeMounts") {
+    return undefined;
+  }
   if (
     value === false &&
     (

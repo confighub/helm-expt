@@ -1,0 +1,19 @@
+NAME                                     READY   STATUS    RESTARTS   AGE   IP           NODE                                        NOMINATED NODE   READINESS GATES
+pod/prometheus-server-6fb4698786-dkg55   2/2     Running   0          93s   10.244.0.5   helm-expt-prometheus-29-9-0-control-plane   <none>           <none>
+
+NAME                        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE   SELECTOR
+service/prometheus-server   ClusterIP   10.96.124.109   <none>        80/TCP    93s   app.kubernetes.io/component=server,app.kubernetes.io/instance=prometheus,app.kubernetes.io/name=prometheus
+
+NAME                                READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS                                             IMAGES                                                                                                 SELECTOR
+deployment.apps/prometheus-server   1/1     1            1           93s   prometheus-server-configmap-reload,prometheus-server   quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0,quay.io/prometheus/prometheus:v3.12.0   app.kubernetes.io/component=server,app.kubernetes.io/instance=prometheus,app.kubernetes.io/name=prometheus
+
+NAME                                           DESIRED   CURRENT   READY   AGE   CONTAINERS                                             IMAGES                                                                                                 SELECTOR
+replicaset.apps/prometheus-server-6fb4698786   1         1         1       93s   prometheus-server-configmap-reload,prometheus-server   quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0,quay.io/prometheus/prometheus:v3.12.0   app.kubernetes.io/component=server,app.kubernetes.io/instance=prometheus,app.kubernetes.io/name=prometheus,pod-template-hash=6fb4698786
+
+NAME                          DATA   AGE
+configmap/kube-root-ca.crt    1      93s
+configmap/prometheus-server   6      93s
+
+NAME                               SECRETS   AGE
+serviceaccount/default             0         93s
+serviceaccount/prometheus-server   0         93s

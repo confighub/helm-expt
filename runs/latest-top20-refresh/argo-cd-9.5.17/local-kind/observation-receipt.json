@@ -1,0 +1,187 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "argo-cd-9-5-17-default-local-kind"
+  },
+  "spec": {
+    "variantRevision": "data/latest-top20-refresh/candidates/argo-cd-9.5.17/recipes/argo-cd/argo-cd/9.5.17/revisions/default/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "e79d4daf30498e893d2dc41c736de2de1fe3ff3a4dc396212a86336143f80fa7",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.2.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-argo-cd-9-5-17",
+      "context": "kind-helm-expt-argo-cd-9-5-17",
+      "namespace": "argocd"
+    },
+    "observedAt": "2026-06-10T11:55:34.793Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "argo-cd/argo-cd",
+    "chartVersion": "9.5.17",
+    "rank": 6,
+    "variant": "default",
+    "renderedObjectCount": 49,
+    "checks": [
+      {
+        "name": "support-secret-argocd-redis",
+        "result": "pass",
+        "reason": "Argo CD built-in Redis expects the hard-coded argocd-redis Secret when hooks are excluded",
+        "evidencePath": "support-secret-argocd-redis.txt",
+        "evidenceSHA256": "e5d950bf86e8e4f9beb7bbd2735913b773c621a23bf3f1dd87b44dd1d3594893"
+      },
+      {
+        "name": "crd-bootstrap-apply",
+        "result": "pass",
+        "count": 3,
+        "evidencePath": "crd-bootstrap-apply.txt",
+        "evidenceSHA256": "cd0fb23ebbadabd7db0d68c3b67ae02a2652b8d076c570742878063f93486d34"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/applications.argoproj.io",
+        "evidencePath": "crd-applications.argoproj.io-established.txt",
+        "evidenceSHA256": "a509b3b7ea7350212f6f1a4bf5ce2468ebabb7b544918f8183b6520925e9cf4d"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/applicationsets.argoproj.io",
+        "evidencePath": "crd-applicationsets.argoproj.io-established.txt",
+        "evidenceSHA256": "d191b12e1ea413a20b6c68f3daba8a00fe73448cd233c613f9e46d98d5303f93"
+      },
+      {
+        "name": "crd-established",
+        "result": "pass",
+        "object": "customresourcedefinition/appprojects.argoproj.io",
+        "evidencePath": "crd-appprojects.argoproj.io-established.txt",
+        "evidenceSHA256": "c0687e12ab03c1a004b4d4110585e9dc95fb2bd667b81fb179f6d6d1c21a31c8"
+      },
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "e9738946bc9b155106c2176c3d1b28d396efe0ecf5e608ab63a7933e3bd0d6ba"
+      },
+      {
+        "name": "deployment-argo-cd-argocd-applicationset-controller-rollout",
+        "result": "pass",
+        "object": "deployment/argo-cd-argocd-applicationset-controller",
+        "evidencePath": "deployment-argo-cd-argocd-applicationset-controller-rollout.txt",
+        "evidenceSHA256": "00b2f61ee318af4261fe505361c6f2a4b9fa6e988fb1ae78ace92edec9cb60d2"
+      },
+      {
+        "name": "deployment-argo-cd-argocd-notifications-controller-rollout",
+        "result": "pass",
+        "object": "deployment/argo-cd-argocd-notifications-controller",
+        "evidencePath": "deployment-argo-cd-argocd-notifications-controller-rollout.txt",
+        "evidenceSHA256": "a525e20a6aed7d0352a5bc871c24912384266eddee9da4a16b6f4f99dc703140"
+      },
+      {
+        "name": "deployment-argo-cd-argocd-repo-server-rollout",
+        "result": "pass",
+        "object": "deployment/argo-cd-argocd-repo-server",
+        "evidencePath": "deployment-argo-cd-argocd-repo-server-rollout.txt",
+        "evidenceSHA256": "44bb02b1b311fe05d5902e1b33c53b18fdea8e3c797e4db2ba610cbd7692736b"
+      },
+      {
+        "name": "deployment-argo-cd-argocd-server-rollout",
+        "result": "pass",
+        "object": "deployment/argo-cd-argocd-server",
+        "evidencePath": "deployment-argo-cd-argocd-server-rollout.txt",
+        "evidenceSHA256": "735768ab8112e91305befafa04daf45c5d95c9449fc18ed6abe54fe71f4e0ca4"
+      },
+      {
+        "name": "deployment-argo-cd-argocd-dex-server-rollout",
+        "result": "pass",
+        "object": "deployment/argo-cd-argocd-dex-server",
+        "evidencePath": "deployment-argo-cd-argocd-dex-server-rollout.txt",
+        "evidenceSHA256": "788471b7b21a4f215fdcf1ff6893f1a666bee818c482da51e539c4428c182204"
+      },
+      {
+        "name": "deployment-argo-cd-argocd-redis-rollout",
+        "result": "pass",
+        "object": "deployment/argo-cd-argocd-redis",
+        "evidencePath": "deployment-argo-cd-argocd-redis-rollout.txt",
+        "evidenceSHA256": "a0a0f1d5fc4934dd13149a5451a808532ca880b01b8c813e4523379cbf5204cf"
+      },
+      {
+        "name": "statefulset-argo-cd-argocd-application-controller-rollout",
+        "result": "pass",
+        "object": "statefulset/argo-cd-argocd-application-controller",
+        "evidencePath": "statefulset-argo-cd-argocd-application-controller-rollout.txt",
+        "evidenceSHA256": "36da818e2e5135cf9f3e7dae3dd24592e2df502a120d303298ccf32677ceb031"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/applications.argoproj.io",
+        "evidencePath": "crd-applications.argoproj.io.txt",
+        "evidenceSHA256": "54c31dc0026189f14d9972682cbde71cf8122243c3746ece5e68a33fd7c38903"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/applicationsets.argoproj.io",
+        "evidencePath": "crd-applicationsets.argoproj.io.txt",
+        "evidenceSHA256": "52c6fbf215b098ddfe5a6f40da81cf7bb43bd857bd7ace99bb9ba6a22759a784"
+      },
+      {
+        "name": "crd-exists",
+        "result": "pass",
+        "object": "customresourcedefinition/appprojects.argoproj.io",
+        "evidencePath": "crd-appprojects.argoproj.io.txt",
+        "evidenceSHA256": "af37122715eb9481dfb140e1a0d7bcc0db1d23bc94ef7199260c45936cda2f61"
+      },
+      {
+        "name": "cub-scout-object-set-matches",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.object-set.receipt.json",
+        "evidenceSHA256": "87d31558bdcb69c7c4530f0a2dafe61eca1917a6ae63890d3766231268cbb540",
+        "stderrPath": "cub-scout.object-set.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "cub-scout-closed-world-object-set",
+        "result": "watch",
+        "verdict": "WATCH",
+        "exitCode": 2,
+        "evidencePath": "cub-scout.closed-world.receipt.json",
+        "evidenceSHA256": "ad90380433cc25ea65ae9fe52a379a666fbba97cacf4ec1db90e499c94561a65",
+        "stderrPath": "cub-scout.closed-world.stderr.txt",
+        "stderrSHA256": "2d5612bf3580660df88b77f34676a9461a09b7682dcbfe827f0c458023f643e5"
+      },
+      {
+        "name": "cub-scout-workloads-converged",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.workloads.receipt.json",
+        "evidenceSHA256": "aa94f1c303d0929378a38514126af21fd3f5ca0f3fdcdea66e197481c2dcc158",
+        "stderrPath": "cub-scout.workloads.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "cub-scout-prerequisites-met",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.prerequisites.receipt.json",
+        "evidenceSHA256": "56d7d2181b925b45fb565e2f1eb8fef8aa2e5d49252e9c69fc751474bf65a965",
+        "stderrPath": "cub-scout.prerequisites.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "3d7d15d4fd4acaf73a47e150d191ede16986c600e07045afde023d6a88900554"
+    }
+  }
+}

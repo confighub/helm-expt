@@ -1,0 +1,1 @@
+deployment "prometheus-server" successfully rolled out

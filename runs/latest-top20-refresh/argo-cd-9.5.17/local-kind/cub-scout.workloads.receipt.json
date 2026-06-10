@@ -1,0 +1,168 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "rendered-object-set://sha256/b0dcd29f432574d0",
+      "digest": {
+        "sha256": "b0dcd29f432574d023b8e60cc4180f79f1148857387dc957dfdd202417304125"
+      }
+    },
+    {
+      "name": "k8s-live-workloads://namespace/argocd",
+      "digest": {
+        "sha256": "5d510ecc18ca9f383e16dd987dc20c3c5ed79319b5b3c6b2bcf134ab42fcb8bf"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "desired workloads from /Users/alexis/code/helm-expt/runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/cub-scout.workloads.desired.yaml converged to a ready state in the live cluster",
+    "scope": {
+      "kind": "WorkloadSet",
+      "name": "rendered-install",
+      "namespace": "argocd"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-06-10T11:55:34Z",
+    "freshness": {
+      "observedAt": "2026-06-10T11:55:34Z",
+      "expiresAt": "2026-06-10T12:55:34Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "workloads-converged",
+    "verdict": "PASS",
+    "evidence": {
+      "workloads": {
+        "desiredSource": {
+          "type": "file",
+          "ref": "/Users/alexis/code/helm-expt/runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/cub-scout.workloads.desired.yaml",
+          "digest": "d4bbb64ca119094e52c0402d9d6662e748f5f8b38c3b798bd2d680c41270cc12",
+          "objectCount": 7
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "argocd"
+        },
+        "graceWindow": "5m0s",
+        "observedAt": "2026-06-10T11:55:34Z",
+        "desiredDigest": "b0dcd29f432574d023b8e60cc4180f79f1148857387dc957dfdd202417304125",
+        "liveDigest": "5d510ecc18ca9f383e16dd987dc20c3c5ed79319b5b3c6b2bcf134ab42fcb8bf",
+        "summary": {
+          "desired": 7,
+          "converged": 7,
+          "progressing": 0,
+          "failed": 0,
+          "missing": 0,
+          "inconclusive": 0
+        },
+        "workloads": [
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-applicationset-controller"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Deployment is available. Replicas: 1",
+            "ageSeconds": 72
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-dex-server"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Deployment is available. Replicas: 1",
+            "ageSeconds": 72
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-notifications-controller"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Deployment is available. Replicas: 1",
+            "ageSeconds": 72
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-redis"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Deployment is available. Replicas: 1",
+            "ageSeconds": 72
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-repo-server"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Deployment is available. Replicas: 1",
+            "ageSeconds": 72
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-server"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Deployment is available. Replicas: 1",
+            "ageSeconds": 72
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "StatefulSet",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-application-controller"
+            },
+            "status": "converged",
+            "kstatusStatus": "Current",
+            "kstatusMessage": "Partition rollout complete. updated: 1",
+            "ageSeconds": 72
+          }
+        ]
+      }
+    },
+    "omissions": [
+      {
+        "missing": "workload-convergence-snapshot",
+        "reason": "workloads-converged reflects readiness observed at verifiedAt; it does not prove the workloads stay converged afterward",
+        "severity": "info"
+      }
+    ],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every desired workload reached a ready/converged state",
+        "nextCommand": "cub-scout doctor",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:e70a7d70c85f884dc4e9ec318aa50ad085a8f2130355dad414d2c863425a6d89"
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "rendered-object-set://sha256/9ea05a311ec79a61",
+      "digest": {
+        "sha256": "9ea05a311ec79a614c6a9d5a1ae8c895a7f1d9ace352c8ad6fc14ffd6cb2cc9c"
+      }
+    },
+    {
+      "name": "k8s-live-object-set://namespace/postgresql",
+      "digest": {
+        "sha256": "9ea05a311ec79a614c6a9d5a1ae8c895a7f1d9ace352c8ad6fc14ffd6cb2cc9c"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "live object set matches rendered manifests from /Users/alexis/code/helm-expt/runs/latest-top20-refresh/postgresql-18.6.10/local-kind/cub-scout.desired.yaml",
+    "scope": {
+      "kind": "ObjectSet",
+      "name": "rendered-install",
+      "namespace": "postgresql"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-06-10T11:50:14Z",
+    "freshness": {
+      "observedAt": "2026-06-10T11:50:14Z",
+      "expiresAt": "2026-06-10T12:50:14Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "object-set-matches",
+    "verdict": "PASS",
+    "evidence": {
+      "objectSet": {
+        "desiredSource": {
+          "type": "file",
+          "ref": "/Users/alexis/code/helm-expt/runs/latest-top20-refresh/postgresql-18.6.10/local-kind/cub-scout.desired.yaml",
+          "digest": "6a796c2bf47b440265da18ce7e089b7f931c3083247906c1bbd16645c6b8f4eb",
+          "objectCount": 7
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "postgresql"
+        },
+        "matchMode": "authored-fields",
+        "desiredDigest": "9ea05a311ec79a614c6a9d5a1ae8c895a7f1d9ace352c8ad6fc14ffd6cb2cc9c",
+        "liveDigest": "9ea05a311ec79a614c6a9d5a1ae8c895a7f1d9ace352c8ad6fc14ffd6cb2cc9c",
+        "summary": {
+          "desired": 7,
+          "matched": 7,
+          "missing": 0,
+          "mismatched": 0,
+          "inconclusive": 0
+        },
+        "objects": [
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "StatefulSet",
+              "namespace": "postgresql",
+              "name": "postgresql"
+            },
+            "status": "matched",
+            "desiredDigest": "771caa7725a829b0efc87a56105b95d43a0717ed12e4daa8ca5599fbe8dacded",
+            "liveDigest": "771caa7725a829b0efc87a56105b95d43a0717ed12e4daa8ca5599fbe8dacded"
+          },
+          {
+            "id": {
+              "apiVersion": "networking.k8s.io/v1",
+              "kind": "NetworkPolicy",
+              "namespace": "postgresql",
+              "name": "postgresql"
+            },
+            "status": "matched",
+            "desiredDigest": "b1a9b720f80101b396ba18c3906da2af8bd4a65b67ea125918a31bed9768dbaa",
+            "liveDigest": "b1a9b720f80101b396ba18c3906da2af8bd4a65b67ea125918a31bed9768dbaa"
+          },
+          {
+            "id": {
+              "apiVersion": "policy/v1",
+              "kind": "PodDisruptionBudget",
+              "namespace": "postgresql",
+              "name": "postgresql"
+            },
+            "status": "matched",
+            "desiredDigest": "b9b53662c832f51eb428a90e959b13377ecbfbc5e15e2022c594dd5e79f2e19e",
+            "liveDigest": "b9b53662c832f51eb428a90e959b13377ecbfbc5e15e2022c594dd5e79f2e19e"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Secret",
+              "namespace": "postgresql",
+              "name": "postgresql"
+            },
+            "status": "matched",
+            "desiredDigest": "2b5fd9db218f95a03b154f6ee7a31a147217ff46b66c2b10cbabab809135567b",
+            "liveDigest": "2b5fd9db218f95a03b154f6ee7a31a147217ff46b66c2b10cbabab809135567b"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "postgresql",
+              "name": "postgresql"
+            },
+            "status": "matched",
+            "desiredDigest": "1b10534b0b81e3eda03884c35fe771fe4d107093cc064016c4ebd78134fedc3c",
+            "liveDigest": "1b10534b0b81e3eda03884c35fe771fe4d107093cc064016c4ebd78134fedc3c"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "postgresql",
+              "name": "postgresql"
+            },
+            "status": "matched",
+            "desiredDigest": "12ff2229162185c869d66064dce0a06ae620ba6aeba7e83ddff3128cf33cd758",
+            "liveDigest": "12ff2229162185c869d66064dce0a06ae620ba6aeba7e83ddff3128cf33cd758"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "postgresql",
+              "name": "postgresql-hl"
+            },
+            "status": "matched",
+            "desiredDigest": "791cbac1ddd153e5127616c69a513aa590c4cd5939f6e504e25eff2d2071d7c4",
+            "liveDigest": "791cbac1ddd153e5127616c69a513aa590c4cd5939f6e504e25eff2d2071d7c4"
+          }
+        ]
+      }
+    },
+    "omissions": [
+      {
+        "missing": "extra-live-object-coverage",
+        "reason": "object-set-matches verifies desired object identities and authored fields from the rendered manifests; it does not prove that no extra live objects exist outside that desired set",
+        "severity": "info"
+      }
+    ],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every desired rendered object was present and all authored fields matched live",
+        "nextCommand": "cub-scout doctor",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:bca89476cc64c6e5317b6c95c89c32fb5847bcfeef3663399377feea9773f91a"
+  }
+}

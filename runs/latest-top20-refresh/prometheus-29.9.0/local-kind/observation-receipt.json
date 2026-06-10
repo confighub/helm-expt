@@ -1,0 +1,79 @@
+{
+  "apiVersion": "helm-expt.confighub.com/v1alpha1",
+  "kind": "ObservationReceipt",
+  "metadata": {
+    "name": "prometheus-29-9-0-server-only-ephemeral-local-kind"
+  },
+  "spec": {
+    "variantRevision": "data/latest-top20-refresh/candidates/prometheus-29.9.0/recipes/prometheus-community/prometheus/29.9.0/revisions/server-only-ephemeral/r001/variant-revision.yaml",
+    "renderedObjectSetSHA256": "a1ff9f44451cc28aaeed183a5d36fdf2551dbc4647714a2565c30d9512a4af8b",
+    "observer": {
+      "name": "top20-local-e2e",
+      "version": "0.2.0",
+      "method": "kubectl-kind"
+    },
+    "target": {
+      "kind": "kind",
+      "name": "helm-expt-prometheus-29-9-0",
+      "context": "kind-helm-expt-prometheus-29-9-0",
+      "namespace": "monitoring"
+    },
+    "observedAt": "2026-06-10T11:53:47.704Z",
+    "freshnessTTL": "1h",
+    "result": "pass",
+    "chart": "prometheus-community/prometheus",
+    "chartVersion": "29.9.0",
+    "rank": 14,
+    "variant": "server-only-ephemeral",
+    "renderedObjectCount": 6,
+    "checks": [
+      {
+        "name": "server-side-apply",
+        "result": "pass",
+        "evidencePath": "kubectl-apply.txt",
+        "evidenceSHA256": "dded1f57d48c1e284ceb7b07a4dc4b5cb82b817d49223b569a215890bc53651c"
+      },
+      {
+        "name": "deployment-prometheus-server-rollout",
+        "result": "pass",
+        "object": "deployment/prometheus-server",
+        "evidencePath": "deployment-prometheus-server-rollout.txt",
+        "evidenceSHA256": "2e6fb4e785cee857ddd2387c0d2eb1a02d718ce2ee730e6d36a4b5e08545a1aa"
+      },
+      {
+        "name": "cub-scout-object-set-matches",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.object-set.receipt.json",
+        "evidenceSHA256": "82c2217e835e6c24a50d9a42e43b79a92bbdf144b99797ac5b22be30de761266",
+        "stderrPath": "cub-scout.object-set.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "cub-scout-closed-world-object-set",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.closed-world.receipt.json",
+        "evidenceSHA256": "0d16c5895bcd207b4b07133ee9c88c4338384c825cac5b37f64ebf0d64167643",
+        "stderrPath": "cub-scout.closed-world.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "cub-scout-workloads-converged",
+        "result": "pass",
+        "verdict": "PASS",
+        "exitCode": 0,
+        "evidencePath": "cub-scout.workloads.receipt.json",
+        "evidenceSHA256": "b3334089b2e1d9345ecf2ff143ba536763e9afda702d512deaf45799c81fed03",
+        "stderrPath": "cub-scout.workloads.stderr.txt",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "kubectlObjects": {
+      "path": "kubectl-objects.txt",
+      "sha256": "3bed4d15c325004e31237faabe3a1e4b4ec17c87261fad4628bfd3afa6c2f9c6"
+    }
+  }
+}

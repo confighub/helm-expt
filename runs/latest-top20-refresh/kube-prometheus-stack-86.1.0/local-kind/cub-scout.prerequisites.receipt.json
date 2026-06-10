@@ -1,0 +1,87 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "declared-prerequisites://sha256/3b0c51c76dd2e529",
+      "digest": {
+        "sha256": "3b0c51c76dd2e5291eeb9a8071cb9607c9b8b3b607afa6cdb051a7bd927628fa"
+      }
+    },
+    {
+      "name": "k8s-live-prerequisites://namespace/monitoring",
+      "digest": {
+        "sha256": "d0854786754d8f9047c3c9418fdf4ecd9a37229262073ebef6a49f3fc21799ce"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "declared prerequisites from /Users/alexis/code/helm-expt/runs/latest-top20-refresh/kube-prometheus-stack-86.1.0/local-kind/cub-scout.prerequisites.yaml are present in the live cluster",
+    "scope": {
+      "kind": "Prerequisites",
+      "name": "install-prerequisites",
+      "namespace": "monitoring"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-06-10T11:58:43Z",
+    "freshness": {
+      "observedAt": "2026-06-10T11:58:43Z",
+      "expiresAt": "2026-06-10T12:58:43Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "prerequisites-met",
+    "verdict": "PASS",
+    "evidence": {
+      "prerequisites": {
+        "source": {
+          "type": "file",
+          "ref": "/Users/alexis/code/helm-expt/runs/latest-top20-refresh/kube-prometheus-stack-86.1.0/local-kind/cub-scout.prerequisites.yaml",
+          "digest": "b8461947c6aac8767b7017013be326fbdf9c05e3a2e5ff8cea42b3def929525e",
+          "objectCount": 1
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "monitoring"
+        },
+        "declaredDigest": "3b0c51c76dd2e5291eeb9a8071cb9607c9b8b3b607afa6cdb051a7bd927628fa",
+        "liveDigest": "d0854786754d8f9047c3c9418fdf4ecd9a37229262073ebef6a49f3fc21799ce",
+        "summary": {
+          "required": 1,
+          "present": 1,
+          "missing": 0,
+          "inconclusive": 0
+        },
+        "facts": [
+          {
+            "kind": "Secret",
+            "name": "kube-prometheus-stack-admission",
+            "namespace": "monitoring",
+            "detail": "keys: cert,key",
+            "status": "present"
+          }
+        ]
+      }
+    },
+    "omissions": [
+      {
+        "missing": "prerequisites-snapshot",
+        "reason": "prerequisites-met reflects the cluster facts observed at verifiedAt; it does not prove they remain present afterward",
+        "severity": "info"
+      }
+    ],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every declared prerequisite is present in the live cluster",
+        "nextCommand": "cub-scout doctor",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:468cbba89c4e6bf4dc55181565a353f88dd08dbc766e51000453879896221d21"
+  }
+}

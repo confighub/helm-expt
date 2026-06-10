@@ -11,8 +11,8 @@ happen before any candidate can replace the current supported catalog version.
 candidate charts: 6
 work-order rows: 48
 candidate render proof: already generated
-completed work-order rows: 13
-todo work-order rows: 35
+completed work-order rows: 18
+todo work-order rows: 30
 candidate support status: not promoted
 ```
 
@@ -34,7 +34,7 @@ candidate support status: not promoted
 | candidate-render-proof | 6 | 0 | 0 |
 | promote-versioned-root-paths | 0 | 6 | 0 |
 | confighub-proof | 6 | 0 | 0 |
-| local-live-e2e | 1 | 5 | 0 |
+| local-live-e2e | 6 | 0 | 0 |
 | live-parity | 0 | 6 | 0 |
 | production-disposition | 0 | 6 | 0 |
 | catalog-and-site | 0 | 6 | 0 |
@@ -44,12 +44,12 @@ candidate support status: not promoted
 
 | Candidate | Done or generated lanes | Todo lanes | Next lane | Next action |
 | --- | ---: | ---: | --- | --- |
-| `argo-cd/argo-cd@9.5.17` | 2 / 8 | 6 | promote-versioned-root-paths | promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version |
-| `bitnami/mongodb@19.0.9` | 2 / 8 | 6 | promote-versioned-root-paths | promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version |
+| `argo-cd/argo-cd@9.5.17` | 3 / 8 | 5 | promote-versioned-root-paths | promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version |
+| `bitnami/mongodb@19.0.9` | 3 / 8 | 5 | promote-versioned-root-paths | promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version |
 | `bitnami/nginx@24.0.4` | 3 / 8 | 5 | promote-versioned-root-paths | promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version |
-| `bitnami/postgresql@18.6.10` | 2 / 8 | 6 | promote-versioned-root-paths | promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version |
-| `prometheus-community/kube-prometheus-stack@86.1.0` | 2 / 8 | 6 | promote-versioned-root-paths | promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version |
-| `prometheus-community/prometheus@29.9.0` | 2 / 8 | 6 | promote-versioned-root-paths | promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version |
+| `bitnami/postgresql@18.6.10` | 3 / 8 | 5 | promote-versioned-root-paths | promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version |
+| `prometheus-community/kube-prometheus-stack@86.1.0` | 3 / 8 | 5 | promote-versioned-root-paths | promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version |
+| `prometheus-community/prometheus@29.9.0` | 3 / 8 | 5 | promote-versioned-root-paths | promote the candidate recipe/package into normal versioned root paths while retaining the previous supported version |
 
 ## How To Use This
 

@@ -1,0 +1,627 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "subject": [
+    {
+      "name": "rendered-object-set://sha256/7228c915ea5cff61",
+      "digest": {
+        "sha256": "7228c915ea5cff61f841bef1d24695bf0ef307d5cf52517e964a95614a9a1942"
+      }
+    },
+    {
+      "name": "k8s-live-object-set://namespace/argocd",
+      "digest": {
+        "sha256": "7228c915ea5cff61f841bef1d24695bf0ef307d5cf52517e964a95614a9a1942"
+      }
+    }
+  ],
+  "predicateType": "https://cub-scout.dev/receipt/v1",
+  "predicate": {
+    "version": "v1",
+    "claim": "live object set matches rendered manifests from /Users/alexis/code/helm-expt/runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/cub-scout.desired.yaml",
+    "scope": {
+      "kind": "ObjectSet",
+      "name": "rendered-install",
+      "namespace": "argocd"
+    },
+    "verifier": {
+      "tool": "cub-scout",
+      "version": "dev"
+    },
+    "verifiedAt": "2026-06-10T11:55:34Z",
+    "freshness": {
+      "observedAt": "2026-06-10T11:55:34Z",
+      "expiresAt": "2026-06-10T12:55:34Z",
+      "ttl": "1h0m0s"
+    },
+    "predicateName": "object-set-matches",
+    "verdict": "WATCH",
+    "evidence": {
+      "objectSet": {
+        "desiredSource": {
+          "type": "file",
+          "ref": "/Users/alexis/code/helm-expt/runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/cub-scout.desired.yaml",
+          "digest": "d234f5bba7aa428f94cb0482702329157f0d5a2be1fe4a62570288bb0f7c58c7",
+          "objectCount": 49
+        },
+        "scope": {
+          "kind": "namespace",
+          "namespace": "argocd"
+        },
+        "matchMode": "authored-fields",
+        "desiredDigest": "7228c915ea5cff61f841bef1d24695bf0ef307d5cf52517e964a95614a9a1942",
+        "liveDigest": "7228c915ea5cff61f841bef1d24695bf0ef307d5cf52517e964a95614a9a1942",
+        "summary": {
+          "desired": 49,
+          "matched": 49,
+          "missing": 0,
+          "mismatched": 0,
+          "inconclusive": 0
+        },
+        "objects": [
+          {
+            "id": {
+              "apiVersion": "apiextensions.k8s.io/v1",
+              "kind": "CustomResourceDefinition",
+              "name": "applications.argoproj.io"
+            },
+            "status": "matched",
+            "desiredDigest": "c3f8361aed446a8a3de3dd3707524d1e776d2e5de38a467cc5444d6fc07ba47d",
+            "liveDigest": "c3f8361aed446a8a3de3dd3707524d1e776d2e5de38a467cc5444d6fc07ba47d"
+          },
+          {
+            "id": {
+              "apiVersion": "apiextensions.k8s.io/v1",
+              "kind": "CustomResourceDefinition",
+              "name": "applicationsets.argoproj.io"
+            },
+            "status": "matched",
+            "desiredDigest": "d7d7f0f7bac3d35a044a58c96e49da419afb334632fc59e13a9785ff424a290a",
+            "liveDigest": "d7d7f0f7bac3d35a044a58c96e49da419afb334632fc59e13a9785ff424a290a"
+          },
+          {
+            "id": {
+              "apiVersion": "apiextensions.k8s.io/v1",
+              "kind": "CustomResourceDefinition",
+              "name": "appprojects.argoproj.io"
+            },
+            "status": "matched",
+            "desiredDigest": "a7b77a3c20abf1f379d1abfec8d32dab5f6438a6e4d4ab66df4c385d06c4dd90",
+            "liveDigest": "a7b77a3c20abf1f379d1abfec8d32dab5f6438a6e4d4ab66df4c385d06c4dd90"
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-applicationset-controller"
+            },
+            "status": "matched",
+            "desiredDigest": "a31cf4949c5a48994e9d3aa01fd127196ac9bfb2841e858ad5b748edcfbd4238",
+            "liveDigest": "a31cf4949c5a48994e9d3aa01fd127196ac9bfb2841e858ad5b748edcfbd4238"
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-dex-server"
+            },
+            "status": "matched",
+            "desiredDigest": "60e934078cd92dd5481cbe9b1de4cc9b34513af02a3fc582fcd1a89e705adabf",
+            "liveDigest": "60e934078cd92dd5481cbe9b1de4cc9b34513af02a3fc582fcd1a89e705adabf"
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-notifications-controller"
+            },
+            "status": "matched",
+            "desiredDigest": "8b05114a65229427696f4085a0fce6a71efca89538359b218bef4dfb87d08b21",
+            "liveDigest": "8b05114a65229427696f4085a0fce6a71efca89538359b218bef4dfb87d08b21"
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-redis"
+            },
+            "status": "matched",
+            "desiredDigest": "0d1f6dc3428459cbf2a17b9407660f3866b10f2be6bed7c975a2faac19c21343",
+            "liveDigest": "0d1f6dc3428459cbf2a17b9407660f3866b10f2be6bed7c975a2faac19c21343"
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-repo-server"
+            },
+            "status": "matched",
+            "desiredDigest": "76270f331f393c31e897bef843a00ee78004025256da1645b18f6ea52361e9f3",
+            "liveDigest": "76270f331f393c31e897bef843a00ee78004025256da1645b18f6ea52361e9f3"
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "Deployment",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-server"
+            },
+            "status": "matched",
+            "desiredDigest": "87cdf51a51102885146b581ac90ef9b60f013c41e3abeaa31ae474774418ea78",
+            "liveDigest": "87cdf51a51102885146b581ac90ef9b60f013c41e3abeaa31ae474774418ea78"
+          },
+          {
+            "id": {
+              "apiVersion": "apps/v1",
+              "kind": "StatefulSet",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-application-controller"
+            },
+            "status": "matched",
+            "desiredDigest": "7690dccc1b4a0648ec56c31abea2931f0c6b256eba0ee5329a060efba7dcbfa6",
+            "liveDigest": "7690dccc1b4a0648ec56c31abea2931f0c6b256eba0ee5329a060efba7dcbfa6"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRoleBinding",
+              "name": "argo-cd-argocd-application-controller"
+            },
+            "status": "matched",
+            "desiredDigest": "c3f5a1954003f955123cf6dd3806894b6ca5f710e856b42b0516b3f3612286a7",
+            "liveDigest": "c3f5a1954003f955123cf6dd3806894b6ca5f710e856b42b0516b3f3612286a7"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRoleBinding",
+              "name": "argo-cd-argocd-notifications-controller"
+            },
+            "status": "matched",
+            "desiredDigest": "c15f79c781be6b60e53c8c0f835cbb031ae363ed781700b6986c5089b7742f93",
+            "liveDigest": "c15f79c781be6b60e53c8c0f835cbb031ae363ed781700b6986c5089b7742f93"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRoleBinding",
+              "name": "argo-cd-argocd-server"
+            },
+            "status": "matched",
+            "desiredDigest": "5ad59f7d2c5f03928e56abb68dcaf790f33cd6c3293ee6558f04ad065761571d",
+            "liveDigest": "5ad59f7d2c5f03928e56abb68dcaf790f33cd6c3293ee6558f04ad065761571d"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRole",
+              "name": "argo-cd-argocd-application-controller"
+            },
+            "status": "matched",
+            "desiredDigest": "c3dc07c18074d0e2101788b822532049ad3b275b55e349e8b02da6526c648d60",
+            "liveDigest": "c3dc07c18074d0e2101788b822532049ad3b275b55e349e8b02da6526c648d60"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRole",
+              "name": "argo-cd-argocd-notifications-controller"
+            },
+            "status": "matched",
+            "desiredDigest": "88b731c4b9d4e1d6fb729bc764a9689c77b3f8f4e68c154081c47f35bda75c2d",
+            "liveDigest": "88b731c4b9d4e1d6fb729bc764a9689c77b3f8f4e68c154081c47f35bda75c2d"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "ClusterRole",
+              "name": "argo-cd-argocd-server"
+            },
+            "status": "matched",
+            "desiredDigest": "322de7335ac2599ae8c2a27583b29e727c39c28089189e0039fcd7f8f7f92953",
+            "liveDigest": "322de7335ac2599ae8c2a27583b29e727c39c28089189e0039fcd7f8f7f92953"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "RoleBinding",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-application-controller"
+            },
+            "status": "matched",
+            "desiredDigest": "bf09b970e2f29b2c8d83b6902aaff82ec1d351e3269b4ba604f53a0c738fe324",
+            "liveDigest": "bf09b970e2f29b2c8d83b6902aaff82ec1d351e3269b4ba604f53a0c738fe324"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "RoleBinding",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-applicationset-controller"
+            },
+            "status": "matched",
+            "desiredDigest": "440a8d9741c2c04eadbdcce9e6a2b9b47b7da5669b7342620a637316d21e8adf",
+            "liveDigest": "440a8d9741c2c04eadbdcce9e6a2b9b47b7da5669b7342620a637316d21e8adf"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "RoleBinding",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-dex-server"
+            },
+            "status": "matched",
+            "desiredDigest": "5858b925796df6a0462e63ce46f19c5d6e2a0447485c0e15dd19e1721bc8b6dc",
+            "liveDigest": "5858b925796df6a0462e63ce46f19c5d6e2a0447485c0e15dd19e1721bc8b6dc"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "RoleBinding",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-notifications-controller"
+            },
+            "status": "matched",
+            "desiredDigest": "6449039770fa6c31bea1e714c634447830ab310746e9f5beffda49eef39ff8ea",
+            "liveDigest": "6449039770fa6c31bea1e714c634447830ab310746e9f5beffda49eef39ff8ea"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "RoleBinding",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-repo-server"
+            },
+            "status": "matched",
+            "desiredDigest": "bba3255d9b37a2d3ada04cbd4b5a3e99410068ec2a0ca2ecc37a7526cb9d468a",
+            "liveDigest": "bba3255d9b37a2d3ada04cbd4b5a3e99410068ec2a0ca2ecc37a7526cb9d468a"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "RoleBinding",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-server"
+            },
+            "status": "matched",
+            "desiredDigest": "876900ef9f14adb769c007d367b58d1570135632afad5c8d370241a408b2210c",
+            "liveDigest": "876900ef9f14adb769c007d367b58d1570135632afad5c8d370241a408b2210c"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "Role",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-application-controller"
+            },
+            "status": "matched",
+            "desiredDigest": "aa501b8e8fa88b1045dc69128974afaa9b10f900e3bc7e9cbd1360af0deb0a09",
+            "liveDigest": "aa501b8e8fa88b1045dc69128974afaa9b10f900e3bc7e9cbd1360af0deb0a09"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "Role",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-applicationset-controller"
+            },
+            "status": "matched",
+            "desiredDigest": "2bf0850c7891264414e46884d2f00a62ab7d7a6b5ca4ea959c76a5fb5d589496",
+            "liveDigest": "2bf0850c7891264414e46884d2f00a62ab7d7a6b5ca4ea959c76a5fb5d589496"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "Role",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-dex-server"
+            },
+            "status": "matched",
+            "desiredDigest": "2d368172bcb2d1980adb5ee80f1d3011edded65de34ebe7807ddf06b0a2b3f1d",
+            "liveDigest": "2d368172bcb2d1980adb5ee80f1d3011edded65de34ebe7807ddf06b0a2b3f1d"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "Role",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-notifications-controller"
+            },
+            "status": "matched",
+            "desiredDigest": "23dee3e0d7a73b9989f61d391e913bc81e896a11d631dadf13273999fed66040",
+            "liveDigest": "23dee3e0d7a73b9989f61d391e913bc81e896a11d631dadf13273999fed66040"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "Role",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-repo-server"
+            },
+            "status": "matched",
+            "desiredDigest": "854cefa102f47304068fe4827c7a87d4332359b85937a8964cd364b0d5c387d2",
+            "liveDigest": "854cefa102f47304068fe4827c7a87d4332359b85937a8964cd364b0d5c387d2"
+          },
+          {
+            "id": {
+              "apiVersion": "rbac.authorization.k8s.io/v1",
+              "kind": "Role",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-server"
+            },
+            "status": "matched",
+            "desiredDigest": "71cb8c1a6274027fb9212147f039f0a2a17cfeaac53988eb96eaf95e628c7778",
+            "liveDigest": "71cb8c1a6274027fb9212147f039f0a2a17cfeaac53988eb96eaf95e628c7778"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-redis-health-configmap"
+            },
+            "status": "matched",
+            "desiredDigest": "484d62c5713d84d18ae77896981051af4e27b9864ec1ab2ffeea8cc8b9f0b158",
+            "liveDigest": "484d62c5713d84d18ae77896981051af4e27b9864ec1ab2ffeea8cc8b9f0b158"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "argocd",
+              "name": "argocd-cm"
+            },
+            "status": "matched",
+            "desiredDigest": "a2af971387b09bad0a1e1d1719152146cbb114a12e6ec34445a9a329f9b2ec4f",
+            "liveDigest": "a2af971387b09bad0a1e1d1719152146cbb114a12e6ec34445a9a329f9b2ec4f"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "argocd",
+              "name": "argocd-cmd-params-cm"
+            },
+            "status": "matched",
+            "desiredDigest": "c5174e837b682594bf68759908bc549b25e381064cbcbaaefe30d1e1b1aeec53",
+            "liveDigest": "c5174e837b682594bf68759908bc549b25e381064cbcbaaefe30d1e1b1aeec53"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "argocd",
+              "name": "argocd-gpg-keys-cm"
+            },
+            "status": "matched",
+            "desiredDigest": "0cd6737ed2cd5e5f514bef9135bc5f6a45a61ca5d57ba8c0d7e790bc3c6562f9",
+            "liveDigest": "0cd6737ed2cd5e5f514bef9135bc5f6a45a61ca5d57ba8c0d7e790bc3c6562f9"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "argocd",
+              "name": "argocd-notifications-cm"
+            },
+            "status": "matched",
+            "desiredDigest": "b3cef40e00d3982f6db4d85c403c6162f42d6caf0595c82ab88a4e700f307569",
+            "liveDigest": "b3cef40e00d3982f6db4d85c403c6162f42d6caf0595c82ab88a4e700f307569"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "argocd",
+              "name": "argocd-rbac-cm"
+            },
+            "status": "matched",
+            "desiredDigest": "05551bcb318799bea648919ca960676533cb2d247ff4f9a920dd60419b81f057",
+            "liveDigest": "05551bcb318799bea648919ca960676533cb2d247ff4f9a920dd60419b81f057"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "argocd",
+              "name": "argocd-ssh-known-hosts-cm"
+            },
+            "status": "matched",
+            "desiredDigest": "8c304e8fef21ac471539d0b9d2c152933627748bc192beb2ad662ffddbb5e589",
+            "liveDigest": "8c304e8fef21ac471539d0b9d2c152933627748bc192beb2ad662ffddbb5e589"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ConfigMap",
+              "namespace": "argocd",
+              "name": "argocd-tls-certs-cm"
+            },
+            "status": "matched",
+            "desiredDigest": "f37b8ba8137b6e8daf24fc15aa32f6ad1ec11d3f4e4ec80a63e7c3a827d89547",
+            "liveDigest": "f37b8ba8137b6e8daf24fc15aa32f6ad1ec11d3f4e4ec80a63e7c3a827d89547"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Secret",
+              "namespace": "argocd",
+              "name": "argocd-notifications-secret"
+            },
+            "status": "matched",
+            "desiredDigest": "d1978ea5b6618736a746e5b93f7053bea91689be75d77ff27067d7d7e5dfafd2",
+            "liveDigest": "d1978ea5b6618736a746e5b93f7053bea91689be75d77ff27067d7d7e5dfafd2"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Secret",
+              "namespace": "argocd",
+              "name": "argocd-secret"
+            },
+            "status": "matched",
+            "desiredDigest": "eb7e9189d10eab8a1936c4fcd70afb6448c06aecf96dcaf94e2632615818862d",
+            "liveDigest": "eb7e9189d10eab8a1936c4fcd70afb6448c06aecf96dcaf94e2632615818862d"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-repo-server"
+            },
+            "status": "matched",
+            "desiredDigest": "2cfc6f8772f491c9dde1394e0d40259595a0cf115ddad6fb609294495ebddb72",
+            "liveDigest": "2cfc6f8772f491c9dde1394e0d40259595a0cf115ddad6fb609294495ebddb72"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "argocd",
+              "name": "argocd-application-controller"
+            },
+            "status": "matched",
+            "desiredDigest": "1ee6bc0fb787e12e93bcecd374c275faaa984b32457c0f5d12daf507d10713d1",
+            "liveDigest": "1ee6bc0fb787e12e93bcecd374c275faaa984b32457c0f5d12daf507d10713d1"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "argocd",
+              "name": "argocd-applicationset-controller"
+            },
+            "status": "matched",
+            "desiredDigest": "befbd1f22999546cf421319675d68d2d2b807938f1d166f64b9a5bee6f37cc5a",
+            "liveDigest": "befbd1f22999546cf421319675d68d2d2b807938f1d166f64b9a5bee6f37cc5a"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "argocd",
+              "name": "argocd-dex-server"
+            },
+            "status": "matched",
+            "desiredDigest": "140e9089824e42dd497ddd14a6d7d50b89fe89b83302d4058aa0bcac964563cd",
+            "liveDigest": "140e9089824e42dd497ddd14a6d7d50b89fe89b83302d4058aa0bcac964563cd"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "argocd",
+              "name": "argocd-notifications-controller"
+            },
+            "status": "matched",
+            "desiredDigest": "97cf71eecc9d440a8a3fc1b161f5c71c6ece4f3ebbffc91e63031259b0ddd068",
+            "liveDigest": "97cf71eecc9d440a8a3fc1b161f5c71c6ece4f3ebbffc91e63031259b0ddd068"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "ServiceAccount",
+              "namespace": "argocd",
+              "name": "argocd-server"
+            },
+            "status": "matched",
+            "desiredDigest": "894e14e0e2796eaa1918e85eac216d6bbf56f1321c311212088e362698b3e0f5",
+            "liveDigest": "894e14e0e2796eaa1918e85eac216d6bbf56f1321c311212088e362698b3e0f5"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-applicationset-controller"
+            },
+            "status": "matched",
+            "desiredDigest": "2ca197220285ac2a1c5a6352cb015d1511a926ffea86817026543797d69f860e",
+            "liveDigest": "2ca197220285ac2a1c5a6352cb015d1511a926ffea86817026543797d69f860e"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-dex-server"
+            },
+            "status": "matched",
+            "desiredDigest": "3cd69cb302aa614dd28119a5072bec460065cf4061ca278990e2af74a9da8fc8",
+            "liveDigest": "3cd69cb302aa614dd28119a5072bec460065cf4061ca278990e2af74a9da8fc8"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-redis"
+            },
+            "status": "matched",
+            "desiredDigest": "36db9f1228d0a1209508df785d0c9539109441c91ea8ba676aea90ab46955bef",
+            "liveDigest": "36db9f1228d0a1209508df785d0c9539109441c91ea8ba676aea90ab46955bef"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-repo-server"
+            },
+            "status": "matched",
+            "desiredDigest": "cb5fe1d2dfeef09053e2bf408a2956ed71d159f132a713bcaa3d2208bfa77006",
+            "liveDigest": "cb5fe1d2dfeef09053e2bf408a2956ed71d159f132a713bcaa3d2208bfa77006"
+          },
+          {
+            "id": {
+              "apiVersion": "v1",
+              "kind": "Service",
+              "namespace": "argocd",
+              "name": "argo-cd-argocd-server"
+            },
+            "status": "matched",
+            "desiredDigest": "c3af83927ec29d18931b208e27116783f1f786b55cf2f1233ccb917fbf21948f",
+            "liveDigest": "c3af83927ec29d18931b208e27116783f1f786b55cf2f1233ccb917fbf21948f"
+          }
+        ],
+        "extraChecked": true,
+        "extraObjects": [
+          {
+            "apiVersion": "v1",
+            "kind": "Secret",
+            "namespace": "argocd",
+            "name": "argocd-initial-admin-secret"
+          },
+          {
+            "apiVersion": "v1",
+            "kind": "Secret",
+            "namespace": "argocd",
+            "name": "argocd-redis"
+          }
+        ]
+      }
+    },
+    "omissions": [
+      {
+        "missing": "extra-live-objects",
+        "reason": "closed-world check found 2 live object(s) of the rendered kinds in scope that are not in the desired set; see extraObjects",
+        "severity": "warning"
+      }
+    ],
+    "inputAttestations": [],
+    "nextSteps": [
+      {
+        "actionType": "read-only",
+        "reason": "every desired object matched, but 2 unexpected live object(s) of the rendered kinds were found in scope; review extraObjects before treating the install as exclusive",
+        "nextCommand": "cub-scout map list",
+        "nextSurface": "cub-scout"
+      }
+    ],
+    "fingerprint": "sha256:69d6aa40716730c552691d1d76b3707dbb5196d630201cce4549c64b0aac1ece"
+  }
+}

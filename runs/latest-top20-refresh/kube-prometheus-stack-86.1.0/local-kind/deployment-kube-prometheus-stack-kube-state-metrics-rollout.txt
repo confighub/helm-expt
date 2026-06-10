@@ -1,0 +1,1 @@
+deployment "kube-prometheus-stack-kube-state-metrics" successfully rolled out
