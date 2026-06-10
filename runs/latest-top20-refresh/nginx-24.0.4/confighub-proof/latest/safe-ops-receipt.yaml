@@ -29,12 +29,12 @@ spec:
     command: "cub unit approve deployment-nginx-nginx --space helm-nginx-24-0-4-candidate-proof --revision HeadRevisionNum --verbose --wait"
     result: "pass"
     representativeUnit: "deployment-nginx-nginx"
-    output: "Unit deployment-nginx-nginx (b4291f77-87ee-4645-91a3-056a1c3b4ab5) has been approved\nAwaiting triggers..."
+    output: "Unit deployment-nginx-nginx (4589e9ad-9d18-4184-83e5-a9d1df74106e) has been approved\nAwaiting triggers..."
   applyDryRun:
     command: "cub unit apply --space helm-nginx-24-0-4-candidate-proof --where \"Labels.Proof = 'nginx-24-0-4-candidate-proof'\" --dry-run --wait --timeout 2m"
     result: "blocked-no-target"
     expected: true
-    message: "Failed: HTTP 422 for req PmhwyicihLOzcZSYUzfhHzisabPbljhX: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+    message: "Failed: HTTP 422 for req oSvokwjkmioaxkuEOFLsGcEVboKruzjT: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
   cancel:
     command: "cub unit cancel --space helm-nginx-24-0-4-candidate-proof --where \"Labels.Proof = 'nginx-24-0-4-candidate-proof'\""
     result: "pass"

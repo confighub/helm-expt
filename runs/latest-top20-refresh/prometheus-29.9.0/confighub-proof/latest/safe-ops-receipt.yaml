@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "prometheus-29-9-0-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-prometheus-29-9-0-candidate-proof"
+    selector: "Labels.Proof = 'prometheus-29-9-0-candidate-proof'"
+  subject:
+    chart: "prometheus-community/prometheus"
+    chartVersion: "29.9.0"
+    packagePath: "data/latest-top20-refresh/candidates/prometheus-29.9.0/packages/prometheus-community/prometheus/29.9.0"
+    variant: "default"
+  changeset:
+    slug: "prometheus-29-9-0-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "Prometheus 29.9.0 safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "prometheus-29-9-0-candidate-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve statefulset-monitoring-prometheus-alertmanager --space helm-prometheus-29-9-0-candidate-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "statefulset-monitoring-prometheus-alertmanager"
+    output: "Unit statefulset-monitoring-prometheus-alertmanager (9fa0dda1-7e6d-4adf-a9f6-c77c6d4b2e72) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-prometheus-29-9-0-candidate-proof --where \"Labels.Proof = 'prometheus-29-9-0-candidate-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req SDkoCfZdljuLFdtkNGRVBJGMYyjuEJuR: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-prometheus-29-9-0-candidate-proof --where \"Labels.Proof = 'prometheus-29-9-0-candidate-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."
