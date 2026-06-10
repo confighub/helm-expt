@@ -1,16 +1,18 @@
-# Latest Candidate Promotion Work Orders
+# Retained Candidate Promotion Work Orders
 
-This file turns the latest-version candidates into lane work orders.
+This file turns retained update candidates into lane work orders and shows which
+proof lanes have closed.
 
-It does not say the candidate versions are supported. It says exactly what must
-happen before any candidate can replace the current supported catalog version.
+It does not say the candidate versions are supported. It records proof-lane
+closure before the separate replacement decision chooses whether any candidate
+replaces, defers, or lives alongside the current supported catalog version.
 
 ## Summary
 
 ```text
 candidate charts: 6
 work-order rows: 48
-candidate render proof: already generated
+candidate proof lanes: closed
 completed work-order rows: 48
 todo work-order rows: 0
 candidate support status: not support-promoted
@@ -53,9 +55,10 @@ candidate support status: not support-promoted
 
 ## How To Use This
 
-Work through one candidate chart at a time. Keep the previous supported version
-available until every todo lane for the candidate has evidence and the generated
-catalog, status, top100, top500, and refresh-survival surfaces agree.
+Work through one candidate chart at a time. The proof lanes are closed when
+there are no todo rows. Keep the previous supported version available until a
+target-scoped replacement decision records whether to replace, defer, or keep
+both versions.
 
 The spreadsheet form is:
 

@@ -4,7 +4,7 @@ metadata:
   name: "latest-top20-refresh-production-disposition"
   generatedBy: "scripts/generate-latest-candidate-production-disposition.mjs"
 spec:
-  claim: "latest-version candidates have proof lanes recorded, but are not production-supported until target-scoped support decisions are made"
+  claim: "retained update candidates have proof lanes recorded, but are not production-supported until target-scoped support decisions are made"
   rows:
     -
       chart: "argo-cd/argo-cd"

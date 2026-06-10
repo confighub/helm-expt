@@ -3,7 +3,8 @@
   "source": {
     "top100": "data/top100-catalog-analysis/raw.json",
     "top500": "data/top500-catalog-analysis/raw.json",
-    "latestCandidates": "data/latest-top20-refresh/promotion-readiness.csv",
+    "latestCandidates": "data/refresh-survival/refreshes.csv",
+    "latestReplacementDecisions": "data/latest-top20-refresh/replacement-decisions/decisions.csv",
     "runtimeWave": "data/runtime-gitops/wave1.csv",
     "imageDigestSubjects": "data/image-digest-workdown/all-subjects.csv",
     "nextTenGaps": "data/next-ten-waves/gap-review-wave.csv",
@@ -80,7 +81,7 @@
     "proofGrade": 80,
     "top500Rows": 500,
     "top500MatchedProofs": 91,
-    "latestCandidates": 6,
+    "latestCandidates": 7,
     "runtimeGitopsWave": 10,
     "imageSubjectsNeedingResolution": 141,
     "nextTenGapRows": 9,
@@ -92,9 +93,10 @@
     "top100PromotionWaveRows": 8,
     "top100CoverageUserVariantQueue": 46,
     "top100CoverageDecisionQueue": 7,
-    "refreshCurrentRows": 14,
-    "refreshUpdateCandidates": 6,
-    "refreshCandidatesWithRenderProof": 0,
+    "refreshCurrentRows": 13,
+    "refreshUpdateCandidates": 7,
+    "refreshCandidatesWithProof": 3,
+    "latestCandidatesAwaitingReplacementDecision": 3,
     "top100ChartsWithLiveEvidence": 28,
     "liveParityRerunRows": 0,
     "liveParityRerunSemanticDefects": 0,
@@ -212,7 +214,7 @@
     {
       "section": "refresh",
       "metric": "top20 proofs still current",
-      "value": "14",
+      "value": "13",
       "total": "20",
       "status": "partial",
       "source": "data/refresh-survival/refreshes.csv",
@@ -221,7 +223,7 @@
     {
       "section": "refresh",
       "metric": "top20 upstream update candidates",
-      "value": "6",
+      "value": "7",
       "total": "20",
       "status": "partial",
       "source": "data/refresh-survival/refreshes.csv",
@@ -229,12 +231,12 @@
     },
     {
       "section": "refresh",
-      "metric": "update candidates with render proof",
-      "value": "0",
-      "total": "6",
+      "metric": "update candidates with proof-complete root paths",
+      "value": "3",
+      "total": "7",
       "status": "partial",
       "source": "data/refresh-survival/refreshes.csv",
-      "note": "Latest-version candidates that have passed the recipe/package/render/compare lane but are not replacement catalog rows."
+      "note": "Latest-version candidates that have root recipe/package paths and proof-complete evidence, but are not replacement catalog rows."
     },
     {
       "section": "top500",
@@ -779,7 +781,7 @@
       "top500_rank": 28,
       "chart": "bitnami/mongodb",
       "version": "19.0.7",
-      "latest_version": "19.0.9",
+      "latest_version": "19.1.0",
       "latest_status": "update-available",
       "catalog_status": "catalog-supported",
       "support_level": "supported-for-declared-scopes",
@@ -837,7 +839,7 @@
       "top500_rank": 48,
       "chart": "bitnami/nginx",
       "version": "24.0.2",
-      "latest_version": "24.0.4",
+      "latest_version": "25.0.0",
       "latest_status": "update-available",
       "catalog_status": "catalog-supported",
       "support_level": "supported-for-declared-scopes",
@@ -866,7 +868,7 @@
       "top500_rank": 7,
       "chart": "bitnami/postgresql",
       "version": "18.6.7",
-      "latest_version": "18.6.10",
+      "latest_version": "18.7.0",
       "latest_status": "update-available",
       "catalog_status": "catalog-supported",
       "support_level": "supported-for-declared-scopes",
@@ -924,8 +926,8 @@
       "top500_rank": 6,
       "chart": "bitnami/redis",
       "version": "25.5.3",
-      "latest_version": "25.5.3",
-      "latest_status": "current",
+      "latest_version": "27.0.0",
+      "latest_status": "update-available",
       "catalog_status": "catalog-supported",
       "support_level": "supported-for-declared-scopes",
       "production_readiness": "production-review-ready",
@@ -3491,43 +3493,57 @@
       "chart": "argo-cd/argo-cd",
       "currentVersion": "9.5.15",
       "candidateVersion": "9.5.17",
-      "readiness": "root-path-promoted-review-required",
-      "nextAction": "refresh catalog, site, top-100, top-500, status, and refresh-survival surfaces; then run target-scoped product review before any support replacement"
+      "proofStatus": "candidate-proof-complete-root-path-present",
+      "replacementDecision": "not-decided",
+      "nextAction": "review target-scoped production support decision before replacing the supported version"
     },
     {
       "chart": "bitnami/mongodb",
       "currentVersion": "19.0.7",
-      "candidateVersion": "19.0.9",
-      "readiness": "root-path-promoted-review-required",
-      "nextAction": "refresh catalog, site, top-100, top-500, status, and refresh-survival surfaces; then run target-scoped product review before any support replacement"
+      "candidateVersion": "19.1.0",
+      "proofStatus": "candidate-superseded-by-newer-upstream",
+      "replacementDecision": "refresh-candidate-first",
+      "nextAction": "refresh retained candidate 19.0.9 to latest upstream 19.1.0 before replacement decision"
     },
     {
       "chart": "bitnami/nginx",
       "currentVersion": "24.0.2",
-      "candidateVersion": "24.0.4",
-      "readiness": "root-path-promoted-review-required",
-      "nextAction": "refresh catalog, site, top-100, top-500, status, and refresh-survival surfaces; then run target-scoped product review before any support replacement"
+      "candidateVersion": "25.0.0",
+      "proofStatus": "candidate-superseded-by-newer-upstream",
+      "replacementDecision": "refresh-candidate-first",
+      "nextAction": "refresh retained candidate 24.0.4 to latest upstream 25.0.0 before replacement decision"
     },
     {
       "chart": "bitnami/postgresql",
       "currentVersion": "18.6.7",
-      "candidateVersion": "18.6.10",
-      "readiness": "root-path-promoted-review-required",
-      "nextAction": "refresh catalog, site, top-100, top-500, status, and refresh-survival surfaces; then run target-scoped product review before any support replacement"
+      "candidateVersion": "18.7.0",
+      "proofStatus": "candidate-superseded-by-newer-upstream",
+      "replacementDecision": "refresh-candidate-first",
+      "nextAction": "refresh retained candidate 18.6.10 to latest upstream 18.7.0 before replacement decision"
+    },
+    {
+      "chart": "bitnami/redis",
+      "currentVersion": "25.5.3",
+      "candidateVersion": "27.0.0",
+      "proofStatus": "missing",
+      "replacementDecision": "no-candidate-yet",
+      "nextAction": "run ConfigHub proof, live e2e, production disposition, catalog, top100, and top500 lanes before replacement"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
       "currentVersion": "85.3.3",
       "candidateVersion": "86.1.0",
-      "readiness": "root-path-promoted-review-required",
-      "nextAction": "refresh catalog, site, top-100, top-500, status, and refresh-survival surfaces; then run target-scoped product review before any support replacement"
+      "proofStatus": "candidate-proof-complete-root-path-present",
+      "replacementDecision": "not-decided",
+      "nextAction": "review target-scoped production support decision before replacing the supported version"
     },
     {
       "chart": "prometheus-community/prometheus",
       "currentVersion": "29.8.0",
       "candidateVersion": "29.9.0",
-      "readiness": "root-path-promoted-review-required",
-      "nextAction": "refresh catalog, site, top-100, top-500, status, and refresh-survival surfaces; then run target-scoped product review before any support replacement"
+      "proofStatus": "candidate-proof-complete-root-path-present",
+      "replacementDecision": "not-decided",
+      "nextAction": "review target-scoped production support decision before replacing the supported version"
     }
   ],
   "baseReadiness": [
@@ -5507,9 +5523,9 @@
     {
       "chart": "bitnami/mongodb",
       "current_version": "19.0.7",
-      "latest_version": "19.0.9",
+      "latest_version": "19.1.0",
       "refresh_state": "upstream-update-candidate",
-      "candidate_proof": "candidate-proof-complete-root-path-present",
+      "candidate_proof": "candidate-superseded-by-newer-upstream",
       "candidate_variants": "generated-passwords;existing-secret-replicaset",
       "candidate_object_counts": "generated-passwords:8;existing-secret-replicaset:10",
       "catalog_state": "root-path-present",
@@ -5517,7 +5533,7 @@
       "live_promotion_state": "not-yet-live-promoted",
       "source_review": "data/latest-top20-refresh/review.csv",
       "candidate_evidence": "data/latest-top20-refresh/candidates/mongodb-19.0.9/recipes/bitnami/mongodb/19.0.9",
-      "next_action": "review target-scoped production support decision before replacing the supported version"
+      "next_action": "refresh retained candidate 19.0.9 to latest upstream 19.1.0 before replacement decision"
     },
     {
       "chart": "bitnami/mysql",
@@ -5537,9 +5553,9 @@
     {
       "chart": "bitnami/nginx",
       "current_version": "24.0.2",
-      "latest_version": "24.0.4",
+      "latest_version": "25.0.0",
       "refresh_state": "upstream-update-candidate",
-      "candidate_proof": "candidate-proof-complete-root-path-present",
+      "candidate_proof": "candidate-superseded-by-newer-upstream",
       "candidate_variants": "http-clusterip;existing-tls-ingress",
       "candidate_object_counts": "existing-tls-ingress:6;http-clusterip:5",
       "catalog_state": "root-path-present",
@@ -5547,14 +5563,14 @@
       "live_promotion_state": "not-yet-live-promoted",
       "source_review": "data/latest-top20-refresh/review.csv",
       "candidate_evidence": "data/latest-top20-refresh/candidates/nginx-24.0.4/recipes/bitnami/nginx/24.0.4",
-      "next_action": "review target-scoped production support decision before replacing the supported version"
+      "next_action": "refresh retained candidate 24.0.4 to latest upstream 25.0.0 before replacement decision"
     },
     {
       "chart": "bitnami/postgresql",
       "current_version": "18.6.7",
-      "latest_version": "18.6.10",
+      "latest_version": "18.7.0",
       "refresh_state": "upstream-update-candidate",
-      "candidate_proof": "candidate-proof-complete-root-path-present",
+      "candidate_proof": "candidate-superseded-by-newer-upstream",
       "candidate_variants": "generated-passwords;existing-secret",
       "candidate_object_counts": "generated-passwords:7;existing-secret:6",
       "catalog_state": "root-path-present",
@@ -5562,7 +5578,7 @@
       "live_promotion_state": "not-yet-live-promoted",
       "source_review": "data/latest-top20-refresh/review.csv",
       "candidate_evidence": "data/latest-top20-refresh/candidates/postgresql-18.6.10/recipes/bitnami/postgresql/18.6.10",
-      "next_action": "review target-scoped production support decision before replacing the supported version"
+      "next_action": "refresh retained candidate 18.6.10 to latest upstream 18.7.0 before replacement decision"
     },
     {
       "chart": "bitnami/rabbitmq",
@@ -5582,17 +5598,17 @@
     {
       "chart": "bitnami/redis",
       "current_version": "25.5.3",
-      "latest_version": "25.5.3",
-      "refresh_state": "current-proof-still-current",
-      "candidate_proof": "not-needed",
+      "latest_version": "27.0.0",
+      "refresh_state": "upstream-update-candidate",
+      "candidate_proof": "missing",
       "candidate_variants": "",
       "candidate_object_counts": "",
-      "catalog_state": "current-catalog-path",
-      "promotion_state": "current-supported-version",
-      "live_promotion_state": "current-supported-version",
+      "catalog_state": "not-promoted",
+      "promotion_state": "missing",
+      "live_promotion_state": "missing",
       "source_review": "data/latest-top20-refresh/review.csv",
       "candidate_evidence": "",
-      "next_action": "keep current catalog proof; refresh on next upstream movement"
+      "next_action": "run ConfigHub proof, live e2e, production disposition, catalog, top100, and top500 lanes before replacement"
     },
     {
       "chart": "external-secrets/external-secrets",

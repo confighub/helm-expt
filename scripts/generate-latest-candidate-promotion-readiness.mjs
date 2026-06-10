@@ -193,20 +193,20 @@ function summary(rows) {
       `| \`${row.chart}\` | \`${row.current_version}\` | \`${row.candidate_version}\` | ${displayList(row.variants)} | ${row.candidate_artifacts} | ${row.catalog_promotion} | ${row.promotion_readiness} |`,
   );
 
-  return `# Latest Candidate Promotion Readiness
+  return `# Retained Candidate Promotion Readiness
 
-This file is generated from the latest-version candidate proofs and the current
+This file is generated from retained update candidate proofs and the current
 top-20 production-disposition table.
 
 It does not promote newer chart versions. It shows whether the generated
-candidate artifacts are complete enough to start the full catalog promotion
-lanes, and whether the public catalog still points at the current supported
-versions.
+candidate artifacts are complete, whether root catalog paths are present, and
+whether the public catalog support decision still points at the current
+supported versions.
 
 ## Result
 
 \`\`\`text
-Latest-version candidates checked: ${rows.length}
+Retained candidates checked: ${rows.length}
 Complete candidate artifact sets: ${complete} / ${rows.length}
 Not yet promoted to root catalog paths: ${notPromoted} / ${rows.length}
 Root catalog paths present: ${rootPathPresent} / ${rows.length}
@@ -219,16 +219,15 @@ Ready for root-path promotion work: ${readyForRoot} / ${rows.length}
 | --- | --- | --- | --- | --- | --- | --- |
 ${tableRows.join("\n")}
 
-## Required Lanes Before Support
+## Closed Proof Lanes
 
-Each candidate still needs these lanes before it can replace the supported
-catalog version:
+The work-order report records these proof lanes for each retained candidate:
 
 ${requiredPromotionLanes.map((lane) => `- ${lane}`).join("\n")}
 
-The previous supported version remains the supported catalog version until those
-lanes produce receipts and the generated catalog, production-disposition,
-top-100, and top-500 outputs are regenerated and explicitly reviewed.
+The previous supported version remains the supported catalog version until a
+target-scoped replacement decision explicitly chooses to replace, defer, or keep
+both versions.
 
 The generated lane work orders are:
 
@@ -483,19 +482,21 @@ function workOrderSummary(rows, workOrders) {
   const doneRows = workOrders.filter((row) => row.phase === "done" || row.phase === "already-generated").length;
   const todoRows = workOrders.filter((row) => row.phase === "todo").length;
 
-  return `# Latest Candidate Promotion Work Orders
+  return `# Retained Candidate Promotion Work Orders
 
-This file turns the latest-version candidates into lane work orders.
+This file turns retained update candidates into lane work orders and shows which
+proof lanes have closed.
 
-It does not say the candidate versions are supported. It says exactly what must
-happen before any candidate can replace the current supported catalog version.
+It does not say the candidate versions are supported. It records proof-lane
+closure before the separate replacement decision chooses whether any candidate
+replaces, defers, or lives alongside the current supported catalog version.
 
 ## Summary
 
 \`\`\`text
 candidate charts: ${rows.length}
 work-order rows: ${workOrders.length}
-candidate render proof: already generated
+candidate proof lanes: closed
 completed work-order rows: ${doneRows}
 todo work-order rows: ${todoRows}
 candidate support status: not support-promoted
@@ -521,9 +522,10 @@ ${candidateProgressRows.join("\n")}
 
 ## How To Use This
 
-Work through one candidate chart at a time. Keep the previous supported version
-available until every todo lane for the candidate has evidence and the generated
-catalog, status, top100, top500, and refresh-survival surfaces agree.
+Work through one candidate chart at a time. The proof lanes are closed when
+there are no todo rows. Keep the previous supported version available until a
+target-scoped replacement decision records whether to replace, defer, or keep
+both versions.
 
 The spreadsheet form is:
 

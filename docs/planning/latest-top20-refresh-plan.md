@@ -19,6 +19,8 @@ data/latest-top20-refresh/variant-work-orders.yaml
 data/latest-top20-refresh/candidates/
 data/latest-top20-refresh/promotion-readiness.md
 data/latest-top20-refresh/promotion-readiness.csv
+data/latest-top20-refresh/replacement-decisions/summary.md
+data/latest-top20-refresh/replacement-decisions/decisions.csv
 ```
 
 ## What The Snapshot Means
@@ -46,21 +48,28 @@ As of the committed snapshot:
 6 / 20 have newer upstream chart versions available
 ```
 
-The six update candidates are:
+The current update rows are:
 
-| Chart | Current proof | Latest chart |
-| --- | --- | --- |
-| `argo-cd/argo-cd` | `9.5.15` | `9.5.17` |
-| `bitnami/mongodb` | `19.0.7` | `19.0.9` |
-| `bitnami/nginx` | `24.0.2` | `24.0.4` |
-| `bitnami/postgresql` | `18.6.7` | `18.6.10` |
-| `prometheus-community/kube-prometheus-stack` | `85.3.3` | `86.1.0` |
-| `prometheus-community/prometheus` | `29.8.0` | `29.9.0` |
+| Chart | Current proof | Latest upstream | State |
+| --- | --- | --- | --- |
+| `argo-cd/argo-cd` | `9.5.15` | `9.5.17` | retained candidate still aligned |
+| `bitnami/mongodb` | `19.0.7` | `19.1.0` | retained candidate `19.0.9` already superseded |
+| `bitnami/nginx` | `24.0.2` | `25.0.0` | retained candidate `24.0.4` already superseded |
+| `bitnami/postgresql` | `18.6.7` | `18.7.0` | retained candidate `18.6.10` already superseded |
+| `bitnami/redis` | `25.5.3` | `27.0.0` | no retained candidate yet |
+| `prometheus-community/kube-prometheus-stack` | `85.3.3` | `86.1.0` | retained candidate still aligned |
+| `prometheus-community/prometheus` | `29.8.0` | `29.9.0` | retained candidate still aligned |
 
 ## Candidate Proof Status
 
-The six latest-version candidates now have generated recipe/package candidate
-artifacts under:
+The retained update candidates now have proof-complete root paths under:
+
+```text
+recipes/
+packages/
+```
+
+The retained candidate source artifacts remain under:
 
 ```text
 data/latest-top20-refresh/candidates/
@@ -70,18 +79,22 @@ Verify them with:
 
 ```sh
 npm run top20:latest-candidates:verify
+npm run top20:latest-promote-root-paths:verify
 npm run top20:latest-promotion-readiness:verify
+npm run top20:latest-replacement-decisions:verify
 ```
 
-These candidate artifacts prove the updated chart versions still pass the
-recipe/package/render/compare path. They are not catalog-supported replacements
-until ConfigHub proof receipts, live e2e observation receipts, catalog status,
-production disposition, and top-100/top-500 outputs are regenerated.
+These candidate artifacts prove the updated chart versions have their own
+recipe/package paths, rendered objects, Helm-equivalence evidence, ConfigHub
+proof receipts, live e2e observation receipts, live parity receipts,
+production-disposition boundary, catalog status, and top-100/top-500 refresh
+coverage.
 
-The promotion-readiness output is the handoff checklist for those remaining
-lanes. It checks that the candidate artifacts are complete, confirms that the
-root catalog paths still point at the current supported versions, and lists the
-proof lanes that must run before any supported version changes.
+They are not catalog-supported replacements. The replacement-decision output is
+the handoff checklist for choosing whether to replace, defer, or keep both the
+current supported version and the proof-complete candidate. If a retained
+candidate is already behind the latest upstream version, refresh or explicitly
+retain it before making a replacement decision.
 
 ## Promotion Rule
 
@@ -161,13 +174,16 @@ uses private overlay values, target facts, approvals, gates, and receipts.
 
 ## Order Of Work
 
-1. Promote the six latest-version candidate proofs through ConfigHub proof,
-   live e2e, catalog status, and production-disposition lanes.
-2. Keep previous chart versions available for legacy patch and rollback review.
-3. Generate and verify the Redis promotion Creator golden and receipts.
-4. Generate and verify the ExternalDNS/Kubara managed overlay golden.
-5. Recalculate top-100 and top-500 data from the promoted catalog state.
-6. Publish the website/catalog view from the generated chart catalog and proof
+1. Review the three latest-aligned retained candidates for target-scoped
+   replacement decisions.
+2. Refresh the three superseded retained candidates to the newer upstream
+   versions or explicitly keep them for legacy patch and rollback evidence.
+3. Create a new Redis update candidate for `bitnami/redis@27.0.0`.
+4. Keep previous chart versions available for legacy patch and rollback review.
+5. Generate and verify the Redis promotion Creator golden and receipts.
+6. Generate and verify the ExternalDNS/Kubara managed overlay golden.
+7. Recalculate top-100 and top-500 data from any changed catalog state.
+8. Publish the website/catalog view from the generated chart catalog and proof
    data.
 
 ## Review Command
@@ -176,6 +192,8 @@ uses private overlay values, target facts, approvals, gates, and receipts.
 npm run top20:latest-refresh
 npm run top20:latest-refresh:verify
 npm run top20:latest-promotion-readiness:verify
+npm run top20:latest-replacement-decisions:verify
+npm run refresh:survival:verify
 npm run variant-goldens:verify
 npm run top100:catalog:verify
 npm run top500:catalog:verify

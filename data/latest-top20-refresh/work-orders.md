@@ -1,18 +1,20 @@
 # Latest Top-20 Work Orders
 
-This file is the human-readable companion to `variant-work-orders.yaml`.
+This file is a stable note for the latest top-20 refresh lane. The generated
+status now lives in the refresh, promotion-readiness, and replacement-decision
+reports linked below.
 
 ## What Changed
 
-The latest Helm repository snapshot shows:
+The current Helm repository snapshot shows:
 
 ```text
-14 top-20 proofs are current
-6 top-20 proofs have newer chart versions available
+13 top-20 proofs are current
+7 top-20 proofs have newer chart versions available
 ```
 
-The newer chart versions are listed in `review.csv` and summarized in
-`summary.md`.
+The newer chart versions are listed in `review.csv`, summarized in
+`summary.md`, and routed by `../refresh-survival/summary.md`.
 
 ## Rule
 
@@ -32,35 +34,47 @@ The new version becomes supported only after it has:
 - live e2e observation receipts;
 - updated catalog, production-disposition, top-100, and top-500 outputs.
 
-## Latest Chart Version Wave
+## Retained Candidate Wave
 
-Candidate proof paths have been created for:
+Proof-complete candidate paths have been retained for:
 
-| Chart | Current proof | Latest chart |
-| --- | --- | --- |
-| `argo-cd/argo-cd` | `9.5.15` | `9.5.17` |
-| `bitnami/mongodb` | `19.0.7` | `19.0.9` |
-| `bitnami/nginx` | `24.0.2` | `24.0.4` |
-| `bitnami/postgresql` | `18.6.7` | `18.6.10` |
-| `prometheus-community/kube-prometheus-stack` | `85.3.3` | `86.1.0` |
-| `prometheus-community/prometheus` | `29.8.0` | `29.9.0` |
+| Chart | Current proof | Retained candidate | Current latest upstream |
+| --- | --- | --- | --- |
+| `argo-cd/argo-cd` | `9.5.15` | `9.5.17` | `9.5.17` |
+| `bitnami/mongodb` | `19.0.7` | `19.0.9` | `19.1.0` |
+| `bitnami/nginx` | `24.0.2` | `24.0.4` | `25.0.0` |
+| `bitnami/postgresql` | `18.6.7` | `18.6.10` | `18.7.0` |
+| `prometheus-community/kube-prometheus-stack` | `85.3.3` | `86.1.0` | `86.1.0` |
+| `prometheus-community/prometheus` | `29.8.0` | `29.9.0` | `29.9.0` |
+
+Redis also now has a newer upstream version:
+
+```text
+bitnami/redis 25.5.3 -> 27.0.0
+```
+
+It does not yet have a retained candidate proof for that newer version.
 
 Candidate status:
 
 ```text
 data/latest-top20-refresh/candidates/
 npm run top20:latest-candidates:verify
+npm run top20:latest-promotion-readiness:verify
+npm run top20:latest-replacement-decisions:verify
 ```
 
-These latest candidates pass the recipe/package/render/compare lane. They still
-need ConfigHub proof receipts, live e2e receipts, catalog status, production
-disposition, and top-100/top-500 regeneration before replacing the supported
-catalog rows.
+The retained candidates have proof-complete root paths. Three are still aligned
+with latest upstream; three have already been superseded by newer upstream
+versions. The replacement-decision report records which case applies before any
+supported catalog row changes.
 
 ## Redis Promotion Variants
 
-Redis is already on the latest chart version. The next work is not a chart
-update; it is a product proof for post-render ConfigHub variant creation.
+Redis now has both work types:
+
+- refresh `bitnami/redis@25.5.3` to a retained candidate for `27.0.0`;
+- keep the product proof for post-render ConfigHub variant creation.
 
 Target examples:
 

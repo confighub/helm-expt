@@ -21,8 +21,8 @@ catalog-supported: 20
 proof-grade: 80
 multi-variant entries: 54
 default-only entries: 46
-top-20 current with latest upstream: 14
-top-20 update candidates: 6
+top-20 current with latest upstream: 13
+top-20 update candidates: 7
 production-disposition-needed entries: 0
 production-review-ready entries: 20
 entries matched to top-500 source rows: 65
@@ -88,16 +88,17 @@ lacking an `existing-secret`, `no-crds`, or HA path for a specific variant.
 | Does it already have more than one base variant? | 54 | Yes. These entries cover more than the default shape. |
 | Is it still default-only? | 46 | Yes. These entries need user-shaped variants before a strong catalog recommendation. |
 | Does it have a named hard gap for at least one recommended capability? | 25 | Yes. The core recipe may work, but one useful variant or capability is missing or blocked. |
-| Is a supported top-20 chart behind the latest upstream version? | 6 | Yes. These need promotion proof before the catalog points at the newer chart. |
+| Is a supported top-20 chart behind the latest upstream version? | 7 | Yes. These need promotion proof before the catalog points at the newer chart. |
 
 ## Top-20 Update Candidates
 
 | Chart | Supported version | Latest version | Variants | Required action |
 | --- | --- | --- | --- | --- |
 | `argo-cd/argo-cd` | `9.5.15` | `9.5.17` | default;no-crds | Run full promotion lanes before replacing the supported version. |
-| `bitnami/mongodb` | `19.0.7` | `19.0.9` | generated-passwords;existing-secret-replicaset | Run full promotion lanes before replacing the supported version. |
-| `bitnami/nginx` | `24.0.2` | `24.0.4` | http-clusterip;existing-tls-ingress | Run full promotion lanes before replacing the supported version. |
-| `bitnami/postgresql` | `18.6.7` | `18.6.10` | generated-passwords;existing-secret | Run full promotion lanes before replacing the supported version. |
+| `bitnami/mongodb` | `19.0.7` | `19.1.0` | generated-passwords;existing-secret-replicaset | Run full promotion lanes before replacing the supported version. |
+| `bitnami/nginx` | `24.0.2` | `25.0.0` | http-clusterip;existing-tls-ingress | Run full promotion lanes before replacing the supported version. |
+| `bitnami/postgresql` | `18.6.7` | `18.7.0` | generated-passwords;existing-secret | Run full promotion lanes before replacing the supported version. |
+| `bitnami/redis` | `25.5.3` | `27.0.0` | default;reuse-existing-secret | Run full promotion lanes before replacing the supported version. |
 | `prometheus-community/kube-prometheus-stack` | `85.3.3` | `86.1.0` | default;no-crds | Run full promotion lanes before replacing the supported version. |
 | `prometheus-community/prometheus` | `29.8.0` | `29.9.0` | default;server-only-ephemeral | Run full promotion lanes before replacing the supported version. |
 

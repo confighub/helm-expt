@@ -1,6 +1,7 @@
-# Latest Candidate Production Disposition
+# Retained Candidate Production Disposition
 
-This report records the production boundary for latest-version candidates.
+This report records the production boundary for retained proof-complete update
+candidates.
 
 It does not promote these versions and does not claim production support. It
 states that the candidate proof lanes are present, then lists the decision

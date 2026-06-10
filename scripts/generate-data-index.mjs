@@ -58,7 +58,7 @@ function readme(rows) {
     ["I want the top-100 coverage contract.", "data/top100-coverage/summary.md; data/top100-coverage/coverage.csv"],
     ["I want the strict top-100 work queue.", "data/top100-coverage/work-queue.md; data/top100-coverage/work-queue.csv; data/top100-coverage/decisions-needed.md"],
     ["I want the first strict top-100 promotion wave.", "data/top100-promotion-wave/summary.md; data/top100-promotion-wave/wave.csv"],
-    ["I want to know how upstream chart updates are handled.", "data/refresh-survival/summary.md; data/refresh-survival/refreshes.csv"],
+    ["I want to know how upstream chart updates are handled.", "data/refresh-survival/summary.md; data/refresh-survival/refreshes.csv; data/latest-top20-refresh/replacement-decisions/summary.md"],
     ["I want the top-100 or top-500 planning picture.", "data/top100-readiness/summary.md; data/top100-readiness/next80-queues.md; data/top500-catalog-analysis/review.csv"],
     ["I want live parity status.", "data/live-kind-parity/summary.md; data/live-helm-confighub-compare/summary.md"],
     ["I want hook, CRD, webhook, or lifecycle status.", "data/lifecycle-boundary/summary.md; data/outcome-coverage/feature-outcomes.csv"],
@@ -109,8 +109,11 @@ function readme(rows) {
     ["data/top100-promotion-wave/wave.yaml", "Machine-readable strict top-100 promotion wave input."],
     ["data/refresh-survival/summary.md", "Latest-version refresh survival: current supported chart versions, upstream update candidates, and promotion gates before replacement."],
     ["data/refresh-survival/refreshes.csv", "One row per top-20 chart in the latest refresh review: current version, latest version, candidate proof, promotion state, and next action."],
-    ["data/latest-top20-refresh/promotion-work-orders.md", "Per-candidate lane closure table for the six latest-version update candidates."],
-    ["data/latest-top20-refresh/promotion-work-orders.csv", "Spreadsheet work orders for candidate render proof, ConfigHub proof, local live, live parity, production disposition, catalog/site, and top100/top500 refresh."],
+    ["data/latest-top20-refresh/promotion-work-orders.md", "Per-candidate lane closure table for retained proof-complete update candidates."],
+    ["data/latest-top20-refresh/promotion-work-orders.csv", "Spreadsheet work orders for retained candidates: render proof, ConfigHub proof, local live, live parity, production disposition, catalog/site, and top100/top500 refresh."],
+    ["data/latest-top20-refresh/replacement-decisions/summary.md", "Final review queue for retained proof-complete update candidates before any supported catalog version is replaced."],
+    ["data/latest-top20-refresh/replacement-decisions/decisions.csv", "Spreadsheet replacement-decision queue: current supported version, retained candidate version, latest upstream version, freshness, proof status, evidence, and next action."],
+    ["data/latest-top20-refresh/replacement-decisions/decisions.yaml", "Machine-readable replacement-decision queue for the retained proof-complete update candidates."],
     ["data/next-ten-waves/summary.md", "Compact next work queues: gap review, latest-version promotion, variant build, production disposition, and import prototypes."],
     ["data/attack-plan-workdown/summary.md", "Broader execution workdown: import examples, hard gaps, variants, production, runtime/GitOps, latest candidates, and image digests."],
     ["data/top500-catalog-analysis/review.csv", "Top-500 evidence map: retained source-scan rows joined to current recipe proof, catalog status, version drift, source features, and next action."],
@@ -290,8 +293,9 @@ function roleFor(path) {
   if (path === "data/top100-coverage/coverage.csv") return "one row per top-100 chart: strict coverage contract status, item statuses, evidence paths, and next action";
   if (path === "data/top100-coverage/work-queue.csv") return "one row per partial top-100 chart: strict coverage queue, priority, missing items, first step, and done-when rule";
   if (path === "data/top100-promotion-wave/wave.csv") return "one row per selected strict top-100 promotion wave chart";
-  if (path === "data/refresh-survival/refreshes.csv") return "one row per top-20 latest-version refresh: current proof, latest upstream version, candidate render proof, and promotion route";
+  if (path === "data/refresh-survival/refreshes.csv") return "one row per top-20 latest-version refresh: current proof, latest upstream version, retained candidate state, and promotion route";
   if (path === "data/latest-top20-refresh/promotion-work-orders.csv") return "one row per candidate chart and support lane needed before latest-version promotion";
+  if (path === "data/latest-top20-refresh/replacement-decisions/decisions.csv") return "one row per retained proof-complete update candidate: current version, candidate version, latest upstream version, freshness, proof state, decision topics, evidence, and next action";
   if (path === "data/edge-recovery/edges.csv") return "recovered desired-state graph fragments from recipe artifacts";
   if (path === "data/variant-path-coverage/coverage-matrix.csv") return "one row per chart/base/path proof status";
   if (path === "data/quirk-coverage/coverage.csv") return "one row per Helm quirk axis: coverage tier, evidence, remaining gap, next action";
@@ -394,12 +398,14 @@ function verifyFor(family) {
 function commandForPath(path, family) {
   if (path === "data/production-disposition/next-actions.csv") return "npm run production:disposition:details";
   if (path === "data/live-e2e/cub-scout-watchlist.csv") return "manual update after strict cub-scout live witness rerun";
+  if (path.startsWith("data/latest-top20-refresh/replacement-decisions/")) return "npm run top20:latest-replacement-decisions";
   return commandFor(family);
 }
 
 function verifyForPath(path, family) {
   if (path === "data/production-disposition/next-actions.csv") return "npm run production:disposition:details:verify";
   if (path === "data/live-e2e/cub-scout-watchlist.csv") return "npm run data:index:verify";
+  if (path.startsWith("data/latest-top20-refresh/replacement-decisions/")) return "npm run top20:latest-replacement-decisions:verify";
   return verifyFor(family);
 }
 

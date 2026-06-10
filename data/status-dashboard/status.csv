@@ -10,9 +10,9 @@ top100,top100 promotion-review queue,27,80,partial,data/top100-coverage/work-que
 top100,first strict top100 promotion wave,8,27,partial,data/top100-promotion-wave/wave.csv,Promotion-review rows with two-cluster kind parity selected for the first strict top100 promotion wave.
 top100,top100 user-shaped variant queue,46,80,partial,data/top100-coverage/work-queue.csv,Partial top100 rows whose proof exists but whose current base is not yet a useful catalog offer.
 top100,top100 limitation-decision queue,7,80,partial,data/top100-coverage/work-queue.csv,"Partial top100 rows needing a support, disclosure, defer, or block decision before promotion."
-refresh,top20 proofs still current,14,20,partial,data/refresh-survival/refreshes.csv,Supported top-20 chart versions that still match the latest upstream Helm version in the retained refresh snapshot.
-refresh,top20 upstream update candidates,6,20,partial,data/refresh-survival/refreshes.csv,Supported top-20 charts with newer upstream Helm versions that must not be promoted until the full lane reruns.
-refresh,update candidates with render proof,0,6,partial,data/refresh-survival/refreshes.csv,Latest-version candidates that have passed the recipe/package/render/compare lane but are not replacement catalog rows.
+refresh,top20 proofs still current,13,20,partial,data/refresh-survival/refreshes.csv,Supported top-20 chart versions that still match the latest upstream Helm version in the retained refresh snapshot.
+refresh,top20 upstream update candidates,7,20,partial,data/refresh-survival/refreshes.csv,Supported top-20 charts with newer upstream Helm versions that must not be promoted until the full lane reruns.
+refresh,update candidates with proof-complete root paths,3,7,partial,data/refresh-survival/refreshes.csv,"Latest-version candidates that have root recipe/package paths and proof-complete evidence, but are not replacement catalog rows."
 top500,source rows scanned,495,500,partial,data/top500-catalog-analysis/review.csv,Retained source-scan rows with source feature data.
 top500,rows with current recipe proof,91,500,partial,data/top500-catalog-analysis/review.csv,Retained source-scan rows matched to current recipe/package proof.
 top500,catalog-supported rows,20,500,partial,data/top500-catalog-analysis/review.csv,Rows promoted to the current public catalog; production gates still matter.
