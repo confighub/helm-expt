@@ -912,10 +912,12 @@ Current facts:
 20 catalog-supported local-test charts
 20 passing ConfigHub proof receipt sets
 20 live/e2e observed charts
-1 final target-scoped support decision
-19 draft target-scoped support decisions
-20 production-review-ready pending final support decision
-0 production-blocked pending disposition
+20 target-scoped support decision artifacts
+17 supported target-scoped decisions
+2 superseded deprecated-source decisions
+1 rejected production boundary
+19 production-review-ready disposition rows
+1 production-blocked pending disposition
 ```
 
 Verification:
