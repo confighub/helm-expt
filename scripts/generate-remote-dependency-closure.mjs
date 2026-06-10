@@ -49,18 +49,19 @@ function buildReport() {
   const locksByChart = dependencyLocksByChart();
   const modeledByChart = modelIndex(modeledRows);
   const quirkByChart = new Map(quirkQueueRows.map((row) => [row.chart, row]));
+  const refreshByChart = new Map(parseCsvFile("data/refresh-survival/refreshes.csv").map((row) => [row.chart, row]));
 
   const rows = sourceRows.map((source) => {
     const match = modeledMatch(source, modeledByChart);
     const locks = locksByChart.get(source.chart) ?? (match.modeled ? locksByChart.get(match.modeled.chart) : undefined);
-    return rowFor(source, match, locks, quirkByChart.get(source.chart));
+    return rowFor(source, match, locks, quirkByChart.get(source.chart), refreshByChart.get(source.chart));
   });
   const csv = toCsv(rows);
   const summary = toSummary(rows);
   return { rows, csv, summary };
 }
 
-function rowFor(source, match, locks, quirk) {
+function rowFor(source, match, locks, quirk, refresh) {
   const modeled = match.modeled;
   const lock = chooseLock(source, modeled, locks ?? []);
   const deps = lock?.dependencies ?? [];
@@ -70,7 +71,9 @@ function rowFor(source, match, locks, quirk) {
   const modeledVersion = modeled?.version ?? "";
   const closureStatus = statusFor({ source, modeled, lock, sourceVersion, modeledVersion });
   const topQuirk = quirk?.top_quirk ?? "";
-  const workstream = workstreamFor({ source, lock, closureStatus, topQuirk });
+  const dependencyRangePolicy = dependencyRangePolicyFor({ source, lock });
+  const refreshSurvivalStatus = refreshSurvivalStatusFor(refresh);
+  const workstream = workstreamFor({ source, lock, closureStatus, topQuirk, dependencyRangePolicy, refreshSurvivalStatus });
   return {
     priority: priorityFor(source, closureStatus, quirk),
     workstream,
@@ -88,6 +91,9 @@ function rowFor(source, match, locks, quirk) {
     source_dependency_lock_present: String(Boolean(source.dependencyLockPresent)),
     source_vendored_subcharts: String(Boolean(source.vendoredSubcharts)),
     top_quirk: topQuirk,
+    dependency_range_policy: dependencyRangePolicy,
+    refresh_survival_status: refreshSurvivalStatus,
+    refresh_survival_evidence: refresh ? "data/refresh-survival/refreshes.csv" : "",
     lock_status: closureStatus,
     lock_path: lock?.path ?? "",
     lock_chart_version: lock?.version ?? "",
@@ -142,11 +148,27 @@ function statusFor({ source, modeled, lock, sourceVersion, modeledVersion }) {
   return "different-version-lock-present";
 }
 
-function workstreamFor({ source, lock, closureStatus, topQuirk }) {
+function dependencyRangePolicyFor({ source, lock }) {
+  if (number(source.nonExactDependencyConstraints) === 0) return "not-needed";
+  if (!lock) return "unrecorded-no-maintained-lock";
+  if (!lock.chartLockDigest) return "blocked-until-chart-lock-digest";
+  return "freeze-to-chart-lock";
+}
+
+function refreshSurvivalStatusFor(refresh) {
+  if (!refresh) return "not-in-refresh-survival-surface";
+  if (refresh.refresh_state === "upstream-update-candidate") {
+    return `candidate-visible:${refresh.candidate_proof || "candidate-status-unknown"}`;
+  }
+  return refresh.refresh_state || "refresh-row-present";
+}
+
+function workstreamFor({ source, lock, closureStatus, topQuirk, dependencyRangePolicy, refreshSurvivalStatus }) {
   if (closureStatus === "source-only-no-maintained-recipe") return "create-recipe-import-candidate";
   if (closureStatus === "modeled-without-dependency-lock") return "add-dependency-lock";
-  if (number(source.nonExactDependencyConstraints) > 0) return "dependency-range-policy";
   if (!lock?.chartLockDigest && lock?.dependencies?.length > 0) return "chart-lock-digest";
+  if (dependencyRangePolicy !== "not-needed" && dependencyRangePolicy !== "freeze-to-chart-lock") return "dependency-range-policy";
+  if (dependencyRangePolicy === "freeze-to-chart-lock" && refreshSurvivalStatus === "not-in-refresh-survival-surface") return "dependency-range-policy";
   if (topQuirk === "remote-dependencies") return "promote-closure-facts";
   return "keep-current";
 }
@@ -215,6 +237,11 @@ function toSummary(rows) {
   const withLocks = rows.filter((row) => row.lock_path).length;
   const sourceOnly = rows.filter((row) => row.lock_status === "source-only-no-maintained-recipe").length;
   const noChartLockDigest = rows.filter((row) => row.lock_path && row.lock_dependency_count !== "0" && row.lock_has_chart_lock_digest !== "true").length;
+  const frozenRangePolicies = rows.filter((row) => row.dependency_range_policy === "freeze-to-chart-lock").length;
+  const frozenRangePoliciesWithRefresh = rows.filter((row) =>
+    row.dependency_range_policy === "freeze-to-chart-lock"
+    && row.refresh_survival_status !== "not-in-refresh-survival-surface",
+  ).length;
   const p0Rows = rows.filter((row) => row.priority === "P0").slice(0, 20);
   const workstreamCounts = countBy(rows, "workstream");
   const workstreamTable = workstreamRows(workstreamCounts)
@@ -250,6 +277,8 @@ source top-100 rows with remote, vendored, or non-exact dependencies: ${rows.len
 rows with a maintained dependency lock:                         ${withLocks}/${rows.length}
 source-only rows without a maintained recipe:                   ${sourceOnly}/${rows.length}
 locked rows with dependencies but no Chart.lock digest:          ${noChartLockDigest}/${rows.length}
+non-exact dependency rows frozen to Chart.lock:                  ${frozenRangePolicies}/${rows.length}
+frozen range rows with refresh-survival evidence:                ${frozenRangePoliciesWithRefresh}/${frozenRangePolicies}
 P0:                                                             ${priorityCounts.get("P0") ?? 0}
 P1:                                                             ${priorityCounts.get("P1") ?? 0}
 P2:                                                             ${priorityCounts.get("P2") ?? 0}
@@ -294,6 +323,13 @@ ${repoTable}
 - If dependencies are locked but no \`chartLockDigest\` is present, decide
   whether to backfill a Chart.lock digest or explicitly document the source of
   the dependency list.
+- If \`dependency_range_policy\` is \`freeze-to-chart-lock\`, the maintained
+  path does not resolve dependency ranges during install. It uses the committed
+  dependency lock, and any re-resolution must happen through a refresh candidate
+  with its own proof.
+- If \`refresh_survival_status\` is present, the row is connected to the
+  top-20 refresh-survival surface. That is update-review evidence, not a live
+  upgrade proof.
 
 ## Files
 
@@ -411,6 +447,9 @@ function toCsv(rows) {
     "source_dependency_lock_present",
     "source_vendored_subcharts",
     "top_quirk",
+    "dependency_range_policy",
+    "refresh_survival_status",
+    "refresh_survival_evidence",
     "lock_status",
     "lock_path",
     "lock_chart_version",
