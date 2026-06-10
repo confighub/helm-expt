@@ -10,7 +10,7 @@ generator, a live test, or a user-side tutorial check.
 ## Summary
 
 ```text
-scripts: 348
+scripts: 350
 ```
 
 ## By Category
@@ -32,13 +32,14 @@ scripts: 348
 | `user-install-verification` | 7 |
 | `adversarial-live` | 2 |
 | `catalog-readiness` | 2 |
+| `other` | 2 |
 
 ## By Mode
 
 | Mode | Scripts |
 | --- | ---: |
-| `verify` | 173 |
-| `generate-or-run` | 134 |
+| `verify` | 174 |
+| `generate-or-run` | 135 |
 | `run` | 32 |
 | `summary` | 6 |
 | `self-test` | 2 |
@@ -48,7 +49,7 @@ scripts: 348
 
 | External state | Scripts |
 | --- | ---: |
-| `none-for-verify` | 314 |
+| `none-for-verify` | 316 |
 | `confighub-or-live-cluster` | 11 |
 | `local-kubernetes` | 11 |
 | `network-or-helm-repo` | 7 |

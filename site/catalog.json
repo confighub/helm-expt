@@ -674,6 +674,24 @@
       "note": "Chart-level work items that convert source-scan quirk findings into modeled, reviewable, or provable catalog facts."
     },
     {
+      "section": "remote dependencies",
+      "metric": "top100 dependency-risk rows with maintained locks",
+      "value": "19",
+      "total": "49",
+      "status": "partial",
+      "source": "data/remote-dependency-closure/top100.csv",
+      "note": "Top-100 source rows with remote, vendored, or non-exact dependency risk joined to maintained recipe dependency locks."
+    },
+    {
+      "section": "remote dependencies",
+      "metric": "P0 dependency closure work rows",
+      "value": "33",
+      "total": "49",
+      "status": "gap",
+      "source": "data/remote-dependency-closure/top100.csv",
+      "note": "Highest-priority dependency closure rows needing import, lock, digest, or refresh-survival work."
+    },
+    {
       "section": "extension slots",
       "metric": "top20 charts with extension slots",
       "value": "13",
