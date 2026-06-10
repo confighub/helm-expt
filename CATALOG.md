@@ -1102,7 +1102,7 @@ still need catalog promotion review before support is claimed.
 | minio-operator/operator@7.1.1 | proof-grade | needs-useful-variant | render-parity | default | no-crds (template-baked CRDs; no clean chart toggle yet) | [CATALOG.md](recipes/minio-operator/operator/7.1.1/CATALOG.md) |
 | minio-operator/tenant@7.1.1 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/minio-operator/tenant/7.1.1/CATALOG.md) |
 | nats/nack@0.34.0 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/nats/nack/0.34.0/CATALOG.md) |
-| nats/nats@2.14.0 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/nats/nats/2.14.0/CATALOG.md) |
+| nats/nats@2.14.0 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/nats/nats/2.14.0/CATALOG.md) |
 | nats/surveyor@0.20.9 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/nats/surveyor/0.20.9/CATALOG.md) |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/CATALOG.md) |
 | open-telemetry/opentelemetry-operator@0.114.0 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/open-telemetry/opentelemetry-operator/0.114.0/CATALOG.md) |
