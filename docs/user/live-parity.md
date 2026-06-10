@@ -26,6 +26,7 @@ Use the generated reports for exact rows:
 - [Live Helm-vs-ConfigHub Parity](../../data/live-helm-confighub-compare/summary.md)
 - [Two-Cluster Kind Parity](../../data/live-kind-parity/summary.md)
 - [Live Parity Rerun Plan](../../data/live-parity-rerun-plan/summary.md)
+- [Active Proof Queue](../../data/status-dashboard/active-proof-queue.csv)
 
 The current rerun queue has 6 active non-pass rows and no semantic parity
 defects. Each row now points at a support artifact when the chart already has
