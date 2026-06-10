@@ -77,3 +77,5 @@ plain Helm; the bucket says this catalog will not yet vouch for it.
   coverage contract per chart.
 - [Top-20 Base Readiness](../../data/top20-base-readiness/summary.md) — the
   reviewed first-base table behind `ready-to-try`.
+- [Helm Quirk Support Matrix](./helm-quirk-support-matrix.md) — how each quirk
+  class is handled across the seven-stage lifecycle.
