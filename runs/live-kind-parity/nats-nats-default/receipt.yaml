@@ -1,0 +1,175 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: nats-nats-2.14.0-default-kind-parity-20260606
+spec:
+  chart: nats/nats
+  version: 2.14.0
+  base: default
+  result: pass
+  observedAt: '2026-06-10T09:23:11Z'
+  package:
+    path: packages/nats/nats/2.14.0
+  recipe:
+    path: recipes/nats/nats/2.14.0
+  variantRevision: recipes/nats/nats/2.14.0/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-nats-f4637-2ci5-helm
+    installerCluster: hx-nats-f4637-2ci5-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-nats-f4637-2ci5-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-nats-f4637-2ci5-helm" ...
+
+          Deleted nodes: ["hx-nats-f4637-2ci5-helm-control-plane"]'
+      - cluster: hx-nats-f4637-2ci5-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-nats-f4637-2ci5-installer" ...
+
+          Deleted nodes: ["hx-nats-f4637-2ci5-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install nats nats --repo https://nats-io.github.io/k8s/helm/charts/
+        --version 2.14.0 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/nats-nats-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 395344e7541927ec138080eda2a92f6ce69532966040ce5d689f9852a4cee8da
+      objectCount: 7
+      liveHelmManifestSHA256: 395344e7541927ec138080eda2a92f6ce69532966040ce5d689f9852a4cee8da
+      liveHelmManifestObjectCount: 7
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/nats-box   1/1   1     1     30s
+
+          statefulset.apps/nats   1/1   30s'
+        pods: '# default
+
+          nats-0                     2/2   Running   0     30s
+
+          nats-box-9bdbc696f-92cmr   1/1   Running   0     30s'
+        notReady: []
+        diagnostics: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/nats/nats/2.14.0
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-nats-f4637-2ci5-nats
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: ca3b21e0c89189dc909755a9d382d478e5a765efaefef9a9a1a6a8bdc2fb2b99
+      objectCount: 8
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/nats-box   1/1   1     1     31s
+
+          statefulset.apps/nats   1/1   31s'
+        pods: '# default
+
+          nats-0                     2/2   Running   0     31s
+
+          nats-box-9bdbc696f-x8p94   1/1   Running   0     31s'
+        notReady: []
+        diagnostics: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 7
+      installerObjectCount: 8
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "nats" does not exist. Installing it now.
+
+      NAME: nats
+
+      LAST DEPLOYED: Wed Jun 10 10:24:04 2026
+
+      NAMESPACE: default
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/nats-box   1/1   1     1     31s
+
+      statefulset.apps/nats   1/1   31s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
