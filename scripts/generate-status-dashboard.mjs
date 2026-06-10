@@ -44,6 +44,7 @@ function buildReport() {
   const chartRows = readCsv("data/outcome-coverage/chart-outcomes.csv");
   const baseRows = readCsv("data/outcome-coverage/base-outcomes.csv");
   const top20BaseReadinessRows = readCsv("data/top20-base-readiness/base-readiness.csv");
+  const chartUseRows = readCsv("data/chart-use-guide/chart-use-guide.csv");
   const top100Rows = readCsv("data/top100-readiness/readiness.csv");
   const top100CoverageRows = readCsv("data/top100-coverage/coverage.csv");
   const top100CoverageWorkRows = readCsv("data/top100-coverage/work-queue.csv");
@@ -84,6 +85,10 @@ function buildReport() {
   rows.push(metric("top100", "catalog-supported charts", count(top100Rows, "catalog_tier", "top20-catalog-supported"), top100Rows.length, "partial", "data/top100-readiness/readiness.csv", "These are the current public catalog entries; production support still depends on lane status."));
   rows.push(metric("top100", "proof-grade non-catalog charts", top100Rows.filter((row) => row.catalog_tier !== "top20-catalog-supported").length, top100Rows.length, "partial", "data/top100-readiness/readiness.csv", "These charts have proof artifacts but are not promoted catalog entries."));
   rows.push(metric("outcome coverage", "variant-rich maintained chart rows", chartRows.filter((row) => row.variant_rich === "yes").length, chartRows.length, "partial", "data/outcome-coverage/chart-outcomes.csv", "Maintained chart rows with more than one declared base variant, including retained candidate/version rows outside the top-100 corpus."));
+  rows.push(metric("chart use", "public catalog answers", count(chartUseRows, "answer", "yes-public-catalog"), chartUseRows.length, "partial", "data/chart-use-guide/chart-use-guide.csv", "Rows where a user can start from a public catalog entry, then choose a base and verify the lane they need."));
+  rows.push(metric("chart use", "proof-ready but not public catalog answers", count(chartUseRows, "answer", "not-yet-public-catalog-proof-ready"), chartUseRows.length, "partial", "data/chart-use-guide/chart-use-guide.csv", "Rows with proof value and useful variants that still need catalog promotion review."));
+  rows.push(metric("chart use", "better base variant needed answers", count(chartUseRows, "answer", "not-yet-user-ready"), chartUseRows.length, "gap", "data/chart-use-guide/chart-use-guide.csv", "Rows where the current proof is too default-shaped to be a good user offer."));
+  rows.push(metric("chart use", "limitation decision needed answers", count(chartUseRows, "answer", "decision-needed-first"), chartUseRows.length, "gap", "data/chart-use-guide/chart-use-guide.csv", "Rows where a named capability gap must be supported, disclosed, deferred, or blocked before promotion."));
   rows.push(metric("top100", "covered by top100 contract", count(top100CoverageRows, "coverage_status", "covered"), top100CoverageRows.length, "partial", "data/top100-coverage/coverage.csv", "Rows satisfying all top100 coverage contract items, including disposition and live witness route."));
   rows.push(metric("top100", "partial by top100 contract", count(top100CoverageRows, "coverage_status", "partial"), top100CoverageRows.length, "partial", "data/top100-coverage/coverage.csv", "Rows with at least one coverage contract item still todo."));
   rows.push(metric("top100", "average top100 coverage", averageNumber(top100CoverageRows, "coverage_percent"), 100, "partial", "data/top100-coverage/coverage.csv", "Average of the generated per-chart coverage percentage."));
@@ -181,11 +186,12 @@ function buildReport() {
     nextWorkQueuesCsv: nextWorkQueuesToCsv(nextWorkQueues),
     activeProofQueue,
     activeProofQueueCsv: activeProofQueueToCsv(activeProofQueue),
-    summary: summary(rows, { chartRows, baseRows, top100Rows, top100CoverageWorkRows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, hookReviewRows, hookCandidateRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, productionSupportDecisionRows, scanDispositionRows, latestRefreshActionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues, activeProofQueue }),
+    summary: summary(rows, { chartRows, baseRows, chartUseRows, top100Rows, top100CoverageWorkRows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, hookReviewRows, hookCandidateRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, productionSupportDecisionRows, scanDispositionRows, latestRefreshActionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues, activeProofQueue }),
   };
 }
 
 function summary(rows, context) {
+  const chartUseAnswerCounts = groupCount(context.chartUseRows, "answer");
   const top100Status = groupCount(context.top100Rows, "adoption_bucket");
   const strongestEvidence = groupCount(context.top100Rows, "strongest_evidence");
   const top500CatalogStatus = groupCount(context.top500Rows, "catalog_status");
@@ -295,6 +301,22 @@ ${hookWorkQueueRows}
 
 Spreadsheet forms: [next-work-queues.csv](next-work-queues.csv) and
 [active-proof-queue.csv](active-proof-queue.csv).
+
+## Chart Use Answers
+
+The Chart Use Guide is the user-facing route into the top-100 data. It answers
+whether a chart is ready to try from the public catalog, needs promotion
+review, needs a better base variant, or needs a limitation decision first.
+
+| Answer | Charts | Meaning |
+| --- | ---: | --- |
+| yes-public-catalog | ${chartUseAnswerCounts.get("yes-public-catalog") ?? 0} | Public catalog entry exists. Choose a base and check the proof lane you need. |
+| not-yet-public-catalog-proof-ready | ${chartUseAnswerCounts.get("not-yet-public-catalog-proof-ready") ?? 0} | Proof exists and variants look useful, but catalog promotion review is not done. |
+| not-yet-user-ready | ${chartUseAnswerCounts.get("not-yet-user-ready") ?? 0} | The current proof is too default-shaped; design a useful base variant first. |
+| decision-needed-first | ${chartUseAnswerCounts.get("decision-needed-first") ?? 0} | A named gap must be supported, disclosed, deferred, or blocked before promotion. |
+
+Use [chart-use-guide/summary.md](../chart-use-guide/summary.md) for one row per
+top-100 chart and the next command or file to open.
 
 ## Top100 Readiness
 
@@ -522,7 +544,8 @@ lifecycle observation.
 
 | Question | Open |
 | --- | --- |
-| Can I use this chart today? | [top100-readiness/readiness.csv](../top100-readiness/readiness.csv) |
+| Can I use this chart today? | [chart-use-guide/summary.md](../chart-use-guide/summary.md) |
+| What is the underlying top-100 readiness row? | [top100-readiness/readiness.csv](../top100-readiness/readiness.csv) |
 | Which top-100 rows satisfy the strict coverage contract? | [top100-coverage/coverage.csv](../top100-coverage/coverage.csv) |
 | Which top-100 partial rows should move next? | [top100-coverage/work-queue.md](../top100-coverage/work-queue.md) |
 | Which top-100 promotion rows are first? | [top100-promotion-wave/summary.md](../top100-promotion-wave/summary.md) |
