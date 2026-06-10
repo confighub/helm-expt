@@ -212,15 +212,17 @@ const claims = [
   {
     id: "blast-radius-prediction",
     area: "sceptic-tests",
-    status: "planned",
-    claim: "Blast-radius prediction should be scored by comparing predicted affected objects and fields with actual re-render diffs.",
+    status: "partial",
+    claim: "Blast-radius prediction is starting to be scored by comparing predicted affected objects with actual committed rerender diffs.",
     evidence: [
+      "data/blast-radius-accuracy/summary.md",
+      "data/blast-radius-accuracy/cases.csv",
       "docs/planning/robust-sceptic-plan.md",
       "data/edge-recovery/summary.md",
       "data/high-fanout-demo/summary.md",
     ],
-    verify: "npm run edges:verify; npm run high-fanout:verify",
-    limit: "The accuracy harness is not implemented yet. Current data is input evidence, not a measured accuracy score.",
+    verify: "npm run blast-radius:accuracy:verify; npm run edges:verify; npm run high-fanout:verify",
+    limit: "Only the first KPS CRD base-pair case is measured. Most value-source-map rows are still unmeasured backlog.",
   },
   {
     id: "refused-blanket-verification",

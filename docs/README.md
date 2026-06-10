@@ -78,6 +78,7 @@ documentation set.
 | `data/csv-index.csv` | Generated machine-readable index of every CSV under `data/`. |
 | `data/status-dashboard/summary.md` | Generated front-door status dashboard for top100, proof lanes, hooks, quirks, GitOps, and live parity. |
 | `data/claims-register/summary.md` | Generated claim-to-evidence register used to keep public claims scoped and reviewable. |
+| `data/blast-radius-accuracy/summary.md` | Generated blast-radius accuracy seed: predicted affected objects compared with actual committed rerender diffs. |
 | `data/top100-readiness/next80-queues.md` | Generated next80 operating queue: promotion review, user-shaped variant work, and limitation review. |
 | `data/outcome-coverage/*.csv` | Front-door CSVs for chart, base, derived variant, and feature outcomes. |
 | `data/latest-top20-refresh/candidates/README.md` | Generated summary for latest-version candidate proofs. |
