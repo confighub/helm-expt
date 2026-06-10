@@ -8,6 +8,21 @@ charts. The numbers come from the generated
 this page explains what they mean. Counts below are the snapshot at writing —
 trust the generated file over this prose.
 
+This is the user-facing view of the same data summarized in
+[Top-100 Readiness](../../data/top100-readiness/summary.md). The readiness
+summary has four operating buckets. This page splits the promotion-review
+bucket into two practical user cases: charts that mostly need target inputs,
+and charts that need operator review before they are presented as a catalog
+offer.
+
+| User-facing group | Readiness bucket | Charts |
+| --- | --- | ---: |
+| `ready-to-try` | `try-from-public-catalog` | 20 |
+| `works-with-target-prerequisites` | `promote-after-review` | 13 |
+| `works-with-operator-review` | `promote-after-review` | 14 |
+| `needs-better-base-variant` | `needs-useful-variant` | 46 |
+| `not-ready-yet` | `limitation-decision-first` | 7 |
+
 ## Can I use these charts today?
 
 It depends which of five groups the chart is in:
