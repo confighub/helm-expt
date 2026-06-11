@@ -1,0 +1,125 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: RuntimeGitOpsReceipt
+metadata:
+  name: external-secrets-default-argo-oci-codex-live-evidence-es-default-0611
+spec:
+  chart: external-secrets/external-secrets
+  version: 2.5.0
+  base: default
+  packagePath: packages/external-secrets/external-secrets/2.5.0
+  recipePath: recipes/external-secrets/external-secrets/2.5.0
+  controller: Argo CD OCI
+  observedAt: "2026-06-11T06:19:49Z"
+  result: blocked
+  run:
+    rig: codex-live-evidence-es-default-0611
+    clusterSpace: codex-live-evidence-es-default-0611-cluster
+    workloadSpace: codex-live-evidence-es-default-0611-external-secrets-default
+    target: codex-live-evidence-es-default-0611-cluster/oci
+    namespace: external-secrets
+    kubeContext: kind-codex-live-evidence-es-default-0611
+    kubeconfig: /Users/alexis/.confighub/lk/codex-live-evidence-es-default-0611.kubeconfig
+    keptForInspection: false
+  commands:
+    preflightClusters: kind get clusters
+    setupRig: CONFIGHUB_AGENT=1 cub lk up --name codex-live-evidence-es-default-0611
+    workload: CONFIGHUB_AGENT=1 tests/chart-install-test --package packages/external-secrets/external-secrets/2.5.0 --slug external-secrets-default --namespace external-secrets --rig codex-live-evidence-es-default-0611 --base default --helm-expt /Users/alexis/code/helm-expt --wait 420 --keep --json
+    inspectApplications: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-live-evidence-es-default-0611.kubeconfig --context kind-codex-live-evidence-es-default-0611 get applications -n argocd -o custom-columns='NAME:.metadata.name,SYNC:.status.sync.status,HEALTH:.status.health.status,REV:.status.sync.revision'
+    inspectRuntime: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-live-evidence-es-default-0611.kubeconfig --context kind-codex-live-evidence-es-default-0611 get deploy,pods,svc,secret -n external-secrets -o wide
+    inspectWebhook: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-live-evidence-es-default-0611.kubeconfig --context kind-codex-live-evidence-es-default-0611 describe pod -n external-secrets -l app.kubernetes.io/name=external-secrets-webhook
+    inspectCertController: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-live-evidence-es-default-0611.kubeconfig --context kind-codex-live-evidence-es-default-0611 logs -n external-secrets deploy/external-secrets-cert-controller --tail=40
+    teardown: CONFIGHUB_AGENT=1 cub lk down --name codex-live-evidence-es-default-0611 --force
+    postTeardownClusters: kind get clusters
+  oci:
+    repoURL: oci://oci.hub.confighub.com:443/target/codex-live-evidence-es-default-0611-cluster/oci
+    path: ./codex-live-evidence-es-default-0611-external-secrets-default
+    targetRevision: latest
+    revision: sha256:78fbaafe84d7883447df2474eeebd511acb622677db7eee724029114bdeaecdc
+  notes:
+    harnessStatus: WATCH
+    finding: "Argo CD pulled and synced the ConfigHub OCI artifact for the standalone default base, and the External Secrets CRDs were present in the target cluster. Runtime readiness remained blocked because the rendered webhook Secret was staged under out/secrets and was not delivered through the workload OCI path."
+    nextAction: "Model the generated external-secrets-webhook Secret as a deliverable unit for this base, or declare and rehearse an explicit secret prerequisite before calling external-secrets/default live-ready through ConfigHub OCI."
+  checks:
+    - name: preflight-kind-clusters
+      result: pass
+      detail: "kind get clusters returned no existing clusters before rig creation."
+    - name: render
+      result: pass
+      detail: "namespaces in render: ['external-secrets']; 42 manifest files; 1 separated Secret file."
+    - name: confighub-upload
+      result: pass
+      detail: "units uploaded to codex-live-evidence-es-default-0611-external-secrets-default."
+    - name: confighub-units
+      result: pass
+      detail: "42 workload Units Ready on target oci; installer-record NotLive; out/secrets/secret-external-secrets-external-secrets-webhook.yaml was not uploaded."
+    - name: argo-root-sync
+      result: pass
+      detail: "root app codex-live-evidence-es-default-0611-cluster: sync=Synced health=Healthy revision=sha256:78fbaafe84d7883447df2474eeebd511acb622677db7eee724029114bdeaecdc."
+    - name: argo-sync
+      result: watch
+      detail: "app external-secrets-default: sync=Synced health=Progressing after 420s revision=sha256:78fbaafe84d7883447df2474eeebd511acb622677db7eee724029114bdeaecdc."
+    - name: crd-prerequisite
+      result: pass
+      detail: "23 external-secrets.io and generators.external-secrets.io CRDs were present in the target cluster."
+    - name: separated-secret-prerequisite
+      result: blocked
+      detail: "out/secrets/secret-external-secrets-external-secrets-webhook.yaml was rendered, but Kubernetes namespace external-secrets had no external-secrets-webhook Secret."
+    - name: runtime
+      result: blocked
+      detail: "deployment external-secrets reached 1/1; external-secrets-cert-controller stayed 0/1 Running; external-secrets-webhook stayed 0/1 ContainerCreating because secret external-secrets-webhook was not found."
+    - name: teardown
+      result: pass
+      detail: "cub lk down --name codex-live-evidence-es-default-0611 --force deleted the named kind cluster and recursive ConfigHub cluster space; post-teardown kind get clusters returned none."
+  gitops:
+    applications:
+      - name: codex-live-evidence-es-default-0611-cluster
+        namespace: argocd
+        sync: Synced
+        health: Healthy
+        revision: sha256:78fbaafe84d7883447df2474eeebd511acb622677db7eee724029114bdeaecdc
+      - name: external-secrets-default
+        namespace: argocd
+        sync: Synced
+        health: Progressing
+        revision: sha256:78fbaafe84d7883447df2474eeebd511acb622677db7eee724029114bdeaecdc
+        source:
+          repoURL: oci://oci.hub.confighub.com:443/target/codex-live-evidence-es-default-0611-cluster/oci
+          path: ./codex-live-evidence-es-default-0611-external-secrets-default
+          targetRevision: latest
+  runtime:
+    namespace: external-secrets
+    deployments:
+      - name: external-secrets
+        ready: "1/1"
+        updated: 1
+        available: 1
+        image: ghcr.io/external-secrets/external-secrets:v2.5.0
+      - name: external-secrets-cert-controller
+        ready: "0/1"
+        updated: 1
+        available: 0
+        status: RunningNotReady
+        blockedReason: secret external-secrets-webhook not found
+      - name: external-secrets-webhook
+        ready: "0/1"
+        updated: 1
+        available: 0
+        status: ContainerCreating
+        blockedReason: secret external-secrets-webhook not found
+    service:
+      name: external-secrets-webhook
+      type: ClusterIP
+      clusterIP: 10.96.122.111
+      ports: "443/TCP"
+    missing:
+      secrets:
+        - external-secrets/external-secrets-webhook
+    renderedOutOfBand:
+      secrets:
+        - /tmp/helm-wave-codex-live-evidence-es-default-0611-external-secrets-default/out/secrets/secret-external-secrets-external-secrets-webhook.yaml
+    crds:
+      externalSecretsAndGeneratorsPresent: 23
+  confighub:
+    workloadSpace: codex-live-evidence-es-default-0611-external-secrets-default
+    workloadUnitsReady: 42
+    installerRecordStatus: NotLive
