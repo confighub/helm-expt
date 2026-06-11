@@ -1,0 +1,245 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"promtail\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"promtail\",\"app.kubernetes.io/version\":\"3.5.1\",\"helm.sh/chart\":\"promtail-6.17.1\"},\"name\":\"promtail\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T11:03:08Z"
+      labels:
+        app.kubernetes.io/instance: "promtail"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "promtail"
+        app.kubernetes.io/version: "3.5.1"
+        helm.sh/chart: "promtail-6.17.1"
+      name: "promtail"
+      namespace: "default"
+      resourceVersion: "436"
+      uid: "695456e7-5a85-473d-bcf3-5b5268a94650"
+  -
+    apiVersion: "v1"
+    data:
+      redacted: "live Secret data is not committed"
+    kind: "Secret"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "redacted: live Secret last-applied-configuration is not committed"
+      creationTimestamp: "2026-06-11T11:03:08Z"
+      labels:
+        app.kubernetes.io/instance: "promtail"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "promtail"
+        app.kubernetes.io/version: "3.5.1"
+        helm.sh/chart: "promtail-6.17.1"
+      name: "promtail"
+      namespace: "default"
+      resourceVersion: "437"
+      uid: "e715469a-34bd-4adf-b362-aa465da7327b"
+    type: "Opaque"
+  -
+    apiVersion: "apps/v1"
+    kind: "DaemonSet"
+    metadata:
+      annotations:
+        deprecated.daemonset.template.generation: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"DaemonSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"promtail\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"promtail\",\"app.kubernetes.io/version\":\"3.5.1\",\"helm.sh/chart\":\"promtail-6.17.1\"},\"name\":\"promtail\",\"namespace\":\"default\"},\"spec\":{\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"promtail\",\"app.kubernetes.io/name\":\"promtail\"}},\"template\":{\"metadata\":{\"annotations\":{\"checksum/config\":\"2ef0f14afc8ed4b72495a244ef20e42a4bc14afd488033fe94e04c341b97529a\"},\"labels\":{\"app.kubernetes.io/instance\":\"promtail\",\"app.kubernetes.io/name\":\"promtail\"}},\"spec\":{\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"-config.file=/etc/promtail/promtail.yaml\"],\"env\":[{\"name\":\"HOSTNAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}}],\"image\":\"docker.io/grafana/promtail:3.5.1\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"promtail\",\"ports\":[{\"containerPort\":3101,\"name\":\"http-metrics\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":5,\"httpGet\":{\"path\":\"/ready\",\"port\":\"http-metrics\"},\"initialDelaySeconds\":10,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":1},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/etc/promtail\",\"name\":\"config\"},{\"mountPath\":\"/run/promtail\",\"name\":\"run\"},{\"mountPath\":\"/var/lib/docker/containers\",\"name\":\"containers\",\"readOnly\":true},{\"mountPath\":\"/var/log/pods\",\"name\":\"pods\",\"readOnly\":true}]}],\"enableServiceLinks\":true,\"securityContext\":{\"runAsGroup\":0,\"runAsUser\":0},\"serviceAccountName\":\"promtail\",\"tolerations\":[{\"effect\":\"NoSchedule\",\"key\":\"node-role.kubernetes.io/master\",\"operator\":\"Exists\"},{\"effect\":\"NoSchedule\",\"key\":\"node-role.kubernetes.io/control-plane\",\"operator\":\"Exists\"}],\"volumes\":[{\"name\":\"config\",\"secret\":{\"secretName\":\"promtail\"}},{\"hostPath\":{\"path\":\"/run/promtail\"},\"name\":\"run\"},{\"hostPath\":{\"path\":\"/var/lib/docker/containers\"},\"name\":\"containers\"},{\"hostPath\":{\"path\":\"/var/log/pods\"},\"name\":\"pods\"}]}},\"updateStrategy\":{}}}\n"
+      creationTimestamp: "2026-06-11T11:03:08Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "promtail"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "promtail"
+        app.kubernetes.io/version: "3.5.1"
+        helm.sh/chart: "promtail-6.17.1"
+      name: "promtail"
+      namespace: "default"
+      resourceVersion: "516"
+      uid: "669a7576-8796-41cb-be68-44e2886ce70f"
+    spec:
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "promtail"
+          app.kubernetes.io/name: "promtail"
+      template:
+        metadata:
+          annotations:
+            checksum/config: "2ef0f14afc8ed4b72495a244ef20e42a4bc14afd488033fe94e04c341b97529a"
+          labels:
+            app.kubernetes.io/instance: "promtail"
+            app.kubernetes.io/name: "promtail"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "-config.file=/etc/promtail/promtail.yaml"
+              env:
+                -
+                  name: "HOSTNAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "spec.nodeName"
+              image: "docker.io/grafana/promtail:3.5.1"
+              imagePullPolicy: "IfNotPresent"
+              name: "promtail"
+              ports:
+                -
+                  containerPort: 3101
+                  name: "http-metrics"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: "/ready"
+                  port: "http-metrics"
+                  scheme: "HTTP"
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/etc/promtail"
+                  name: "config"
+                -
+                  mountPath: "/run/promtail"
+                  name: "run"
+                -
+                  mountPath: "/var/lib/docker/containers"
+                  name: "containers"
+                  readOnly: true
+                -
+                  mountPath: "/var/log/pods"
+                  name: "pods"
+                  readOnly: true
+          dnsPolicy: "ClusterFirst"
+          enableServiceLinks: true
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            runAsGroup: 0
+            runAsUser: 0
+          serviceAccount: "promtail"
+          serviceAccountName: "promtail"
+          terminationGracePeriodSeconds: 30
+          tolerations:
+            -
+              effect: "NoSchedule"
+              key: "node-role.kubernetes.io/master"
+              operator: "Exists"
+            -
+              effect: "NoSchedule"
+              key: "node-role.kubernetes.io/control-plane"
+              operator: "Exists"
+          volumes:
+            -
+              name: "config"
+              secret:
+                defaultMode: 420
+                secretName: "promtail"
+            -
+              hostPath:
+                path: "/run/promtail"
+                type: ""
+              name: "run"
+            -
+              hostPath:
+                path: "/var/lib/docker/containers"
+                type: ""
+              name: "containers"
+            -
+              hostPath:
+                path: "/var/log/pods"
+                type: ""
+              name: "pods"
+      updateStrategy:
+        rollingUpdate:
+          maxSurge: 0
+          maxUnavailable: 1
+        type: "RollingUpdate"
+    status:
+      currentNumberScheduled: 1
+      desiredNumberScheduled: 1
+      numberAvailable: 1
+      numberMisscheduled: 0
+      numberReady: 1
+      observedGeneration: 1
+      updatedNumberScheduled: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"promtail\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"promtail\",\"app.kubernetes.io/version\":\"3.5.1\",\"helm.sh/chart\":\"promtail-6.17.1\"},\"name\":\"promtail\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"nodes\",\"nodes/proxy\",\"services\",\"endpoints\",\"pods\"],\"verbs\":[\"get\",\"watch\",\"list\"]}]}\n"
+      creationTimestamp: "2026-06-11T11:03:08Z"
+      labels:
+        app.kubernetes.io/instance: "promtail"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "promtail"
+        app.kubernetes.io/version: "3.5.1"
+        helm.sh/chart: "promtail-6.17.1"
+      name: "promtail"
+      resourceVersion: "446"
+      uid: "901b19e9-f451-488c-a08c-333a09fd876a"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "nodes"
+          - "nodes/proxy"
+          - "services"
+          - "endpoints"
+          - "pods"
+        verbs:
+          - "get"
+          - "watch"
+          - "list"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"promtail\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"promtail\",\"app.kubernetes.io/version\":\"3.5.1\",\"helm.sh/chart\":\"promtail-6.17.1\"},\"name\":\"promtail\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"promtail\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"promtail\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T11:03:08Z"
+      labels:
+        app.kubernetes.io/instance: "promtail"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "promtail"
+        app.kubernetes.io/version: "3.5.1"
+        helm.sh/chart: "promtail-6.17.1"
+      name: "promtail"
+      resourceVersion: "447"
+      uid: "a5f9d042-146d-4cb6-ae0c-6bb27da7d6c4"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "promtail"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "promtail"
+        namespace: "default"
+kind: "List"
+metadata:
+  resourceVersion: ""

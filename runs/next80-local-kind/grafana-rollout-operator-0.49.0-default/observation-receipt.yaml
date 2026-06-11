@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "grafana-rollout-operator-0.49.0-default-local-kind"
+spec:
+  variantRevision: "recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "dc6b652767aec075b147247c38dbce391bb86750a54e749a45576fd6791d4763"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T11:04:27.675Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "eac9892b2a6f4a7366877de59f4085cfbda67b45b0a7c2ba2d5117dedf8c6b42"
+  checks:
+    -
+      name: "crds-applied-and-established"
+      result: "pass"
+      object: "2 CustomResourceDefinition(s)"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "15 object(s) from recipes/grafana/rollout-operator/0.49.0/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|rollout-operator"

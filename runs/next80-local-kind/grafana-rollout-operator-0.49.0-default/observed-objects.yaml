@@ -1,0 +1,733 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"rollout-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rollout-operator\",\"app.kubernetes.io/version\":\"v0.36.2\",\"helm.sh/chart\":\"rollout-operator-0.49.0\"},\"name\":\"rollout-operator\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T11:03:57Z"
+      labels:
+        app.kubernetes.io/instance: "rollout-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rollout-operator"
+        app.kubernetes.io/version: "v0.36.2"
+        helm.sh/chart: "rollout-operator-0.49.0"
+      name: "rollout-operator"
+      namespace: "default"
+      resourceVersion: "445"
+      uid: "0d982a4e-1ec4-4701-b93e-16f17c89ed4f"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"rollout-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rollout-operator\",\"app.kubernetes.io/version\":\"v0.36.2\",\"helm.sh/chart\":\"rollout-operator-0.49.0\"},\"name\":\"rollout-operator\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"pods\"],\"verbs\":[\"list\",\"get\",\"watch\",\"delete\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"statefulsets\"],\"verbs\":[\"list\",\"get\",\"watch\",\"patch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"statefulsets/status\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"rollout-operator.grafana.com\"],\"resources\":[\"zoneawarepoddisruptionbudgets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"rollout-operator.grafana.com\"],\"resources\":[\"replicatemplates/scale\",\"replicatemplates/status\"],\"verbs\":[\"get\",\"patch\"]}]}\n"
+      creationTimestamp: "2026-06-11T11:03:57Z"
+      labels:
+        app.kubernetes.io/instance: "rollout-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rollout-operator"
+        app.kubernetes.io/version: "v0.36.2"
+        helm.sh/chart: "rollout-operator-0.49.0"
+      name: "rollout-operator"
+      namespace: "default"
+      resourceVersion: "446"
+      uid: "76328d35-3f63-4cfb-9320-217671e7a44e"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+        verbs:
+          - "list"
+          - "get"
+          - "watch"
+          - "delete"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "statefulsets"
+        verbs:
+          - "list"
+          - "get"
+          - "watch"
+          - "patch"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "statefulsets/status"
+        verbs:
+          - "update"
+      -
+        apiGroups:
+          - "rollout-operator.grafana.com"
+        resources:
+          - "zoneawarepoddisruptionbudgets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "rollout-operator.grafana.com"
+        resources:
+          - "replicatemplates/scale"
+          - "replicatemplates/status"
+        verbs:
+          - "get"
+          - "patch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"name\":\"rollout-operator-webhook-role\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"\"],\"resourceNames\":[\"certificate\"],\"resources\":[\"secrets\"],\"verbs\":[\"update\",\"get\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"create\"]}]}\n"
+      creationTimestamp: "2026-06-11T11:03:57Z"
+      name: "rollout-operator-webhook-role"
+      namespace: "default"
+      resourceVersion: "447"
+      uid: "60671f61-d813-4545-bb05-910e8b7f659d"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resourceNames:
+          - "certificate"
+        resources:
+          - "secrets"
+        verbs:
+          - "update"
+          - "get"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "create"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"rollout-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rollout-operator\",\"app.kubernetes.io/version\":\"v0.36.2\",\"helm.sh/chart\":\"rollout-operator-0.49.0\"},\"name\":\"rollout-operator\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"rollout-operator\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"rollout-operator\"}]}\n"
+      creationTimestamp: "2026-06-11T11:03:57Z"
+      labels:
+        app.kubernetes.io/instance: "rollout-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rollout-operator"
+        app.kubernetes.io/version: "v0.36.2"
+        helm.sh/chart: "rollout-operator-0.49.0"
+      name: "rollout-operator"
+      namespace: "default"
+      resourceVersion: "448"
+      uid: "2067d1f5-a671-4c88-9843-bfd78cd2a395"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "rollout-operator"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "rollout-operator"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"name\":\"rollout-operator-webhook-rolebinding\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"rollout-operator-webhook-role\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"rollout-operator\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T11:03:57Z"
+      name: "rollout-operator-webhook-rolebinding"
+      namespace: "default"
+      resourceVersion: "449"
+      uid: "dfc1fc43-c3fe-4c68-b947-f9d57baf9f0d"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "rollout-operator-webhook-role"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "rollout-operator"
+        namespace: "default"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"rollout-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rollout-operator\",\"app.kubernetes.io/version\":\"v0.36.2\",\"helm.sh/chart\":\"rollout-operator-0.49.0\"},\"name\":\"rollout-operator\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"https\",\"port\":443,\"protocol\":\"TCP\",\"targetPort\":8443}],\"selector\":{\"app.kubernetes.io/instance\":\"rollout-operator\",\"app.kubernetes.io/name\":\"rollout-operator\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T11:03:57Z"
+      labels:
+        app.kubernetes.io/instance: "rollout-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rollout-operator"
+        app.kubernetes.io/version: "v0.36.2"
+        helm.sh/chart: "rollout-operator-0.49.0"
+      name: "rollout-operator"
+      namespace: "default"
+      resourceVersion: "451"
+      uid: "9f6241ce-8acc-4c33-a0d1-ea079bd11b43"
+    spec:
+      clusterIP: "10.96.247.210"
+      clusterIPs:
+        - "10.96.247.210"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "https"
+          port: 443
+          protocol: "TCP"
+          targetPort: 8443
+      selector:
+        app.kubernetes.io/instance: "rollout-operator"
+        app.kubernetes.io/name: "rollout-operator"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"rollout-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rollout-operator\",\"app.kubernetes.io/version\":\"v0.36.2\",\"helm.sh/chart\":\"rollout-operator-0.49.0\"},\"name\":\"rollout-operator\",\"namespace\":\"default\"},\"spec\":{\"minReadySeconds\":10,\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"rollout-operator\",\"app.kubernetes.io/name\":\"rollout-operator\"}},\"strategy\":{\"rollingUpdate\":{\"maxSurge\":0,\"maxUnavailable\":1}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/instance\":\"rollout-operator\",\"app.kubernetes.io/name\":\"rollout-operator\"},\"namespace\":\"default\"},\"spec\":{\"containers\":[{\"args\":[\"-kubernetes.namespace=default\",\"-server-tls.enabled=true\",\"-server-tls.self-signed-cert.secret-name=certificate\",\"-server-tls.self-signed-cert.dns-name=rollout-operator.default.svc\"],\"image\":\"docker.io/grafana/rollout-operator:v0.36.2\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"rollout-operator\",\"ports\":[{\"containerPort\":8001,\"name\":\"http-metrics\",\"protocol\":\"TCP\"},{\"containerPort\":8443,\"name\":\"https\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/ready\",\"port\":\"http-metrics\"},\"initialDelaySeconds\":5,\"timeoutSeconds\":1},\"resources\":{\"limits\":{\"memory\":\"200Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"100Mi\"}},\"securityContext\":{}}],\"securityContext\":{},\"serviceAccountName\":\"rollout-operator\"}}}}\n"
+      creationTimestamp: "2026-06-11T11:03:57Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "rollout-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rollout-operator"
+        app.kubernetes.io/version: "v0.36.2"
+        helm.sh/chart: "rollout-operator-0.49.0"
+      name: "rollout-operator"
+      namespace: "default"
+      resourceVersion: "553"
+      uid: "b1c0b5c4-8340-4409-90f7-d89217a087f3"
+    spec:
+      minReadySeconds: 10
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "rollout-operator"
+          app.kubernetes.io/name: "rollout-operator"
+      strategy:
+        rollingUpdate:
+          maxSurge: 0
+          maxUnavailable: 1
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/instance: "rollout-operator"
+            app.kubernetes.io/name: "rollout-operator"
+          namespace: "default"
+        spec:
+          containers:
+            -
+              args:
+                - "-kubernetes.namespace=default"
+                - "-server-tls.enabled=true"
+                - "-server-tls.self-signed-cert.secret-name=certificate"
+                - "-server-tls.self-signed-cert.dns-name=rollout-operator.default.svc"
+              image: "docker.io/grafana/rollout-operator:v0.36.2"
+              imagePullPolicy: "IfNotPresent"
+              name: "rollout-operator"
+              ports:
+                -
+                  containerPort: 8001
+                  name: "http-metrics"
+                  protocol: "TCP"
+                -
+                  containerPort: 8443
+                  name: "https"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/ready"
+                  port: "http-metrics"
+                  scheme: "HTTP"
+                initialDelaySeconds: 5
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                limits:
+                  memory: "200Mi"
+                requests:
+                  cpu: "100m"
+                  memory: "100Mi"
+              securityContext:
+                {}
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "rollout-operator"
+          serviceAccountName: "rollout-operator"
+          terminationGracePeriodSeconds: 30
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T11:03:57Z"
+          lastUpdateTime: "2026-06-11T11:03:57Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T11:03:57Z"
+          lastUpdateTime: "2026-06-11T11:04:27Z"
+          message: "ReplicaSet \"rollout-operator-5f688cdb68\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "apiextensions.k8s.io/v1"
+    kind: "CustomResourceDefinition"
+    metadata:
+      creationTimestamp: "2026-06-11T11:03:57Z"
+      generation: 1
+      name: "replicatemplates.rollout-operator.grafana.com"
+      resourceVersion: "438"
+      uid: "46e7e0af-0f8a-43e0-9029-a3268174b71a"
+    spec:
+      conversion:
+        strategy: "None"
+      group: "rollout-operator.grafana.com"
+      names:
+        categories:
+          - "all"
+        kind: "ReplicaTemplate"
+        listKind: "ReplicaTemplateList"
+        plural: "replicatemplates"
+        singular: "replicatemplate"
+      scope: "Namespaced"
+      versions:
+        -
+          additionalPrinterColumns:
+            -
+              description: "Status replicas"
+              jsonPath: ".status.replicas"
+              name: "StatusReplicas"
+              type: "string"
+            -
+              description: "Spec replicas"
+              jsonPath: ".spec.replicas"
+              name: "SpecReplicas"
+              type: "string"
+          name: "v1"
+          schema:
+            openAPIV3Schema:
+              properties:
+                spec:
+                  properties:
+                    labelSelector:
+                      type: "string"
+                    replicas:
+                      default: 1
+                      minimum: 0
+                      type: "integer"
+                  type: "object"
+                status:
+                  properties:
+                    replicas:
+                      type: "integer"
+                  type: "object"
+              type: "object"
+          served: true
+          storage: true
+          subresources:
+            scale:
+              labelSelectorPath: ".spec.labelSelector"
+              specReplicasPath: ".spec.replicas"
+              statusReplicasPath: ".status.replicas"
+            status:
+              {}
+    status:
+      acceptedNames:
+        categories:
+          - "all"
+        kind: "ReplicaTemplate"
+        listKind: "ReplicaTemplateList"
+        plural: "replicatemplates"
+        singular: "replicatemplate"
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T11:03:57Z"
+          message: "no conflicts found"
+          reason: "NoConflicts"
+          status: "True"
+          type: "NamesAccepted"
+        -
+          lastTransitionTime: "2026-06-11T11:03:57Z"
+          message: "the initial names have been accepted"
+          reason: "InitialNamesAccepted"
+          status: "True"
+          type: "Established"
+      storedVersions:
+        - "v1"
+  -
+    apiVersion: "apiextensions.k8s.io/v1"
+    kind: "CustomResourceDefinition"
+    metadata:
+      creationTimestamp: "2026-06-11T11:03:57Z"
+      generation: 1
+      name: "zoneawarepoddisruptionbudgets.rollout-operator.grafana.com"
+      resourceVersion: "440"
+      uid: "bd6052c6-fd13-4abd-b148-0e5dbd893696"
+    spec:
+      conversion:
+        strategy: "None"
+      group: "rollout-operator.grafana.com"
+      names:
+        kind: "ZoneAwarePodDisruptionBudget"
+        listKind: "ZoneAwarePodDisruptionBudgetList"
+        plural: "zoneawarepoddisruptionbudgets"
+        shortNames:
+          - "zdpb"
+        singular: "zoneawarepoddisruptionbudget"
+      scope: "Namespaced"
+      versions:
+        -
+          name: "v1"
+          schema:
+            openAPIV3Schema:
+              properties:
+                spec:
+                  properties:
+                    maxUnavailable:
+                      description: "The number of pods that can be unavailable within a zone or partition."
+                      minimum: 0
+                      type: "integer"
+                    maxUnavailablePercentage:
+                      description: "Calculate the maxUnavailable value as a percentage of the StatefulSet's spec.Replica count. This option is not supported when using podNamePartitionRegex."
+                      maximum: 100
+                      minimum: 0
+                      type: "integer"
+                    podNamePartitionRegex:
+                      description: "A regular expression for returning a partition name given a pod name. This field is optional and should only be used when the ZoneAwarePodDisruptionBudget is to be scoped to a partition, such as a multi-zone ingester deployment with ingest_storage_enabled. Enabling this changes the ZPDB functionality such that minAvailability is applied across ALL zones for a given partition. When not enabled, the minAvailability is applied to pods within the eviction zone assuming there are no disruptions in the other zones."
+                      type: "string"
+                    podNameRegexGroup:
+                      description: "The regular expression group number that contains the partition name. This field is only required when the podNamePartitionRegex field is set and has more then one subexpression grouping. The default value is 1."
+                      minimum: 1
+                      type: "integer"
+                    selector:
+                      description: "A selector for finding pods and statefulsets that this ZoneAwarePodDisruptionBudget applies to."
+                      properties:
+                        matchLabels:
+                          additionalProperties:
+                            type: "string"
+                          type: "object"
+                      required:
+                        - "matchLabels"
+                      type: "object"
+                  required:
+                    - "selector"
+                  type: "object"
+              type: "object"
+          served: true
+          storage: true
+          subresources:
+            status:
+              {}
+    status:
+      acceptedNames:
+        kind: "ZoneAwarePodDisruptionBudget"
+        listKind: "ZoneAwarePodDisruptionBudgetList"
+        plural: "zoneawarepoddisruptionbudgets"
+        shortNames:
+          - "zdpb"
+        singular: "zoneawarepoddisruptionbudget"
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T11:03:57Z"
+          message: "no conflicts found"
+          reason: "NoConflicts"
+          status: "True"
+          type: "NamesAccepted"
+        -
+          lastTransitionTime: "2026-06-11T11:03:57Z"
+          message: "the initial names have been accepted"
+          reason: "InitialNamesAccepted"
+          status: "True"
+          type: "Established"
+      storedVersions:
+        - "v1"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"name\":\"rollout-operator-webhook-clusterrole\"},\"rules\":[{\"apiGroups\":[\"admissionregistration.k8s.io\"],\"resources\":[\"validatingwebhookconfigurations\",\"mutatingwebhookconfigurations\"],\"verbs\":[\"list\",\"patch\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T11:03:57Z"
+      name: "rollout-operator-webhook-clusterrole"
+      resourceVersion: "467"
+      uid: "93a7c90d-378a-4f99-8f52-7f301b054c38"
+    rules:
+      -
+        apiGroups:
+          - "admissionregistration.k8s.io"
+        resources:
+          - "validatingwebhookconfigurations"
+          - "mutatingwebhookconfigurations"
+        verbs:
+          - "list"
+          - "patch"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"name\":\"rollout-operator-webhook-clusterrolebinding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"rollout-operator-webhook-clusterrole\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"rollout-operator\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T11:03:57Z"
+      name: "rollout-operator-webhook-clusterrolebinding"
+      resourceVersion: "468"
+      uid: "40ba9761-1c72-4651-a8ce-934fedc859f3"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "rollout-operator-webhook-clusterrole"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "rollout-operator"
+        namespace: "default"
+  -
+    apiVersion: "admissionregistration.k8s.io/v1"
+    kind: "MutatingWebhookConfiguration"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"MutatingWebhookConfiguration\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"rollout-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rollout-operator\",\"app.kubernetes.io/version\":\"v0.36.2\",\"grafana.com/inject-rollout-operator-ca\":\"true\",\"grafana.com/namespace\":\"default\",\"helm.sh/chart\":\"rollout-operator-0.49.0\"},\"name\":\"prepare-downscale-default\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"rollout-operator\",\"namespace\":\"default\",\"path\":\"/admission/prepare-downscale\",\"port\":443}},\"failurePolicy\":\"Fail\",\"matchPolicy\":\"Equivalent\",\"name\":\"prepare-downscale-default.grafana.com\",\"namespaceSelector\":{\"matchLabels\":{\"kubernetes.io/metadata.name\":\"default\"}},\"rules\":[{\"apiGroups\":[\"apps\"],\"apiVersions\":[\"v1\"],\"operations\":[\"UPDATE\"],\"resources\":[\"statefulsets\",\"statefulsets/scale\"],\"scope\":\"Namespaced\"}],\"sideEffects\":\"NoneOnDryRun\",\"timeoutSeconds\":10}]}\n"
+      creationTimestamp: "2026-06-11T11:03:57Z"
+      generation: 2
+      labels:
+        app.kubernetes.io/instance: "rollout-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rollout-operator"
+        app.kubernetes.io/version: "v0.36.2"
+        grafana.com/inject-rollout-operator-ca: "true"
+        grafana.com/namespace: "default"
+        helm.sh/chart: "rollout-operator-0.49.0"
+      name: "prepare-downscale-default"
+      resourceVersion: "517"
+      uid: "04ed66f7-d66f-4586-82eb-e71b1a0e4e3e"
+    webhooks:
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZDekNDQXZPZ0F3SUJBZ0lDQitZd0RRWUpLb1pJaHZjTkFRRUxCUUF3RnpFVk1CTUdBMVVFQ2hNTVIzSmgKWm1GdVlTQk1ZV0p6TUI0WERUSTJNRFl4TVRFeE1EUXdObG9YRFRJM01EWXhNVEV4TURRd05sb3dGekVWTUJNRwpBMVVFQ2hNTVIzSmhabUZ1WVNCTVlXSnpNSUlDSWpBTkJna3Foa2lHOXcwQkFRRUZBQU9DQWc4QU1JSUNDZ0tDCkFnRUEzNlBaNXlxcVdaUWtPWkxTaklYRkxFbWpCUDhWTGZSdEltKzVGS1VzQ1lkL1VjTjBpQ0RMdzM5NGt4QjgKRldkUzBOWHoxRjNRVytuMXFHQW5SSDVacHVVWmVyZ1h6Vlp2UVFhYkJpT2JYcE40VFNwUERHNzBYd0xWRmgvTgoxcyswNU1mSEVtejFkL09ZSkplWnd6RTdrcmd6U0d3VlduT2VQU3NlNnp6aHFhaUErTlJpdnVlR2J6MmUwUFB1CnRFVSsxc1pSSEFRMTFrZm9IaFRBcGZKc3V5RytuWmpkNHF5c0d4VGtqN1V4aWs3amtWSDNkNm14Y29COXNIMysKdmxDdG5PNFNMYTZiMDY5OW96ckMvYU85WFJ2Rk1sTUpiZ1JaMGlMMGtLZGhSNTh1SVVDTWlCak03TG5KTjMvMQp1ZmFmR2JwOS9Nazd5VTNoV2RyUFFtS0haQTdBRGdiNXpFdURmTFM0TkZPMnZWVjhvZWZkNTRmbWlMdDBhVDZHCkpCUjRvOWVUV0RVTWJQNmNybi95bUYyalk0b0w1OUM0bVhVTFpwd3cwTjRBUWJ0YUN0OVlzR3lsMnQ0QzhhQmsKWm0wSmdMZ1d5T1dyWFd5VTlRUEdqb0hEMi9Za2I4QmlmaWgzcmtFK3FlVEVuVDdwUmRZMnI4S3k4TVdwMXV3egovOU1TWExsMzVENWxLMXZrdHRyTzU5ZjNsMFFwVlRWNUJmZ3FsUnpKbFN6V1FpUytjT044Ylo5SmlKdERqcWkwCnZzM1FKa2FVMlc4aVpYUVZOY0FzYnUwZ1ZRRi9NTXdrT0xhUDQ5TEYzaWVWQWVIQnk2WG9vN3NWbUE5K0lCdEgKTjFudWJ5OVVMOTdnUDdJUE9Za2tRbllROXp2aHFrTWlTTVRTbm81UytVcU1KbHNDQXdFQUFhTmhNRjh3RGdZRApWUjBQQVFIL0JBUURBZ0tFTUIwR0ExVWRKUVFXTUJRR0NDc0dBUVVGQndNQ0JnZ3JCZ0VGQlFjREFUQVBCZ05WCkhSTUJBZjhFQlRBREFRSC9NQjBHQTFVZERnUVdCQlNRdzlFSWx1bWdrQy9RT1o4T0VnWjJ2dnNhcnpBTkJna3EKaGtpRzl3MEJBUXNGQUFPQ0FnRUF1SXVoVWcwdlRnYis5aUVFUlRIZjlZdUlhOG1jdEFpN3RleGhOdGpBNlNSaApWRmJiaDZVVkpDbjNIeStDUnF3TDlwb2RNNzBxTlRtdXBMTDRJWHdYbEFpQk5BTCs0NnBHZXRYY3UwZzBNN2xBCkJ3RkRTM3VLWFZ5UW5iRW92MHh2eDV5S0ZaTlFRVHE4SzJ2RG5Mb25teVVxZVZSanlZSmZMTmowYWQ3bGxFYVgKY2E2N1k2am4vSFVJd2NVeVpETk40L3BXUEtHKzFGblB3WGUyZUZ6S2h6L0RYb1F6NTA2eUNHdTErT0hoaENSZApycGZ5Qm1ocFNOdm94c2w0MFpRTVdtV3I5VU15eVVEUitlNCtGZjhDUWlTMVBCYTFmN21sOGR0eGNYa0M2R1h6CmZjMUtSam9HUEg2eCtKR1JjM3pVYzMwdk14cTdoVzZpZmxKekZDK052cmFlbCtCQWUrYW4vYWZ0T1ZGbmE1eTUKZGJqbVd6ZklHbDBqZnpTTytvYXhHai9JMXNySnp3NU51MGZwT1ZWZ1NsbkVXWlA4OHFERXZCenpOM0hJc3llawpRMU40V1lodlgxZlpBcU9aOWxtNzlqVUJYemcvSTYrU01KT2ptYno0VWhXQmtvcWRlck83R3ZMMEJsVTU2YjNjCkIwWFFMUlNPQWgzSDIvOU5DeHU4aTZrbFZVZURHMlZwVUNPWFBldXdrQ3JPNCtLWm1NVWNBTzBUQ3ZhS2NJY3kKWFdJQXVpNHNjTFNxVlFVa1RaQlFtZFI4clV4SisvR1BmY2JRcms0S1MzdU9saG5MQ1B6a3Z2MTNOcDVRcWJlawpwRHR0T1ZmazI0ZzRTM3I5TTRnTzJVZU5lK0JmMytuekZhRS9QMXJnY1NQVEwvWjROdG9QY09uNlJmRUFjam89Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
+          service:
+            name: "rollout-operator"
+            namespace: "default"
+            path: "/admission/prepare-downscale"
+            port: 443
+        failurePolicy: "Fail"
+        matchPolicy: "Equivalent"
+        name: "prepare-downscale-default.grafana.com"
+        namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: "default"
+        objectSelector:
+          {}
+        reinvocationPolicy: "Never"
+        rules:
+          -
+            apiGroups:
+              - "apps"
+            apiVersions:
+              - "v1"
+            operations:
+              - "UPDATE"
+            resources:
+              - "statefulsets"
+              - "statefulsets/scale"
+            scope: "Namespaced"
+        sideEffects: "NoneOnDryRun"
+        timeoutSeconds: 10
+  -
+    apiVersion: "admissionregistration.k8s.io/v1"
+    kind: "ValidatingWebhookConfiguration"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"ValidatingWebhookConfiguration\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"rollout-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rollout-operator\",\"app.kubernetes.io/version\":\"v0.36.2\",\"grafana.com/inject-rollout-operator-ca\":\"true\",\"grafana.com/namespace\":\"default\",\"helm.sh/chart\":\"rollout-operator-0.49.0\"},\"name\":\"no-downscale-default\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"rollout-operator\",\"namespace\":\"default\",\"path\":\"/admission/no-downscale\",\"port\":443}},\"failurePolicy\":\"Fail\",\"name\":\"no-downscale-default.grafana.com\",\"namespaceSelector\":{\"matchLabels\":{\"kubernetes.io/metadata.name\":\"default\"}},\"rules\":[{\"apiGroups\":[\"apps\"],\"apiVersions\":[\"v1\"],\"operations\":[\"UPDATE\"],\"resources\":[\"statefulsets\",\"statefulsets/scale\"],\"scope\":\"Namespaced\"}],\"sideEffects\":\"None\"}]}\n"
+      creationTimestamp: "2026-06-11T11:03:57Z"
+      generation: 2
+      labels:
+        app.kubernetes.io/instance: "rollout-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rollout-operator"
+        app.kubernetes.io/version: "v0.36.2"
+        grafana.com/inject-rollout-operator-ca: "true"
+        grafana.com/namespace: "default"
+        helm.sh/chart: "rollout-operator-0.49.0"
+      name: "no-downscale-default"
+      resourceVersion: "518"
+      uid: "3893de93-f858-41bc-8abc-dbea48e6039d"
+    webhooks:
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZDekNDQXZPZ0F3SUJBZ0lDQitZd0RRWUpLb1pJaHZjTkFRRUxCUUF3RnpFVk1CTUdBMVVFQ2hNTVIzSmgKWm1GdVlTQk1ZV0p6TUI0WERUSTJNRFl4TVRFeE1EUXdObG9YRFRJM01EWXhNVEV4TURRd05sb3dGekVWTUJNRwpBMVVFQ2hNTVIzSmhabUZ1WVNCTVlXSnpNSUlDSWpBTkJna3Foa2lHOXcwQkFRRUZBQU9DQWc4QU1JSUNDZ0tDCkFnRUEzNlBaNXlxcVdaUWtPWkxTaklYRkxFbWpCUDhWTGZSdEltKzVGS1VzQ1lkL1VjTjBpQ0RMdzM5NGt4QjgKRldkUzBOWHoxRjNRVytuMXFHQW5SSDVacHVVWmVyZ1h6Vlp2UVFhYkJpT2JYcE40VFNwUERHNzBYd0xWRmgvTgoxcyswNU1mSEVtejFkL09ZSkplWnd6RTdrcmd6U0d3VlduT2VQU3NlNnp6aHFhaUErTlJpdnVlR2J6MmUwUFB1CnRFVSsxc1pSSEFRMTFrZm9IaFRBcGZKc3V5RytuWmpkNHF5c0d4VGtqN1V4aWs3amtWSDNkNm14Y29COXNIMysKdmxDdG5PNFNMYTZiMDY5OW96ckMvYU85WFJ2Rk1sTUpiZ1JaMGlMMGtLZGhSNTh1SVVDTWlCak03TG5KTjMvMQp1ZmFmR2JwOS9Nazd5VTNoV2RyUFFtS0haQTdBRGdiNXpFdURmTFM0TkZPMnZWVjhvZWZkNTRmbWlMdDBhVDZHCkpCUjRvOWVUV0RVTWJQNmNybi95bUYyalk0b0w1OUM0bVhVTFpwd3cwTjRBUWJ0YUN0OVlzR3lsMnQ0QzhhQmsKWm0wSmdMZ1d5T1dyWFd5VTlRUEdqb0hEMi9Za2I4QmlmaWgzcmtFK3FlVEVuVDdwUmRZMnI4S3k4TVdwMXV3egovOU1TWExsMzVENWxLMXZrdHRyTzU5ZjNsMFFwVlRWNUJmZ3FsUnpKbFN6V1FpUytjT044Ylo5SmlKdERqcWkwCnZzM1FKa2FVMlc4aVpYUVZOY0FzYnUwZ1ZRRi9NTXdrT0xhUDQ5TEYzaWVWQWVIQnk2WG9vN3NWbUE5K0lCdEgKTjFudWJ5OVVMOTdnUDdJUE9Za2tRbllROXp2aHFrTWlTTVRTbm81UytVcU1KbHNDQXdFQUFhTmhNRjh3RGdZRApWUjBQQVFIL0JBUURBZ0tFTUIwR0ExVWRKUVFXTUJRR0NDc0dBUVVGQndNQ0JnZ3JCZ0VGQlFjREFUQVBCZ05WCkhSTUJBZjhFQlRBREFRSC9NQjBHQTFVZERnUVdCQlNRdzlFSWx1bWdrQy9RT1o4T0VnWjJ2dnNhcnpBTkJna3EKaGtpRzl3MEJBUXNGQUFPQ0FnRUF1SXVoVWcwdlRnYis5aUVFUlRIZjlZdUlhOG1jdEFpN3RleGhOdGpBNlNSaApWRmJiaDZVVkpDbjNIeStDUnF3TDlwb2RNNzBxTlRtdXBMTDRJWHdYbEFpQk5BTCs0NnBHZXRYY3UwZzBNN2xBCkJ3RkRTM3VLWFZ5UW5iRW92MHh2eDV5S0ZaTlFRVHE4SzJ2RG5Mb25teVVxZVZSanlZSmZMTmowYWQ3bGxFYVgKY2E2N1k2am4vSFVJd2NVeVpETk40L3BXUEtHKzFGblB3WGUyZUZ6S2h6L0RYb1F6NTA2eUNHdTErT0hoaENSZApycGZ5Qm1ocFNOdm94c2w0MFpRTVdtV3I5VU15eVVEUitlNCtGZjhDUWlTMVBCYTFmN21sOGR0eGNYa0M2R1h6CmZjMUtSam9HUEg2eCtKR1JjM3pVYzMwdk14cTdoVzZpZmxKekZDK052cmFlbCtCQWUrYW4vYWZ0T1ZGbmE1eTUKZGJqbVd6ZklHbDBqZnpTTytvYXhHai9JMXNySnp3NU51MGZwT1ZWZ1NsbkVXWlA4OHFERXZCenpOM0hJc3llawpRMU40V1lodlgxZlpBcU9aOWxtNzlqVUJYemcvSTYrU01KT2ptYno0VWhXQmtvcWRlck83R3ZMMEJsVTU2YjNjCkIwWFFMUlNPQWgzSDIvOU5DeHU4aTZrbFZVZURHMlZwVUNPWFBldXdrQ3JPNCtLWm1NVWNBTzBUQ3ZhS2NJY3kKWFdJQXVpNHNjTFNxVlFVa1RaQlFtZFI4clV4SisvR1BmY2JRcms0S1MzdU9saG5MQ1B6a3Z2MTNOcDVRcWJlawpwRHR0T1ZmazI0ZzRTM3I5TTRnTzJVZU5lK0JmMytuekZhRS9QMXJnY1NQVEwvWjROdG9QY09uNlJmRUFjam89Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
+          service:
+            name: "rollout-operator"
+            namespace: "default"
+            path: "/admission/no-downscale"
+            port: 443
+        failurePolicy: "Fail"
+        matchPolicy: "Equivalent"
+        name: "no-downscale-default.grafana.com"
+        namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: "default"
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "apps"
+            apiVersions:
+              - "v1"
+            operations:
+              - "UPDATE"
+            resources:
+              - "statefulsets"
+              - "statefulsets/scale"
+            scope: "Namespaced"
+        sideEffects: "None"
+        timeoutSeconds: 10
+  -
+    apiVersion: "admissionregistration.k8s.io/v1"
+    kind: "ValidatingWebhookConfiguration"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"ValidatingWebhookConfiguration\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"rollout-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rollout-operator\",\"app.kubernetes.io/version\":\"v0.36.2\",\"grafana.com/inject-rollout-operator-ca\":\"true\",\"grafana.com/namespace\":\"default\",\"helm.sh/chart\":\"rollout-operator-0.49.0\"},\"name\":\"pod-eviction-default\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"rollout-operator\",\"namespace\":\"default\",\"path\":\"/admission/pod-eviction\",\"port\":443}},\"failurePolicy\":\"Fail\",\"name\":\"pod-eviction-default.grafana.com\",\"namespaceSelector\":{\"matchLabels\":{\"kubernetes.io/metadata.name\":\"default\"}},\"rules\":[{\"apiGroups\":[\"\"],\"apiVersions\":[\"v1\"],\"operations\":[\"CREATE\"],\"resources\":[\"pods/eviction\"],\"scope\":\"Namespaced\"}],\"sideEffects\":\"None\",\"timeoutSeconds\":10}]}\n"
+      creationTimestamp: "2026-06-11T11:03:57Z"
+      generation: 2
+      labels:
+        app.kubernetes.io/instance: "rollout-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rollout-operator"
+        app.kubernetes.io/version: "v0.36.2"
+        grafana.com/inject-rollout-operator-ca: "true"
+        grafana.com/namespace: "default"
+        helm.sh/chart: "rollout-operator-0.49.0"
+      name: "pod-eviction-default"
+      resourceVersion: "519"
+      uid: "bf0e0487-b7ca-4315-a845-b493c69d4ba7"
+    webhooks:
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZDekNDQXZPZ0F3SUJBZ0lDQitZd0RRWUpLb1pJaHZjTkFRRUxCUUF3RnpFVk1CTUdBMVVFQ2hNTVIzSmgKWm1GdVlTQk1ZV0p6TUI0WERUSTJNRFl4TVRFeE1EUXdObG9YRFRJM01EWXhNVEV4TURRd05sb3dGekVWTUJNRwpBMVVFQ2hNTVIzSmhabUZ1WVNCTVlXSnpNSUlDSWpBTkJna3Foa2lHOXcwQkFRRUZBQU9DQWc4QU1JSUNDZ0tDCkFnRUEzNlBaNXlxcVdaUWtPWkxTaklYRkxFbWpCUDhWTGZSdEltKzVGS1VzQ1lkL1VjTjBpQ0RMdzM5NGt4QjgKRldkUzBOWHoxRjNRVytuMXFHQW5SSDVacHVVWmVyZ1h6Vlp2UVFhYkJpT2JYcE40VFNwUERHNzBYd0xWRmgvTgoxcyswNU1mSEVtejFkL09ZSkplWnd6RTdrcmd6U0d3VlduT2VQU3NlNnp6aHFhaUErTlJpdnVlR2J6MmUwUFB1CnRFVSsxc1pSSEFRMTFrZm9IaFRBcGZKc3V5RytuWmpkNHF5c0d4VGtqN1V4aWs3amtWSDNkNm14Y29COXNIMysKdmxDdG5PNFNMYTZiMDY5OW96ckMvYU85WFJ2Rk1sTUpiZ1JaMGlMMGtLZGhSNTh1SVVDTWlCak03TG5KTjMvMQp1ZmFmR2JwOS9Nazd5VTNoV2RyUFFtS0haQTdBRGdiNXpFdURmTFM0TkZPMnZWVjhvZWZkNTRmbWlMdDBhVDZHCkpCUjRvOWVUV0RVTWJQNmNybi95bUYyalk0b0w1OUM0bVhVTFpwd3cwTjRBUWJ0YUN0OVlzR3lsMnQ0QzhhQmsKWm0wSmdMZ1d5T1dyWFd5VTlRUEdqb0hEMi9Za2I4QmlmaWgzcmtFK3FlVEVuVDdwUmRZMnI4S3k4TVdwMXV3egovOU1TWExsMzVENWxLMXZrdHRyTzU5ZjNsMFFwVlRWNUJmZ3FsUnpKbFN6V1FpUytjT044Ylo5SmlKdERqcWkwCnZzM1FKa2FVMlc4aVpYUVZOY0FzYnUwZ1ZRRi9NTXdrT0xhUDQ5TEYzaWVWQWVIQnk2WG9vN3NWbUE5K0lCdEgKTjFudWJ5OVVMOTdnUDdJUE9Za2tRbllROXp2aHFrTWlTTVRTbm81UytVcU1KbHNDQXdFQUFhTmhNRjh3RGdZRApWUjBQQVFIL0JBUURBZ0tFTUIwR0ExVWRKUVFXTUJRR0NDc0dBUVVGQndNQ0JnZ3JCZ0VGQlFjREFUQVBCZ05WCkhSTUJBZjhFQlRBREFRSC9NQjBHQTFVZERnUVdCQlNRdzlFSWx1bWdrQy9RT1o4T0VnWjJ2dnNhcnpBTkJna3EKaGtpRzl3MEJBUXNGQUFPQ0FnRUF1SXVoVWcwdlRnYis5aUVFUlRIZjlZdUlhOG1jdEFpN3RleGhOdGpBNlNSaApWRmJiaDZVVkpDbjNIeStDUnF3TDlwb2RNNzBxTlRtdXBMTDRJWHdYbEFpQk5BTCs0NnBHZXRYY3UwZzBNN2xBCkJ3RkRTM3VLWFZ5UW5iRW92MHh2eDV5S0ZaTlFRVHE4SzJ2RG5Mb25teVVxZVZSanlZSmZMTmowYWQ3bGxFYVgKY2E2N1k2am4vSFVJd2NVeVpETk40L3BXUEtHKzFGblB3WGUyZUZ6S2h6L0RYb1F6NTA2eUNHdTErT0hoaENSZApycGZ5Qm1ocFNOdm94c2w0MFpRTVdtV3I5VU15eVVEUitlNCtGZjhDUWlTMVBCYTFmN21sOGR0eGNYa0M2R1h6CmZjMUtSam9HUEg2eCtKR1JjM3pVYzMwdk14cTdoVzZpZmxKekZDK052cmFlbCtCQWUrYW4vYWZ0T1ZGbmE1eTUKZGJqbVd6ZklHbDBqZnpTTytvYXhHai9JMXNySnp3NU51MGZwT1ZWZ1NsbkVXWlA4OHFERXZCenpOM0hJc3llawpRMU40V1lodlgxZlpBcU9aOWxtNzlqVUJYemcvSTYrU01KT2ptYno0VWhXQmtvcWRlck83R3ZMMEJsVTU2YjNjCkIwWFFMUlNPQWgzSDIvOU5DeHU4aTZrbFZVZURHMlZwVUNPWFBldXdrQ3JPNCtLWm1NVWNBTzBUQ3ZhS2NJY3kKWFdJQXVpNHNjTFNxVlFVa1RaQlFtZFI4clV4SisvR1BmY2JRcms0S1MzdU9saG5MQ1B6a3Z2MTNOcDVRcWJlawpwRHR0T1ZmazI0ZzRTM3I5TTRnTzJVZU5lK0JmMytuekZhRS9QMXJnY1NQVEwvWjROdG9QY09uNlJmRUFjam89Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
+          service:
+            name: "rollout-operator"
+            namespace: "default"
+            path: "/admission/pod-eviction"
+            port: 443
+        failurePolicy: "Fail"
+        matchPolicy: "Equivalent"
+        name: "pod-eviction-default.grafana.com"
+        namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: "default"
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - ""
+            apiVersions:
+              - "v1"
+            operations:
+              - "CREATE"
+            resources:
+              - "pods/eviction"
+            scope: "Namespaced"
+        sideEffects: "None"
+        timeoutSeconds: 10
+  -
+    apiVersion: "admissionregistration.k8s.io/v1"
+    kind: "ValidatingWebhookConfiguration"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"ValidatingWebhookConfiguration\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"rollout-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rollout-operator\",\"app.kubernetes.io/version\":\"v0.36.2\",\"grafana.com/inject-rollout-operator-ca\":\"true\",\"grafana.com/namespace\":\"default\",\"helm.sh/chart\":\"rollout-operator-0.49.0\"},\"name\":\"zpdb-validation-default\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"rollout-operator\",\"namespace\":\"default\",\"path\":\"/admission/zpdb-validation\",\"port\":443}},\"failurePolicy\":\"Fail\",\"name\":\"zpdb-validation-default.grafana.com\",\"namespaceSelector\":{\"matchLabels\":{\"kubernetes.io/metadata.name\":\"default\"}},\"rules\":[{\"apiGroups\":[\"rollout-operator.grafana.com\"],\"apiVersions\":[\"v1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"zoneawarepoddisruptionbudgets\"],\"scope\":\"Namespaced\"}],\"sideEffects\":\"None\",\"timeoutSeconds\":10}]}\n"
+      creationTimestamp: "2026-06-11T11:03:57Z"
+      generation: 2
+      labels:
+        app.kubernetes.io/instance: "rollout-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rollout-operator"
+        app.kubernetes.io/version: "v0.36.2"
+        grafana.com/inject-rollout-operator-ca: "true"
+        grafana.com/namespace: "default"
+        helm.sh/chart: "rollout-operator-0.49.0"
+      name: "zpdb-validation-default"
+      resourceVersion: "520"
+      uid: "01ffc03c-64c2-42b5-b67c-48d06b82b557"
+    webhooks:
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZDekNDQXZPZ0F3SUJBZ0lDQitZd0RRWUpLb1pJaHZjTkFRRUxCUUF3RnpFVk1CTUdBMVVFQ2hNTVIzSmgKWm1GdVlTQk1ZV0p6TUI0WERUSTJNRFl4TVRFeE1EUXdObG9YRFRJM01EWXhNVEV4TURRd05sb3dGekVWTUJNRwpBMVVFQ2hNTVIzSmhabUZ1WVNCTVlXSnpNSUlDSWpBTkJna3Foa2lHOXcwQkFRRUZBQU9DQWc4QU1JSUNDZ0tDCkFnRUEzNlBaNXlxcVdaUWtPWkxTaklYRkxFbWpCUDhWTGZSdEltKzVGS1VzQ1lkL1VjTjBpQ0RMdzM5NGt4QjgKRldkUzBOWHoxRjNRVytuMXFHQW5SSDVacHVVWmVyZ1h6Vlp2UVFhYkJpT2JYcE40VFNwUERHNzBYd0xWRmgvTgoxcyswNU1mSEVtejFkL09ZSkplWnd6RTdrcmd6U0d3VlduT2VQU3NlNnp6aHFhaUErTlJpdnVlR2J6MmUwUFB1CnRFVSsxc1pSSEFRMTFrZm9IaFRBcGZKc3V5RytuWmpkNHF5c0d4VGtqN1V4aWs3amtWSDNkNm14Y29COXNIMysKdmxDdG5PNFNMYTZiMDY5OW96ckMvYU85WFJ2Rk1sTUpiZ1JaMGlMMGtLZGhSNTh1SVVDTWlCak03TG5KTjMvMQp1ZmFmR2JwOS9Nazd5VTNoV2RyUFFtS0haQTdBRGdiNXpFdURmTFM0TkZPMnZWVjhvZWZkNTRmbWlMdDBhVDZHCkpCUjRvOWVUV0RVTWJQNmNybi95bUYyalk0b0w1OUM0bVhVTFpwd3cwTjRBUWJ0YUN0OVlzR3lsMnQ0QzhhQmsKWm0wSmdMZ1d5T1dyWFd5VTlRUEdqb0hEMi9Za2I4QmlmaWgzcmtFK3FlVEVuVDdwUmRZMnI4S3k4TVdwMXV3egovOU1TWExsMzVENWxLMXZrdHRyTzU5ZjNsMFFwVlRWNUJmZ3FsUnpKbFN6V1FpUytjT044Ylo5SmlKdERqcWkwCnZzM1FKa2FVMlc4aVpYUVZOY0FzYnUwZ1ZRRi9NTXdrT0xhUDQ5TEYzaWVWQWVIQnk2WG9vN3NWbUE5K0lCdEgKTjFudWJ5OVVMOTdnUDdJUE9Za2tRbllROXp2aHFrTWlTTVRTbm81UytVcU1KbHNDQXdFQUFhTmhNRjh3RGdZRApWUjBQQVFIL0JBUURBZ0tFTUIwR0ExVWRKUVFXTUJRR0NDc0dBUVVGQndNQ0JnZ3JCZ0VGQlFjREFUQVBCZ05WCkhSTUJBZjhFQlRBREFRSC9NQjBHQTFVZERnUVdCQlNRdzlFSWx1bWdrQy9RT1o4T0VnWjJ2dnNhcnpBTkJna3EKaGtpRzl3MEJBUXNGQUFPQ0FnRUF1SXVoVWcwdlRnYis5aUVFUlRIZjlZdUlhOG1jdEFpN3RleGhOdGpBNlNSaApWRmJiaDZVVkpDbjNIeStDUnF3TDlwb2RNNzBxTlRtdXBMTDRJWHdYbEFpQk5BTCs0NnBHZXRYY3UwZzBNN2xBCkJ3RkRTM3VLWFZ5UW5iRW92MHh2eDV5S0ZaTlFRVHE4SzJ2RG5Mb25teVVxZVZSanlZSmZMTmowYWQ3bGxFYVgKY2E2N1k2am4vSFVJd2NVeVpETk40L3BXUEtHKzFGblB3WGUyZUZ6S2h6L0RYb1F6NTA2eUNHdTErT0hoaENSZApycGZ5Qm1ocFNOdm94c2w0MFpRTVdtV3I5VU15eVVEUitlNCtGZjhDUWlTMVBCYTFmN21sOGR0eGNYa0M2R1h6CmZjMUtSam9HUEg2eCtKR1JjM3pVYzMwdk14cTdoVzZpZmxKekZDK052cmFlbCtCQWUrYW4vYWZ0T1ZGbmE1eTUKZGJqbVd6ZklHbDBqZnpTTytvYXhHai9JMXNySnp3NU51MGZwT1ZWZ1NsbkVXWlA4OHFERXZCenpOM0hJc3llawpRMU40V1lodlgxZlpBcU9aOWxtNzlqVUJYemcvSTYrU01KT2ptYno0VWhXQmtvcWRlck83R3ZMMEJsVTU2YjNjCkIwWFFMUlNPQWgzSDIvOU5DeHU4aTZrbFZVZURHMlZwVUNPWFBldXdrQ3JPNCtLWm1NVWNBTzBUQ3ZhS2NJY3kKWFdJQXVpNHNjTFNxVlFVa1RaQlFtZFI4clV4SisvR1BmY2JRcms0S1MzdU9saG5MQ1B6a3Z2MTNOcDVRcWJlawpwRHR0T1ZmazI0ZzRTM3I5TTRnTzJVZU5lK0JmMytuekZhRS9QMXJnY1NQVEwvWjROdG9QY09uNlJmRUFjam89Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
+          service:
+            name: "rollout-operator"
+            namespace: "default"
+            path: "/admission/zpdb-validation"
+            port: 443
+        failurePolicy: "Fail"
+        matchPolicy: "Equivalent"
+        name: "zpdb-validation-default.grafana.com"
+        namespaceSelector:
+          matchLabels:
+            kubernetes.io/metadata.name: "default"
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "rollout-operator.grafana.com"
+            apiVersions:
+              - "v1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "zoneawarepoddisruptionbudgets"
+            scope: "Namespaced"
+        sideEffects: "None"
+        timeoutSeconds: 10
+kind: "List"
+metadata:
+  resourceVersion: ""

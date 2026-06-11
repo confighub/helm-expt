@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "dex-dex-0.24.0-default-local-kind"
+spec:
+  variantRevision: "recipes/dex/dex/0.24.0/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "5461ff32d1a2a157fd54a958809a06aa73938f52efc8c97f40e866cbc070b2f5"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T11:02:43.373Z"
+  freshnessTTL: "1h"
+  result: "fail"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "587c58374b8a26946e15577235c1fa6f1d1716c70c09e42e62894fb622b4ef72"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "8 object(s) from recipes/dex/dex/0.24.0/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "Deployment|default|dex"
+      reason: "not-ready: dex-854b786b7-w67bg[CrashLoopBackOff ready=false restarts=4;]"
+  blockedReasons:
+    - "deployment/dex: not-ready (dex-854b786b7-w67bg[CrashLoopBackOff ready=false restarts=4;])"

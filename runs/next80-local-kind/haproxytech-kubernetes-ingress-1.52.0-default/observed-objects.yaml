@@ -1,0 +1,466 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"kubernetes-ingress\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kubernetes-ingress\",\"app.kubernetes.io/version\":\"3.2.9\",\"helm.sh/chart\":\"kubernetes-ingress-1.52.0\"},\"name\":\"kubernetes-ingress\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T11:04:53Z"
+      labels:
+        app.kubernetes.io/instance: "kubernetes-ingress"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kubernetes-ingress"
+        app.kubernetes.io/version: "3.2.9"
+        helm.sh/chart: "kubernetes-ingress-1.52.0"
+      name: "kubernetes-ingress"
+      namespace: "default"
+      resourceVersion: "478"
+      uid: "5c084b03-a078-4dd7-b8db-908833b20b82"
+  -
+    apiVersion: "v1"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"kubernetes-ingress\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kubernetes-ingress\",\"app.kubernetes.io/version\":\"3.2.9\",\"helm.sh/chart\":\"kubernetes-ingress-1.52.0\"},\"name\":\"kubernetes-ingress\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T11:04:53Z"
+      labels:
+        app.kubernetes.io/instance: "kubernetes-ingress"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kubernetes-ingress"
+        app.kubernetes.io/version: "3.2.9"
+        helm.sh/chart: "kubernetes-ingress-1.52.0"
+      name: "kubernetes-ingress"
+      namespace: "default"
+      resourceVersion: "479"
+      uid: "c3d32389-34b9-4cdd-8fcb-14c0717e0c8a"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"kubernetes-ingress\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kubernetes-ingress\",\"app.kubernetes.io/version\":\"3.2.9\",\"helm.sh/chart\":\"kubernetes-ingress-1.52.0\"},\"name\":\"kubernetes-ingress\",\"namespace\":\"default\"},\"spec\":{\"externalIPs\":null,\"ports\":[{\"appProtocol\":\"http\",\"name\":\"http\",\"port\":80,\"protocol\":\"TCP\",\"targetPort\":\"http\"},{\"appProtocol\":\"https\",\"name\":\"https\",\"port\":443,\"protocol\":\"TCP\",\"targetPort\":\"https\"},{\"appProtocol\":\"https\",\"name\":\"quic\",\"port\":443,\"protocol\":\"UDP\",\"targetPort\":\"quic\"},{\"name\":\"stat\",\"port\":1024,\"protocol\":\"TCP\",\"targetPort\":\"stat\"},{\"name\":\"admin\",\"port\":6060,\"protocol\":\"TCP\",\"targetPort\":\"admin\"}],\"selector\":{\"app.kubernetes.io/instance\":\"kubernetes-ingress\",\"app.kubernetes.io/name\":\"kubernetes-ingress\"},\"type\":\"NodePort\"}}\n"
+      creationTimestamp: "2026-06-11T11:04:53Z"
+      labels:
+        app.kubernetes.io/instance: "kubernetes-ingress"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kubernetes-ingress"
+        app.kubernetes.io/version: "3.2.9"
+        helm.sh/chart: "kubernetes-ingress-1.52.0"
+      name: "kubernetes-ingress"
+      namespace: "default"
+      resourceVersion: "485"
+      uid: "52bccf38-8141-45b1-a554-44998141a70a"
+    spec:
+      clusterIP: "10.96.102.136"
+      clusterIPs:
+        - "10.96.102.136"
+      externalTrafficPolicy: "Cluster"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          appProtocol: "http"
+          name: "http"
+          nodePort: 31561
+          port: 80
+          protocol: "TCP"
+          targetPort: "http"
+        -
+          appProtocol: "https"
+          name: "https"
+          nodePort: 30729
+          port: 443
+          protocol: "TCP"
+          targetPort: "https"
+        -
+          appProtocol: "https"
+          name: "quic"
+          nodePort: 30729
+          port: 443
+          protocol: "UDP"
+          targetPort: "quic"
+        -
+          name: "stat"
+          nodePort: 31913
+          port: 1024
+          protocol: "TCP"
+          targetPort: "stat"
+        -
+          name: "admin"
+          nodePort: 30343
+          port: 6060
+          protocol: "TCP"
+          targetPort: "admin"
+      selector:
+        app.kubernetes.io/instance: "kubernetes-ingress"
+        app.kubernetes.io/name: "kubernetes-ingress"
+      sessionAffinity: "None"
+      type: "NodePort"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"kubernetes-ingress\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kubernetes-ingress\",\"app.kubernetes.io/version\":\"3.2.9\",\"helm.sh/chart\":\"kubernetes-ingress-1.52.0\"},\"name\":\"kubernetes-ingress\",\"namespace\":\"default\"},\"spec\":{\"minReadySeconds\":0,\"replicas\":2,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"kubernetes-ingress\",\"app.kubernetes.io/name\":\"kubernetes-ingress\"}},\"strategy\":{\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/instance\":\"kubernetes-ingress\",\"app.kubernetes.io/name\":\"kubernetes-ingress\"}},\"spec\":{\"containers\":[{\"args\":[\"--default-ssl-certificate=default/kubernetes-ingress-default-cert\",\"--configmap=default/kubernetes-ingress\",\"--http-bind-port=8080\",\"--https-bind-port=8443\",\"--quic-bind-port=8443\",\"--quic-announce-port=443\",\"--ingress.class=haproxy\",\"--publish-service=default/kubernetes-ingress\",\"--log=info\",\"--prometheus\",\"--pprof\"],\"env\":[{\"name\":\"POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"POD_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"POD_IP\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"status.podIP\"}}}],\"image\":\"docker.io/haproxytech/kubernetes-ingress:3.2.9\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/healthz\",\"port\":1042,\"scheme\":\"HTTP\"},\"initialDelaySeconds\":10,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":1},\"name\":\"kubernetes-ingress-controller\",\"ports\":[{\"containerPort\":6060,\"name\":\"admin\",\"protocol\":\"TCP\"},{\"containerPort\":8080,\"name\":\"http\",\"protocol\":\"TCP\"},{\"containerPort\":8443,\"name\":\"https\",\"protocol\":\"TCP\"},{\"containerPort\":1024,\"name\":\"stat\",\"protocol\":\"TCP\"},{\"containerPort\":8443,\"name\":\"quic\",\"protocol\":\"UDP\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/healthz\",\"port\":1042,\"scheme\":\"HTTP\"},\"initialDelaySeconds\":10,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":1},\"resources\":{\"requests\":{\"cpu\":\"250m\",\"memory\":\"400Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"add\":[\"NET_BIND_SERVICE\"],\"drop\":[\"ALL\"]},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"startupProbe\":{\"failureThreshold\":30,\"httpGet\":{\"path\":\"/healthz\",\"port\":1042,\"scheme\":\"HTTP\"},\"initialDelaySeconds\":10,\"periodSeconds\":5,\"successThreshold\":1,\"timeoutSeconds\":1},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"tmp\",\"subPath\":\"tmp\"},{\"mountPath\":\"/run\",\"name\":\"tmp\",\"subPath\":\"run\"}]}],\"dnsPolicy\":\"ClusterFirst\",\"enableServiceLinks\":true,\"securityContext\":{\"runAsGroup\":1000,\"runAsNonRoot\":true,\"runAsUser\":1000},\"serviceAccountName\":\"kubernetes-ingress\",\"terminationGracePeriodSeconds\":60,\"volumes\":[{\"emptyDir\":{\"medium\":\"Memory\",\"sizeLimit\":\"64Mi\"},\"name\":\"tmp\"}]}}}}\n"
+      creationTimestamp: "2026-06-11T11:04:53Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "kubernetes-ingress"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kubernetes-ingress"
+        app.kubernetes.io/version: "3.2.9"
+        helm.sh/chart: "kubernetes-ingress-1.52.0"
+      name: "kubernetes-ingress"
+      namespace: "default"
+      resourceVersion: "591"
+      uid: "7ad27953-7fe8-4855-8d07-52e0aa0b1e6a"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 2
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "kubernetes-ingress"
+          app.kubernetes.io/name: "kubernetes-ingress"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/instance: "kubernetes-ingress"
+            app.kubernetes.io/name: "kubernetes-ingress"
+        spec:
+          containers:
+            -
+              args:
+                - "--default-ssl-certificate=default/kubernetes-ingress-default-cert"
+                - "--configmap=default/kubernetes-ingress"
+                - "--http-bind-port=8080"
+                - "--https-bind-port=8443"
+                - "--quic-bind-port=8443"
+                - "--quic-announce-port=443"
+                - "--ingress.class=haproxy"
+                - "--publish-service=default/kubernetes-ingress"
+                - "--log=info"
+                - "--prometheus"
+                - "--pprof"
+              env:
+                -
+                  name: "POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "POD_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "POD_IP"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "status.podIP"
+              image: "docker.io/haproxytech/kubernetes-ingress:3.2.9"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: 1042
+                  scheme: "HTTP"
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              name: "kubernetes-ingress-controller"
+              ports:
+                -
+                  containerPort: 6060
+                  name: "admin"
+                  protocol: "TCP"
+                -
+                  containerPort: 8080
+                  name: "http"
+                  protocol: "TCP"
+                -
+                  containerPort: 8443
+                  name: "https"
+                  protocol: "TCP"
+                -
+                  containerPort: 1024
+                  name: "stat"
+                  protocol: "TCP"
+                -
+                  containerPort: 8443
+                  name: "quic"
+                  protocol: "UDP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: 1042
+                  scheme: "HTTP"
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                requests:
+                  cpu: "250m"
+                  memory: "400Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  add:
+                    - "NET_BIND_SERVICE"
+                  drop:
+                    - "ALL"
+                seccompProfile:
+                  type: "RuntimeDefault"
+              startupProbe:
+                failureThreshold: 30
+                httpGet:
+                  path: "/healthz"
+                  port: 1042
+                  scheme: "HTTP"
+                initialDelaySeconds: 10
+                periodSeconds: 5
+                successThreshold: 1
+                timeoutSeconds: 1
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/tmp"
+                  name: "tmp"
+                  subPath: "tmp"
+                -
+                  mountPath: "/run"
+                  name: "tmp"
+                  subPath: "run"
+          dnsPolicy: "ClusterFirst"
+          enableServiceLinks: true
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          serviceAccount: "kubernetes-ingress"
+          serviceAccountName: "kubernetes-ingress"
+          terminationGracePeriodSeconds: 60
+          volumes:
+            -
+              emptyDir:
+                medium: "Memory"
+                sizeLimit: "64Mi"
+              name: "tmp"
+    status:
+      availableReplicas: 2
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T11:05:19Z"
+          lastUpdateTime: "2026-06-11T11:05:19Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T11:04:53Z"
+          lastUpdateTime: "2026-06-11T11:05:19Z"
+          message: "ReplicaSet \"kubernetes-ingress-796844dd4c\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 2
+      replicas: 2
+      terminatingReplicas: 0
+      updatedReplicas: 2
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"kubernetes-ingress\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kubernetes-ingress\",\"app.kubernetes.io/version\":\"3.2.9\",\"helm.sh/chart\":\"kubernetes-ingress-1.52.0\"},\"name\":\"kubernetes-ingress\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\",\"endpoints\",\"nodes\",\"pods\",\"services\",\"namespaces\",\"events\",\"serviceaccounts\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"extensions\",\"networking.k8s.io\"],\"resources\":[\"ingresses\",\"ingresses/status\",\"ingressclasses\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"extensions\",\"networking.k8s.io\"],\"resources\":[\"ingresses/status\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"patch\",\"update\"]},{\"apiGroups\":[\"discovery.k8s.io\"],\"resources\":[\"endpointslices\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"core.haproxy.org\"],\"resources\":[\"*\"],\"verbs\":[\"get\",\"list\",\"watch\",\"update\"]},{\"apiGroups\":[\"ingress.v1.haproxy.org\",\"ingress.v1.haproxy.com\",\"ingress.v3.haproxy.org\",\"ingress.v3.haproxy.com\"],\"resources\":[\"*\"],\"verbs\":[\"get\",\"list\",\"watch\",\"update\"]},{\"apiGroups\":[\"apiextensions.k8s.io\"],\"resources\":[\"customresourcedefinitions\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"replicasets\",\"deployments\",\"daemonsets\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T11:04:53Z"
+      labels:
+        app.kubernetes.io/instance: "kubernetes-ingress"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kubernetes-ingress"
+        app.kubernetes.io/version: "3.2.9"
+        helm.sh/chart: "kubernetes-ingress-1.52.0"
+      name: "kubernetes-ingress"
+      resourceVersion: "506"
+      uid: "8afba7aa-5ecb-4854-a2c9-e426e72850f8"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+          - "endpoints"
+          - "nodes"
+          - "pods"
+          - "services"
+          - "namespaces"
+          - "events"
+          - "serviceaccounts"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "extensions"
+          - "networking.k8s.io"
+        resources:
+          - "ingresses"
+          - "ingresses/status"
+          - "ingressclasses"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "extensions"
+          - "networking.k8s.io"
+        resources:
+          - "ingresses/status"
+        verbs:
+          - "update"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "discovery.k8s.io"
+        resources:
+          - "endpointslices"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "core.haproxy.org"
+        resources:
+          - "*"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "update"
+      -
+        apiGroups:
+          - "ingress.v1.haproxy.org"
+          - "ingress.v1.haproxy.com"
+          - "ingress.v3.haproxy.org"
+          - "ingress.v3.haproxy.com"
+        resources:
+          - "*"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "update"
+      -
+        apiGroups:
+          - "apiextensions.k8s.io"
+        resources:
+          - "customresourcedefinitions"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "replicasets"
+          - "deployments"
+          - "daemonsets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"kubernetes-ingress\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kubernetes-ingress\",\"app.kubernetes.io/version\":\"3.2.9\",\"helm.sh/chart\":\"kubernetes-ingress-1.52.0\"},\"name\":\"kubernetes-ingress\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"kubernetes-ingress\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"kubernetes-ingress\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T11:04:53Z"
+      labels:
+        app.kubernetes.io/instance: "kubernetes-ingress"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kubernetes-ingress"
+        app.kubernetes.io/version: "3.2.9"
+        helm.sh/chart: "kubernetes-ingress-1.52.0"
+      name: "kubernetes-ingress"
+      resourceVersion: "507"
+      uid: "bc5bc91c-28ee-4cdc-9fbd-dc26f6d26459"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "kubernetes-ingress"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "kubernetes-ingress"
+        namespace: "default"
+  -
+    apiVersion: "networking.k8s.io/v1"
+    kind: "IngressClass"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"IngressClass\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"kubernetes-ingress\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kubernetes-ingress\",\"app.kubernetes.io/version\":\"3.2.9\",\"helm.sh/chart\":\"kubernetes-ingress-1.52.0\"},\"name\":\"haproxy\"},\"spec\":{\"controller\":\"haproxy.org/ingress-controller/haproxy\"}}\n"
+      creationTimestamp: "2026-06-11T11:04:53Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "kubernetes-ingress"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kubernetes-ingress"
+        app.kubernetes.io/version: "3.2.9"
+        helm.sh/chart: "kubernetes-ingress-1.52.0"
+      name: "haproxy"
+      resourceVersion: "508"
+      uid: "3033c3a7-e278-4141-a46b-b19f6abe80d2"
+    spec:
+      controller: "haproxy.org/ingress-controller/haproxy"
+kind: "List"
+metadata:
+  resourceVersion: ""

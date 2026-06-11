@@ -1,0 +1,321 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"dex\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"dex\",\"app.kubernetes.io/version\":\"2.44.0\",\"helm.sh/chart\":\"dex-0.24.0\"},\"name\":\"dex\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T10:59:42Z"
+      labels:
+        app.kubernetes.io/instance: "dex"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "dex"
+        app.kubernetes.io/version: "2.44.0"
+        helm.sh/chart: "dex-0.24.0"
+      name: "dex"
+      namespace: "default"
+      resourceVersion: "442"
+      uid: "ab239601-9f83-4851-bc0b-7786797dc8b5"
+  -
+    apiVersion: "v1"
+    data:
+      redacted: "live Secret data is not committed"
+    kind: "Secret"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "redacted: live Secret last-applied-configuration is not committed"
+      creationTimestamp: "2026-06-11T10:59:42Z"
+      labels:
+        app.kubernetes.io/instance: "dex"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "dex"
+        app.kubernetes.io/version: "2.44.0"
+        helm.sh/chart: "dex-0.24.0"
+      name: "dex"
+      namespace: "default"
+      resourceVersion: "443"
+      uid: "7a28b339-d790-4396-b489-c0387817c5f3"
+    type: "Opaque"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"dex\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"dex\",\"app.kubernetes.io/version\":\"2.44.0\",\"helm.sh/chart\":\"dex-0.24.0\"},\"name\":\"dex\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"dex.coreos.com\"],\"resources\":[\"*\"],\"verbs\":[\"*\"]}]}\n"
+      creationTimestamp: "2026-06-11T10:59:42Z"
+      labels:
+        app.kubernetes.io/instance: "dex"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "dex"
+        app.kubernetes.io/version: "2.44.0"
+        helm.sh/chart: "dex-0.24.0"
+      name: "dex"
+      namespace: "default"
+      resourceVersion: "444"
+      uid: "302ec9a5-9901-4a6c-b40b-d405b74cf6af"
+    rules:
+      -
+        apiGroups:
+          - "dex.coreos.com"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"dex\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"dex\",\"app.kubernetes.io/version\":\"2.44.0\",\"helm.sh/chart\":\"dex-0.24.0\"},\"name\":\"dex\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"dex\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"dex\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T10:59:42Z"
+      labels:
+        app.kubernetes.io/instance: "dex"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "dex"
+        app.kubernetes.io/version: "2.44.0"
+        helm.sh/chart: "dex-0.24.0"
+      name: "dex"
+      namespace: "default"
+      resourceVersion: "445"
+      uid: "7260e77d-2d72-4f6c-b3b9-9529ed4636bb"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "dex"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "dex"
+        namespace: "default"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"dex\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"dex\",\"app.kubernetes.io/version\":\"2.44.0\",\"helm.sh/chart\":\"dex-0.24.0\"},\"name\":\"dex\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"appProtocol\":\"http\",\"name\":\"http\",\"port\":5556,\"protocol\":\"TCP\",\"targetPort\":\"http\"},{\"appProtocol\":\"http\",\"name\":\"telemetry\",\"port\":5558,\"protocol\":\"TCP\",\"targetPort\":\"telemetry\"}],\"selector\":{\"app.kubernetes.io/instance\":\"dex\",\"app.kubernetes.io/name\":\"dex\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T10:59:42Z"
+      labels:
+        app.kubernetes.io/instance: "dex"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "dex"
+        app.kubernetes.io/version: "2.44.0"
+        helm.sh/chart: "dex-0.24.0"
+      name: "dex"
+      namespace: "default"
+      resourceVersion: "447"
+      uid: "75dc1c83-1ecf-4994-88e9-ae8dc72981e7"
+    spec:
+      clusterIP: "10.96.147.6"
+      clusterIPs:
+        - "10.96.147.6"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          appProtocol: "http"
+          name: "http"
+          port: 5556
+          protocol: "TCP"
+          targetPort: "http"
+        -
+          appProtocol: "http"
+          name: "telemetry"
+          port: 5558
+          protocol: "TCP"
+          targetPort: "telemetry"
+      selector:
+        app.kubernetes.io/instance: "dex"
+        app.kubernetes.io/name: "dex"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"dex\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"dex\",\"app.kubernetes.io/version\":\"2.44.0\",\"helm.sh/chart\":\"dex-0.24.0\"},\"name\":\"dex\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"dex\",\"app.kubernetes.io/name\":\"dex\"}},\"template\":{\"metadata\":{\"annotations\":{\"checksum/config\":\"3ef3e2f13ba337b9bed36692407b0430de9700da27c206e17a78f35e411f3ff2\"},\"labels\":{\"app.kubernetes.io/instance\":\"dex\",\"app.kubernetes.io/name\":\"dex\"}},\"spec\":{\"containers\":[{\"args\":[\"dex\",\"serve\",\"--web-http-addr\",\"0.0.0.0:5556\",\"--telemetry-addr\",\"0.0.0.0:5558\",\"/etc/dex/config.yaml\"],\"env\":null,\"image\":\"ghcr.io/dexidp/dex:v2.44.0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"httpGet\":{\"path\":\"/healthz/live\",\"port\":\"telemetry\"}},\"name\":\"dex\",\"ports\":[{\"containerPort\":5556,\"name\":\"http\",\"protocol\":\"TCP\"},{\"containerPort\":5558,\"name\":\"telemetry\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/healthz/ready\",\"port\":\"telemetry\"}},\"resources\":{},\"securityContext\":{},\"volumeMounts\":[{\"mountPath\":\"/etc/dex\",\"name\":\"config\",\"readOnly\":true}]}],\"securityContext\":{},\"serviceAccountName\":\"dex\",\"volumes\":[{\"name\":\"config\",\"secret\":{\"secretName\":\"dex\"}}]}}}}\n"
+      creationTimestamp: "2026-06-11T10:59:42Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "dex"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "dex"
+        app.kubernetes.io/version: "2.44.0"
+        helm.sh/chart: "dex-0.24.0"
+      name: "dex"
+      namespace: "default"
+      resourceVersion: "461"
+      uid: "a996af6e-03f1-4bd3-af19-e1459f122262"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "dex"
+          app.kubernetes.io/name: "dex"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          annotations:
+            checksum/config: "3ef3e2f13ba337b9bed36692407b0430de9700da27c206e17a78f35e411f3ff2"
+          labels:
+            app.kubernetes.io/instance: "dex"
+            app.kubernetes.io/name: "dex"
+        spec:
+          containers:
+            -
+              args:
+                - "dex"
+                - "serve"
+                - "--web-http-addr"
+                - "0.0.0.0:5556"
+                - "--telemetry-addr"
+                - "0.0.0.0:5558"
+                - "/etc/dex/config.yaml"
+              image: "ghcr.io/dexidp/dex:v2.44.0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz/live"
+                  port: "telemetry"
+                  scheme: "HTTP"
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              name: "dex"
+              ports:
+                -
+                  containerPort: 5556
+                  name: "http"
+                  protocol: "TCP"
+                -
+                  containerPort: 5558
+                  name: "telemetry"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz/ready"
+                  port: "telemetry"
+                  scheme: "HTTP"
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                {}
+              securityContext:
+                {}
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/etc/dex"
+                  name: "config"
+                  readOnly: true
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "dex"
+          serviceAccountName: "dex"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              name: "config"
+              secret:
+                defaultMode: 420
+                secretName: "dex"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T10:59:42Z"
+          lastUpdateTime: "2026-06-11T10:59:42Z"
+          message: "Deployment does not have minimum availability."
+          reason: "MinimumReplicasUnavailable"
+          status: "False"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T10:59:42Z"
+          lastUpdateTime: "2026-06-11T10:59:42Z"
+          message: "ReplicaSet \"dex-854b786b7\" is progressing."
+          reason: "ReplicaSetUpdated"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      replicas: 1
+      terminatingReplicas: 0
+      unavailableReplicas: 1
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"dex\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"dex\",\"app.kubernetes.io/version\":\"2.44.0\",\"helm.sh/chart\":\"dex-0.24.0\"},\"name\":\"dex\"},\"rules\":[{\"apiGroups\":[\"apiextensions.k8s.io\"],\"resources\":[\"customresourcedefinitions\"],\"verbs\":[\"list\",\"create\"]}]}\n"
+      creationTimestamp: "2026-06-11T10:59:42Z"
+      labels:
+        app.kubernetes.io/instance: "dex"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "dex"
+        app.kubernetes.io/version: "2.44.0"
+        helm.sh/chart: "dex-0.24.0"
+      name: "dex"
+      resourceVersion: "463"
+      uid: "4366a221-0694-4e97-8db2-8020f4a26b30"
+    rules:
+      -
+        apiGroups:
+          - "apiextensions.k8s.io"
+        resources:
+          - "customresourcedefinitions"
+        verbs:
+          - "list"
+          - "create"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"dex\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"dex\",\"app.kubernetes.io/version\":\"2.44.0\",\"helm.sh/chart\":\"dex-0.24.0\"},\"name\":\"dex-cluster\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"dex\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"dex\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T10:59:42Z"
+      labels:
+        app.kubernetes.io/instance: "dex"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "dex"
+        app.kubernetes.io/version: "2.44.0"
+        helm.sh/chart: "dex-0.24.0"
+      name: "dex-cluster"
+      resourceVersion: "464"
+      uid: "554075c8-fc64-4fd6-b68f-3b3bef8a3363"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "dex"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "dex"
+        namespace: "default"
+kind: "List"
+metadata:
+  resourceVersion: ""

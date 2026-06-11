@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-phpmyadmin-20.0.0-default-local-kind"
+spec:
+  variantRevision: "recipes/bitnami/phpmyadmin/20.0.0/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "41d8e5dabf8548c2965f32db8fdb6870f07b3e3fd967d641d8dc952f7569eb0a"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T10:56:16.722Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "existing"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "581fcfdd4fcc0b6c6fc6a13cfffd3ab523678e1821cb48978a2cc96c1ad2ccb3"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "5 object(s) from recipes/bitnami/phpmyadmin/20.0.0/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|default|phpmyadmin"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): node-collector-66b46f8d9-qnkc6[Completed ready=false restarts=0;] phpmyadmin-f67d9cfd6-8hv8z[PodInitializing ready=false restarts=0;] scan-vulnerabilityreport-56d95ff87d-dtcxq[Completed ready=false restarts=0;] scan-vulnerabilityreport-578fc5b667-fl7j6[Completed ready=false restarts=0;] scan-vulnera"
+  blockedReasons:
+    - "deployment/phpmyadmin: prerequisite-blocked (stuck creating: missing mount/secret/config) (node-collector-66b46f8d9-qnkc6[Completed ready=false restarts=0;] phpmyadmin-f67d9cfd6-8hv8z[PodInitializing ready=false restarts=0;] scan-vulnerabilityreport-5)"

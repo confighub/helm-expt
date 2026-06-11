@@ -1,0 +1,383 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "networking.k8s.io/v1"
+    kind: "NetworkPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"phpmyadmin\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"phpmyadmin\",\"app.kubernetes.io/version\":\"5.2.2\",\"helm.sh/chart\":\"phpmyadmin-20.0.0\"},\"name\":\"phpmyadmin\",\"namespace\":\"default\"},\"spec\":{\"egress\":[{}],\"ingress\":[{\"ports\":[{\"port\":8080},{\"port\":8443}]}],\"podSelector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"phpmyadmin\",\"app.kubernetes.io/name\":\"phpmyadmin\"}},\"policyTypes\":[\"Ingress\",\"Egress\"]}}\n"
+      creationTimestamp: "2026-06-11T10:52:16Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "phpmyadmin"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "phpmyadmin"
+        app.kubernetes.io/version: "5.2.2"
+        helm.sh/chart: "phpmyadmin-20.0.0"
+      name: "phpmyadmin"
+      namespace: "default"
+      resourceVersion: "15772"
+      uid: "043bf0db-cb09-47a7-8fb6-7f564c94cf79"
+    spec:
+      egress:
+        -
+          {}
+      ingress:
+        -
+          ports:
+            -
+              port: 8080
+              protocol: "TCP"
+            -
+              port: 8443
+              protocol: "TCP"
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/instance: "phpmyadmin"
+          app.kubernetes.io/name: "phpmyadmin"
+      policyTypes:
+        - "Ingress"
+        - "Egress"
+  -
+    apiVersion: "policy/v1"
+    kind: "PodDisruptionBudget"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"policy/v1\",\"kind\":\"PodDisruptionBudget\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"phpmyadmin\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"phpmyadmin\",\"app.kubernetes.io/version\":\"5.2.2\",\"helm.sh/chart\":\"phpmyadmin-20.0.0\"},\"name\":\"phpmyadmin\",\"namespace\":\"default\"},\"spec\":{\"maxUnavailable\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"phpmyadmin\",\"app.kubernetes.io/name\":\"phpmyadmin\"}}}}\n"
+      creationTimestamp: "2026-06-11T10:52:16Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "phpmyadmin"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "phpmyadmin"
+        app.kubernetes.io/version: "5.2.2"
+        helm.sh/chart: "phpmyadmin-20.0.0"
+      name: "phpmyadmin"
+      namespace: "default"
+      resourceVersion: "15789"
+      uid: "758a3a91-63a6-4b10-8445-b05bbdaef1a3"
+    spec:
+      maxUnavailable: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "phpmyadmin"
+          app.kubernetes.io/name: "phpmyadmin"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T10:52:16Z"
+          message: ""
+          observedGeneration: 1
+          reason: "InsufficientPods"
+          status: "False"
+          type: "DisruptionAllowed"
+      currentHealthy: 0
+      desiredHealthy: 0
+      disruptionsAllowed: 0
+      expectedPods: 1
+      observedGeneration: 1
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: false
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":false,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"phpmyadmin\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"phpmyadmin\",\"app.kubernetes.io/version\":\"5.2.2\",\"helm.sh/chart\":\"phpmyadmin-20.0.0\"},\"name\":\"phpmyadmin\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T10:52:16Z"
+      labels:
+        app.kubernetes.io/instance: "phpmyadmin"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "phpmyadmin"
+        app.kubernetes.io/version: "5.2.2"
+        helm.sh/chart: "phpmyadmin-20.0.0"
+      name: "phpmyadmin"
+      namespace: "default"
+      resourceVersion: "15776"
+      uid: "d404ac0c-e701-4847-9e25-5e497e95ca8f"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"phpmyadmin\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"phpmyadmin\",\"app.kubernetes.io/version\":\"5.2.2\",\"helm.sh/chart\":\"phpmyadmin-20.0.0\"},\"name\":\"phpmyadmin\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"nodePort\":null,\"port\":80,\"protocol\":\"TCP\",\"targetPort\":8080},{\"name\":\"https\",\"nodePort\":null,\"port\":443,\"protocol\":\"TCP\",\"targetPort\":8443}],\"selector\":{\"app.kubernetes.io/instance\":\"phpmyadmin\",\"app.kubernetes.io/name\":\"phpmyadmin\"},\"sessionAffinity\":\"None\",\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T10:52:16Z"
+      labels:
+        app.kubernetes.io/instance: "phpmyadmin"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "phpmyadmin"
+        app.kubernetes.io/version: "5.2.2"
+        helm.sh/chart: "phpmyadmin-20.0.0"
+      name: "phpmyadmin"
+      namespace: "default"
+      resourceVersion: "15779"
+      uid: "e1840a0e-6f33-408a-b060-d64e4f38c29e"
+    spec:
+      clusterIP: "10.96.167.224"
+      clusterIPs:
+        - "10.96.167.224"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http"
+          port: 80
+          protocol: "TCP"
+          targetPort: 8080
+        -
+          name: "https"
+          port: 443
+          protocol: "TCP"
+          targetPort: 8443
+      selector:
+        app.kubernetes.io/instance: "phpmyadmin"
+        app.kubernetes.io/name: "phpmyadmin"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"phpmyadmin\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"phpmyadmin\",\"app.kubernetes.io/version\":\"5.2.2\",\"helm.sh/chart\":\"phpmyadmin-20.0.0\"},\"name\":\"phpmyadmin\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"phpmyadmin\",\"app.kubernetes.io/name\":\"phpmyadmin\"}},\"strategy\":{\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/instance\":\"phpmyadmin\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"phpmyadmin\",\"app.kubernetes.io/version\":\"5.2.2\",\"helm.sh/chart\":\"phpmyadmin-20.0.0\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":null,\"podAffinity\":null,\"podAntiAffinity\":{\"preferredDuringSchedulingIgnoredDuringExecution\":[{\"podAffinityTerm\":{\"labelSelector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"phpmyadmin\",\"app.kubernetes.io/name\":\"phpmyadmin\"}},\"topologyKey\":\"kubernetes.io/hostname\"},\"weight\":1}]}},\"automountServiceAccountToken\":false,\"containers\":[{\"env\":[{\"name\":\"BITNAMI_DEBUG\",\"value\":\"false\"},{\"name\":\"DATABASE_PORT_NUMBER\",\"value\":\"3306\"},{\"name\":\"DATABASE_HOST\",\"value\":\"\"},{\"name\":\"PHPMYADMIN_ALLOW_NO_PASSWORD\",\"value\":\"true\"},{\"name\":\"PHPMYADMIN_ALLOW_ARBITRARY_SERVER\",\"value\":\"true\"},{\"name\":\"DATABASE_ENABLE_SSL\",\"value\":\"no\"}],\"image\":\"docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":6,\"initialDelaySeconds\":30,\"periodSeconds\":10,\"successThreshold\":1,\"tcpSocket\":{\"port\":\"http\"},\"timeoutSeconds\":30},\"name\":\"phpmyadmin\",\"ports\":[{\"containerPort\":8080,\"name\":\"http\",\"protocol\":\"TCP\"},{\"containerPort\":8443,\"name\":\"https\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":6,\"httpGet\":{\"path\":\"/\",\"port\":\"http\"},\"initialDelaySeconds\":30,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":30},\"resources\":{\"limits\":{\"cpu\":\"375m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"384Mi\"},\"requests\":{\"cpu\":\"250m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"256Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/opt/bitnami/apache/conf\",\"name\":\"empty-dir\",\"subPath\":\"apache-conf-dir\"},{\"mountPath\":\"/opt/bitnami/apache/logs\",\"name\":\"empty-dir\",\"subPath\":\"apache-logs-dir\"},{\"mountPath\":\"/opt/bitnami/apache/var/run\",\"name\":\"empty-dir\",\"subPath\":\"apache-tmp-dir\"},{\"mountPath\":\"/opt/bitnami/php/etc\",\"name\":\"empty-dir\",\"subPath\":\"php-conf-dir\"},{\"mountPath\":\"/opt/bitnami/php/tmp\",\"name\":\"empty-dir\",\"subPath\":\"php-tmp-dir\"},{\"mountPath\":\"/opt/bitnami/php/var\",\"name\":\"empty-dir\",\"subPath\":\"php-var-dir\"},{\"mountPath\":\"/tmp\",\"name\":\"empty-dir\",\"subPath\":\"tmp-dir\"},{\"mountPath\":\"/opt/bitnami/phpmyadmin\",\"name\":\"empty-dir\",\"subPath\":\"app-base-dir\"}]}],\"hostAliases\":[{\"hostnames\":[\"status.localhost\"],\"ip\":\"127.0.0.1\"}],\"initContainers\":[{\"args\":[\"-ec\",\"#!/bin/bash\\n\\n. /opt/bitnami/scripts/liblog.sh\\n. /opt/bitnami/scripts/libfs.sh\\n\\ninfo \\\"Copying base dir to empty dir\\\"\\n# In order to not break the application functionality (such as upgrades or plugins) we need\\n# to make the base directory writable, so we need to copy it to an empty dir volume\\ncp -r --preserve=mode /opt/bitnami/phpmyadmin /emptydir/app-base-dir\\n\\ninfo \\\"Copying symlinks to stdout/stderr\\\"\\n# We copy the logs folder because it has symlinks to stdout and stderr\\nif ! is_dir_empty /opt/bitnami/apache/logs; then\\n  cp -r /opt/bitnami/apache/logs /emptydir/apache-logs-dir\\nfi\\ninfo \\\"Copying php var directory\\\"\\n# PhpMyAdmin will fail to start if the php var folder is not populated\\nif ! is_dir_empty /opt/bitnami/php/var; then\\n  cp -r /opt/bitnami/php/var /emptydir/php-var-dir\\nfi\\ninfo \\\"Copy operation completed\\\"\\n\"],\"command\":[\"/bin/bash\"],\"image\":\"docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"prepare-base-dir\",\"resources\":{\"limits\":{\"cpu\":\"375m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"384Mi\"},\"requests\":{\"cpu\":\"250m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"256Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/emptydir\",\"name\":\"empty-dir\"}]}],\"priorityClassName\":\"\",\"securityContext\":{\"fsGroup\":1001,\"fsGroupChangePolicy\":\"Always\",\"supplementalGroups\":[],\"sysctls\":[]},\"serviceAccountName\":\"phpmyadmin\",\"volumes\":[{\"emptyDir\":{},\"name\":\"empty-dir\"}]}}}}\n"
+      creationTimestamp: "2026-06-11T10:52:16Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "phpmyadmin"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "phpmyadmin"
+        app.kubernetes.io/version: "5.2.2"
+        helm.sh/chart: "phpmyadmin-20.0.0"
+      name: "phpmyadmin"
+      namespace: "default"
+      resourceVersion: "15796"
+      uid: "dc4fc3ac-a6a9-4198-be1a-c83121a96897"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "phpmyadmin"
+          app.kubernetes.io/name: "phpmyadmin"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/instance: "phpmyadmin"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "phpmyadmin"
+            app.kubernetes.io/version: "5.2.2"
+            helm.sh/chart: "phpmyadmin-20.0.0"
+        spec:
+          affinity:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                -
+                  podAffinityTerm:
+                    labelSelector:
+                      matchLabels:
+                        app.kubernetes.io/instance: "phpmyadmin"
+                        app.kubernetes.io/name: "phpmyadmin"
+                    topologyKey: "kubernetes.io/hostname"
+                  weight: 1
+          automountServiceAccountToken: false
+          containers:
+            -
+              env:
+                -
+                  name: "BITNAMI_DEBUG"
+                  value: "false"
+                -
+                  name: "DATABASE_PORT_NUMBER"
+                  value: "3306"
+                -
+                  name: "DATABASE_HOST"
+                -
+                  name: "PHPMYADMIN_ALLOW_NO_PASSWORD"
+                  value: "true"
+                -
+                  name: "PHPMYADMIN_ALLOW_ARBITRARY_SERVER"
+                  value: "true"
+                -
+                  name: "DATABASE_ENABLE_SSL"
+                  value: "no"
+              image: "docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 6
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                tcpSocket:
+                  port: "http"
+                timeoutSeconds: 30
+              name: "phpmyadmin"
+              ports:
+                -
+                  containerPort: 8080
+                  name: "http"
+                  protocol: "TCP"
+                -
+                  containerPort: 8443
+                  name: "https"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 6
+                httpGet:
+                  path: "/"
+                  port: "http"
+                  scheme: "HTTP"
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 30
+              resources:
+                limits:
+                  cpu: "375m"
+                  ephemeral-storage: "2Gi"
+                  memory: "384Mi"
+                requests:
+                  cpu: "250m"
+                  ephemeral-storage: "50Mi"
+                  memory: "256Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/opt/bitnami/apache/conf"
+                  name: "empty-dir"
+                  subPath: "apache-conf-dir"
+                -
+                  mountPath: "/opt/bitnami/apache/logs"
+                  name: "empty-dir"
+                  subPath: "apache-logs-dir"
+                -
+                  mountPath: "/opt/bitnami/apache/var/run"
+                  name: "empty-dir"
+                  subPath: "apache-tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/php/etc"
+                  name: "empty-dir"
+                  subPath: "php-conf-dir"
+                -
+                  mountPath: "/opt/bitnami/php/tmp"
+                  name: "empty-dir"
+                  subPath: "php-tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/php/var"
+                  name: "empty-dir"
+                  subPath: "php-var-dir"
+                -
+                  mountPath: "/tmp"
+                  name: "empty-dir"
+                  subPath: "tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/phpmyadmin"
+                  name: "empty-dir"
+                  subPath: "app-base-dir"
+          dnsPolicy: "ClusterFirst"
+          hostAliases:
+            -
+              hostnames:
+                - "status.localhost"
+              ip: "127.0.0.1"
+          initContainers:
+            -
+              args:
+                - "-ec"
+                - "#!/bin/bash\n\n. /opt/bitnami/scripts/liblog.sh\n. /opt/bitnami/scripts/libfs.sh\n\ninfo \"Copying base dir to empty dir\"\n# In order to not break the application functionality (such as upgrades or plugins) we need\n# to make the base directory writable, so we need to copy it to an empty dir volume\ncp -r --preserve=mode /opt/bitnami/phpmyadmin /emptydir/app-base-dir\n\ninfo \"Copying symlinks to stdout/stderr\"\n# We copy the logs folder because it has symlinks to stdout and stderr\nif ! is_dir_empty /opt/bitnami/apache/logs; then\n  cp -r /opt/bitnami/apache/logs /emptydir/apache-logs-dir\nfi\ninfo \"Copying php var directory\"\n# PhpMyAdmin will fail to start if the php var folder is not populated\nif ! is_dir_empty /opt/bitnami/php/var; then\n  cp -r /opt/bitnami/php/var /emptydir/php-var-dir\nfi\ninfo \"Copy operation completed\"\n"
+              command:
+                - "/bin/bash"
+              image: "docker.io/bitnami/phpmyadmin:5.2.2-debian-12-r22"
+              imagePullPolicy: "IfNotPresent"
+              name: "prepare-base-dir"
+              resources:
+                limits:
+                  cpu: "375m"
+                  ephemeral-storage: "2Gi"
+                  memory: "384Mi"
+                requests:
+                  cpu: "250m"
+                  ephemeral-storage: "50Mi"
+                  memory: "256Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/emptydir"
+                  name: "empty-dir"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 1001
+            fsGroupChangePolicy: "Always"
+          serviceAccount: "phpmyadmin"
+          serviceAccountName: "phpmyadmin"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              emptyDir:
+                {}
+              name: "empty-dir"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T10:52:16Z"
+          lastUpdateTime: "2026-06-11T10:52:16Z"
+          message: "Deployment does not have minimum availability."
+          reason: "MinimumReplicasUnavailable"
+          status: "False"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T10:52:16Z"
+          lastUpdateTime: "2026-06-11T10:52:16Z"
+          message: "ReplicaSet \"phpmyadmin-f67d9cfd6\" is progressing."
+          reason: "ReplicaSetUpdated"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      replicas: 1
+      terminatingReplicas: 0
+      unavailableReplicas: 1
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""

@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-apache-11.4.29-default-local-kind"
+spec:
+  variantRevision: "recipes/bitnami/apache/11.4.29/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "0b37f6d8ae27b5b341860619b89aa3d78e02d7bd01a2271fab216d4e65be047c"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T10:51:57.834Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "existing"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "f312735df2866325e4d38f61a5c1e339bd18770ecbe0f4ff5aaa7362d2465e3b"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "5 object(s) from recipes/bitnami/apache/11.4.29/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|default|apache"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): apache-5fdf47cb6-f4p8z[PodInitializing ready=false restarts=0;] node-collector-66b46f8d9-qnkc6[Completed ready=false restarts=0;] scan-vulnerabilityreport-56d95ff87d-dtcxq[Completed ready=false restarts=0;] scan-vulnerabilityreport-578fc5b667-fl7j6[Completed ready=false restarts=0;] scan-vulnerabili"
+  blockedReasons:
+    - "deployment/apache: prerequisite-blocked (stuck creating: missing mount/secret/config) (apache-5fdf47cb6-f4p8z[PodInitializing ready=false restarts=0;] node-collector-66b46f8d9-qnkc6[Completed ready=false restarts=0;] scan-vulnerabilityreport-56d95)"
