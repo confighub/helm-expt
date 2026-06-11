@@ -1,0 +1,77 @@
+# Top-100 APIService Coverage
+
+This generated report joins the source-scan APIService signal to maintained
+recipe/package rows and committed runtime evidence.
+
+APIService objects need a stricter runtime contract than ordinary rendered
+objects. The desired object can match while Kubernetes API aggregation, CA
+trust, or backing service readiness still fails. This report therefore keeps
+four facts separate:
+
+~~~text
+rendered APIService object observed
+backing workload observed
+Helm-vs-ConfigHub live parity observed
+aggregated API availability observed
+~~~
+
+## Current Reading
+
+~~~text
+source top-100 APIService rows:          5
+catalog-supported APIService rows:       1
+rows with object/workload observation:   1
+rows with two-cluster parity only:       1
+rows still source-detected only:         3
+aggregated API availability receipts:    0
+~~~
+
+No row currently claims aggregated API availability. That is intentional. Add a
+receipt that proves an `Available=True` APIService condition or a successful
+query against the aggregated API before changing that claim.
+
+## Coverage Status
+
+| Status | Rows |
+| --- | ---: |
+| `object-and-workload-observed` | 1 |
+| `source-detected-needs-recipe` | 3 |
+| `two-cluster-parity-only` | 1 |
+
+## Source Top-100 Rows
+
+| Rank | Chart | Source version | Status | Object observed | Workload observed | Live parity | Aggregation observed | Next action |
+| ---: | --- | --- | --- | --- | --- | --- | --- | --- |
+| 9 | `k8s-dashboard/kubernetes-dashboard` | 7.14.0 | `source-detected-needs-recipe` | no | no | no | no | create recipe/import candidate, then model APIService readiness and aggregation observation before catalog claims |
+| 11 | `metrics-server/metrics-server` | 3.13.0 | `object-and-workload-observed` | yes | yes | yes | no | add API aggregation availability receipt for v1beta1.metrics.k8s.io, then remove the catalog-visible APIService hard gap if the receipt passes |
+| 43 | `datadog/datadog` | 3.214.0 | `source-detected-needs-recipe` | no | no | no | no | create recipe/import candidate, then model APIService readiness and aggregation observation before catalog claims |
+| 53 | `kedacore/keda` | 2.19.0 | `two-cluster-parity-only` | no | no | no | no | add local/APIService observation and aggregated API availability receipt before catalog promotion or stronger runtime claims |
+| 71 | `bitnami/metrics-server` | 7.4.12 | `source-detected-needs-recipe` | no | no | no | no | create recipe/import candidate, then model APIService readiness and aggregation observation before catalog claims |
+
+## How To Use This
+
+- `object-and-workload-observed` means the APIService object and backing
+  workload were observed in committed receipts. It is still not an aggregated
+  API availability claim.
+- `two-cluster-parity-only` means regular Helm and `cub installer` reached
+  live semantic parity, but there is no dedicated APIService observation.
+- `modeled-needs-runtime-observation` means recipe proof exists, but runtime
+  APIService evidence is missing.
+- `source-detected-needs-recipe` means the source scan found an APIService,
+  but the chart is not yet a maintained recipe/package row.
+
+## Files
+
+| File | Purpose |
+| --- | --- |
+| `top100-apiservice-coverage.csv` | One row per source top-100 chart that renders APIService objects. |
+| `data/quirk-work-queue/top100-queue.csv` | Source quirk queue that currently carries the APIService hard gap. |
+| `runs/top20-local-kind/metrics-server-default/observation-receipt.json` | Metrics Server object/workload observation evidence. |
+| `runs/live-kind-parity/*/receipt.yaml` | Two-cluster Helm-vs-`cub installer` parity evidence. |
+
+Regenerate:
+
+~~~sh
+npm run apiservice:coverage
+npm run apiservice:coverage:verify
+~~~

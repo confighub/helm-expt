@@ -66,6 +66,7 @@ function buildReport() {
   const hookCandidateRows = readCsv("data/hook-route-candidates/candidates.csv");
   const hookCandidateWorkOrderRows = readCsv("data/hook-route-candidates/work-orders.csv");
   const hookCoverageRows = readCsv("data/hook-coverage/top100-hook-coverage.csv");
+  const apiServiceCoverageRows = readCsv("data/apiservice-coverage/top100-apiservice-coverage.csv");
   const lifecycleBoundaryRows = readCsv("data/lifecycle-boundary/lifecycle-boundary.csv");
   const lifecycleObservationRows = readCsv("data/lifecycle-observations/cert-manager-eso/summary.csv");
   const edgeRows = readCsv("data/edge-recovery/edges.csv");
@@ -172,11 +173,15 @@ function buildReport() {
 
   const hookQueueRows = lifecycleBoundaryRows.filter((row) => row.lane === "helm-hook-lifecycle-queue");
   const uncoveredHookCoverageRows = hookCoverageRows.filter((row) => row.coverage_status === "uncovered-source-hook");
+  const sourceHookCandidateCoverageRows = hookCoverageRows.filter((row) => row.coverage_status === "candidate-route-plan");
+  const sourceHookCharts = new Set(hookCoverageRows.map((row) => row.chart));
+  const extraHookCandidateRows = hookCandidateRows.filter((row) => !sourceHookCharts.has(row.chart));
   rows.push(metric("hooks", "top100 source-scan hook charts", sourceTop100HookRows.length, 100, "partial", "data/hook-lifecycle/source-top100-hooks.csv", "Public top-100 source scan rows where the retained source scan found Helm hooks."));
   rows.push(metric("hooks", "top100 source hook rows still uncovered", uncoveredHookCoverageRows.length, sourceTop100HookRows.length, uncoveredHookCoverageRows.length === 0 ? "good" : "gap", "data/hook-coverage/top100-hook-coverage.csv", "Source top-100 hook rows with no maintained lifecycle row and no candidate route plan."));
   rows.push(metric("hooks", "maintained hook queue rows", hookRows.length, sourceTop100HookRows.length, "partial", "data/hook-lifecycle/maintained-hook-queue.csv", "Hook-bearing maintained recipe/package rows with required lifecycle receipt paths; this is not the full top-100 hook inventory."));
   rows.push(metric("hooks", "source-reviewed hook rows not yet maintained", hookReviewRows.filter((row) => row.in_maintained_queue === "no").length, sourceTop100HookRows.length, "gap", "data/hook-lifecycle-review/top100-source-hook-route-review.csv", "Source-scan hook or hook-like rows with a reviewed route candidate but no maintained lifecycle receipt yet."));
-  rows.push(metric("hooks", "source-reviewed hook rows with candidate route plans", hookCandidateRows.length, hookReviewRows.filter((row) => row.in_maintained_queue === "no").length, "partial", "data/hook-route-candidates/candidates.csv", "Candidate route plans for source-reviewed hook or hook-like rows. These are not maintained receipts or runtime observations."));
+  rows.push(metric("hooks", "source hook rows with candidate route plans", sourceHookCandidateCoverageRows.length, sourceTop100HookRows.length, "partial", "data/hook-coverage/top100-hook-coverage.csv", "Source top-100 hook rows covered by candidate route plans. These are not maintained receipts or runtime observations."));
+  rows.push(metric("hooks", "hook-like candidate rows outside source inventory", extraHookCandidateRows.length, hookCandidateRows.length, "partial", "data/hook-route-candidates/candidates.csv", "Candidate rows that are useful lifecycle work but are not counted as source top-100 hook coverage."));
   rows.push(metric("hooks", "hook candidate route work orders", hookCandidateWorkOrderRows.length, hookCandidateWorkOrderRows.length, "partial", "data/hook-route-candidates/work-orders.csv", "Assignable work orders for turning candidate routes into maintained route receipts, runtime observations, or explicit blockers."));
   rows.push(metric("hooks", "hook route receipts present", hookRows.filter((row) => ["route-selected", "install-lifecycle-observed-upgrade-pending", "lifecycle-observed", "blocked"].includes(row.lifecycle_disposition)).length, hookRows.length, "partial", "data/hook-lifecycle/maintained-hook-queue.csv", "Maintained hook queue rows with a recorded lifecycle route, observation, or blocker."));
   rows.push(metric("hooks", "hook lifecycle observations present", hookRows.filter((row) => row.lifecycle_disposition === "lifecycle-observed").length, hookRows.length, "gap", "data/hook-lifecycle/maintained-hook-queue.csv", "Maintained hook queue rows with runtime lifecycle observation or execution receipts."));
@@ -185,6 +190,10 @@ function buildReport() {
   rows.push(metric("hooks", "hook queue rows still needing route receipts", hookQueueRows.filter((row) => row.status === "route-and-receipt-needed").length, hookQueueRows.length, "good", "data/lifecycle-boundary/lifecycle-boundary.csv", "Hook-bearing rows whose behavior is inventoried but has no selected route."));
   rows.push(metric("hooks", "hook routes still needing execution or observation", hookQueueRows.filter((row) => ["route-selected", "install-lifecycle-observed-upgrade-pending"].includes(row.status)).length, hookQueueRows.length, "gap", "data/lifecycle-boundary/lifecycle-boundary.csv", "Hook-bearing rows with a selected route and at least one missing runtime observation or execution receipt."));
   rows.push(metric("hooks", "related lifecycle observation receipts passing", passCount(lifecycleObservationRows, "result"), lifecycleObservationRows.length, "good", "data/lifecycle-observations/cert-manager-eso/summary.csv", "Cert-manager and External Secrets receipts for CRD/webhook/controller behavior that rendered YAML alone cannot prove."));
+  rows.push(metric("apiservice", "top100 source APIService charts", apiServiceCoverageRows.length, 100, "partial", "data/apiservice-coverage/top100-apiservice-coverage.csv", "Public top-100 source scan rows where the retained scan found APIService objects."));
+  rows.push(metric("apiservice", "APIService rows with object/workload observation", apiServiceCoverageRows.filter((row) => row.coverage_status === "object-and-workload-observed").length, apiServiceCoverageRows.length, "partial", "data/apiservice-coverage/top100-apiservice-coverage.csv", "Rows where committed receipts observe the rendered APIService object and backing workload. This is not an aggregated API availability claim."));
+  rows.push(metric("apiservice", "APIService rows with aggregation availability receipts", apiServiceCoverageRows.filter((row) => row.api_aggregation_observed === "yes").length, apiServiceCoverageRows.length, "gap", "data/apiservice-coverage/top100-apiservice-coverage.csv", "Rows with a dedicated Available=True or aggregated API query receipt."));
+  rows.push(metric("apiservice", "APIService rows still source-detected only", apiServiceCoverageRows.filter((row) => row.coverage_status === "source-detected-needs-recipe").length, apiServiceCoverageRows.length, "gap", "data/apiservice-coverage/top100-apiservice-coverage.csv", "Rows where APIService is visible in the source scan but no maintained recipe/package row exists yet."));
 
   const chartByName = new Map(chartRows.map((row) => [row.chart, row]));
   const top20Rows = top20StatusRows(top100Rows, chartByName, top20BaseReadinessRows, productionSupportDecisionRows);
@@ -576,7 +585,8 @@ lifecycle observation.
 | How much of the retained top500 source scan maps to current proof? | [top500-catalog-analysis/review.csv](../top500-catalog-analysis/review.csv) |
 | Which base variants have which proof lanes? | [outcome-coverage/base-outcomes.csv](../outcome-coverage/base-outcomes.csv) |
 | Which top-20 base variant should I start with? | [top20-base-readiness/summary.md](../top20-base-readiness/summary.md) |
-| Which hooks, CRDs, generated facts, or target facts matter? | [outcome-coverage/feature-outcomes.csv](../outcome-coverage/feature-outcomes.csv) |
+| Which hooks, APIService, CRDs, generated facts, or target facts matter? | [outcome-coverage/feature-outcomes.csv](../outcome-coverage/feature-outcomes.csv) |
+| Which APIService charts have object, workload, parity, or aggregation evidence? | [apiservice-coverage/summary.md](../apiservice-coverage/summary.md) |
 | Which charts have NGINX-like extension slots? | [extension-slots/summary.md](../extension-slots/summary.md) |
 | Which Helm quirk axes are still blind spots? | [quirk-coverage/coverage.csv](../quirk-coverage/coverage.csv) |
 | Which source-scan quirk gaps should move first? | [quirk-work-queue/summary.md](../quirk-work-queue/summary.md) |

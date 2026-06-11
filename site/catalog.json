@@ -829,12 +829,21 @@
     },
     {
       "section": "hooks",
-      "metric": "source-reviewed hook rows with candidate route plans",
-      "value": "9",
-      "total": "8",
+      "metric": "source hook rows with candidate route plans",
+      "value": "8",
+      "total": "11",
+      "status": "partial",
+      "source": "data/hook-coverage/top100-hook-coverage.csv",
+      "note": "Source top-100 hook rows covered by candidate route plans. These are not maintained receipts or runtime observations."
+    },
+    {
+      "section": "hooks",
+      "metric": "hook-like candidate rows outside source inventory",
+      "value": "1",
+      "total": "9",
       "status": "partial",
       "source": "data/hook-route-candidates/candidates.csv",
-      "note": "Candidate route plans for source-reviewed hook or hook-like rows. These are not maintained receipts or runtime observations."
+      "note": "Candidate rows that are useful lifecycle work but are not counted as source top-100 hook coverage."
     },
     {
       "section": "hooks",
@@ -907,6 +916,42 @@
       "status": "good",
       "source": "data/lifecycle-observations/cert-manager-eso/summary.csv",
       "note": "Cert-manager and External Secrets receipts for CRD/webhook/controller behavior that rendered YAML alone cannot prove."
+    },
+    {
+      "section": "apiservice",
+      "metric": "top100 source APIService charts",
+      "value": "5",
+      "total": "100",
+      "status": "partial",
+      "source": "data/apiservice-coverage/top100-apiservice-coverage.csv",
+      "note": "Public top-100 source scan rows where the retained scan found APIService objects."
+    },
+    {
+      "section": "apiservice",
+      "metric": "APIService rows with object/workload observation",
+      "value": "1",
+      "total": "5",
+      "status": "partial",
+      "source": "data/apiservice-coverage/top100-apiservice-coverage.csv",
+      "note": "Rows where committed receipts observe the rendered APIService object and backing workload. This is not an aggregated API availability claim."
+    },
+    {
+      "section": "apiservice",
+      "metric": "APIService rows with aggregation availability receipts",
+      "value": "0",
+      "total": "5",
+      "status": "gap",
+      "source": "data/apiservice-coverage/top100-apiservice-coverage.csv",
+      "note": "Rows with a dedicated Available=True or aggregated API query receipt."
+    },
+    {
+      "section": "apiservice",
+      "metric": "APIService rows still source-detected only",
+      "value": "3",
+      "total": "5",
+      "status": "gap",
+      "source": "data/apiservice-coverage/top100-apiservice-coverage.csv",
+      "note": "Rows where APIService is visible in the source scan but no maintained recipe/package row exists yet."
     }
   ],
   "activeProofQueue": [],
