@@ -11,31 +11,24 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-codex-rabbit-existing"
-    context: "kind-claude-helm-expt-codex-rabbit-existing"
+    name: "claude-helm-expt-codex-targetfacts"
+    context: "kind-claude-helm-expt-codex-targetfacts"
     namespace: "rabbitmq"
-  observedAt: "2026-06-11T14:13:34.066Z"
+  observedAt: "2026-06-11T15:43:11.006Z"
   freshnessTTL: "1h"
-  result: "fail"
-  clusterStatus: "created-by-test"
+  result: "pass"
+  clusterStatus: "existing"
   variant: "existing-secret"
   workloads: 1
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "8983faa52aa8f0d23df91231ea7b851c3e8ad37e0dfad76e00f66a9c27e9de90"
+    sha256: "3322bc002016ab9947de3688ba381ce3ba76ad653abba131310b013f05155fe0"
   checks:
-    -
-      name: "namespace-created"
-      result: "pass"
-      object: "v1|Namespace||rabbitmq"
     -
       name: "rendered-objects-applied"
       result: "pass"
       object: "9 object(s) from recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/rendered/release-objects.yaml"
     -
       name: "workload-converged"
-      result: "fail"
+      result: "pass"
       object: "StatefulSet|rabbitmq|rabbitmq"
-      reason: "not-ready: rabbitmq-0[PodInitializing ready=false restarts=0;]"
-  blockedReasons:
-    - "statefulset/rabbitmq: not-ready (rabbitmq-0[PodInitializing ready=false restarts=0;])"

@@ -7,7 +7,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":false,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"grafana\",\"app.kubernetes.io/name\":\"grafana\",\"app.kubernetes.io/version\":\"12.3.1\",\"helm.sh/chart\":\"grafana-10.5.15\"},\"name\":\"grafana\",\"namespace\":\"grafana\"}}\n"
-      creationTimestamp: "2026-06-11T12:02:52Z"
+      creationTimestamp: "2026-06-11T15:43:29Z"
       labels:
         app.kubernetes.io/instance: "grafana"
         app.kubernetes.io/name: "grafana"
@@ -15,8 +15,8 @@ items:
         helm.sh/chart: "grafana-10.5.15"
       name: "grafana"
       namespace: "grafana"
-      resourceVersion: "4547"
-      uid: "4dd3acf8-85e9-417e-acd1-cef94a51c679"
+      resourceVersion: "1466"
+      uid: "0c1218f6-de49-4851-8427-674d9f91439e"
   -
     apiVersion: "v1"
     data:
@@ -25,7 +25,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"grafana.ini\":\"[analytics]\\ncheck_for_updates = true\\n[log]\\nmode = console\\n[paths]\\ndata = /var/lib/grafana/\\nlogs = /var/log/grafana\\nplugins = /var/lib/grafana/plugins\\nprovisioning = /etc/grafana/provisioning\\n[server]\\ndomain = grafana.example.test\\n[unified_storage]\\nindex_path = /var/lib/grafana-search/bleve\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"grafana\",\"app.kubernetes.io/name\":\"grafana\",\"app.kubernetes.io/version\":\"12.3.1\",\"helm.sh/chart\":\"grafana-10.5.15\"},\"name\":\"grafana\",\"namespace\":\"grafana\"}}\n"
-      creationTimestamp: "2026-06-11T12:02:52Z"
+      creationTimestamp: "2026-06-11T15:43:29Z"
       labels:
         app.kubernetes.io/instance: "grafana"
         app.kubernetes.io/name: "grafana"
@@ -33,15 +33,15 @@ items:
         helm.sh/chart: "grafana-10.5.15"
       name: "grafana"
       namespace: "grafana"
-      resourceVersion: "4548"
-      uid: "1ef10413-d728-49e4-b416-ee374a01328b"
+      resourceVersion: "1467"
+      uid: "4412e971-635f-44cc-831b-1c30471444b3"
   -
     apiVersion: "rbac.authorization.k8s.io/v1"
     kind: "Role"
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"grafana\",\"app.kubernetes.io/name\":\"grafana\",\"app.kubernetes.io/version\":\"12.3.1\",\"helm.sh/chart\":\"grafana-10.5.15\"},\"name\":\"grafana\",\"namespace\":\"grafana\"},\"rules\":[]}\n"
-      creationTimestamp: "2026-06-11T12:02:52Z"
+      creationTimestamp: "2026-06-11T15:43:29Z"
       labels:
         app.kubernetes.io/instance: "grafana"
         app.kubernetes.io/name: "grafana"
@@ -49,8 +49,8 @@ items:
         helm.sh/chart: "grafana-10.5.15"
       name: "grafana"
       namespace: "grafana"
-      resourceVersion: "4549"
-      uid: "315219d9-3f18-4f0d-8918-071b986f3e3d"
+      resourceVersion: "1468"
+      uid: "3bea7bc6-567a-4b29-8009-2171e5c79482"
     rules: null
   -
     apiVersion: "rbac.authorization.k8s.io/v1"
@@ -58,7 +58,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"grafana\",\"app.kubernetes.io/name\":\"grafana\",\"app.kubernetes.io/version\":\"12.3.1\",\"helm.sh/chart\":\"grafana-10.5.15\"},\"name\":\"grafana\",\"namespace\":\"grafana\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"grafana\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"grafana\",\"namespace\":\"grafana\"}]}\n"
-      creationTimestamp: "2026-06-11T12:02:52Z"
+      creationTimestamp: "2026-06-11T15:43:29Z"
       labels:
         app.kubernetes.io/instance: "grafana"
         app.kubernetes.io/name: "grafana"
@@ -66,8 +66,8 @@ items:
         helm.sh/chart: "grafana-10.5.15"
       name: "grafana"
       namespace: "grafana"
-      resourceVersion: "4550"
-      uid: "0ed7347a-f92c-491e-ae75-e91ef69881c5"
+      resourceVersion: "1469"
+      uid: "dfc73383-9ef0-4b13-9f23-97e142bfee8b"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "Role"
@@ -83,7 +83,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"grafana\",\"app.kubernetes.io/name\":\"grafana\",\"app.kubernetes.io/version\":\"12.3.1\",\"helm.sh/chart\":\"grafana-10.5.15\"},\"name\":\"grafana\",\"namespace\":\"grafana\"},\"spec\":{\"ports\":[{\"name\":\"service\",\"port\":80,\"protocol\":\"TCP\",\"targetPort\":\"grafana\"}],\"selector\":{\"app.kubernetes.io/instance\":\"grafana\",\"app.kubernetes.io/name\":\"grafana\"},\"type\":\"ClusterIP\"}}\n"
-      creationTimestamp: "2026-06-11T12:02:52Z"
+      creationTimestamp: "2026-06-11T15:43:29Z"
       labels:
         app.kubernetes.io/instance: "grafana"
         app.kubernetes.io/name: "grafana"
@@ -91,12 +91,12 @@ items:
         helm.sh/chart: "grafana-10.5.15"
       name: "grafana"
       namespace: "grafana"
-      resourceVersion: "4552"
-      uid: "bc7941d1-3eca-4371-9309-e3e8805f0fb4"
+      resourceVersion: "1471"
+      uid: "59ffc831-1aca-49dd-9dd6-f36a04b60e71"
     spec:
-      clusterIP: "10.96.245.239"
+      clusterIP: "10.96.164.45"
       clusterIPs:
-        - "10.96.245.239"
+        - "10.96.164.45"
       internalTrafficPolicy: "Cluster"
       ipFamilies:
         - "IPv4"
@@ -122,7 +122,7 @@ items:
       annotations:
         deployment.kubernetes.io/revision: "1"
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"grafana\",\"app.kubernetes.io/name\":\"grafana\",\"app.kubernetes.io/version\":\"12.3.1\",\"helm.sh/chart\":\"grafana-10.5.15\"},\"name\":\"grafana\",\"namespace\":\"grafana\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"grafana\",\"app.kubernetes.io/name\":\"grafana\"}},\"strategy\":{\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"annotations\":{\"checksum/config\":\"ca25e49e01d59d9fddb86abf52ecec366fbe2c206920446d3bc5c7a0c7e4522a\",\"checksum/sc-dashboard-provider-config\":\"e70bf6a851099d385178a76de9757bb0bef8299da6d8443602590e44f05fdf24\",\"kubectl.kubernetes.io/default-container\":\"grafana\"},\"labels\":{\"app.kubernetes.io/instance\":\"grafana\",\"app.kubernetes.io/name\":\"grafana\",\"app.kubernetes.io/version\":\"12.3.1\",\"helm.sh/chart\":\"grafana-10.5.15\"}},\"spec\":{\"automountServiceAccountToken\":true,\"containers\":[{\"env\":[{\"name\":\"POD_IP\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"status.podIP\"}}},{\"name\":\"GF_SECURITY_ADMIN_USER\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"admin-user\",\"name\":\"grafana-admin\"}}},{\"name\":\"GF_SECURITY_ADMIN_PASSWORD\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"admin-password\",\"name\":\"grafana-admin\"}}},{\"name\":\"GF_PATHS_DATA\",\"value\":\"/var/lib/grafana/\"},{\"name\":\"GF_PATHS_LOGS\",\"value\":\"/var/log/grafana\"},{\"name\":\"GF_PATHS_PLUGINS\",\"value\":\"/var/lib/grafana/plugins\"},{\"name\":\"GF_PATHS_PROVISIONING\",\"value\":\"/etc/grafana/provisioning\"},{\"name\":\"GF_UNIFIED_STORAGE_INDEX_PATH\",\"value\":\"/var/lib/grafana-search/bleve\"}],\"image\":\"docker.io/grafana/grafana:12.3.1\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":10,\"httpGet\":{\"path\":\"/api/health\",\"port\":\"grafana\"},\"initialDelaySeconds\":60,\"timeoutSeconds\":30},\"name\":\"grafana\",\"ports\":[{\"containerPort\":3000,\"name\":\"grafana\",\"protocol\":\"TCP\"},{\"containerPort\":9094,\"name\":\"gossip-tcp\",\"protocol\":\"TCP\"},{\"containerPort\":9094,\"name\":\"gossip-udp\",\"protocol\":\"UDP\"},{\"containerPort\":6060,\"name\":\"profiling\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/api/health\",\"port\":\"grafana\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/etc/grafana/grafana.ini\",\"name\":\"config\",\"subPath\":\"grafana.ini\"},{\"mountPath\":\"/var/lib/grafana\",\"name\":\"storage\"},{\"mountPath\":\"/var/lib/grafana-search\",\"name\":\"search\"}]}],\"enableServiceLinks\":true,\"securityContext\":{\"fsGroup\":472,\"runAsGroup\":472,\"runAsNonRoot\":true,\"runAsUser\":472},\"serviceAccountName\":\"grafana\",\"shareProcessNamespace\":false,\"volumes\":[{\"configMap\":{\"name\":\"grafana\"},\"name\":\"config\"},{\"emptyDir\":{},\"name\":\"storage\"},{\"emptyDir\":{},\"name\":\"search\"}]}}}}\n"
-      creationTimestamp: "2026-06-11T12:02:52Z"
+      creationTimestamp: "2026-06-11T15:43:29Z"
       generation: 1
       labels:
         app.kubernetes.io/instance: "grafana"
@@ -131,8 +131,8 @@ items:
         helm.sh/chart: "grafana-10.5.15"
       name: "grafana"
       namespace: "grafana"
-      resourceVersion: "4567"
-      uid: "68f21103-395e-46e0-9ce5-a7e835c253e4"
+      resourceVersion: "1558"
+      uid: "1aac8d59-7aef-415c-91b2-1cd408b845b1"
     spec:
       progressDeadlineSeconds: 600
       replicas: 1
@@ -285,25 +285,26 @@ items:
                 {}
               name: "search"
     status:
+      availableReplicas: 1
       conditions:
         -
-          lastTransitionTime: "2026-06-11T12:02:52Z"
-          lastUpdateTime: "2026-06-11T12:02:52Z"
-          message: "Deployment does not have minimum availability."
-          reason: "MinimumReplicasUnavailable"
-          status: "False"
+          lastTransitionTime: "2026-06-11T15:44:07Z"
+          lastUpdateTime: "2026-06-11T15:44:07Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
           type: "Available"
         -
-          lastTransitionTime: "2026-06-11T12:02:52Z"
-          lastUpdateTime: "2026-06-11T12:02:52Z"
-          message: "ReplicaSet \"grafana-d87c7f949\" is progressing."
-          reason: "ReplicaSetUpdated"
+          lastTransitionTime: "2026-06-11T15:43:29Z"
+          lastUpdateTime: "2026-06-11T15:44:07Z"
+          message: "ReplicaSet \"grafana-d87c7f949\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
           status: "True"
           type: "Progressing"
       observedGeneration: 1
+      readyReplicas: 1
       replicas: 1
       terminatingReplicas: 0
-      unavailableReplicas: 1
       updatedReplicas: 1
   -
     apiVersion: "networking.k8s.io/v1"
@@ -311,7 +312,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"Ingress\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"grafana\",\"app.kubernetes.io/name\":\"grafana\",\"app.kubernetes.io/version\":\"12.3.1\",\"helm.sh/chart\":\"grafana-10.5.15\"},\"name\":\"grafana\",\"namespace\":\"grafana\"},\"spec\":{\"ingressClassName\":\"nginx\",\"rules\":[{\"host\":\"grafana.example.test\",\"http\":{\"paths\":[{\"backend\":{\"service\":{\"name\":\"grafana\",\"port\":{\"number\":80}}},\"path\":\"/\",\"pathType\":\"Prefix\"}]}}]}}\n"
-      creationTimestamp: "2026-06-11T12:02:52Z"
+      creationTimestamp: "2026-06-11T15:43:29Z"
       generation: 1
       labels:
         app.kubernetes.io/instance: "grafana"
@@ -320,8 +321,8 @@ items:
         helm.sh/chart: "grafana-10.5.15"
       name: "grafana"
       namespace: "grafana"
-      resourceVersion: "4559"
-      uid: "c03d6f80-5625-4fd8-984e-ea4e90eaf436"
+      resourceVersion: "1476"
+      uid: "51500a62-10fd-403b-944a-f3ea8e40db01"
     spec:
       ingressClassName: "nginx"
       rules:
@@ -352,15 +353,15 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"grafana\",\"app.kubernetes.io/name\":\"grafana\",\"app.kubernetes.io/version\":\"12.3.1\",\"helm.sh/chart\":\"grafana-10.5.15\"},\"name\":\"grafana-clusterrole\"},\"rules\":[]}\n"
-      creationTimestamp: "2026-06-11T12:02:52Z"
+      creationTimestamp: "2026-06-11T15:43:29Z"
       labels:
         app.kubernetes.io/instance: "grafana"
         app.kubernetes.io/name: "grafana"
         app.kubernetes.io/version: "12.3.1"
         helm.sh/chart: "grafana-10.5.15"
       name: "grafana-clusterrole"
-      resourceVersion: "4569"
-      uid: "76c1c7da-5512-4d0e-ac19-853e146ff2e1"
+      resourceVersion: "1488"
+      uid: "f90769b2-c47c-4799-804e-cb7b12e3a845"
     rules: null
   -
     apiVersion: "rbac.authorization.k8s.io/v1"
@@ -368,15 +369,15 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"grafana\",\"app.kubernetes.io/name\":\"grafana\",\"app.kubernetes.io/version\":\"12.3.1\",\"helm.sh/chart\":\"grafana-10.5.15\"},\"name\":\"grafana-clusterrolebinding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"grafana-clusterrole\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"grafana\",\"namespace\":\"grafana\"}]}\n"
-      creationTimestamp: "2026-06-11T12:02:52Z"
+      creationTimestamp: "2026-06-11T15:43:29Z"
       labels:
         app.kubernetes.io/instance: "grafana"
         app.kubernetes.io/name: "grafana"
         app.kubernetes.io/version: "12.3.1"
         helm.sh/chart: "grafana-10.5.15"
       name: "grafana-clusterrolebinding"
-      resourceVersion: "4570"
-      uid: "32843711-1b73-4115-9c3e-617780b370b9"
+      resourceVersion: "1489"
+      uid: "a6b16149-8645-4eb7-9da7-40ddec1d5a7d"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "ClusterRole"

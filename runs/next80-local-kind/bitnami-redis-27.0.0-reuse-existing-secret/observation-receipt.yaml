@@ -11,37 +11,28 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-codex-redis27-existing"
-    context: "kind-claude-helm-expt-codex-redis27-existing"
+    name: "claude-helm-expt-codex-targetfacts"
+    context: "kind-claude-helm-expt-codex-targetfacts"
     namespace: "redis"
-  observedAt: "2026-06-11T14:00:19.098Z"
+  observedAt: "2026-06-11T15:40:39.534Z"
   freshnessTTL: "1h"
-  result: "blocked"
-  clusterStatus: "created-by-test"
+  result: "pass"
+  clusterStatus: "existing"
   variant: "reuse-existing-secret"
   workloads: 2
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "ea68b0fa3e28afe996fbf021085963a1cca0a07a2c0b3765f55e7884b589e33c"
+    sha256: "497d988930d9a89abdaec2960b9e860583041d7b062b4dc215937b797ff90598"
   checks:
-    -
-      name: "namespace-created"
-      result: "pass"
-      object: "v1|Namespace||redis"
     -
       name: "rendered-objects-applied"
       result: "pass"
       object: "13 object(s) from recipes/bitnami/redis/27.0.0/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml"
     -
       name: "workload-converged"
-      result: "blocked"
+      result: "pass"
       object: "StatefulSet|redis|redis-master"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): redis-master-0[ContainerCreating ready=false restarts=0;] redis-replicas-0[ContainerCreating ready=false restarts=0;]"
     -
       name: "workload-converged"
-      result: "blocked"
+      result: "pass"
       object: "StatefulSet|redis|redis-replicas"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): redis-master-0[ContainerCreating ready=false restarts=0;] redis-replicas-0[ContainerCreating ready=false restarts=0;]"
-  blockedReasons:
-    - "statefulset/redis-master: prerequisite-blocked (stuck creating: missing mount/secret/config) (redis-master-0[ContainerCreating ready=false restarts=0;] redis-replicas-0[ContainerCreating ready=false restarts=0;])"
-    - "statefulset/redis-replicas: prerequisite-blocked (stuck creating: missing mount/secret/config) (redis-master-0[ContainerCreating ready=false restarts=0;] redis-replicas-0[ContainerCreating ready=false restarts=0;])"

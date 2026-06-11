@@ -11,31 +11,24 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-codex-pg187-existing"
-    context: "kind-claude-helm-expt-codex-pg187-existing"
+    name: "claude-helm-expt-codex-targetfacts"
+    context: "kind-claude-helm-expt-codex-targetfacts"
     namespace: "postgresql"
-  observedAt: "2026-06-11T14:04:44.049Z"
+  observedAt: "2026-06-11T15:41:14.592Z"
   freshnessTTL: "1h"
-  result: "blocked"
-  clusterStatus: "created-by-test"
+  result: "pass"
+  clusterStatus: "existing"
   variant: "existing-secret"
   workloads: 1
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "445e90c9e059c1bc10fb19c5c43af281dbd48fe2727b9a0ff78981d22df0a9d8"
+    sha256: "73ba913f3e92025ac32f0b5b9e11c2000532dc28e1a0868269dc3d94b2e39567"
   checks:
-    -
-      name: "namespace-created"
-      result: "pass"
-      object: "v1|Namespace||postgresql"
     -
       name: "rendered-objects-applied"
       result: "pass"
       object: "6 object(s) from recipes/bitnami/postgresql/18.7.0/revisions/existing-secret/r001/rendered/release-objects.yaml"
     -
       name: "workload-converged"
-      result: "blocked"
+      result: "pass"
       object: "StatefulSet|postgresql|postgresql"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): postgresql-0[ContainerCreating ready=false restarts=0;]"
-  blockedReasons:
-    - "statefulset/postgresql: prerequisite-blocked (stuck creating: missing mount/secret/config) (postgresql-0[ContainerCreating ready=false restarts=0;])"
