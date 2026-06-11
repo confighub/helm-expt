@@ -254,6 +254,8 @@
     "hooks:coverage:verify": "node scripts/generate-hook-coverage.mjs --verify",
     "apiservice:coverage": "node scripts/generate-apiservice-coverage.mjs --generate",
     "apiservice:coverage:verify": "node scripts/generate-apiservice-coverage.mjs --verify",
+    "keda:apiservice-gitops": "node scripts/run-keda-apiservice-gitops.mjs --run",
+    "keda:apiservice-gitops:verify": "node scripts/run-keda-apiservice-gitops.mjs --verify",
     "lifecycle:boundary": "node scripts/generate-lifecycle-boundary.mjs --generate",
     "lifecycle:boundary:verify": "node scripts/generate-lifecycle-boundary.mjs --verify",
     "lifecycle:cert-manager-eso": "node scripts/run-cert-manager-eso-lifecycle.mjs --run",
