@@ -1,0 +1,55 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-elasticsearch-22.1.6-ha-local-kind"
+spec:
+  variantRevision: "recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "9ae3685e24863d4a3e6b8af8a7c2613d6123c927f9518be12d68370e2d0c3db4"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-elasticsearch-ha"
+    context: "kind-claude-helm-expt-codex-elasticsearch-ha"
+    namespace: "default"
+  observedAt: "2026-06-11T15:02:14.063Z"
+  freshnessTTL: "1h"
+  result: "fail"
+  clusterStatus: "created-by-test"
+  variant: "ha"
+  workloads: 4
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "777e105d862fd5a810493efc589adb6a38c7398b40cb9e85e25af6277f03888f"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "21 object(s) from recipes/bitnami/elasticsearch/22.1.6/revisions/ha/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "StatefulSet|default|elasticsearch-coordinating"
+      reason: "not-ready: elasticsearch-coordinating-0[PodInitializing ready=false restarts=0;] elasticsearch-coordinating-1[PodInitializing ready=false restarts=0;] elasticsearch-data-0[PodInitializing ready=false restarts=0;] elasticsearch-data-1[PodInitializing ready=false restarts=0;] elasticsearch-data-2[PodInitializing"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "StatefulSet|default|elasticsearch-data"
+      reason: "not-ready: elasticsearch-coordinating-0[PodInitializing ready=false restarts=0;] elasticsearch-coordinating-1[PodInitializing ready=false restarts=0;] elasticsearch-data-0[PodInitializing ready=false restarts=0;] elasticsearch-data-1[PodInitializing ready=false restarts=0;] elasticsearch-data-2[PodInitializing"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "StatefulSet|default|elasticsearch-ingest"
+      reason: "not-ready: elasticsearch-coordinating-0[PodInitializing ready=false restarts=0;] elasticsearch-coordinating-1[PodInitializing ready=false restarts=0;] elasticsearch-data-0[PodInitializing ready=false restarts=0;] elasticsearch-data-1[PodInitializing ready=false restarts=0;] elasticsearch-data-2[PodInitializing"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "StatefulSet|default|elasticsearch-master"
+      reason: "not-ready: elasticsearch-coordinating-0[PodInitializing ready=false restarts=0;] elasticsearch-coordinating-1[PodInitializing ready=false restarts=0;] elasticsearch-data-0[PodInitializing ready=false restarts=0;] elasticsearch-data-1[PodInitializing ready=false restarts=0;] elasticsearch-data-2[PodInitializing"
+  blockedReasons:
+    - "statefulset/elasticsearch-coordinating: not-ready (elasticsearch-coordinating-0[PodInitializing ready=false restarts=0;] elasticsearch-coordinating-1[PodInitializing ready=false restarts=0;] elasticsearch-data-0)"
+    - "statefulset/elasticsearch-data: not-ready (elasticsearch-coordinating-0[PodInitializing ready=false restarts=0;] elasticsearch-coordinating-1[PodInitializing ready=false restarts=0;] elasticsearch-data-0)"
+    - "statefulset/elasticsearch-ingest: not-ready (elasticsearch-coordinating-0[PodInitializing ready=false restarts=0;] elasticsearch-coordinating-1[PodInitializing ready=false restarts=0;] elasticsearch-data-0)"
+    - "statefulset/elasticsearch-master: not-ready (elasticsearch-coordinating-0[PodInitializing ready=false restarts=0;] elasticsearch-coordinating-1[PodInitializing ready=false restarts=0;] elasticsearch-data-0)"
