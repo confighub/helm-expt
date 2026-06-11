@@ -63,10 +63,10 @@ Which detailed CSV should I open next?
 | derived variants | derived variant live create receipts | 10/10 | good | [runs/derived-variant-execution](../../runs/derived-variant-execution) |
 | derived variants | target-bound derived variant receipts | 6/10 | partial | [runs/derived-variant-target-bound](../../runs/derived-variant-target-bound) |
 | graph bridge | charts with recovered graph fragments | 20/110 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
-| graph bridge | recovered graph edge rows | 100/100 | good | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
-| graph bridge | target-fact graph edges | 57/100 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
-| graph bridge | generated-fact graph edges | 1/100 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
-| graph bridge | rows with field reachability | 4/100 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
+| graph bridge | recovered graph edge rows | 102/102 | good | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
+| graph bridge | target-fact graph edges | 59/102 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
+| graph bridge | generated-fact graph edges | 1/102 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
+| graph bridge | rows with field reachability | 4/102 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 10/10 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
 | live evidence | selected live Helm-vs-ConfigHub parity receipts | 20/20 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster kind parity receipts | 50/50 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
@@ -164,7 +164,6 @@ pull remote, vendored, or non-exact dependencies.
 | Workstream | Charts | Next action |
 | --- | ---: | --- |
 | Supported scope evidence | 16 | Keep target-scoped evidence fresh before using the supported scope as a production example. |
-| Runtime or missing-lane decision | 1 | Close the runtime, missing-lane, or lifecycle-observation decision before refreshing final evidence. |
 
 ### Latest Refresh Work
 

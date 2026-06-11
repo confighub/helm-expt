@@ -27,8 +27,10 @@ bitnami/redis@25.5.3,base-self,default,default,2,,,,,0,1,recipes/bitnami/redis/2
 bitnami/redis@25.5.3,inherits-with-overrides,default,reuse-existing-secret,1,,auth.existingSecret;auth.existingSecretPasswordKey,auth.password,auth.password,1,1,recipes/bitnami/redis/25.5.3/inheritance-graph.yaml
 bitnami/redis@25.5.3,target-fact,,reuse-existing-secret,,,Secret/redis/redis-existing-secret:redis-password,,,1,0,recipes/bitnami/redis/25.5.3/inheritance-graph.yaml
 bitnami/redis@25.5.3,generated-fact,,default,,,auth.password,,v1|Secret|redis|redis:data.redis-password;apps/v1|StatefulSet|redis|redis-master:spec.template.spec.volumes[redis-password].secret.secretName;apps/v1|StatefulSet|redis|redis-replicas:spec.template.spec.volumes[redis-password].secret.secretName,0,1,recipes/bitnami/redis/25.5.3/inheritance-graph.yaml
-external-secrets/external-secrets@2.5.0,base-self,default,default,0,,,,,0,0,recipes/external-secrets/external-secrets/2.5.0/inheritance-graph.yaml
-external-secrets/external-secrets@2.5.0,inherits-with-overrides,default,no-crds,0,,installCRDs,,,23,0,recipes/external-secrets/external-secrets/2.5.0/inheritance-graph.yaml
+external-secrets/external-secrets@2.5.0,base-self,default,default,0,,,,,1,0,recipes/external-secrets/external-secrets/2.5.0/inheritance-graph.yaml
+external-secrets/external-secrets@2.5.0,inherits-with-overrides,default,no-crds,0,,installCRDs,,,24,0,recipes/external-secrets/external-secrets/2.5.0/inheritance-graph.yaml
+external-secrets/external-secrets@2.5.0,target-fact,,default,,,Secret/external-secrets/external-secrets-webhook:,,,1,0,recipes/external-secrets/external-secrets/2.5.0/inheritance-graph.yaml
+external-secrets/external-secrets@2.5.0,target-fact,,no-crds,,,Secret/external-secrets/external-secrets-webhook:,,,1,0,recipes/external-secrets/external-secrets/2.5.0/inheritance-graph.yaml
 external-secrets/external-secrets@2.5.0,target-fact,,no-crds,,,CRD/acraccesstokens.generators.external-secrets.io,,,1,0,recipes/external-secrets/external-secrets/2.5.0/inheritance-graph.yaml
 external-secrets/external-secrets@2.5.0,target-fact,,no-crds,,,CRD/cloudsmithaccesstokens.generators.external-secrets.io,,,1,0,recipes/external-secrets/external-secrets/2.5.0/inheritance-graph.yaml
 external-secrets/external-secrets@2.5.0,target-fact,,no-crds,,,CRD/clusterexternalsecrets.external-secrets.io,,,1,0,recipes/external-secrets/external-secrets/2.5.0/inheritance-graph.yaml

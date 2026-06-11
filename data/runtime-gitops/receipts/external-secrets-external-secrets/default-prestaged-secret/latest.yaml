@@ -1,0 +1,126 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: RuntimeGitOpsReceipt
+metadata:
+  name: external-secrets-default-prestaged-secret-argo-oci-codex-es-presecret-075319
+spec:
+  chart: external-secrets/external-secrets
+  version: 2.5.0
+  base: default
+  packagePath: packages/external-secrets/external-secrets/2.5.0
+  recipePath: recipes/external-secrets/external-secrets/2.5.0
+  controller: Argo CD OCI
+  observedAt: "2026-06-11T06:57:59Z"
+  result: pass
+  run:
+    rig: codex-es-presecret-075319
+    clusterSpace: codex-es-presecret-075319-cluster
+    workloadSpace: codex-es-presecret-075319-external-secrets-default-presecret
+    target: codex-es-presecret-075319-cluster/oci
+    namespace: external-secrets
+    kubeContext: kind-codex-es-presecret-075319
+    kubeconfig: /Users/alexis/.confighub/lk/codex-es-presecret-075319.kubeconfig
+    keptForInspection: false
+  commands:
+    setupRig: CONFIGHUB_AGENT=1 cub lk up --name codex-es-presecret-075319
+    renderForSecretPrerequisite: cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir /tmp/helm-expt-es-presecret.fgP8ok --non-interactive --namespace external-secrets
+    stageNamespace: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-es-presecret-075319.kubeconfig --context kind-codex-es-presecret-075319 create namespace external-secrets --dry-run=client -o yaml | kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-es-presecret-075319.kubeconfig --context kind-codex-es-presecret-075319 apply -f -
+    stageSeparatedSecret: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-es-presecret-075319.kubeconfig --context kind-codex-es-presecret-075319 apply -f /tmp/helm-expt-es-presecret.fgP8ok/out/secrets
+    workload: CONFIGHUB_AGENT=1 tests/chart-install-test --package packages/external-secrets/external-secrets/2.5.0 --slug external-secrets-default-presecret --namespace external-secrets --rig codex-es-presecret-075319 --base default --helm-expt /Users/alexis/code/helm-expt --wait 600 --keep --json
+    inspectApplications: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-es-presecret-075319.kubeconfig --context kind-codex-es-presecret-075319 get applications -n argocd -o custom-columns='NAME:.metadata.name,SYNC:.status.sync.status,HEALTH:.status.health.status,REV:.status.sync.revision'
+    inspectRuntime: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-es-presecret-075319.kubeconfig --context kind-codex-es-presecret-075319 get deploy,pods,svc,secret -n external-secrets -o wide
+    teardown: CONFIGHUB_AGENT=1 cub lk down --name codex-es-presecret-075319 --force
+    postTeardownClusters: kind get clusters
+  oci:
+    repoURL: oci://oci.hub.confighub.com:443/target/codex-es-presecret-075319-cluster/oci
+    path: ./codex-es-presecret-075319-external-secrets-default-presecret
+    targetRevision: latest
+    revision: sha256:641a726d8e7631bee2d47d1f7eea3e2738f33fe9ed193ac4a9d82ab31d6f6a5d
+  targetPrerequisites:
+    separatedSecrets:
+      - identity: v1|Secret|external-secrets|external-secrets-webhook
+        source: out/secrets/secret-external-secrets-external-secrets-webhook.yaml
+        sourceSHA256: 794fdefd10caef98118a63bd8b3a82c8c37d3ac6fdb9cd8434f6a66d93ff8bca
+        delivery: pre-staged before GitOps controller sync
+        secretMaterialStoredInReceipt: false
+  notes:
+    harnessStatus: PASS
+    finding: "Argo CD pulled and synced the ConfigHub OCI artifact for external-secrets/default, and all three controller Deployments became ready after the separated external-secrets-webhook Secret was pre-staged from installer out/secrets."
+    closes: "This proves the explicit target-prerequisite route for the rendered webhook Secret on the declared cub-lk kind target scope."
+    notClaimed:
+      - workload-only OCI delivery without staging the separated webhook Secret
+      - provider SecretStore, ClusterSecretStore, ExternalSecret, PushSecret, or provider credential behavior
+      - Kubernetes 1.31+ selectableFields compatibility
+      - production support outside the named target scope
+  checks:
+    - name: render
+      result: pass
+      detail: "cub installer setup rendered 42 manifests and 1 separated Secret for external-secrets/default."
+    - name: separated-secret-prerequisite
+      result: pass
+      detail: "Secret external-secrets/external-secrets-webhook was pre-staged from out/secrets before ConfigHub OCI and Argo reconciliation."
+    - name: confighub-upload
+      result: pass
+      detail: "units uploaded to codex-es-presecret-075319-external-secrets-default-presecret."
+    - name: argo-root-sync
+      result: pass
+      detail: "root app codex-es-presecret-075319-cluster: sync=Synced health=Healthy revision=sha256:641a726d8e7631bee2d47d1f7eea3e2738f33fe9ed193ac4a9d82ab31d6f6a5d."
+    - name: argo-sync
+      result: pass
+      detail: "app external-secrets-default-presecret: sync=Synced health=Healthy after 60s revision=sha256:641a726d8e7631bee2d47d1f7eea3e2738f33fe9ed193ac4a9d82ab31d6f6a5d."
+    - name: runtime
+      result: pass
+      detail: "deployments external-secrets, external-secrets-cert-controller, and external-secrets-webhook were all 1/1 ready."
+    - name: secret-metadata
+      result: pass
+      detail: "secret external-secrets/external-secrets-webhook existed as Opaque with four data keys; secret values were not stored in this receipt."
+    - name: teardown
+      result: pass
+      detail: "cub lk down --name codex-es-presecret-075319 --force deleted the named kind cluster and recursive ConfigHub cluster space; post-teardown kind get clusters returned none."
+  gitops:
+    applications:
+      - name: codex-es-presecret-075319-cluster
+        namespace: argocd
+        sync: Synced
+        health: Healthy
+        revision: sha256:641a726d8e7631bee2d47d1f7eea3e2738f33fe9ed193ac4a9d82ab31d6f6a5d
+      - name: external-secrets-default-presecret
+        namespace: argocd
+        sync: Synced
+        health: Healthy
+        revision: sha256:641a726d8e7631bee2d47d1f7eea3e2738f33fe9ed193ac4a9d82ab31d6f6a5d
+        source:
+          repoURL: oci://oci.hub.confighub.com:443/target/codex-es-presecret-075319-cluster/oci
+          path: ./codex-es-presecret-075319-external-secrets-default-presecret
+          targetRevision: latest
+  runtime:
+    namespace: external-secrets
+    deployments:
+      - name: external-secrets
+        ready: "1/1"
+        updated: 1
+        available: 1
+        image: ghcr.io/external-secrets/external-secrets:v2.5.0
+      - name: external-secrets-cert-controller
+        ready: "1/1"
+        updated: 1
+        available: 1
+        image: ghcr.io/external-secrets/external-secrets:v2.5.0
+      - name: external-secrets-webhook
+        ready: "1/1"
+        updated: 1
+        available: 1
+        image: ghcr.io/external-secrets/external-secrets:v2.5.0
+    service:
+      name: external-secrets-webhook
+      type: ClusterIP
+      clusterIP: 10.96.220.69
+      ports: 443/TCP
+    secrets:
+      - name: external-secrets-webhook
+        type: Opaque
+        dataKeys: 4
+        dataValuesStored: false
+  confighub:
+    workloadSpace: codex-es-presecret-075319-external-secrets-default-presecret
+    workloadUnitsReady: 42
+    installerRecordStatus: NotLive

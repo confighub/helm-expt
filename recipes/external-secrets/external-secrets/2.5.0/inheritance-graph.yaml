@@ -47,6 +47,24 @@ spec:
         []
   targetFactEdges:
     -
+      variant: "default"
+      kind: "Secret"
+      namespace: "external-secrets"
+      name: "external-secrets-webhook"
+      keys:
+        []
+      fact: "Secret/external-secrets/external-secrets-webhook:"
+      purpose: "Rendered webhook Secret separated by installer and populated by the cert-controller after apply"
+    -
+      variant: "no-crds"
+      kind: "Secret"
+      namespace: "external-secrets"
+      name: "external-secrets-webhook"
+      keys:
+        []
+      fact: "Secret/external-secrets/external-secrets-webhook:"
+      purpose: "Rendered webhook Secret separated by installer and populated by the cert-controller after apply"
+    -
       variant: "no-crds"
       kind: "CustomResourceDefinition"
       namespace: ""

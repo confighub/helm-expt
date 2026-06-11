@@ -38,9 +38,9 @@ spec:
         - "admissionregistration.k8s.io/v1|ValidatingWebhookConfiguration||secretstore-validate"
     -
       category: "webhook-secret"
-      status: "scan-and-observe"
+      status: "target-fact-and-observe"
       object: "v1|Secret|external-secrets|external-secrets-webhook"
-      note: "rendered Secret contains metadata only; cert-controller populates certificate material later."
+      note: "rendered Secret is separated by installer and must be staged before ConfigHub/GitOps sync; cert-controller populates certificate material later."
     -
       category: "cluster-rbac"
       status: "scan-and-review"

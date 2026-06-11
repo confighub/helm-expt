@@ -55,7 +55,21 @@ const variants = [
     expectedObjectCount: 42,
     expectedCRDCount: 23,
     expectedSecretCount: 1,
-    targetFactNote: "includes external-secrets CRDs and an empty webhook Secret managed by the cert-controller",
+    targetFacts: {
+      requiredSecrets: [
+        {
+          namespace: "external-secrets",
+          name: "external-secrets-webhook",
+          keys: [],
+          sourceVariant: "default",
+          purpose: "Rendered webhook Secret separated by installer and populated by the cert-controller after apply",
+          deliveryLanes: ["cubInstallerApply", "configHubKubectlApply", "configHubOciArgo"],
+          suggestedSource: "kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml",
+        },
+      ],
+    },
+    targetFactNote:
+      "includes external-secrets CRDs and renders an empty webhook Secret that installer separates; ConfigHub/GitOps lanes must stage that Secret before sync so the cert-controller can populate it",
   },
   {
     name: "no-crds",
@@ -69,6 +83,17 @@ const variants = [
     expectedCRDCount: 0,
     expectedSecretCount: 1,
     targetFacts: {
+      requiredSecrets: [
+        {
+          namespace: "external-secrets",
+          name: "external-secrets-webhook",
+          keys: [],
+          sourceVariant: "default",
+          purpose: "Rendered webhook Secret separated by installer and populated by the cert-controller after apply",
+          deliveryLanes: ["cubInstallerApply", "configHubKubectlApply", "configHubOciArgo"],
+          suggestedSource: "kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml",
+        },
+      ],
       requiredCRDs: externalSecretsCRDs.map((name) => ({
         name,
         sourceVariant: "default",
@@ -77,7 +102,7 @@ const variants = [
       })),
     },
     targetFactNote:
-      "omits external-secrets CRDs while preserving webhook, cert-controller, and RBAC objects; target clusters must already provide the External Secrets CRDs",
+      "omits external-secrets CRDs while preserving webhook, cert-controller, and RBAC objects; target clusters must already provide the External Secrets CRDs and the separated webhook Secret must be staged before sync",
   },
 ];
 
@@ -238,6 +263,12 @@ runProofCli({
       note: "OpenShift and ServiceMonitor branches are bound to the named Kubernetes capability profile.",
     },
     {
+      category: "capability-profile-live-pruning",
+      status: "strict-live-object-parity-blocked-on-kubernetes-1.30",
+      evidence: "data/live-e2e/cub-scout-watchlist.csv",
+      note: "cub-scout live witness on kind Kubernetes 1.30 found the ExternalSecret CRD renders spec.versions[0].selectableFields, but the live CRD omitted it after apply; workloads converged, but strict rendered-object/live parity is blocked until the capability/feature-gate route is decided.",
+    },
+    {
       category: "crd-policy",
       status: "variant-controlled-and-target-fact",
       variants: { default: 23, "no-crds": 0 },
@@ -253,9 +284,9 @@ runProofCli({
     },
     {
       category: "webhook-secret",
-      status: "scan-and-observe",
+      status: "target-fact-and-observe",
       object: "v1|Secret|external-secrets|external-secrets-webhook",
-      note: "rendered Secret contains metadata only; cert-controller populates certificate material later.",
+      note: "rendered Secret is separated by installer and must be staged before ConfigHub/GitOps sync; cert-controller populates certificate material later.",
     },
     { category: "cluster-rbac", status: "scan-and-review", evidence: "scan receipts" },
     { category: "tpl", status: "controlled-by-empty-defaults", note: "extraObjects uses tpl; promoted variants do not set that value." },
@@ -267,11 +298,13 @@ runProofCli({
       "no-crds variant omits CRDs for clusters that manage CRDs separately and records those CRDs as target facts.",
       "Chart declares a bitwarden-sdk-server dependency that remains disabled in promoted variants but is recorded in dependency-lock.yaml.",
       "Validating webhook readiness must be observed after apply because rendered objects alone do not prove webhook health.",
-      "The rendered webhook Secret contains metadata only; cert-controller populates certificate material after apply.",
+      "The rendered webhook Secret is separated by installer and must be staged before ConfigHub/GitOps sync; cert-controller populates certificate material after apply.",
+      "A stricter cub-scout live witness on kind Kubernetes 1.30 found that the rendered ExternalSecret CRD contains spec.versions[0].selectableFields that the live API omitted after apply; workloads converged, but this blocks strict rendered-object/live parity for that target profile.",
       "extraObjects is a tpl-powered extension slot; promoted variants keep it empty.",
     ],
     knownControlPoints: [
       "capability-profile",
+      "capability-profile-live-pruning",
       "crd-lifecycle-policy",
       "dependency-lock",
       "admission-webhook-observation",

@@ -70,7 +70,7 @@ spec:
     path: "packages/grafana/tempo/1.24.4"
     installer: "packages/grafana/tempo/1.24.4/installer.yaml"
     receipt: "recipes/grafana/tempo/1.24.4/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "7ca101864f8d28ba496624fdf5b38bec0364d204309bff528589a42eb69838a7"
+    deterministicBundleSHA256: "c619b2293a9429e60c12080f196e3880307082f553995360eaaea14afdfa6bcd"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

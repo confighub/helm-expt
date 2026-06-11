@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/external-secrets/external-secrets/2.5.0 -o <tmp>/external-secrets-2.5.0.tgz"
-    sha256: "6a2d043823e029d93d93c1de0e7164c5a1dd8660d109987bc0932b0ecb897bef"
+    sha256: "2f93a84e205a330a232e716b2c440fb677d011a4e5fb18c1e4e6acc5cb9bd477"
   package:
     name: "external-secrets-external-secrets"
     path: "packages/external-secrets/external-secrets/2.5.0"
@@ -37,12 +37,12 @@ spec:
         bytes: 21792
       -
         path: "collector/target-facts.sh"
-        sha256: "7320a13571879bd4b1349b2550f34aacc393e3477016bd2515b1373d40918f03"
-        bytes: 8927
+        sha256: "7095fdeab8bb4414c251511d2d888243d282d2c539f3e4f37b10643f11f3616a"
+        bytes: 10286
       -
         path: "installer.yaml"
-        sha256: "4abb989271b2edae23d45043fc0b87863fa835790ae2975835cd747d95f4f41d"
-        bytes: 6606
+        sha256: "701beab03e02b95feb3a0d5dfdeae113ec19d5968d946a139f71fcecf8bbc9c4"
+        bytes: 7216
     version: "2.5.0"
   setupChecks:
     -
@@ -54,8 +54,8 @@ spec:
       helmReleaseObjectCount: 42
       semanticObjectMatches: "42/42"
       separatedSecretCount: 1
-      targetFactMode: "not-required"
-      targetFactsBound: false
+      targetFactMode: "collector-facts"
+      targetFactsBound: true
       variant: "default"
     -
       allowedCubOnlyObjects:

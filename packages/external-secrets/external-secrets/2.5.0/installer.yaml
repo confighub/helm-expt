@@ -8,11 +8,22 @@ spec:
     -
       default: true
       description: "external-secrets default variant rendered from external-secrets/external-secrets@2.5.0"
+      externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "Secret external-secrets/external-secrets-webhook"
+          namespace: "external-secrets"
+          suggestedSource: "kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml"
       name: "default"
       path: "bases/default"
     -
       description: "external-secrets CRDs disabled variant rendered from external-secrets/external-secrets@2.5.0"
       externalRequires:
+        -
+          kind: "ClusterFeature"
+          name: "Secret external-secrets/external-secrets-webhook"
+          namespace: "external-secrets"
+          suggestedSource: "kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml"
         -
           kind: "ClusterFeature"
           name: "CRD acraccesstokens.generators.external-secrets.io"

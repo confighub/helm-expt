@@ -15,7 +15,7 @@ supported decisions: 16
 draft decisions: 1
 rejected decisions: 1
 superseded decisions: 2
-open work items: 1
+open work items: 0
 ```
 
 ## Workstreams
@@ -26,7 +26,6 @@ evidence work before it becomes production-supported for a target scope.
 | Workstream | Charts | Examples | Next action |
 | --- | ---: | --- | --- |
 | Supported scope evidence | 16 | `argo-cd/argo-cd@9.5.15` (default)<br>`bitnami/mongodb@19.0.7` (generated-passwords)<br>`bitnami/mysql@14.0.3` (generated-passwords)<br>`bitnami/nginx@24.0.2` (http-clusterip)<br>and 12 more | Keep target-scoped evidence fresh before using the supported scope as a production example. |
-| Runtime or missing-lane decision | 1 | `external-secrets/external-secrets@2.5.0` (default) | Close the runtime, missing-lane, or lifecycle-observation decision before refreshing final evidence. |
 
 ## Priority Rows
 
@@ -36,7 +35,7 @@ currently concentrated.
 
 | Chart | Base | Open work | Next action |
 | --- | --- | --- | --- |
-| `external-secrets/external-secrets@2.5.0` | default | runtime decision | Model the generated webhook Secret as deliverable or prerequisite, rerun the default-base Argo OCI rehearsal, then run a provider round-trip rehearsal against a disposable secrets backend. |
+| - | - | - | No open production-support work items. |
 
 The spreadsheet form is [work-items.csv](./work-items.csv). It has one row per
 production-support task or keep-fresh item, so overlapping work such as image,
@@ -78,7 +77,7 @@ Each decision directory also has a generated workdown page:
 | `bitnami/postgresql@18.6.7` | generated-passwords | supported | cub-lk-kind-vanilla; namespace=postgresql; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, backup/restore, point-in-time-recovery, failover, credential-rotation, storage-class, SLO, replication, or resource-hardened bases for real customer PostgreSQL workloads. |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords | supported | cub-lk-kind-vanilla; namespace=rabbitmq; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, clustering, backup/restore, queue-recovery, failover, credential-rotation, Erlang-cookie-rotation, storage-class, SLO, or resource-hardened bases for real customer RabbitMQ workloads. |
 | `bitnami/redis@25.5.3` | default | supported | cub-lk-kind-vanilla; namespace=redis; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate existing-secret, backup/restore, failover, storage-class, SLO, or availability-hardened bases for real customer Redis workloads. |
-| `external-secrets/external-secrets@2.5.0` | default | draft | cub-lk-kind-vanilla; namespace=external-secrets; delivery=confighub-oci; controller=argo | needs-runtime-decision-before-final | Model the generated webhook Secret as deliverable or prerequisite, rerun the default-base Argo OCI rehearsal, then run a provider round-trip rehearsal against a disposable secrets backend. |
+| `external-secrets/external-secrets@2.5.0` | default | draft | cub-lk-kind-vanilla; namespace=external-secrets; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed-with-prestaged-secret-prerequisite | Run a provider round-trip rehearsal against a disposable secrets backend and a Kubernetes 1.31+ capability-profile witness before final production support. |
 | `grafana/grafana@10.5.15` | generated-passwords | superseded | vanilla-kubernetes; namespace=grafana; delivery=confighub-oci; controller=argo-or-flux | not-production-supported-because-source-chart-is-deprecated | Keep this as catalog proof evidence only; review a maintained Grafana chart or replacement catalog source before making a production-support claim. |
 | `grafana/loki@7.0.0` | single-binary-filesystem | supported | cub-lk-kind-vanilla; namespace=loki; delivery=confighub-oci; controller=argo | fresh-target-evidence-passed | Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate object-store, retention, backup, restore, tenant, hardening, and digest-pinned bases for real customer Loki workloads. |
 | `grafana/tempo@1.24.4` | local-persistent | superseded | vanilla-kubernetes; namespace=tempo; delivery=confighub-oci; controller=argo-or-flux | not-production-supported-because-source-chart-is-deprecated | Keep this as catalog proof evidence only; review grafana-community/tempo or another maintained successor before making a production-support claim. |

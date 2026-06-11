@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/metrics-server/metrics-server/3.13.0 -o <tmp>/metrics-server-3.13.0.tgz"
-    sha256: "2ec4026648177f71bc8e305148762697744cc8c37f423be1bf18b4463ecdcc8f"
+    sha256: "a1e45ff0234dd3bd16d413ce2e43fb52ae463a8e717e65f0ff3d57a35ac84299"
   package:
     name: "metrics-server-metrics-server"
     path: "packages/metrics-server/metrics-server/3.13.0"
@@ -37,8 +37,8 @@ spec:
         bytes: 7279
       -
         path: "collector/target-facts.sh"
-        sha256: "7add2023f0b60861d7b32869a26360f90111d931ed3b85e1ecacdb13a547a505"
-        bytes: 1727
+        sha256: "21f73d68c27c18cfc032452b4b578e71e4e33df14a2ac4b66de59a82d502ddf5"
+        bytes: 1770
       -
         path: "installer.yaml"
         sha256: "6a07c7a64a43a436bbc1cb2da2ab7609a824270ac90965da8943130c4f5fab6b"

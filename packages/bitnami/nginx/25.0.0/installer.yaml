@@ -6,13 +6,11 @@ metadata:
 spec:
   bases:
     -
-      name: "http-clusterip"
-      path: "bases/http-clusterip"
       default: true
       description: "nginx plain HTTP ClusterIP variant rendered from bitnami/nginx@25.0.0"
+      name: "http-clusterip"
+      path: "bases/http-clusterip"
     -
-      name: "existing-tls-ingress"
-      path: "bases/existing-tls-ingress"
       description: "nginx existing TLS with ingress variant rendered from bitnami/nginx@25.0.0"
       externalRequires:
         -
@@ -25,8 +23,10 @@ spec:
           name: "Secret nginx/nginx-ingress-tls keys tls.crt,tls.key"
           namespace: "nginx"
           suggestedSource: "kubectl -n nginx create secret generic nginx-ingress-tls --from-literal=tls.crt=<value> --from-literal=tls.key=<value>"
+      name: "existing-tls-ingress"
+      path: "bases/existing-tls-ingress"
   collector:
     command: "/bin/sh"
     args:
       - "collector/target-facts.sh"
-    description: "Records target-fact bindings and can live-check cluster-visible Secret and CRD requirements."
+    description: "Records target-fact bindings and can live-check existing Secret requirements."

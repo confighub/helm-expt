@@ -9,8 +9,6 @@ emit_empty() {
 targetFacts:
   requiredSecrets: []
   requiredCRDs: []
-  requiredValues: []
-  requiredObjectStores: []
 targetFactChecks:
   base: "$base"
   mode: not-required
@@ -29,6 +27,9 @@ live_check_secret() {
   if ! kubectl -n "$namespace" get secret "$name" >/dev/null 2>&1; then
     echo "required Secret $namespace/$name was not found" >&2
     exit 1
+  fi
+  if [ -z "$key" ]; then
+    return 0
   fi
   if ! kubectl -n "$namespace" get secret "$name" -o yaml | awk -v key="$key" '$1 == key ":" { found=1 } END { exit found ? 0 : 1 }'; then
     echo "required Secret $namespace/$name is missing key $key" >&2
@@ -59,17 +60,16 @@ case "$base" in
     cat <<YAML
 targetFacts:
   requiredSecrets:
-  -
-    namespace: "postgresql"
-    name: "postgresql-auth"
-    keys:
-      - "postgres-password"
-    purpose: "PostgreSQL administrator password"
+  - keys:
+    - postgres-password
+    name: postgresql-auth
+    namespace: postgresql
+    purpose: PostgreSQL administrator password
+
   requiredCRDs: []
-  requiredValues: []
-  requiredObjectStores: []
+
 targetFactChecks:
-  base: "$base"
+  base: "existing-secret"
   mode: "$check_mode"
   result: "$result"
 YAML

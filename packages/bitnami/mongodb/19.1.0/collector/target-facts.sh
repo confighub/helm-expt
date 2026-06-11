@@ -9,8 +9,6 @@ emit_empty() {
 targetFacts:
   requiredSecrets: []
   requiredCRDs: []
-  requiredValues: []
-  requiredObjectStores: []
 targetFactChecks:
   base: "$base"
   mode: not-required
@@ -29,6 +27,9 @@ live_check_secret() {
   if ! kubectl -n "$namespace" get secret "$name" >/dev/null 2>&1; then
     echo "required Secret $namespace/$name was not found" >&2
     exit 1
+  fi
+  if [ -z "$key" ]; then
+    return 0
   fi
   if ! kubectl -n "$namespace" get secret "$name" -o yaml | awk -v key="$key" '$1 == key ":" { found=1 } END { exit found ? 0 : 1 }'; then
     echo "required Secret $namespace/$name is missing key $key" >&2
@@ -60,18 +61,17 @@ case "$base" in
     cat <<YAML
 targetFacts:
   requiredSecrets:
-  -
-    namespace: "mongodb"
-    name: "mongodb-auth"
-    keys:
-      - "mongodb-root-password"
-      - "mongodb-replica-set-key"
-    purpose: "MongoDB root password and MongoDB-valid replica-set key"
+  - keys:
+    - mongodb-root-password
+    - mongodb-replica-set-key
+    name: mongodb-auth
+    namespace: mongodb
+    purpose: MongoDB root password and MongoDB-valid replica-set key
+
   requiredCRDs: []
-  requiredValues: []
-  requiredObjectStores: []
+
 targetFactChecks:
-  base: "$base"
+  base: "existing-secret-replicaset"
   mode: "$check_mode"
   result: "$result"
 YAML

@@ -12,7 +12,7 @@ is a navigation surface over existing evidence, not a new support decision.
 | Production disposition | `production-review-ready` |
 | Target scope | cub-lk-kind-vanilla; namespace=external-secrets; delivery=confighub-oci; controller=argo |
 | Delivery path | `confighub-oci` |
-| Evidence count | 16 |
+| Evidence count | 17 |
 | Strongest user-facing evidence | live-helm-vs-confighub-parity |
 | Live summary | local:1/2 gitops:1/2 live-parity:1/2 two-cluster:2/2 |
 
@@ -26,14 +26,14 @@ Use default for the controller install. Provider-specific SecretStore and Extern
 
 ## What Remains Before Broader Production Use
 
-Model the generated webhook Secret as deliverable or prerequisite, rerun the default-base Argo OCI rehearsal, then run a provider round-trip rehearsal against a disposable secrets backend.
+Run a provider round-trip rehearsal against a disposable secrets backend and a Kubernetes 1.31+ capability-profile witness before final production support.
 
 ## Bases
 
 | Base | User readiness | Lane summary | Target facts | Command |
 | --- | --- | --- | --- | --- |
-| `default` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass; lifecycle=pass | none | `cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir <tmp> --non-interactive --namespace external-secrets` |
-| `no-crds` | try-with-proof | render=pass; confighub=missing; local=missing; gitops=blocked; live-parity=missing; two-cluster=pass; lifecycle=pass | required CRD acraccesstokens.generators.external-secrets.io; required CRD cloudsmithaccesstokens.generators.external-secrets.io; required CRD clusterexternalsecrets.external-secrets.io; required CRD clustergenerators.generators.external-secrets.io; required CRD clusterpushsecrets.external-secrets.io; required CRD clustersecretstores.external-secrets.io; required CRD ecrauthorizationtokens.generators.external-secrets.io; required CRD externalsecrets.external-secrets.io; required CRD fakes.generators.external-secrets.io; required CRD gcraccesstokens.generators.external-secrets.io; required CRD generatorstates.generators.external-secrets.io; required CRD githubaccesstokens.generators.external-secrets.io; required CRD grafanas.generators.external-secrets.io; required CRD mfas.generators.external-secrets.io; required CRD passwords.generators.external-secrets.io; required CRD pushsecrets.external-secrets.io; required CRD quayaccesstokens.generators.external-secrets.io; required CRD secretstores.external-secrets.io; required CRD sshkeys.generators.external-secrets.io; required CRD stssessiontokens.generators.external-secrets.io; required CRD uuids.generators.external-secrets.io; required CRD vaultdynamicsecrets.generators.external-secrets.io; required CRD webhooks.generators.external-secrets.io | `cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base no-crds --work-dir <tmp> --non-interactive --namespace external-secrets` |
+| `default` | start-here | render=pass; confighub=pass; local=pass; gitops=pass; live-parity=pass; two-cluster=pass; lifecycle=pass | required Secret external-secrets/external-secrets-webhook | `cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir <tmp> --non-interactive --namespace external-secrets` |
+| `no-crds` | try-with-proof | render=pass; confighub=missing; local=missing; gitops=blocked; live-parity=missing; two-cluster=pass; lifecycle=pass | required Secret external-secrets/external-secrets-webhook; required CRD acraccesstokens.generators.external-secrets.io; required CRD cloudsmithaccesstokens.generators.external-secrets.io; required CRD clusterexternalsecrets.external-secrets.io; required CRD clustergenerators.generators.external-secrets.io; required CRD clusterpushsecrets.external-secrets.io; required CRD clustersecretstores.external-secrets.io; required CRD ecrauthorizationtokens.generators.external-secrets.io; required CRD externalsecrets.external-secrets.io; required CRD fakes.generators.external-secrets.io; required CRD gcraccesstokens.generators.external-secrets.io; required CRD generatorstates.generators.external-secrets.io; required CRD githubaccesstokens.generators.external-secrets.io; required CRD grafanas.generators.external-secrets.io; required CRD mfas.generators.external-secrets.io; required CRD passwords.generators.external-secrets.io; required CRD pushsecrets.external-secrets.io; required CRD quayaccesstokens.generators.external-secrets.io; required CRD secretstores.external-secrets.io; required CRD sshkeys.generators.external-secrets.io; required CRD stssessiontokens.generators.external-secrets.io; required CRD uuids.generators.external-secrets.io; required CRD vaultdynamicsecrets.generators.external-secrets.io; required CRD webhooks.generators.external-secrets.io | `cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base no-crds --work-dir <tmp> --non-interactive --namespace external-secrets` |
 
 ## Quirks And Inputs
 
@@ -51,8 +51,8 @@ Model the generated webhook Secret as deliverable or prerequisite, rerun the def
 | Image policy | `mutable-image-exception-accepted-for-target-scope` |
 | Scan policy | `resource-policy-accepted-for-target-scope` |
 | Lifecycle policy | `lifecycle-observed-for-proof-scope` |
-| Target facts | `no-unresolved-target-prerequisite-in-candidate-base` |
-| Live evidence | `needs-runtime-decision-before-final` |
+| Target facts | `explicit-separated-secret-prerequisite-rehearsed-for-target-scope` |
+| Live evidence | `fresh-target-evidence-passed-with-prestaged-secret-prerequisite` |
 
 ## Evidence Links
 
