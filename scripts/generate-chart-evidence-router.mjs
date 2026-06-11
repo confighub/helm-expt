@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import { existsSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { join, relative } from "node:path";
 
-import { check, repoRoot, write } from "./lib/proof-common.mjs";
+import { check, readYaml, repoRoot, write } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const outputDir = join(repoRoot, "data", "chart-evidence-router");
@@ -58,7 +58,7 @@ function buildReport() {
   const baseOutcomes = groupBy(readCsv(SOURCES.baseOutcomes), "chart");
   const hooks = mapBy(readCsv(SOURCES.hooks), "chart");
   const quirks = mapBy(readCsv(SOURCES.quirks), "chart");
-  const runtimeGitops = groupBy(readCsv(SOURCES.runtimeGitops), (row) => chartKey(row.chart, row.version));
+  const runtimeGitops = groupBy(loadRuntimeGitopsRows(), (row) => chartKey(row.chart, row.version));
   const liveCompare = groupBy(readCsv(SOURCES.liveCompare), (row) => chartKey(row.chart, row.version));
   const productionDecisions = groupBy(readCsv(SOURCES.productionDecisions), (row) => chartKey(row.chart, row.version));
   const top500 = top500Index(readCsv(SOURCES.top500));
@@ -86,7 +86,7 @@ function buildReport() {
         catalog_path: chartUseRow?.catalog_path ?? "",
         current_proof: row.current_proof,
         proof_lane_rows: baseRows.map((item) => item.base).join(";") || "",
-        proof_lane_summary: laneSummary(baseRows),
+        proof_lane_summary: laneSummary(baseRows, gitopsRows),
         variant_revisions: joinPaths(baseRows.map((item) => item.variant_revision)),
         recipe_paths: joinPaths(baseRows.map((item) => item.recipe_path)),
         package_paths: joinPaths(baseRows.map((item) => item.package_path)),
@@ -97,6 +97,7 @@ function buildReport() {
         quirks: row.quirks,
         quirk_route: quirkRoute(quirkRow),
         quirk_evidence: joinPaths([quirkRow?.candidate_route_artifact, quirkRow?.source_evidence]),
+        runtime_gitops_results: runtimeGitopsSummary(gitopsRows),
         runtime_gitops_receipts: joinPaths(gitopsRows.map((item) => item.required_receipt)),
         live_compare_receipts: joinPaths(liveRows.map((item) => item.receipt)),
         production_decisions: productionDecisionSummary(decisionRows),
@@ -130,6 +131,7 @@ function buildReport() {
     "quirks",
     "quirk_route",
     "quirk_evidence",
+    "runtime_gitops_results",
     "runtime_gitops_receipts",
     "live_compare_receipts",
     "production_decisions",
@@ -217,26 +219,47 @@ function decisionReceiptCell(row) {
   const parts = [
     row.production_decisions ? `production ${code(row.production_decisions)}` : "",
     row.production_decision_paths ? pathLinks(row.production_decision_paths, "decision") : "",
+    row.runtime_gitops_results ? `GitOps ${code(row.runtime_gitops_results)}` : "",
     row.runtime_gitops_receipts ? pathLinks(row.runtime_gitops_receipts, "GitOps receipts") : "",
     row.live_compare_receipts ? pathLinks(row.live_compare_receipts, "live compare") : "",
   ].filter(Boolean);
   return parts.join("<br>") || "-";
 }
 
-function laneSummary(rows) {
+function laneSummary(rows, gitopsRows = []) {
+  const runtimeByBase = new Map();
+  for (const row of gitopsRows) {
+    if (!row.base || !row.receipt_result) continue;
+    if (!runtimeByBase.has(row.base)) runtimeByBase.set(row.base, []);
+    runtimeByBase.get(row.base).push(row.receipt_result);
+  }
   return rows
-    .map((row) =>
-      [
+    .map((row) => {
+      const runtimeResults = [...new Set(runtimeByBase.get(row.base) ?? [])];
+      const gitopsStatus = runtimeResults.length
+        ? `${row.gitops_oci_live}/runtime-${runtimeResults.join("+")}`
+        : row.gitops_oci_live;
+      return [
         row.base,
         `render=${row.render_parity}`,
         `confighub=${row.in_confighub}`,
         `local=${row.local_live}`,
-        `gitops=${row.gitops_oci_live}`,
+        `gitops=${gitopsStatus}`,
         `live-parity=${row.live_helm_vs_confighub_parity}`,
         `two-cluster=${row.two_cluster_kind_parity}`,
-      ].join(" "),
-    )
+      ].join(" ");
+    })
     .join("; ");
+}
+
+function runtimeGitopsSummary(rows) {
+  return rows
+    .map((row) =>
+      [row.base, row.controller, row.receipt_result || row.receipt_status]
+        .filter(Boolean)
+        .join(":"),
+    )
+    .join(";");
 }
 
 function coverageEvidence(row) {
@@ -290,6 +313,60 @@ function top500Index(rows) {
     if (row.source_version) result.set(chartKey(row.chart, row.source_version), row);
   }
   return result;
+}
+
+function loadRuntimeGitopsRows() {
+  const indexedRows = readCsv(SOURCES.runtimeGitops).map((row) => ({
+    ...row,
+    evidence_source: "wave-index",
+  }));
+  const rows = [...indexedRows];
+  const seen = new Set(rows.map(runtimeGitopsKey));
+  for (const path of findFiles(join(repoRoot, "data", "runtime-gitops", "receipts"), "latest.yaml")) {
+    const requiredReceipt = relative(repoRoot, path).replaceAll("\\", "/");
+    const receipt = readYaml(path);
+    const spec = receipt.spec ?? {};
+    if (!spec.chart || !spec.version || !spec.base) continue;
+    const row = {
+      chart: spec.chart,
+      version: spec.version,
+      base: spec.base,
+      controller: spec.controller ?? "",
+      required_receipt: requiredReceipt,
+      receipt_status: "present",
+      receipt_result: spec.result ?? "",
+      minimum_checks: "ConfigHub OCI artifact digest recorded;GitOps controller observed synced revision;Kubernetes runtime result recorded;freshness timestamp recorded",
+      evidence_source: "receipt-scan",
+    };
+    const key = runtimeGitopsKey(row);
+    if (!seen.has(key)) {
+      rows.push(row);
+      seen.add(key);
+    }
+  }
+  return rows.sort((a, b) =>
+    [a.chart, a.version, a.base, a.required_receipt].join("\0").localeCompare(
+      [b.chart, b.version, b.base, b.required_receipt].join("\0"),
+    ),
+  );
+}
+
+function runtimeGitopsKey(row) {
+  return [row.chart, row.version, row.base, row.required_receipt].join("\0");
+}
+
+function findFiles(dir, basename) {
+  if (!existsSync(dir)) return [];
+  const found = [];
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const path = join(dir, entry.name);
+    if (entry.isDirectory()) {
+      found.push(...findFiles(path, basename));
+    } else if (entry.isFile() && entry.name === basename) {
+      found.push(path);
+    }
+  }
+  return found.sort();
 }
 
 function cleanBase(value) {
