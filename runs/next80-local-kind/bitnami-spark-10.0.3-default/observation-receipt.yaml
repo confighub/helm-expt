@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-spark-10.0.3-default-local-kind"
+spec:
+  variantRevision: "recipes/bitnami/spark/10.0.3/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "bec034832a7f2a6c1d2f05aa7bfcf0ce4562dbb274e7b760170df3e80e1ced55"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-spark"
+    context: "kind-claude-helm-expt-codex-spark"
+    namespace: "default"
+  observedAt: "2026-06-11T13:08:47.274Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 2
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "0521ce10e6a2bb7c68fe9d32e91dc2a6d1027f1c5bf197f334f1d11d769a756d"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "10 object(s) from recipes/bitnami/spark/10.0.3/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "StatefulSet|default|spark-master"
+      reason: "image-pull-blocked: spark-master-0[ImagePullBackOff ready=false restarts=0;] spark-worker-0[ImagePullBackOff ready=false restarts=0;]"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "StatefulSet|default|spark-worker"
+      reason: "image-pull-blocked: spark-master-0[ErrImagePull ready=false restarts=0;] spark-worker-0[ImagePullBackOff ready=false restarts=0;]"
+  blockedReasons:
+    - "statefulset/spark-master: image-pull-blocked (spark-master-0[ImagePullBackOff ready=false restarts=0;] spark-worker-0[ImagePullBackOff ready=false restarts=0;])"
+    - "statefulset/spark-worker: image-pull-blocked (spark-master-0[ErrImagePull ready=false restarts=0;] spark-worker-0[ImagePullBackOff ready=false restarts=0;])"

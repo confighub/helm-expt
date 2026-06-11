@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-mongodb-19.0.9-generated-passwords-local-kind"
+spec:
+  variantRevision: "recipes/bitnami/mongodb/19.0.9/revisions/generated-passwords/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "4c5f0cd0bc6bffd0ff46b15cdb23ce44dba155120b6be46952d7da70ade25a68"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-mongo1909"
+    context: "kind-claude-helm-expt-codex-mongo1909"
+    namespace: "mongodb"
+  observedAt: "2026-06-11T12:59:07.229Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "generated-passwords"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "97f80983a14d741437e72c055c4c25e1999979dc5a50a21ff87dc6b42cf1f1b8"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||mongodb"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "8 object(s) from recipes/bitnami/mongodb/19.0.9/revisions/generated-passwords/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|mongodb|mongodb"

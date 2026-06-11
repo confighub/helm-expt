@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-nginx-24.0.4-http-clusterip-local-kind"
+spec:
+  variantRevision: "recipes/bitnami/nginx/24.0.4/revisions/http-clusterip/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "5c175126acf3b7abd9fce0c17791cfce7236eac8f51e9781d20814cad14b0bac"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-nginx2404"
+    context: "kind-claude-helm-expt-codex-nginx2404"
+    namespace: "nginx"
+  observedAt: "2026-06-11T12:59:53.547Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "http-clusterip"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "c12b0ed98718dede1017b9a7e78d1b1fda383e1b0b2f590f147bc5dce7431062"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||nginx"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "5 object(s) from recipes/bitnami/nginx/24.0.4/revisions/http-clusterip/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|nginx|nginx"

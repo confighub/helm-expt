@@ -1,0 +1,643 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "networking.k8s.io/v1"
+    kind: "NetworkPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"spark\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"spark\",\"app.kubernetes.io/version\":\"4.0.0\",\"helm.sh/chart\":\"spark-10.0.3\"},\"name\":\"spark-master\",\"namespace\":\"default\"},\"spec\":{\"egress\":[{}],\"ingress\":[{\"ports\":[{\"port\":7077},{\"port\":80},{\"port\":7077},{\"port\":8080}]}],\"podSelector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"spark\",\"app.kubernetes.io/name\":\"spark\"}},\"policyTypes\":[\"Ingress\",\"Egress\"]}}\n"
+      creationTimestamp: "2026-06-11T13:05:31Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "master"
+        app.kubernetes.io/instance: "spark"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "spark"
+        app.kubernetes.io/version: "4.0.0"
+        helm.sh/chart: "spark-10.0.3"
+      name: "spark-master"
+      namespace: "default"
+      resourceVersion: "443"
+      uid: "dca9e4ed-215d-4073-ae00-a0bc48640265"
+    spec:
+      egress:
+        -
+          {}
+      ingress:
+        -
+          ports:
+            -
+              port: 7077
+              protocol: "TCP"
+            -
+              port: 80
+              protocol: "TCP"
+            -
+              port: 7077
+              protocol: "TCP"
+            -
+              port: 8080
+              protocol: "TCP"
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/component: "master"
+          app.kubernetes.io/instance: "spark"
+          app.kubernetes.io/name: "spark"
+      policyTypes:
+        - "Ingress"
+        - "Egress"
+  -
+    apiVersion: "networking.k8s.io/v1"
+    kind: "NetworkPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"worker\",\"app.kubernetes.io/instance\":\"spark\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"spark\",\"app.kubernetes.io/version\":\"4.0.0\",\"helm.sh/chart\":\"spark-10.0.3\"},\"name\":\"spark-worker\",\"namespace\":\"default\"},\"spec\":{\"egress\":[{}],\"ingress\":[{\"ports\":[{\"port\":null},{\"port\":8080}]}],\"podSelector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"worker\",\"app.kubernetes.io/instance\":\"spark\",\"app.kubernetes.io/name\":\"spark\"}},\"policyTypes\":[\"Ingress\",\"Egress\"]}}\n"
+      creationTimestamp: "2026-06-11T13:05:31Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "worker"
+        app.kubernetes.io/instance: "spark"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "spark"
+        app.kubernetes.io/version: "4.0.0"
+        helm.sh/chart: "spark-10.0.3"
+      name: "spark-worker"
+      namespace: "default"
+      resourceVersion: "444"
+      uid: "488eac9f-fb76-4b00-b84d-2b7bb9bf2714"
+    spec:
+      egress:
+        -
+          {}
+      ingress:
+        -
+          ports:
+            -
+              protocol: "TCP"
+            -
+              port: 8080
+              protocol: "TCP"
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/component: "worker"
+          app.kubernetes.io/instance: "spark"
+          app.kubernetes.io/name: "spark"
+      policyTypes:
+        - "Ingress"
+        - "Egress"
+  -
+    apiVersion: "policy/v1"
+    kind: "PodDisruptionBudget"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"policy/v1\",\"kind\":\"PodDisruptionBudget\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"spark\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"spark\",\"app.kubernetes.io/version\":\"4.0.0\",\"helm.sh/chart\":\"spark-10.0.3\"},\"name\":\"spark-master\",\"namespace\":\"default\"},\"spec\":{\"maxUnavailable\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"spark\",\"app.kubernetes.io/name\":\"spark\"}}}}\n"
+      creationTimestamp: "2026-06-11T13:05:31Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "master"
+        app.kubernetes.io/instance: "spark"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "spark"
+        app.kubernetes.io/version: "4.0.0"
+        helm.sh/chart: "spark-10.0.3"
+      name: "spark-master"
+      namespace: "default"
+      resourceVersion: "469"
+      uid: "c6aa0928-d745-4573-b786-d271f2f85e42"
+    spec:
+      maxUnavailable: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "master"
+          app.kubernetes.io/instance: "spark"
+          app.kubernetes.io/name: "spark"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T13:05:31Z"
+          message: ""
+          observedGeneration: 1
+          reason: "InsufficientPods"
+          status: "False"
+          type: "DisruptionAllowed"
+      currentHealthy: 0
+      desiredHealthy: 0
+      disruptionsAllowed: 0
+      expectedPods: 1
+      observedGeneration: 1
+  -
+    apiVersion: "policy/v1"
+    kind: "PodDisruptionBudget"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"policy/v1\",\"kind\":\"PodDisruptionBudget\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"worker\",\"app.kubernetes.io/instance\":\"spark\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"spark\",\"app.kubernetes.io/version\":\"4.0.0\",\"helm.sh/chart\":\"spark-10.0.3\"},\"name\":\"spark-worker\",\"namespace\":\"default\"},\"spec\":{\"maxUnavailable\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"worker\",\"app.kubernetes.io/instance\":\"spark\",\"app.kubernetes.io/name\":\"spark\"}}}}\n"
+      creationTimestamp: "2026-06-11T13:05:31Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "worker"
+        app.kubernetes.io/instance: "spark"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "spark"
+        app.kubernetes.io/version: "4.0.0"
+        helm.sh/chart: "spark-10.0.3"
+      name: "spark-worker"
+      namespace: "default"
+      resourceVersion: "474"
+      uid: "1722f1cb-4861-485a-9a10-001b389ec990"
+    spec:
+      maxUnavailable: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "worker"
+          app.kubernetes.io/instance: "spark"
+          app.kubernetes.io/name: "spark"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T13:05:31Z"
+          message: ""
+          observedGeneration: 1
+          reason: "InsufficientPods"
+          status: "False"
+          type: "DisruptionAllowed"
+      currentHealthy: 0
+      desiredHealthy: 1
+      disruptionsAllowed: 0
+      expectedPods: 2
+      observedGeneration: 1
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: false
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":false,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"spark\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"spark\",\"app.kubernetes.io/version\":\"4.0.0\",\"helm.sh/chart\":\"spark-10.0.3\"},\"name\":\"spark\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T13:05:31Z"
+      labels:
+        app.kubernetes.io/instance: "spark"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "spark"
+        app.kubernetes.io/version: "4.0.0"
+        helm.sh/chart: "spark-10.0.3"
+      name: "spark"
+      namespace: "default"
+      resourceVersion: "447"
+      uid: "254db067-f601-4b7d-858e-eaf3f08ba703"
+  -
+    apiVersion: "v1"
+    kind: "Secret"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "redacted: live Secret last-applied-configuration is not committed"
+      creationTimestamp: "2026-06-11T13:05:31Z"
+      labels:
+        app.kubernetes.io/instance: "spark"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "spark"
+        app.kubernetes.io/version: "4.0.0"
+        helm.sh/chart: "spark-10.0.3"
+      name: "spark-secret"
+      namespace: "default"
+      resourceVersion: "451"
+      uid: "3823c8b1-1d64-4d0a-8fe3-bf3cc9541ff4"
+    type: "Opaque"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"spark\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"spark\",\"app.kubernetes.io/version\":\"4.0.0\",\"helm.sh/chart\":\"spark-10.0.3\"},\"name\":\"spark-headless\",\"namespace\":\"default\"},\"spec\":{\"clusterIP\":\"None\",\"selector\":{\"app.kubernetes.io/instance\":\"spark\",\"app.kubernetes.io/name\":\"spark\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T13:05:31Z"
+      labels:
+        app.kubernetes.io/instance: "spark"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "spark"
+        app.kubernetes.io/version: "4.0.0"
+        helm.sh/chart: "spark-10.0.3"
+      name: "spark-headless"
+      namespace: "default"
+      resourceVersion: "454"
+      uid: "dcdbf9bf-f535-453a-ae53-637000e25485"
+    spec:
+      clusterIP: "None"
+      clusterIPs:
+        - "None"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      selector:
+        app.kubernetes.io/instance: "spark"
+        app.kubernetes.io/name: "spark"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"spark\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"spark\",\"app.kubernetes.io/version\":\"4.0.0\",\"helm.sh/chart\":\"spark-10.0.3\"},\"name\":\"spark-master-svc\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"cluster\",\"nodePort\":null,\"port\":7077,\"targetPort\":\"cluster\"},{\"name\":\"http\",\"nodePort\":null,\"port\":80,\"protocol\":\"TCP\",\"targetPort\":\"http\"}],\"selector\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"spark\",\"app.kubernetes.io/name\":\"spark\"},\"sessionAffinity\":\"None\",\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T13:05:31Z"
+      labels:
+        app.kubernetes.io/component: "master"
+        app.kubernetes.io/instance: "spark"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "spark"
+        app.kubernetes.io/version: "4.0.0"
+        helm.sh/chart: "spark-10.0.3"
+      name: "spark-master-svc"
+      namespace: "default"
+      resourceVersion: "459"
+      uid: "fc2f8519-e818-4d3e-9880-894f821eb190"
+    spec:
+      clusterIP: "10.96.128.254"
+      clusterIPs:
+        - "10.96.128.254"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "cluster"
+          port: 7077
+          protocol: "TCP"
+          targetPort: "cluster"
+        -
+          name: "http"
+          port: 80
+          protocol: "TCP"
+          targetPort: "http"
+      selector:
+        app.kubernetes.io/component: "master"
+        app.kubernetes.io/instance: "spark"
+        app.kubernetes.io/name: "spark"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "StatefulSet"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"spark\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"spark\",\"app.kubernetes.io/version\":\"4.0.0\",\"helm.sh/chart\":\"spark-10.0.3\"},\"name\":\"spark-master\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"spark\",\"app.kubernetes.io/name\":\"spark\"}},\"serviceName\":\"spark-headless\",\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"spark\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"spark\",\"app.kubernetes.io/version\":\"4.0.0\",\"helm.sh/chart\":\"spark-10.0.3\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":null,\"podAffinity\":null,\"podAntiAffinity\":{\"preferredDuringSchedulingIgnoredDuringExecution\":[{\"podAffinityTerm\":{\"labelSelector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"spark\",\"app.kubernetes.io/name\":\"spark\"}},\"topologyKey\":\"kubernetes.io/hostname\"},\"weight\":1}]}},\"automountServiceAccountToken\":false,\"containers\":[{\"env\":[{\"name\":\"BITNAMI_DEBUG\",\"value\":\"false\"},{\"name\":\"SPARK_MODE\",\"value\":\"master\"},{\"name\":\"SPARK_DAEMON_MEMORY\",\"value\":\"\"},{\"name\":\"SPARK_MASTER_PORT\",\"value\":\"7077\"},{\"name\":\"SPARK_MASTER_WEBUI_PORT\",\"value\":\"8080\"}],\"envFrom\":null,\"image\":\"docker.io/bitnami/spark:4.0.0-debian-12-r20\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":6,\"initialDelaySeconds\":180,\"periodSeconds\":20,\"successThreshold\":1,\"tcpSocket\":{\"port\":8080},\"timeoutSeconds\":5},\"name\":\"spark-master\",\"ports\":[{\"containerPort\":8080,\"name\":\"http\",\"protocol\":\"TCP\"},{\"containerPort\":7077,\"name\":\"cluster\"}],\"readinessProbe\":{\"failureThreshold\":6,\"httpGet\":{\"path\":\"/\",\"port\":8080},\"initialDelaySeconds\":30,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"resources\":{\"limits\":{\"cpu\":\"750m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"768Mi\"},\"requests\":{\"cpu\":\"500m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"512Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"empty-dir\",\"subPath\":\"tmp-dir\"},{\"mountPath\":\"/opt/bitnami/spark/conf\",\"name\":\"empty-dir\",\"subPath\":\"app-conf-dir\"},{\"mountPath\":\"/opt/bitnami/spark/tmp\",\"name\":\"empty-dir\",\"subPath\":\"app-tmp-dir\"},{\"mountPath\":\"/opt/bitnami/spark/logs\",\"name\":\"empty-dir\",\"subPath\":\"app-logs-dir\"},{\"mountPath\":\"/opt/bitnami/spark/work\",\"name\":\"empty-dir\",\"subPath\":\"app-work-dir\"}]}],\"securityContext\":{\"fsGroup\":1001,\"fsGroupChangePolicy\":\"Always\",\"supplementalGroups\":[],\"sysctls\":[]},\"serviceAccountName\":\"spark\",\"volumes\":[{\"emptyDir\":{},\"name\":\"empty-dir\"}]}},\"updateStrategy\":{\"type\":\"RollingUpdate\"}}}\n"
+      creationTimestamp: "2026-06-11T13:05:31Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "master"
+        app.kubernetes.io/instance: "spark"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "spark"
+        app.kubernetes.io/version: "4.0.0"
+        helm.sh/chart: "spark-10.0.3"
+      name: "spark-master"
+      namespace: "default"
+      resourceVersion: "479"
+      uid: "e9823eab-6706-43be-8872-29f78ed3ea83"
+    spec:
+      persistentVolumeClaimRetentionPolicy:
+        whenDeleted: "Retain"
+        whenScaled: "Retain"
+      podManagementPolicy: "OrderedReady"
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "master"
+          app.kubernetes.io/instance: "spark"
+          app.kubernetes.io/name: "spark"
+      serviceName: "spark-headless"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/component: "master"
+            app.kubernetes.io/instance: "spark"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "spark"
+            app.kubernetes.io/version: "4.0.0"
+            helm.sh/chart: "spark-10.0.3"
+        spec:
+          affinity:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                -
+                  podAffinityTerm:
+                    labelSelector:
+                      matchLabels:
+                        app.kubernetes.io/component: "master"
+                        app.kubernetes.io/instance: "spark"
+                        app.kubernetes.io/name: "spark"
+                    topologyKey: "kubernetes.io/hostname"
+                  weight: 1
+          automountServiceAccountToken: false
+          containers:
+            -
+              env:
+                -
+                  name: "BITNAMI_DEBUG"
+                  value: "false"
+                -
+                  name: "SPARK_MODE"
+                  value: "master"
+                -
+                  name: "SPARK_DAEMON_MEMORY"
+                -
+                  name: "SPARK_MASTER_PORT"
+                  value: "7077"
+                -
+                  name: "SPARK_MASTER_WEBUI_PORT"
+                  value: "8080"
+              image: "docker.io/bitnami/spark:4.0.0-debian-12-r20"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 6
+                initialDelaySeconds: 180
+                periodSeconds: 20
+                successThreshold: 1
+                tcpSocket:
+                  port: 8080
+                timeoutSeconds: 5
+              name: "spark-master"
+              ports:
+                -
+                  containerPort: 8080
+                  name: "http"
+                  protocol: "TCP"
+                -
+                  containerPort: 7077
+                  name: "cluster"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 6
+                httpGet:
+                  path: "/"
+                  port: 8080
+                  scheme: "HTTP"
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                limits:
+                  cpu: "750m"
+                  ephemeral-storage: "2Gi"
+                  memory: "768Mi"
+                requests:
+                  cpu: "500m"
+                  ephemeral-storage: "50Mi"
+                  memory: "512Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/tmp"
+                  name: "empty-dir"
+                  subPath: "tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/spark/conf"
+                  name: "empty-dir"
+                  subPath: "app-conf-dir"
+                -
+                  mountPath: "/opt/bitnami/spark/tmp"
+                  name: "empty-dir"
+                  subPath: "app-tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/spark/logs"
+                  name: "empty-dir"
+                  subPath: "app-logs-dir"
+                -
+                  mountPath: "/opt/bitnami/spark/work"
+                  name: "empty-dir"
+                  subPath: "app-work-dir"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 1001
+            fsGroupChangePolicy: "Always"
+          serviceAccount: "spark"
+          serviceAccountName: "spark"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              emptyDir:
+                {}
+              name: "empty-dir"
+      updateStrategy:
+        type: "RollingUpdate"
+    status:
+      availableReplicas: 0
+      collisionCount: 0
+      currentReplicas: 1
+      currentRevision: "spark-master-5dd99f5654"
+      observedGeneration: 1
+      replicas: 1
+      updateRevision: "spark-master-5dd99f5654"
+      updatedReplicas: 1
+  -
+    apiVersion: "apps/v1"
+    kind: "StatefulSet"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"worker\",\"app.kubernetes.io/instance\":\"spark\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"spark\",\"app.kubernetes.io/version\":\"4.0.0\",\"helm.sh/chart\":\"spark-10.0.3\"},\"name\":\"spark-worker\",\"namespace\":\"default\"},\"spec\":{\"podManagementPolicy\":\"OrderedReady\",\"replicas\":2,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"worker\",\"app.kubernetes.io/instance\":\"spark\",\"app.kubernetes.io/name\":\"spark\"}},\"serviceName\":\"spark-headless\",\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"worker\",\"app.kubernetes.io/instance\":\"spark\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"spark\",\"app.kubernetes.io/version\":\"4.0.0\",\"helm.sh/chart\":\"spark-10.0.3\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":null,\"podAffinity\":null,\"podAntiAffinity\":{\"preferredDuringSchedulingIgnoredDuringExecution\":[{\"podAffinityTerm\":{\"labelSelector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"worker\",\"app.kubernetes.io/instance\":\"spark\",\"app.kubernetes.io/name\":\"spark\"}},\"topologyKey\":\"kubernetes.io/hostname\"},\"weight\":1}]}},\"automountServiceAccountToken\":false,\"containers\":[{\"env\":[{\"name\":\"SPARK_MODE\",\"value\":\"worker\"},{\"name\":\"BITNAMI_DEBUG\",\"value\":\"false\"},{\"name\":\"SPARK_DAEMON_MEMORY\",\"value\":\"\"},{\"name\":\"SPARK_WORKER_WEBUI_PORT\",\"value\":\"8080\"},{\"name\":\"SPARK_DAEMON_JAVA_OPTS\",\"value\":\"\"},{\"name\":\"SPARK_MASTER_URL\",\"value\":\"spark://spark-master-svc:7077\"},{\"name\":\"SPARK_WORKER_OPTS\",\"value\":null}],\"envFrom\":null,\"image\":\"docker.io/bitnami/spark:4.0.0-debian-12-r20\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":6,\"initialDelaySeconds\":180,\"periodSeconds\":20,\"successThreshold\":1,\"tcpSocket\":{\"port\":8080},\"timeoutSeconds\":5},\"name\":\"spark-worker\",\"ports\":[{\"containerPort\":8080,\"name\":\"http\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":6,\"httpGet\":{\"path\":\"/\",\"port\":8080},\"initialDelaySeconds\":30,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"resources\":{\"limits\":{\"cpu\":\"750m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"768Mi\"},\"requests\":{\"cpu\":\"500m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"512Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"startupProbe\":{\"failureThreshold\":6,\"httpGet\":{\"path\":\"/\",\"port\":8080},\"initialDelaySeconds\":30,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"empty-dir\",\"subPath\":\"tmp-dir\"},{\"mountPath\":\"/opt/bitnami/spark/conf\",\"name\":\"empty-dir\",\"subPath\":\"app-conf-dir\"},{\"mountPath\":\"/opt/bitnami/spark/tmp\",\"name\":\"empty-dir\",\"subPath\":\"app-tmp-dir\"},{\"mountPath\":\"/opt/bitnami/spark/logs\",\"name\":\"empty-dir\",\"subPath\":\"app-logs-dir\"},{\"mountPath\":\"/opt/bitnami/spark/work\",\"name\":\"empty-dir\",\"subPath\":\"app-work-dir\"}]}],\"securityContext\":{\"fsGroup\":1001,\"fsGroupChangePolicy\":\"Always\",\"seLinuxOptions\":{},\"supplementalGroups\":[],\"sysctls\":[]},\"serviceAccountName\":\"spark\",\"volumes\":[{\"emptyDir\":{},\"name\":\"empty-dir\"}]}},\"updateStrategy\":{\"type\":\"RollingUpdate\"}}}\n"
+      creationTimestamp: "2026-06-11T13:05:31Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "worker"
+        app.kubernetes.io/instance: "spark"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "spark"
+        app.kubernetes.io/version: "4.0.0"
+        helm.sh/chart: "spark-10.0.3"
+      name: "spark-worker"
+      namespace: "default"
+      resourceVersion: "480"
+      uid: "1dc92b53-30e5-48a5-b923-b55a34808ebc"
+    spec:
+      persistentVolumeClaimRetentionPolicy:
+        whenDeleted: "Retain"
+        whenScaled: "Retain"
+      podManagementPolicy: "OrderedReady"
+      replicas: 2
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "worker"
+          app.kubernetes.io/instance: "spark"
+          app.kubernetes.io/name: "spark"
+      serviceName: "spark-headless"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/component: "worker"
+            app.kubernetes.io/instance: "spark"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "spark"
+            app.kubernetes.io/version: "4.0.0"
+            helm.sh/chart: "spark-10.0.3"
+        spec:
+          affinity:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                -
+                  podAffinityTerm:
+                    labelSelector:
+                      matchLabels:
+                        app.kubernetes.io/component: "worker"
+                        app.kubernetes.io/instance: "spark"
+                        app.kubernetes.io/name: "spark"
+                    topologyKey: "kubernetes.io/hostname"
+                  weight: 1
+          automountServiceAccountToken: false
+          containers:
+            -
+              env:
+                -
+                  name: "SPARK_MODE"
+                  value: "worker"
+                -
+                  name: "BITNAMI_DEBUG"
+                  value: "false"
+                -
+                  name: "SPARK_DAEMON_MEMORY"
+                -
+                  name: "SPARK_WORKER_WEBUI_PORT"
+                  value: "8080"
+                -
+                  name: "SPARK_DAEMON_JAVA_OPTS"
+                -
+                  name: "SPARK_MASTER_URL"
+                  value: "spark://spark-master-svc:7077"
+                -
+                  name: "SPARK_WORKER_OPTS"
+              image: "docker.io/bitnami/spark:4.0.0-debian-12-r20"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 6
+                initialDelaySeconds: 180
+                periodSeconds: 20
+                successThreshold: 1
+                tcpSocket:
+                  port: 8080
+                timeoutSeconds: 5
+              name: "spark-worker"
+              ports:
+                -
+                  containerPort: 8080
+                  name: "http"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 6
+                httpGet:
+                  path: "/"
+                  port: 8080
+                  scheme: "HTTP"
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                limits:
+                  cpu: "750m"
+                  ephemeral-storage: "2Gi"
+                  memory: "768Mi"
+                requests:
+                  cpu: "500m"
+                  ephemeral-storage: "50Mi"
+                  memory: "512Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              startupProbe:
+                failureThreshold: 6
+                httpGet:
+                  path: "/"
+                  port: 8080
+                  scheme: "HTTP"
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/tmp"
+                  name: "empty-dir"
+                  subPath: "tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/spark/conf"
+                  name: "empty-dir"
+                  subPath: "app-conf-dir"
+                -
+                  mountPath: "/opt/bitnami/spark/tmp"
+                  name: "empty-dir"
+                  subPath: "app-tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/spark/logs"
+                  name: "empty-dir"
+                  subPath: "app-logs-dir"
+                -
+                  mountPath: "/opt/bitnami/spark/work"
+                  name: "empty-dir"
+                  subPath: "app-work-dir"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 1001
+            fsGroupChangePolicy: "Always"
+            seLinuxOptions:
+              {}
+          serviceAccount: "spark"
+          serviceAccountName: "spark"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              emptyDir:
+                {}
+              name: "empty-dir"
+      updateStrategy:
+        type: "RollingUpdate"
+    status:
+      availableReplicas: 0
+      collisionCount: 0
+      currentReplicas: 1
+      currentRevision: "spark-worker-6c889fbf84"
+      observedGeneration: 1
+      replicas: 1
+      updateRevision: "spark-worker-6c889fbf84"
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
