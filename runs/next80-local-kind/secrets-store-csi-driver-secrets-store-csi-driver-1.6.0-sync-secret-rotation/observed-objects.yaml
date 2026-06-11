@@ -1,0 +1,832 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"secrets-store-csi-driver\",\"app.kubernetes.io/instance\":\"secrets-store-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"secrets-store-csi-driver\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"secrets-store-csi-driver-1.6.0\"},\"name\":\"secrets-store-csi-driver\",\"namespace\":\"kube-system\"}}\n"
+      creationTimestamp: "2026-06-11T13:52:21Z"
+      labels:
+        app: "secrets-store-csi-driver"
+        app.kubernetes.io/instance: "secrets-store-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "secrets-store-csi-driver"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "secrets-store-csi-driver-1.6.0"
+      name: "secrets-store-csi-driver"
+      namespace: "kube-system"
+      resourceVersion: "483"
+      uid: "8c30a31a-32db-453d-b5e2-86e2a03f82ea"
+  -
+    apiVersion: "apps/v1"
+    kind: "DaemonSet"
+    metadata:
+      annotations:
+        deprecated.daemonset.template.generation: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"DaemonSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"secrets-store-csi-driver\",\"app.kubernetes.io/instance\":\"secrets-store-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"secrets-store-csi-driver\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"secrets-store-csi-driver-1.6.0\"},\"name\":\"secrets-store-csi-driver\",\"namespace\":\"kube-system\"},\"spec\":{\"selector\":{\"matchLabels\":{\"app\":\"secrets-store-csi-driver\"}},\"template\":{\"metadata\":{\"annotations\":{\"kubectl.kubernetes.io/default-container\":\"secrets-store\"},\"labels\":{\"app\":\"secrets-store-csi-driver\",\"app.kubernetes.io/instance\":\"secrets-store-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"secrets-store-csi-driver\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"secrets-store-csi-driver-1.6.0\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":{\"requiredDuringSchedulingIgnoredDuringExecution\":{\"nodeSelectorTerms\":[{\"matchExpressions\":[{\"key\":\"type\",\"operator\":\"NotIn\",\"values\":[\"virtual-kubelet\"]}]}]}}},\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"--v=5\",\"--csi-address=/csi/csi.sock\",\"--kubelet-registration-path=/var/lib/kubelet/plugins/csi-secrets-store/csi.sock\"],\"image\":\"registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.16.0\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"node-driver-registrar\",\"resources\":{\"limits\":{\"cpu\":\"100m\",\"memory\":\"100Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"20Mi\"}},\"volumeMounts\":[{\"mountPath\":\"/csi\",\"name\":\"plugin-dir\"},{\"mountPath\":\"/registration\",\"name\":\"registration-dir\"}]},{\"args\":[\"--endpoint=$(CSI_ENDPOINT)\",\"--nodeid=$(KUBE_NODE_NAME)\",\"--provider-volume=/var/run/secrets-store-csi-providers\",\"--additional-provider-volume-paths=/etc/kubernetes/secrets-store-csi-providers\",\"--enable-secret-rotation=true\",\"--metrics-addr=:8095\",\"--provider-health-check=true\",\"--provider-health-check-interval=2m\",\"--max-call-recv-msg-size=4194304\"],\"env\":[{\"name\":\"CSI_ENDPOINT\",\"value\":\"unix:///csi/csi.sock\"},{\"name\":\"KUBE_NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"apiVersion\":\"v1\",\"fieldPath\":\"spec.nodeName\"}}}],\"image\":\"registry.k8s.io/csi-secrets-store/driver:v1.6.0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":5,\"httpGet\":{\"path\":\"/healthz\",\"port\":\"healthz\"},\"initialDelaySeconds\":30,\"periodSeconds\":15,\"timeoutSeconds\":10},\"name\":\"secrets-store\",\"ports\":[{\"containerPort\":9808,\"name\":\"healthz\",\"protocol\":\"TCP\"},{\"containerPort\":8095,\"name\":\"metrics\",\"protocol\":\"TCP\"}],\"resources\":{\"limits\":{\"cpu\":\"200m\",\"memory\":\"200Mi\"},\"requests\":{\"cpu\":\"50m\",\"memory\":\"100Mi\"}},\"securityContext\":{\"privileged\":true},\"volumeMounts\":[{\"mountPath\":\"/csi\",\"name\":\"plugin-dir\"},{\"mountPath\":\"/var/lib/kubelet/pods\",\"mountPropagation\":\"Bidirectional\",\"name\":\"mountpoint-dir\"},{\"mountPath\":\"/var/run/secrets-store-csi-providers\",\"name\":\"providers-dir\"},{\"mountPath\":\"/etc/kubernetes/secrets-store-csi-providers\",\"name\":\"providers-dir-0\"}]},{\"args\":[\"--csi-address=/csi/csi.sock\",\"--probe-timeout=3s\",\"--http-endpoint=0.0.0.0:9808\",\"-v=2\"],\"image\":\"registry.k8s.io/sig-storage/livenessprobe:v2.18.0\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"liveness-probe\",\"resources\":{\"limits\":{\"cpu\":\"100m\",\"memory\":\"100Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"20Mi\"}},\"volumeMounts\":[{\"mountPath\":\"/csi\",\"name\":\"plugin-dir\"}]}],\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"serviceAccountName\":\"secrets-store-csi-driver\",\"tolerations\":[{\"operator\":\"Exists\"}],\"volumes\":[{\"hostPath\":{\"path\":\"/var/lib/kubelet/pods\",\"type\":\"DirectoryOrCreate\"},\"name\":\"mountpoint-dir\"},{\"hostPath\":{\"path\":\"/var/lib/kubelet/plugins_registry/\",\"type\":\"Directory\"},\"name\":\"registration-dir\"},{\"hostPath\":{\"path\":\"/var/lib/kubelet/plugins/csi-secrets-store/\",\"type\":\"DirectoryOrCreate\"},\"name\":\"plugin-dir\"},{\"hostPath\":{\"path\":\"/var/run/secrets-store-csi-providers\",\"type\":\"DirectoryOrCreate\"},\"name\":\"providers-dir\"},{\"hostPath\":{\"path\":\"/etc/kubernetes/secrets-store-csi-providers\",\"type\":\"DirectoryOrCreate\"},\"name\":\"providers-dir-0\"}]}},\"updateStrategy\":{\"rollingUpdate\":{\"maxUnavailable\":1},\"type\":\"RollingUpdate\"}}}\n"
+      creationTimestamp: "2026-06-11T13:52:21Z"
+      generation: 1
+      labels:
+        app: "secrets-store-csi-driver"
+        app.kubernetes.io/instance: "secrets-store-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "secrets-store-csi-driver"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "secrets-store-csi-driver-1.6.0"
+      name: "secrets-store-csi-driver"
+      namespace: "kube-system"
+      resourceVersion: "570"
+      uid: "2aa4174c-80b6-4fe5-8e87-c33302521e8f"
+    spec:
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app: "secrets-store-csi-driver"
+      template:
+        metadata:
+          annotations:
+            kubectl.kubernetes.io/default-container: "secrets-store"
+          labels:
+            app: "secrets-store-csi-driver"
+            app.kubernetes.io/instance: "secrets-store-csi-driver"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "secrets-store-csi-driver"
+            app.kubernetes.io/version: "1.6.0"
+            helm.sh/chart: "secrets-store-csi-driver-1.6.0"
+        spec:
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  -
+                    matchExpressions:
+                      -
+                        key: "type"
+                        operator: "NotIn"
+                        values:
+                          - "virtual-kubelet"
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "--v=5"
+                - "--csi-address=/csi/csi.sock"
+                - "--kubelet-registration-path=/var/lib/kubelet/plugins/csi-secrets-store/csi.sock"
+              image: "registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.16.0"
+              imagePullPolicy: "IfNotPresent"
+              name: "node-driver-registrar"
+              resources:
+                limits:
+                  cpu: "100m"
+                  memory: "100Mi"
+                requests:
+                  cpu: "10m"
+                  memory: "20Mi"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/csi"
+                  name: "plugin-dir"
+                -
+                  mountPath: "/registration"
+                  name: "registration-dir"
+            -
+              args:
+                - "--endpoint=$(CSI_ENDPOINT)"
+                - "--nodeid=$(KUBE_NODE_NAME)"
+                - "--provider-volume=/var/run/secrets-store-csi-providers"
+                - "--additional-provider-volume-paths=/etc/kubernetes/secrets-store-csi-providers"
+                - "--enable-secret-rotation=true"
+                - "--metrics-addr=:8095"
+                - "--provider-health-check=true"
+                - "--provider-health-check-interval=2m"
+                - "--max-call-recv-msg-size=4194304"
+              env:
+                -
+                  name: "CSI_ENDPOINT"
+                  value: "unix:///csi/csi.sock"
+                -
+                  name: "KUBE_NODE_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "spec.nodeName"
+              image: "registry.k8s.io/csi-secrets-store/driver:v1.6.0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: "/healthz"
+                  port: "healthz"
+                  scheme: "HTTP"
+                initialDelaySeconds: 30
+                periodSeconds: 15
+                successThreshold: 1
+                timeoutSeconds: 10
+              name: "secrets-store"
+              ports:
+                -
+                  containerPort: 9808
+                  name: "healthz"
+                  protocol: "TCP"
+                -
+                  containerPort: 8095
+                  name: "metrics"
+                  protocol: "TCP"
+              resources:
+                limits:
+                  cpu: "200m"
+                  memory: "200Mi"
+                requests:
+                  cpu: "50m"
+                  memory: "100Mi"
+              securityContext:
+                privileged: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/csi"
+                  name: "plugin-dir"
+                -
+                  mountPath: "/var/lib/kubelet/pods"
+                  mountPropagation: "Bidirectional"
+                  name: "mountpoint-dir"
+                -
+                  mountPath: "/var/run/secrets-store-csi-providers"
+                  name: "providers-dir"
+                -
+                  mountPath: "/etc/kubernetes/secrets-store-csi-providers"
+                  name: "providers-dir-0"
+            -
+              args:
+                - "--csi-address=/csi/csi.sock"
+                - "--probe-timeout=3s"
+                - "--http-endpoint=0.0.0.0:9808"
+                - "-v=2"
+              image: "registry.k8s.io/sig-storage/livenessprobe:v2.18.0"
+              imagePullPolicy: "IfNotPresent"
+              name: "liveness-probe"
+              resources:
+                limits:
+                  cpu: "100m"
+                  memory: "100Mi"
+                requests:
+                  cpu: "10m"
+                  memory: "20Mi"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/csi"
+                  name: "plugin-dir"
+          dnsPolicy: "ClusterFirst"
+          nodeSelector:
+            kubernetes.io/os: "linux"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "secrets-store-csi-driver"
+          serviceAccountName: "secrets-store-csi-driver"
+          terminationGracePeriodSeconds: 30
+          tolerations:
+            -
+              operator: "Exists"
+          volumes:
+            -
+              hostPath:
+                path: "/var/lib/kubelet/pods"
+                type: "DirectoryOrCreate"
+              name: "mountpoint-dir"
+            -
+              hostPath:
+                path: "/var/lib/kubelet/plugins_registry/"
+                type: "Directory"
+              name: "registration-dir"
+            -
+              hostPath:
+                path: "/var/lib/kubelet/plugins/csi-secrets-store/"
+                type: "DirectoryOrCreate"
+              name: "plugin-dir"
+            -
+              hostPath:
+                path: "/var/run/secrets-store-csi-providers"
+                type: "DirectoryOrCreate"
+              name: "providers-dir"
+            -
+              hostPath:
+                path: "/etc/kubernetes/secrets-store-csi-providers"
+                type: "DirectoryOrCreate"
+              name: "providers-dir-0"
+      updateStrategy:
+        rollingUpdate:
+          maxSurge: 0
+          maxUnavailable: 1
+        type: "RollingUpdate"
+    status:
+      currentNumberScheduled: 1
+      desiredNumberScheduled: 1
+      numberAvailable: 1
+      numberMisscheduled: 0
+      numberReady: 1
+      observedGeneration: 1
+      updatedNumberScheduled: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "apiextensions.k8s.io/v1"
+    kind: "CustomResourceDefinition"
+    metadata:
+      annotations:
+        controller-gen.kubebuilder.io/version: "v0.16.3"
+      creationTimestamp: "2026-06-11T13:52:21Z"
+      generation: 1
+      name: "secretproviderclasses.secrets-store.csi.x-k8s.io"
+      resourceVersion: "477"
+      uid: "d546d52d-fa19-47cc-8f92-94b08495237d"
+    spec:
+      conversion:
+        strategy: "None"
+      group: "secrets-store.csi.x-k8s.io"
+      names:
+        kind: "SecretProviderClass"
+        listKind: "SecretProviderClassList"
+        plural: "secretproviderclasses"
+        singular: "secretproviderclass"
+      scope: "Namespaced"
+      versions:
+        -
+          name: "v1"
+          schema:
+            openAPIV3Schema:
+              description: "SecretProviderClass is the Schema for the secretproviderclasses API"
+              properties:
+                apiVersion:
+                  description: "APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
+                  type: "string"
+                kind:
+                  description: "Kind is a string value representing the REST resource this object represents.\nServers may infer this from the endpoint the client submits requests to.\nCannot be updated.\nIn CamelCase.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+                  type: "string"
+                metadata:
+                  type: "object"
+                spec:
+                  description: "SecretProviderClassSpec defines the desired state of SecretProviderClass"
+                  properties:
+                    parameters:
+                      additionalProperties:
+                        type: "string"
+                      description: "Configuration for specific provider"
+                      type: "object"
+                    provider:
+                      description: "Configuration for provider name"
+                      type: "string"
+                    secretObjects:
+                      items:
+                        description: "SecretObject defines the desired state of synced K8s secret objects"
+                        properties:
+                          annotations:
+                            additionalProperties:
+                              type: "string"
+                            description: "annotations of k8s secret object"
+                            type: "object"
+                          data:
+                            items:
+                              description: "SecretObjectData defines the desired state of synced K8s secret object data"
+                              properties:
+                                key:
+                                  description: "data field to populate"
+                                  type: "string"
+                                objectName:
+                                  description: "name of the object to sync"
+                                  type: "string"
+                              type: "object"
+                            type: "array"
+                          labels:
+                            additionalProperties:
+                              type: "string"
+                            description: "labels of K8s secret object"
+                            type: "object"
+                          secretName:
+                            description: "name of the K8s secret object"
+                            type: "string"
+                          type:
+                            description: "type of K8s secret object"
+                            type: "string"
+                        type: "object"
+                      type: "array"
+                  type: "object"
+                status:
+                  description: "SecretProviderClassStatus defines the observed state of SecretProviderClass"
+                  type: "object"
+              type: "object"
+          served: true
+          storage: true
+        -
+          deprecated: true
+          deprecationWarning: "secrets-store.csi.x-k8s.io/v1alpha1 is deprecated. Use secrets-store.csi.x-k8s.io/v1 instead."
+          name: "v1alpha1"
+          schema:
+            openAPIV3Schema:
+              description: "SecretProviderClass is the Schema for the secretproviderclasses API"
+              properties:
+                apiVersion:
+                  description: "APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
+                  type: "string"
+                kind:
+                  description: "Kind is a string value representing the REST resource this object represents.\nServers may infer this from the endpoint the client submits requests to.\nCannot be updated.\nIn CamelCase.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+                  type: "string"
+                metadata:
+                  type: "object"
+                spec:
+                  description: "SecretProviderClassSpec defines the desired state of SecretProviderClass"
+                  properties:
+                    parameters:
+                      additionalProperties:
+                        type: "string"
+                      description: "Configuration for specific provider"
+                      type: "object"
+                    provider:
+                      description: "Configuration for provider name"
+                      type: "string"
+                    secretObjects:
+                      items:
+                        description: "SecretObject defines the desired state of synced K8s secret objects"
+                        properties:
+                          annotations:
+                            additionalProperties:
+                              type: "string"
+                            description: "annotations of k8s secret object"
+                            type: "object"
+                          data:
+                            items:
+                              description: "SecretObjectData defines the desired state of synced K8s secret object data"
+                              properties:
+                                key:
+                                  description: "data field to populate"
+                                  type: "string"
+                                objectName:
+                                  description: "name of the object to sync"
+                                  type: "string"
+                              type: "object"
+                            type: "array"
+                          labels:
+                            additionalProperties:
+                              type: "string"
+                            description: "labels of K8s secret object"
+                            type: "object"
+                          secretName:
+                            description: "name of the K8s secret object"
+                            type: "string"
+                          type:
+                            description: "type of K8s secret object"
+                            type: "string"
+                        type: "object"
+                      type: "array"
+                  type: "object"
+                status:
+                  description: "SecretProviderClassStatus defines the observed state of SecretProviderClass"
+                  properties:
+                    byPod:
+                      items:
+                        description: "ByPodStatus defines the state of SecretProviderClass as seen by\nan individual controller"
+                        properties:
+                          id:
+                            description: "id of the pod that wrote the status"
+                            type: "string"
+                          namespace:
+                            description: "namespace of the pod that wrote the status"
+                            type: "string"
+                        type: "object"
+                      type: "array"
+                  type: "object"
+              type: "object"
+          served: true
+          storage: false
+    status:
+      acceptedNames:
+        kind: "SecretProviderClass"
+        listKind: "SecretProviderClassList"
+        plural: "secretproviderclasses"
+        singular: "secretproviderclass"
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T13:52:21Z"
+          message: "no conflicts found"
+          reason: "NoConflicts"
+          status: "True"
+          type: "NamesAccepted"
+        -
+          lastTransitionTime: "2026-06-11T13:52:21Z"
+          message: "the initial names have been accepted"
+          reason: "InitialNamesAccepted"
+          status: "True"
+          type: "Established"
+      storedVersions:
+        - "v1"
+  -
+    apiVersion: "apiextensions.k8s.io/v1"
+    kind: "CustomResourceDefinition"
+    metadata:
+      annotations:
+        controller-gen.kubebuilder.io/version: "v0.16.3"
+      creationTimestamp: "2026-06-11T13:52:21Z"
+      generation: 1
+      name: "secretproviderclasspodstatuses.secrets-store.csi.x-k8s.io"
+      resourceVersion: "479"
+      uid: "2bf31c5d-4aa9-43cd-9032-a8f6c81c7513"
+    spec:
+      conversion:
+        strategy: "None"
+      group: "secrets-store.csi.x-k8s.io"
+      names:
+        kind: "SecretProviderClassPodStatus"
+        listKind: "SecretProviderClassPodStatusList"
+        plural: "secretproviderclasspodstatuses"
+        singular: "secretproviderclasspodstatus"
+      scope: "Namespaced"
+      versions:
+        -
+          name: "v1"
+          schema:
+            openAPIV3Schema:
+              description: "SecretProviderClassPodStatus is the Schema for the secretproviderclassespodstatus API"
+              properties:
+                apiVersion:
+                  description: "APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
+                  type: "string"
+                kind:
+                  description: "Kind is a string value representing the REST resource this object represents.\nServers may infer this from the endpoint the client submits requests to.\nCannot be updated.\nIn CamelCase.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+                  type: "string"
+                metadata:
+                  type: "object"
+                status:
+                  description: "SecretProviderClassPodStatusStatus defines the observed state of SecretProviderClassPodStatus"
+                  properties:
+                    mounted:
+                      type: "boolean"
+                    objects:
+                      items:
+                        description: "SecretProviderClassObject defines the object fetched from external secrets store"
+                        properties:
+                          id:
+                            type: "string"
+                          version:
+                            type: "string"
+                        type: "object"
+                      type: "array"
+                    podName:
+                      type: "string"
+                    secretProviderClassName:
+                      type: "string"
+                    targetPath:
+                      type: "string"
+                  type: "object"
+              type: "object"
+          served: true
+          storage: true
+        -
+          deprecated: true
+          name: "v1alpha1"
+          schema:
+            openAPIV3Schema:
+              description: "SecretProviderClassPodStatus is the Schema for the secretproviderclassespodstatus API"
+              properties:
+                apiVersion:
+                  description: "APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
+                  type: "string"
+                kind:
+                  description: "Kind is a string value representing the REST resource this object represents.\nServers may infer this from the endpoint the client submits requests to.\nCannot be updated.\nIn CamelCase.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+                  type: "string"
+                metadata:
+                  type: "object"
+                status:
+                  description: "SecretProviderClassPodStatusStatus defines the observed state of SecretProviderClassPodStatus"
+                  properties:
+                    mounted:
+                      type: "boolean"
+                    objects:
+                      items:
+                        description: "SecretProviderClassObject defines the object fetched from external secrets store"
+                        properties:
+                          id:
+                            type: "string"
+                          version:
+                            type: "string"
+                        type: "object"
+                      type: "array"
+                    podName:
+                      type: "string"
+                    secretProviderClassName:
+                      type: "string"
+                    targetPath:
+                      type: "string"
+                  type: "object"
+              type: "object"
+          served: true
+          storage: false
+    status:
+      acceptedNames:
+        kind: "SecretProviderClassPodStatus"
+        listKind: "SecretProviderClassPodStatusList"
+        plural: "secretproviderclasspodstatuses"
+        singular: "secretproviderclasspodstatus"
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T13:52:21Z"
+          message: "no conflicts found"
+          reason: "NoConflicts"
+          status: "True"
+          type: "NamesAccepted"
+        -
+          lastTransitionTime: "2026-06-11T13:52:21Z"
+          message: "the initial names have been accepted"
+          reason: "InitialNamesAccepted"
+          status: "True"
+          type: "Established"
+      storedVersions:
+        - "v1"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"creationTimestamp\":null,\"labels\":{\"app\":\"secrets-store-csi-driver\",\"app.kubernetes.io/instance\":\"secrets-store-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"secrets-store-csi-driver\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"secrets-store-csi-driver-1.6.0\",\"rbac.authorization.k8s.io/aggregate-to-admin\":\"true\",\"rbac.authorization.k8s.io/aggregate-to-edit\":\"true\"},\"name\":\"secretproviderclasses-admin-role\"},\"rules\":[{\"apiGroups\":[\"secrets-store.csi.x-k8s.io\"],\"resources\":[\"secretproviderclasses\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:52:21Z"
+      labels:
+        app: "secrets-store-csi-driver"
+        app.kubernetes.io/instance: "secrets-store-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "secrets-store-csi-driver"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "secrets-store-csi-driver-1.6.0"
+        rbac.authorization.k8s.io/aggregate-to-admin: "true"
+        rbac.authorization.k8s.io/aggregate-to-edit: "true"
+      name: "secretproviderclasses-admin-role"
+      resourceVersion: "493"
+      uid: "67b2346e-b711-40a6-ad86-4fe13758bebf"
+    rules:
+      -
+        apiGroups:
+          - "secrets-store.csi.x-k8s.io"
+        resources:
+          - "secretproviderclasses"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"creationTimestamp\":null,\"labels\":{\"app\":\"secrets-store-csi-driver\",\"app.kubernetes.io/instance\":\"secrets-store-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"secrets-store-csi-driver\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"secrets-store-csi-driver-1.6.0\",\"rbac.authorization.k8s.io/aggregate-to-view\":\"true\"},\"name\":\"secretproviderclasses-viewer-role\"},\"rules\":[{\"apiGroups\":[\"secrets-store.csi.x-k8s.io\"],\"resources\":[\"secretproviderclasses\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:52:21Z"
+      labels:
+        app: "secrets-store-csi-driver"
+        app.kubernetes.io/instance: "secrets-store-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "secrets-store-csi-driver"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "secrets-store-csi-driver-1.6.0"
+        rbac.authorization.k8s.io/aggregate-to-view: "true"
+      name: "secretproviderclasses-viewer-role"
+      resourceVersion: "496"
+      uid: "792ff39c-afc1-4834-8a0c-c2beb9506a75"
+    rules:
+      -
+        apiGroups:
+          - "secrets-store.csi.x-k8s.io"
+        resources:
+          - "secretproviderclasses"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"creationTimestamp\":null,\"labels\":{\"app\":\"secrets-store-csi-driver\",\"app.kubernetes.io/instance\":\"secrets-store-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"secrets-store-csi-driver\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"secrets-store-csi-driver-1.6.0\",\"rbac.authorization.k8s.io/aggregate-to-view\":\"true\"},\"name\":\"secretproviderclasspodstatuses-viewer-role\"},\"rules\":[{\"apiGroups\":[\"secrets-store.csi.x-k8s.io\"],\"resources\":[\"secretproviderclasspodstatuses\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:52:21Z"
+      labels:
+        app: "secrets-store-csi-driver"
+        app.kubernetes.io/instance: "secrets-store-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "secrets-store-csi-driver"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "secrets-store-csi-driver-1.6.0"
+        rbac.authorization.k8s.io/aggregate-to-view: "true"
+      name: "secretproviderclasspodstatuses-viewer-role"
+      resourceVersion: "499"
+      uid: "33b1f88a-f3fb-4642-819c-eb56c5d249aa"
+    rules:
+      -
+        apiGroups:
+          - "secrets-store.csi.x-k8s.io"
+        resources:
+          - "secretproviderclasspodstatuses"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"secrets-store-csi-driver\",\"app.kubernetes.io/instance\":\"secrets-store-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"secrets-store-csi-driver\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"secrets-store-csi-driver-1.6.0\"},\"name\":\"secretprovidersyncing-role\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:52:21Z"
+      labels:
+        app: "secrets-store-csi-driver"
+        app.kubernetes.io/instance: "secrets-store-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "secrets-store-csi-driver"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "secrets-store-csi-driver-1.6.0"
+      name: "secretprovidersyncing-role"
+      resourceVersion: "502"
+      uid: "92e280d6-8f6c-4040-aa51-df3a8faf683a"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"secrets-store-csi-driver\",\"app.kubernetes.io/instance\":\"secrets-store-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"secrets-store-csi-driver\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"secrets-store-csi-driver-1.6.0\"},\"name\":\"secretproviderclasses-role\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"patch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"secrets-store.csi.x-k8s.io\"],\"resources\":[\"secretproviderclasses\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"secrets-store.csi.x-k8s.io\"],\"resources\":[\"secretproviderclasspodstatuses\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"secrets-store.csi.x-k8s.io\"],\"resources\":[\"secretproviderclasspodstatuses/status\"],\"verbs\":[\"get\",\"patch\",\"update\"]},{\"apiGroups\":[\"storage.k8s.io\"],\"resourceNames\":[\"secrets-store.csi.k8s.io\"],\"resources\":[\"csidrivers\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:52:21Z"
+      labels:
+        app: "secrets-store-csi-driver"
+        app.kubernetes.io/instance: "secrets-store-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "secrets-store-csi-driver"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "secrets-store-csi-driver-1.6.0"
+      name: "secretproviderclasses-role"
+      resourceVersion: "505"
+      uid: "8380d4da-422f-4283-8c44-3c32ca00486a"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "patch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "secrets-store.csi.x-k8s.io"
+        resources:
+          - "secretproviderclasses"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "secrets-store.csi.x-k8s.io"
+        resources:
+          - "secretproviderclasspodstatuses"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "secrets-store.csi.x-k8s.io"
+        resources:
+          - "secretproviderclasspodstatuses/status"
+        verbs:
+          - "get"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "storage.k8s.io"
+        resourceNames:
+          - "secrets-store.csi.k8s.io"
+        resources:
+          - "csidrivers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"secrets-store-csi-driver\",\"app.kubernetes.io/instance\":\"secrets-store-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"secrets-store-csi-driver\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"secrets-store-csi-driver-1.6.0\"},\"name\":\"secretprovidersyncing-rolebinding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"secretprovidersyncing-role\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"secrets-store-csi-driver\",\"namespace\":\"kube-system\"}]}\n"
+      creationTimestamp: "2026-06-11T13:52:21Z"
+      labels:
+        app: "secrets-store-csi-driver"
+        app.kubernetes.io/instance: "secrets-store-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "secrets-store-csi-driver"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "secrets-store-csi-driver-1.6.0"
+      name: "secretprovidersyncing-rolebinding"
+      resourceVersion: "507"
+      uid: "c47016ce-244f-496a-979d-8603cb5ea059"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "secretprovidersyncing-role"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "secrets-store-csi-driver"
+        namespace: "kube-system"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"secrets-store-csi-driver\",\"app.kubernetes.io/instance\":\"secrets-store-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"secrets-store-csi-driver\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"secrets-store-csi-driver-1.6.0\"},\"name\":\"secretproviderclasses-rolebinding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"secretproviderclasses-role\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"secrets-store-csi-driver\",\"namespace\":\"kube-system\"}]}\n"
+      creationTimestamp: "2026-06-11T13:52:21Z"
+      labels:
+        app: "secrets-store-csi-driver"
+        app.kubernetes.io/instance: "secrets-store-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "secrets-store-csi-driver"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "secrets-store-csi-driver-1.6.0"
+      name: "secretproviderclasses-rolebinding"
+      resourceVersion: "508"
+      uid: "fd3469a5-7149-4a52-ad81-06122bc58e92"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "secretproviderclasses-role"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "secrets-store-csi-driver"
+        namespace: "kube-system"
+  -
+    apiVersion: "storage.k8s.io/v1"
+    kind: "CSIDriver"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"storage.k8s.io/v1\",\"kind\":\"CSIDriver\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"secrets-store-csi-driver\",\"app.kubernetes.io/instance\":\"secrets-store-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"secrets-store-csi-driver\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"secrets-store-csi-driver-1.6.0\"},\"name\":\"secrets-store.csi.k8s.io\"},\"spec\":{\"attachRequired\":false,\"podInfoOnMount\":true,\"requiresRepublish\":true,\"volumeLifecycleModes\":[\"Ephemeral\"]}}\n"
+      creationTimestamp: "2026-06-11T13:52:21Z"
+      labels:
+        app: "secrets-store-csi-driver"
+        app.kubernetes.io/instance: "secrets-store-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "secrets-store-csi-driver"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "secrets-store-csi-driver-1.6.0"
+      name: "secrets-store.csi.k8s.io"
+      resourceVersion: "509"
+      uid: "64891bef-73ec-4c82-a5c4-23265bfbeb2a"
+    spec:
+      attachRequired: false
+      fsGroupPolicy: "ReadWriteOnceWithFSType"
+      podInfoOnMount: true
+      requiresRepublish: true
+      seLinuxMount: false
+      storageCapacity: false
+      volumeLifecycleModes:
+        - "Ephemeral"
+kind: "List"
+metadata:
+  resourceVersion: ""

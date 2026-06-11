@@ -1,0 +1,722 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"kube-prometheus-stack\",\"app.kubernetes.io/name\":\"grafana\",\"app.kubernetes.io/version\":\"13.0.1-security-01\",\"helm.sh/chart\":\"grafana-12.4.1\"},\"name\":\"kube-prometheus-stack-grafana-clusterrole\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\",\"secrets\"],\"verbs\":[\"get\",\"watch\",\"list\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:33:20Z"
+      labels:
+        app.kubernetes.io/instance: "kube-prometheus-stack"
+        app.kubernetes.io/name: "grafana"
+        app.kubernetes.io/version: "13.0.1-security-01"
+        helm.sh/chart: "grafana-12.4.1"
+      name: "kube-prometheus-stack-grafana-clusterrole"
+      resourceVersion: "576"
+      uid: "6d1f8896-48cb-483b-b152-d39c5099571a"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+          - "secrets"
+        verbs:
+          - "get"
+          - "watch"
+          - "list"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"metrics\",\"app.kubernetes.io/instance\":\"kube-prometheus-stack\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kube-state-metrics\",\"app.kubernetes.io/part-of\":\"kube-state-metrics\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"kube-state-metrics-7.4.0\",\"release\":\"kube-prometheus-stack\"},\"name\":\"kube-prometheus-stack-kube-state-metrics\"},\"rules\":[{\"apiGroups\":[\"certificates.k8s.io\"],\"resources\":[\"certificatesigningrequests\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"cronjobs\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"daemonsets\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"deployments\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"discovery.k8s.io\"],\"resources\":[\"endpointslices\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"autoscaling\"],\"resources\":[\"horizontalpodautoscalers\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"networking.k8s.io\"],\"resources\":[\"ingresses\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"jobs\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"limitranges\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"admissionregistration.k8s.io\"],\"resources\":[\"mutatingwebhookconfigurations\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"networking.k8s.io\"],\"resources\":[\"networkpolicies\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"nodes\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"persistentvolumeclaims\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"persistentvolumes\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"policy\"],\"resources\":[\"poddisruptionbudgets\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"replicasets\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"replicationcontrollers\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"resourcequotas\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"services\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"statefulsets\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"storage.k8s.io\"],\"resources\":[\"storageclasses\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"admissionregistration.k8s.io\"],\"resources\":[\"validatingwebhookconfigurations\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"storage.k8s.io\"],\"resources\":[\"volumeattachments\"],\"verbs\":[\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:33:20Z"
+      labels:
+        app.kubernetes.io/component: "metrics"
+        app.kubernetes.io/instance: "kube-prometheus-stack"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kube-state-metrics"
+        app.kubernetes.io/part-of: "kube-state-metrics"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "kube-state-metrics-7.4.0"
+        release: "kube-prometheus-stack"
+      name: "kube-prometheus-stack-kube-state-metrics"
+      resourceVersion: "577"
+      uid: "f49698ac-436d-430f-8b23-ec769bcabaaa"
+    rules:
+      -
+        apiGroups:
+          - "certificates.k8s.io"
+        resources:
+          - "certificatesigningrequests"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "batch"
+        resources:
+          - "cronjobs"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "daemonsets"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "deployments"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "discovery.k8s.io"
+        resources:
+          - "endpointslices"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "autoscaling"
+        resources:
+          - "horizontalpodautoscalers"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "networking.k8s.io"
+        resources:
+          - "ingresses"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "batch"
+        resources:
+          - "jobs"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "limitranges"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "admissionregistration.k8s.io"
+        resources:
+          - "mutatingwebhookconfigurations"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "namespaces"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "networking.k8s.io"
+        resources:
+          - "networkpolicies"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "nodes"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "persistentvolumeclaims"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "persistentvolumes"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "policy"
+        resources:
+          - "poddisruptionbudgets"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "replicasets"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "replicationcontrollers"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "resourcequotas"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "services"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "statefulsets"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "storage.k8s.io"
+        resources:
+          - "storageclasses"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "admissionregistration.k8s.io"
+        resources:
+          - "validatingwebhookconfigurations"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "storage.k8s.io"
+        resources:
+          - "volumeattachments"
+        verbs:
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"kube-prometheus-stack-operator\",\"app.kubernetes.io/component\":\"prometheus-operator\",\"app.kubernetes.io/instance\":\"kube-prometheus-stack\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kube-prometheus-stack-prometheus-operator\",\"app.kubernetes.io/part-of\":\"kube-prometheus-stack\",\"app.kubernetes.io/version\":\"85.3.3\",\"chart\":\"kube-prometheus-stack-85.3.3\",\"heritage\":\"Helm\",\"release\":\"kube-prometheus-stack\"},\"name\":\"kube-prometheus-stack-operator\"},\"rules\":[{\"apiGroups\":[\"monitoring.coreos.com\"],\"resources\":[\"alertmanagers\",\"alertmanagers/finalizers\",\"alertmanagers/status\",\"alertmanagerconfigs\",\"prometheuses\",\"prometheuses/finalizers\",\"prometheuses/status\",\"prometheusagents\",\"prometheusagents/finalizers\",\"prometheusagents/status\",\"thanosrulers\",\"thanosrulers/finalizers\",\"thanosrulers/status\",\"scrapeconfigs\",\"scrapeconfigs/status\",\"servicemonitors\",\"servicemonitors/status\",\"podmonitors\",\"podmonitors/status\",\"probes\",\"probes/status\",\"prometheusrules\",\"prometheusrules/status\"],\"verbs\":[\"*\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"statefulsets\"],\"verbs\":[\"*\"]},{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\",\"secrets\"],\"verbs\":[\"*\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods\"],\"verbs\":[\"list\",\"delete\"]},{\"apiGroups\":[\"\"],\"resources\":[\"services\",\"services/finalizers\",\"endpoints\"],\"verbs\":[\"get\",\"create\",\"update\",\"delete\"]},{\"apiGroups\":[\"\"],\"resources\":[\"nodes\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\",\"events.k8s.io\"],\"resources\":[\"events\"],\"verbs\":[\"patch\",\"create\"]},{\"apiGroups\":[\"networking.k8s.io\"],\"resources\":[\"ingresses\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"storage.k8s.io\"],\"resources\":[\"storageclasses\"],\"verbs\":[\"get\"]},{\"apiGroups\":[\"discovery.k8s.io\"],\"resources\":[\"endpointslices\"],\"verbs\":[\"get\",\"create\",\"list\",\"watch\",\"update\",\"delete\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:33:20Z"
+      labels:
+        app: "kube-prometheus-stack-operator"
+        app.kubernetes.io/component: "prometheus-operator"
+        app.kubernetes.io/instance: "kube-prometheus-stack"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kube-prometheus-stack-prometheus-operator"
+        app.kubernetes.io/part-of: "kube-prometheus-stack"
+        app.kubernetes.io/version: "85.3.3"
+        chart: "kube-prometheus-stack-85.3.3"
+        heritage: "Helm"
+        release: "kube-prometheus-stack"
+      name: "kube-prometheus-stack-operator"
+      resourceVersion: "578"
+      uid: "a288c538-0471-4120-975b-9eeaa196da86"
+    rules:
+      -
+        apiGroups:
+          - "monitoring.coreos.com"
+        resources:
+          - "alertmanagers"
+          - "alertmanagers/finalizers"
+          - "alertmanagers/status"
+          - "alertmanagerconfigs"
+          - "prometheuses"
+          - "prometheuses/finalizers"
+          - "prometheuses/status"
+          - "prometheusagents"
+          - "prometheusagents/finalizers"
+          - "prometheusagents/status"
+          - "thanosrulers"
+          - "thanosrulers/finalizers"
+          - "thanosrulers/status"
+          - "scrapeconfigs"
+          - "scrapeconfigs/status"
+          - "servicemonitors"
+          - "servicemonitors/status"
+          - "podmonitors"
+          - "podmonitors/status"
+          - "probes"
+          - "probes/status"
+          - "prometheusrules"
+          - "prometheusrules/status"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "statefulsets"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+          - "secrets"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+        verbs:
+          - "list"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "services"
+          - "services/finalizers"
+          - "endpoints"
+        verbs:
+          - "get"
+          - "create"
+          - "update"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "nodes"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "namespaces"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+          - "events.k8s.io"
+        resources:
+          - "events"
+        verbs:
+          - "patch"
+          - "create"
+      -
+        apiGroups:
+          - "networking.k8s.io"
+        resources:
+          - "ingresses"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "storage.k8s.io"
+        resources:
+          - "storageclasses"
+        verbs:
+          - "get"
+      -
+        apiGroups:
+          - "discovery.k8s.io"
+        resources:
+          - "endpointslices"
+        verbs:
+          - "get"
+          - "create"
+          - "list"
+          - "watch"
+          - "update"
+          - "delete"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"kube-prometheus-stack-prometheus\",\"app.kubernetes.io/instance\":\"kube-prometheus-stack\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/part-of\":\"kube-prometheus-stack\",\"app.kubernetes.io/version\":\"85.3.3\",\"chart\":\"kube-prometheus-stack-85.3.3\",\"heritage\":\"Helm\",\"release\":\"kube-prometheus-stack\"},\"name\":\"kube-prometheus-stack-prometheus\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"nodes\",\"nodes/metrics\",\"services\",\"endpoints\",\"pods\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"discovery.k8s.io\"],\"resources\":[\"endpointslices\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"networking.k8s.io\"],\"resources\":[\"ingresses\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"nonResourceURLs\":[\"/metrics\",\"/metrics/cadvisor\"],\"verbs\":[\"get\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:33:20Z"
+      labels:
+        app: "kube-prometheus-stack-prometheus"
+        app.kubernetes.io/instance: "kube-prometheus-stack"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/part-of: "kube-prometheus-stack"
+        app.kubernetes.io/version: "85.3.3"
+        chart: "kube-prometheus-stack-85.3.3"
+        heritage: "Helm"
+        release: "kube-prometheus-stack"
+      name: "kube-prometheus-stack-prometheus"
+      resourceVersion: "579"
+      uid: "6a11789b-8c56-4138-a198-733f9ec21c9d"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "nodes"
+          - "nodes/metrics"
+          - "services"
+          - "endpoints"
+          - "pods"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "discovery.k8s.io"
+        resources:
+          - "endpointslices"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "networking.k8s.io"
+        resources:
+          - "ingresses"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        nonResourceURLs:
+          - "/metrics"
+          - "/metrics/cadvisor"
+        verbs:
+          - "get"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"kube-prometheus-stack\",\"app.kubernetes.io/name\":\"grafana\",\"app.kubernetes.io/version\":\"13.0.1-security-01\",\"helm.sh/chart\":\"grafana-12.4.1\"},\"name\":\"kube-prometheus-stack-grafana-clusterrolebinding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"kube-prometheus-stack-grafana-clusterrole\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"kube-prometheus-stack-grafana\",\"namespace\":\"monitoring\"}]}\n"
+      creationTimestamp: "2026-06-11T13:33:20Z"
+      labels:
+        app.kubernetes.io/instance: "kube-prometheus-stack"
+        app.kubernetes.io/name: "grafana"
+        app.kubernetes.io/version: "13.0.1-security-01"
+        helm.sh/chart: "grafana-12.4.1"
+      name: "kube-prometheus-stack-grafana-clusterrolebinding"
+      resourceVersion: "581"
+      uid: "f1196763-4280-4b0b-8722-fc7eb5c790b8"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "kube-prometheus-stack-grafana-clusterrole"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "kube-prometheus-stack-grafana"
+        namespace: "monitoring"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"metrics\",\"app.kubernetes.io/instance\":\"kube-prometheus-stack\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kube-state-metrics\",\"app.kubernetes.io/part-of\":\"kube-state-metrics\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"kube-state-metrics-7.4.0\",\"release\":\"kube-prometheus-stack\"},\"name\":\"kube-prometheus-stack-kube-state-metrics\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"kube-prometheus-stack-kube-state-metrics\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"kube-prometheus-stack-kube-state-metrics\",\"namespace\":\"monitoring\"}]}\n"
+      creationTimestamp: "2026-06-11T13:33:20Z"
+      labels:
+        app.kubernetes.io/component: "metrics"
+        app.kubernetes.io/instance: "kube-prometheus-stack"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kube-state-metrics"
+        app.kubernetes.io/part-of: "kube-state-metrics"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "kube-state-metrics-7.4.0"
+        release: "kube-prometheus-stack"
+      name: "kube-prometheus-stack-kube-state-metrics"
+      resourceVersion: "582"
+      uid: "41c084ad-3abc-4722-8596-73642e02e913"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "kube-prometheus-stack-kube-state-metrics"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "kube-prometheus-stack-kube-state-metrics"
+        namespace: "monitoring"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"kube-prometheus-stack-operator\",\"app.kubernetes.io/component\":\"prometheus-operator\",\"app.kubernetes.io/instance\":\"kube-prometheus-stack\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kube-prometheus-stack-prometheus-operator\",\"app.kubernetes.io/part-of\":\"kube-prometheus-stack\",\"app.kubernetes.io/version\":\"85.3.3\",\"chart\":\"kube-prometheus-stack-85.3.3\",\"heritage\":\"Helm\",\"release\":\"kube-prometheus-stack\"},\"name\":\"kube-prometheus-stack-operator\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"kube-prometheus-stack-operator\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"kube-prometheus-stack-operator\",\"namespace\":\"monitoring\"}]}\n"
+      creationTimestamp: "2026-06-11T13:33:20Z"
+      labels:
+        app: "kube-prometheus-stack-operator"
+        app.kubernetes.io/component: "prometheus-operator"
+        app.kubernetes.io/instance: "kube-prometheus-stack"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kube-prometheus-stack-prometheus-operator"
+        app.kubernetes.io/part-of: "kube-prometheus-stack"
+        app.kubernetes.io/version: "85.3.3"
+        chart: "kube-prometheus-stack-85.3.3"
+        heritage: "Helm"
+        release: "kube-prometheus-stack"
+      name: "kube-prometheus-stack-operator"
+      resourceVersion: "583"
+      uid: "226e0f62-2b9d-4ed7-80f5-fea0b8c828e9"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "kube-prometheus-stack-operator"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "kube-prometheus-stack-operator"
+        namespace: "monitoring"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"kube-prometheus-stack-prometheus\",\"app.kubernetes.io/instance\":\"kube-prometheus-stack\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/part-of\":\"kube-prometheus-stack\",\"app.kubernetes.io/version\":\"85.3.3\",\"chart\":\"kube-prometheus-stack-85.3.3\",\"heritage\":\"Helm\",\"release\":\"kube-prometheus-stack\"},\"name\":\"kube-prometheus-stack-prometheus\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"kube-prometheus-stack-prometheus\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"kube-prometheus-stack-prometheus\",\"namespace\":\"monitoring\"}]}\n"
+      creationTimestamp: "2026-06-11T13:33:20Z"
+      labels:
+        app: "kube-prometheus-stack-prometheus"
+        app.kubernetes.io/instance: "kube-prometheus-stack"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/part-of: "kube-prometheus-stack"
+        app.kubernetes.io/version: "85.3.3"
+        chart: "kube-prometheus-stack-85.3.3"
+        heritage: "Helm"
+        release: "kube-prometheus-stack"
+      name: "kube-prometheus-stack-prometheus"
+      resourceVersion: "584"
+      uid: "7f986bc5-ab72-482a-966c-712d8286bb6c"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "kube-prometheus-stack-prometheus"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "kube-prometheus-stack-prometheus"
+        namespace: "monitoring"
+  -
+    apiVersion: "admissionregistration.k8s.io/v1"
+    kind: "MutatingWebhookConfiguration"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"MutatingWebhookConfiguration\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"kube-prometheus-stack-admission\",\"app.kubernetes.io/component\":\"prometheus-operator-webhook\",\"app.kubernetes.io/instance\":\"kube-prometheus-stack\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kube-prometheus-stack-prometheus-operator\",\"app.kubernetes.io/part-of\":\"kube-prometheus-stack\",\"app.kubernetes.io/version\":\"85.3.3\",\"chart\":\"kube-prometheus-stack-85.3.3\",\"heritage\":\"Helm\",\"release\":\"kube-prometheus-stack\"},\"name\":\"kube-prometheus-stack-admission\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\",\"v1beta1\"],\"clientConfig\":{\"service\":{\"name\":\"kube-prometheus-stack-operator\",\"namespace\":\"monitoring\",\"path\":\"/admission-prometheusrules/mutate\"}},\"failurePolicy\":\"Ignore\",\"name\":\"prometheusrulemutate.monitoring.coreos.com\",\"rules\":[{\"apiGroups\":[\"monitoring.coreos.com\"],\"apiVersions\":[\"*\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"prometheusrules\"]}],\"sideEffects\":\"None\",\"timeoutSeconds\":10}]}\n"
+      creationTimestamp: "2026-06-11T13:33:20Z"
+      generation: 1
+      labels:
+        app: "kube-prometheus-stack-admission"
+        app.kubernetes.io/component: "prometheus-operator-webhook"
+        app.kubernetes.io/instance: "kube-prometheus-stack"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kube-prometheus-stack-prometheus-operator"
+        app.kubernetes.io/part-of: "kube-prometheus-stack"
+        app.kubernetes.io/version: "85.3.3"
+        chart: "kube-prometheus-stack-85.3.3"
+        heritage: "Helm"
+        release: "kube-prometheus-stack"
+      name: "kube-prometheus-stack-admission"
+      resourceVersion: "585"
+      uid: "ea3de03d-041e-4861-af41-3dddaaaab6ae"
+    webhooks:
+      -
+        admissionReviewVersions:
+          - "v1"
+          - "v1beta1"
+        clientConfig:
+          service:
+            name: "kube-prometheus-stack-operator"
+            namespace: "monitoring"
+            path: "/admission-prometheusrules/mutate"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Equivalent"
+        name: "prometheusrulemutate.monitoring.coreos.com"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        reinvocationPolicy: "Never"
+        rules:
+          -
+            apiGroups:
+              - "monitoring.coreos.com"
+            apiVersions:
+              - "*"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "prometheusrules"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+  -
+    apiVersion: "admissionregistration.k8s.io/v1"
+    kind: "ValidatingWebhookConfiguration"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"ValidatingWebhookConfiguration\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"kube-prometheus-stack-admission\",\"app.kubernetes.io/component\":\"prometheus-operator-webhook\",\"app.kubernetes.io/instance\":\"kube-prometheus-stack\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kube-prometheus-stack-prometheus-operator\",\"app.kubernetes.io/part-of\":\"kube-prometheus-stack\",\"app.kubernetes.io/version\":\"85.3.3\",\"chart\":\"kube-prometheus-stack-85.3.3\",\"heritage\":\"Helm\",\"release\":\"kube-prometheus-stack\"},\"name\":\"kube-prometheus-stack-admission\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\",\"v1beta1\"],\"clientConfig\":{\"service\":{\"name\":\"kube-prometheus-stack-operator\",\"namespace\":\"monitoring\",\"path\":\"/admission-prometheusrules/validate\"}},\"failurePolicy\":\"Ignore\",\"name\":\"prometheusrulevalidate.monitoring.coreos.com\",\"rules\":[{\"apiGroups\":[\"monitoring.coreos.com\"],\"apiVersions\":[\"*\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"prometheusrules\"]}],\"sideEffects\":\"None\",\"timeoutSeconds\":10},{\"admissionReviewVersions\":[\"v1\",\"v1beta1\"],\"clientConfig\":{\"service\":{\"name\":\"kube-prometheus-stack-operator\",\"namespace\":\"monitoring\",\"path\":\"/admission-alertmanagerconfigs/validate\"}},\"failurePolicy\":\"Ignore\",\"name\":\"alertmanagerconfigsvalidate.monitoring.coreos.com\",\"rules\":[{\"apiGroups\":[\"monitoring.coreos.com\"],\"apiVersions\":[\"v1alpha1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"alertmanagerconfigs\"]}],\"sideEffects\":\"None\",\"timeoutSeconds\":10}]}\n"
+      creationTimestamp: "2026-06-11T13:33:20Z"
+      generation: 1
+      labels:
+        app: "kube-prometheus-stack-admission"
+        app.kubernetes.io/component: "prometheus-operator-webhook"
+        app.kubernetes.io/instance: "kube-prometheus-stack"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kube-prometheus-stack-prometheus-operator"
+        app.kubernetes.io/part-of: "kube-prometheus-stack"
+        app.kubernetes.io/version: "85.3.3"
+        chart: "kube-prometheus-stack-85.3.3"
+        heritage: "Helm"
+        release: "kube-prometheus-stack"
+      name: "kube-prometheus-stack-admission"
+      resourceVersion: "586"
+      uid: "72e877e9-dc0b-44cf-bf33-7674c9bafe86"
+    webhooks:
+      -
+        admissionReviewVersions:
+          - "v1"
+          - "v1beta1"
+        clientConfig:
+          service:
+            name: "kube-prometheus-stack-operator"
+            namespace: "monitoring"
+            path: "/admission-prometheusrules/validate"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Equivalent"
+        name: "prometheusrulevalidate.monitoring.coreos.com"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "monitoring.coreos.com"
+            apiVersions:
+              - "*"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "prometheusrules"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+      -
+        admissionReviewVersions:
+          - "v1"
+          - "v1beta1"
+        clientConfig:
+          service:
+            name: "kube-prometheus-stack-operator"
+            namespace: "monitoring"
+            path: "/admission-alertmanagerconfigs/validate"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Equivalent"
+        name: "alertmanagerconfigsvalidate.monitoring.coreos.com"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "monitoring.coreos.com"
+            apiVersions:
+              - "v1alpha1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "alertmanagerconfigs"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+kind: "List"
+metadata:
+  resourceVersion: ""

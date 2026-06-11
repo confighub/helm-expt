@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "metrics-server-metrics-server-3.13.0-external-tls-ca-local-kind"
+spec:
+  variantRevision: "recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "03497dfa266c74cd3bdbf9f884e4d255ae0f24b426a030f6290c36505a1300a4"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-metrics-exttls"
+    context: "kind-claude-helm-expt-codex-metrics-exttls"
+    namespace: "kube-system"
+  observedAt: "2026-06-11T13:46:13.880Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "created-by-test"
+  variant: "external-tls-ca"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "61a75ccfb1171c8abc97c1920a800f12039f870df064e093c17a84c4fed35c98"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "9 object(s) from recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|kube-system|metrics-server"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): coredns-7d764666f9-2tlhk[ ready=true restarts=0;] coredns-7d764666f9-2xswd[ ready=true restarts=0;] etcd-claude-helm-expt-codex-metrics-exttls-control-plane[ ready=true restarts=0;] kindnet-d2zrt[ ready=true restarts=0;] kube-apiserver-claude-helm-expt-codex-metrics-exttls-control-plane[ ready=true "
+  blockedReasons:
+    - "deployment/metrics-server: prerequisite-blocked (stuck creating: missing mount/secret/config) (coredns-7d764666f9-2tlhk[ ready=true restarts=0;] coredns-7d764666f9-2xswd[ ready=true restarts=0;] etcd-claude-helm-expt-codex-metrics-exttls-control-plane[ re)"

@@ -1,0 +1,55 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-86.1.0-no-crds-local-kind"
+spec:
+  variantRevision: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/no-crds/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "671c6f820a2cc2b381d056f112ad1750b36d08b01e9e1ff5bc503cfa81a56e87"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-kps8610-nocrds"
+    context: "kind-claude-helm-expt-codex-kps8610-nocrds"
+    namespace: "monitoring"
+  observedAt: "2026-06-11T13:41:48.159Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "created-by-test"
+  variant: "no-crds"
+  workloads: 4
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "6fa60c0a75677f691748712ece2ca55966327aa49b823ac39c75a70e64a1e8a2"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||monitoring"
+    -
+      name: "rendered-objects-applied"
+      result: "blocked"
+      object: "114 object(s) from recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+      reason: "apply-blocked: resource mapping not found for name: \"kube-prometheus-stack-alertmanager\" namespace: \"monitoring\" from \"STDIN\": no matches for kind \"Alertmanager\" in version \"monitoring.coreos.com/v1\" ensure CRDs are"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "DaemonSet|monitoring|kube-prometheus-stack-prometheus-node-exporter"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|monitoring|kube-prometheus-stack-grafana"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|monitoring|kube-prometheus-stack-kube-state-metrics"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|monitoring|kube-prometheus-stack-operator"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): kube-prometheus-stack-grafana-689f864759-csdh5[ ready=true restarts=0; ready=true restarts=0; ready=true restarts=0;] kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-q2ssz[ ready=true restarts=0;] kube-prometheus-stack-operator-6cd9d8fb8d-8sn59[ContainerCreating ready=false restarts=0;] kube-pro"
+  blockedReasons:
+    - "apply: resource mapping not found for name: \"kube-prometheus-stack-alertmanager\" namespace: \"monitoring\" from \"STDIN\": no matches for kind \"Alertmanager\" in version \"monitoring.coreos.com/v1\" ensure CRDs are"
+    - "deployment/kube-prometheus-stack-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (kube-prometheus-stack-grafana-689f864759-csdh5[ ready=true restarts=0; ready=true restarts=0; ready=true restarts=0;] kube-prometheus-stack-kube-state-metrics-5)"

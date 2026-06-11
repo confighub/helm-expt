@@ -1,0 +1,2040 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cainjector\",\"app.kubernetes.io/component\":\"cainjector\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cainjector\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-cainjector\",\"namespace\":\"cert-manager\"}}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cainjector"
+        app.kubernetes.io/component: "cainjector"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cainjector"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-cainjector"
+      namespace: "cert-manager"
+      resourceVersion: "442"
+      uid: "d0312791-c7c8-4084-9366-a289cfb07eb6"
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager\",\"namespace\":\"cert-manager\"}}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager"
+      namespace: "cert-manager"
+      resourceVersion: "443"
+      uid: "0af3d481-49bf-4bb3-b1bc-1f1f3ce8b3cd"
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"webhook\",\"app.kubernetes.io/component\":\"webhook\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"webhook\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-webhook\",\"namespace\":\"cert-manager\"}}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "webhook"
+        app.kubernetes.io/component: "webhook"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "webhook"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-webhook"
+      namespace: "cert-manager"
+      resourceVersion: "444"
+      uid: "b665a2a8-295f-4e4a-8c40-f76fcd9f472a"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cainjector\",\"app.kubernetes.io/component\":\"cainjector\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cainjector\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-cainjector:leaderelection\",\"namespace\":\"kube-system\"},\"rules\":[{\"apiGroups\":[\"coordination.k8s.io\"],\"resourceNames\":[\"cert-manager-cainjector-leader-election\",\"cert-manager-cainjector-leader-election-core\"],\"resources\":[\"leases\"],\"verbs\":[\"get\",\"update\",\"patch\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"create\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cainjector"
+        app.kubernetes.io/component: "cainjector"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cainjector"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-cainjector:leaderelection"
+      namespace: "kube-system"
+      resourceVersion: "445"
+      uid: "8c918620-2908-46f4-aa2f-37b3c93ee848"
+    rules:
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resourceNames:
+          - "cert-manager-cainjector-leader-election"
+          - "cert-manager-cainjector-leader-election-core"
+        resources:
+          - "leases"
+        verbs:
+          - "get"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "create"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager:leaderelection\",\"namespace\":\"kube-system\"},\"rules\":[{\"apiGroups\":[\"coordination.k8s.io\"],\"resourceNames\":[\"cert-manager-controller\"],\"resources\":[\"leases\"],\"verbs\":[\"get\",\"update\",\"patch\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"create\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager:leaderelection"
+      namespace: "kube-system"
+      resourceVersion: "446"
+      uid: "2b1e76be-e2bd-4e13-85b9-27ba06276ab3"
+    rules:
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resourceNames:
+          - "cert-manager-controller"
+        resources:
+          - "leases"
+        verbs:
+          - "get"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "create"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-tokenrequest\",\"namespace\":\"cert-manager\"},\"rules\":[{\"apiGroups\":[\"\"],\"resourceNames\":[\"cert-manager\"],\"resources\":[\"serviceaccounts/token\"],\"verbs\":[\"create\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-tokenrequest"
+      namespace: "cert-manager"
+      resourceVersion: "447"
+      uid: "bf76bc2b-18ac-4f8f-aeb9-79a4918af181"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resourceNames:
+          - "cert-manager"
+        resources:
+          - "serviceaccounts/token"
+        verbs:
+          - "create"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"webhook\",\"app.kubernetes.io/component\":\"webhook\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"webhook\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-webhook:dynamic-serving\",\"namespace\":\"cert-manager\"},\"rules\":[{\"apiGroups\":[\"\"],\"resourceNames\":[\"cert-manager-webhook-ca\"],\"resources\":[\"secrets\"],\"verbs\":[\"get\",\"list\",\"watch\",\"update\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"create\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "webhook"
+        app.kubernetes.io/component: "webhook"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "webhook"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-webhook:dynamic-serving"
+      namespace: "cert-manager"
+      resourceVersion: "448"
+      uid: "2d41977f-d2a4-472b-8d68-0b860806a2f4"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resourceNames:
+          - "cert-manager-webhook-ca"
+        resources:
+          - "secrets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "update"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "create"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cainjector\",\"app.kubernetes.io/component\":\"cainjector\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cainjector\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-cainjector:leaderelection\",\"namespace\":\"kube-system\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"cert-manager-cainjector:leaderelection\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"cert-manager-cainjector\",\"namespace\":\"cert-manager\"}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cainjector"
+        app.kubernetes.io/component: "cainjector"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cainjector"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-cainjector:leaderelection"
+      namespace: "kube-system"
+      resourceVersion: "449"
+      uid: "9ed81e7d-180e-454b-b5b3-e5914f1fd28a"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "cert-manager-cainjector:leaderelection"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "cert-manager-cainjector"
+        namespace: "cert-manager"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager:leaderelection\",\"namespace\":\"kube-system\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"cert-manager:leaderelection\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"cert-manager\",\"namespace\":\"cert-manager\"}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager:leaderelection"
+      namespace: "kube-system"
+      resourceVersion: "450"
+      uid: "e3b7c4c5-fafa-484a-a58e-0569437d1a51"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "cert-manager:leaderelection"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "cert-manager"
+        namespace: "cert-manager"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-tokenrequest\",\"namespace\":\"cert-manager\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"cert-manager-tokenrequest\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"cert-manager\",\"namespace\":\"cert-manager\"}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-tokenrequest"
+      namespace: "cert-manager"
+      resourceVersion: "451"
+      uid: "c25839be-2d6b-4e7b-9fea-4e9b361c6706"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "cert-manager-tokenrequest"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "cert-manager"
+        namespace: "cert-manager"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"webhook\",\"app.kubernetes.io/component\":\"webhook\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"webhook\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-webhook:dynamic-serving\",\"namespace\":\"cert-manager\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"cert-manager-webhook:dynamic-serving\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"cert-manager-webhook\",\"namespace\":\"cert-manager\"}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "webhook"
+        app.kubernetes.io/component: "webhook"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "webhook"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-webhook:dynamic-serving"
+      namespace: "cert-manager"
+      resourceVersion: "452"
+      uid: "adb6a38f-9bb8-4411-bcfe-86f79d9d98c9"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "cert-manager-webhook:dynamic-serving"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "cert-manager-webhook"
+        namespace: "cert-manager"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cainjector\",\"app.kubernetes.io/component\":\"cainjector\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cainjector\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-cainjector\",\"namespace\":\"cert-manager\"},\"spec\":{\"ports\":[{\"name\":\"http-metrics\",\"port\":9402,\"protocol\":\"TCP\"}],\"selector\":{\"app.kubernetes.io/component\":\"cainjector\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/name\":\"cainjector\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cainjector"
+        app.kubernetes.io/component: "cainjector"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cainjector"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-cainjector"
+      namespace: "cert-manager"
+      resourceVersion: "454"
+      uid: "f958ff72-7152-48ad-88d0-c0bab9a6cb18"
+    spec:
+      clusterIP: "10.96.117.36"
+      clusterIPs:
+        - "10.96.117.36"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http-metrics"
+          port: 9402
+          protocol: "TCP"
+          targetPort: 9402
+      selector:
+        app.kubernetes.io/component: "cainjector"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/name: "cainjector"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager\",\"namespace\":\"cert-manager\"},\"spec\":{\"ports\":[{\"name\":\"tcp-prometheus-servicemonitor\",\"port\":9402,\"protocol\":\"TCP\",\"targetPort\":\"http-metrics\"}],\"selector\":{\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/name\":\"cert-manager\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager"
+      namespace: "cert-manager"
+      resourceVersion: "458"
+      uid: "16d67ba7-06a4-4d40-ba55-b455c0e99ea1"
+    spec:
+      clusterIP: "10.96.115.115"
+      clusterIPs:
+        - "10.96.115.115"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "tcp-prometheus-servicemonitor"
+          port: 9402
+          protocol: "TCP"
+          targetPort: "http-metrics"
+      selector:
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/name: "cert-manager"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"webhook\",\"app.kubernetes.io/component\":\"webhook\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"webhook\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-webhook\",\"namespace\":\"cert-manager\"},\"spec\":{\"ports\":[{\"name\":\"https\",\"port\":443,\"protocol\":\"TCP\",\"targetPort\":\"https\"},{\"name\":\"metrics\",\"port\":9402,\"protocol\":\"TCP\",\"targetPort\":\"http-metrics\"}],\"selector\":{\"app.kubernetes.io/component\":\"webhook\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/name\":\"webhook\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "webhook"
+        app.kubernetes.io/component: "webhook"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "webhook"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-webhook"
+      namespace: "cert-manager"
+      resourceVersion: "462"
+      uid: "1bfe51f0-c226-4848-898f-31c6df2b2971"
+    spec:
+      clusterIP: "10.96.251.198"
+      clusterIPs:
+        - "10.96.251.198"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "https"
+          port: 443
+          protocol: "TCP"
+          targetPort: "https"
+        -
+          name: "metrics"
+          port: 9402
+          protocol: "TCP"
+          targetPort: "http-metrics"
+      selector:
+        app.kubernetes.io/component: "webhook"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/name: "webhook"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cainjector\",\"app.kubernetes.io/component\":\"cainjector\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cainjector\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-cainjector\",\"namespace\":\"cert-manager\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"cainjector\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/name\":\"cainjector\"}},\"template\":{\"metadata\":{\"annotations\":{\"prometheus.io/path\":\"/metrics\",\"prometheus.io/port\":\"9402\",\"prometheus.io/scrape\":\"true\"},\"labels\":{\"app\":\"cainjector\",\"app.kubernetes.io/component\":\"cainjector\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cainjector\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"}},\"spec\":{\"containers\":[{\"args\":[\"--v=2\",\"--leader-election-namespace=kube-system\"],\"env\":[{\"name\":\"POD_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}}],\"image\":\"quay.io/jetstack/cert-manager-cainjector:v1.20.2\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"cert-manager-cainjector\",\"ports\":[{\"containerPort\":9402,\"name\":\"http-metrics\",\"protocol\":\"TCP\"}],\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true}}],\"enableServiceLinks\":false,\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"securityContext\":{\"runAsNonRoot\":true,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"serviceAccountName\":\"cert-manager-cainjector\"}}}}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      generation: 1
+      labels:
+        app: "cainjector"
+        app.kubernetes.io/component: "cainjector"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cainjector"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-cainjector"
+      namespace: "cert-manager"
+      resourceVersion: "578"
+      uid: "7e03c312-180b-4e9d-8632-d7813e08a411"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "cainjector"
+          app.kubernetes.io/instance: "cert-manager"
+          app.kubernetes.io/name: "cainjector"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          annotations:
+            prometheus.io/path: "/metrics"
+            prometheus.io/port: "9402"
+            prometheus.io/scrape: "true"
+          labels:
+            app: "cainjector"
+            app.kubernetes.io/component: "cainjector"
+            app.kubernetes.io/instance: "cert-manager"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "cainjector"
+            app.kubernetes.io/version: "v1.20.2"
+            helm.sh/chart: "cert-manager-v1.20.2"
+        spec:
+          containers:
+            -
+              args:
+                - "--v=2"
+                - "--leader-election-namespace=kube-system"
+              env:
+                -
+                  name: "POD_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+              image: "quay.io/jetstack/cert-manager-cainjector:v1.20.2"
+              imagePullPolicy: "IfNotPresent"
+              name: "cert-manager-cainjector"
+              ports:
+                -
+                  containerPort: 9402
+                  name: "http-metrics"
+                  protocol: "TCP"
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          dnsPolicy: "ClusterFirst"
+          enableServiceLinks: false
+          nodeSelector:
+            kubernetes.io/os: "linux"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            runAsNonRoot: true
+            seccompProfile:
+              type: "RuntimeDefault"
+          serviceAccount: "cert-manager-cainjector"
+          serviceAccountName: "cert-manager-cainjector"
+          terminationGracePeriodSeconds: 30
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T13:27:47Z"
+          lastUpdateTime: "2026-06-11T13:27:47Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T13:27:42Z"
+          lastUpdateTime: "2026-06-11T13:27:47Z"
+          message: "ReplicaSet \"cert-manager-cainjector-567c6b47ff\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager\",\"namespace\":\"cert-manager\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/name\":\"cert-manager\"}},\"template\":{\"metadata\":{\"annotations\":{\"prometheus.io/path\":\"/metrics\",\"prometheus.io/port\":\"9402\",\"prometheus.io/scrape\":\"true\"},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"}},\"spec\":{\"containers\":[{\"args\":[\"--v=2\",\"--cluster-resource-namespace=$(POD_NAMESPACE)\",\"--leader-election-namespace=kube-system\",\"--acme-http01-solver-image=quay.io/jetstack/cert-manager-acmesolver:v1.20.2\",\"--max-concurrent-challenges=60\"],\"env\":[{\"name\":\"POD_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}}],\"image\":\"quay.io/jetstack/cert-manager-controller:v1.20.2\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":8,\"httpGet\":{\"path\":\"/livez\",\"port\":\"http-healthz\",\"scheme\":\"HTTP\"},\"initialDelaySeconds\":10,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":15},\"name\":\"cert-manager-controller\",\"ports\":[{\"containerPort\":9402,\"name\":\"http-metrics\",\"protocol\":\"TCP\"},{\"containerPort\":9403,\"name\":\"http-healthz\",\"protocol\":\"TCP\"}],\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true}}],\"enableServiceLinks\":false,\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"securityContext\":{\"runAsNonRoot\":true,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"serviceAccountName\":\"cert-manager\"}}}}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      generation: 1
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager"
+      namespace: "cert-manager"
+      resourceVersion: "608"
+      uid: "7030df7a-0523-44b4-a746-cc869144a51f"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "controller"
+          app.kubernetes.io/instance: "cert-manager"
+          app.kubernetes.io/name: "cert-manager"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          annotations:
+            prometheus.io/path: "/metrics"
+            prometheus.io/port: "9402"
+            prometheus.io/scrape: "true"
+          labels:
+            app: "cert-manager"
+            app.kubernetes.io/component: "controller"
+            app.kubernetes.io/instance: "cert-manager"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "cert-manager"
+            app.kubernetes.io/version: "v1.20.2"
+            helm.sh/chart: "cert-manager-v1.20.2"
+        spec:
+          containers:
+            -
+              args:
+                - "--v=2"
+                - "--cluster-resource-namespace=$(POD_NAMESPACE)"
+                - "--leader-election-namespace=kube-system"
+                - "--acme-http01-solver-image=quay.io/jetstack/cert-manager-acmesolver:v1.20.2"
+                - "--max-concurrent-challenges=60"
+              env:
+                -
+                  name: "POD_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+              image: "quay.io/jetstack/cert-manager-controller:v1.20.2"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 8
+                httpGet:
+                  path: "/livez"
+                  port: "http-healthz"
+                  scheme: "HTTP"
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 15
+              name: "cert-manager-controller"
+              ports:
+                -
+                  containerPort: 9402
+                  name: "http-metrics"
+                  protocol: "TCP"
+                -
+                  containerPort: 9403
+                  name: "http-healthz"
+                  protocol: "TCP"
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          dnsPolicy: "ClusterFirst"
+          enableServiceLinks: false
+          nodeSelector:
+            kubernetes.io/os: "linux"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            runAsNonRoot: true
+            seccompProfile:
+              type: "RuntimeDefault"
+          serviceAccount: "cert-manager"
+          serviceAccountName: "cert-manager"
+          terminationGracePeriodSeconds: 30
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T13:27:55Z"
+          lastUpdateTime: "2026-06-11T13:27:55Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T13:27:42Z"
+          lastUpdateTime: "2026-06-11T13:27:55Z"
+          message: "ReplicaSet \"cert-manager-5957746d66\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"webhook\",\"app.kubernetes.io/component\":\"webhook\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"webhook\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-webhook\",\"namespace\":\"cert-manager\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"webhook\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/name\":\"webhook\"}},\"template\":{\"metadata\":{\"annotations\":{\"prometheus.io/path\":\"/metrics\",\"prometheus.io/port\":\"9402\",\"prometheus.io/scrape\":\"true\"},\"labels\":{\"app\":\"webhook\",\"app.kubernetes.io/component\":\"webhook\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"webhook\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"}},\"spec\":{\"containers\":[{\"args\":[\"--v=2\",\"--secure-port=10250\",\"--dynamic-serving-ca-secret-namespace=$(POD_NAMESPACE)\",\"--dynamic-serving-ca-secret-name=cert-manager-webhook-ca\",\"--dynamic-serving-dns-names=cert-manager-webhook\",\"--dynamic-serving-dns-names=cert-manager-webhook.$(POD_NAMESPACE)\",\"--dynamic-serving-dns-names=cert-manager-webhook.$(POD_NAMESPACE).svc\"],\"env\":[{\"name\":\"POD_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}}],\"image\":\"quay.io/jetstack/cert-manager-webhook:v1.20.2\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/livez\",\"port\":\"healthcheck\",\"scheme\":\"HTTP\"},\"initialDelaySeconds\":60,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":1},\"name\":\"cert-manager-webhook\",\"ports\":[{\"containerPort\":10250,\"name\":\"https\",\"protocol\":\"TCP\"},{\"containerPort\":6080,\"name\":\"healthcheck\",\"protocol\":\"TCP\"},{\"containerPort\":9402,\"name\":\"http-metrics\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/healthz\",\"port\":\"healthcheck\",\"scheme\":\"HTTP\"},\"initialDelaySeconds\":5,\"periodSeconds\":5,\"successThreshold\":1,\"timeoutSeconds\":1},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true}}],\"enableServiceLinks\":false,\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"securityContext\":{\"runAsNonRoot\":true,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"serviceAccountName\":\"cert-manager-webhook\"}}}}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      generation: 1
+      labels:
+        app: "webhook"
+        app.kubernetes.io/component: "webhook"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "webhook"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-webhook"
+      namespace: "cert-manager"
+      resourceVersion: "616"
+      uid: "de50c2aa-632c-470d-9d1b-8fe46870963d"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "webhook"
+          app.kubernetes.io/instance: "cert-manager"
+          app.kubernetes.io/name: "webhook"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          annotations:
+            prometheus.io/path: "/metrics"
+            prometheus.io/port: "9402"
+            prometheus.io/scrape: "true"
+          labels:
+            app: "webhook"
+            app.kubernetes.io/component: "webhook"
+            app.kubernetes.io/instance: "cert-manager"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "webhook"
+            app.kubernetes.io/version: "v1.20.2"
+            helm.sh/chart: "cert-manager-v1.20.2"
+        spec:
+          containers:
+            -
+              args:
+                - "--v=2"
+                - "--secure-port=10250"
+                - "--dynamic-serving-ca-secret-namespace=$(POD_NAMESPACE)"
+                - "--dynamic-serving-ca-secret-name=cert-manager-webhook-ca"
+                - "--dynamic-serving-dns-names=cert-manager-webhook"
+                - "--dynamic-serving-dns-names=cert-manager-webhook.$(POD_NAMESPACE)"
+                - "--dynamic-serving-dns-names=cert-manager-webhook.$(POD_NAMESPACE).svc"
+              env:
+                -
+                  name: "POD_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+              image: "quay.io/jetstack/cert-manager-webhook:v1.20.2"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/livez"
+                  port: "healthcheck"
+                  scheme: "HTTP"
+                initialDelaySeconds: 60
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              name: "cert-manager-webhook"
+              ports:
+                -
+                  containerPort: 10250
+                  name: "https"
+                  protocol: "TCP"
+                -
+                  containerPort: 6080
+                  name: "healthcheck"
+                  protocol: "TCP"
+                -
+                  containerPort: 9402
+                  name: "http-metrics"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: "healthcheck"
+                  scheme: "HTTP"
+                initialDelaySeconds: 5
+                periodSeconds: 5
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          dnsPolicy: "ClusterFirst"
+          enableServiceLinks: false
+          nodeSelector:
+            kubernetes.io/os: "linux"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            runAsNonRoot: true
+            seccompProfile:
+              type: "RuntimeDefault"
+          serviceAccount: "cert-manager-webhook"
+          serviceAccountName: "cert-manager-webhook"
+          terminationGracePeriodSeconds: 30
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T13:27:58Z"
+          lastUpdateTime: "2026-06-11T13:27:58Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T13:27:42Z"
+          lastUpdateTime: "2026-06-11T13:27:58Z"
+          message: "ReplicaSet \"cert-manager-webhook-7cc5c588cb\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cainjector\",\"app.kubernetes.io/component\":\"cainjector\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cainjector\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-cainjector\"},\"rules\":[{\"apiGroups\":[\"cert-manager.io\"],\"resources\":[\"certificates\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"get\",\"create\",\"update\",\"patch\"]},{\"apiGroups\":[\"admissionregistration.k8s.io\"],\"resources\":[\"validatingwebhookconfigurations\",\"mutatingwebhookconfigurations\"],\"verbs\":[\"get\",\"list\",\"watch\",\"update\",\"patch\"]},{\"apiGroups\":[\"apiregistration.k8s.io\"],\"resources\":[\"apiservices\"],\"verbs\":[\"get\",\"list\",\"watch\",\"update\",\"patch\"]},{\"apiGroups\":[\"apiextensions.k8s.io\"],\"resources\":[\"customresourcedefinitions\"],\"verbs\":[\"get\",\"list\",\"watch\",\"update\",\"patch\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cainjector"
+        app.kubernetes.io/component: "cainjector"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cainjector"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-cainjector"
+      resourceVersion: "504"
+      uid: "7c603e67-66ba-4a25-8c8d-0e4044bf373f"
+    rules:
+      -
+        apiGroups:
+          - "cert-manager.io"
+        resources:
+          - "certificates"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "get"
+          - "create"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "admissionregistration.k8s.io"
+        resources:
+          - "validatingwebhookconfigurations"
+          - "mutatingwebhookconfigurations"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "apiregistration.k8s.io"
+        resources:
+          - "apiservices"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "apiextensions.k8s.io"
+        resources:
+          - "customresourcedefinitions"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "update"
+          - "patch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-controller-issuers\"},\"rules\":[{\"apiGroups\":[\"cert-manager.io\"],\"resources\":[\"issuers\",\"issuers/status\"],\"verbs\":[\"update\",\"patch\"]},{\"apiGroups\":[\"cert-manager.io\"],\"resources\":[\"issuers\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"delete\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"patch\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-controller-issuers"
+      resourceVersion: "505"
+      uid: "fa661a38-2d79-46c1-8805-c6eb92062f0a"
+    rules:
+      -
+        apiGroups:
+          - "cert-manager.io"
+        resources:
+          - "issuers"
+          - "issuers/status"
+        verbs:
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "cert-manager.io"
+        resources:
+          - "issuers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "patch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-controller-clusterissuers\"},\"rules\":[{\"apiGroups\":[\"cert-manager.io\"],\"resources\":[\"clusterissuers\",\"clusterissuers/status\"],\"verbs\":[\"update\",\"patch\"]},{\"apiGroups\":[\"cert-manager.io\"],\"resources\":[\"clusterissuers\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"delete\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"patch\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-controller-clusterissuers"
+      resourceVersion: "506"
+      uid: "1d2dc230-3e36-42a9-af4e-32c68f297f20"
+    rules:
+      -
+        apiGroups:
+          - "cert-manager.io"
+        resources:
+          - "clusterissuers"
+          - "clusterissuers/status"
+        verbs:
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "cert-manager.io"
+        resources:
+          - "clusterissuers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "patch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-controller-certificates\"},\"rules\":[{\"apiGroups\":[\"cert-manager.io\"],\"resources\":[\"certificates\",\"certificates/status\",\"certificaterequests\",\"certificaterequests/status\"],\"verbs\":[\"update\",\"patch\"]},{\"apiGroups\":[\"cert-manager.io\"],\"resources\":[\"certificates\",\"certificaterequests\",\"clusterissuers\",\"issuers\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"cert-manager.io\"],\"resources\":[\"certificates/finalizers\",\"certificaterequests/finalizers\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"acme.cert-manager.io\"],\"resources\":[\"orders\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"delete\",\"patch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"patch\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-controller-certificates"
+      resourceVersion: "507"
+      uid: "3fe7b277-4915-43dc-a0b1-5412786c9be8"
+    rules:
+      -
+        apiGroups:
+          - "cert-manager.io"
+        resources:
+          - "certificates"
+          - "certificates/status"
+          - "certificaterequests"
+          - "certificaterequests/status"
+        verbs:
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "cert-manager.io"
+        resources:
+          - "certificates"
+          - "certificaterequests"
+          - "clusterissuers"
+          - "issuers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "cert-manager.io"
+        resources:
+          - "certificates/finalizers"
+          - "certificaterequests/finalizers"
+        verbs:
+          - "update"
+      -
+        apiGroups:
+          - "acme.cert-manager.io"
+        resources:
+          - "orders"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "delete"
+          - "patch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "patch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-controller-orders\"},\"rules\":[{\"apiGroups\":[\"acme.cert-manager.io\"],\"resources\":[\"orders\",\"orders/status\"],\"verbs\":[\"update\",\"patch\"]},{\"apiGroups\":[\"acme.cert-manager.io\"],\"resources\":[\"orders\",\"challenges\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"cert-manager.io\"],\"resources\":[\"clusterissuers\",\"issuers\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"acme.cert-manager.io\"],\"resources\":[\"challenges\"],\"verbs\":[\"create\",\"delete\"]},{\"apiGroups\":[\"acme.cert-manager.io\"],\"resources\":[\"orders/finalizers\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"cert-manager.io\"],\"resources\":[\"clusterissuers/finalizers\",\"issuers/finalizers\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"patch\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-controller-orders"
+      resourceVersion: "508"
+      uid: "5ee065c7-c07f-4e6e-a0ab-6495ec585100"
+    rules:
+      -
+        apiGroups:
+          - "acme.cert-manager.io"
+        resources:
+          - "orders"
+          - "orders/status"
+        verbs:
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "acme.cert-manager.io"
+        resources:
+          - "orders"
+          - "challenges"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "cert-manager.io"
+        resources:
+          - "clusterissuers"
+          - "issuers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "acme.cert-manager.io"
+        resources:
+          - "challenges"
+        verbs:
+          - "create"
+          - "delete"
+      -
+        apiGroups:
+          - "acme.cert-manager.io"
+        resources:
+          - "orders/finalizers"
+        verbs:
+          - "update"
+      -
+        apiGroups:
+          - "cert-manager.io"
+        resources:
+          - "clusterissuers/finalizers"
+          - "issuers/finalizers"
+        verbs:
+          - "update"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "patch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-controller-challenges\"},\"rules\":[{\"apiGroups\":[\"acme.cert-manager.io\"],\"resources\":[\"challenges\",\"challenges/status\"],\"verbs\":[\"update\",\"patch\"]},{\"apiGroups\":[\"acme.cert-manager.io\"],\"resources\":[\"challenges\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"cert-manager.io\"],\"resources\":[\"issuers\",\"clusterissuers\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"patch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods\",\"services\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"delete\"]},{\"apiGroups\":[\"networking.k8s.io\"],\"resources\":[\"ingresses\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"delete\",\"update\"]},{\"apiGroups\":[\"gateway.networking.k8s.io\"],\"resources\":[\"httproutes\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"delete\",\"update\"]},{\"apiGroups\":[\"route.openshift.io\"],\"resources\":[\"routes/custom-host\"],\"verbs\":[\"create\"]},{\"apiGroups\":[\"acme.cert-manager.io\"],\"resources\":[\"challenges/finalizers\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-controller-challenges"
+      resourceVersion: "509"
+      uid: "9df93670-bff6-4ee3-8d93-0fd0d16a22ec"
+    rules:
+      -
+        apiGroups:
+          - "acme.cert-manager.io"
+        resources:
+          - "challenges"
+          - "challenges/status"
+        verbs:
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "acme.cert-manager.io"
+        resources:
+          - "challenges"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "cert-manager.io"
+        resources:
+          - "issuers"
+          - "clusterissuers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "patch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+          - "services"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "delete"
+      -
+        apiGroups:
+          - "networking.k8s.io"
+        resources:
+          - "ingresses"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "delete"
+          - "update"
+      -
+        apiGroups:
+          - "gateway.networking.k8s.io"
+        resources:
+          - "httproutes"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "delete"
+          - "update"
+      -
+        apiGroups:
+          - "route.openshift.io"
+        resources:
+          - "routes/custom-host"
+        verbs:
+          - "create"
+      -
+        apiGroups:
+          - "acme.cert-manager.io"
+        resources:
+          - "challenges/finalizers"
+        verbs:
+          - "update"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-controller-ingress-shim\"},\"rules\":[{\"apiGroups\":[\"cert-manager.io\"],\"resources\":[\"certificates\",\"certificaterequests\"],\"verbs\":[\"create\",\"update\",\"delete\"]},{\"apiGroups\":[\"cert-manager.io\"],\"resources\":[\"certificates\",\"certificaterequests\",\"issuers\",\"clusterissuers\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"networking.k8s.io\"],\"resources\":[\"ingresses\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"networking.k8s.io\"],\"resources\":[\"ingresses/finalizers\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"gateway.networking.k8s.io\"],\"resources\":[\"gateways\",\"httproutes\",\"listenersets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"gateway.networking.k8s.io\"],\"resources\":[\"gateways/finalizers\",\"httproutes/finalizers\",\"listenersets/finalizers\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"patch\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-controller-ingress-shim"
+      resourceVersion: "510"
+      uid: "70cea550-63ac-40ec-91a1-acdec5f785cf"
+    rules:
+      -
+        apiGroups:
+          - "cert-manager.io"
+        resources:
+          - "certificates"
+          - "certificaterequests"
+        verbs:
+          - "create"
+          - "update"
+          - "delete"
+      -
+        apiGroups:
+          - "cert-manager.io"
+        resources:
+          - "certificates"
+          - "certificaterequests"
+          - "issuers"
+          - "clusterissuers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "networking.k8s.io"
+        resources:
+          - "ingresses"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "networking.k8s.io"
+        resources:
+          - "ingresses/finalizers"
+        verbs:
+          - "update"
+      -
+        apiGroups:
+          - "gateway.networking.k8s.io"
+        resources:
+          - "gateways"
+          - "httproutes"
+          - "listenersets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "gateway.networking.k8s.io"
+        resources:
+          - "gateways/finalizers"
+          - "httproutes/finalizers"
+          - "listenersets/finalizers"
+        verbs:
+          - "update"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "patch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\",\"rbac.authorization.k8s.io/aggregate-to-cluster-reader\":\"true\"},\"name\":\"cert-manager-cluster-view\"},\"rules\":[{\"apiGroups\":[\"cert-manager.io\"],\"resources\":[\"clusterissuers\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+        rbac.authorization.k8s.io/aggregate-to-cluster-reader: "true"
+      name: "cert-manager-cluster-view"
+      resourceVersion: "513"
+      uid: "1fef93ad-fce3-4b65-9f5e-0835c43a9072"
+    rules:
+      -
+        apiGroups:
+          - "cert-manager.io"
+        resources:
+          - "clusterissuers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\",\"rbac.authorization.k8s.io/aggregate-to-admin\":\"true\",\"rbac.authorization.k8s.io/aggregate-to-cluster-reader\":\"true\",\"rbac.authorization.k8s.io/aggregate-to-edit\":\"true\",\"rbac.authorization.k8s.io/aggregate-to-view\":\"true\"},\"name\":\"cert-manager-view\"},\"rules\":[{\"apiGroups\":[\"cert-manager.io\"],\"resources\":[\"certificates\",\"certificaterequests\",\"issuers\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"acme.cert-manager.io\"],\"resources\":[\"challenges\",\"orders\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+        rbac.authorization.k8s.io/aggregate-to-admin: "true"
+        rbac.authorization.k8s.io/aggregate-to-cluster-reader: "true"
+        rbac.authorization.k8s.io/aggregate-to-edit: "true"
+        rbac.authorization.k8s.io/aggregate-to-view: "true"
+      name: "cert-manager-view"
+      resourceVersion: "516"
+      uid: "206eebc3-274c-46f9-bfcd-88c9c5afee51"
+    rules:
+      -
+        apiGroups:
+          - "cert-manager.io"
+        resources:
+          - "certificates"
+          - "certificaterequests"
+          - "issuers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "acme.cert-manager.io"
+        resources:
+          - "challenges"
+          - "orders"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\",\"rbac.authorization.k8s.io/aggregate-to-admin\":\"true\",\"rbac.authorization.k8s.io/aggregate-to-edit\":\"true\"},\"name\":\"cert-manager-edit\"},\"rules\":[{\"apiGroups\":[\"cert-manager.io\"],\"resources\":[\"certificates\",\"certificaterequests\",\"issuers\"],\"verbs\":[\"create\",\"delete\",\"deletecollection\",\"patch\",\"update\"]},{\"apiGroups\":[\"cert-manager.io\"],\"resources\":[\"certificates/status\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"acme.cert-manager.io\"],\"resources\":[\"challenges\",\"orders\"],\"verbs\":[\"create\",\"delete\",\"deletecollection\",\"patch\",\"update\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+        rbac.authorization.k8s.io/aggregate-to-admin: "true"
+        rbac.authorization.k8s.io/aggregate-to-edit: "true"
+      name: "cert-manager-edit"
+      resourceVersion: "518"
+      uid: "3889d3ff-7703-48fe-8590-8fa8488783a4"
+    rules:
+      -
+        apiGroups:
+          - "cert-manager.io"
+        resources:
+          - "certificates"
+          - "certificaterequests"
+          - "issuers"
+        verbs:
+          - "create"
+          - "delete"
+          - "deletecollection"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "cert-manager.io"
+        resources:
+          - "certificates/status"
+        verbs:
+          - "update"
+      -
+        apiGroups:
+          - "acme.cert-manager.io"
+        resources:
+          - "challenges"
+          - "orders"
+        verbs:
+          - "create"
+          - "delete"
+          - "deletecollection"
+          - "patch"
+          - "update"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"cert-manager\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-controller-approve:cert-manager-io\"},\"rules\":[{\"apiGroups\":[\"cert-manager.io\"],\"resourceNames\":[\"issuers.cert-manager.io/*\",\"clusterissuers.cert-manager.io/*\"],\"resources\":[\"signers\"],\"verbs\":[\"approve\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "cert-manager"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-controller-approve:cert-manager-io"
+      resourceVersion: "522"
+      uid: "f6284508-2e0e-4236-85ee-6746b01b973b"
+    rules:
+      -
+        apiGroups:
+          - "cert-manager.io"
+        resourceNames:
+          - "issuers.cert-manager.io/*"
+          - "clusterissuers.cert-manager.io/*"
+        resources:
+          - "signers"
+        verbs:
+          - "approve"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"cert-manager\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-controller-certificatesigningrequests\"},\"rules\":[{\"apiGroups\":[\"certificates.k8s.io\"],\"resources\":[\"certificatesigningrequests\"],\"verbs\":[\"get\",\"list\",\"watch\",\"update\"]},{\"apiGroups\":[\"certificates.k8s.io\"],\"resources\":[\"certificatesigningrequests/status\"],\"verbs\":[\"update\",\"patch\"]},{\"apiGroups\":[\"certificates.k8s.io\"],\"resourceNames\":[\"issuers.cert-manager.io/*\",\"clusterissuers.cert-manager.io/*\"],\"resources\":[\"signers\"],\"verbs\":[\"sign\"]},{\"apiGroups\":[\"authorization.k8s.io\"],\"resources\":[\"subjectaccessreviews\"],\"verbs\":[\"create\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "cert-manager"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-controller-certificatesigningrequests"
+      resourceVersion: "525"
+      uid: "888bf4a2-0326-4dc3-91f6-41260a89346d"
+    rules:
+      -
+        apiGroups:
+          - "certificates.k8s.io"
+        resources:
+          - "certificatesigningrequests"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "update"
+      -
+        apiGroups:
+          - "certificates.k8s.io"
+        resources:
+          - "certificatesigningrequests/status"
+        verbs:
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "certificates.k8s.io"
+        resourceNames:
+          - "issuers.cert-manager.io/*"
+          - "clusterissuers.cert-manager.io/*"
+        resources:
+          - "signers"
+        verbs:
+          - "sign"
+      -
+        apiGroups:
+          - "authorization.k8s.io"
+        resources:
+          - "subjectaccessreviews"
+        verbs:
+          - "create"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"webhook\",\"app.kubernetes.io/component\":\"webhook\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"webhook\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-webhook:subjectaccessreviews\"},\"rules\":[{\"apiGroups\":[\"authorization.k8s.io\"],\"resources\":[\"subjectaccessreviews\"],\"verbs\":[\"create\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "webhook"
+        app.kubernetes.io/component: "webhook"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "webhook"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-webhook:subjectaccessreviews"
+      resourceVersion: "526"
+      uid: "06b913bf-2be3-4355-aeb9-b6d03732697d"
+    rules:
+      -
+        apiGroups:
+          - "authorization.k8s.io"
+        resources:
+          - "subjectaccessreviews"
+        verbs:
+          - "create"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cainjector\",\"app.kubernetes.io/component\":\"cainjector\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cainjector\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-cainjector\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"cert-manager-cainjector\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"cert-manager-cainjector\",\"namespace\":\"cert-manager\"}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cainjector"
+        app.kubernetes.io/component: "cainjector"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cainjector"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-cainjector"
+      resourceVersion: "527"
+      uid: "e0787106-8b2d-4bd5-b292-e9d8ccc02a57"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "cert-manager-cainjector"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "cert-manager-cainjector"
+        namespace: "cert-manager"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-controller-issuers\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"cert-manager-controller-issuers\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"cert-manager\",\"namespace\":\"cert-manager\"}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-controller-issuers"
+      resourceVersion: "528"
+      uid: "aab750e2-e2e4-419d-8d22-06469700de70"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "cert-manager-controller-issuers"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "cert-manager"
+        namespace: "cert-manager"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-controller-clusterissuers\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"cert-manager-controller-clusterissuers\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"cert-manager\",\"namespace\":\"cert-manager\"}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-controller-clusterissuers"
+      resourceVersion: "529"
+      uid: "0e5ea769-c666-4599-8beb-7d0684318cf0"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "cert-manager-controller-clusterissuers"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "cert-manager"
+        namespace: "cert-manager"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-controller-certificates\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"cert-manager-controller-certificates\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"cert-manager\",\"namespace\":\"cert-manager\"}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-controller-certificates"
+      resourceVersion: "530"
+      uid: "6804aa88-6602-4887-bc47-afb7d8ede5ad"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "cert-manager-controller-certificates"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "cert-manager"
+        namespace: "cert-manager"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-controller-orders\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"cert-manager-controller-orders\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"cert-manager\",\"namespace\":\"cert-manager\"}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-controller-orders"
+      resourceVersion: "531"
+      uid: "ca9e6a8e-bfd5-466e-8816-2f092f1e851c"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "cert-manager-controller-orders"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "cert-manager"
+        namespace: "cert-manager"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-controller-challenges\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"cert-manager-controller-challenges\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"cert-manager\",\"namespace\":\"cert-manager\"}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-controller-challenges"
+      resourceVersion: "532"
+      uid: "374bedab-b1b4-49a2-b615-fef66788f104"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "cert-manager-controller-challenges"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "cert-manager"
+        namespace: "cert-manager"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"controller\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-controller-ingress-shim\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"cert-manager-controller-ingress-shim\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"cert-manager\",\"namespace\":\"cert-manager\"}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "controller"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-controller-ingress-shim"
+      resourceVersion: "533"
+      uid: "d0589600-a45b-490c-9395-c77dcdc99f4e"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "cert-manager-controller-ingress-shim"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "cert-manager"
+        namespace: "cert-manager"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"cert-manager\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-controller-approve:cert-manager-io\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"cert-manager-controller-approve:cert-manager-io\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"cert-manager\",\"namespace\":\"cert-manager\"}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "cert-manager"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-controller-approve:cert-manager-io"
+      resourceVersion: "534"
+      uid: "01439f8c-622e-4eb0-b83c-76755cbf4a85"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "cert-manager-controller-approve:cert-manager-io"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "cert-manager"
+        namespace: "cert-manager"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"cert-manager\",\"app.kubernetes.io/component\":\"cert-manager\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-controller-certificatesigningrequests\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"cert-manager-controller-certificatesigningrequests\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"cert-manager\",\"namespace\":\"cert-manager\"}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "cert-manager"
+        app.kubernetes.io/component: "cert-manager"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-controller-certificatesigningrequests"
+      resourceVersion: "535"
+      uid: "899738c6-3b09-4619-8feb-1ea20464cc04"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "cert-manager-controller-certificatesigningrequests"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "cert-manager"
+        namespace: "cert-manager"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"webhook\",\"app.kubernetes.io/component\":\"webhook\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"webhook\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-webhook:subjectaccessreviews\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"cert-manager-webhook:subjectaccessreviews\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"cert-manager-webhook\",\"namespace\":\"cert-manager\"}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      labels:
+        app: "webhook"
+        app.kubernetes.io/component: "webhook"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "webhook"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-webhook:subjectaccessreviews"
+      resourceVersion: "536"
+      uid: "3d5317ed-8d92-4710-b2fa-fefb11366517"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "cert-manager-webhook:subjectaccessreviews"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "cert-manager-webhook"
+        namespace: "cert-manager"
+  -
+    apiVersion: "admissionregistration.k8s.io/v1"
+    kind: "MutatingWebhookConfiguration"
+    metadata:
+      annotations:
+        cert-manager.io/inject-ca-from-secret: "cert-manager/cert-manager-webhook-ca"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"MutatingWebhookConfiguration\",\"metadata\":{\"annotations\":{\"cert-manager.io/inject-ca-from-secret\":\"cert-manager/cert-manager-webhook-ca\"},\"labels\":{\"app\":\"webhook\",\"app.kubernetes.io/component\":\"webhook\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"webhook\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-webhook\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"cert-manager-webhook\",\"namespace\":\"cert-manager\",\"path\":\"/mutate\"}},\"failurePolicy\":\"Fail\",\"matchPolicy\":\"Equivalent\",\"name\":\"webhook.cert-manager.io\",\"rules\":[{\"apiGroups\":[\"cert-manager.io\"],\"apiVersions\":[\"v1\"],\"operations\":[\"CREATE\"],\"resources\":[\"certificaterequests\"]}],\"sideEffects\":\"None\",\"timeoutSeconds\":30}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      generation: 1
+      labels:
+        app: "webhook"
+        app.kubernetes.io/component: "webhook"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "webhook"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-webhook"
+      resourceVersion: "537"
+      uid: "0224c4c1-c80b-42ef-bdcb-b0c30d9642dc"
+    webhooks:
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          service:
+            name: "cert-manager-webhook"
+            namespace: "cert-manager"
+            path: "/mutate"
+            port: 443
+        failurePolicy: "Fail"
+        matchPolicy: "Equivalent"
+        name: "webhook.cert-manager.io"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        reinvocationPolicy: "Never"
+        rules:
+          -
+            apiGroups:
+              - "cert-manager.io"
+            apiVersions:
+              - "v1"
+            operations:
+              - "CREATE"
+            resources:
+              - "certificaterequests"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 30
+  -
+    apiVersion: "admissionregistration.k8s.io/v1"
+    kind: "ValidatingWebhookConfiguration"
+    metadata:
+      annotations:
+        cert-manager.io/inject-ca-from-secret: "cert-manager/cert-manager-webhook-ca"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"ValidatingWebhookConfiguration\",\"metadata\":{\"annotations\":{\"cert-manager.io/inject-ca-from-secret\":\"cert-manager/cert-manager-webhook-ca\"},\"labels\":{\"app\":\"webhook\",\"app.kubernetes.io/component\":\"webhook\",\"app.kubernetes.io/instance\":\"cert-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"webhook\",\"app.kubernetes.io/version\":\"v1.20.2\",\"helm.sh/chart\":\"cert-manager-v1.20.2\"},\"name\":\"cert-manager-webhook\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"cert-manager-webhook\",\"namespace\":\"cert-manager\",\"path\":\"/validate\"}},\"failurePolicy\":\"Fail\",\"matchPolicy\":\"Equivalent\",\"name\":\"webhook.cert-manager.io\",\"namespaceSelector\":{\"matchExpressions\":[{\"key\":\"cert-manager.io/disable-validation\",\"operator\":\"NotIn\",\"values\":[\"true\"]}]},\"rules\":[{\"apiGroups\":[\"cert-manager.io\",\"acme.cert-manager.io\"],\"apiVersions\":[\"v1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"*/*\"]}],\"sideEffects\":\"None\",\"timeoutSeconds\":30}]}\n"
+      creationTimestamp: "2026-06-11T13:27:42Z"
+      generation: 1
+      labels:
+        app: "webhook"
+        app.kubernetes.io/component: "webhook"
+        app.kubernetes.io/instance: "cert-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "webhook"
+        app.kubernetes.io/version: "v1.20.2"
+        helm.sh/chart: "cert-manager-v1.20.2"
+      name: "cert-manager-webhook"
+      resourceVersion: "538"
+      uid: "7a74ab0d-5ae1-43ff-a83b-3099cd5c7f65"
+    webhooks:
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          service:
+            name: "cert-manager-webhook"
+            namespace: "cert-manager"
+            path: "/validate"
+            port: 443
+        failurePolicy: "Fail"
+        matchPolicy: "Equivalent"
+        name: "webhook.cert-manager.io"
+        namespaceSelector:
+          matchExpressions:
+            -
+              key: "cert-manager.io/disable-validation"
+              operator: "NotIn"
+              values:
+                - "true"
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "cert-manager.io"
+              - "acme.cert-manager.io"
+            apiVersions:
+              - "v1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "*/*"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 30
+kind: "List"
+metadata:
+  resourceVersion: ""

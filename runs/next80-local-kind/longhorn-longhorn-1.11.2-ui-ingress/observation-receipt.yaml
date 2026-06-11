@@ -1,0 +1,50 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "longhorn-longhorn-1.11.2-ui-ingress-local-kind"
+spec:
+  variantRevision: "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "2f6508c2bc3f2a09e1ffcb8ec71282b3e2dd52e69fe8ca80fc90ab756f9b9298"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-longhorn-ui"
+    context: "kind-claude-helm-expt-codex-longhorn-ui"
+    namespace: "longhorn-system"
+  observedAt: "2026-06-11T13:51:54.660Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "ui-ingress"
+  workloads: 3
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "449f593894f4d58d430e354ff511ff25b7c05cfa3a5bd9e1379564427b7bbd84"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||longhorn-system"
+    -
+      name: "crds-applied-and-established"
+      result: "pass"
+      object: "22 CustomResourceDefinition(s)"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "42 object(s) from recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "DaemonSet|longhorn-system|longhorn-manager"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|longhorn-system|longhorn-driver-deployer"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|longhorn-system|longhorn-ui"

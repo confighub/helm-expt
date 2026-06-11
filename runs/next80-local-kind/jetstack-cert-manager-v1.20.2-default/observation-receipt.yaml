@@ -1,0 +1,46 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "jetstack-cert-manager-v1.20.2-default-local-kind"
+spec:
+  variantRevision: "recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "45029db19d75e578bec74b82a0476a6580d1f7193239a210bf4873156ac725ce"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-cert-manager-default"
+    context: "kind-claude-helm-expt-codex-cert-manager-default"
+    namespace: "cert-manager"
+  observedAt: "2026-06-11T13:27:59.399Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 3
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "2cdc00f4881b561d18f2cbed4f54f7f4f7a98f04eef1db40802a849195d203ad"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||cert-manager"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "42 object(s) from recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|cert-manager|cert-manager-cainjector"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|cert-manager|cert-manager"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|cert-manager|cert-manager-webhook"
