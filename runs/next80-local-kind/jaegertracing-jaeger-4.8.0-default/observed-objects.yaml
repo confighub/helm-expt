@@ -1,0 +1,277 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"all-in-one\",\"app.kubernetes.io/instance\":\"jaeger\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"jaeger\",\"app.kubernetes.io/version\":\"2.18.0\",\"helm.sh/chart\":\"jaeger-4.8.0\"},\"name\":\"jaeger\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T12:09:40Z"
+      labels:
+        app.kubernetes.io/component: "all-in-one"
+        app.kubernetes.io/instance: "jaeger"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "jaeger"
+        app.kubernetes.io/version: "2.18.0"
+        helm.sh/chart: "jaeger-4.8.0"
+      name: "jaeger"
+      namespace: "default"
+      resourceVersion: "432"
+      uid: "e16c9aa9-75d1-4ffb-97dc-be453bea95cf"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"all-in-one\",\"app.kubernetes.io/instance\":\"jaeger\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"jaeger\",\"app.kubernetes.io/version\":\"2.18.0\",\"helm.sh/chart\":\"jaeger-4.8.0\"},\"name\":\"jaeger\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"zk-compact-trft\",\"port\":5775,\"protocol\":\"UDP\",\"targetPort\":5775},{\"name\":\"config-rest\",\"port\":5778,\"targetPort\":5778},{\"name\":\"jg-compact-trft\",\"port\":6831,\"protocol\":\"UDP\",\"targetPort\":6831},{\"name\":\"jg-binary-trft\",\"port\":6832,\"protocol\":\"UDP\",\"targetPort\":6832},{\"appProtocol\":\"http\",\"name\":\"http-zipkin\",\"port\":9411,\"targetPort\":9411},{\"appProtocol\":\"grpc\",\"name\":\"grpc-http\",\"port\":14250,\"targetPort\":14250},{\"name\":\"c-tchan-trft\",\"port\":14267,\"targetPort\":14267},{\"appProtocol\":\"http\",\"name\":\"http-c-binary-trft\",\"port\":14268,\"targetPort\":14268},{\"appProtocol\":\"grpc\",\"name\":\"otlp-grpc\",\"port\":4317,\"targetPort\":4317},{\"appProtocol\":\"http\",\"name\":\"otlp-http\",\"port\":4318,\"targetPort\":4318},{\"name\":\"http-query\",\"port\":16686,\"targetPort\":16686},{\"name\":\"grpc-query\",\"port\":16685,\"targetPort\":16685},{\"appProtocol\":\"http\",\"name\":\"internal-metrics\",\"port\":8888,\"targetPort\":8888},{\"appProtocol\":\"http\",\"name\":\"span-metrics\",\"port\":8889,\"targetPort\":8889}],\"selector\":{\"app.kubernetes.io/component\":\"all-in-one\",\"app.kubernetes.io/instance\":\"jaeger\",\"app.kubernetes.io/name\":\"jaeger\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:09:40Z"
+      labels:
+        app.kubernetes.io/component: "all-in-one"
+        app.kubernetes.io/instance: "jaeger"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "jaeger"
+        app.kubernetes.io/version: "2.18.0"
+        helm.sh/chart: "jaeger-4.8.0"
+      name: "jaeger"
+      namespace: "default"
+      resourceVersion: "434"
+      uid: "a246cd24-3c15-4589-a41e-1c6aac6787a5"
+    spec:
+      clusterIP: "10.96.59.241"
+      clusterIPs:
+        - "10.96.59.241"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "zk-compact-trft"
+          port: 5775
+          protocol: "UDP"
+          targetPort: 5775
+        -
+          name: "config-rest"
+          port: 5778
+          protocol: "TCP"
+          targetPort: 5778
+        -
+          name: "jg-compact-trft"
+          port: 6831
+          protocol: "UDP"
+          targetPort: 6831
+        -
+          name: "jg-binary-trft"
+          port: 6832
+          protocol: "UDP"
+          targetPort: 6832
+        -
+          appProtocol: "http"
+          name: "http-zipkin"
+          port: 9411
+          protocol: "TCP"
+          targetPort: 9411
+        -
+          appProtocol: "grpc"
+          name: "grpc-http"
+          port: 14250
+          protocol: "TCP"
+          targetPort: 14250
+        -
+          name: "c-tchan-trft"
+          port: 14267
+          protocol: "TCP"
+          targetPort: 14267
+        -
+          appProtocol: "http"
+          name: "http-c-binary-trft"
+          port: 14268
+          protocol: "TCP"
+          targetPort: 14268
+        -
+          appProtocol: "grpc"
+          name: "otlp-grpc"
+          port: 4317
+          protocol: "TCP"
+          targetPort: 4317
+        -
+          appProtocol: "http"
+          name: "otlp-http"
+          port: 4318
+          protocol: "TCP"
+          targetPort: 4318
+        -
+          name: "http-query"
+          port: 16686
+          protocol: "TCP"
+          targetPort: 16686
+        -
+          name: "grpc-query"
+          port: 16685
+          protocol: "TCP"
+          targetPort: 16685
+        -
+          appProtocol: "http"
+          name: "internal-metrics"
+          port: 8888
+          protocol: "TCP"
+          targetPort: 8888
+        -
+          appProtocol: "http"
+          name: "span-metrics"
+          port: 8889
+          protocol: "TCP"
+          targetPort: 8889
+      selector:
+        app.kubernetes.io/component: "all-in-one"
+        app.kubernetes.io/instance: "jaeger"
+        app.kubernetes.io/name: "jaeger"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"all-in-one\",\"app.kubernetes.io/instance\":\"jaeger\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"jaeger\",\"app.kubernetes.io/version\":\"2.18.0\",\"helm.sh/chart\":\"jaeger-4.8.0\",\"prometheus.io/port\":\"8888\",\"prometheus.io/scrape\":\"true\"},\"name\":\"jaeger\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"all-in-one\",\"app.kubernetes.io/instance\":\"jaeger\",\"app.kubernetes.io/name\":\"jaeger\"}},\"strategy\":{\"type\":\"Recreate\"},\"template\":{\"metadata\":{\"annotations\":{\"prometheus.io/port\":\"8888\",\"prometheus.io/scrape\":\"true\"},\"labels\":{\"app.kubernetes.io/component\":\"all-in-one\",\"app.kubernetes.io/instance\":\"jaeger\",\"app.kubernetes.io/name\":\"jaeger\"}},\"spec\":{\"containers\":[{\"args\":null,\"env\":null,\"image\":\"jaegertracing/jaeger:2.18.0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":5,\"httpGet\":{\"path\":\"/status\",\"port\":13133,\"scheme\":\"HTTP\"},\"initialDelaySeconds\":5,\"periodSeconds\":15,\"successThreshold\":1,\"timeoutSeconds\":1},\"name\":\"jaeger\",\"ports\":[{\"containerPort\":5775,\"protocol\":\"UDP\"},{\"containerPort\":6831,\"protocol\":\"UDP\"},{\"containerPort\":6832,\"protocol\":\"UDP\"},{\"containerPort\":5778,\"protocol\":\"TCP\"},{\"containerPort\":16686,\"protocol\":\"TCP\"},{\"containerPort\":16685,\"protocol\":\"TCP\"},{\"containerPort\":9411,\"protocol\":\"TCP\"},{\"containerPort\":4317,\"protocol\":\"TCP\"},{\"containerPort\":4318,\"protocol\":\"TCP\"},{\"containerPort\":13133,\"protocol\":\"TCP\"},{\"containerPort\":8888,\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/status\",\"port\":13133,\"scheme\":\"HTTP\"},\"initialDelaySeconds\":1,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":1},\"securityContext\":{},\"volumeMounts\":null}],\"securityContext\":{\"fsGroup\":10001,\"runAsGroup\":10001,\"runAsUser\":10001},\"serviceAccountName\":\"jaeger\",\"volumes\":null}}}}\n"
+      creationTimestamp: "2026-06-11T12:09:40Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "all-in-one"
+        app.kubernetes.io/instance: "jaeger"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "jaeger"
+        app.kubernetes.io/version: "2.18.0"
+        helm.sh/chart: "jaeger-4.8.0"
+        prometheus.io/port: "8888"
+        prometheus.io/scrape: "true"
+      name: "jaeger"
+      namespace: "default"
+      resourceVersion: "504"
+      uid: "e715b16e-e088-44bc-89e8-c985b6311b53"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "all-in-one"
+          app.kubernetes.io/instance: "jaeger"
+          app.kubernetes.io/name: "jaeger"
+      strategy:
+        type: "Recreate"
+      template:
+        metadata:
+          annotations:
+            prometheus.io/port: "8888"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/component: "all-in-one"
+            app.kubernetes.io/instance: "jaeger"
+            app.kubernetes.io/name: "jaeger"
+        spec:
+          containers:
+            -
+              image: "jaegertracing/jaeger:2.18.0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: "/status"
+                  port: 13133
+                  scheme: "HTTP"
+                initialDelaySeconds: 5
+                periodSeconds: 15
+                successThreshold: 1
+                timeoutSeconds: 1
+              name: "jaeger"
+              ports:
+                -
+                  containerPort: 5775
+                  protocol: "UDP"
+                -
+                  containerPort: 6831
+                  protocol: "UDP"
+                -
+                  containerPort: 6832
+                  protocol: "UDP"
+                -
+                  containerPort: 5778
+                  protocol: "TCP"
+                -
+                  containerPort: 16686
+                  protocol: "TCP"
+                -
+                  containerPort: 16685
+                  protocol: "TCP"
+                -
+                  containerPort: 9411
+                  protocol: "TCP"
+                -
+                  containerPort: 4317
+                  protocol: "TCP"
+                -
+                  containerPort: 4318
+                  protocol: "TCP"
+                -
+                  containerPort: 13133
+                  protocol: "TCP"
+                -
+                  containerPort: 8888
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/status"
+                  port: 13133
+                  scheme: "HTTP"
+                initialDelaySeconds: 1
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                {}
+              securityContext:
+                {}
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 10001
+            runAsGroup: 10001
+            runAsUser: 10001
+          serviceAccount: "jaeger"
+          serviceAccountName: "jaeger"
+          terminationGracePeriodSeconds: 30
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T12:09:51Z"
+          lastUpdateTime: "2026-06-11T12:09:51Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T12:09:40Z"
+          lastUpdateTime: "2026-06-11T12:09:51Z"
+          message: "ReplicaSet \"jaeger-5949c474b5\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""

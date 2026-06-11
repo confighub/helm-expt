@@ -1,0 +1,184 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"nfs-subdir-external-provisioner\",\"chart\":\"nfs-subdir-external-provisioner-4.0.18\",\"heritage\":\"Helm\",\"release\":\"nfs-subdir-external-provisioner\"},\"name\":\"nfs-subdir-external-provisioner\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T12:10:42Z"
+      labels:
+        app: "nfs-subdir-external-provisioner"
+        chart: "nfs-subdir-external-provisioner-4.0.18"
+        heritage: "Helm"
+        release: "nfs-subdir-external-provisioner"
+      name: "nfs-subdir-external-provisioner"
+      namespace: "default"
+      resourceVersion: "469"
+      uid: "e8861c2b-7d9c-4baa-a4da-0063d01b3a64"
+  -
+    allowVolumeExpansion: true
+    apiVersion: "storage.k8s.io/v1"
+    kind: "StorageClass"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"allowVolumeExpansion\":true,\"apiVersion\":\"storage.k8s.io/v1\",\"kind\":\"StorageClass\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"nfs-subdir-external-provisioner\",\"chart\":\"nfs-subdir-external-provisioner-4.0.18\",\"heritage\":\"Helm\",\"release\":\"nfs-subdir-external-provisioner\"},\"name\":\"nfs-client\"},\"parameters\":{\"archiveOnDelete\":\"true\"},\"provisioner\":\"cluster.local/nfs-subdir-external-provisioner\",\"reclaimPolicy\":\"Delete\",\"volumeBindingMode\":\"Immediate\"}\n"
+      creationTimestamp: "2026-06-11T12:10:42Z"
+      labels:
+        app: "nfs-subdir-external-provisioner"
+        chart: "nfs-subdir-external-provisioner-4.0.18"
+        heritage: "Helm"
+        release: "nfs-subdir-external-provisioner"
+      name: "nfs-client"
+      resourceVersion: "470"
+      uid: "3bb94da6-5592-4c9f-9609-01c041b4ffe5"
+    parameters:
+      archiveOnDelete: "true"
+    provisioner: "cluster.local/nfs-subdir-external-provisioner"
+    reclaimPolicy: "Delete"
+    volumeBindingMode: "Immediate"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"nfs-subdir-external-provisioner\",\"chart\":\"nfs-subdir-external-provisioner-4.0.18\",\"heritage\":\"Helm\",\"release\":\"nfs-subdir-external-provisioner\"},\"name\":\"nfs-subdir-external-provisioner-runner\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"nodes\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"persistentvolumes\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"delete\"]},{\"apiGroups\":[\"\"],\"resources\":[\"persistentvolumeclaims\"],\"verbs\":[\"get\",\"list\",\"watch\",\"update\"]},{\"apiGroups\":[\"storage.k8s.io\"],\"resources\":[\"storageclasses\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"update\",\"patch\"]}]}\n"
+      creationTimestamp: "2026-06-11T12:10:42Z"
+      labels:
+        app: "nfs-subdir-external-provisioner"
+        chart: "nfs-subdir-external-provisioner-4.0.18"
+        heritage: "Helm"
+        release: "nfs-subdir-external-provisioner"
+      name: "nfs-subdir-external-provisioner-runner"
+      resourceVersion: "471"
+      uid: "88b479c6-ba92-46ea-a5bc-5fa1cf11456f"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "nodes"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "persistentvolumes"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "persistentvolumeclaims"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "update"
+      -
+        apiGroups:
+          - "storage.k8s.io"
+        resources:
+          - "storageclasses"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "update"
+          - "patch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"nfs-subdir-external-provisioner\",\"chart\":\"nfs-subdir-external-provisioner-4.0.18\",\"heritage\":\"Helm\",\"release\":\"nfs-subdir-external-provisioner\"},\"name\":\"run-nfs-subdir-external-provisioner\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"nfs-subdir-external-provisioner-runner\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"nfs-subdir-external-provisioner\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T12:10:42Z"
+      labels:
+        app: "nfs-subdir-external-provisioner"
+        chart: "nfs-subdir-external-provisioner-4.0.18"
+        heritage: "Helm"
+        release: "nfs-subdir-external-provisioner"
+      name: "run-nfs-subdir-external-provisioner"
+      resourceVersion: "472"
+      uid: "1ab9c793-e03f-4b34-a3ae-538bb09c6f3b"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "nfs-subdir-external-provisioner-runner"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "nfs-subdir-external-provisioner"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"nfs-subdir-external-provisioner\",\"chart\":\"nfs-subdir-external-provisioner-4.0.18\",\"heritage\":\"Helm\",\"release\":\"nfs-subdir-external-provisioner\"},\"name\":\"leader-locking-nfs-subdir-external-provisioner\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"endpoints\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\"]}]}\n"
+      creationTimestamp: "2026-06-11T12:10:42Z"
+      labels:
+        app: "nfs-subdir-external-provisioner"
+        chart: "nfs-subdir-external-provisioner-4.0.18"
+        heritage: "Helm"
+        release: "nfs-subdir-external-provisioner"
+      name: "leader-locking-nfs-subdir-external-provisioner"
+      namespace: "default"
+      resourceVersion: "473"
+      uid: "a09d6bb9-8472-4cbf-820c-c680bfb1ab67"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "endpoints"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"nfs-subdir-external-provisioner\",\"chart\":\"nfs-subdir-external-provisioner-4.0.18\",\"heritage\":\"Helm\",\"release\":\"nfs-subdir-external-provisioner\"},\"name\":\"leader-locking-nfs-subdir-external-provisioner\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"leader-locking-nfs-subdir-external-provisioner\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"nfs-subdir-external-provisioner\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T12:10:42Z"
+      labels:
+        app: "nfs-subdir-external-provisioner"
+        chart: "nfs-subdir-external-provisioner-4.0.18"
+        heritage: "Helm"
+        release: "nfs-subdir-external-provisioner"
+      name: "leader-locking-nfs-subdir-external-provisioner"
+      namespace: "default"
+      resourceVersion: "474"
+      uid: "834196e4-d078-4045-9b8d-4aeac473b669"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "leader-locking-nfs-subdir-external-provisioner"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "nfs-subdir-external-provisioner"
+        namespace: "default"
+kind: "List"
+metadata:
+  resourceVersion: ""
