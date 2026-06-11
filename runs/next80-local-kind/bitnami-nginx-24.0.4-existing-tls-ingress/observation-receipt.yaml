@@ -11,31 +11,24 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-codex-nginx2404-tls"
-    context: "kind-claude-helm-expt-codex-nginx2404-tls"
+    name: "claude-helm-expt-codex-targetfacts2"
+    context: "kind-claude-helm-expt-codex-targetfacts2"
     namespace: "nginx"
-  observedAt: "2026-06-11T15:17:04.328Z"
+  observedAt: "2026-06-11T15:55:56.486Z"
   freshnessTTL: "1h"
-  result: "fail"
-  clusterStatus: "created-by-test"
+  result: "pass"
+  clusterStatus: "existing"
   variant: "existing-tls-ingress"
   workloads: 1
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "f8cc6f425f1101c2b2e26b1035a325a5f8fac0ab79c6e2d7daa77ef11c0f1065"
+    sha256: "58ab84b8ceef08c1a2e1c97ff04814aecc076bc03d90a61bb147935935a65218"
   checks:
-    -
-      name: "namespace-created"
-      result: "pass"
-      object: "v1|Namespace||nginx"
     -
       name: "rendered-objects-applied"
       result: "pass"
       object: "6 object(s) from recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml"
     -
       name: "workload-converged"
-      result: "fail"
+      result: "pass"
       object: "Deployment|nginx|nginx"
-      reason: "not-ready: nginx-78b966456-4plns[PodInitializing ready=false restarts=0;]"
-  blockedReasons:
-    - "deployment/nginx: not-ready (nginx-78b966456-4plns[PodInitializing ready=false restarts=0;])"

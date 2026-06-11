@@ -120,11 +120,12 @@ function classify(text, row) {
   if (includesAny(text, ["imagepullbackoff", "errimagepull", "image-pull-blocked", "image pull", "pull access denied", "manifest unknown"])) {
     return route("image-dependency", "high");
   }
-  if (includesAny(base, ["existing-secret", "existing-tls", "external-tls", "secure-mesh-existing-secrets"]) || includesAny(text, ["secret not found", "couldn't find key", "references non-existent secret"])) {
-    return route("target-secret", includesAny(base, ["existing-secret", "existing-tls", "external-tls", "secure-mesh-existing-secrets"]) ? "high" : "medium");
-  }
-  if (includesAny(text, ["missing mount/secret/config", "createcontainerconfigerror", "containercreating", "podinitializing"])) {
-    return route("target-prerequisite", "medium");
+  const baseDeclaresTargetSecret = includesAny(base, ["existing-secret", "existing-tls", "external-tls", "secure-mesh-existing-secrets"]);
+  const explicitSecretFailure = includesAny(text, ["secret not found", "couldn't find key", "references non-existent secret"]);
+  const runtimeFailure = includesAny(text, ["crashloopbackoff", "not-ready", "did not converge", "error ready=false", "runtime"]);
+  const missingSecretLikePrereq = includesAny(text, ["missing mount/secret/config", "createcontainerconfigerror", "containercreating", "podinitializing"]);
+  if (explicitSecretFailure || (baseDeclaresTargetSecret && missingSecretLikePrereq && !runtimeFailure)) {
+    return route("target-secret", baseDeclaresTargetSecret ? "high" : "medium");
   }
   if (includesAny(text, ["insufficient", "nodes are available", "persistentvolumeclaim", "unbound", "storageclass", "too many pods", "didn't have free ports"])) {
     return route("target-fit", "high");
@@ -135,8 +136,11 @@ function classify(text, row) {
   if (chart.startsWith("aws-") || includesAny(chart, ["external-dns"]) || includesAny(text, ["access key", "credentials", "provider", "cloud api", "s3", "bucket"])) {
     return route("cloud-or-provider-prerequisite", "medium");
   }
-  if (includesAny(text, ["crashloopbackoff", "not-ready", "did not converge", "error ready=false", "runtime"])) {
+  if (runtimeFailure) {
     return route("runtime-readiness", "medium");
+  }
+  if (missingSecretLikePrereq) {
+    return route("target-prerequisite", "medium");
   }
   return route("inspect-receipt", "low");
 }

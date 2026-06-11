@@ -10,9 +10,9 @@ clear without turning every non-pass row into a product defect.
 ~~~text
 chart/base rows:          189
 local live observed rows: 189
-local live pass rows:     112
-local live non-pass rows: 77
-classified non-pass rows: 77
+local live pass rows:     117
+local live non-pass rows: 72
+classified non-pass rows: 72
 needs manual inspection:  0
 ~~~
 
@@ -20,11 +20,10 @@ needs manual inspection:  0
 
 | Route class | Rows | Meaning | Next action |
 | --- | ---: | --- | --- |
-| `target-prerequisite` | 25 | The workload reached Kubernetes but one or more pods were waiting for target-provided config, mounts, certificates, or setup. | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
+| `runtime-readiness` | 25 | The objects applied, but a controller or workload did not become healthy in the observation budget. | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | `missing-crds` | 17 | The rendered objects refer to custom resource types that were not present on the target. | Use a CRD-owning base, preinstall the CRDs, or record an explicit no-CRDs support boundary before rerun. |
-| `runtime-readiness` | 14 | The objects applied, but a controller or workload did not become healthy in the observation budget. | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
+| `target-prerequisite` | 15 | The workload reached Kubernetes but one or more pods were waiting for target-provided config, mounts, certificates, or setup. | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
 | `image-dependency` | 6 | The target could not pull at least one rendered image, so the row is testing image availability rather than ConfigHub parity. | Pin, mirror, override, or document the image dependency, then rerun against a target that can pull it. |
-| `target-secret` | 6 | The base deliberately expects a Secret or TLS material that was not staged on the target. | Stage the declared Secret or TLS material as a target fact, then rerun the local live and parity lanes. |
 | `test-environment-cleanup` | 6 | The receipt shows stale namespace or cleanup interference, so the next useful step is a clean rerun. | Delete the stale namespace or rerun on a fresh cluster with an isolated namespace. |
 | `admission-or-rbac` | 2 | Kubernetes rejected an object because of permissions, admission, immutability, or API validation. | Decide whether the base needs a permission/admission preflight, a different target scope, or a rejected support boundary. |
 | `cloud-or-provider-prerequisite` | 1 | The chart expects provider credentials, cloud APIs, buckets, DNS, volumes, or another external system. | Model the provider dependency as target facts or an external managed prerequisite before rerun. |
@@ -59,10 +58,10 @@ needs manual inspection:  0
 | `prometheus-community/prometheus-adapter@5.3.0` | default | blocked | `missing-crds` | Use a CRD-owning base, preinstall the CRDs, or record an explicit no-CRDs support boundary before rerun. | [receipt](../../runs/next80-local-kind/prometheus-community-prometheus-adapter-5.3.0-default/observation-receipt.yaml) |
 | `rook-release/rook-ceph-cluster@v1.19.5` | default | blocked | `missing-crds` | Use a CRD-owning base, preinstall the CRDs, or record an explicit no-CRDs support boundary before rerun. | [receipt](../../runs/next80-local-kind/rook-release-rook-ceph-cluster-v1.19.5-default/observation-receipt.yaml) |
 | `velero/velero@12.0.1` | no-crds | blocked | `missing-crds` | Use a CRD-owning base, preinstall the CRDs, or record an explicit no-CRDs support boundary before rerun. | [receipt](../../runs/next80-local-kind/velero-velero-12.0.1-no-crds/observation-receipt.yaml) |
+| `argo-cd/argo-cd@9.5.15` | no-crds | blocked | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/argo-cd-argo-cd-9.5.15-no-crds/observation-receipt.yaml) |
 | `argo-cd/argo-workflows@1.0.14` | controller-default-reviewed | fail | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-controller-default-reviewed/observation-receipt.yaml) |
 | `argo-cd/argo-workflows@1.0.14` | default | fail | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/argo-cd-argo-workflows-1.0.14-default/observation-receipt.yaml) |
-| `cloudnative-pg/cloudnative-pg@0.28.2` | no-crds | fail | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/cloudnative-pg-cloudnative-pg-0.28.2-no-crds/observation-receipt.yaml) |
-| `dex/dex@0.24.0` | default | fail | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/dex-dex-0.24.0-default/observation-receipt.yaml) |
+| `bitnami/contour@21.1.4` | no-crds | blocked | `runtime-readiness` | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. | [receipt](../../runs/next80-local-kind/bitnami-contour-21.1.4-no-crds/observation-receipt.yaml) |
 
 ## How To Use This
 

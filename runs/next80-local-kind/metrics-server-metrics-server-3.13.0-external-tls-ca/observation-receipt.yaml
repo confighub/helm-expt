@@ -11,18 +11,18 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-codex-metrics-exttls"
-    context: "kind-claude-helm-expt-codex-metrics-exttls"
+    name: "claude-helm-expt-codex-targetfacts2"
+    context: "kind-claude-helm-expt-codex-targetfacts2"
     namespace: "kube-system"
-  observedAt: "2026-06-11T13:46:13.880Z"
+  observedAt: "2026-06-11T16:07:03.564Z"
   freshnessTTL: "1h"
-  result: "blocked"
-  clusterStatus: "created-by-test"
+  result: "pass"
+  clusterStatus: "existing"
   variant: "external-tls-ca"
   workloads: 1
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "61a75ccfb1171c8abc97c1920a800f12039f870df064e093c17a84c4fed35c98"
+    sha256: "255166cc06a827af657ee55bd0782e3e62fffeabcfadaa47dca73a54063aa48e"
   checks:
     -
       name: "rendered-objects-applied"
@@ -30,8 +30,5 @@ spec:
       object: "9 object(s) from recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/rendered/release-objects.yaml"
     -
       name: "workload-converged"
-      result: "blocked"
+      result: "pass"
       object: "Deployment|kube-system|metrics-server"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): coredns-7d764666f9-2tlhk[ ready=true restarts=0;] coredns-7d764666f9-2xswd[ ready=true restarts=0;] etcd-claude-helm-expt-codex-metrics-exttls-control-plane[ ready=true restarts=0;] kindnet-d2zrt[ ready=true restarts=0;] kube-apiserver-claude-helm-expt-codex-metrics-exttls-control-plane[ ready=true "
-  blockedReasons:
-    - "deployment/metrics-server: prerequisite-blocked (stuck creating: missing mount/secret/config) (coredns-7d764666f9-2tlhk[ ready=true restarts=0;] coredns-7d764666f9-2xswd[ ready=true restarts=0;] etcd-claude-helm-expt-codex-metrics-exttls-control-plane[ re)"

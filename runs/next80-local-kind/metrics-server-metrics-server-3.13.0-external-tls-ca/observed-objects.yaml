@@ -6,7 +6,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"metrics-server\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"metrics-server\",\"app.kubernetes.io/version\":\"0.8.0\",\"helm.sh/chart\":\"metrics-server-3.13.0\"},\"name\":\"metrics-server\",\"namespace\":\"kube-system\"}}\n"
-      creationTimestamp: "2026-06-11T13:42:13Z"
+      creationTimestamp: "2026-06-11T16:06:36Z"
       labels:
         app.kubernetes.io/instance: "metrics-server"
         app.kubernetes.io/managed-by: "Helm"
@@ -15,15 +15,15 @@ items:
         helm.sh/chart: "metrics-server-3.13.0"
       name: "metrics-server"
       namespace: "kube-system"
-      resourceVersion: "477"
-      uid: "59a0e42c-32d2-449e-a086-77da7d7a9ee2"
+      resourceVersion: "3062"
+      uid: "37f89e04-2f58-41e6-8b91-6a30c345b333"
   -
     apiVersion: "rbac.authorization.k8s.io/v1"
     kind: "RoleBinding"
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"metrics-server\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"metrics-server\",\"app.kubernetes.io/version\":\"0.8.0\",\"helm.sh/chart\":\"metrics-server-3.13.0\"},\"name\":\"metrics-server-auth-reader\",\"namespace\":\"kube-system\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"extension-apiserver-authentication-reader\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"metrics-server\",\"namespace\":\"kube-system\"}]}\n"
-      creationTimestamp: "2026-06-11T13:42:13Z"
+      creationTimestamp: "2026-06-11T16:06:36Z"
       labels:
         app.kubernetes.io/instance: "metrics-server"
         app.kubernetes.io/managed-by: "Helm"
@@ -32,8 +32,8 @@ items:
         helm.sh/chart: "metrics-server-3.13.0"
       name: "metrics-server-auth-reader"
       namespace: "kube-system"
-      resourceVersion: "478"
-      uid: "c9101166-49d9-47bb-937c-1cc1b18c6c3f"
+      resourceVersion: "3063"
+      uid: "43edbfc2-9dda-424d-943a-029d8256f2a7"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "Role"
@@ -49,7 +49,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"metrics-server\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"metrics-server\",\"app.kubernetes.io/version\":\"0.8.0\",\"helm.sh/chart\":\"metrics-server-3.13.0\"},\"name\":\"metrics-server\",\"namespace\":\"kube-system\"},\"spec\":{\"ports\":[{\"appProtocol\":\"https\",\"name\":\"https\",\"port\":443,\"protocol\":\"TCP\",\"targetPort\":\"https\"}],\"selector\":{\"app.kubernetes.io/instance\":\"metrics-server\",\"app.kubernetes.io/name\":\"metrics-server\"},\"type\":\"ClusterIP\"}}\n"
-      creationTimestamp: "2026-06-11T13:42:13Z"
+      creationTimestamp: "2026-06-11T16:06:36Z"
       labels:
         app.kubernetes.io/instance: "metrics-server"
         app.kubernetes.io/managed-by: "Helm"
@@ -58,12 +58,12 @@ items:
         helm.sh/chart: "metrics-server-3.13.0"
       name: "metrics-server"
       namespace: "kube-system"
-      resourceVersion: "480"
-      uid: "6aa82c89-dd7c-40f9-a5c6-0cd8de33cd5a"
+      resourceVersion: "3065"
+      uid: "8acff744-4795-4bbe-9d5a-9f64d680fb52"
     spec:
-      clusterIP: "10.96.81.135"
+      clusterIP: "10.96.205.25"
       clusterIPs:
-        - "10.96.81.135"
+        - "10.96.205.25"
       internalTrafficPolicy: "Cluster"
       ipFamilies:
         - "IPv4"
@@ -90,7 +90,7 @@ items:
       annotations:
         deployment.kubernetes.io/revision: "1"
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"metrics-server\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"metrics-server\",\"app.kubernetes.io/version\":\"0.8.0\",\"helm.sh/chart\":\"metrics-server-3.13.0\"},\"name\":\"metrics-server\",\"namespace\":\"kube-system\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"metrics-server\",\"app.kubernetes.io/name\":\"metrics-server\"}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/instance\":\"metrics-server\",\"app.kubernetes.io/name\":\"metrics-server\"}},\"spec\":{\"containers\":[{\"args\":[\"--secure-port=10250\",\"--cert-dir=/tmp\",\"--kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname\",\"--kubelet-use-node-status-port\",\"--metric-resolution=15s\",\"--tls-cert-file=/tmp/tls-certs/tls.crt\",\"--tls-private-key-file=/tmp/tls-certs/tls.key\",\"--kubelet-insecure-tls\"],\"image\":\"registry.k8s.io/metrics-server/metrics-server:v0.8.0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/livez\",\"port\":\"https\",\"scheme\":\"HTTPS\"},\"initialDelaySeconds\":0,\"periodSeconds\":10},\"name\":\"metrics-server\",\"ports\":[{\"containerPort\":10250,\"name\":\"https\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/readyz\",\"port\":\"https\",\"scheme\":\"HTTPS\"},\"initialDelaySeconds\":20,\"periodSeconds\":10},\"resources\":{\"requests\":{\"cpu\":\"100m\",\"memory\":\"200Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":true,\"runAsUser\":1000,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"tmp\"},{\"mountPath\":\"/tmp/tls-certs\",\"name\":\"certs\",\"readOnly\":true}]}],\"priorityClassName\":\"system-cluster-critical\",\"serviceAccountName\":\"metrics-server\",\"volumes\":[{\"emptyDir\":{},\"name\":\"tmp\"},{\"name\":\"certs\",\"secret\":{\"secretName\":\"metrics-server-tls\"}}]}}}}\n"
-      creationTimestamp: "2026-06-11T13:42:13Z"
+      creationTimestamp: "2026-06-11T16:06:36Z"
       generation: 1
       labels:
         app.kubernetes.io/instance: "metrics-server"
@@ -100,8 +100,8 @@ items:
         helm.sh/chart: "metrics-server-3.13.0"
       name: "metrics-server"
       namespace: "kube-system"
-      resourceVersion: "494"
-      uid: "9c3ca174-1434-44fc-a4c2-499952ccddf9"
+      resourceVersion: "3170"
+      uid: "9fd9deb1-4172-48ac-b04b-0ea42d191711"
     spec:
       progressDeadlineSeconds: 600
       replicas: 1
@@ -203,25 +203,26 @@ items:
                 defaultMode: 420
                 secretName: "metrics-server-tls"
     status:
+      availableReplicas: 1
       conditions:
         -
-          lastTransitionTime: "2026-06-11T13:42:13Z"
-          lastUpdateTime: "2026-06-11T13:42:13Z"
-          message: "Deployment does not have minimum availability."
-          reason: "MinimumReplicasUnavailable"
-          status: "False"
+          lastTransitionTime: "2026-06-11T16:07:03Z"
+          lastUpdateTime: "2026-06-11T16:07:03Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
           type: "Available"
         -
-          lastTransitionTime: "2026-06-11T13:42:13Z"
-          lastUpdateTime: "2026-06-11T13:42:13Z"
-          message: "ReplicaSet \"metrics-server-b768588db\" is progressing."
-          reason: "ReplicaSetUpdated"
+          lastTransitionTime: "2026-06-11T16:06:36Z"
+          lastUpdateTime: "2026-06-11T16:07:03Z"
+          message: "ReplicaSet \"metrics-server-b768588db\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
           status: "True"
           type: "Progressing"
       observedGeneration: 1
+      readyReplicas: 1
       replicas: 1
       terminatingReplicas: 0
-      unavailableReplicas: 1
       updatedReplicas: 1
 kind: "List"
 metadata:
@@ -235,7 +236,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"metrics-server\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"metrics-server\",\"app.kubernetes.io/version\":\"0.8.0\",\"helm.sh/chart\":\"metrics-server-3.13.0\",\"rbac.authorization.k8s.io/aggregate-to-admin\":\"true\",\"rbac.authorization.k8s.io/aggregate-to-edit\":\"true\",\"rbac.authorization.k8s.io/aggregate-to-view\":\"true\"},\"name\":\"system:metrics-server-aggregated-reader\"},\"rules\":[{\"apiGroups\":[\"metrics.k8s.io\"],\"resources\":[\"pods\",\"nodes\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
-      creationTimestamp: "2026-06-11T13:42:13Z"
+      creationTimestamp: "2026-06-11T16:06:36Z"
       labels:
         app.kubernetes.io/instance: "metrics-server"
         app.kubernetes.io/managed-by: "Helm"
@@ -246,8 +247,8 @@ items:
         rbac.authorization.k8s.io/aggregate-to-edit: "true"
         rbac.authorization.k8s.io/aggregate-to-view: "true"
       name: "system:metrics-server-aggregated-reader"
-      resourceVersion: "496"
-      uid: "afab35ea-240e-4cb2-8c1c-232095b2668f"
+      resourceVersion: "3081"
+      uid: "adaffb88-dcee-4d49-88ff-6722be5d4746"
     rules:
       -
         apiGroups:
@@ -265,7 +266,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"metrics-server\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"metrics-server\",\"app.kubernetes.io/version\":\"0.8.0\",\"helm.sh/chart\":\"metrics-server-3.13.0\"},\"name\":\"system:metrics-server\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"nodes/metrics\"],\"verbs\":[\"get\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods\",\"nodes\",\"namespaces\",\"configmaps\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
-      creationTimestamp: "2026-06-11T13:42:13Z"
+      creationTimestamp: "2026-06-11T16:06:36Z"
       labels:
         app.kubernetes.io/instance: "metrics-server"
         app.kubernetes.io/managed-by: "Helm"
@@ -273,8 +274,8 @@ items:
         app.kubernetes.io/version: "0.8.0"
         helm.sh/chart: "metrics-server-3.13.0"
       name: "system:metrics-server"
-      resourceVersion: "498"
-      uid: "648e908b-d4ea-43f4-9c89-de0ea132af66"
+      resourceVersion: "3085"
+      uid: "1d665d6c-2dc8-4492-9680-30cb6162ef2e"
     rules:
       -
         apiGroups:
@@ -301,7 +302,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"metrics-server\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"metrics-server\",\"app.kubernetes.io/version\":\"0.8.0\",\"helm.sh/chart\":\"metrics-server-3.13.0\"},\"name\":\"metrics-server:system:auth-delegator\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"system:auth-delegator\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"metrics-server\",\"namespace\":\"kube-system\"}]}\n"
-      creationTimestamp: "2026-06-11T13:42:13Z"
+      creationTimestamp: "2026-06-11T16:06:36Z"
       labels:
         app.kubernetes.io/instance: "metrics-server"
         app.kubernetes.io/managed-by: "Helm"
@@ -309,8 +310,8 @@ items:
         app.kubernetes.io/version: "0.8.0"
         helm.sh/chart: "metrics-server-3.13.0"
       name: "metrics-server:system:auth-delegator"
-      resourceVersion: "501"
-      uid: "1875dbe9-11a6-4635-9c63-dd295ab84725"
+      resourceVersion: "3086"
+      uid: "fd8b4324-7ce5-4e6a-addb-2a6981e8f8a1"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "ClusterRole"
@@ -326,7 +327,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"metrics-server\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"metrics-server\",\"app.kubernetes.io/version\":\"0.8.0\",\"helm.sh/chart\":\"metrics-server-3.13.0\"},\"name\":\"system:metrics-server\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"system:metrics-server\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"metrics-server\",\"namespace\":\"kube-system\"}]}\n"
-      creationTimestamp: "2026-06-11T13:42:13Z"
+      creationTimestamp: "2026-06-11T16:06:36Z"
       labels:
         app.kubernetes.io/instance: "metrics-server"
         app.kubernetes.io/managed-by: "Helm"
@@ -334,8 +335,8 @@ items:
         app.kubernetes.io/version: "0.8.0"
         helm.sh/chart: "metrics-server-3.13.0"
       name: "system:metrics-server"
-      resourceVersion: "503"
-      uid: "08fe3cc4-4829-4d6a-9076-c61c568d4b55"
+      resourceVersion: "3088"
+      uid: "d1dc2edd-cf70-4b1d-84fe-58e3e1eb6238"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "ClusterRole"
@@ -351,7 +352,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apiregistration.k8s.io/v1\",\"kind\":\"APIService\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"metrics-server\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"metrics-server\",\"app.kubernetes.io/version\":\"0.8.0\",\"helm.sh/chart\":\"metrics-server-3.13.0\"},\"name\":\"v1beta1.metrics.k8s.io\"},\"spec\":{\"caBundle\":\"Y29uZmlnaHViLW1ldHJpY3Mtc2VydmVyLWNh\",\"group\":\"metrics.k8s.io\",\"groupPriorityMinimum\":100,\"insecureSkipTLSVerify\":false,\"service\":{\"name\":\"metrics-server\",\"namespace\":\"kube-system\",\"port\":443},\"version\":\"v1beta1\",\"versionPriority\":100}}\n"
-      creationTimestamp: "2026-06-11T13:42:13Z"
+      creationTimestamp: "2026-06-11T16:06:36Z"
       labels:
         app.kubernetes.io/instance: "metrics-server"
         app.kubernetes.io/managed-by: "Helm"
@@ -359,8 +360,8 @@ items:
         app.kubernetes.io/version: "0.8.0"
         helm.sh/chart: "metrics-server-3.13.0"
       name: "v1beta1.metrics.k8s.io"
-      resourceVersion: "505"
-      uid: "64a16e34-7942-4c8f-a1c0-233ce7d8a4a0"
+      resourceVersion: "3171"
+      uid: "c5af2624-e159-461c-9d29-47654466be41"
     spec:
       caBundle: "Y29uZmlnaHViLW1ldHJpY3Mtc2VydmVyLWNh"
       group: "metrics.k8s.io"
@@ -374,10 +375,10 @@ items:
     status:
       conditions:
         -
-          lastTransitionTime: "2026-06-11T13:42:13Z"
-          message: "endpointslices for service/metrics-server in \"kube-system\" have no addresses with port name \"https\""
-          reason: "MissingEndpoints"
-          status: "False"
+          lastTransitionTime: "2026-06-11T16:07:03Z"
+          message: "all checks passed"
+          reason: "Passed"
+          status: "True"
           type: "Available"
 kind: "List"
 metadata:
