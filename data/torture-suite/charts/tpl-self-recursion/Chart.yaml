@@ -1,0 +1,4 @@
+apiVersion: v2
+name: tpl-self-recursion
+description: "Torture fixture: tpl value that references itself"
+version: 0.1.0

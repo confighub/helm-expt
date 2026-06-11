@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Synthetic Torture Suite</title>
+<style>
+body{font:13px/1.45 -apple-system,Segoe UI,Helvetica,Arial,sans-serif;margin:24px;color:#202124}
+h1{font-size:20px;margin:0 0 4px}
+p.sub{color:#5f6368;margin:0 0 12px}
+table{border-collapse:collapse;margin-top:16px;width:100%}
+th,td{border:1px solid #dadce0;padding:4px 8px;text-align:left;vertical-align:top}
+thead th{position:sticky;top:0;background:#f1f3f4;z-index:1}
+td.fix{font-weight:600;white-space:nowrap}
+td.s{font-weight:700;white-space:nowrap}
+td.note{color:#5f6368}
+.y{background:#1e8e3e;color:#fff}
+.n{background:#d93025;color:#fff}
+.w{background:#f9ab00;color:#202124}
+</style>
+</head>
+<body>
+<h1>Synthetic Torture Suite</h1>
+<p class="sub">8 fixtures · 1 pass · 5 named refusals · 2 named routes · 0 silent outcomes by construction. Charts written to break the model; every one must land in a named outcome or recording fails. Hover the attack column for the routing notes. Re-record with <code>npm run torture:record</code>.</p>
+<table>
+<thead><tr><th>Fixture</th><th>Attack</th><th>Outcome</th><th>Detail</th></tr></thead>
+<tbody>
+<tr><td class="fix">alias-collision</td><td class="note" title="Two rendered documents with the same (apiVersion, kind, namespace, name) cannot both exist; last-apply-wins would silently drop one. Recorded along the way: helm v4 rewrites the aliased subchart's .Chart.Name to the alias, so .Chart.Name-derived names do NOT collide - the tool defends that path; hardcoded names remain the trap.">The same subchart is included twice under different aliases, and the child hardcodes an object name - both instances render the identical object identity.</td><td class="s n">refused-object-identity-collision</td><td class="note">v1|ConfigMap||child-shared-cm</td></tr>
+<tr><td class="fix">import-values-chain</td><td class="note" title="Renders deterministically - the chart is fine. The torture target is provenance: value-source maps must attribute imported paths to the child's exports block, or say they cannot.">import-values pulls child chart exports into the parent values space; a value-source map that only scans the parent values.yaml cannot explain where the rendered field came from.</td><td class="s y">pass-deterministic</td><td class="note"></td></tr>
+<tr><td class="fix">lookup-in-spec</td><td class="note" title="Renders deterministically offline (lookup returns empty), which is exactly the trap: the output LOOKS fine but depends on cluster state. The source scan flags lookup and routes the chart to target facts or an explicit refusal.">lookup reads the live cluster at render time to fill a spec field, so a factory render cannot equal an in-cluster render.</td><td class="s w">routed-lookup-target-facts</td><td class="note"></td></tr>
+<tr><td class="fix">random-selector</td><td class="note" title="The determinism gate refuses this chart before any parity claim is possible; the named route is generated-fact binding or removing randomness from identity fields.">Random generation inside spec.selector.matchLabels: every render produces a different immutable selector, so no two renders describe the same workload.</td><td class="s n">refused-nondeterministic-render</td><td class="note"></td></tr>
+<tr><td class="fix">sprig-env-access</td><td class="note" title="Helm itself removes env/expandenv from the template function map, so this fails at render with a named template error - the refusal is inherited from the tool and recorded, not silent. If a future helm re-enabled it, the environment probe would catch it as environment-dependent instead.">sprig env reads the rendering machine's environment variables into the output, leaking machine state and making renders machine-dependent.</td><td class="s n">refused-template-error</td><td class="note">Error: parse error at (sprig-env-access/templates/configmap.yaml:6): function &quot;env&quot; not defined  Use --debug flag to render out invalid YAML Command failed: helm template torture /Users/alexis/code/helm-expt-claude-clone</td></tr>
+<tr><td class="fix">timestamp-annotation</td><td class="note" title="Named refusal, not silence: timestamps belong in receipts (observedAt), not in rendered objects.">now baked into an annotation: the rendered bytes change every run, so byte-level parity is impossible by construction.</td><td class="s n">refused-nondeterministic-render</td><td class="note"></td></tr>
+<tr><td class="fix">tpl-self-recursion</td><td class="note" title="Helm aborts the recursion with an error; the harness runs renders under a timeout so even a hang would land as a named outcome, never silence.">A values entry that tpl-renders itself recurses forever; a naive renderer hangs or crashes without a named outcome.</td><td class="s n">refused-template-error</td><td class="note">runtime: goroutine stack exceeds 1000000000-byte limit runtime: sp=0x4afb347803a0 stack=[0x4afb34780000, 0x4afb54780000] fatal error: stack overflow  runtime stack: runtime.throw({0x105a97729?, 0x1042b63a4?}) 	runtime/pa</td></tr>
+<tr><td class="fix">verb-branch</td><td class="note" title="Named class, not a refusal: both verbs render deterministically and the route is capturing both renders (install and upgrade) as separate proof artifacts.">The template branches on .Release.IsUpgrade, so the chart renders differently on install and upgrade - a single captured render is not the chart.</td><td class="s w">verb-dependent-render</td><td class="note"></td></tr>
+</tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,3 @@
+attack: "lookup reads the live cluster at render time to fill a spec field, so a factory render cannot equal an in-cluster render."
+expected_outcome: routed-lookup-target-facts
+notes: "Renders deterministically offline (lookup returns empty), which is exactly the trap: the output LOOKS fine but depends on cluster state. The source scan flags lookup and routes the chart to target facts or an explicit refusal."

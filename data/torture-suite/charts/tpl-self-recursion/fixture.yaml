@@ -1,0 +1,3 @@
+attack: "A values entry that tpl-renders itself recurses forever; a naive renderer hangs or crashes without a named outcome."
+expected_outcome: refused-template-error
+notes: "Helm aborts the recursion with an error; the harness runs renders under a timeout so even a hang would land as a named outcome, never silence."

@@ -1,0 +1,4 @@
+apiVersion: v2
+name: random-selector
+description: "Torture fixture: random value inside an immutable selector"
+version: 0.1.0

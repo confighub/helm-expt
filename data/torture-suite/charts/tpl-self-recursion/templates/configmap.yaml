@@ -1,0 +1,6 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tpl-self-recursion
+data:
+  value: {{ tpl .Values.loop . | quote }}

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: timestamp-annotation
+  annotations:
+    rendered-at: {{ now | date "2006-01-02T15:04:05.000" | quote }}
+data:
+  static: "value"

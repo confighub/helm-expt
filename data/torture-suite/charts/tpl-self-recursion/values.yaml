@@ -1,0 +1,1 @@
+loop: '{{ tpl .Values.loop . }}'

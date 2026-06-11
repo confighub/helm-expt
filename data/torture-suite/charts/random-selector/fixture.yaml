@@ -1,0 +1,3 @@
+attack: "Random generation inside spec.selector.matchLabels: every render produces a different immutable selector, so no two renders describe the same workload."
+expected_outcome: refused-nondeterministic-render
+notes: "The determinism gate refuses this chart before any parity claim is possible; the named route is generated-fact binding or removing randomness from identity fields."
