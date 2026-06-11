@@ -1,0 +1,4 @@
+apiVersion: v2
+name: exporter
+description: "Child chart exporting a value to its parent"
+version: 0.1.0

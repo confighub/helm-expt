@@ -1,0 +1,3 @@
+attack: "now baked into an annotation: the rendered bytes change every run, so byte-level parity is impossible by construction."
+expected_outcome: refused-nondeterministic-render
+notes: "Named refusal, not silence: timestamps belong in receipts (observedAt), not in rendered objects."

@@ -1,0 +1,9 @@
+apiVersion: v2
+name: import-values-chain
+description: "Torture fixture: parent consumes child values via import-values"
+version: 0.1.0
+dependencies:
+  - name: exporter
+    version: 0.1.0
+    import-values:
+      - data

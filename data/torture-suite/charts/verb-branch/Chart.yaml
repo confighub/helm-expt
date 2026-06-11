@@ -1,0 +1,4 @@
+apiVersion: v2
+name: verb-branch
+description: "Torture fixture: output branches on install vs upgrade"
+version: 0.1.0

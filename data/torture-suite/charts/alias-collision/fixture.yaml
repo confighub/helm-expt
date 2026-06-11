@@ -1,0 +1,3 @@
+attack: "The same subchart is included twice under different aliases, and the child hardcodes an object name - both instances render the identical object identity."
+expected_outcome: refused-object-identity-collision
+notes: "Two rendered documents with the same (apiVersion, kind, namespace, name) cannot both exist; last-apply-wins would silently drop one. Recorded along the way: helm v4 rewrites the aliased subchart's .Chart.Name to the alias, so .Chart.Name-derived names do NOT collide - the tool defends that path; hardcoded names remain the trap."

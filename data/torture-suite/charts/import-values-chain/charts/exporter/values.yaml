@@ -1,0 +1,3 @@
+exports:
+  data:
+    importedMessage: "exported-by-child"

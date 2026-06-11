@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: random-selector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: random-selector
+      token: {{ randAlphaNum 8 | lower | quote }}
+  template:
+    metadata:
+      labels:
+        app: random-selector
+        token: {{ randAlphaNum 8 | lower | quote }}
+    spec:
+      containers:
+        - name: app
+          image: registry.example.invalid/app@sha256:0000000000000000000000000000000000000000000000000000000000000000

@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-06-11 (commit `fe5d4324`). Refresh with `npm run doc-freshness` — cheap, ride
+Snapshot as of 2026-06-11 (commit `83475848`). Refresh with `npm run doc-freshness` — cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -55,7 +55,7 @@ most recently changed triggers.
 | [docs/user/current-proof-status.md](../../docs/user/current-proof-status.md) | user | 2026-06-11 | 1 | `data/status-dashboard/summary.md (2026-06-11)`<br>`data/claims-register/summary.md (2026-06-11)`<br>`data/blast-radius-accuracy/summary.md (2026-06-11)` |
 | [docs/user/helm-pain-points.md](../../docs/user/helm-pain-points.md) | user | 2026-06-10 | 1 | `data/outcome-coverage/base-outcomes.csv (2026-06-11)`<br>`data/pain-point-coverage/pain-points.csv (2026-06-10)`<br>`data/variant-path-coverage/coverage-matrix.csv (2026-06-10)` |
 | [docs/user/hook-lifecycle-strategy.md](../../docs/user/hook-lifecycle-strategy.md) | user | 2026-06-10 | 1 | `data/lifecycle-boundary/summary.md (2026-06-11)` |
-| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 1 | `data/README.md (2026-06-11)`<br>`data/csv-index.csv (2026-06-11)`<br>`data/status-dashboard/status.csv (2026-06-11)` |
+| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 1 | `data/csv-index.csv (2026-06-11)`<br>`data/README.md (2026-06-11)`<br>`data/status-dashboard/status.csv (2026-06-11)` |
 | [docs/user/production-support-decisions.md](../../docs/user/production-support-decisions.md) | user | 2026-06-11 | 1 | `data/production-support-decisions/decisions.csv (2026-06-11)`<br>`data/production-support-decisions/summary.md (2026-06-11)`<br>`data/production-support-decisions/work-items.csv (2026-06-11)` |
 | [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 1 | `data/hook-route-candidates/summary.md (2026-06-11)`<br>`data/outcome-coverage/base-outcomes.csv (2026-06-11)`<br>`data/hook-lifecycle/summary.md (2026-06-11)` |
 | [docs/user/top100-status.md](../../docs/user/top100-status.md) | user | 2026-06-10 | 1 | `data/top20-base-readiness/start-here.md (2026-06-11)`<br>`data/top100-readiness/summary.md (2026-06-11)`<br>`data/top100-user-readiness/summary.md (2026-06-11)` |

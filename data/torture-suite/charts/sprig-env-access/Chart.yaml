@@ -1,0 +1,4 @@
+apiVersion: v2
+name: sprig-env-access
+description: "Torture fixture: template reads the rendering machine's environment"
+version: 0.1.0
