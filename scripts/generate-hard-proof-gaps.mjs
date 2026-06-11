@@ -277,8 +277,8 @@ function gapInfo(gap) {
       why_it_matters: "source-only charts have no maintained recipe path, so catalog claims would be disconnected from proof artifacts.",
     },
     "chart-lock-digest": {
-      first_action: "record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived",
-      next_artifact: "dependency lock with Chart.lock digest or explicit source-derived lock explanation",
+      first_action: "record Chart.lock digest or source-derived dependency provenance",
+      next_artifact: "dependency lock with Chart.lock digest or source-derived dependency provenance",
       why_it_matters: "a dependency list without a digest leaves provenance and refresh-survival weaker than the rendered proof suggests.",
     },
     "dependency-range-policy": {

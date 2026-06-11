@@ -8,5 +8,6 @@ spec:
   dependencies:
     -
       name: "common"
-      version: "2.x.x"
+      version: "2.34.0"
       repository: "https://charts.bitnami.com/bitnami"
+  chartLockDigest: "sha256:63de10c1f68bedef391890484e1e29f2efd54e6dc7239ca60f0a572042efd4f3"

@@ -173,8 +173,10 @@ function generateProof(ctx) {
       chart: ctx.dependencyLockChart,
       version: chart.version,
       dependencies: source.dependencies,
-      // Charts on the bitnami dependency-lock template always record this key (even null).
+      // Charts on the bitnami dependency-lock template always record provenance,
+      // even when the packaged chart has dependencies but no Chart.lock file.
       ...(ctx.recordChartLockDigest ? { chartLockDigest: source.chartLockDigest } : {}),
+      ...(ctx.recordChartLockDigest && source.chartLockProvenance ? { chartLockProvenance: source.chartLockProvenance } : {}),
     },
   });
   for (const artifact of ctx.spec.extraProofDocuments?.({ ctx, source }) ?? []) {
@@ -861,6 +863,7 @@ function pullSource(ctx) {
     const chartYaml = readYaml(join(chartRoot, "Chart.yaml"));
     const chartLockPath = join(chartRoot, "Chart.lock");
     const chartLock = existsSync(chartLockPath) ? readYaml(chartLockPath) : null;
+    const dependencies = chartLock?.dependencies ?? chartYaml.dependencies ?? [];
     return {
       appVersion: chartYaml.appVersion,
       deprecated: Boolean(chartYaml.deprecated),
@@ -868,7 +871,13 @@ function pullSource(ctx) {
       packageBytes: readFileSync(packagePath).length,
       defaultValuesSHA256: sha256File(join(chartRoot, "values.yaml")),
       chartLockDigest: chartLock?.digest ?? null,
-      dependencies: chartLock?.dependencies ?? chartYaml.dependencies ?? [],
+      chartLockProvenance: chartLock || dependencies.length === 0 ? null : {
+        status: "source-derived-from-packaged-chart-yaml",
+        packageSHA256: sha256File(packagePath),
+        packageContainsChartLock: false,
+        dependencySource: "Chart.yaml dependencies from the chart package recorded in source-lock.yaml",
+      },
+      dependencies,
     };
   } finally {
     rmSync(tempRoot, { recursive: true, force: true });

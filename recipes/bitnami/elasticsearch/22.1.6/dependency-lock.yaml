@@ -8,12 +8,13 @@ spec:
   dependencies:
     -
       name: "kibana"
-      version: "12.x.x"
+      version: "12.1.9"
       repository: "oci://registry-1.docker.io/bitnamicharts"
       condition: "global.kibanaEnabled"
     -
       name: "common"
-      version: "2.x.x"
+      version: "2.31.4"
       repository: "oci://registry-1.docker.io/bitnamicharts"
       tags:
         - "bitnami-common"
+  chartLockDigest: "sha256:5d5eb9180ed80ab07b0cae8f5c061211a0f64875f4054f0e2e2cd0daefb33011"

@@ -13,3 +13,8 @@ spec:
         - "bitnami-common"
       version: "2.39.0"
   chartLockDigest: null
+  chartLockProvenance:
+    status: "source-derived-from-packaged-chart-yaml"
+    packageSHA256: "0ad5b7d9d50f53000b2369e3ee6aa70b32c3b91c363a118c78d9204ae3f98fe5"
+    packageContainsChartLock: false
+    dependencySource: "Chart.yaml dependencies from the chart package recorded in source-lock.yaml"

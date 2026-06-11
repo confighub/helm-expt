@@ -19,7 +19,7 @@ spec:
       - "--no-hooks"
   inputs:
     sourceLockSHA256: "25146114285d05c0e57a9cf45c59381a78da4ba46865baed43c7387b2ba2707e"
-    dependencyLockSHA256: "d59f97194adc19be07c42700c36dbdc65e65ed106ac7be0939103f56374a5235"
+    dependencyLockSHA256: "64a553891a6971b5ac88d5697f0cc61c343c8f5359f4aa6dd2b0cbe02092df1c"
     effectiveValuesSHA256: "9d62042eac2e9778b060c228c1f59746cc7eb1f9dfcc9dfd9ddffc936c1219ca"
   outputs:
     renderedObjectSetSHA256: "00df8d584a2b69683a7895eff47d5a2bd6c1947827272bc518b0b79bbba80884"

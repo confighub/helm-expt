@@ -11,3 +11,4 @@ spec:
       version: "3.4.0"
       repository: ""
       condition: "installCRDs"
+  chartLockDigest: "sha256:8da50d98a663bb1c414a549bffb0d1da27921dd682573461bdd0932321ef1c98"

@@ -70,7 +70,7 @@ quirks,not-scanned axes,6,26,gap,data/quirk-coverage/coverage.csv,Known blind sp
 quirks,P0 source quirk work queue rows,51,95,gap,data/quirk-work-queue/top100-queue.csv,"Chart-level work items that convert source-scan quirk findings into modeled, reviewable, or provable catalog facts."
 quirks,hard proof gap shortlist rows,25,51,gap,data/hard-proof-gaps/shortlist.csv,Joined shortlist of the P0 source-quirk rows most likely to damage trust if overclaimed.
 remote dependencies,top100 dependency-risk rows with maintained locks,19,49,partial,data/remote-dependency-closure/top100.csv,"Top-100 source rows with remote, vendored, or non-exact dependency risk joined to maintained recipe dependency locks."
-remote dependencies,active P0 dependency closure work rows,25,49,gap,data/remote-dependency-closure/top100.csv,"Highest-priority dependency closure rows needing import, lock, digest, or refresh-survival work. Keep-current rows are excluded."
+remote dependencies,active P0 dependency closure work rows,21,49,gap,data/remote-dependency-closure/top100.csv,"Highest-priority dependency closure rows needing import, lock, digest, or refresh-survival work. Keep-current rows are excluded."
 extension slots,top20 charts with extension slots,13,20,partial,data/extension-slots/extension-slots.csv,"Top-20 catalog charts that expose raw manifests, tpl snippets, config blocks, sidecars, or add-on slots."
 extension slots,top100 charts with extension slots,82,100,partial,data/extension-slots/extension-slots.csv,Top-100 chart facts where NGINX-like extension slots are surfaced.
 extension slots,top500 source rows using tpl,362,500,partial,data/quirk-coverage/coverage.csv,Broader source-scan signal for template-powered inputs; not every tpl use is an explicit supported slot.

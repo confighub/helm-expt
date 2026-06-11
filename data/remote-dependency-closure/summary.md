@@ -20,12 +20,12 @@ files.
 source top-100 rows with remote, vendored, or non-exact dependencies: 49
 rows with a maintained dependency lock:                         19/49
 source-only rows without a maintained recipe:                   30/49
-locked rows with dependencies but no Chart.lock digest:          11/49
-non-exact dependency rows frozen to Chart.lock:                  4/49
-frozen range rows with refresh-survival evidence:                4/4
+locked rows with dependencies but no dependency provenance:      0/49
+non-exact dependency rows frozen to Chart.lock:                  9/49
+frozen range rows with refresh-survival evidence:                4/9
 P0 source rows:                                                  33
-active P0 work rows:                                             25
-keep-current rows:                                               8
+active P0 work rows:                                             21
+keep-current rows:                                               14
 P1 source rows:                                                  14
 P2 source rows:                                                  2
 ~~~
@@ -43,33 +43,33 @@ P2 source rows:                                                  2
 | Workstream | Rows | First action | Done when |
 | --- | ---: | --- | --- |
 | `create-recipe-import-candidate` | 30 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer | recipe candidate exists with source lock, dependency lock, first base variant, render parity, and an explicit catalog decision |
-| `chart-lock-digest` | 11 | record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived | dependency lock records a Chart.lock digest or explains the source of the locked dependency list |
-| `keep-current` | 8 | keep dependency lock evidence current with the supported recipe version | dependency evidence is still current for the supported recipe version |
+| `dependency-range-policy` | 5 | record dependency range policy and refresh-survival check for non-exact dependency constraints | non-exact dependency constraints have a recorded policy plus refresh-survival evidence for the supported version |
+| `keep-current` | 14 | keep dependency lock evidence current with the supported recipe version | dependency evidence is still current for the supported recipe version |
 
 ## Highest Priority Active Work Rows
 
 | Source rank | Chart | Workstream | Lock status | Locked dependencies | Next action |
 | ---: | --- | --- | --- | ---: | --- |
-| 6 | `bitnami/redis@25.5.3` | `chart-lock-digest` | `source-version-lock-present` | 1 | record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived |
-| 7 | `bitnami/postgresql@18.6.7` | `chart-lock-digest` | `source-version-lock-present` | 1 | record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived |
 | 9 | `k8s-dashboard/kubernetes-dashboard@7.14.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
 | 13 | `gitlab/gitlab@10.0.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
 | 15 | `bitnami/keycloak@25.2.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
 | 23 | `bitnami/kafka@32.4.3` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
 | 25 | `bitnami/external-dns@9.0.3` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
 | 26 | `apache-airflow/airflow@1.21.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
-| 28 | `bitnami/mongodb@19.0.3` | `chart-lock-digest` | `modeled-version-lock-present` | 1 | record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived |
 | 29 | `nextcloud/nextcloud@9.1.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
 | 32 | `bitnami/minio@17.0.21` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
 | 34 | `metallb/metallb@0.16.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
-| 38 | `kyverno/kyverno@3.8.1` | `chart-lock-digest` | `source-version-lock-present` | 5 | record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived |
+| 38 | `kyverno/kyverno@3.8.1` | `dependency-range-policy` | `source-version-lock-present` | 5 | record dependency range policy and refresh-survival check for non-exact dependency constraints |
 | 39 | `gitea/gitea@12.6.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
 | 40 | `sonarqube/sonarqube@2026.3.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
-| 41 | `cloudnative-pg/cloudnative-pg@0.28.2` | `chart-lock-digest` | `source-version-lock-present` | 1 | record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived |
+| 41 | `cloudnative-pg/cloudnative-pg@0.28.2` | `dependency-range-policy` | `source-version-lock-present` | 1 | record dependency range policy and refresh-survival check for non-exact dependency constraints |
 | 43 | `datadog/datadog@3.214.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
 | 44 | `bitnami/thanos@17.3.1` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
 | 46 | `oauth2-proxy/oauth2-proxy@10.6.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
 | 47 | `bitnami/wordpress@31.0.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 49 | `goauthentik/authentik@2026.5.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 66 | `bitnami/elasticsearch@22.1.6` | `dependency-range-policy` | `source-version-lock-present` | 2 | record dependency range policy and refresh-survival check for non-exact dependency constraints |
+| 70 | `jaegertracing/jaeger@4.8.0` | `dependency-range-policy` | `source-version-lock-present` | 1 | record dependency range policy and refresh-survival check for non-exact dependency constraints |
 
 ## Most Common Locked Repositories
 
@@ -100,9 +100,9 @@ P2 source rows:                                                  2
   Keep that alias visible when presenting catalog coverage.
 - If the row is `source-only-no-maintained-recipe`, create a recipe/import
   candidate before making catalog claims.
-- If dependencies are locked but no `chartLockDigest` is present, decide
-  whether to backfill a Chart.lock digest or explicitly document the source of
-  the dependency list.
+- If dependencies are locked but `lock_dependency_provenance` is `missing`,
+  backfill a Chart.lock digest or explicitly document the source of the
+  dependency list.
 - If `dependency_range_policy` is `freeze-to-chart-lock`, the maintained
   path does not resolve dependency ranges during install. It uses the committed
   dependency lock, and any re-resolution must happen through a refresh candidate

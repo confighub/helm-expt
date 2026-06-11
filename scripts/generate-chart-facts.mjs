@@ -152,6 +152,7 @@ function loadDependencyLockFacts() {
     map.set(key, {
       count: dependencies.length,
       chartLockDigest: String(spec.chartLockDigest ?? ""),
+      chartLockProvenance: spec.chartLockProvenance ?? null,
     });
   }
   return map;
@@ -393,8 +394,15 @@ function buildRows() {
 
 function dependencyLockSummary(lock) {
   if (!lock) return "missing";
-  const digest = lock.chartLockDigest ? "Chart.lock digest" : "no Chart.lock digest";
-  return lock.count > 0 ? `locked ${lock.count} deps; ${digest}` : `empty closure; ${digest}`;
+  const provenance = dependencyProvenanceSummary(lock);
+  return lock.count > 0 ? `locked ${lock.count} deps; ${provenance}` : `empty closure; ${provenance}`;
+}
+
+function dependencyProvenanceSummary(lock) {
+  if (lock.chartLockDigest) return "Chart.lock digest";
+  if (lock.chartLockProvenance?.status === "source-derived-from-packaged-chart-yaml") return "source-derived Chart.yaml provenance";
+  if (lock.chartLockProvenance?.status) return lock.chartLockProvenance.status;
+  return "no dependency provenance";
 }
 
 function remoteDependencyRisk(row) {
@@ -421,7 +429,7 @@ function render(rows) {
   const buildable = rows.filter((r) => r.buildable_not_yet_run !== "—");
   const remoteRiskRows = rows.filter((r) => r.remote_dependency_risk !== "—");
   const frozenRangeRows = rows.filter((r) => r.dependency_range_policy === "freeze-to-chart-lock");
-  const chartLockDigestGaps = rows.filter((r) => /no Chart\.lock digest/.test(r.dependency_lock) && r.remote_dependency_risk !== "—");
+  const dependencyProvenanceGaps = rows.filter((r) => /no dependency provenance/.test(r.dependency_lock) && r.remote_dependency_risk !== "—");
   const hookSourceRows = rows.filter((r) => r.post_deploy_hooks !== "—" || r.other_hooks !== "—");
   const hookObservedRows = rows.filter((r) => r.hook_status.startsWith("observed:"));
   const hookPartialRows = rows.filter((r) => r.hook_status.startsWith("partially observed:"));
@@ -451,7 +459,7 @@ charts with a hard gap (no workaround yet):  ${withGaps.length}
 charts with buildable backlog (path exists): ${buildable.length}
 charts with remote dependency risk surfaced: ${remoteRiskRows.length}
 non-exact dependency rows frozen to lock:    ${frozenRangeRows.length}
-remote-risk rows missing Chart.lock digest:  ${chartLockDigestGaps.length}
+remote-risk rows missing dependency provenance: ${dependencyProvenanceGaps.length}
 current recipe rows with Helm hooks:         ${hookSourceRows.length}
 hook rows observed:                          ${hookObservedRows.length}
 hook rows partially observed:                ${hookPartialRows.length}
@@ -488,7 +496,7 @@ other hard gap:                                         ${withGaps.filter((r) =>
 | \`install_vs_upgrade\` | chart branches on \`.Release.IsInstall\`/\`.IsUpgrade\` — upgrade render differs from the captured install render |
 | \`notes\` | chart ships \`NOTES.txt\` post-install guidance |
 | \`extension_slots\` | open tpl / extraManifests injection points — safe to fill but need per-use review |
-| \`dependency_lock\` | whether the recipe records an empty or non-empty dependency closure, and whether a Chart.lock digest is recorded |
+| \`dependency_lock\` | whether the recipe records an empty or non-empty dependency closure, and whether dependency provenance is recorded |
 | \`remote_dependency_risk\` | top-100 source-scan dependency risk: remote repositories, non-exact constraints, or vendored subcharts |
 | \`dependency_range_policy\` | how non-exact source dependency ranges are handled; \`freeze-to-chart-lock\` means install uses the committed lock |
 | \`dependency_refresh_survival\` | whether this dependency row is connected to the top-20 refresh-survival surface |

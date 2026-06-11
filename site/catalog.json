@@ -758,7 +758,7 @@
     {
       "section": "remote dependencies",
       "metric": "active P0 dependency closure work rows",
-      "value": "25",
+      "value": "21",
       "total": "49",
       "status": "gap",
       "source": "data/remote-dependency-closure/top100.csv",

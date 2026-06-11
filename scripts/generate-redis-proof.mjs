@@ -497,6 +497,12 @@ spec:
       version: "${commonDependencyVersion}"
       repository: oci://registry-1.docker.io/bitnamicharts
       type: library
+  chartLockDigest: null
+  chartLockProvenance:
+    status: source-derived-from-packaged-chart-yaml
+    packageSHA256: "${chartArchiveSHA256}"
+    packageContainsChartLock: false
+    dependencySource: Chart.yaml dependencies from the chart package recorded in source-lock.yaml
 `;
   write(join(proofRoot, "dependency-lock.yaml"), dependencyLock);
 
@@ -545,7 +551,7 @@ spec:
     - category: generated-facts
       status: handled-for-default-proof
       evidence: effective-values.yaml
-      note: auth.password is deterministic in this proof; future generated-fact receipt should own this.
+      note: auth.password is bound before render and owned by revisions/default/r001/receipts/generated-fact-receipt.yaml.
     - category: target-facts
       status: required-for-reuse-existing-secret
       evidence: variants/reuse-existing-secret/variant.yaml
