@@ -19,6 +19,7 @@ const mode = process.argv[2] ?? "--generate";
 const outputRoot = join(repoRoot, "data", "apiservice-coverage");
 const outputs = {
   csv: join(outputRoot, "top100-apiservice-coverage.csv"),
+  maintainedCsv: join(outputRoot, "maintained-apiservice-coverage.csv"),
   summary: join(outputRoot, "summary.md"),
   workOrdersCsv: join(outputRoot, "work-orders.csv"),
   workOrdersMd: join(outputRoot, "work-orders.md"),
@@ -26,6 +27,7 @@ const outputs = {
 
 const knownReceipts = {
   "metrics-server/metrics-server@3.13.0": {
+    configHubProof: "runs/metrics-server-confighub-proof/latest/confighub-proof-receipt.yaml",
     localObservation: "runs/top20-local-kind/metrics-server-default/observation-receipt.json",
     objectSet: "runs/top20-local-kind/metrics-server-default/cub-scout.object-set.receipt.json",
     workload: "runs/top20-local-kind/metrics-server-default/cub-scout.workloads.receipt.json",
@@ -37,16 +39,21 @@ const knownReceipts = {
     runtimeGitOps: "data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml",
   },
   "kedacore/keda@2.19.0": {
+    configHubProof: "runs/keda-confighub-proof/latest/confighub-proof-receipt.yaml",
     kindParity: [
       "runs/live-kind-parity/kedacore-keda-default/receipt.yaml",
     ],
     runtimeGitOps: "data/runtime-gitops/receipts/kedacore-keda/default/latest.yaml",
+  },
+  "prometheus-community/prometheus-adapter@5.3.0": {
+    configHubProof: "runs/prometheus-adapter-confighub-proof/latest/confighub-proof-receipt.yaml",
   },
 };
 
 if (mode === "--generate") {
   const report = buildReport();
   write(outputs.csv, report.outputs.csv);
+  write(outputs.maintainedCsv, report.outputs.maintainedCsv);
   write(outputs.summary, report.outputs.summary);
   write(outputs.workOrdersCsv, report.outputs.workOrdersCsv);
   write(outputs.workOrdersMd, report.outputs.workOrdersMd);
@@ -57,6 +64,7 @@ if (mode === "--generate") {
     check(existsSync(path), `${relativeRepo(path)} is missing; run npm run apiservice:coverage`);
   }
   check(readFileSync(outputs.csv, "utf8") === report.outputs.csv, `${relativeRepo(outputs.csv)} is stale; run npm run apiservice:coverage`);
+  check(readFileSync(outputs.maintainedCsv, "utf8") === report.outputs.maintainedCsv, `${relativeRepo(outputs.maintainedCsv)} is stale; run npm run apiservice:coverage`);
   check(readFileSync(outputs.summary, "utf8") === report.outputs.summary, `${relativeRepo(outputs.summary)} is stale; run npm run apiservice:coverage`);
   check(readFileSync(outputs.workOrdersCsv, "utf8") === report.outputs.workOrdersCsv, `${relativeRepo(outputs.workOrdersCsv)} is stale; run npm run apiservice:coverage`);
   check(readFileSync(outputs.workOrdersMd, "utf8") === report.outputs.workOrdersMd, `${relativeRepo(outputs.workOrdersMd)} is stale; run npm run apiservice:coverage`);
@@ -78,11 +86,22 @@ function buildReport() {
 
   check(sourceRows.length === 5, `expected 5 source top100 APIService rows; found ${sourceRows.length}`);
 
-  const rows = sourceRows.map((source) => rowFor(source, reviewByChart.get(source.chart), quirkByRef.get(`${source.chart}@${source.version}`)));
+  const localTriageRows = parseCsvFile("data/local-live-triage/triage.csv");
+  const localTriageByRef = new Map(localTriageRows.map((row) => [row.chart, row]));
+
+  const rows = sourceRows.map((source) => rowFor(source, reviewByChart.get(source.chart), quirkByRef.get(`${source.chart}@${source.version}`), localTriageByRef));
+  const sourceRefs = new Set(rows.map((row) => `${row.chart}@${row.source_version}`));
+  const maintainedRows = JSON.parse(readFileSync(join(repoRoot, "data/top500-catalog-analysis/source/source-feature-scan.raw.json"), "utf8"))
+    .filter((row) => row.scanStatus === "scanned" && Number(row.apiServices ?? 0) > 0)
+    .map((source) => rowFor(source, reviewByChart.get(source.chart), quirkByRef.get(`${source.chart}@${source.version}`), localTriageByRef))
+    .filter((row) => Boolean(row.evidence_recipe_path))
+    .sort((left, right) => Number(left.rank) - Number(right.rank));
+  const maintainedExtraRows = maintainedRows.filter((row) => !sourceRefs.has(`${row.chart}@${row.source_version}`));
   const aggregationRows = rows.filter((row) => row.api_aggregation_observed === "yes");
 
   check(rows.some((row) => row.chart === "metrics-server/metrics-server" && row.coverage_status === "api-aggregation-observed"), "expected Metrics Server API aggregation observation row");
   check(rows.some((row) => row.chart === "kedacore/keda" && row.coverage_status === "api-aggregation-observed"), "expected KEDA ConfigHub OCI/API aggregation observation row");
+  check(maintainedExtraRows.some((row) => row.chart === "prometheus-community/prometheus-adapter" && row.coverage_status === "target-api-version-blocked"), "expected Prometheus Adapter target API-version blocked maintained row");
   check(aggregationRows.length === 2, `expected exactly two API aggregation availability rows; found ${aggregationRows.length}`);
   for (const row of aggregationRows) {
     check(row.api_condition_observed === "yes", `${row.chart}@${row.source_version} aggregation row missing APIService condition evidence`);
@@ -102,16 +121,18 @@ function buildReport() {
     workOrders,
     outputs: {
       csv: toCsv(rows),
-      summary: summaryMarkdown(rows, workOrders),
+      maintainedCsv: toCsv(maintainedRows),
+      summary: summaryMarkdown(rows, workOrders, maintainedRows, maintainedExtraRows),
       workOrdersCsv: toCsv(workOrders),
       workOrdersMd: workOrdersMarkdown(workOrders),
     },
   };
 }
 
-function rowFor(source, review, quirk) {
+function rowFor(source, review, quirk, localTriageByRef) {
   const ref = `${source.chart}@${source.version}`;
   const receipts = knownReceipts[ref] ?? {};
+  const targetBlock = localTriageByRef.get(ref);
   const local = receiptExists(receipts.localObservation) && observationHasPassCheck(receipts.localObservation, "apiservice-");
   const objectSet = receiptExists(receipts.objectSet) && objectSetHasAPIService(receipts.objectSet);
   const workload = receiptExists(receipts.workload) && receiptVerdict(receipts.workload) === "PASS";
@@ -124,7 +145,7 @@ function rowFor(source, review, quirk) {
   const kindParityAggregation = kindParityEvidence.contract === "pass";
   const apiAggregation = runtimeGitOpsAggregation || kindParityAggregation;
   const hasRecipe = Boolean(review?.recipe_path);
-  const coverageStatus = coverageStatusFor({ hasRecipe, local, objectSet, workload, liveParity, kindParity, runtimeGitOpsAggregation, kindParityAggregation });
+  const coverageStatus = coverageStatusFor({ hasRecipe, local, objectSet, workload, liveParity, kindParity, runtimeGitOpsAggregation, kindParityAggregation, targetBlock });
   const contract = contractFor({
     hasRecipe,
     objectObserved: objectSet || local || runtimeGitOpsAggregation,
@@ -154,6 +175,9 @@ function rowFor(source, review, quirk) {
     freshness_observed: contract.freshness,
     contract_gaps: contract.gaps,
     evidence: evidenceFor({ review, quirk, receipts, kindParity }),
+    evidence_recipe_path: review?.recipe_path ?? "",
+    target_block_route: targetBlock?.route_class ?? "",
+    target_block_receipt: targetBlock?.receipt ?? "",
     next_action: nextActionFor({ ref, hasRecipe, coverageStatus }),
     limitation: "APIService object evidence is not the same as Kubernetes API aggregation availability. Close this with an explicit Available=True or aggregated API query receipt.",
   };
@@ -184,11 +208,12 @@ function contractFor({ hasRecipe, objectObserved, workloadObserved, runtimeGitOp
   };
 }
 
-function coverageStatusFor({ hasRecipe, local, objectSet, workload, liveParity, kindParity, runtimeGitOpsAggregation, kindParityAggregation }) {
+function coverageStatusFor({ hasRecipe, local, objectSet, workload, liveParity, kindParity, runtimeGitOpsAggregation, kindParityAggregation, targetBlock }) {
   if (runtimeGitOpsAggregation && hasRecipe && kindParity.length > 0) return "api-aggregation-observed";
   if (kindParityAggregation && hasRecipe && kindParity.length > 0) return "two-cluster-api-aggregation-observed";
   if (local && objectSet && workload && liveParity && kindParity.length > 0) return "object-and-workload-observed";
   if (hasRecipe && kindParity.length > 0) return "two-cluster-parity-only";
+  if (hasRecipe && targetBlock?.route_class === "api-version-unsupported") return "target-api-version-blocked";
   if (hasRecipe) return "modeled-needs-runtime-observation";
   return "source-detected-needs-recipe";
 }
@@ -205,6 +230,9 @@ function nextActionFor({ ref, hasRecipe, coverageStatus }) {
   }
   if (coverageStatus === "two-cluster-api-aggregation-observed") {
     return "use the two-cluster API aggregation receipt to decide promotion scope, then add ConfigHub OCI/GitOps evidence if promoting";
+  }
+  if (coverageStatus === "target-api-version-blocked") {
+    return "choose a supported chart version, compatibility base, or target Kubernetes profile before rerunning live APIService observation";
   }
   if (hasRecipe) {
     return "add runtime APIService observation route and aggregated API availability receipt for the selected base";
@@ -305,12 +333,13 @@ function workOrderFor(row) {
   };
 }
 
-function summaryMarkdown(rows, workOrders) {
+function summaryMarkdown(rows, workOrders, maintainedRows, maintainedExtraRows) {
   const counts = countBy(rows, (row) => row.coverage_status);
   const catalogRows = rows.filter((row) => row.catalog_status === "catalog-supported");
   const sourceOnlyRows = rows.filter((row) => row.coverage_status === "source-detected-needs-recipe");
   const objectWorkloadRows = rows.filter((row) => row.api_object_observed === "yes" && row.workload_observed === "yes");
   const aggregationRows = rows.filter((row) => row.api_aggregation_observed === "yes");
+  const maintainedCounts = countBy(maintainedRows, (row) => row.coverage_status);
   const activeWorkOrders = workOrders.filter((row) => row.work_type !== "keep-fresh-pattern");
   const statusRows = [...counts.entries()].sort((a, b) => a[0].localeCompare(b[0]));
   return `# Top-100 APIService Coverage
@@ -334,6 +363,8 @@ aggregated API availability observed
 
 ~~~text
 source top-100 APIService rows:          ${rows.length}
+maintained APIService recipe rows:       ${maintainedRows.length}
+maintained rows outside source top-100:  ${maintainedExtraRows.length}
 catalog-supported APIService rows:       ${catalogRows.length}
 rows with API aggregation observation:   ${aggregationRows.length}
 rows with object/workload observation:   ${objectWorkloadRows.length}
@@ -358,6 +389,23 @@ ${statusRows.map(([status, count]) => `| \`${status}\` | ${count} |`).join("\n")
 | Rank | Chart | Source version | Status | Object observed | Workload observed | Live parity | Aggregation observed | Next action |
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
 ${rows.map((row) => `| ${row.rank} | \`${row.chart}\` | ${row.source_version} | \`${row.coverage_status}\` | ${row.api_object_observed} | ${row.workload_observed} | ${row.live_parity_observed} | ${row.api_aggregation_observed} | ${escapePipes(row.next_action)} |`).join("\n")}
+
+## Maintained APIService Rows
+
+This appendix includes maintained recipe/package rows with APIService source
+signals even when the source chart sits outside the source top-100 slice. It
+keeps target compatibility blockers visible without changing the source-top-100
+counts above.
+
+| Rank | Chart | Source version | Status | ConfigHub proof | Target block | Next action |
+| ---: | --- | --- | --- | --- | --- | --- |
+${maintainedRows.map((row) => `| ${row.rank} | \`${row.chart}\` | ${row.source_version} | \`${row.coverage_status}\` | ${receiptExists(knownReceipts[`${row.chart}@${row.source_version}`]?.configHubProof) ? "yes" : "no"} | ${row.target_block_route ? `\`${row.target_block_route}\`` : "-"} | ${escapePipes(row.next_action)} |`).join("\n")}
+
+Maintained status counts:
+
+| Status | Rows |
+| --- | ---: |
+${[...maintainedCounts.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([status, count]) => `| \`${status}\` | ${count} |`).join("\n")}
 
 ## Runtime Contract
 
@@ -397,6 +445,7 @@ ${rows.map((row) => `| \`${row.chart}@${row.source_version}\` | ${row.aggregatio
 | File | Purpose |
 | --- | --- |
 | \`top100-apiservice-coverage.csv\` | One row per source top-100 chart that renders APIService objects. |
+| \`maintained-apiservice-coverage.csv\` | Maintained recipe/package rows with APIService source signals, including rows outside the source top-100 slice. |
 | \`work-orders.md\` | Human next-proof queue for APIService charts. |
 | \`work-orders.csv\` | Spreadsheet-ready next-proof queue for assignment and reruns. |
 | \`data/quirk-work-queue/top100-queue.csv\` | Source quirk queue that currently carries the APIService hard gap. |
