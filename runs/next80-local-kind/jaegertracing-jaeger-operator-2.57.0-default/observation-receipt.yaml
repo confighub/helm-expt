@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "jaegertracing-jaeger-operator-2.57.0-default-local-kind"
+spec:
+  variantRevision: "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "c17323ac7d71b000b42732323a79731fe3d9244ba4e641d8349a73a71b8807ab"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T11:20:09.052Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "0e6358d830640ec9c1207637f3380f7f55c545d8e9ef1235aa28d0602e6185cc"
+  checks:
+    -
+      name: "crds-applied-and-established"
+      result: "pass"
+      object: "1 CustomResourceDefinition(s)"
+    -
+      name: "rendered-objects-applied"
+      result: "blocked"
+      object: "11 object(s) from recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/rendered/release-objects.yaml"
+      reason: "apply-blocked: resource mapping not found for name: \"jaeger-operator-service-cert\" namespace: \"default\" from \"STDIN\": no matches for kind \"Certificate\" in version \"cert-manager.io/v1\" ensure CRDs are installed first"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|default|jaeger-operator"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): jaeger-operator-b44465548-26ddm[ContainerCreating ready=false restarts=0;]"
+  blockedReasons:
+    - "apply: resource mapping not found for name: \"jaeger-operator-service-cert\" namespace: \"default\" from \"STDIN\": no matches for kind \"Certificate\" in version \"cert-manager.io/v1\" ensure CRDs are installed first"
+    - "deployment/jaeger-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (jaeger-operator-b44465548-26ddm[ContainerCreating ready=false restarts=0;])"

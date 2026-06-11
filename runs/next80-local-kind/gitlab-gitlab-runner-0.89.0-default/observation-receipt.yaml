@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "gitlab-gitlab-runner-0.89.0-default-local-kind"
+spec:
+  variantRevision: "recipes/gitlab/gitlab-runner/0.89.0/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "ad0d78b72ba8c9c6d896ee2faf620db82e9c52d2794f3dbbcbe6f3705c43d95e"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T11:16:43.796Z"
+  freshnessTTL: "1h"
+  result: "fail"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "5bf8565b79df140e5264721352c896808b9ea2901db97a7b944135c2990780b5"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "2 object(s) from recipes/gitlab/gitlab-runner/0.89.0/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "Deployment|default|gitlab-runner"
+      reason: "not-ready: gitlab-runner-844d54c8cc-x6rtt[ ready=false restarts=1;]"
+  blockedReasons:
+    - "deployment/gitlab-runner: not-ready (gitlab-runner-844d54c8cc-x6rtt[ ready=false restarts=1;])"
