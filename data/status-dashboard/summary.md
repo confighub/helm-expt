@@ -96,7 +96,8 @@ Which detailed CSV should I open next?
 | hooks | top100 source hook rows still uncovered | 0/11 | good | [data/hook-coverage/top100-hook-coverage.csv](../../data/hook-coverage/top100-hook-coverage.csv) |
 | hooks | maintained hook queue rows | 5/11 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
 | hooks | source-reviewed hook rows not yet maintained | 8/11 | gap | [data/hook-lifecycle-review/top100-source-hook-route-review.csv](../../data/hook-lifecycle-review/top100-source-hook-route-review.csv) |
-| hooks | source-reviewed hook rows with candidate route plans | 9/8 | partial | [data/hook-route-candidates/candidates.csv](../../data/hook-route-candidates/candidates.csv) |
+| hooks | source hook rows with candidate route plans | 8/11 | partial | [data/hook-coverage/top100-hook-coverage.csv](../../data/hook-coverage/top100-hook-coverage.csv) |
+| hooks | hook-like candidate rows outside source inventory | 1/9 | partial | [data/hook-route-candidates/candidates.csv](../../data/hook-route-candidates/candidates.csv) |
 | hooks | hook candidate route work orders | 66/66 | partial | [data/hook-route-candidates/work-orders.csv](../../data/hook-route-candidates/work-orders.csv) |
 | hooks | hook route receipts present | 5/5 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
 | hooks | hook lifecycle observations present | 3/5 | gap | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
@@ -105,6 +106,10 @@ Which detailed CSV should I open next?
 | hooks | hook queue rows still needing route receipts | 0/5 | good | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
 | hooks | hook routes still needing execution or observation | 2/5 | gap | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
 | hooks | related lifecycle observation receipts passing | 4/4 | good | [data/lifecycle-observations/cert-manager-eso/summary.csv](../../data/lifecycle-observations/cert-manager-eso/summary.csv) |
+| apiservice | top100 source APIService charts | 5/100 | partial | [data/apiservice-coverage/top100-apiservice-coverage.csv](../../data/apiservice-coverage/top100-apiservice-coverage.csv) |
+| apiservice | APIService rows with object/workload observation | 1/5 | partial | [data/apiservice-coverage/top100-apiservice-coverage.csv](../../data/apiservice-coverage/top100-apiservice-coverage.csv) |
+| apiservice | APIService rows with aggregation availability receipts | 0/5 | gap | [data/apiservice-coverage/top100-apiservice-coverage.csv](../../data/apiservice-coverage/top100-apiservice-coverage.csv) |
+| apiservice | APIService rows still source-detected only | 3/5 | gap | [data/apiservice-coverage/top100-apiservice-coverage.csv](../../data/apiservice-coverage/top100-apiservice-coverage.csv) |
 
 ## Next Work Queues
 
@@ -509,7 +514,8 @@ lifecycle observation.
 | How much of the retained top500 source scan maps to current proof? | [top500-catalog-analysis/review.csv](../top500-catalog-analysis/review.csv) |
 | Which base variants have which proof lanes? | [outcome-coverage/base-outcomes.csv](../outcome-coverage/base-outcomes.csv) |
 | Which top-20 base variant should I start with? | [top20-base-readiness/summary.md](../top20-base-readiness/summary.md) |
-| Which hooks, CRDs, generated facts, or target facts matter? | [outcome-coverage/feature-outcomes.csv](../outcome-coverage/feature-outcomes.csv) |
+| Which hooks, APIService, CRDs, generated facts, or target facts matter? | [outcome-coverage/feature-outcomes.csv](../outcome-coverage/feature-outcomes.csv) |
+| Which APIService charts have object, workload, parity, or aggregation evidence? | [apiservice-coverage/summary.md](../apiservice-coverage/summary.md) |
 | Which charts have NGINX-like extension slots? | [extension-slots/summary.md](../extension-slots/summary.md) |
 | Which Helm quirk axes are still blind spots? | [quirk-coverage/coverage.csv](../quirk-coverage/coverage.csv) |
 | Which source-scan quirk gaps should move first? | [quirk-work-queue/summary.md](../quirk-work-queue/summary.md) |

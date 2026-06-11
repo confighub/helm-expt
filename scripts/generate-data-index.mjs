@@ -67,7 +67,7 @@ function readme(rows) {
     ["I want to know how upstream chart updates are handled.", "data/refresh-survival/summary.md; data/latest-top20-refresh/action-queue/summary.md; data/latest-top20-refresh/replacement-decisions/summary.md"],
     ["I want the top-100 or top-500 planning picture.", "data/top100-readiness/summary.md; data/top100-readiness/next80-queues.md; data/top500-catalog-analysis/review.csv"],
     ["I want live parity status.", "data/live-kind-parity/summary.md; data/live-helm-confighub-compare/summary.md"],
-    ["I want hook, CRD, webhook, or lifecycle status.", "data/hook-coverage/summary.md; data/lifecycle-boundary/summary.md; data/outcome-coverage/feature-outcomes.csv"],
+    ["I want hook, APIService, CRD, webhook, or lifecycle status.", "data/hook-coverage/summary.md; data/apiservice-coverage/summary.md; data/lifecycle-boundary/summary.md; data/outcome-coverage/feature-outcomes.csv"],
     ["I want candidate routes for hook-bearing source charts.", "data/hook-route-candidates/summary.md; data/hook-route-candidates/candidates.csv; data/hook-route-candidates/work-orders.md"],
     ["I want extension-slot or custom-config risk.", "data/extension-slots/summary.md; data/nginx-config-checks/summary.md"],
     ["I want production support status and next actions.", "data/status-dashboard/next-work-queues.csv; data/production-support-decisions/summary.md; data/production-support-decisions/work-items.csv; data/production-support-decisions/decisions.csv"],
@@ -94,6 +94,7 @@ function readme(rows) {
     ["data/nginx-config-checks/checks.csv", "NGINX supported-base checks for empty config extension slots, sidecars, metrics, raw objects, and ingress shape."],
     ["data/lifecycle-boundary/summary.md", "Hook and hook-like lifecycle boundary: hook queue rows, lifecycle observations, evidence, and current limits."],
     ["data/hook-coverage/summary.md", "Top-100 hook coverage bridge: joins source-scan hook rows to maintained hook lifecycle rows and candidate route plans."],
+    ["data/apiservice-coverage/summary.md", "Top-100 APIService coverage bridge: separates rendered APIService object evidence from aggregated API availability evidence."],
     ["data/hook-route-candidates/summary.md", "Candidate hook route plans for source top-100 hook charts that are not yet maintained hook lifecycle queue rows."],
     ["data/hook-route-candidates/work-orders.md", "Generated work orders for turning hook route candidates into maintained route receipts, observations, or explicit blockers."],
     ["data/lifecycle-observations/cert-manager-eso/summary.md", "Concrete lifecycle observations for cert-manager and External Secrets: CRD policy, post-apply API readiness, webhook CA injection, and controller-populated Secret data."],
@@ -296,6 +297,7 @@ function audienceFor(path) {
   if (path.startsWith("data/scan-disposition-workdown/")) return "user/front-door";
   if (path.startsWith("data/nginx-config-checks/")) return "verification";
   if (path.startsWith("data/hook-coverage/")) return "user/front-door";
+  if (path.startsWith("data/apiservice-coverage/")) return "user/front-door";
   if (path.startsWith("data/lifecycle-boundary/")) return "user/front-door";
   if (path.startsWith("data/high-fanout-demo/")) return "user/front-door";
   if (path.startsWith("data/edge-recovery/")) return "corpus";
@@ -344,6 +346,7 @@ function roleFor(path) {
   if (path === "data/nginx-config-checks/checks.csv") return "NGINX supported-base checks for config extension slots and rendered object shape";
   if (path === "data/lifecycle-boundary/lifecycle-boundary.csv") return "one row per hook queue item or hook-like lifecycle observation";
   if (path === "data/hook-coverage/top100-hook-coverage.csv") return "one row per source top-100 hook chart joined to maintained lifecycle coverage or candidate route coverage";
+  if (path === "data/apiservice-coverage/top100-apiservice-coverage.csv") return "one row per source top-100 APIService chart: source signal, modeled status, object/workload evidence, parity evidence, aggregation evidence, and next action";
   if (path === "data/hook-route-candidates/candidates.csv") return "one row per source-top-100 hook route candidate: pattern, dependency source, candidate route, and promotion step";
   if (path === "data/hook-route-candidates/work-orders.csv") return "one row per hook route candidate work order: review task, done-when rule, and evidence target";
   if (path === "data/production-disposition/next-actions.csv") return "one row per top-20 chart: recommended base, production decision focus, image digest status, and next action";
@@ -397,6 +400,7 @@ function familyRole(family) {
     "nginx-config-checks": "NGINX supported-base config extension checks",
     "lifecycle-boundary": "hook queue and hook-like lifecycle observation boundary",
     "hook-coverage": "top-100 source hook coverage joined across maintained lifecycle rows and candidate route plans",
+    "apiservice-coverage": "top-100 APIService coverage joined across source scan, modeled recipe rows, parity evidence, and runtime observations",
     "high-fanout-demo": "Prometheus base-variant fanout and prerequisite example",
     "data-index": "CSV index and generated data guide",
     "lane-test-matrix": "exact chart/base proof lane status",
@@ -505,6 +509,7 @@ function commandMap() {
     "runtime-gitops": { generate: "npm run runtime-gitops:wave", verify: "npm run runtime-gitops:wave:verify" },
     "hook-lifecycle": { generate: "npm run hooks:lifecycle", verify: "npm run hooks:lifecycle:verify" },
     "hook-coverage": { generate: "npm run hooks:coverage", verify: "npm run hooks:coverage:verify" },
+    "apiservice-coverage": { generate: "npm run apiservice:coverage", verify: "npm run apiservice:coverage:verify" },
     "lifecycle-observations": { generate: "npm run lifecycle:cert-manager-eso:summary", verify: "npm run lifecycle:cert-manager-eso:verify" },
     "top100-catalog-analysis": { generate: "npm run top100:catalog", verify: "npm run top100:catalog:verify" },
     "top500-catalog-analysis": { generate: "npm run top500:catalog", verify: "npm run top500:catalog:verify" },
