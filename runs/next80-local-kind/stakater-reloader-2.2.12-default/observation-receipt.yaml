@@ -1,0 +1,34 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "stakater-reloader-2.2.12-default-local-kind"
+spec:
+  variantRevision: "recipes/stakater/reloader/2.2.12/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-reloader"
+    context: "kind-claude-helm-expt-codex-reloader"
+    namespace: "default"
+  observedAt: "2026-06-11T12:24:35.525Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "b921d138f43d8395c9b69e9b0eb05ded03b595358659577e075a00d6931951d2"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "6 object(s) from recipes/stakater/reloader/2.2.12/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|reloader-reloader"

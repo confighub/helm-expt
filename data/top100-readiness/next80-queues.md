@@ -51,7 +51,7 @@ spreadsheet.
 
 | Chart | Candidate bases | Evidence | Gap | Next action |
 | --- | --- | --- | --- | --- |
-| `traefik/traefik@40.2.0` | `default`<br>`no-crds` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+| `traefik/traefik@40.2.0` | `default`<br>`no-crds` | `local-kubernetes-live` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 | `kyverno/kyverno@3.8.1` | `default`<br>`no-crds` | `local-kubernetes-live` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 | `bitnami/elasticsearch@22.1.6` | `default`<br>`ha` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 | `bitnami/spark@10.0.3` | `default`<br>`ha` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |

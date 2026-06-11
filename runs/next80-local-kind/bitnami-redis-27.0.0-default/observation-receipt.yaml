@@ -1,0 +1,42 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-redis-27.0.0-default-local-kind"
+spec:
+  variantRevision: "recipes/bitnami/redis/27.0.0/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "758467319ec109764b55ee730ba51a37a2196744f45f5c064f212bfc176178f0"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-redis2700"
+    context: "kind-claude-helm-expt-codex-redis2700"
+    namespace: "redis"
+  observedAt: "2026-06-11T12:18:46.801Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 2
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "f4df00f56f7025513afc94a3ec3814c1e71f0b9122d544ea9be9d501c4526e9b"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||redis"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "14 object(s) from recipes/bitnami/redis/27.0.0/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "StatefulSet|redis|redis-master"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "StatefulSet|redis|redis-replicas"
