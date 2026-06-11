@@ -1054,7 +1054,7 @@ need catalog promotion review before support is claimed.
 | argo-cd/argo-cd@9.5.17 | catalog-candidate | - | - | default | - | [CATALOG.md](recipes/argo-cd/argo-cd/9.5.17/CATALOG.md) |
 | argo-cd/argo-events@2.4.21 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/argo-cd/argo-events/2.4.21/CATALOG.md) |
 | argo-cd/argo-rollouts@2.40.9 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/argo-cd/argo-rollouts/2.40.9/CATALOG.md) |
-| argo-cd/argo-workflows@1.0.14 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/argo-cd/argo-workflows/1.0.14/CATALOG.md) |
+| argo-cd/argo-workflows@1.0.14 | proof-grade | promote-after-review | in-confighub-proof | default | - | [CATALOG.md](recipes/argo-cd/argo-workflows/1.0.14/CATALOG.md) |
 | argo-cd/argocd-image-updater@1.2.2 | proof-grade | needs-useful-variant | local-kubernetes-live | default | no-crds (template-baked CRDs; no clean chart toggle yet) | [CATALOG.md](recipes/argo-cd/argocd-image-updater/1.2.2/CATALOG.md) |
 | autoscaler/cluster-autoscaler@9.57.0 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/autoscaler/cluster-autoscaler/9.57.0/CATALOG.md) |
 | autoscaler/vertical-pod-autoscaler@0.9.0 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/autoscaler/vertical-pod-autoscaler/0.9.0/CATALOG.md) |
@@ -1115,7 +1115,7 @@ need catalog promotion review before support is claimed.
 | nats/nats@2.14.0 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/nats/nats/2.14.0/CATALOG.md) |
 | nats/surveyor@0.20.9 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/nats/surveyor/0.20.9/CATALOG.md) |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/CATALOG.md) |
-| open-telemetry/opentelemetry-operator@0.114.0 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/open-telemetry/opentelemetry-operator/0.114.0/CATALOG.md) |
+| open-telemetry/opentelemetry-operator@0.114.0 | proof-grade | promote-after-review | in-confighub-proof | default | - | [CATALOG.md](recipes/open-telemetry/opentelemetry-operator/0.114.0/CATALOG.md) |
 | opencost/opencost@2.5.21 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/opencost/opencost/2.5.21/CATALOG.md) |
 | percona/pg-operator@3.0.0 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/percona/pg-operator/3.0.0/CATALOG.md) |
 | percona/psmdb-operator@1.22.0 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/percona/psmdb-operator/1.22.0/CATALOG.md) |

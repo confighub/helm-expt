@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubSafeOpsReceipt"
+metadata:
+  name: "argo-workflows-safe-ops-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-argo-workflows-confighub-proof"
+    selector: "Labels.Proof = 'argo-workflows-confighub-proof'"
+  subject:
+    chart: "argo-cd/argo-workflows"
+    chartVersion: "1.0.14"
+    packagePath: "packages/argo-cd/argo-workflows/1.0.14"
+    variant: "controller-default-reviewed"
+  changeset:
+    slug: "argo-workflows-safe-ops-20260527"
+    createResult: "pass"
+    updateResult: "pass"
+    description: "Argo Workflows safe-ops proof: approve reviewed revisions, dry-run apply only"
+    labels:
+      Proof: "argo-workflows-confighub-proof"
+      Lane: "safe-ops"
+    annotations:
+      proof.confighub.com/scope: "local-test"
+      proof.confighub.com/live-apply: "false"
+  approval:
+    command: "cub unit approve deployment-default-argo-workflows-server --space helm-argo-workflows-confighub-proof --revision HeadRevisionNum --verbose --wait"
+    result: "pass"
+    representativeUnit: "deployment-default-argo-workflows-server"
+    output: "Unit deployment-default-argo-workflows-server (c9c96efd-ba19-4cc0-bbf3-d3be55230ff8) has been approved\nAwaiting triggers..."
+  applyDryRun:
+    command: "cub unit apply --space helm-argo-workflows-confighub-proof --where \"Labels.Proof = 'argo-workflows-confighub-proof'\" --dry-run --wait --timeout 2m"
+    result: "blocked-no-target"
+    expected: true
+    message: "Failed: HTTP 422 for req ORDtdUFBoWsHbOJYXoKVxLsrkejXySIy: cannot invoke action on a unit without a target\nDetails:\n  failed to apply entity"
+  cancel:
+    command: "cub unit cancel --space helm-argo-workflows-confighub-proof --where \"Labels.Proof = 'argo-workflows-confighub-proof'\""
+    result: "pass"
+    message: "No units found matching the filter"
+  safetyResult: "pass"
+  interpretation: "The reviewed Units are visible in ConfigHub, but without a target ConfigHub makes no live deployment claim and blocks apply at the operation boundary."
