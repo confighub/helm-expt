@@ -1,0 +1,53 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "PromotionStorageRollbackReview"
+metadata:
+  name: "prometheus-community-alertmanager-default-storage-rollback-review"
+spec:
+  chart: "prometheus-community/alertmanager"
+  version: "1.37.0"
+  selectedBase: "default"
+  decisionState: "review-input-only"
+  catalogSupportClaimAllowed: false
+  storageShape:
+    summary: "1 volumeClaimTemplate(s) rendered"
+    workloads:
+      -
+        kind: "StatefulSet"
+        name: "alertmanager"
+        namespace: "default"
+        replicas: 1
+        updateStrategy: "unspecified"
+        volumeClaimTemplates:
+          -
+            name: "storage"
+            accessModes:
+              - "ReadWriteOnce"
+            requestedStorage: "50Mi"
+            storageClassName: "cluster-default"
+    volumeClaimTemplates:
+      -
+        workload: "StatefulSet/alertmanager"
+        name: "storage"
+        accessModes:
+          - "ReadWriteOnce"
+        requestedStorage: "50Mi"
+        storageClassName: "cluster-default"
+  rollbackBoundary: "manifest rollback can preserve PVC identity, but backup/restore and data retention are target-scoped"
+  evidence:
+    renderedObjects: "recipes/prometheus-community/alertmanager/1.37.0/revisions/default/r001/rendered/release-objects.yaml"
+    objectInventory: "recipes/prometheus-community/alertmanager/1.37.0/revisions/default/r001/rendered/object-inventory.yaml"
+    helmPainReport: "recipes/prometheus-community/alertmanager/1.37.0/helm-pain-report.yaml"
+    installGate: "recipes/prometheus-community/alertmanager/1.37.0/revisions/default/r001/receipts/install-gate.yaml"
+    parityReceipt: "runs/live-kind-parity/prometheus-community-alertmanager-default/receipt.yaml"
+    promotionReviewPacket: "data/top100-promotion-wave/fast-track-reviews/prometheus-community-alertmanager.yaml"
+  decisionsStillNeeded:
+    - "storage class fit for target"
+    - "backup and restore procedure"
+    - "data retention and deletion policy"
+    - "rollback runbook for the selected base"
+    - "live ConfigHub and GitOps/OCI evidence"
+    - "target-scoped support decision"
+  boundaries:
+    - "This review records the rendered storage shape; it is not a production acceptance."
+    - "Render parity does not prove backup, restore, retention, or application data safety."
+    - "If an HA or persistence choice changes the rendered object set, promote that choice through the reviewed base path."

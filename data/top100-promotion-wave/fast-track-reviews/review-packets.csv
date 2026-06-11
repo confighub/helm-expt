@@ -1,3 +1,3 @@
-chart,version,chart_ref,packet,decision_state,support_claim_allowed
-elastic/logstash,8.5.1,elastic/logstash@8.5.1,data/top100-promotion-wave/fast-track-reviews/elastic-logstash.yaml,review-input-only,false
-prometheus-community/alertmanager,1.37.0,prometheus-community/alertmanager@1.37.0,data/top100-promotion-wave/fast-track-reviews/prometheus-community-alertmanager.yaml,review-input-only,false
+chart,version,chart_ref,packet,storage_review,decision_state,support_claim_allowed
+elastic/logstash,8.5.1,elastic/logstash@8.5.1,data/top100-promotion-wave/fast-track-reviews/elastic-logstash.yaml,data/top100-promotion-wave/fast-track-reviews/storage-rollback/elastic-logstash.yaml,review-input-only,false
+prometheus-community/alertmanager,1.37.0,prometheus-community/alertmanager@1.37.0,data/top100-promotion-wave/fast-track-reviews/prometheus-community-alertmanager.yaml,data/top100-promotion-wave/fast-track-reviews/storage-rollback/prometheus-community-alertmanager.yaml,review-input-only,false

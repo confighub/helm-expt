@@ -14,6 +14,7 @@ top100,top100 promotion-review queue,27,80,partial,data/top100-coverage/work-que
 top100,first strict top100 promotion wave,8,27,partial,data/top100-promotion-wave/wave.csv,Promotion-review rows with two-cluster kind parity selected for the first strict top100 promotion wave.
 top100,fast-track top100 promotion candidates,2,8,partial,data/top100-promotion-wave/fast-track.csv,Low-residue promotion-review rows with clean scan/gate state and no hook/CRD/webhook lifecycle class.
 top100,fast-track promotion review packets,2,2,partial,data/top100-promotion-wave/fast-track-reviews/review-packets.csv,Review-input packets for low-residue candidates. These are not support decisions.
+top100,fast-track storage rollback reviews,2,2,partial,data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv,"Rendered storage-shape and rollback-boundary review inputs for low-residue candidates. These are not backup, restore, or support decisions."
 top100,top100 user-shaped variant queue,46,80,partial,data/top100-coverage/work-queue.csv,Partial top100 rows whose proof exists but whose current base is not yet a useful catalog offer.
 top100,top100 limitation-decision queue,7,80,partial,data/top100-coverage/work-queue.csv,"Partial top100 rows needing a support, disclosure, defer, or block decision before promotion."
 refresh,top20 proofs still current,13,20,partial,data/refresh-survival/refreshes.csv,Supported top-20 chart versions that still match the latest upstream Helm version in the retained refresh snapshot.

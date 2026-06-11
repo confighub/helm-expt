@@ -32,6 +32,7 @@ Which detailed CSV should I open next?
 | top100 | first strict top100 promotion wave | 8/27 | partial | [data/top100-promotion-wave/wave.csv](../../data/top100-promotion-wave/wave.csv) |
 | top100 | fast-track top100 promotion candidates | 2/8 | partial | [data/top100-promotion-wave/fast-track.csv](../../data/top100-promotion-wave/fast-track.csv) |
 | top100 | fast-track promotion review packets | 2/2 | partial | [data/top100-promotion-wave/fast-track-reviews/review-packets.csv](../../data/top100-promotion-wave/fast-track-reviews/review-packets.csv) |
+| top100 | fast-track storage rollback reviews | 2/2 | partial | [data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv](../../data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv) |
 | top100 | top100 user-shaped variant queue | 46/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
 | top100 | top100 limitation-decision queue | 7/80 | partial | [data/top100-coverage/work-queue.csv](../../data/top100-coverage/work-queue.csv) |
 | refresh | top20 proofs still current | 13/20 | partial | [data/refresh-survival/refreshes.csv](../../data/refresh-survival/refreshes.csv) |
