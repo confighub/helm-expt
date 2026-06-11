@@ -31,7 +31,7 @@ if (mode === "--generate") {
 }
 
 function buildReport() {
-  const measured = [measureKubePrometheusNoCrds(), measureRedisExistingSecret(), measureNginxExistingTlsIngress()];
+  const measured = [measureKubePrometheusNoCrds(), measureRedisExistingSecret(), measureRedis27ExistingSecret(), measureNginxExistingTlsIngress(), ...receiptCases()];
   const measuredKeys = new Set(
     measured.flatMap((row) => (row.measured_value_paths ?? [row.value_path]).map((valuePath) => `${row.chart}@${row.version}|${valuePath}`)),
   );
@@ -123,6 +123,90 @@ function measureRedisExistingSecret() {
     ],
     limit: "This measures the supported Redis default-to-existing-secret base-pair diff. It does not prove every Redis value path or every generated-secret chart.",
   });
+}
+
+function measureRedis27ExistingSecret() {
+  const chart = "bitnami/redis";
+  const version = "27.0.0";
+  const recipeRel = `recipes/bitnami/redis/${version}`;
+  return measureBasePair({
+    chart,
+    version,
+    recipeRel,
+    case_id: "redis-27-auth-password-default-to-existing-secret",
+    value_path: "auth.password",
+    from_variant: "default",
+    to_variant: "reuse-existing-secret",
+    expected_removed: 1,
+    expected_added: 0,
+    expected_changed: 2,
+    extra_evidence: [
+      `${recipeRel}/value-source-map.yaml`,
+      `${recipeRel}/revisions/default/r001/rendered/release-objects.yaml`,
+      `${recipeRel}/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml`,
+      `${recipeRel}/revisions/default/r001/receipts/generated-fact-receipt.yaml`,
+    ],
+    limit: "This measures the supported Redis 27.0.0 default-to-existing-secret base-pair diff. It does not prove every Redis value path or every generated-secret chart.",
+  });
+}
+
+// receiptCases loads recorded single-value rerender-diff receipts
+// (data/blast-radius-accuracy/case-receipts/, written by
+// scripts/record-blast-radius-case.mjs) and rescores each one against the
+// committed value-source-map. The receipt carries the rendered diff; the
+// prediction is recomputed here, so editing a value-source-map entry
+// invalidates stale receipts at verify time instead of preserving an old
+// score.
+function receiptCases() {
+  const receiptsRoot = join(outputRoot, "case-receipts");
+  if (!existsSync(receiptsRoot)) return [];
+  return listFiles(receiptsRoot)
+    .filter((file) => file.endsWith(".yaml"))
+    .sort()
+    .map((file) => {
+      const rel = relativeRepo(file);
+      const receipt = readYaml(file);
+      const spec = receipt.spec ?? {};
+      const vsmRel = `${spec.recipe}/value-source-map.yaml`;
+      const vsmPath = join(repoRoot, vsmRel);
+      check(existsSync(vsmPath), `${rel} points at missing ${vsmRel}`);
+      const entry = (readYaml(vsmPath).spec?.entries ?? []).find((item) => item.valuePath === spec.valuePath);
+      check(entry, `${rel}: ${spec.chart}@${spec.version} has no value-source-map entry for ${spec.valuePath}`);
+      const predicted = new Set(entry.renderedFields.map((field) => field.object));
+      const removed = spec.actual?.removed ?? [];
+      const added = spec.actual?.added ?? [];
+      const changed = spec.actual?.changed ?? [];
+      const affected = new Set([...removed, ...added, ...changed]);
+      const falseNegatives = [...affected].filter((identity) => !predicted.has(identity)).sort();
+      const falsePositives = [...predicted].filter((identity) => !affected.has(identity)).sort();
+      const truePositives = [...predicted].filter((identity) => affected.has(identity)).length;
+      const result = falseNegatives.length === 0 && falsePositives.length === 0 ? "pass" : "fail";
+      check(result === spec.score?.result, `${rel}: recorded result ${spec.score?.result} no longer matches the committed value-source-map (recomputed ${result}); re-record the case`);
+      check(
+        falseNegatives.length === (spec.score?.falseNegatives ?? []).length && falsePositives.length === (spec.score?.falsePositives ?? []).length,
+        `${rel}: recorded score is stale against the committed value-source-map; re-record the case`,
+      );
+      return {
+        chart: spec.chart,
+        version: String(spec.version),
+        case_id: receipt.metadata?.name ?? rel,
+        value_path: spec.valuePath,
+        measurement_type: "single-value-rerender-diff",
+        from_variant: "default",
+        to_variant: `default + ${spec.override?.argument ?? "override"}`,
+        predicted_objects: predicted.size,
+        actual_removed_objects: removed.length,
+        actual_added_objects: added.length,
+        actual_changed_objects: changed.length,
+        false_negatives: falseNegatives.length,
+        false_positives: falsePositives.length,
+        precision: predicted.size === 0 ? "" : ratio(truePositives, predicted.size),
+        recall: affected.size === 0 ? "" : ratio(truePositives, affected.size),
+        result,
+        evidence: [rel, vsmRel].join("; "),
+        limit: `This measures one recorded rerender diff for ${spec.valuePath} over the default variant (helm ${spec.renderContext?.helmVersion ?? "unknown"}). It does not prove other value paths or value combinations.`,
+      };
+    });
 }
 
 function measureNginxExistingTlsIngress() {
@@ -278,20 +362,23 @@ that the predicted affected objects match the actual affected objects.
 | Unmeasured value-source rows | ${unmeasured.length} |
 | Total rows | ${rows.length} |
 
-The measured cases now cover three different risk shapes:
+Measured cases come from two measurement types:
 
-- kube-prometheus-stack \`crds.enabled=false\`: the prediction says exactly the
-  Prometheus Operator CRD objects are affected, and the committed \`default\`
-  and \`no-crds\` rendered object sets confirm that exactly 10 CRD objects are
-  removed.
-- Redis \`auth.password\`: the prediction says the generated Secret and the two
-  Redis StatefulSets are affected when moving to \`reuse-existing-secret\`, and
-  the committed rendered object sets confirm one removed Secret and two changed
-  StatefulSets.
-- NGINX \`ingress.enabled + tls.existingSecret\`: the prediction says the
-  reviewed \`existing-tls-ingress\` base adds an Ingress and changes the NGINX
-  Deployment to mount the backend TLS Secret, and the committed rendered object
-  sets confirm exactly that.
+- \`committed-base-pair-rerender-diff\`: two committed variant renders for the
+  same recipe are diffed in place, so the actual side is already in the tree
+  (for example \`default\` against \`no-crds\` or \`reuse-existing-secret\`).
+- \`single-value-rerender-diff\`: a recorded case receipt under
+  \`case-receipts/\` (written by \`scripts/record-blast-radius-case.mjs\`)
+  captures a fresh re-render of the default variant with exactly one value
+  overridden. The receipt carries the rendered diff and its render context;
+  this verifier rescores the diff against the committed value-source-map, so
+  a later map edit invalidates a stale receipt instead of keeping its score.
+
+The unmeasured backlog is dominated by whole-release identity paths
+(\`namespace\`, \`releaseName\`): renaming changes every object identity, so
+scoring them fairly needs rename-aware diff semantics rather than the
+identity-keyed diff used here. They stay listed as backlog instead of being
+scored with the wrong ruler.
 
 This is useful evidence, not a general guarantee. The broader blast-radius
 claim stays partial until more value paths are measured across more charts.

@@ -213,7 +213,7 @@ const claims = [
     id: "blast-radius-prediction",
     area: "sceptic-tests",
     status: "partial",
-    claim: "Blast-radius prediction is starting to be scored by comparing predicted affected objects with actual committed rerender diffs.",
+    claim: "Blast-radius prediction is scored by comparing predicted affected objects with actual rerender diffs, from committed base pairs and recorded single-value rerender receipts.",
     evidence: [
       "data/blast-radius-accuracy/summary.md",
       "data/blast-radius-accuracy/cases.csv",
@@ -222,7 +222,7 @@ const claims = [
       "data/high-fanout-demo/summary.md",
     ],
     verify: "npm run blast-radius:accuracy:verify; npm run edges:verify; npm run high-fanout:verify",
-    limit: "Only three base-pair cases are measured so far: KPS CRDs, Redis existing-secret, and NGINX existing-TLS ingress. Most value-source-map rows are still unmeasured backlog.",
+    limit: "Measured coverage is still a small slice of the catalog (current counts are in data/blast-radius-accuracy/summary.md). Whole-release identity paths stay on the backlog until rename-aware scoring exists.",
   },
   {
     id: "refused-blanket-verification",
