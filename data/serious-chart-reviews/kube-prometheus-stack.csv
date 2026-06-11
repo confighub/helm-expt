@@ -5,7 +5,7 @@ two-cluster kind parity,pass (default and no-crds),data/live-kind-parity/summary
 live Helm-vs-ConfigHub comparison,pass (default),data/live-helm-confighub-compare/,selected lane; one base
 hook lifecycle,lifecycle-observed with committed receipt,data/hook-lifecycle/top100-hooks.csv;data/hook-lifecycle/receipt-index.csv,one chart's hooks on one base/profile; keep-fresh next action standing
 CRD install,covered (live lanes + explicit no-crds base),data/top20-base-readiness/base-readiness.csv,CRD ownership is a recorded user decision
-CRD upgrade,render-level delta receipt committed (85.3.3 to 86.1.0: 6/10 CRDs change; all additive schema paths; no version or conversion changes),data/serious-chart-reviews/kps-crd-upgrade-delta-85.3.3-to-86.1.0.yaml,desired-state delta only; runtime upgrade and stored-object behavior not claimed
+CRD upgrade,render-level delta plus live API-server CRD upgrade rehearsal committed (85.3.3 to 86.1.0),data/serious-chart-reviews/kps-crd-upgrade-delta-85.3.3-to-86.1.0.yaml;runs/serious-chart-reviews/kube-prometheus-stack/crd-upgrade-live/latest/receipt.yaml,full workload upgrade, controller compatibility, and stored-object behavior still not claimed
 webhook runtime lifecycle,pattern demonstrated on other charts only,data/lifecycle-observations/cert-manager-eso/,not yet receipted for this chart's operator/webhook pair
 blast radius,measured for crds.enabled pair (accuracy 1.000),data/blast-radius-accuracy/,grafana.adminPassword recorded not-measured-yet
 security/scan,accepted for declared target scope,data/production-support-decisions/prometheus-community-kube-prometheus-stack/security-decision.yaml,stricter scopes may still require a hardened base

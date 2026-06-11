@@ -68,15 +68,19 @@ version changes." It does not generalize to other charts' hooks.
   injection, conversion behavior) is demonstrated on cert-manager and
   External Secrets (`data/lifecycle-observations/cert-manager-eso/`), not yet
   receipted for this chart's own operator/webhook pair.
-- CRD **upgrade** desired-state delta now has a committed render-level
-  receipt for the pending 85.3.3 → 86.1.0 candidate
+- CRD **upgrade** now has two bounded receipts. The committed render-level
+  delta for the 85.3.3 → 86.1.0 candidate
   ([`kps-crd-upgrade-delta-85.3.3-to-86.1.0.yaml`](../../data/serious-chart-reviews/kps-crd-upgrade-delta-85.3.3-to-86.1.0.yaml),
   regenerable via `node scripts/kps-crd-upgrade-delta.mjs --verify`): 6 of 10
   CRDs change, every change is an additive schema property path (none
   removed), and no version entry, served/storage flag, or conversion strategy
-  changes. That is the desired-state half of the classic
-  kube-prometheus-stack upgrade footgun; the **runtime** half (live upgrade,
-  controller compatibility, stored objects) still has no receipt.
+  changes. The live rehearsal receipt
+  ([`receipt.yaml`](../../runs/serious-chart-reviews/kube-prometheus-stack/crd-upgrade-live/latest/receipt.yaml),
+  regenerable via `npm run kps:crd-upgrade-live`) applies the 85.3.3 CRDs to a
+  fresh kind API server, applies the 86.1.0 CRDs over them, waits for
+  Established, and confirms a `ServiceMonitor` server-side dry-run before and
+  after the upgrade. That is still not a full workload upgrade: controller
+  compatibility and stored-object migration remain unclaimed.
 
 ## Production Support State
 
@@ -115,10 +119,10 @@ target evidence.
 
 ## Suggested Next Receipts
 
-In value order: (1) a **live** upgrade receipt 85.3.3 → 86.1.0 on kind — the
-committed render-level CRD delta (all-additive) is the input that makes that
-run well-scoped; (2) a `no-crds` support receipt with compatible external CRDs
-and the admission Secret staged; (3) runtime webhook lifecycle observation for
-this chart's own operator, reusing the cert-manager/External Secrets pattern;
-(4) a hardened or digest-pinned base for stricter environments that should not
-reuse the public proof scope's mutable-image and scan exceptions.
+In value order: (1) a full workload upgrade receipt 85.3.3 → 86.1.0 on kind,
+using the CRD live rehearsal as the first step; (2) a `no-crds` support receipt
+with compatible external CRDs and the admission Secret staged; (3) runtime
+webhook lifecycle observation for this chart's own operator, reusing the
+cert-manager/External Secrets pattern; (4) a hardened or digest-pinned base for
+stricter environments that should not reuse the public proof scope's
+mutable-image and scan exceptions.
