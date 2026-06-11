@@ -1,0 +1,177 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"kibana\",\"heritage\":\"Helm\",\"release\":\"kibana\"},\"name\":\"kibana-kibana\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":5601,\"protocol\":\"TCP\",\"targetPort\":5601}],\"selector\":{\"app\":\"kibana\",\"release\":\"kibana\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T13:09:13Z"
+      labels:
+        app: "kibana"
+        heritage: "Helm"
+        release: "kibana"
+      name: "kibana-kibana"
+      namespace: "default"
+      resourceVersion: "439"
+      uid: "7eb3feed-e327-47ec-bc27-48cf15698c9d"
+    spec:
+      clusterIP: "10.96.169.11"
+      clusterIPs:
+        - "10.96.169.11"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http"
+          port: 5601
+          protocol: "TCP"
+          targetPort: 5601
+      selector:
+        app: "kibana"
+        release: "kibana"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"kibana\",\"heritage\":\"Helm\",\"release\":\"kibana\"},\"name\":\"kibana-kibana\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app\":\"kibana\",\"release\":\"kibana\"}},\"strategy\":{\"type\":\"Recreate\"},\"template\":{\"metadata\":{\"annotations\":null,\"labels\":{\"app\":\"kibana\",\"release\":\"kibana\"}},\"spec\":{\"automountServiceAccountToken\":true,\"containers\":[{\"env\":[{\"name\":\"ELASTICSEARCH_HOSTS\",\"value\":\"https://elasticsearch-master:9200\"},{\"name\":\"ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES\",\"value\":\"/usr/share/kibana/config/certs/ca.crt\"},{\"name\":\"SERVER_HOST\",\"value\":\"0.0.0.0\"},{\"name\":\"ELASTICSEARCH_SERVICEACCOUNTTOKEN\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"token\",\"name\":\"kibana-kibana-es-token\",\"optional\":false}}},{\"name\":\"NODE_OPTIONS\",\"value\":\"--max-old-space-size=1800\"}],\"image\":\"docker.elastic.co/kibana/kibana:8.5.1\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"kibana\",\"ports\":[{\"containerPort\":5601}],\"readinessProbe\":{\"exec\":{\"command\":[\"bash\",\"-c\",\"#!/usr/bin/env bash -e\\n\\n# Disable nss cache to avoid filling dentry cache when calling curl\\n# This is required with Kibana Docker using nss \\u003c 3.52\\nexport NSS_SDB_USE_CACHE=no\\n\\nhttp () {\\n    local path=\\\"${1}\\\"\\n    set -- -XGET -s --fail -L\\n\\n    if [ -n \\\"${ELASTICSEARCH_USERNAME}\\\" ] \\u0026\\u0026 [ -n \\\"${ELASTICSEARCH_PASSWORD}\\\" ]; then\\n      set -- \\\"$@\\\" -u \\\"${ELASTICSEARCH_USERNAME}:${ELASTICSEARCH_PASSWORD}\\\"\\n    fi\\n\\n    STATUS=$(curl --output /dev/null --write-out \\\"%{http_code}\\\" -k \\\"$@\\\" \\\"http://localhost:5601${path}\\\")\\n    if [[ \\\"${STATUS}\\\" -eq 200 ]]; then\\n      exit 0\\n    fi\\n\\n    echo \\\"Error: Got HTTP code ${STATUS} but expected a 200\\\"\\n    exit 1\\n}\\n\\nhttp \\\"/app/kibana\\\"\\n\"]},\"failureThreshold\":3,\"initialDelaySeconds\":10,\"periodSeconds\":10,\"successThreshold\":3,\"timeoutSeconds\":5},\"resources\":{\"limits\":{\"cpu\":\"1000m\",\"memory\":\"2Gi\"},\"requests\":{\"cpu\":\"1000m\",\"memory\":\"2Gi\"}},\"securityContext\":{\"capabilities\":{\"drop\":[\"ALL\"]},\"runAsNonRoot\":true,\"runAsUser\":1000},\"volumeMounts\":[{\"mountPath\":\"/usr/share/kibana/config/certs\",\"name\":\"elasticsearch-certs\",\"readOnly\":true},{\"mountPath\":\"/usr/share/kibana/config/tokens\",\"name\":\"kibana-tokens\",\"readOnly\":true}]}],\"initContainers\":null,\"securityContext\":{\"fsGroup\":1000},\"volumes\":[{\"emptyDir\":{},\"name\":\"kibana-tokens\"},{\"name\":\"elasticsearch-certs\",\"secret\":{\"secretName\":\"elasticsearch-master-certs\"}}]}}}}\n"
+      creationTimestamp: "2026-06-11T13:09:13Z"
+      generation: 1
+      labels:
+        app: "kibana"
+        heritage: "Helm"
+        release: "kibana"
+      name: "kibana-kibana"
+      namespace: "default"
+      resourceVersion: "454"
+      uid: "75051505-b030-4ada-b05a-eac49a9262b9"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app: "kibana"
+          release: "kibana"
+      strategy:
+        type: "Recreate"
+      template:
+        metadata:
+          labels:
+            app: "kibana"
+            release: "kibana"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            -
+              env:
+                -
+                  name: "ELASTICSEARCH_HOSTS"
+                  value: "https://elasticsearch-master:9200"
+                -
+                  name: "ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES"
+                  value: "/usr/share/kibana/config/certs/ca.crt"
+                -
+                  name: "SERVER_HOST"
+                  value: "0.0.0.0"
+                -
+                  name: "ELASTICSEARCH_SERVICEACCOUNTTOKEN"
+                  valueFrom:
+                    secretKeyRef:
+                      key: "token"
+                      name: "kibana-kibana-es-token"
+                      optional: false
+                -
+                  name: "NODE_OPTIONS"
+                  value: "--max-old-space-size=1800"
+              image: "docker.elastic.co/kibana/kibana:8.5.1"
+              imagePullPolicy: "IfNotPresent"
+              name: "kibana"
+              ports:
+                -
+                  containerPort: 5601
+                  protocol: "TCP"
+              readinessProbe:
+                exec:
+                  command:
+                    - "bash"
+                    - "-c"
+                    - "#!/usr/bin/env bash -e\n\n# Disable nss cache to avoid filling dentry cache when calling curl\n# This is required with Kibana Docker using nss < 3.52\nexport NSS_SDB_USE_CACHE=no\n\nhttp () {\n    local path=\"${1}\"\n    set -- -XGET -s --fail -L\n\n    if [ -n \"${ELASTICSEARCH_USERNAME}\" ] && [ -n \"${ELASTICSEARCH_PASSWORD}\" ]; then\n      set -- \"$@\" -u \"${ELASTICSEARCH_USERNAME}:${ELASTICSEARCH_PASSWORD}\"\n    fi\n\n    STATUS=$(curl --output /dev/null --write-out \"%{http_code}\" -k \"$@\" \"http://localhost:5601${path}\")\n    if [[ \"${STATUS}\" -eq 200 ]]; then\n      exit 0\n    fi\n\n    echo \"Error: Got HTTP code ${STATUS} but expected a 200\"\n    exit 1\n}\n\nhttp \"/app/kibana\"\n"
+                failureThreshold: 3
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 3
+                timeoutSeconds: 5
+              resources:
+                limits:
+                  cpu: "1"
+                  memory: "2Gi"
+                requests:
+                  cpu: "1"
+                  memory: "2Gi"
+              securityContext:
+                capabilities:
+                  drop:
+                    - "ALL"
+                runAsNonRoot: true
+                runAsUser: 1000
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/usr/share/kibana/config/certs"
+                  name: "elasticsearch-certs"
+                  readOnly: true
+                -
+                  mountPath: "/usr/share/kibana/config/tokens"
+                  name: "kibana-tokens"
+                  readOnly: true
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 1000
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              emptyDir:
+                {}
+              name: "kibana-tokens"
+            -
+              name: "elasticsearch-certs"
+              secret:
+                defaultMode: 420
+                secretName: "elasticsearch-master-certs"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T13:09:13Z"
+          lastUpdateTime: "2026-06-11T13:09:13Z"
+          message: "Deployment does not have minimum availability."
+          reason: "MinimumReplicasUnavailable"
+          status: "False"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T13:09:13Z"
+          lastUpdateTime: "2026-06-11T13:09:13Z"
+          message: "ReplicaSet \"kibana-kibana-9bf64bc55\" is progressing."
+          reason: "ReplicaSetUpdated"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      replicas: 1
+      terminatingReplicas: 0
+      unavailableReplicas: 1
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""

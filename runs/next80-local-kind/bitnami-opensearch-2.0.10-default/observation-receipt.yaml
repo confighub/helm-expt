@@ -1,0 +1,55 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-opensearch-2.0.10-default-local-kind"
+spec:
+  variantRevision: "recipes/bitnami/opensearch/2.0.10/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "99c0b24ee1850d1f5a4da323e9924a8a1f9d93a34a97a985d92c954836747afd"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-opensearch"
+    context: "kind-claude-helm-expt-codex-opensearch"
+    namespace: "default"
+  observedAt: "2026-06-11T13:04:05.237Z"
+  freshnessTTL: "1h"
+  result: "fail"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 4
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "ba2be109f0ae426d64cb189c6a0cec8a4790223a1a7db4107af7544e7d361a5f"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "18 object(s) from recipes/bitnami/opensearch/2.0.10/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "StatefulSet|default|opensearch-coordinating"
+      reason: "not-ready: opensearch-coordinating-0[PodInitializing ready=false restarts=0;] opensearch-coordinating-1[PodInitializing ready=false restarts=0;] opensearch-data-0[PodInitializing ready=false restarts=0;] opensearch-data-1[PodInitializing ready=false restarts=0;] opensearch-ingest-0[PodInitializing ready=false "
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "StatefulSet|default|opensearch-data"
+      reason: "not-ready: opensearch-coordinating-0[PodInitializing ready=false restarts=0;] opensearch-coordinating-1[PodInitializing ready=false restarts=0;] opensearch-data-0[PodInitializing ready=false restarts=0;] opensearch-data-1[PodInitializing ready=false restarts=0;] opensearch-ingest-0[PodInitializing ready=false "
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "StatefulSet|default|opensearch-ingest"
+      reason: "not-ready: opensearch-coordinating-0[PodInitializing ready=false restarts=0;] opensearch-coordinating-1[PodInitializing ready=false restarts=0;] opensearch-data-0[PodInitializing ready=false restarts=0;] opensearch-data-1[PodInitializing ready=false restarts=0;] opensearch-ingest-0[PodInitializing ready=false "
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "StatefulSet|default|opensearch-master"
+      reason: "not-ready: opensearch-coordinating-0[PodInitializing ready=false restarts=0;] opensearch-coordinating-1[PodInitializing ready=false restarts=0;] opensearch-data-0[PodInitializing ready=false restarts=0;] opensearch-data-1[PodInitializing ready=false restarts=0;] opensearch-ingest-0[PodInitializing ready=false "
+  blockedReasons:
+    - "statefulset/opensearch-coordinating: not-ready (opensearch-coordinating-0[PodInitializing ready=false restarts=0;] opensearch-coordinating-1[PodInitializing ready=false restarts=0;] opensearch-data-0[PodIniti)"
+    - "statefulset/opensearch-data: not-ready (opensearch-coordinating-0[PodInitializing ready=false restarts=0;] opensearch-coordinating-1[PodInitializing ready=false restarts=0;] opensearch-data-0[PodIniti)"
+    - "statefulset/opensearch-ingest: not-ready (opensearch-coordinating-0[PodInitializing ready=false restarts=0;] opensearch-coordinating-1[PodInitializing ready=false restarts=0;] opensearch-data-0[PodIniti)"
+    - "statefulset/opensearch-master: not-ready (opensearch-coordinating-0[PodInitializing ready=false restarts=0;] opensearch-coordinating-1[PodInitializing ready=false restarts=0;] opensearch-data-0[PodIniti)"

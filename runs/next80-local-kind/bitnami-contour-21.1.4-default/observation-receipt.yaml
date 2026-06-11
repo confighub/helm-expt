@@ -1,0 +1,47 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-contour-21.1.4-default-local-kind"
+spec:
+  variantRevision: "recipes/bitnami/contour/21.1.4/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "f28ab1558939812f833981bce56dfdbd7030428a4bcdd816b0eedb1bd13ffd53"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-contour"
+    context: "kind-claude-helm-expt-codex-contour"
+    namespace: "default"
+  observedAt: "2026-06-11T12:57:50.528Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 2
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "20e2a24d458e22a677ca98126fce3596e5f782f36188df160dd37e4cdc7d4efe"
+  checks:
+    -
+      name: "crds-applied-and-established"
+      result: "pass"
+      object: "5 CustomResourceDefinition(s)"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "20 object(s) from recipes/bitnami/contour/21.1.4/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "DaemonSet|default|contour-envoy"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): contour-contour-6f88fd5fc6-67kb6[ContainerCreating ready=false restarts=0;] contour-envoy-jtk4r[PodInitializing ready=false restarts=0;PodInitializing ready=false restarts=0;]"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|default|contour-contour"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): contour-contour-6f88fd5fc6-67kb6[ContainerCreating ready=false restarts=0;] contour-envoy-jtk4r[PodInitializing ready=false restarts=0;PodInitializing ready=false restarts=0;]"
+  blockedReasons:
+    - "daemonset/contour-envoy: prerequisite-blocked (stuck creating: missing mount/secret/config) (contour-contour-6f88fd5fc6-67kb6[ContainerCreating ready=false restarts=0;] contour-envoy-jtk4r[PodInitializing ready=false restarts=0;PodInitializing ready=fal)"
+    - "deployment/contour-contour: prerequisite-blocked (stuck creating: missing mount/secret/config) (contour-contour-6f88fd5fc6-67kb6[ContainerCreating ready=false restarts=0;] contour-envoy-jtk4r[PodInitializing ready=false restarts=0;PodInitializing ready=fal)"
