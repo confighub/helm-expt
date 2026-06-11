@@ -1,0 +1,35 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "WebhookCertLifecycleStagingReceipt"
+metadata:
+  name: "fairwinds-stable-vpa-4.11.0-no-crds-webhook-cert-staging"
+spec:
+  chart: "fairwinds-stable/vpa"
+  version: "4.11.0"
+  base: "no-crds"
+  result: "pass"
+  observedAt: "2026-06-11T18:28:16.474Z"
+  route: "target-facts-staged-crds-and-secret"
+  stagedSecret:
+    namespace: "default"
+    name: "vpa-tls-secret"
+    keys:
+      - "ca"
+      - "cert"
+      - "key"
+  generation:
+    method: "local-self-signed-certificate"
+    secretMaterialCommitted: false
+  stagedCrds:
+    source: "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/release-objects.yaml"
+    count: 2
+    names:
+      - "verticalpodautoscalercheckpoints.autoscaling.k8s.io"
+      - "verticalpodautoscalers.autoscaling.k8s.io"
+  pairedObservation:
+    receipt: "runs/next80-local-kind/fairwinds-stable-vpa-4.11.0-no-crds/observation-receipt.yaml"
+    result: "pass"
+    target: "claude-helm-expt-fairwinds-vpa-nocrds"
+    namespace: "default"
+  proofBoundary:
+    - "Proves explicit CRD and serving certificate prerequisites can make this no-CRDs base converge on this local kind target."
+    - "Does not claim production CA trust, admission policy safety, certificate rotation, long-term serving certificate management, or CRD upgrade safety."
