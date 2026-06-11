@@ -1,0 +1,167 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "keda-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-keda-confighub-proof"
+    selector: "Labels.Proof = 'keda-confighub-proof'"
+  subject:
+    chart: "kedacore/keda"
+    chartVersion: "2.19.0"
+    packagePath: "packages/kedacore/keda/2.19.0"
+    variant: "default"
+    configHubUnitCount: 30
+  unitRevisionBindings:
+    -
+      slug: "clusterrole-keda-operator-external-metrics-reader"
+      headRevisionNum: 2
+      dataHash: "7b476af97708eaf44fc3d460619dae6838e7b1ef096a5a96ecbecb6afad432c8"
+    -
+      slug: "customresourcedefinition-cloudeventsources-eventing-keda-sh"
+      headRevisionNum: 2
+      dataHash: "773b66c79401edcda3b6ce50e05b80d90e829e5d007114ef9af9b37164c1618c"
+    -
+      slug: "customresourcedefinition-clustercloudeventsources-eventing-keda-sh"
+      headRevisionNum: 2
+      dataHash: "49de589e3138ba422603ec4cbc50c6801a12cd9c7fca47a657c4b664a865f377"
+    -
+      slug: "customresourcedefinition-clustertriggerauthentications-keda-sh"
+      headRevisionNum: 2
+      dataHash: "56c2dadb31a77ab5482dffa6e36e3275f58688d306332005310e2a2d21aea0c3"
+    -
+      slug: "customresourcedefinition-scaledjobs-keda-sh"
+      headRevisionNum: 2
+      dataHash: "e8c08eac7bdfb539cf12c4307cbb5874d17056d9aaef44a5b3b6c366c026e77f"
+    -
+      slug: "customresourcedefinition-scaledobjects-keda-sh"
+      headRevisionNum: 2
+      dataHash: "f8956dcf23537263fc67500344f20212ff3fc081e3a871cca939fddcf08f3154"
+    -
+      slug: "customresourcedefinition-triggerauthentications-keda-sh"
+      headRevisionNum: 2
+      dataHash: "f2a1979a512396b9aa0cda0af0c64af0d27c36289112db3afca8ca7249d650b5"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "serviceaccount-default-keda-webhook"
+      headRevisionNum: 1
+      dataHash: "48fe69d706325b8f4bd95c6c315a712125433a00cc0a482a0215b158cfb7ad61"
+    -
+      slug: "validatingwebhookconfiguration-keda-admission"
+      headRevisionNum: 2
+      dataHash: "7f75dbd4d1e2eb5bd40da75f432c658b1c3fdf61e3371d5644d8f2f3cdd59483"
+    -
+      slug: "clusterrolebinding-keda-operator-system-auth-delegator"
+      headRevisionNum: 2
+      dataHash: "9e78c224106707023a4832255f540e86a92c32ed7fd5e96cf12115dba73a037f"
+    -
+      slug: "clusterrolebinding-keda-operator-webhook"
+      headRevisionNum: 2
+      dataHash: "12089fcd64f8c13ffffacf139943d20306b6bf5b8c9c083d7f7dc92b8271b641"
+    -
+      slug: "clusterrole-keda-operator"
+      headRevisionNum: 2
+      dataHash: "c7458f81c4f83bbfb9ccaf5836ddf3256874798eddb044d614e32c2939fb4565"
+    -
+      slug: "clusterrole-keda-operator-minimal-cluster-role"
+      headRevisionNum: 2
+      dataHash: "3b17b3bc9ef45a010f8d2ed42d5ae74439d238cbc4f0f023a55b008df67a92f2"
+    -
+      slug: "clusterrole-keda-operator-webhook"
+      headRevisionNum: 2
+      dataHash: "f76cde2b342d9525382f8da35adee519476f05e36cc9fd90ea4cfa481e18058a"
+    -
+      slug: "deployment-default-keda-admission-webhooks"
+      headRevisionNum: 2
+      dataHash: "093a218fd028a18be7a5a82f52c145e3843a73a66c51de2acb8698e6fb69224a"
+    -
+      slug: "deployment-default-keda-operator"
+      headRevisionNum: 2
+      dataHash: "f2a0398f09bae70cbeda31fbe589709b1a24bad0ec4142d98f60b90dff165f12"
+    -
+      slug: "deployment-default-keda-operator-metrics-apiserver"
+      headRevisionNum: 2
+      dataHash: "5951de36a20f3da16292dad066cde4ed621bdccaa368ccd62d9ebe2df6ed929e"
+    -
+      slug: "role-default-keda-operator-certs"
+      headRevisionNum: 2
+      dataHash: "26fa4a2ac8fc43817b976a16c27cc6ce5a560a72ce7544087de90c7ec4f9f82e"
+    -
+      slug: "service-default-keda-operator"
+      headRevisionNum: 2
+      dataHash: "a56c7f3b8fe5ffe304dc36ac690ee2562a938326e486949866c232073bafd6c7"
+    -
+      slug: "apiservice-v1beta1-external-metrics-k8s-io"
+      headRevisionNum: 1
+      dataHash: "5c819cacc7d469deffd292d3b99cf0e046561bc15c33832d387929dda778ea5a"
+    -
+      slug: "clusterrolebinding-keda-operator"
+      headRevisionNum: 2
+      dataHash: "e8a3922904fb1a16e89004a5678bb107df9636d3d6778e8f3c49d826ca16b0c1"
+    -
+      slug: "clusterrolebinding-keda-operator-hpa-controller-external-metrics"
+      headRevisionNum: 2
+      dataHash: "8f2c85da067ca1dade57ae02037cbfd8d0c07dd7972d0acbc94243c49a609209"
+    -
+      slug: "clusterrolebinding-keda-operator-minimal"
+      headRevisionNum: 2
+      dataHash: "14b8393f56bb794776e63c32ee20e3d47efa400d3a829ba8edb0c3411bd8e720"
+    -
+      slug: "rolebinding-default-keda-operator-certs"
+      headRevisionNum: 2
+      dataHash: "4b796b7479b9c90380013a47e65a967b8f8673809c444738601d1d6e0dd2f7ba"
+    -
+      slug: "rolebinding-kube-system-keda-operator-auth-reader"
+      headRevisionNum: 2
+      dataHash: "28f11d323dee32b25b26013513bac76747c1b04f347299bcbe26570be66e4015"
+    -
+      slug: "service-default-keda-admission-webhooks"
+      headRevisionNum: 2
+      dataHash: "619128b1083d356b127093ed2b2b36088e5ed595dfd91930c80bbc029d73374d"
+    -
+      slug: "service-default-keda-operator-metrics-apiserver"
+      headRevisionNum: 2
+      dataHash: "ca7c3048dc6cb8b72de0e510f901ec2faa8a30b5d790918082ebea6fe5dbe6c9"
+    -
+      slug: "serviceaccount-default-keda-metrics-server"
+      headRevisionNum: 1
+      dataHash: "f72c2d292cf373a91ef210a0e8ec2f5469a10f6bec9b83b5b06ea8f93bf08332"
+    -
+      slug: "serviceaccount-default-keda-operator"
+      headRevisionNum: 1
+      dataHash: "44b2af0b333be8ddd4fd1f6046f88aa545e3e35759de04b74f2cf8ac8796d894"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 30
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 30
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 30
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

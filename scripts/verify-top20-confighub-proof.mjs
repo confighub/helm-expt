@@ -1,25 +1,33 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { check, readYaml, repoRoot } from "./lib/proof-common.mjs";
-import { TOP20_CONFIGHUB_PROOF_CHARTS, chartBySlug } from "./lib/top20-confighub-proof.mjs";
+import {
+  CONFIGHUB_PROMOTION_PROOF_CHARTS,
+  TOP20_CONFIGHUB_PROOF_CHARTS,
+  chartBySlug,
+} from "./lib/top20-confighub-proof.mjs";
 
 const args = process.argv.slice(2);
 const chartsArg = optionValue("--charts");
+const promotionCandidates = args.includes("--promotion-candidates");
+const sourceCharts = promotionCandidates ? CONFIGHUB_PROMOTION_PROOF_CHARTS : TOP20_CONFIGHUB_PROOF_CHARTS;
 const selected = chartsArg
   ? chartsArg
       .split(",")
       .map((slug) => slug.trim())
       .filter(Boolean)
       .map((slug) => {
-        const chart = chartBySlug(slug);
-        check(chart, `unknown top-20 chart slug: ${slug}`);
+        const chart = promotionCandidates
+          ? sourceCharts.find((candidate) => [candidate.slug, candidate.chart, candidate.chart.split("/").at(-1)].includes(slug))
+          : chartBySlug(slug);
+        check(chart, `unknown ${promotionCandidates ? "promotion-candidate" : "top-20"} chart slug: ${slug}`);
         return chart;
       })
-  : TOP20_CONFIGHUB_PROOF_CHARTS;
+  : sourceCharts;
 
 for (const chart of selected) verifyChart(chart);
 
-console.log(`verified ${selected.length} top-20 ConfigHub proof receipt set(s)`);
+console.log(`verified ${selected.length} ${promotionCandidates ? "promotion-candidate" : "top-20"} ConfigHub proof receipt set(s)`);
 
 function optionValue(name) {
   const index = args.indexOf(name);
@@ -36,8 +44,10 @@ function verifyChart(chart) {
   check(existsSync(configHubProofPath), `${chart.slug} missing ConfigHub proof receipt`);
   check(existsSync(functionScanPath), `${chart.slug} missing function scan receipt`);
   check(existsSync(safeOpsPath), `${chart.slug} missing safe-ops receipt`);
-  check(existsSync(join(demoRoot, "confighub-proof.md")), `${chart.slug} missing ConfigHub proof doc`);
-  check(existsSync(join(demoRoot, "confighub-proof-transcript.md")), `${chart.slug} missing ConfigHub proof transcript`);
+  if (!chart.skipDemoDocs) {
+    check(existsSync(join(demoRoot, "confighub-proof.md")), `${chart.slug} missing ConfigHub proof doc`);
+    check(existsSync(join(demoRoot, "confighub-proof-transcript.md")), `${chart.slug} missing ConfigHub proof transcript`);
+  }
 
   const receipt = readYaml(configHubProofPath);
   const functionScan = readYaml(functionScanPath);
