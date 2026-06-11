@@ -1,0 +1,52 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "BlastRadiusCaseReceipt"
+metadata:
+  name: "redis-25.5.3-image-digest-rerender"
+spec:
+  chart: "bitnami/redis"
+  version: "25.5.3"
+  recipe: "recipes/bitnami/redis/25.5.3"
+  valuePath: "image.digest"
+  valueSourceEntryId: "image-digest"
+  override:
+    flag: "--set-string"
+    argument: "image.digest=sha256:1111111111111111111111111111111111111111111111111111111111111111"
+  renderContext:
+    helmVersion: "v4.1.4"
+    flags:
+      - "--kube-version"
+      - "1.30.0"
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+    namespace: "redis"
+    releaseName: "redis"
+    valuesProfile: "recipes/bitnami/redis/25.5.3/effective-values.yaml"
+    valuesProfileSHA256: "1cdcf2a5ccb24b63b1852a446350ca10dea5aad3b76d58ce1ec7da43f6bf44a2"
+  baseRender:
+    objectCount: 14
+    sha256: "17d5c0c393666054beab10a7e599abb711c258b7c85a75c12499cd238e7afb4b"
+    matchesCommittedRevision: "byte-identical"
+  overrideRender:
+    objectCount: 14
+    sha256: "bcccbeafaf216a6cc134c5370e818ff7709152466444418fd24e7d62b33232a0"
+  predictedObjects:
+    - "apps/v1|StatefulSet|redis|redis-master"
+    - "apps/v1|StatefulSet|redis|redis-replicas"
+  actual:
+    removed:
+      []
+    added:
+      []
+    changed:
+      - "apps/v1|StatefulSet|redis|redis-master"
+      - "apps/v1|StatefulSet|redis|redis-replicas"
+  score:
+    falseNegatives:
+      []
+    falsePositives:
+      []
+    truePositives: 2
+    precision: 1
+    recall: 1
+    result: "pass"

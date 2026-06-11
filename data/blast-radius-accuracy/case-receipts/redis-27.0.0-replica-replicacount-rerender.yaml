@@ -1,0 +1,50 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "BlastRadiusCaseReceipt"
+metadata:
+  name: "redis-27.0.0-replica-replicacount-rerender"
+spec:
+  chart: "bitnami/redis"
+  version: "27.0.0"
+  recipe: "recipes/bitnami/redis/27.0.0"
+  valuePath: "replica.replicaCount"
+  valueSourceEntryId: "replica-count"
+  override:
+    flag: "--set"
+    argument: "replica.replicaCount=4"
+  renderContext:
+    helmVersion: "v4.1.4"
+    flags:
+      - "--kube-version"
+      - "1.30.0"
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+    namespace: "redis"
+    releaseName: "redis"
+    valuesProfile: "recipes/bitnami/redis/27.0.0/effective-values.yaml"
+    valuesProfileSHA256: "6007e5bb9b936f384b04e23b5e5cb03905b656653fef700405139d443586a207"
+  baseRender:
+    objectCount: 14
+    sha256: "758467319ec109764b55ee730ba51a37a2196744f45f5c064f212bfc176178f0"
+    matchesCommittedRevision: "byte-identical"
+  overrideRender:
+    objectCount: 14
+    sha256: "c61a0c20eec6b7985ec3f8244d19a9487875069486b5b753d3ccf2d576b95cf5"
+  predictedObjects:
+    - "apps/v1|StatefulSet|redis|redis-replicas"
+  actual:
+    removed:
+      []
+    added:
+      []
+    changed:
+      - "apps/v1|StatefulSet|redis|redis-replicas"
+  score:
+    falseNegatives:
+      []
+    falsePositives:
+      []
+    truePositives: 1
+    precision: 1
+    recall: 1
+    result: "pass"
