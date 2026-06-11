@@ -1,0 +1,13 @@
+networkpolicy.networking.k8s.io/minio-console created
+networkpolicy.networking.k8s.io/minio created
+networkpolicy.networking.k8s.io/minio-provisioning created
+poddisruptionbudget.policy/minio-console created
+poddisruptionbudget.policy/minio created
+serviceaccount/minio created
+secret/minio created
+configmap/minio-provisioning created
+persistentvolumeclaim/minio created
+service/minio-console created
+service/minio created
+deployment.apps/minio created
+deployment.apps/minio-console created

@@ -1,0 +1,154 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HookRouteRehearsalReceipt
+metadata:
+  name: bitnami-minio-provisioning-hook-route-rehearsal
+spec:
+  chart: bitnami/minio
+  version: 17.0.21
+  candidateRoute: ../../bitnami-minio.yaml
+  pattern: values-conditional provisioning Job
+  observedAt: "2026-06-11T05:43:59Z"
+  result: blocked
+  disposition: route-shape-rendered-live-runtime-blocked
+  renderer:
+    name: helm
+    version: v4.1.4+g05fa379
+  target:
+    kind: kind
+    cluster: helm-expt-hook-minio
+    kubernetesContext: kind-helm-expt-hook-minio
+    namespace: minio
+  commands:
+    defaultNoHooksRender:
+      - helm
+      - template
+      - minio
+      - bitnami/minio
+      - --version
+      - 17.0.21
+      - --namespace
+      - minio
+      - --include-crds
+      - --skip-tests
+      - --no-hooks
+    provisioningNoHooksRender:
+      - helm
+      - template
+      - minio
+      - bitnami/minio
+      - --version
+      - 17.0.21
+      - --namespace
+      - minio
+      - --include-crds
+      - --skip-tests
+      - --no-hooks
+      - --set
+      - provisioning.enabled=true
+      - --set
+      - provisioning.cleanupAfterFinished.enabled=true
+      - --set
+      - provisioning.cleanupAfterFinished.seconds=60
+      - --set
+      - provisioning.buckets[0].name=helm-expt-provisioning-check
+    provisioningWithHooksRender:
+      - helm
+      - template
+      - minio
+      - bitnami/minio
+      - --version
+      - 17.0.21
+      - --namespace
+      - minio
+      - --include-crds
+      - --skip-tests
+      - --set
+      - provisioning.enabled=true
+      - --set
+      - provisioning.cleanupAfterFinished.enabled=true
+      - --set
+      - provisioning.cleanupAfterFinished.seconds=60
+      - --set
+      - provisioning.buckets[0].name=helm-expt-provisioning-check
+  renderEvidence:
+    defaultNoHooks:
+      path: default-rendered-no-hooks.sanitized.yaml
+      sanitizedSHA256: 8fc233eb5de001c820c4574b9dc4d35f85da03ba6504d1b3c94ced46b2683d19
+      rawRenderSHA256: 645a36eccee31de84641ac6af439b7fe44d815a7c0161f018d441c037c4e5e49
+      objectCount: 11
+      hookObjectCount: 0
+    provisioningNoHooks:
+      path: provisioning-rendered-no-hooks.sanitized.yaml
+      sanitizedSHA256: a066919e3e19b7f616699a37295e1fe468c937bf96d31c73ed8dcec46071892e
+      rawRenderSHA256: bf0c63defc58a2be5bf520df58631b83b2998784854f2531a6d99b419eca0323
+      objectCount: 13
+      hookObjectCount: 0
+    provisioningWithHooks:
+      path: provisioning-rendered-with-hooks.sanitized.yaml
+      sanitizedSHA256: c759128588df29bb82241797579266b644977a9352b672dd08021a984b9c6233
+      rawRenderSHA256: b56bfb6d00734c5bd110842dcdd675d42ed984d1d0130079156f5421e7ae2bbe
+      objectCount: 14
+      hookObjectCount: 1
+      hook:
+        kind: Job
+        name: minio-provisioning
+        phases: [post-install, post-upgrade]
+        deletePolicy: before-hook-creation
+        ttlSecondsAfterFinished: 60
+      extractedHookPath: hook-job.yaml
+      extractedHookSHA256: 8dff5af9243bbfbb668d1a45d0c01916e4388da9d0a2409f5289ddf7122c5177
+  liveEvidence:
+    desiredApply:
+      status: pass
+      path: kubectl-apply-desired.txt
+      appliedObjectCount: 13
+    rollout:
+      status: blocked
+      reason: image-pull-not-found
+      paths:
+        - minio-rollout.txt
+        - minio-console-rollout.txt
+        - kubectl-observe-blocker.txt
+      images:
+        - docker.io/bitnami/minio:2025.7.23-debian-12-r3
+        - docker.io/bitnami/minio-object-browser:2.0.2-debian-12-r3
+      observedStatuses:
+        - ImagePullBackOff
+        - ErrImagePull
+      message: Pinned chart image tags did not resolve from Docker Hub in the live kind run.
+    managedAction:
+      status: not-run
+      reason: Desired MinIO workloads did not become available, so the post-install provisioning Job could not be executed as a meaningful managed action.
+  evidenceFiles:
+    - path: kind-create.txt
+      sha256: 62e5c34bcf787571b039c3810c0164b15d202a08becfe6a37b3fbc17d2de4b5c
+    - path: default-rendered-no-hooks.sanitized.yaml
+      sha256: 8fc233eb5de001c820c4574b9dc4d35f85da03ba6504d1b3c94ced46b2683d19
+    - path: provisioning-rendered-no-hooks.sanitized.yaml
+      sha256: a066919e3e19b7f616699a37295e1fe468c937bf96d31c73ed8dcec46071892e
+    - path: provisioning-rendered-with-hooks.sanitized.yaml
+      sha256: c759128588df29bb82241797579266b644977a9352b672dd08021a984b9c6233
+    - path: namespace-create.txt
+      sha256: fc6f4e0eeda885d16d9452eb4fe7a7b4bb7df62ae8bdbbc99e2ad08d2ebda770
+    - path: render-summary.json
+      sha256: 39e27c4f7f1286a7cfc0bf05d2b68356b8b52f1051a1e3e8b7e7bf065a7b4c85
+    - path: kubectl-apply-desired.txt
+      sha256: c8f9b0978b8f8506c5150de49b3b800e16c20c392a45a821abcd4fca4872ccb3
+    - path: minio-rollout.txt
+      sha256: b58946e600f2259f0555610a0eeb025106bb147088ce4a45ab5cbfefae8f7e95
+    - path: minio-console-rollout.txt
+      sha256: 7b610689d187ee9ab710fade10a84c5a8ad4955a3dd49abfee67f38c765c980a
+    - path: kubectl-observe-blocker.txt
+      sha256: 4289e1af9cb5bca4a56fda404ceaa79b676cb0c6d3b07447c67b7df0b05f1d6b
+    - path: kind-delete.txt
+      sha256: 78b9222f32d487049c27ad3c6d66d3c1783e7a10f4b7f2e9519f493f4eb4f860
+  nextAction:
+    - Choose a supported image override or newer chart version whose MinIO and console images pull successfully.
+    - Re-run the desired-state apply and then execute the extracted minio-provisioning Job as an explicit managed post-install action.
+    - Promote to the maintained hook lifecycle queue only after the managed action has an execution or observation receipt.
+  notClaimed:
+    - runtime provisioning success
+    - production readiness
+    - maintained hook lifecycle coverage
+    - equivalence for any future image override or chart version
+    - publication of generated secret material; committed manifests are sanitized

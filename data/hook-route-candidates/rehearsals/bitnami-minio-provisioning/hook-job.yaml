@@ -1,0 +1,165 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: minio-provisioning
+  namespace: minio
+  labels:
+    app.kubernetes.io/instance: minio
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: minio
+    app.kubernetes.io/version: 2025.7.23
+    helm.sh/chart: minio-17.0.21
+    app.kubernetes.io/component: provisioning
+    app.kubernetes.io/part-of: minio
+  annotations:
+    helm.sh/hook: post-install,post-upgrade
+    helm.sh/hook-delete-policy: before-hook-creation
+spec:
+  ttlSecondsAfterFinished: 60
+  parallelism: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/version: 2025.7.23
+        helm.sh/chart: minio-17.0.21
+        app.kubernetes.io/component: provisioning
+        app.kubernetes.io/part-of: minio
+    spec:
+      restartPolicy: OnFailure
+      terminationGracePeriodSeconds: 0
+      securityContext:
+        fsGroup: 1001
+        fsGroupChangePolicy: Always
+        supplementalGroups: []
+        sysctls: []
+      serviceAccountName: minio
+      initContainers:
+      - name: wait-for-available-minio
+        image: docker.io/bitnami/os-shell:12-debian-12-r50
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          privileged: false
+          readOnlyRootFilesystem: true
+          runAsGroup: 1001
+          runAsNonRoot: true
+          runAsUser: 1001
+          seLinuxOptions: {}
+          seccompProfile:
+            type: RuntimeDefault
+        command:
+        - /bin/bash
+        - -c
+        - "set -e;\necho \"Waiting for Minio\";\nwait-for-port \\\n  --host=minio\
+          \ \\\n  --state=inuse \\\n  --timeout=120 \\\n  9000;\necho \"Minio is available\"\
+          ;"
+        resources:
+          limits:
+            cpu: 150m
+            ephemeral-storage: 2Gi
+            memory: 192Mi
+          requests:
+            cpu: 100m
+            ephemeral-storage: 50Mi
+            memory: 128Mi
+      containers:
+      - name: minio
+        image: docker.io/bitnami/minio:2025.7.23-debian-12-r3
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          privileged: false
+          readOnlyRootFilesystem: true
+          runAsGroup: 1001
+          runAsNonRoot: true
+          runAsUser: 1001
+          seLinuxOptions: {}
+          seccompProfile:
+            type: RuntimeDefault
+        command:
+        - /bin/bash
+        - -c
+        - "set -e;\necho \"Start Minio provisioning\";\n\nretry_while() {\n  local\
+          \ -r cmd=\"${1:?cmd is missing}\"\n  local -r retries=\"${2:-12}\"\n  local\
+          \ -r sleep_time=\"${3:-5}\"\n  local return_value=1\n\n  read -r -a command\
+          \ <<< \"$cmd\"\n  for ((i = 1 ; i <= retries ; i+=1 )); do\n      \"${command[@]}\"\
+          \ && return_value=0 && break\n      sleep \"$sleep_time\"\n  done\n  return\
+          \ $return_value\n}\n\nfunction attachPolicy() {\n  local tmp=$(mc admin\
+          \ $1 info provisioning $2 | sed -n -e 's/^Policy.*: \\(.*\\)$/\\1/p');\n\
+          \  IFS=',' read -r -a CURRENT_POLICIES <<< \"$tmp\";\n  if [[ ! \"${CURRENT_POLICIES[*]}\"\
+          \ =~ \"$3\" ]]; then\n    mc admin policy attach provisioning $3 --$1=$2;\n\
+          \  fi;\n};\n\nfunction detachDanglingPolicies() {\n  local tmp=$(mc admin\
+          \ $1 info provisioning $2 | sed -n -e 's/^Policy.*: \\(.*\\)$/\\1/p');\n\
+          \  IFS=',' read -r -a CURRENT_POLICIES <<< \"$tmp\";\n  IFS=',' read -r\
+          \ -a DESIRED_POLICIES <<< \"$3\";\n  for current in \"${CURRENT_POLICIES[@]}\"\
+          ; do\n    if [[ ! \"${DESIRED_POLICIES[*]}\" =~ \"${current}\" ]]; then\n\
+          \      mc admin policy detach provisioning $current --$1=$2;\n    fi;\n\
+          \  done;\n}\n\nfunction addUsersFromFile() {\n  local username=$(grep -oP\
+          \ '^username=\\K.+' $1);\n  local password=$(grep -oP '^password=\\K.+'\
+          \ $1);\n  local disabled=$(grep -oP '^disabled=\\K.+' $1);\n  local policies_list=$(grep\
+          \ -oP '^policies=\\K.+' $1);\n  local set_policies=$(grep -oP '^setPolicies=\\\
+          K.+' $1);\n\n  mc admin user add provisioning \"${username}\" \"${password}\"\
+          ;\n\n  IFS=',' read -r -a POLICIES <<< \"${policies_list}\";\n  for policy\
+          \ in \"${POLICIES[@]}\"; do\n    attachPolicy user \"${username}\" \"${policy}\"\
+          ;\n  done;\n  if [ \"${set_policies}\" == \"true\" ]; then\n    detachDanglingPolicies\
+          \ user \"${username}\" \"${policies_list}\";\n  fi;\n\n  local user_status=\"\
+          enable\";\n  if [[ \"${disabled}\" != \"\" && \"${disabled,,}\" == \"true\"\
+          \ ]]; then\n    user_status=\"disable\";\n  fi;\n\n  mc admin user \"${user_status}\"\
+          \ provisioning \"${username}\";\n};\nmc alias set provisioning $MINIO_SCHEME://minio:9000\
+          \ $(<$MINIO_ROOT_USER_FILE) $(<$MINIO_ROOT_PASSWORD_FILE);\n\nmc admin service\
+          \ restart provisioning --wait --json;\n\n# Adding a sleep to ensure that\
+          \ the check below does not cause\n# a race condition. We check for the MinIO\
+          \ port because the\n# \"mc admin service restart --wait\" command is not\
+          \ working as expected\nsleep 5;\necho \"Waiting for Minio to be available\
+          \ after restart\";\nif ! retry_while \"mc admin info provisioning\"; then\n\
+          \    echo \"Error connecting to Minio\"\n    exit 1\nfi\necho \"Minio is\
+          \ available. Executing provisioning commands\";\nmc mb provisioning/helm-expt-provisioning-check\
+          \ --ignore-existing  ;\nmc version suspend provisioning/helm-expt-provisioning-check;\n\
+          \necho \"End Minio provisioning\";"
+        env:
+        - name: MINIO_SCHEME
+          value: http
+        - name: MINIO_ROOT_USER_FILE
+          value: /opt/bitnami/minio/secrets/root-user
+        - name: MINIO_ROOT_PASSWORD_FILE
+          value: /opt/bitnami/minio/secrets/root-password
+        envFrom: null
+        resources:
+          limits:
+            cpu: 150m
+            ephemeral-storage: 2Gi
+            memory: 192Mi
+          requests:
+            cpu: 100m
+            ephemeral-storage: 50Mi
+            memory: 128Mi
+        volumeMounts:
+        - name: empty-dir
+          mountPath: /.mc
+          subPath: app-mc-dir
+        - name: empty-dir
+          mountPath: /opt/bitnami/minio/tmp
+          subPath: app-tmp-dir
+        - name: empty-dir
+          mountPath: /tmp
+          subPath: tmp-dir
+        - name: minio-provisioning
+          mountPath: /etc/ilm
+        - name: minio-credentials
+          mountPath: /opt/bitnami/minio/secrets/
+      volumes:
+      - name: empty-dir
+        emptyDir: {}
+      - name: minio-provisioning
+        configMap:
+          name: minio-provisioning
+      - name: minio-credentials
+        secret:
+          secretName: minio

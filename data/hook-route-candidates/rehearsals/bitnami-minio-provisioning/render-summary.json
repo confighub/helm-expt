@@ -1,0 +1,28 @@
+{
+  "default-rendered-no-hooks.yaml": {
+    "sha256": "645a36eccee31de84641ac6af439b7fe44d815a7c0161f018d441c037c4e5e49",
+    "objectCount": 11,
+    "hookObjectCount": 0,
+    "hooks": []
+  },
+  "provisioning-rendered-no-hooks.yaml": {
+    "sha256": "bf0c63defc58a2be5bf520df58631b83b2998784854f2531a6d99b419eca0323",
+    "objectCount": 13,
+    "hookObjectCount": 0,
+    "hooks": []
+  },
+  "provisioning-rendered-with-hooks.yaml": {
+    "sha256": "b56bfb6d00734c5bd110842dcdd675d42ed984d1d0130079156f5421e7ae2bbe",
+    "objectCount": 14,
+    "hookObjectCount": 1,
+    "hooks": [
+      {
+        "kind": "Job",
+        "name": "minio-provisioning",
+        "hook": "post-install,post-upgrade",
+        "deletePolicy": "before-hook-creation",
+        "ttlSecondsAfterFinished": 60
+      }
+    ]
+  }
+}

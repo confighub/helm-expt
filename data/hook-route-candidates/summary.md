@@ -19,6 +19,11 @@ Per-chart plans: [kong](./kong-kong.yaml) ·
 Compact table: [candidates.csv](./candidates.csv).
 Assignable next work: [work-orders.md](./work-orders.md) ·
 [work-orders.csv](./work-orders.csv).
+Live/rehearsal evidence added so far:
+[bitnami/minio provisioning](./rehearsals/bitnami-minio-provisioning/rehearsal-receipt.yaml)
+rendered the values-conditional hook route, applied desired state to a fresh
+kind cluster, and blocked before hook execution because the pinned upstream
+image tags no longer resolved from Docker Hub.
 
 ## Why These Nine
 
@@ -67,7 +72,9 @@ closure undercounts hooks.
    the vendored Traefik lifecycle hook renders in the supported base; then
    write a maintained route receipt or a hook-inert fact for that base.
 6. **bitnami/minio** — same as kafka, reusing one shared route receipt shape
-   for the whole bitnami provisioning pattern.
+   for the whole bitnami provisioning pattern. A live rehearsal now proves the
+   render shape and desired-state apply, but blocks on stale upstream image
+   tags before the provisioning Job can run.
 7. **datadog/datadog** — split target scopes: normal targets where the GKE
    Autopilot hooks are inert, GKE Autopilot targets where the allowlist work is
    preflight, and upgrade paths where the migration Job gets a receipt.

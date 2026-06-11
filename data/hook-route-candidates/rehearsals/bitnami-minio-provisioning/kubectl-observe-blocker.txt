@@ -1,0 +1,30 @@
+NAME                                 READY   STATUS             RESTARTS   AGE
+pod/minio-7b85dd7bbf-b8hdb           0/1     ImagePullBackOff   0          90s
+pod/minio-console-7b57ccbd8c-vnkvt   0/1     ImagePullBackOff   0          90s
+
+NAME                          STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/minio   Bound    pvc-be555295-1b0f-4450-81a9-c4c864cacfa5   8Gi        RWO            standard       <unset>                 90s
+
+LAST SEEN   TYPE      REASON                  OBJECT                                MESSAGE
+86s         Normal    Scheduled               pod/minio-7b85dd7bbf-b8hdb            Successfully assigned minio/minio-7b85dd7bbf-b8hdb to helm-expt-hook-minio-control-plane
+1s          Normal    Pulling                 pod/minio-7b85dd7bbf-b8hdb            Pulling image "docker.io/bitnami/minio:2025.7.23-debian-12-r3"
+41s         Warning   Failed                  pod/minio-7b85dd7bbf-b8hdb            Failed to pull image "docker.io/bitnami/minio:2025.7.23-debian-12-r3": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/minio:2025.7.23-debian-12-r3": failed to resolve reference "docker.io/bitnami/minio:2025.7.23-debian-12-r3": docker.io/bitnami/minio:2025.7.23-debian-12-r3: not found
+41s         Warning   Failed                  pod/minio-7b85dd7bbf-b8hdb            Error: ErrImagePull
+16s         Normal    BackOff                 pod/minio-7b85dd7bbf-b8hdb            Back-off pulling image "docker.io/bitnami/minio:2025.7.23-debian-12-r3"
+16s         Warning   Failed                  pod/minio-7b85dd7bbf-b8hdb            Error: ImagePullBackOff
+90s         Normal    SuccessfulCreate        replicaset/minio-7b85dd7bbf           Created pod: minio-7b85dd7bbf-b8hdb
+90s         Normal    Scheduled               pod/minio-console-7b57ccbd8c-vnkvt    Successfully assigned minio/minio-console-7b57ccbd8c-vnkvt to helm-expt-hook-minio-control-plane
+7s          Normal    Pulling                 pod/minio-console-7b57ccbd8c-vnkvt    Pulling image "docker.io/bitnami/minio-object-browser:2.0.2-debian-12-r3"
+6s          Warning   Failed                  pod/minio-console-7b57ccbd8c-vnkvt    Failed to pull image "docker.io/bitnami/minio-object-browser:2.0.2-debian-12-r3": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/bitnami/minio-object-browser:2.0.2-debian-12-r3": failed to resolve reference "docker.io/bitnami/minio-object-browser:2.0.2-debian-12-r3": docker.io/bitnami/minio-object-browser:2.0.2-debian-12-r3: not found
+6s          Warning   Failed                  pod/minio-console-7b57ccbd8c-vnkvt    Error: ErrImagePull
+22s         Normal    BackOff                 pod/minio-console-7b57ccbd8c-vnkvt    Back-off pulling image "docker.io/bitnami/minio-object-browser:2.0.2-debian-12-r3"
+22s         Warning   Failed                  pod/minio-console-7b57ccbd8c-vnkvt    Error: ImagePullBackOff
+90s         Normal    SuccessfulCreate        replicaset/minio-console-7b57ccbd8c   Created pod: minio-console-7b57ccbd8c-vnkvt
+90s         Normal    NoPods                  poddisruptionbudget/minio-console     No matching pods found
+90s         Normal    ScalingReplicaSet       deployment/minio-console              Scaled up replica set minio-console-7b57ccbd8c from 0 to 1
+90s         Normal    NoPods                  poddisruptionbudget/minio             No matching pods found
+90s         Normal    WaitForFirstConsumer    persistentvolumeclaim/minio           waiting for first consumer to be created before binding
+90s         Normal    ScalingReplicaSet       deployment/minio                      Scaled up replica set minio-7b85dd7bbf from 0 to 1
+89s         Normal    ExternalProvisioning    persistentvolumeclaim/minio           Waiting for a volume to be created either by the external provisioner 'rancher.io/local-path' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+90s         Normal    Provisioning            persistentvolumeclaim/minio           External provisioner is provisioning volume for claim "minio/minio"
+87s         Normal    ProvisioningSucceeded   persistentvolumeclaim/minio           Successfully provisioned volume pvc-be555295-1b0f-4450-81a9-c4c864cacfa5
