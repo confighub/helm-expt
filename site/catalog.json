@@ -437,8 +437,8 @@
     {
       "section": "proof lanes",
       "metric": "explicit lifecycle observation rows",
-      "value": "4",
-      "total": "4",
+      "value": "10",
+      "total": "10",
       "status": "good",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows where CRD, webhook, controller-owned field, or post-apply API readiness was proven through an explicit lifecycle receipt rather than a plain bulk apply."

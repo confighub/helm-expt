@@ -41,6 +41,7 @@ function buildReport() {
   const hookRows = parseCsvFile("data/hook-lifecycle/maintained-hook-queue.csv");
   const hookReceiptRows = parseCsvFile("data/hook-lifecycle/receipt-index.csv");
   const lifecycleObservationRows = parseCsvFile("data/lifecycle-observations/cert-manager-eso/summary.csv");
+  const webhookCertLifecycleRows = parseCsvFile("data/webhook-cert-lifecycle/evidence.csv");
   const liveParityRows = parseCsvFile("data/live-helm-confighub-compare/summary.csv");
   const kindParityRows = parseCsvFile("data/live-kind-parity/summary.csv");
 
@@ -50,7 +51,8 @@ function buildReport() {
   const hookReceiptByChart = new Map(hookReceiptRows.map((row) => [`${row.chart}@${row.version}`, row]));
   const lanesByChart = group(laneRows, (row) => `${row.chart}@${row.version}`);
   const kindParityByBase = new Map(kindParityRows.map((row) => [`${row.chart}@${row.version}|${row.base}`, row]));
-  const lifecycleByBase = new Map(lifecycleObservationRows.map((row) => [`${row.chart}@${row.version}|${row.base}`, row]));
+  const lifecycleRows = normalizedLifecycleRows(lifecycleObservationRows, webhookCertLifecycleRows);
+  const lifecycleByBase = new Map(lifecycleRows.map((row) => [`${row.chart}|${row.base}`, row]));
 
   const chartRows = modelRows
     .map((model) => {
@@ -103,7 +105,7 @@ function buildReport() {
       local_live: row.local_kind_kubectl_apply,
       lifecycle_observation: lifecycle?.result ?? "missing",
       lifecycle_receipt: lifecycle?.receipt ?? "",
-      lifecycle_policy: lifecycle ? `${lifecycle.crd_policy};${lifecycle.hook_policy}` : "",
+      lifecycle_policy: lifecycle ? `${lifecycle.source};${lifecycle.policy}` : "",
       gitops_oci_live: row.confighub_oci_argo_live,
       live_helm_vs_confighub_parity: row.live_helm_vs_confighub_dual_compare,
       two_cluster_kind_parity: kindParity?.result ?? "missing",
@@ -150,8 +152,8 @@ function buildReport() {
     hookLifecyclePartiallyObserved: count(hookReceiptRows, (row) => row.receipt_status === "partially-observed"),
     hookRoutesAwaitingObservation: count(hookReceiptRows, (row) => row.receipt_status === "route-selected"),
     hookRowsStillNeedingRoute: count(hookReceiptRows, (row) => row.receipt_status === "not-yet-written"),
-    relatedLifecycleObservationPass: count(lifecycleObservationRows, (row) => row.result === "pass"),
-    relatedLifecycleObservationRows: lifecycleObservationRows.length,
+    relatedLifecycleObservationPass: count(lifecycleRows, (row) => row.result === "pass"),
+    relatedLifecycleObservationRows: lifecycleRows.length,
     liveParityRows: liveParityRows.length,
     liveParitySelectedPass: count(liveParityRows, (row) => row.result === "pass"),
     liveParitySelectedWatch: count(liveParityRows, (row) => row.result === "watch"),
@@ -421,6 +423,27 @@ function outcomeLevel(row, lifecycle) {
   ];
   const found = order.find(([, value]) => value === "pass");
   return found?.[0] ?? "not-proven";
+}
+
+function normalizedLifecycleRows(controllerRows, webhookRows) {
+  return [
+    ...controllerRows.map((row) => ({
+      chart: `${row.chart}@${row.version}`,
+      base: row.base,
+      result: row.result,
+      receipt: row.receipt,
+      policy: `${row.crd_policy};${row.hook_policy}`,
+      source: "controller-lifecycle-observation",
+    })),
+    ...webhookRows.map((row) => ({
+      chart: row.chart,
+      base: row.base,
+      result: row.result,
+      receipt: row.staging_receipt,
+      policy: `${row.route};staged-crds=${row.staged_crd_count || "0"}`,
+      source: "webhook-cert-lifecycle",
+    })),
+  ].sort((a, b) => `${a.chart}|${a.base}|${a.source}`.localeCompare(`${b.chart}|${b.base}|${b.source}`));
 }
 
 function featureSummary(facts) {

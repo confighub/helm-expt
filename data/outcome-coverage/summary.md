@@ -18,7 +18,7 @@ GitOps/OCI live pass rows:           23/189
 GitOps/OCI non-pass receipts:        6
 live Helm-vs-ConfigHub pass rows:    20/189
 live Helm-vs-ConfigHub non-pass receipts: 2
-lifecycle observation rows:          4/4
+lifecycle observation rows:          10/10
 selected live parity receipts:       20 pass, 0 watch, 0 blocked
 two-cluster kind parity receipts:    54 pass, 3 watch, 2 blocked
 derived intended-state pass rows:    10
@@ -30,7 +30,7 @@ hook lifecycle observations present: 5/5
 hook partial lifecycle observations: 0/5
 hook routes awaiting observation:    0/5
 hook rows still needing route:       0/5
-related lifecycle observations:      4/4
+related lifecycle observations:      10/10
 ```
 
 ## Outcome Promises And Proving Tests
@@ -74,11 +74,11 @@ related lifecycle observations:      4/4
 | `grafana/tempo@1.24.4` | local-persistent;s3-query-observability | yes | 1/2 | 1/2 | 0/2 | 1/2 | 1/2 | 2/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
 | `hashicorp/consul@2.0.0` | default-control-plane;secure-mesh-existing-secrets | yes | 1/2 | 1/2 | 0/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `hashicorp/vault@0.32.0` | dev-mode;default;ha-raft-ui | yes | 1/3 | 2/3 | 0/3 | 1/3 | 1/3 | 3/3 | - |
-| `ingress-nginx/ingress-nginx@4.15.1` | default;admission-disabled;internal-clusterip | yes | 1/3 | 3/3 | 0/3 | 1/3 | 1/3 | 3/3 | - |
+| `ingress-nginx/ingress-nginx@4.15.1` | default;admission-disabled;internal-clusterip | yes | 1/3 | 3/3 | 1/3 | 1/3 | 1/3 | 3/3 | - |
 | `jetstack/cert-manager@v1.20.2` | default;crds-enabled | no | 1/2 | 2/2 | 2/2 | 1/2 | 1/2 | 1/2 | - |
 | `longhorn/longhorn@1.11.2` | default;ui-ingress | yes | 1/2 | 2/2 | 0/2 | 1/2 | 1/2 | 2/2 | - |
 | `metrics-server/metrics-server@3.13.0` | default;external-tls-ca | yes | 1/2 | 2/2 | 0/2 | 1/2 | 1/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | default;no-crds | yes | 1/2 | 2/2 | 0/2 | 1/2 | 1/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | default;no-crds | yes | 1/2 | 2/2 | 1/2 | 1/2 | 1/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
 | `prometheus-community/prometheus@29.8.0` | default;server-only-ephemeral | yes | 1/2 | 2/2 | 0/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default;sync-secret-rotation | yes | 1/2 | 2/2 | 0/2 | 1/2 | 1/2 | 2/2 | - |
 
