@@ -4045,7 +4045,7 @@
       "target_facts": "required Secret nginx/nginx-backend-tls keys tls.crt,tls.key,ca.crt; required Secret nginx/nginx-ingress-tls keys tls.crt,tls.key",
       "render_parity": "pass",
       "in_confighub": "missing",
-      "local_live": "missing",
+      "local_live": "fail",
       "gitops_oci_live": "missing",
       "live_helm_vs_confighub_parity": "missing",
       "two_cluster_kind_parity": "pass",

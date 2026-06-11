@@ -24,8 +24,8 @@ ConfigHub variant, or an upgrade/customization path.
 ## Rows By Live Status
 
 - blocked: 35
-- fail: 21
-- missing: 42
+- fail: 24
+- missing: 39
 - not-attempted: 10
 - not-tested: 4
 - not-tested-by-diff: 2
