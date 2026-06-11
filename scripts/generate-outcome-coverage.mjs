@@ -50,6 +50,7 @@ function buildReport() {
   const hookReceiptByChart = new Map(hookReceiptRows.map((row) => [`${row.chart}@${row.version}`, row]));
   const lanesByChart = group(laneRows, (row) => `${row.chart}@${row.version}`);
   const kindParityByBase = new Map(kindParityRows.map((row) => [`${row.chart}@${row.version}|${row.base}`, row]));
+  const lifecycleByBase = new Map(lifecycleObservationRows.map((row) => [`${row.chart}@${row.version}|${row.base}`, row]));
 
   const chartRows = modelRows
     .map((model) => {
@@ -79,6 +80,7 @@ function buildReport() {
           const result = kindParityByBase.get(`${row.chart}@${row.version}|${row.variant}`)?.result;
           return ["fail", "watch", "blocked"].includes(result);
         }),
+        lifecycle_observation_pass: count(rows, (row) => lifecycleByBase.get(`${row.chart}@${row.version}|${row.variant}`)?.result === "pass"),
         supported_variants: production.supported_variants || rows.map((row) => row.variant).join(";"),
         hook_route_status: hookReceiptByChart.get(chart)?.receipt_status ?? "",
         feature_summary: featureSummary(facts),
@@ -91,13 +93,17 @@ function buildReport() {
 
   const baseRows = laneRows.map((row) => {
     const kindParity = kindParityByBase.get(`${row.chart}@${row.version}|${row.variant}`);
+    const lifecycle = lifecycleByBase.get(`${row.chart}@${row.version}|${row.variant}`);
     return {
       chart: `${row.chart}@${row.version}`,
       base: row.variant,
-      outcome_level: outcomeLevel(row),
+      outcome_level: outcomeLevel(row, lifecycle),
       render_parity: row.helm_template_vs_installer_setup,
       in_confighub: row.confighub_upload_variant_scan_safe_ops,
       local_live: row.local_kind_kubectl_apply,
+      lifecycle_observation: lifecycle?.result ?? "missing",
+      lifecycle_receipt: lifecycle?.receipt ?? "",
+      lifecycle_policy: lifecycle ? `${lifecycle.crd_policy};${lifecycle.hook_policy}` : "",
       gitops_oci_live: row.confighub_oci_argo_live,
       live_helm_vs_confighub_parity: row.live_helm_vs_confighub_dual_compare,
       two_cluster_kind_parity: kindParity?.result ?? "missing",
@@ -107,7 +113,11 @@ function buildReport() {
       recipe_path: row.recipe_path,
       package_path: row.package_path,
       variant_revision: row.variant_revision,
-      evidence_notes: [row.lane_notes, kindParity ? kindParity.receipt : "no two-cluster kind parity receipt in this repo"].filter(Boolean).join(" | "),
+      evidence_notes: [
+        row.lane_notes,
+        lifecycle ? `lifecycle observation: ${lifecycle.receipt}` : "",
+        kindParity ? kindParity.receipt : "no two-cluster kind parity receipt in this repo",
+      ].filter(Boolean).join(" | "),
     };
   });
 
@@ -129,6 +139,8 @@ function buildReport() {
     gitopsLiveNonPass: count(baseRows, (row) => ["fail", "watch", "blocked"].includes(row.gitops_oci_live)),
     liveParityPass: count(baseRows, (row) => row.live_helm_vs_confighub_parity === "pass"),
     liveParityNonPass: count(baseRows, (row) => ["fail", "watch", "blocked"].includes(row.live_helm_vs_confighub_parity)),
+    lifecycleObservationPass: count(baseRows, (row) => row.lifecycle_observation === "pass"),
+    lifecycleObservationRows: count(baseRows, (row) => row.lifecycle_observation !== "missing"),
     derivedIntendedPass: count(derivedRows, (row) => row.intended_state === "pass"),
     derivedTargetPass: count(derivedRows, (row) => row.target_bound_live === "pass"),
     derivedTargetBlocked: count(derivedRows, (row) => row.target_bound_live === "blocked"),
@@ -336,6 +348,7 @@ GitOps/OCI live pass rows:           ${aggregate.gitopsLivePass}/${aggregate.bas
 GitOps/OCI non-pass receipts:        ${aggregate.gitopsLiveNonPass}
 live Helm-vs-ConfigHub pass rows:    ${aggregate.liveParityPass}/${aggregate.baseRows}
 live Helm-vs-ConfigHub non-pass receipts: ${aggregate.liveParityNonPass}
+lifecycle observation rows:          ${aggregate.lifecycleObservationPass}/${aggregate.lifecycleObservationRows}
 selected live parity receipts:       ${aggregate.liveParitySelectedPass} pass, ${aggregate.liveParitySelectedWatch} watch, ${aggregate.liveParitySelectedBlocked} blocked
 two-cluster kind parity receipts:    ${aggregate.kindParityPass} pass, ${aggregate.kindParityWatch} watch, ${aggregate.kindParityBlocked} blocked
 derived intended-state pass rows:    ${aggregate.derivedIntendedPass}
@@ -358,6 +371,7 @@ related lifecycle observations:      ${aggregate.relatedLifecycleObservationPass
 | A base variant renders the same object set as Helm under recorded inputs. | \`render_parity\` in [base-outcomes.csv](./base-outcomes.csv) | \`npm run outcomes:verify\` |
 | The rendered objects can be uploaded and operated in ConfigHub. | \`confighub_upload_variant_scan_safe_ops\` lane | \`npm run top20:verify-confighub-proof\` |
 | The rendered objects work in Kubernetes for tested rows. | \`local_kind_kubectl_apply\` lane | \`npm run top20:verify-local-e2e\` |
+| A chart with CRDs, webhooks, or controller-owned fields works after explicit lifecycle prerequisites are staged. | \`lifecycle_observation\` in [base-outcomes.csv](./base-outcomes.csv) | \`npm run lifecycle:cert-manager-eso:verify\` |
 | ConfigHub OCI can be reconciled by GitOps for tested rows. | \`confighub_oci_argo_live\` lane | \`npm run runtime-gitops:wave:verify\` |
 | Plain Helm and ConfigHub delivery reach equivalent live outcomes for tested rows. | \`live_helm_vs_confighub_dual_compare\`, two-cluster parity receipts | \`npm run live-parity:verify && npm run kind-parity:verify\` |
 | Derived ConfigHub variants preserve reviewed bases and expose post-render changes. | derived variant execution and target-bound receipts | \`npm run derived-variants:verify && npm run derived-variants:target-bound:verify\` |
@@ -369,17 +383,17 @@ related lifecycle observations:      ${aggregate.relatedLifecycleObservationPass
 | File | What it shows |
 | --- | --- |
 | \`chart-outcomes.csv\` | One row per chart: model support, production readiness, variant count, lane counts, feature summary, hard gaps. |
-| \`base-outcomes.csv\` | One row per chart/base variant: render parity, in-ConfigHub proof, local live, GitOps/OCI live, live parity, and two-cluster kind parity. |
+| \`base-outcomes.csv\` | One row per chart/base variant: render parity, in-ConfigHub proof, local live, lifecycle observation, GitOps/OCI live, live parity, and two-cluster kind parity. |
 | \`derived-variant-outcomes.csv\` | One row per executed derived ConfigHub variant: intended-state proof and target-bound live status. |
 | \`feature-outcomes.csv\` | One row per chart/feature: hooks, generated secrets, CRDs, webhooks, required values, schemas, extension slots, gaps. |
 
 ## Catalog-Supported Chart Snapshot
 
-| Chart | Variants | Model | In-ConfigHub | Local live | GitOps live | Live parity | Two-cluster parity | Hard gap |
-| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
+| Chart | Variants | Model | In-ConfigHub | Local live | Lifecycle | GitOps live | Live parity | Two-cluster parity | Hard gap |
+| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |
 ${selected
   .map((row) =>
-    `| \`${row.chart}\` | ${row.supported_variants || row.variant_count} | ${row.model_supported_level2} | ${row.in_confighub_pass}/${row.base_rows} | ${row.local_live_pass}/${row.base_rows} | ${row.gitops_live_pass}/${row.base_rows} | ${row.live_parity_pass}/${row.base_rows} | ${row.two_cluster_kind_parity_pass}/${row.base_rows} | ${escapePipes(shortGap(row.hard_gap))} |`
+    `| \`${row.chart}\` | ${row.supported_variants || row.variant_count} | ${row.model_supported_level2} | ${row.in_confighub_pass}/${row.base_rows} | ${row.local_live_pass}/${row.base_rows} | ${row.lifecycle_observation_pass}/${row.base_rows} | ${row.gitops_live_pass}/${row.base_rows} | ${row.live_parity_pass}/${row.base_rows} | ${row.two_cluster_kind_parity_pass}/${row.base_rows} | ${escapePipes(shortGap(row.hard_gap))} |`
   )
   .join("\n")}
 
@@ -396,11 +410,12 @@ or production-ready.
 `;
 }
 
-function outcomeLevel(row) {
+function outcomeLevel(row, lifecycle) {
   const order = [
     ["live-parity", row.live_helm_vs_confighub_dual_compare],
     ["gitops-live", row.confighub_oci_argo_live],
     ["local-live", row.local_kind_kubectl_apply],
+    ["lifecycle-observed", lifecycle?.result],
     ["in-confighub", row.confighub_upload_variant_scan_safe_ops],
     ["render-parity", row.helm_template_vs_installer_setup],
   ];
