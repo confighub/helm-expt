@@ -11,23 +11,19 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-codex-kps861"
-    context: "kind-claude-helm-expt-codex-kps861"
+    name: "claude-helm-expt-codex-cert-kps861"
+    context: "kind-claude-helm-expt-codex-cert-kps861"
     namespace: "monitoring"
-  observedAt: "2026-06-11T12:23:39.532Z"
+  observedAt: "2026-06-11T18:11:32.702Z"
   freshnessTTL: "1h"
-  result: "blocked"
-  clusterStatus: "created-by-test"
+  result: "pass"
+  clusterStatus: "existing"
   variant: "default"
   workloads: 4
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "90f1a8eae91095e2d9373edb8d9a18f204951644c8b29bad8f9e914ef77b5906"
+    sha256: "2c5d15d506528e55a97730acbaecfcce04244b99da02f15873b2c86d0f261c8b"
   checks:
-    -
-      name: "namespace-created"
-      result: "pass"
-      object: "v1|Namespace||monitoring"
     -
       name: "crds-applied-and-established"
       result: "pass"
@@ -50,8 +46,5 @@ spec:
       object: "Deployment|monitoring|kube-prometheus-stack-kube-state-metrics"
     -
       name: "workload-converged"
-      result: "blocked"
+      result: "pass"
       object: "Deployment|monitoring|kube-prometheus-stack-operator"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): kube-prometheus-stack-grafana-689f864759-zgtwn[ ready=true restarts=0; ready=true restarts=0; ready=true restarts=0;] kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-xzrqr[ ready=true restarts=0;] kube-prometheus-stack-operator-6cd9d8fb8d-hdmng[ContainerCreating ready=false restarts=0;] kube-pro"
-  blockedReasons:
-    - "deployment/kube-prometheus-stack-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (kube-prometheus-stack-grafana-689f864759-zgtwn[ ready=true restarts=0; ready=true restarts=0; ready=true restarts=0;] kube-prometheus-stack-kube-state-metrics-5)"

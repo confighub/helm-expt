@@ -1,0 +1,42 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "WebhookCertLifecycleStagingReceipt"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-86.1.0-no-crds-webhook-cert-staging"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "86.1.0"
+  base: "no-crds"
+  result: "pass"
+  observedAt: "2026-06-11T18:13:55.489Z"
+  route: "target-facts-staged-crds-and-secret"
+  stagedSecret:
+    namespace: "monitoring"
+    name: "kube-prometheus-stack-admission"
+    keys:
+      - "cert"
+      - "key"
+  generation:
+    method: "local-self-signed-certificate"
+    secretMaterialCommitted: false
+  stagedCrds:
+    source: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/rendered/release-objects.yaml"
+    count: 10
+    names:
+      - "alertmanagerconfigs.monitoring.coreos.com"
+      - "alertmanagers.monitoring.coreos.com"
+      - "podmonitors.monitoring.coreos.com"
+      - "probes.monitoring.coreos.com"
+      - "prometheusagents.monitoring.coreos.com"
+      - "prometheuses.monitoring.coreos.com"
+      - "prometheusrules.monitoring.coreos.com"
+      - "scrapeconfigs.monitoring.coreos.com"
+      - "servicemonitors.monitoring.coreos.com"
+      - "thanosrulers.monitoring.coreos.com"
+  pairedObservation:
+    receipt: "runs/next80-local-kind/prometheus-community-kube-prometheus-stack-86.1.0-no-crds/observation-receipt.yaml"
+    result: "pass"
+    target: "claude-helm-expt-codex-cert-kps861-nocrds"
+    namespace: "monitoring"
+  proofBoundary:
+    - "Proves explicit CRD and serving certificate prerequisites can make this no-CRDs base converge on this local kind target."
+    - "Does not claim production CA trust, admission policy safety, certificate rotation, long-term serving certificate management, or CRD upgrade safety."
