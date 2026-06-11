@@ -168,8 +168,11 @@ To widen or refresh the `default` support scope, the remaining work is:
 The `no-crds` base is a separate support decision. It now has both sides of the
 prerequisite story: one receipt blocks when required CRDs are absent, and one
 strict ConfigHub OCI/Argo receipt passes when compatible Prometheus Operator
-CRDs and the admission Secret are staged. Production support for that base
-still needs a target-scoped decision for the chosen target.
+CRDs and the admission Secret are staged. The target-scoped support evidence is
+recorded in
+[fresh-target-evidence-no-crds-2026-06-11.yaml](../../data/production-support-decisions/prometheus-community-kube-prometheus-stack/fresh-target-evidence-no-crds-2026-06-11.yaml).
+Production support for that base still needs a target-scoped decision for the
+chosen target.
 
 ## Why This Matters
 

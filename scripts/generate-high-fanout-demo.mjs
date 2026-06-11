@@ -45,6 +45,10 @@ function buildReport() {
   const runtimeRows = parseCsv(readFileSync(join(repoRoot, "data", "runtime-gitops", "receipt-index.csv"), "utf8"));
   const productionRows = parseCsv(readFileSync(join(repoRoot, "data", "production-disposition", "top20.csv"), "utf8"));
   const supportDecisionRows = parseCsv(readFileSync(join(repoRoot, "data", "production-support-decisions", "decisions.csv"), "utf8"));
+  const noCrdsSupportEvidencePath = "data/production-support-decisions/prometheus-community-kube-prometheus-stack/fresh-target-evidence-no-crds-2026-06-11.yaml";
+  const noCrdsSupportEvidence = existsSync(join(repoRoot, noCrdsSupportEvidencePath))
+    ? readYaml(join(repoRoot, noCrdsSupportEvidencePath))
+    : null;
   const productionRow = productionRows.find((item) => item.chart === chart && item.version === version);
   const supportDecision = supportDecisionRows.find((item) => item.chart === chart && item.version === version && item.supported_base === "default");
   const productionDispositionStatus = productionRow?.production_support ?? "missing";
@@ -52,6 +56,12 @@ function buildReport() {
     ? "supported-for-declared-target-scope"
     : productionDispositionStatus;
   const defaultProductionNextAction = supportDecision?.next_action ?? productionRow?.next_action ?? "missing";
+  const noCrdsProductionStatus = noCrdsSupportEvidence?.spec?.result === "pass"
+    ? "support-evidence-present"
+    : "separate-support-decision-needed";
+  const noCrdsProductionNextAction = noCrdsSupportEvidence?.spec?.result === "pass"
+    ? "decide whether the recorded staged-CRD and admission-Secret target scope should become a supported no-crds scope"
+    : "record a target-scoped production support evidence receipt that reuses the proven staged-CRD and admission-Secret OCI path";
   const confighubProof = productionRow?.confighub_proof ?? "missing";
   const valueSourceMap = readYaml(join(basePath, "value-source-map.yaml"));
 
@@ -95,10 +105,10 @@ function buildReport() {
       two_cluster_kind_parity: statusFor(kindRows, chart, version, "no-crds"),
       strict_live_configHub_argo: outcomeStatus(outcomeRows, chart, version, "no-crds", "gitops_oci_live", "not-selected"),
       runtime_gitops_wave: statusFor(runtimeRows, chart, version, "no-crds"),
-      production_status: "separate-support-decision-needed",
-      next_hard_work: "record a target-scoped production support decision that reuses the proven staged-CRD and admission-Secret OCI path",
+      production_status: noCrdsProductionStatus,
+      next_hard_work: noCrdsProductionNextAction,
       lesson: "Use this base only when CRDs and separated secrets are supplied by the target environment.",
-      evidence: "runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml",
+      evidence: noCrdsSupportEvidencePath,
     }),
     row({
       chart,
@@ -126,7 +136,7 @@ function buildReport() {
 
   return {
     csv: toCsv(rows),
-    summary: summary({ chart, version, rows, removedObjects, runtimeReceipt, valueSourceMap }),
+    summary: summary({ chart, version, rows, removedObjects, runtimeReceipt, valueSourceMap, noCrdsSupportEvidencePath }),
     operationPreview: operationPreview({ chart, version, valueSourceMap }),
   };
 }
@@ -155,7 +165,7 @@ function row(values) {
   return values;
 }
 
-function summary({ chart, version, rows, removedObjects, runtimeReceipt, valueSourceMap }) {
+function summary({ chart, version, rows, removedObjects, runtimeReceipt, valueSourceMap, noCrdsSupportEvidencePath }) {
   const defaultRow = rows[0];
   const noCrdsRow = rows[1];
   const deltaRow = rows[2];
@@ -203,7 +213,7 @@ are staged as target facts.
 | ConfigHub proof | chart-level \`${defaultRow.confighub_proof}\` | chart-level \`${noCrdsRow.confighub_proof}\` | \`runs/kube-prometheus-stack-confighub-proof/latest/\`. |
 | Two-cluster kind parity | \`${defaultRow.two_cluster_kind_parity}\` | \`${noCrdsRow.two_cluster_kind_parity}\` | \`runs/live-kind-parity/prometheus-community-kube-prometheus-stack-*/receipt.yaml\`. |
 | ConfigHub OCI/GitOps | strict live \`${defaultRow.strict_live_configHub_argo}\` | strict live \`${noCrdsRow.strict_live_configHub_argo}\` with staged target facts; older runtime wave \`${noCrdsRow.runtime_gitops_wave}\` without them | \`runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml\`, \`runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml\`, and \`data/runtime-gitops/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml\`. |
-| Production support | \`${defaultRow.production_status}\` | \`${noCrdsRow.production_status}\` | \`data/production-support-decisions/prometheus-community-kube-prometheus-stack/support-decision.yaml\` and \`data/production-disposition/top20.csv\`. |
+| Production support | \`${defaultRow.production_status}\` | \`${noCrdsRow.production_status}\` | \`data/production-support-decisions/prometheus-community-kube-prometheus-stack/support-decision.yaml\`, \`${noCrdsSupportEvidencePath}\`, and \`data/production-disposition/top20.csv\`. |
 
 This is the chain-of-proof lesson. The \`no-crds\` base is not semantically
 wrong: it passes two-cluster kind parity and strict ConfigHub OCI/Argo parity
@@ -255,9 +265,12 @@ the CRDs. The other assumes the target already provides them.
 | \`${noCrdsRow.base}\` | ${noCrdsRow.next_hard_work} |
 
 For production support, the \`default\` base has a narrow target-scoped
-supported decision. Broader environments still need their own decision for CRD
-ownership, admission Secret source, webhook freshness checks, RBAC and scrape
-scope, storage posture, and the supported delivery path.
+supported decision. The \`no-crds\` base now has target-scoped support evidence
+for the staged-CRD and admission-Secret path, but it still needs a separate
+decision before it should be described as supported. Broader environments still
+need their own decision for CRD ownership, admission Secret source, webhook
+freshness checks, RBAC and scrape scope, storage posture, and the supported
+delivery path.
 
 ## Production Support Checklist
 
@@ -272,7 +285,7 @@ all targets. Production support remains target-scoped.
 | Webhook freshness | Observe webhook, operator, and caBundle readiness after apply. | Same, after CRDs are established. | \`data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml\` |
 | RBAC and scrape scope | Approve the rendered cluster RBAC and monitoring blast radius for the target. | Same RBAC family; target CRD ownership does not narrow scrape scope by itself. | \`data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/cluster-rbac-review.yaml\` |
 | Scan and image posture | Accept the scan findings for this infrastructure scope or create a hardened base. | Same, plus prerequisite evidence for external CRDs. | \`data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/scan-gate-warning-disposition.yaml\` |
-| Final live evidence | Keep target-scoped live parity, GitOps/OCI, and observation receipts fresh for the supported target. | Use the staged-prerequisite GitOps/OCI receipt as proof input, then record a target-scoped support decision for the chosen target. | \`runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml\`; \`runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml\`; \`runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml\` |
+| Final live evidence | Keep target-scoped live parity, GitOps/OCI, and observation receipts fresh for the supported target. | Use the staged-prerequisite support evidence as proof input, then record a target-scoped support decision for the chosen target. | \`runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml\`; \`runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml\`; \`runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml\`; \`${noCrdsSupportEvidencePath}\` |
 
 Use \`default\` when the catalog package should own the CRDs. Use \`no-crds\`
 only when CRDs are a target prerequisite with their own owner, version, and
@@ -289,6 +302,7 @@ the same operational contract.
 | \`recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-source-map.yaml\` | Value-to-rendered-field reachability for the Grafana admin password and CRD toggle. |
 | \`recipes/prometheus-community/kube-prometheus-stack/85.3.3/inheritance-graph.yaml\` | Desired-state graph fragment showing the base relation. |
 | \`data/production-support-decisions/prometheus-community-kube-prometheus-stack/README.md\` | Human workdown for the current target-scoped production support decision. |
+| \`${noCrdsSupportEvidencePath}\` | Target-scoped support evidence for the \`no-crds\` base with compatible CRDs and admission Secret staged. |
 | \`runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml\` | Strict live proof for regular Helm, ConfigHub apply, and ConfigHub OCI/Argo on the default base. |
 | \`runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml\` | Strict live proof for regular Helm, ConfigHub apply, and ConfigHub OCI/Argo on the no-crds base with target facts staged. |
 | \`runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml\` | Two-cluster kind parity proof for the no-crds base with target facts staged. |

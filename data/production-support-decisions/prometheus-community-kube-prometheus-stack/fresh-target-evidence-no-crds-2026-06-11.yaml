@@ -1,0 +1,156 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ProductionSupportEvidenceReceipt"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-no-crds-argo-oci-support-evidence-20260611"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  version: "85.3.3"
+  base: "no-crds"
+  observedAt: "2026-06-11T19:39:09Z"
+  result: "pass"
+  targetScope:
+    clusterClass: "cub-lk-kind-vanilla"
+    namespace: "monitoring"
+    deliveryPath: "confighub-oci"
+    gitopsController: "argo"
+    rig: "helm-expt-parity-kpsnocrds-codex-0611"
+    kubeContext: "kind-helm-expt-parity-kpsnocrds-codex-0611"
+    target: "helm-expt-parity-kpsnocrds-codex-0611-cluster/oci"
+    workloadSpace: "helm-expt-parity-kpsnocrds-codex-0611-kube-prometheus-stack"
+    app: "kube-prometheus-stack-parity"
+  package:
+    path: "packages/prometheus-community/kube-prometheus-stack/85.3.3"
+  recipe:
+    path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3"
+  oci:
+    revision: "sha256:b7eba3d6962655de9899515219fd882c9a366722a4fb5b477ea4f381f9a5eaf2"
+    controller: "Argo CD OCI"
+    sync: "Synced"
+    health: "Healthy"
+    manifestSHA256: "c035bda6ec4f1a0744a987146b81c3730f5b7cafca5742ed3043cdca2fb3bf20"
+    objectCount: 115
+  targetFacts:
+    configHubKubectlApply:
+      stagedSecrets:
+        -
+          namespace: "monitoring"
+          name: "kube-prometheus-stack-admission"
+          keys:
+            - "cert"
+            - "key"
+      stagedCRDs:
+        -
+          name: "alertmanagerconfigs.monitoring.coreos.com"
+        -
+          name: "alertmanagers.monitoring.coreos.com"
+        -
+          name: "podmonitors.monitoring.coreos.com"
+        -
+          name: "probes.monitoring.coreos.com"
+        -
+          name: "prometheusagents.monitoring.coreos.com"
+        -
+          name: "prometheuses.monitoring.coreos.com"
+        -
+          name: "prometheusrules.monitoring.coreos.com"
+        -
+          name: "scrapeconfigs.monitoring.coreos.com"
+        -
+          name: "servicemonitors.monitoring.coreos.com"
+        -
+          name: "thanosrulers.monitoring.coreos.com"
+    configHubOciArgo:
+      stagedSecrets:
+        -
+          namespace: "monitoring"
+          name: "kube-prometheus-stack-admission"
+          keys:
+            - "cert"
+            - "key"
+      stagedCRDs:
+        -
+          name: "alertmanagerconfigs.monitoring.coreos.com"
+        -
+          name: "alertmanagers.monitoring.coreos.com"
+        -
+          name: "podmonitors.monitoring.coreos.com"
+        -
+          name: "probes.monitoring.coreos.com"
+        -
+          name: "prometheusagents.monitoring.coreos.com"
+        -
+          name: "prometheuses.monitoring.coreos.com"
+        -
+          name: "prometheusrules.monitoring.coreos.com"
+        -
+          name: "scrapeconfigs.monitoring.coreos.com"
+        -
+          name: "servicemonitors.monitoring.coreos.com"
+        -
+          name: "thanosrulers.monitoring.coreos.com"
+    regularHelm:
+      stagedSecrets:
+        []
+      stagedCRDs:
+        -
+          name: "alertmanagerconfigs.monitoring.coreos.com"
+        -
+          name: "alertmanagers.monitoring.coreos.com"
+        -
+          name: "podmonitors.monitoring.coreos.com"
+        -
+          name: "probes.monitoring.coreos.com"
+        -
+          name: "prometheusagents.monitoring.coreos.com"
+        -
+          name: "prometheuses.monitoring.coreos.com"
+        -
+          name: "prometheusrules.monitoring.coreos.com"
+        -
+          name: "scrapeconfigs.monitoring.coreos.com"
+        -
+          name: "servicemonitors.monitoring.coreos.com"
+        -
+          name: "thanosrulers.monitoring.coreos.com"
+  comparison:
+    regularHelmRuntime: "pass"
+    configHubApplyRuntime: "pass"
+    configHubOciRuntime: "pass"
+    helmVsConfigHubOciArgo: "pass"
+    allowedExtraConfigHubObjects:
+      - "v1|Namespace||monitoring"
+  twoClusterCrossCheck:
+    path: "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml"
+    result: "pass"
+    semanticParity: "pass"
+    regularHelmRuntime: "pass"
+    installerRuntime: "pass"
+  source:
+    liveReceiptPath: "runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml"
+    cleanupPolicy: "cub-lk rig and ConfigHub cluster space removed after evidence capture"
+  checks:
+    -
+      name: "regular-helm-runtime"
+      result: "pass"
+      detail: "regular Helm workload runtime passed in the comparison rig"
+    -
+      name: "confighub-apply-runtime"
+      result: "pass"
+      detail: "ConfigHub rendered objects applied by kubectl reached runtime pass"
+    -
+      name: "confighub-oci-argo-runtime"
+      result: "pass"
+      detail: "Argo app kube-prometheus-stack-parity: sync=Synced health=Healthy revision=sha256:b7eba3d6962655de9899515219fd882c9a366722a4fb5b477ea4f381f9a5eaf2"
+    -
+      name: "semantic-object-parity"
+      result: "pass"
+      detail: "regular Helm and ConfigHub OCI/Argo object sets match semantically, except the recorded Namespace support object"
+  supportClaim:
+    state: "fresh-target-evidence-passed"
+    detail: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the kube-prometheus-stack no-crds base when compatible Prometheus Operator CRDs and the admission Secret were staged as target facts."
+  limits:
+    - "This supports the recorded cub-lk vanilla kind Argo OCI scope, not every Kubernetes cluster."
+    - "Future chart versions, private overlays, and stricter image or security policies need separate decisions."
+    - "Evidence freshness is 30 days for public demo/support examples unless refreshed earlier."
+    - "This is support evidence for the no-crds base, not a final production support decision."
+    - "The target must provide compatible Prometheus Operator CRDs and the monitoring/kube-prometheus-stack-admission Secret before apply."

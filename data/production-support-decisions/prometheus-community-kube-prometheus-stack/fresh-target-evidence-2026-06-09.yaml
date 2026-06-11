@@ -29,6 +29,32 @@ spec:
     health: "Healthy"
     manifestSHA256: "9a05df891f1cd2c70935b20d648e29f4f9d6e4d9f5427a7752bff3e7e3bd9245"
     objectCount: 125
+  targetFacts:
+    configHubKubectlApply:
+      stagedSecrets:
+        -
+          namespace: "monitoring"
+          name: "kube-prometheus-stack-admission"
+          keys:
+            - "cert"
+            - "key"
+      stagedCRDs:
+        []
+    configHubOciArgo:
+      stagedSecrets:
+        -
+          namespace: "monitoring"
+          name: "kube-prometheus-stack-admission"
+          keys:
+            - "cert"
+            - "key"
+      stagedCRDs:
+        []
+    regularHelm:
+      stagedSecrets:
+        []
+      stagedCRDs:
+        []
   comparison:
     regularHelmRuntime: "pass"
     configHubApplyRuntime: "pass"
