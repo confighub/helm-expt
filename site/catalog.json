@@ -456,7 +456,7 @@
       "section": "proof lanes",
       "metric": "two-cluster kind parity pass rows",
       "value": "54",
-      "total": "56",
+      "total": "58",
       "status": "partial",
       "source": "data/live-kind-parity/summary.csv",
       "note": "Regular Helm in one vanilla kind cluster, cub installer output in another, then semantic comparison."
@@ -464,8 +464,8 @@
     {
       "section": "proof lanes",
       "metric": "two-cluster semantic parity pass rows",
-      "value": "55",
-      "total": "56",
+      "value": "57",
+      "total": "58",
       "status": "good",
       "source": "data/live-kind-parity/summary.csv",
       "note": "Rows where the strict two-cluster receipt records the same Kubernetes object meaning, even when a hook or lifecycle command result still needs review."
@@ -590,8 +590,8 @@
     {
       "section": "live evidence",
       "metric": "two-cluster kind parity receipts",
-      "value": "56",
-      "total": "56",
+      "value": "58",
+      "total": "58",
       "status": "partial",
       "source": "data/live-kind-parity/summary.csv",
       "note": "Committed two-cluster parity receipts for the top-20 base variants, including pass and non-pass results."
@@ -636,7 +636,7 @@
       "section": "live evidence",
       "metric": "two-cluster semantic parity defect receipts",
       "value": "0",
-      "total": "56",
+      "total": "58",
       "status": "good",
       "source": "data/live-kind-parity/summary.csv",
       "note": "Rows whose committed two-cluster receipt currently points at a semantic object comparison defect."

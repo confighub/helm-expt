@@ -35,7 +35,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 189 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ | 328 / 4 / 6 / 796 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ | 328 / 6 / 6 / 794 |
 | Variants with the complete core lane set | 20 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -82,8 +82,8 @@ them for width.
 | `argo-cd/argocd-image-updater@1.2.2` | default | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `autoscaler/cluster-autoscaler@9.57.0` | default | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 |  | controller-default-reviewed | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-| `autoscaler/vertical-pod-autoscaler@0.9.0` | default | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-|  | no-crds | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+| `autoscaler/vertical-pod-autoscaler@0.9.0` | default | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⚠️ | render-parity | ⬜ |
+|  | no-crds | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⚠️ | render-parity | ⬜ |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | next80 | `tpl;capabilities;cluster-rbac` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `bitnami/apache@11.4.29` | default | next80 | `lookup;generated-facts;tpl;capabilities` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `bitnami/contour@21.1.4` | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |

@@ -12,11 +12,11 @@ the same live outcome as cub installer output?
 
 ```text
 pass: 54
-watch: 0
+watch: 2
 blocked: 2
-semantic parity pass: 55
+semantic parity pass: 57
 semantic parity defects: 0
-non-pass rows where semantic parity passed: 1
+non-pass rows where semantic parity passed: 3
 non-pass rows with related lifecycle evidence: 1
 ```
 
@@ -32,6 +32,7 @@ data/live-parity-rerun-plan/summary.md
 
 | Reason | Rows |
 | --- | ---: |
+| target-runtime: installer-applied workload not ready at observation cutoff (parity passed) | 2 |
 | helm-hook: post-install hook failed (parity passed) | 1 |
 | target-prerequisite: CRDs missing | 1 |
 
@@ -62,6 +63,8 @@ records the chart-specific startup API check route.
 | `argo-cd/argo-events@2.4.21` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-events-no-crds/receipt.yaml |
 | `argo-cd/argo-rollouts@2.40.9` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-rollouts-default/receipt.yaml |
 | `argo-cd/argo-rollouts@2.40.9` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-rollouts-no-crds/receipt.yaml |
+| `autoscaler/vertical-pod-autoscaler@0.9.0` | default | watch | pass | target-runtime: installer-applied workload not ready at observation cutoff (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-default/receipt.yaml |
+| `autoscaler/vertical-pod-autoscaler@0.9.0` | no-crds | watch | pass | target-runtime: installer-applied workload not ready at observation cutoff (parity passed) |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/autoscaler-vertical-pod-autoscaler-no-crds/receipt.yaml |
 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml |
 | `bitnami/mongodb@19.0.7` | generated-passwords | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml |
 | `bitnami/mysql@14.0.3` | existing-secret | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mysql-existing-secret/receipt.yaml |
