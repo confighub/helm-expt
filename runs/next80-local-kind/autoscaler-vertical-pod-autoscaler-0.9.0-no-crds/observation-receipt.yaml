@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "autoscaler-vertical-pod-autoscaler-0.9.0-no-crds-local-kind"
+spec:
+  variantRevision: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "874f8d5277136c7721ff190fc6993d2f3d4de6c990ca7828c5f5e3a08d48ccf6"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-vpa-nocrds"
+    context: "kind-claude-helm-expt-codex-vpa-nocrds"
+    namespace: "default"
+  observedAt: "2026-06-11T14:20:53.206Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "created-by-test"
+  variant: "no-crds"
+  workloads: 3
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "a52c83796174fb8a5cdbabff0f7b973d423638444a17b3e72061d08d5cdb7f2a"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "37 object(s) from recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|default|vertical-pod-autoscaler-admission-controller"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): vertical-pod-autoscaler-admission-controller-b7787b7f8-2znvd[ContainerCreating ready=false restarts=0;] vertical-pod-autoscaler-admission-controller-b7787b7f8-v9hkw[ContainerCreating ready=false restarts=0;] vertical-pod-autoscaler-recommender-65cf99b9bd-cz82l[ ready=true restarts=0;] vertical-pod-a"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|vertical-pod-autoscaler-recommender"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|vertical-pod-autoscaler-updater"
+  blockedReasons:
+    - "deployment/vertical-pod-autoscaler-admission-controller: prerequisite-blocked (stuck creating: missing mount/secret/config) (vertical-pod-autoscaler-admission-controller-b7787b7f8-2znvd[ContainerCreating ready=false restarts=0;] vertical-pod-autoscaler-admission-controller-b7787b7f8-v)"
