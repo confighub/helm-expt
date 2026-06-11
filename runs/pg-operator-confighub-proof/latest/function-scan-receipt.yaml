@@ -1,0 +1,99 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "pg-operator-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-pg-operator-confighub-proof"
+    selector: "Labels.Proof = 'pg-operator-confighub-proof'"
+  subject:
+    chart: "percona/pg-operator"
+    chartVersion: "3.0.0"
+    packagePath: "packages/percona/pg-operator/3.0.0"
+    variant: "default"
+    configHubUnitCount: 13
+  unitRevisionBindings:
+    -
+      slug: "customresourcedefinition-crunchybridgeclusters-upstream-pgv2-percona-com"
+      headRevisionNum: 2
+      dataHash: "bee0aa0d75f840a18f024db503784405d1b09e1e8d4b8129e9202c54702a4838"
+    -
+      slug: "customresourcedefinition-perconapgbackups-pgv2-percona-com"
+      headRevisionNum: 2
+      dataHash: "254a794c34ced4c9b668d11ccb949a779c11da12755e8cedc104dfca089aae27"
+    -
+      slug: "customresourcedefinition-perconapgclusters-pgv2-percona-com"
+      headRevisionNum: 2
+      dataHash: "664b5f69105dfde98a650114cb64bf73ff3dce84706580d1a2183593573e543f"
+    -
+      slug: "customresourcedefinition-perconapgrestores-pgv2-percona-com"
+      headRevisionNum: 2
+      dataHash: "a744c1195ba1a38c44d73e1c080c1b9c436f383a55547f03f697ce93b988fcfa"
+    -
+      slug: "customresourcedefinition-perconapgupgrades-pgv2-percona-com"
+      headRevisionNum: 2
+      dataHash: "446814f8c2d04930bd5d23027ad2434bf8fe30103d04d010de934f5b362b9538"
+    -
+      slug: "customresourcedefinition-pgadmins-upstream-pgv2-percona-com"
+      headRevisionNum: 2
+      dataHash: "31afc0529fb8bcaea17273f68154ac2b8b70642248366ea850828c634317f4dc"
+    -
+      slug: "customresourcedefinition-pgupgrades-upstream-pgv2-percona-com"
+      headRevisionNum: 2
+      dataHash: "d24b3327665d87f421ef0c7d495d0acc159312bdef68024784028bbed7577bf6"
+    -
+      slug: "customresourcedefinition-postgresclusters-upstream-pgv2-percona-com"
+      headRevisionNum: 2
+      dataHash: "dfd2042a070a364f9646de45c0686755f133a18f8bf1b4aff1314245e0aed1bf"
+    -
+      slug: "deployment-default-pg-operator"
+      headRevisionNum: 2
+      dataHash: "fb18431592d837ee5fa9eec4fb59512836aca997bcfdea65f5ab2cf27a855b96"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "rolebinding-default-pg-operator"
+      headRevisionNum: 2
+      dataHash: "f416905f3f70530a9509cd1603e37c9391b4d76a003757dfbf501fe45547e6ee"
+    -
+      slug: "role-default-pg-operator"
+      headRevisionNum: 2
+      dataHash: "38d0124a87226dc2a763648833a7ac522482d2ee1bdbb678ee9266832c84e6df"
+    -
+      slug: "serviceaccount-default-pg-operator"
+      headRevisionNum: 1
+      dataHash: "5e2b18759a30b960c0fe8f8e29ccdd315e96559067289262e2256c747e9b5d43"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 13
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 13
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 13
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

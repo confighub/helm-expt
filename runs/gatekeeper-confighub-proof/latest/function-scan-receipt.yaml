@@ -1,0 +1,167 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "gatekeeper-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-gatekeeper-confighub-proof"
+    selector: "Labels.Proof = 'gatekeeper-confighub-proof'"
+  subject:
+    chart: "gatekeeper/gatekeeper"
+    chartVersion: "3.22.2"
+    packagePath: "packages/gatekeeper/gatekeeper/3.22.2"
+    variant: "default"
+    configHubUnitCount: 30
+  unitRevisionBindings:
+    -
+      slug: "clusterrolebinding-gatekeeper-manager-rolebinding"
+      headRevisionNum: 2
+      dataHash: "861fed109c074e8870e9daea728880ae96f3c19ca94127d4859a8c77944c69ad"
+    -
+      slug: "clusterrole-gatekeeper-manager-role"
+      headRevisionNum: 2
+      dataHash: "30933a142adc12356650feedbb77f00dff7062373f9fb6a7bbed86466aac7911"
+    -
+      slug: "customresourcedefinition-assignimage-mutations-gatekeeper-sh"
+      headRevisionNum: 2
+      dataHash: "5800dea03c70110f1df81f23f8567423d00fb565bb1e27beb488068403a6444b"
+    -
+      slug: "customresourcedefinition-assignmetadata-mutations-gatekeeper-sh"
+      headRevisionNum: 2
+      dataHash: "6bcb20f07bfe5be597f88153086e01f94d831a9e09afd638ae2cbc850965e76d"
+    -
+      slug: "customresourcedefinition-assign-mutations-gatekeeper-sh"
+      headRevisionNum: 2
+      dataHash: "d9b53fc23c9dc92a90fa27cb2a97ee33cc33c6668b1432f3620a27aee787b864"
+    -
+      slug: "customresourcedefinition-configpodstatuses-status-gatekeeper-sh"
+      headRevisionNum: 2
+      dataHash: "12d25de29e1dafe08db3d3d1875ac722cc1eb1ea52aba2fcb754f9091578fc38"
+    -
+      slug: "customresourcedefinition-configs-config-gatekeeper-sh"
+      headRevisionNum: 2
+      dataHash: "22608a427a58b7fd7ca49dea0aafddba01e82916b23e35e26b5853113fa83e77"
+    -
+      slug: "customresourcedefinition-connectionpodstatuses-status-gatekeeper-sh"
+      headRevisionNum: 2
+      dataHash: "b0f21054dacecc501e72ea6c1532d24c754599f8e8e85e8b789bc5af708c4133"
+    -
+      slug: "customresourcedefinition-connections-connection-gatekeeper-sh"
+      headRevisionNum: 2
+      dataHash: "7c6e49d7c604d21aed4d20b734c269fe1d14e6cdd8f8648fd5262c7feeb6460f"
+    -
+      slug: "customresourcedefinition-constraintpodstatuses-status-gatekeeper-sh"
+      headRevisionNum: 2
+      dataHash: "af4ce08b5d452e788f55aee0fe9a5fcaed4fb248d8d1a3e2425a78b943aa53d0"
+    -
+      slug: "customresourcedefinition-constrainttemplatepodstatuses-status-gatekeeper-sh"
+      headRevisionNum: 2
+      dataHash: "405bff9be338db94cf3a716cb137b01062de6ce91822c5167e68bc781ccf345b"
+    -
+      slug: "customresourcedefinition-constrainttemplates-templates-gatekeeper-sh"
+      headRevisionNum: 2
+      dataHash: "943420e967eb61b6e115f1c31a6fe3222253302aec847ead873ad6a863f2e6fd"
+    -
+      slug: "customresourcedefinition-expansiontemplate-expansion-gatekeeper-sh"
+      headRevisionNum: 2
+      dataHash: "b2dff2905ec1cdf0bcfe7bb301b486e4130b4531cd08154d52170bf4ed9b0ac2"
+    -
+      slug: "customresourcedefinition-expansiontemplatepodstatuses-status-gatekeeper-sh"
+      headRevisionNum: 2
+      dataHash: "7426a15622957720ad3e69d154622356b69ac22aad8301aaeded64c8189dc3db"
+    -
+      slug: "customresourcedefinition-modifyset-mutations-gatekeeper-sh"
+      headRevisionNum: 2
+      dataHash: "1f3e94e9be3b605a7910aee0d262e850f4e4c4b691597c0712befc1e22225c9a"
+    -
+      slug: "customresourcedefinition-mutatorpodstatuses-status-gatekeeper-sh"
+      headRevisionNum: 2
+      dataHash: "6c6eaec5e551fbd82c1266f21e85bd79e7282faee3bea641aeb500e8b5c5efb1"
+    -
+      slug: "customresourcedefinition-providerpodstatuses-status-gatekeeper-sh"
+      headRevisionNum: 2
+      dataHash: "0e31c1e40fd13a977f04c2991ed5f815f14c6663c7229b94028b0c69793aec78"
+    -
+      slug: "customresourcedefinition-providers-externaldata-gatekeeper-sh"
+      headRevisionNum: 2
+      dataHash: "fa98ff542a6bca940fef6c29d7dd85ae3268f584044f1d86a7b5fcdc4ada699e"
+    -
+      slug: "customresourcedefinition-syncsets-syncset-gatekeeper-sh"
+      headRevisionNum: 2
+      dataHash: "b08b0f415ae07539e3d837142a6ce2266f62377ccbf3f0245fc99fd7dadc65d0"
+    -
+      slug: "deployment-default-gatekeeper-audit"
+      headRevisionNum: 2
+      dataHash: "274c57017ec0f52cf29c7f3f090104f209cd8b37124765930051bf0d9bd160c7"
+    -
+      slug: "deployment-default-gatekeeper-controller-manager"
+      headRevisionNum: 2
+      dataHash: "fa03981fc6072a3500993eb39009acc1c27512b8de082b9cadb9cbb8721db325"
+    -
+      slug: "mutatingwebhookconfiguration-gatekeeper-mutating-webhook-configuration"
+      headRevisionNum: 2
+      dataHash: "c434d0f50386af702857c3da4dc0d546e207c29fb426c8a960f617aa21a52d1e"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "poddisruptionbudget-default-gatekeeper-controller-manager"
+      headRevisionNum: 1
+      dataHash: "d38485a5f1625c02c8384f92eb7f1ea61987318e780acc24cbb54f0b23a1e65c"
+    -
+      slug: "resourcequota-default-gatekeeper-critical-pods"
+      headRevisionNum: 2
+      dataHash: "91a16caf20a3000d7ec4370a12024ac0d0b8feb7625ef29033567cc81beac923"
+    -
+      slug: "rolebinding-default-gatekeeper-manager-rolebinding"
+      headRevisionNum: 2
+      dataHash: "7a8aa6d559b16ad702e414ef741cfed1560036afb8dbc8c3a996e4b1bfab14de"
+    -
+      slug: "role-default-gatekeeper-manager-role"
+      headRevisionNum: 2
+      dataHash: "f5225e24875780b110953f5fbcca5055984d1b5a01396036d4744c5c2baf19b3"
+    -
+      slug: "serviceaccount-default-gatekeeper-admin"
+      headRevisionNum: 1
+      dataHash: "5481151639f4e7ca325e7483abf35fb4a1a9a8990b4ead8c64d1a477efcd268f"
+    -
+      slug: "service-default-gatekeeper-webhook-service"
+      headRevisionNum: 2
+      dataHash: "21a6bf1fd282f8f5c93387e159e193c3a8d5ecff4e2803ce941f6aeb683e7059"
+    -
+      slug: "validatingwebhookconfiguration-gatekeeper-validating-webhook-configuration"
+      headRevisionNum: 2
+      dataHash: "4107dde6480e2cef80351987659e5c634a0234655a0f045f37cb7c216099ed40"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 30
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 30
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 30
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."
