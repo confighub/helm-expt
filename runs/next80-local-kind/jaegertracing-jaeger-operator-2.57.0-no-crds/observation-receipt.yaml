@@ -1,0 +1,39 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "jaegertracing-jaeger-operator-2.57.0-no-crds-local-kind"
+spec:
+  variantRevision: "recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "14755312bc08dd5aad02a12a16f32a04e54adad141a93cb28ff42b2e49066975"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T14:38:01.674Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "existing"
+  variant: "no-crds"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "6f9dcc5a0060b2d4728edc176b90438ae480efe8e688a6e4f59bf1fffca322fc"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "blocked"
+      object: "10 object(s) from recipes/jaegertracing/jaeger-operator/2.57.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+      reason: "apply-blocked: resource mapping not found for name: \"jaeger-operator-service-cert\" namespace: \"default\" from \"STDIN\": no matches for kind \"Certificate\" in version \"cert-manager.io/v1\" ensure CRDs are installed first"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|default|jaeger-operator"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): jaeger-operator-b44465548-dqx6d[ContainerCreating ready=false restarts=0;] kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;] surveyor-c4759d87-p4692[CrashLoopBackOff ready=false restarts=39;]"
+  blockedReasons:
+    - "apply: resource mapping not found for name: \"jaeger-operator-service-cert\" namespace: \"default\" from \"STDIN\": no matches for kind \"Certificate\" in version \"cert-manager.io/v1\" ensure CRDs are installed first"
+    - "deployment/jaeger-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (jaeger-operator-b44465548-dqx6d[ContainerCreating ready=false restarts=0;] kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] rollout-oper)"

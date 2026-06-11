@@ -1,0 +1,523 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"name\":\"pg-operator\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T14:38:38Z"
+      name: "pg-operator"
+      namespace: "default"
+      resourceVersion: "24708"
+      uid: "6027f120-4a1c-4641-94fb-879aeb098803"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"pg-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"pg-operator\",\"app.kubernetes.io/version\":\"3.0.0\",\"helm.sh/chart\":\"pg-operator-3.0.0\",\"meta.helm.sh/release-name\":\"pg-operator\",\"meta.helm.sh/release-namespace\":\"default\"},\"name\":\"pg-operator\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\",\"pods\",\"secrets\",\"serviceaccounts\",\"services\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"endpoints\"],\"verbs\":[\"create\",\"delete\",\"deletecollection\",\"get\",\"list\",\"patch\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"endpoints/restricted\",\"pods/exec\",\"services\"],\"verbs\":[\"create\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"patch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"persistentvolumeclaims\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"deployments\",\"replicasets\",\"statefulsets\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"watch\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"cronjobs\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"watch\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"jobs\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"cert-manager.io\",\"certmanager.k8s.io\"],\"resources\":[\"certificaterequests\",\"certificates\",\"issuers\"],\"verbs\":[\"create\",\"delete\",\"deletecollection\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"update\",\"watch\"]},{\"apiGroups\":[\"pgv2.percona.com\"],\"resources\":[\"perconapgbackups\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"pgv2.percona.com\"],\"resources\":[\"perconapgbackups/finalizers\",\"perconapgclusters/status\",\"perconapgrestores/finalizers\",\"perconapgrestores/status\",\"perconapgupgrades/finalizers\",\"perconapgupgrades/status\"],\"verbs\":[\"patch\",\"update\"]},{\"apiGroups\":[\"pgv2.percona.com\"],\"resources\":[\"perconapgbackups/status\"],\"verbs\":[\"create\",\"patch\",\"update\"]},{\"apiGroups\":[\"pgv2.percona.com\"],\"resources\":[\"perconapgclusters\",\"perconapgupgrades\"],\"verbs\":[\"create\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"pgv2.percona.com\"],\"resources\":[\"perconapgclusters/finalizers\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"pgv2.percona.com\"],\"resources\":[\"perconapgrestores\"],\"verbs\":[\"create\",\"get\",\"list\",\"patch\",\"watch\"]},{\"apiGroups\":[\"policy\"],\"resources\":[\"poddisruptionbudgets\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"watch\"]},{\"apiGroups\":[\"postgres-operator.crunchydata.com\"],\"resources\":[\"pgupgrades\",\"postgresclusters\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"rbac.authorization.k8s.io\"],\"resources\":[\"rolebindings\",\"roles\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"watch\"]},{\"apiGroups\":[\"snapshot.storage.k8s.io\"],\"resources\":[\"volumesnapshots\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"watch\"]},{\"apiGroups\":[\"upstream.pgv2.percona.com\"],\"resources\":[\"crunchybridgeclusters\"],\"verbs\":[\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"upstream.pgv2.percona.com\"],\"resources\":[\"crunchybridgeclusters/finalizers\",\"crunchybridgeclusters/status\"],\"verbs\":[\"patch\",\"update\"]},{\"apiGroups\":[\"upstream.pgv2.percona.com\"],\"resources\":[\"pgadmins\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"upstream.pgv2.percona.com\"],\"resources\":[\"pgadmins/finalizers\",\"pgupgrades/finalizers\",\"postgresclusters/finalizers\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"upstream.pgv2.percona.com\"],\"resources\":[\"pgadmins/status\",\"pgupgrades/status\"],\"verbs\":[\"patch\"]},{\"apiGroups\":[\"upstream.pgv2.percona.com\"],\"resources\":[\"pgupgrades\",\"postgresclusters\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"upstream.pgv2.percona.com\"],\"resources\":[\"postgresclusters/status\"],\"verbs\":[\"create\",\"patch\",\"update\"]}]}\n"
+      creationTimestamp: "2026-06-11T14:38:38Z"
+      labels:
+        app.kubernetes.io/instance: "pg-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "pg-operator"
+        app.kubernetes.io/version: "3.0.0"
+        helm.sh/chart: "pg-operator-3.0.0"
+        meta.helm.sh/release-name: "pg-operator"
+        meta.helm.sh/release-namespace: "default"
+      name: "pg-operator"
+      namespace: "default"
+      resourceVersion: "24709"
+      uid: "04b088be-dc3f-41ca-8be7-a7804e23e576"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+          - "pods"
+          - "secrets"
+          - "serviceaccounts"
+          - "services"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "endpoints"
+        verbs:
+          - "create"
+          - "delete"
+          - "deletecollection"
+          - "get"
+          - "list"
+          - "patch"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "endpoints/restricted"
+          - "pods/exec"
+          - "services"
+        verbs:
+          - "create"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "patch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "persistentvolumeclaims"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "deployments"
+          - "replicasets"
+          - "statefulsets"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "watch"
+      -
+        apiGroups:
+          - "batch"
+        resources:
+          - "cronjobs"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "watch"
+      -
+        apiGroups:
+          - "batch"
+        resources:
+          - "jobs"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "cert-manager.io"
+          - "certmanager.k8s.io"
+        resources:
+          - "certificaterequests"
+          - "certificates"
+          - "issuers"
+        verbs:
+          - "create"
+          - "delete"
+          - "deletecollection"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "pgv2.percona.com"
+        resources:
+          - "perconapgbackups"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "pgv2.percona.com"
+        resources:
+          - "perconapgbackups/finalizers"
+          - "perconapgclusters/status"
+          - "perconapgrestores/finalizers"
+          - "perconapgrestores/status"
+          - "perconapgupgrades/finalizers"
+          - "perconapgupgrades/status"
+        verbs:
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "pgv2.percona.com"
+        resources:
+          - "perconapgbackups/status"
+        verbs:
+          - "create"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "pgv2.percona.com"
+        resources:
+          - "perconapgclusters"
+          - "perconapgupgrades"
+        verbs:
+          - "create"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "pgv2.percona.com"
+        resources:
+          - "perconapgclusters/finalizers"
+        verbs:
+          - "update"
+      -
+        apiGroups:
+          - "pgv2.percona.com"
+        resources:
+          - "perconapgrestores"
+        verbs:
+          - "create"
+          - "get"
+          - "list"
+          - "patch"
+          - "watch"
+      -
+        apiGroups:
+          - "policy"
+        resources:
+          - "poddisruptionbudgets"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "watch"
+      -
+        apiGroups:
+          - "postgres-operator.crunchydata.com"
+        resources:
+          - "pgupgrades"
+          - "postgresclusters"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "rbac.authorization.k8s.io"
+        resources:
+          - "rolebindings"
+          - "roles"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "watch"
+      -
+        apiGroups:
+          - "snapshot.storage.k8s.io"
+        resources:
+          - "volumesnapshots"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "watch"
+      -
+        apiGroups:
+          - "upstream.pgv2.percona.com"
+        resources:
+          - "crunchybridgeclusters"
+        verbs:
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "upstream.pgv2.percona.com"
+        resources:
+          - "crunchybridgeclusters/finalizers"
+          - "crunchybridgeclusters/status"
+        verbs:
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "upstream.pgv2.percona.com"
+        resources:
+          - "pgadmins"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "upstream.pgv2.percona.com"
+        resources:
+          - "pgadmins/finalizers"
+          - "pgupgrades/finalizers"
+          - "postgresclusters/finalizers"
+        verbs:
+          - "update"
+      -
+        apiGroups:
+          - "upstream.pgv2.percona.com"
+        resources:
+          - "pgadmins/status"
+          - "pgupgrades/status"
+        verbs:
+          - "patch"
+      -
+        apiGroups:
+          - "upstream.pgv2.percona.com"
+        resources:
+          - "pgupgrades"
+          - "postgresclusters"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "upstream.pgv2.percona.com"
+        resources:
+          - "postgresclusters/status"
+        verbs:
+          - "create"
+          - "patch"
+          - "update"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"pg-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"pg-operator\",\"app.kubernetes.io/version\":\"3.0.0\",\"helm.sh/chart\":\"pg-operator-3.0.0\",\"meta.helm.sh/release-name\":\"pg-operator\",\"meta.helm.sh/release-namespace\":\"default\"},\"name\":\"pg-operator\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"pg-operator\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"pg-operator\"}]}\n"
+      creationTimestamp: "2026-06-11T14:38:38Z"
+      labels:
+        app.kubernetes.io/instance: "pg-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "pg-operator"
+        app.kubernetes.io/version: "3.0.0"
+        helm.sh/chart: "pg-operator-3.0.0"
+        meta.helm.sh/release-name: "pg-operator"
+        meta.helm.sh/release-namespace: "default"
+      name: "pg-operator"
+      namespace: "default"
+      resourceVersion: "24710"
+      uid: "ee8934ca-9ccf-4b4a-b8b2-e2734fcd4757"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "pg-operator"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "pg-operator"
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"pg-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"pg-operator\",\"app.kubernetes.io/version\":\"3.0.0\",\"helm.sh/chart\":\"pg-operator-3.0.0\",\"meta.helm.sh/release-name\":\"pg-operator\",\"meta.helm.sh/release-namespace\":\"default\",\"pgv2.percona.com/control-plane\":\"postgres-operator\"},\"name\":\"pg-operator\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"pg-operator\",\"app.kubernetes.io/name\":\"pg-operator\",\"app.kubernetes.io/part-of\":\"pg-operator\",\"pgv2.percona.com/control-plane\":\"postgres-operator\"}},\"strategy\":{\"type\":\"Recreate\"},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"pg-operator\",\"app.kubernetes.io/name\":\"pg-operator\",\"app.kubernetes.io/part-of\":\"pg-operator\",\"pgv2.percona.com/control-plane\":\"postgres-operator\"}},\"spec\":{\"containers\":[{\"env\":[{\"name\":\"PGO_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"WATCH_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"LOG_STRUCTURED\",\"value\":\"false\"},{\"name\":\"LOG_LEVEL\",\"value\":\"INFO\"},{\"name\":\"DISABLE_TELEMETRY\",\"value\":\"false\"},{\"name\":\"PPROF_BIND_ADDRESS\",\"value\":\"0\"},{\"name\":\"PGO_CONTROLLER_LEADER_ELECTION_ENABLED\",\"value\":\"true\"},{\"name\":\"PGO_CONTROLLER_LEASE_NAME\",\"value\":\"\"},{\"name\":\"PGO_CONTROLLER_LEASE_DURATION\",\"value\":\"60s\"},{\"name\":\"PGO_CONTROLLER_RENEW_DEADLINE\",\"value\":\"40s\"},{\"name\":\"PGO_CONTROLLER_RETRY_PERIOD\",\"value\":\"10s\"},{\"name\":\"PGO_FEATURE_GATES\",\"value\":\"BackupSnapshots=false\"}],\"image\":\"docker.io/percona/percona-postgresql-operator:3.0.0\",\"imagePullPolicy\":\"Always\",\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/metrics\",\"port\":\"metrics\",\"scheme\":\"HTTP\"}},\"name\":\"operator\",\"ports\":[{\"containerPort\":8080,\"name\":\"metrics\",\"protocol\":\"TCP\"}],\"resources\":{\"limits\":{\"cpu\":\"200m\",\"memory\":\"500Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"20Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":true}}],\"serviceAccountName\":\"pg-operator\",\"terminationGracePeriodSeconds\":600}}}}\n"
+      creationTimestamp: "2026-06-11T14:38:38Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "pg-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "pg-operator"
+        app.kubernetes.io/version: "3.0.0"
+        helm.sh/chart: "pg-operator-3.0.0"
+        meta.helm.sh/release-name: "pg-operator"
+        meta.helm.sh/release-namespace: "default"
+        pgv2.percona.com/control-plane: "postgres-operator"
+      name: "pg-operator"
+      namespace: "default"
+      resourceVersion: "24771"
+      uid: "a1d277ce-7c8d-4b04-a300-ec0979e989cc"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "operator"
+          app.kubernetes.io/instance: "pg-operator"
+          app.kubernetes.io/name: "pg-operator"
+          app.kubernetes.io/part-of: "pg-operator"
+          pgv2.percona.com/control-plane: "postgres-operator"
+      strategy:
+        type: "Recreate"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/component: "operator"
+            app.kubernetes.io/instance: "pg-operator"
+            app.kubernetes.io/name: "pg-operator"
+            app.kubernetes.io/part-of: "pg-operator"
+            pgv2.percona.com/control-plane: "postgres-operator"
+        spec:
+          containers:
+            -
+              env:
+                -
+                  name: "PGO_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "WATCH_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "LOG_STRUCTURED"
+                  value: "false"
+                -
+                  name: "LOG_LEVEL"
+                  value: "INFO"
+                -
+                  name: "DISABLE_TELEMETRY"
+                  value: "false"
+                -
+                  name: "PPROF_BIND_ADDRESS"
+                  value: "0"
+                -
+                  name: "PGO_CONTROLLER_LEADER_ELECTION_ENABLED"
+                  value: "true"
+                -
+                  name: "PGO_CONTROLLER_LEASE_NAME"
+                -
+                  name: "PGO_CONTROLLER_LEASE_DURATION"
+                  value: "60s"
+                -
+                  name: "PGO_CONTROLLER_RENEW_DEADLINE"
+                  value: "40s"
+                -
+                  name: "PGO_CONTROLLER_RETRY_PERIOD"
+                  value: "10s"
+                -
+                  name: "PGO_FEATURE_GATES"
+                  value: "BackupSnapshots=false"
+              image: "docker.io/percona/percona-postgresql-operator:3.0.0"
+              imagePullPolicy: "Always"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/metrics"
+                  port: "metrics"
+                  scheme: "HTTP"
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              name: "operator"
+              ports:
+                -
+                  containerPort: 8080
+                  name: "metrics"
+                  protocol: "TCP"
+              resources:
+                limits:
+                  cpu: "200m"
+                  memory: "500Mi"
+                requests:
+                  cpu: "100m"
+                  memory: "20Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "pg-operator"
+          serviceAccountName: "pg-operator"
+          terminationGracePeriodSeconds: 600
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T14:38:51Z"
+          lastUpdateTime: "2026-06-11T14:38:51Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T14:38:38Z"
+          lastUpdateTime: "2026-06-11T14:38:51Z"
+          message: "ReplicaSet \"pg-operator-79576c68cb\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""

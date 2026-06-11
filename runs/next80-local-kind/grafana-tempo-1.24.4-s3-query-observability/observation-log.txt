@@ -1,0 +1,6 @@
+PASS namespace-created v1|Namespace||tempo
+BLOCKED rendered-objects-applied 8 object(s) from recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml :: apply-blocked: error: resource mapping not found for name: "tempo" namespace: "tempo" from "STDIN": no matches for kind "ServiceMonitor" in version "monitoring.coreos.com/v1" ensure CRDs are installed first Command 
+BLOCKED workload-converged StatefulSet|tempo|tempo :: prerequisite-blocked (stuck creating: missing mount/secret/config): tempo-0[CreateContainerConfigError ready=false restarts=0; ready=true restarts=0;]
+blocked:
+apply: error: resource mapping not found for name: "tempo" namespace: "tempo" from "STDIN": no matches for kind "ServiceMonitor" in version "monitoring.coreos.com/v1" ensure CRDs are installed first Command 
+statefulset/tempo: prerequisite-blocked (stuck creating: missing mount/secret/config) (tempo-0[CreateContainerConfigError ready=false restarts=0; ready=true restarts=0;])

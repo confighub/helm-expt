@@ -1,0 +1,919 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "policy/v1"
+    kind: "PodDisruptionBudget"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"policy/v1\",\"kind\":\"PodDisruptionBudget\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vault\",\"helm.sh/chart\":\"vault-0.32.0\"},\"name\":\"vault\",\"namespace\":\"vault\"},\"spec\":{\"maxUnavailable\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/name\":\"vault\",\"component\":\"server\"}}}}\n"
+      creationTimestamp: "2026-06-11T14:31:44Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vault"
+        helm.sh/chart: "vault-0.32.0"
+      name: "vault"
+      namespace: "vault"
+      resourceVersion: "23642"
+      uid: "40413ebe-9277-4ff6-9bee-27fad7cf1483"
+    spec:
+      maxUnavailable: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "vault"
+          app.kubernetes.io/name: "vault"
+          component: "server"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T14:31:44Z"
+          message: ""
+          observedGeneration: 1
+          reason: "InsufficientPods"
+          status: "False"
+          type: "DisruptionAllowed"
+      currentHealthy: 0
+      desiredHealthy: 2
+      disruptionsAllowed: 0
+      expectedPods: 3
+      observedGeneration: 1
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vault-agent-injector\"},\"name\":\"vault-agent-injector\",\"namespace\":\"vault\"}}\n"
+      creationTimestamp: "2026-06-11T14:31:44Z"
+      labels:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vault-agent-injector"
+      name: "vault-agent-injector"
+      namespace: "vault"
+      resourceVersion: "23591"
+      uid: "c2120e32-b866-4496-9373-04082d6f0c83"
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vault\",\"helm.sh/chart\":\"vault-0.32.0\"},\"name\":\"vault\",\"namespace\":\"vault\"}}\n"
+      creationTimestamp: "2026-06-11T14:31:44Z"
+      labels:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vault"
+        helm.sh/chart: "vault-0.32.0"
+      name: "vault"
+      namespace: "vault"
+      resourceVersion: "23593"
+      uid: "237163d6-595c-491d-8817-acd04b59a8be"
+  -
+    apiVersion: "v1"
+    data:
+      extraconfig-from-values.hcl: "ui = true\n\nlistener \"tcp\" {\n  tls_disable = 1\n  address = \"[::]:8200\"\n  cluster_address = \"[::]:8201\"\n  # Enable unauthenticated metrics access (necessary for Prometheus Operator)\n  #telemetry {\n  #  unauthenticated_metrics_access = \"true\"\n  #}\n}\n\nstorage \"raft\" {\n  path = \"/vault/data\"\n}\n\nservice_registration \"kubernetes\" {}\n\ndisable_mlock = true"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"extraconfig-from-values.hcl\":\"ui = true\\n\\nlistener \\\"tcp\\\" {\\n  tls_disable = 1\\n  address = \\\"[::]:8200\\\"\\n  cluster_address = \\\"[::]:8201\\\"\\n  # Enable unauthenticated metrics access (necessary for Prometheus Operator)\\n  #telemetry {\\n  #  unauthenticated_metrics_access = \\\"true\\\"\\n  #}\\n}\\n\\nstorage \\\"raft\\\" {\\n  path = \\\"/vault/data\\\"\\n}\\n\\nservice_registration \\\"kubernetes\\\" {}\\n\\ndisable_mlock = true\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vault\",\"helm.sh/chart\":\"vault-0.32.0\"},\"name\":\"vault-config\",\"namespace\":\"vault\"}}\n"
+      creationTimestamp: "2026-06-11T14:31:44Z"
+      labels:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vault"
+        helm.sh/chart: "vault-0.32.0"
+      name: "vault-config"
+      namespace: "vault"
+      resourceVersion: "23595"
+      uid: "420f1a32-4021-421f-a848-b3d85927e625"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vault\",\"helm.sh/chart\":\"vault-0.32.0\"},\"name\":\"vault-discovery-role\",\"namespace\":\"vault\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"pods\"],\"verbs\":[\"get\",\"watch\",\"list\",\"update\",\"patch\"]}]}\n"
+      creationTimestamp: "2026-06-11T14:31:44Z"
+      labels:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vault"
+        helm.sh/chart: "vault-0.32.0"
+      name: "vault-discovery-role"
+      namespace: "vault"
+      resourceVersion: "23598"
+      uid: "a5db8a1b-01bd-49fe-9688-ef9d506f1cb0"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+        verbs:
+          - "get"
+          - "watch"
+          - "list"
+          - "update"
+          - "patch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vault\",\"helm.sh/chart\":\"vault-0.32.0\"},\"name\":\"vault-discovery-rolebinding\",\"namespace\":\"vault\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"vault-discovery-role\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vault\",\"namespace\":\"vault\"}]}\n"
+      creationTimestamp: "2026-06-11T14:31:44Z"
+      labels:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vault"
+        helm.sh/chart: "vault-0.32.0"
+      name: "vault-discovery-rolebinding"
+      namespace: "vault"
+      resourceVersion: "23599"
+      uid: "2a5abf55-4cf7-44c0-84d9-17954c27867f"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "vault-discovery-role"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "vault"
+        namespace: "vault"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vault-agent-injector\"},\"name\":\"vault-agent-injector-svc\",\"namespace\":\"vault\"},\"spec\":{\"ports\":[{\"name\":\"https\",\"port\":443,\"targetPort\":8080}],\"selector\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/name\":\"vault-agent-injector\",\"component\":\"webhook\"}}}\n"
+      creationTimestamp: "2026-06-11T14:31:44Z"
+      labels:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vault-agent-injector"
+      name: "vault-agent-injector-svc"
+      namespace: "vault"
+      resourceVersion: "23601"
+      uid: "781401cf-7f9f-4881-afe6-cb5d3d6de95c"
+    spec:
+      clusterIP: "10.96.7.231"
+      clusterIPs:
+        - "10.96.7.231"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "https"
+          port: 443
+          protocol: "TCP"
+          targetPort: 8080
+      selector:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/name: "vault-agent-injector"
+        component: "webhook"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vault\",\"helm.sh/chart\":\"vault-0.32.0\",\"vault-active\":\"true\"},\"name\":\"vault-active\",\"namespace\":\"vault\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":8200,\"targetPort\":8200},{\"name\":\"https-internal\",\"port\":8201,\"targetPort\":8201}],\"publishNotReadyAddresses\":true,\"selector\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/name\":\"vault\",\"component\":\"server\",\"vault-active\":\"true\"}}}\n"
+      creationTimestamp: "2026-06-11T14:31:44Z"
+      labels:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vault"
+        helm.sh/chart: "vault-0.32.0"
+        vault-active: "true"
+      name: "vault-active"
+      namespace: "vault"
+      resourceVersion: "23605"
+      uid: "ad1a15f6-edd0-4fad-8e9d-99e348ca7b5e"
+    spec:
+      clusterIP: "10.96.81.143"
+      clusterIPs:
+        - "10.96.81.143"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http"
+          port: 8200
+          protocol: "TCP"
+          targetPort: 8200
+        -
+          name: "https-internal"
+          port: 8201
+          protocol: "TCP"
+          targetPort: 8201
+      publishNotReadyAddresses: true
+      selector:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/name: "vault"
+        component: "server"
+        vault-active: "true"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vault\",\"helm.sh/chart\":\"vault-0.32.0\"},\"name\":\"vault-standby\",\"namespace\":\"vault\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":8200,\"targetPort\":8200},{\"name\":\"https-internal\",\"port\":8201,\"targetPort\":8201}],\"publishNotReadyAddresses\":true,\"selector\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/name\":\"vault\",\"component\":\"server\",\"vault-active\":\"false\"}}}\n"
+      creationTimestamp: "2026-06-11T14:31:44Z"
+      labels:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vault"
+        helm.sh/chart: "vault-0.32.0"
+      name: "vault-standby"
+      namespace: "vault"
+      resourceVersion: "23609"
+      uid: "de8d663c-9f3f-49cd-801f-802c71208a45"
+    spec:
+      clusterIP: "10.96.222.216"
+      clusterIPs:
+        - "10.96.222.216"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http"
+          port: 8200
+          protocol: "TCP"
+          targetPort: 8200
+        -
+          name: "https-internal"
+          port: 8201
+          protocol: "TCP"
+          targetPort: 8201
+      publishNotReadyAddresses: true
+      selector:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/name: "vault"
+        component: "server"
+        vault-active: "false"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vault\",\"helm.sh/chart\":\"vault-0.32.0\",\"vault-internal\":\"true\"},\"name\":\"vault-internal\",\"namespace\":\"vault\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"name\":\"http\",\"port\":8200,\"targetPort\":8200},{\"name\":\"https-internal\",\"port\":8201,\"targetPort\":8201}],\"publishNotReadyAddresses\":true,\"selector\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/name\":\"vault\",\"component\":\"server\"}}}\n"
+      creationTimestamp: "2026-06-11T14:31:44Z"
+      labels:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vault"
+        helm.sh/chart: "vault-0.32.0"
+        vault-internal: "true"
+      name: "vault-internal"
+      namespace: "vault"
+      resourceVersion: "23612"
+      uid: "e5601b97-0699-4270-88b6-01f100a4fc42"
+    spec:
+      clusterIP: "None"
+      clusterIPs:
+        - "None"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http"
+          port: 8200
+          protocol: "TCP"
+          targetPort: 8200
+        -
+          name: "https-internal"
+          port: 8201
+          protocol: "TCP"
+          targetPort: 8201
+      publishNotReadyAddresses: true
+      selector:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/name: "vault"
+        component: "server"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vault\",\"helm.sh/chart\":\"vault-0.32.0\"},\"name\":\"vault\",\"namespace\":\"vault\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":8200,\"targetPort\":8200},{\"name\":\"https-internal\",\"port\":8201,\"targetPort\":8201}],\"publishNotReadyAddresses\":true,\"selector\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/name\":\"vault\",\"component\":\"server\"}}}\n"
+      creationTimestamp: "2026-06-11T14:31:44Z"
+      labels:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vault"
+        helm.sh/chart: "vault-0.32.0"
+      name: "vault"
+      namespace: "vault"
+      resourceVersion: "23616"
+      uid: "578bee99-42bd-4d76-9971-e2914438bff4"
+    spec:
+      clusterIP: "10.96.173.0"
+      clusterIPs:
+        - "10.96.173.0"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http"
+          port: 8200
+          protocol: "TCP"
+          targetPort: 8200
+        -
+          name: "https-internal"
+          port: 8201
+          protocol: "TCP"
+          targetPort: 8201
+      publishNotReadyAddresses: true
+      selector:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/name: "vault"
+        component: "server"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vault-ui\",\"helm.sh/chart\":\"vault-0.32.0\"},\"name\":\"vault-ui\",\"namespace\":\"vault\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":8200,\"targetPort\":8200}],\"publishNotReadyAddresses\":true,\"selector\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/name\":\"vault\",\"component\":\"server\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T14:31:44Z"
+      labels:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vault-ui"
+        helm.sh/chart: "vault-0.32.0"
+      name: "vault-ui"
+      namespace: "vault"
+      resourceVersion: "23620"
+      uid: "5650178e-2e2e-4935-b510-7adf42f1b78a"
+    spec:
+      clusterIP: "10.96.92.131"
+      clusterIPs:
+        - "10.96.92.131"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http"
+          port: 8200
+          protocol: "TCP"
+          targetPort: 8200
+      publishNotReadyAddresses: true
+      selector:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/name: "vault"
+        component: "server"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vault-agent-injector\",\"component\":\"webhook\"},\"name\":\"vault-agent-injector\",\"namespace\":\"vault\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/name\":\"vault-agent-injector\",\"component\":\"webhook\"}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/name\":\"vault-agent-injector\",\"component\":\"webhook\"}},\"spec\":{\"affinity\":{\"podAntiAffinity\":{\"requiredDuringSchedulingIgnoredDuringExecution\":[{\"labelSelector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/name\":\"vault-agent-injector\",\"component\":\"webhook\"}},\"topologyKey\":\"kubernetes.io/hostname\"}]}},\"containers\":[{\"args\":[\"agent-inject\",\"2\\u003e\\u00261\"],\"env\":[{\"name\":\"AGENT_INJECT_LISTEN\",\"value\":\":8080\"},{\"name\":\"AGENT_INJECT_LOG_LEVEL\",\"value\":\"info\"},{\"name\":\"AGENT_INJECT_VAULT_ADDR\",\"value\":\"http://vault.vault.svc:8200\"},{\"name\":\"AGENT_INJECT_VAULT_AUTH_PATH\",\"value\":\"auth/kubernetes\"},{\"name\":\"AGENT_INJECT_VAULT_IMAGE\",\"value\":\"hashicorp/vault:1.21.2\"},{\"name\":\"AGENT_INJECT_TLS_AUTO\",\"value\":\"vault-agent-injector-cfg\"},{\"name\":\"AGENT_INJECT_TLS_AUTO_HOSTS\",\"value\":\"vault-agent-injector-svc,vault-agent-injector-svc.vault,vault-agent-injector-svc.vault.svc\"},{\"name\":\"AGENT_INJECT_LOG_FORMAT\",\"value\":\"standard\"},{\"name\":\"AGENT_INJECT_REVOKE_ON_SHUTDOWN\",\"value\":\"false\"},{\"name\":\"AGENT_INJECT_CPU_REQUEST\",\"value\":\"250m\"},{\"name\":\"AGENT_INJECT_CPU_LIMIT\",\"value\":\"500m\"},{\"name\":\"AGENT_INJECT_MEM_REQUEST\",\"value\":\"64Mi\"},{\"name\":\"AGENT_INJECT_MEM_LIMIT\",\"value\":\"128Mi\"},{\"name\":\"AGENT_INJECT_DEFAULT_TEMPLATE\",\"value\":\"map\"},{\"name\":\"AGENT_INJECT_TEMPLATE_CONFIG_EXIT_ON_RETRY_FAILURE\",\"value\":\"true\"},{\"name\":\"POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}}],\"image\":\"hashicorp/vault-k8s:1.7.2\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":2,\"httpGet\":{\"path\":\"/health/ready\",\"port\":8080,\"scheme\":\"HTTPS\"},\"initialDelaySeconds\":5,\"periodSeconds\":2,\"successThreshold\":1,\"timeoutSeconds\":5},\"name\":\"sidecar-injector\",\"readinessProbe\":{\"failureThreshold\":2,\"httpGet\":{\"path\":\"/health/ready\",\"port\":8080,\"scheme\":\"HTTPS\"},\"initialDelaySeconds\":5,\"periodSeconds\":2,\"successThreshold\":1,\"timeoutSeconds\":5},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]}},\"startupProbe\":{\"failureThreshold\":12,\"httpGet\":{\"path\":\"/health/ready\",\"port\":8080,\"scheme\":\"HTTPS\"},\"initialDelaySeconds\":5,\"periodSeconds\":5,\"successThreshold\":1,\"timeoutSeconds\":5}}],\"hostNetwork\":false,\"securityContext\":{\"fsGroup\":1000,\"runAsGroup\":1000,\"runAsNonRoot\":true,\"runAsUser\":100},\"serviceAccountName\":\"vault-agent-injector\"}}}}\n"
+      creationTimestamp: "2026-06-11T14:31:44Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vault-agent-injector"
+        component: "webhook"
+      name: "vault-agent-injector"
+      namespace: "vault"
+      resourceVersion: "23723"
+      uid: "0e759232-9417-4d3a-ac2d-103a671032fe"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "vault"
+          app.kubernetes.io/name: "vault-agent-injector"
+          component: "webhook"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/instance: "vault"
+            app.kubernetes.io/name: "vault-agent-injector"
+            component: "webhook"
+        spec:
+          affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                -
+                  labelSelector:
+                    matchLabels:
+                      app.kubernetes.io/instance: "vault"
+                      app.kubernetes.io/name: "vault-agent-injector"
+                      component: "webhook"
+                  topologyKey: "kubernetes.io/hostname"
+          containers:
+            -
+              args:
+                - "agent-inject"
+                - "2>&1"
+              env:
+                -
+                  name: "AGENT_INJECT_LISTEN"
+                  value: ":8080"
+                -
+                  name: "AGENT_INJECT_LOG_LEVEL"
+                  value: "info"
+                -
+                  name: "AGENT_INJECT_VAULT_ADDR"
+                  value: "http://vault.vault.svc:8200"
+                -
+                  name: "AGENT_INJECT_VAULT_AUTH_PATH"
+                  value: "auth/kubernetes"
+                -
+                  name: "AGENT_INJECT_VAULT_IMAGE"
+                  value: "hashicorp/vault:1.21.2"
+                -
+                  name: "AGENT_INJECT_TLS_AUTO"
+                  value: "vault-agent-injector-cfg"
+                -
+                  name: "AGENT_INJECT_TLS_AUTO_HOSTS"
+                  value: "vault-agent-injector-svc,vault-agent-injector-svc.vault,vault-agent-injector-svc.vault.svc"
+                -
+                  name: "AGENT_INJECT_LOG_FORMAT"
+                  value: "standard"
+                -
+                  name: "AGENT_INJECT_REVOKE_ON_SHUTDOWN"
+                  value: "false"
+                -
+                  name: "AGENT_INJECT_CPU_REQUEST"
+                  value: "250m"
+                -
+                  name: "AGENT_INJECT_CPU_LIMIT"
+                  value: "500m"
+                -
+                  name: "AGENT_INJECT_MEM_REQUEST"
+                  value: "64Mi"
+                -
+                  name: "AGENT_INJECT_MEM_LIMIT"
+                  value: "128Mi"
+                -
+                  name: "AGENT_INJECT_DEFAULT_TEMPLATE"
+                  value: "map"
+                -
+                  name: "AGENT_INJECT_TEMPLATE_CONFIG_EXIT_ON_RETRY_FAILURE"
+                  value: "true"
+                -
+                  name: "POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+              image: "hashicorp/vault-k8s:1.7.2"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 2
+                httpGet:
+                  path: "/health/ready"
+                  port: 8080
+                  scheme: "HTTPS"
+                initialDelaySeconds: 5
+                periodSeconds: 2
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: "sidecar-injector"
+              readinessProbe:
+                failureThreshold: 2
+                httpGet:
+                  path: "/health/ready"
+                  port: 8080
+                  scheme: "HTTPS"
+                initialDelaySeconds: 5
+                periodSeconds: 2
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+              startupProbe:
+                failureThreshold: 12
+                httpGet:
+                  path: "/health/ready"
+                  port: 8080
+                  scheme: "HTTPS"
+                initialDelaySeconds: 5
+                periodSeconds: 5
+                successThreshold: 1
+                timeoutSeconds: 5
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 100
+          serviceAccount: "vault-agent-injector"
+          serviceAccountName: "vault-agent-injector"
+          terminationGracePeriodSeconds: 30
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T14:32:00Z"
+          lastUpdateTime: "2026-06-11T14:32:00Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T14:31:44Z"
+          lastUpdateTime: "2026-06-11T14:32:00Z"
+          message: "ReplicaSet \"vault-agent-injector-8c76487db\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+  -
+    apiVersion: "apps/v1"
+    kind: "StatefulSet"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vault\"},\"name\":\"vault\",\"namespace\":\"vault\"},\"spec\":{\"podManagementPolicy\":\"Parallel\",\"replicas\":3,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/name\":\"vault\",\"component\":\"server\"}},\"serviceName\":\"vault-internal\",\"template\":{\"metadata\":{\"annotations\":null,\"labels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/name\":\"vault\",\"component\":\"server\",\"helm.sh/chart\":\"vault-0.32.0\"}},\"spec\":{\"affinity\":{\"podAntiAffinity\":{\"requiredDuringSchedulingIgnoredDuringExecution\":[{\"labelSelector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/name\":\"vault\",\"component\":\"server\"}},\"topologyKey\":\"kubernetes.io/hostname\"}]}},\"containers\":[{\"args\":[\"cp /vault/config/extraconfig-from-values.hcl /tmp/storageconfig.hcl;\\n[ -n \\\"${HOST_IP}\\\" ] \\u0026\\u0026 sed -Ei \\\"s|HOST_IP|${HOST_IP?}|g\\\" /tmp/storageconfig.hcl;\\n[ -n \\\"${POD_IP}\\\" ] \\u0026\\u0026 sed -Ei \\\"s|POD_IP|${POD_IP?}|g\\\" /tmp/storageconfig.hcl;\\n[ -n \\\"${HOSTNAME}\\\" ] \\u0026\\u0026 sed -Ei \\\"s|HOSTNAME|${HOSTNAME?}|g\\\" /tmp/storageconfig.hcl;\\n[ -n \\\"${API_ADDR}\\\" ] \\u0026\\u0026 sed -Ei \\\"s|API_ADDR|${API_ADDR?}|g\\\" /tmp/storageconfig.hcl;\\n[ -n \\\"${TRANSIT_ADDR}\\\" ] \\u0026\\u0026 sed -Ei \\\"s|TRANSIT_ADDR|${TRANSIT_ADDR?}|g\\\" /tmp/storageconfig.hcl;\\n[ -n \\\"${RAFT_ADDR}\\\" ] \\u0026\\u0026 sed -Ei \\\"s|RAFT_ADDR|${RAFT_ADDR?}|g\\\" /tmp/storageconfig.hcl;\\n/usr/local/bin/docker-entrypoint.sh vault server -config=/tmp/storageconfig.hcl\\n\"],\"command\":[\"/bin/sh\",\"-ec\"],\"env\":[{\"name\":\"HOST_IP\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"status.hostIP\"}}},{\"name\":\"POD_IP\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"status.podIP\"}}},{\"name\":\"VAULT_K8S_POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"VAULT_K8S_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"VAULT_ADDR\",\"value\":\"http://127.0.0.1:8200\"},{\"name\":\"VAULT_API_ADDR\",\"value\":\"http://$(POD_IP):8200\"},{\"name\":\"SKIP_CHOWN\",\"value\":\"true\"},{\"name\":\"SKIP_SETCAP\",\"value\":\"true\"},{\"name\":\"HOSTNAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"VAULT_CLUSTER_ADDR\",\"value\":\"https://$(HOSTNAME).vault-internal:8201\"},{\"name\":\"HOME\",\"value\":\"/home/vault\"}],\"image\":\"hashicorp/vault:1.21.2\",\"imagePullPolicy\":\"IfNotPresent\",\"lifecycle\":{\"preStop\":{\"exec\":{\"command\":[\"/bin/sh\",\"-c\",\"sleep 5 \\u0026\\u0026 kill -SIGTERM $(pidof vault)\"]}}},\"name\":\"vault\",\"ports\":[{\"containerPort\":8200,\"name\":\"http\"},{\"containerPort\":8201,\"name\":\"https-internal\"},{\"containerPort\":8202,\"name\":\"http-rep\"}],\"readinessProbe\":{\"exec\":{\"command\":[\"/bin/sh\",\"-ec\",\"vault status -tls-skip-verify\"]},\"failureThreshold\":2,\"initialDelaySeconds\":5,\"periodSeconds\":5,\"successThreshold\":1,\"timeoutSeconds\":3},\"securityContext\":{\"allowPrivilegeEscalation\":false},\"volumeMounts\":[{\"mountPath\":\"/vault/data\",\"name\":\"data\"},{\"mountPath\":\"/vault/config\",\"name\":\"config\"},{\"mountPath\":\"/home/vault\",\"name\":\"home\"}]}],\"hostNetwork\":false,\"securityContext\":{\"fsGroup\":1000,\"runAsGroup\":1000,\"runAsNonRoot\":true,\"runAsUser\":100},\"serviceAccountName\":\"vault\",\"terminationGracePeriodSeconds\":10,\"volumes\":[{\"configMap\":{\"name\":\"vault-config\"},\"name\":\"config\"},{\"emptyDir\":{},\"name\":\"home\"}]}},\"updateStrategy\":{\"type\":\"OnDelete\"},\"volumeClaimTemplates\":[{\"apiVersion\":\"v1\",\"kind\":\"PersistentVolumeClaim\",\"metadata\":{\"name\":\"data\"},\"spec\":{\"accessModes\":[\"ReadWriteOnce\"],\"resources\":{\"requests\":{\"storage\":\"10Gi\"}}}}]}}\n"
+      creationTimestamp: "2026-06-11T14:31:44Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vault"
+      name: "vault"
+      namespace: "vault"
+      resourceVersion: "23662"
+      uid: "84c288c8-815e-459e-821b-75789c710845"
+    spec:
+      persistentVolumeClaimRetentionPolicy:
+        whenDeleted: "Retain"
+        whenScaled: "Retain"
+      podManagementPolicy: "Parallel"
+      replicas: 3
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "vault"
+          app.kubernetes.io/name: "vault"
+          component: "server"
+      serviceName: "vault-internal"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/instance: "vault"
+            app.kubernetes.io/name: "vault"
+            component: "server"
+            helm.sh/chart: "vault-0.32.0"
+        spec:
+          affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                -
+                  labelSelector:
+                    matchLabels:
+                      app.kubernetes.io/instance: "vault"
+                      app.kubernetes.io/name: "vault"
+                      component: "server"
+                  topologyKey: "kubernetes.io/hostname"
+          containers:
+            -
+              args:
+                - "cp /vault/config/extraconfig-from-values.hcl /tmp/storageconfig.hcl;\n[ -n \"${HOST_IP}\" ] && sed -Ei \"s|HOST_IP|${HOST_IP?}|g\" /tmp/storageconfig.hcl;\n[ -n \"${POD_IP}\" ] && sed -Ei \"s|POD_IP|${POD_IP?}|g\" /tmp/storageconfig.hcl;\n[ -n \"${HOSTNAME}\" ] && sed -Ei \"s|HOSTNAME|${HOSTNAME?}|g\" /tmp/storageconfig.hcl;\n[ -n \"${API_ADDR}\" ] && sed -Ei \"s|API_ADDR|${API_ADDR?}|g\" /tmp/storageconfig.hcl;\n[ -n \"${TRANSIT_ADDR}\" ] && sed -Ei \"s|TRANSIT_ADDR|${TRANSIT_ADDR?}|g\" /tmp/storageconfig.hcl;\n[ -n \"${RAFT_ADDR}\" ] && sed -Ei \"s|RAFT_ADDR|${RAFT_ADDR?}|g\" /tmp/storageconfig.hcl;\n/usr/local/bin/docker-entrypoint.sh vault server -config=/tmp/storageconfig.hcl\n"
+              command:
+                - "/bin/sh"
+                - "-ec"
+              env:
+                -
+                  name: "HOST_IP"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "status.hostIP"
+                -
+                  name: "POD_IP"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "status.podIP"
+                -
+                  name: "VAULT_K8S_POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "VAULT_K8S_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "VAULT_ADDR"
+                  value: "http://127.0.0.1:8200"
+                -
+                  name: "VAULT_API_ADDR"
+                  value: "http://$(POD_IP):8200"
+                -
+                  name: "SKIP_CHOWN"
+                  value: "true"
+                -
+                  name: "SKIP_SETCAP"
+                  value: "true"
+                -
+                  name: "HOSTNAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "VAULT_CLUSTER_ADDR"
+                  value: "https://$(HOSTNAME).vault-internal:8201"
+                -
+                  name: "HOME"
+                  value: "/home/vault"
+              image: "hashicorp/vault:1.21.2"
+              imagePullPolicy: "IfNotPresent"
+              lifecycle:
+                preStop:
+                  exec:
+                    command:
+                      - "/bin/sh"
+                      - "-c"
+                      - "sleep 5 && kill -SIGTERM $(pidof vault)"
+              name: "vault"
+              ports:
+                -
+                  containerPort: 8200
+                  name: "http"
+                  protocol: "TCP"
+                -
+                  containerPort: 8201
+                  name: "https-internal"
+                  protocol: "TCP"
+                -
+                  containerPort: 8202
+                  name: "http-rep"
+                  protocol: "TCP"
+              readinessProbe:
+                exec:
+                  command:
+                    - "/bin/sh"
+                    - "-ec"
+                    - "vault status -tls-skip-verify"
+                failureThreshold: 2
+                initialDelaySeconds: 5
+                periodSeconds: 5
+                successThreshold: 1
+                timeoutSeconds: 3
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/vault/data"
+                  name: "data"
+                -
+                  mountPath: "/vault/config"
+                  name: "config"
+                -
+                  mountPath: "/home/vault"
+                  name: "home"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 100
+          serviceAccount: "vault"
+          serviceAccountName: "vault"
+          terminationGracePeriodSeconds: 10
+          volumes:
+            -
+              configMap:
+                defaultMode: 420
+                name: "vault-config"
+              name: "config"
+            -
+              emptyDir:
+                {}
+              name: "home"
+      updateStrategy:
+        type: "OnDelete"
+      volumeClaimTemplates:
+        -
+          apiVersion: "v1"
+          kind: "PersistentVolumeClaim"
+          metadata:
+            name: "data"
+          spec:
+            accessModes:
+              - "ReadWriteOnce"
+            resources:
+              requests:
+                storage: "10Gi"
+            volumeMode: "Filesystem"
+          status:
+            phase: "Pending"
+    status:
+      availableReplicas: 0
+      collisionCount: 0
+      currentReplicas: 3
+      currentRevision: "vault-75dd57c8c4"
+      observedGeneration: 1
+      replicas: 3
+      updateRevision: "vault-75dd57c8c4"
+      updatedReplicas: 3
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vault-agent-injector\"},\"name\":\"vault-agent-injector-clusterrole\"},\"rules\":[{\"apiGroups\":[\"admissionregistration.k8s.io\"],\"resources\":[\"mutatingwebhookconfigurations\"],\"verbs\":[\"get\",\"list\",\"watch\",\"patch\"]}]}\n"
+      creationTimestamp: "2026-06-11T14:31:44Z"
+      labels:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vault-agent-injector"
+      name: "vault-agent-injector-clusterrole"
+      resourceVersion: "23666"
+      uid: "71432dea-1cf4-4e3d-8c3a-8fd70a9f4506"
+    rules:
+      -
+        apiGroups:
+          - "admissionregistration.k8s.io"
+        resources:
+          - "mutatingwebhookconfigurations"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "patch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vault-agent-injector\"},\"name\":\"vault-agent-injector-binding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"vault-agent-injector-clusterrole\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vault-agent-injector\",\"namespace\":\"vault\"}]}\n"
+      creationTimestamp: "2026-06-11T14:31:44Z"
+      labels:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vault-agent-injector"
+      name: "vault-agent-injector-binding"
+      resourceVersion: "23667"
+      uid: "00dc0f0d-f93d-4f3d-9f88-95daa39634eb"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "vault-agent-injector-clusterrole"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "vault-agent-injector"
+        namespace: "vault"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vault\",\"helm.sh/chart\":\"vault-0.32.0\"},\"name\":\"vault-server-binding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"system:auth-delegator\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vault\",\"namespace\":\"vault\"}]}\n"
+      creationTimestamp: "2026-06-11T14:31:44Z"
+      labels:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vault"
+        helm.sh/chart: "vault-0.32.0"
+      name: "vault-server-binding"
+      resourceVersion: "23668"
+      uid: "b086dc6d-b7b2-4721-a080-84d3e2eaef20"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "system:auth-delegator"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "vault"
+        namespace: "vault"
+  -
+    apiVersion: "admissionregistration.k8s.io/v1"
+    kind: "MutatingWebhookConfiguration"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"MutatingWebhookConfiguration\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"vault\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vault-agent-injector\"},\"name\":\"vault-agent-injector-cfg\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\",\"v1beta1\"],\"clientConfig\":{\"caBundle\":\"\",\"service\":{\"name\":\"vault-agent-injector-svc\",\"namespace\":\"vault\",\"path\":\"/mutate\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Exact\",\"name\":\"vault.hashicorp.com\",\"objectSelector\":{\"matchExpressions\":[{\"key\":\"app.kubernetes.io/name\",\"operator\":\"NotIn\",\"values\":[\"vault-agent-injector\"]}]},\"rules\":[{\"apiGroups\":[\"\"],\"apiVersions\":[\"v1\"],\"operations\":[\"CREATE\"],\"resources\":[\"pods\"],\"scope\":\"Namespaced\"}],\"sideEffects\":\"None\",\"timeoutSeconds\":30}]}\n"
+      creationTimestamp: "2026-06-11T14:31:44Z"
+      generation: 2
+      labels:
+        app.kubernetes.io/instance: "vault"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vault-agent-injector"
+      name: "vault-agent-injector-cfg"
+      resourceVersion: "23705"
+      uid: "80245dd8-fe08-4da4-9eba-9fb4aa5e404f"
+    webhooks:
+      -
+        admissionReviewVersions:
+          - "v1"
+          - "v1beta1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUNTRENDQWU2Z0F3SUJBZ0lVTXI5VnJaOHZQb2IvV2pIMTVoc2g3S1NEM3Vnd0NnWUlLb1pJemowRUF3SXcKR2pFWU1CWUdBMVVFQXhNUFFXZGxiblFnU1c1cVpXTjBJRU5CTUI0WERUSTJNRFl4TVRFME16QTFNMW9YRFRNMgpNRFl3T0RFME16RTFNMW93R2pFWU1CWUdBMVVFQXhNUFFXZGxiblFnU1c1cVpXTjBJRU5CTUZrd0V3WUhLb1pJCnpqMENBUVlJS29aSXpqMERBUWNEUWdBRWswRUZIRUZMQmQveVBxRzBtWGNTQ3dFMGR4eW5iUW9pcFBOc3AwbEgKMVNHZXRuR1ROMkRjYVdnSjFZbmw1SmVkb29ESnViWDBJa0pwVEIrUkNTc21NcU9DQVJBd2dnRU1NQTRHQTFVZApEd0VCL3dRRUF3SUNoREFUQmdOVkhTVUVEREFLQmdnckJnRUZCUWNEQVRBUEJnTlZIUk1CQWY4RUJUQURBUUgvCk1HZ0dBMVVkRGdSaEJGOHpOem95TVRwa1pUcGhZVG8yTnpwalpqbzRNenBqTURwbVlqcGpZem93TVRvNVpEbzMKWWpvMlpqb3paRG96TXpwbU5EbzNZanBtWkRveVpqbzJZam93TXpwaU1qcGpZVHBoTnpvek5UbzJZem94WlRvdwpNam80TnpvMU9UcG1NekJxQmdOVkhTTUVZekJoZ0Y4ek56b3lNVHBrWlRwaFlUbzJOenBqWmpvNE16cGpNRHBtCllqcGpZem93TVRvNVpEbzNZam8yWmpvelpEb3pNenBtTkRvM1lqcG1aRG95WmpvMllqb3dNenBpTWpwallUcGgKTnpvek5UbzJZem94WlRvd01qbzROem8xT1RwbU16QUtCZ2dxaGtqT1BRUURBZ05JQURCRkFpRUFoWFRRdVp6dgozMHNyNVI2TUVGc2JCSWxyVCtpcWZlY1R2a2YvUWVrN25nWUNJRm9pWG5NbUxmcXI3YnBEeVplcUpIWVpYbzB4CjNkR0lnaklIamc1NkxRS0MKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+          service:
+            name: "vault-agent-injector-svc"
+            namespace: "vault"
+            path: "/mutate"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Exact"
+        name: "vault.hashicorp.com"
+        namespaceSelector:
+          {}
+        objectSelector:
+          matchExpressions:
+            -
+              key: "app.kubernetes.io/name"
+              operator: "NotIn"
+              values:
+                - "vault-agent-injector"
+        reinvocationPolicy: "Never"
+        rules:
+          -
+            apiGroups:
+              - ""
+            apiVersions:
+              - "v1"
+            operations:
+              - "CREATE"
+            resources:
+              - "pods"
+            scope: "Namespaced"
+        sideEffects: "None"
+        timeoutSeconds: 30
+kind: "List"
+metadata:
+  resourceVersion: ""

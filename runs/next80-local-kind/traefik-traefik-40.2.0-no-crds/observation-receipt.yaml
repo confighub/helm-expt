@@ -1,0 +1,34 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "traefik-traefik-40.2.0-no-crds-local-kind"
+spec:
+  variantRevision: "recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "9db056bdffd213bbce847b96122b40e879d0e47f7b8d57074f62a020ed89c9ce"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T15:15:31.085Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "existing"
+  variant: "no-crds"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "4ee9b2135a48b84e34b0b1cddf0af6016c72ab1dcaaf58074fd03be2740864a7"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "6 object(s) from recipes/traefik/traefik/40.2.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|traefik"

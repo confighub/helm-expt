@@ -1,0 +1,39 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "velero-velero-12.0.1-no-crds-local-kind"
+spec:
+  variantRevision: "recipes/velero/velero/12.0.1/revisions/no-crds/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "8ae294dd0418f586f2ea4ba66660384f28cacb0ceed6124ac0a0b1c8b4c1d933"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T14:48:05.885Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "existing"
+  variant: "no-crds"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "3c4caa43c1ccef95d63d9520b80fb62cdadf9c52f0206de3d84d6748303e548e"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "blocked"
+      object: "10 object(s) from recipes/velero/velero/12.0.1/revisions/no-crds/r001/rendered/release-objects.yaml"
+      reason: "apply-blocked: resource mapping not found for name: \"default\" namespace: \"default\" from \"STDIN\": no matches for kind \"BackupStorageLocation\" in version \"velero.io/v1\" ensure CRDs are installed first resource mapping"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|default|velero"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;] velero-597c95894b-7sld9[CrashLoopBackOff ready=false restarts=4;]"
+  blockedReasons:
+    - "apply: resource mapping not found for name: \"default\" namespace: \"default\" from \"STDIN\": no matches for kind \"BackupStorageLocation\" in version \"velero.io/v1\" ensure CRDs are installed first resource mapping"
+    - "deployment/velero: prerequisite-blocked (stuck creating: missing mount/secret/config) (kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;] velero-597c95894b-7sld9[Cra)"

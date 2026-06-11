@@ -1,0 +1,73 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "hashicorp-consul-2.0.0-secure-mesh-existing-secrets-local-kind"
+spec:
+  variantRevision: "recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "0acc8c339c2965446b754c3a9c948c4f154ca6e47b074ddc3b8d315e2cb7c468"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "consul"
+  observedAt: "2026-06-11T14:27:16.057Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "existing"
+  variant: "secure-mesh-existing-secrets"
+  workloads: 6
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "1b58c07d723b4097319e8ec224743e5ec8d967d980503eb822e078404a8ad805"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||consul"
+    -
+      name: "crds-applied-and-established"
+      result: "pass"
+      object: "28 CustomResourceDefinition(s)"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "97 object(s) from recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|consul|consul-consul-connect-injector"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): consul-consul-connect-injector-5f47dfbd9-j5sz4[ContainerCreating ready=false restarts=0;] consul-consul-ingress-gateway-7c9f6b86f8-gd6bs[PodInitializing ready=false restarts=0;] consul-consul-mesh-gateway-746b9dc7df-w9485[PodInitializing ready=false restarts=0;] consul-consul-server-0[PodInitializin"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|consul|consul-consul-ingress-gateway"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): consul-consul-connect-injector-5f47dfbd9-j5sz4[ContainerCreating ready=false restarts=0;] consul-consul-ingress-gateway-7c9f6b86f8-gd6bs[PodInitializing ready=false restarts=0;] consul-consul-mesh-gateway-746b9dc7df-w9485[PodInitializing ready=false restarts=0;] consul-consul-server-0[PodInitializin"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|consul|consul-consul-mesh-gateway"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): consul-consul-connect-injector-5f47dfbd9-j5sz4[ContainerCreating ready=false restarts=0;] consul-consul-ingress-gateway-7c9f6b86f8-gd6bs[PodInitializing ready=false restarts=0;] consul-consul-mesh-gateway-746b9dc7df-w9485[PodInitializing ready=false restarts=0;] consul-consul-server-0[PodInitializin"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|consul|consul-consul-terminating-gateway"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): consul-consul-connect-injector-5f47dfbd9-j5sz4[ContainerCreating ready=false restarts=0;] consul-consul-ingress-gateway-7c9f6b86f8-gd6bs[PodInitializing ready=false restarts=0;] consul-consul-mesh-gateway-746b9dc7df-w9485[PodInitializing ready=false restarts=0;] consul-consul-server-0[PodInitializin"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|consul|consul-consul-webhook-cert-manager"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "StatefulSet|consul|consul-consul-server"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): consul-consul-connect-injector-5f47dfbd9-j5sz4[ContainerCreating ready=false restarts=0;] consul-consul-ingress-gateway-7c9f6b86f8-gd6bs[PodInitializing ready=false restarts=0;] consul-consul-mesh-gateway-746b9dc7df-w9485[PodInitializing ready=false restarts=0;] consul-consul-server-0[PodInitializin"
+  blockedReasons:
+    - "deployment/consul-consul-connect-injector: prerequisite-blocked (stuck creating: missing mount/secret/config) (consul-consul-connect-injector-5f47dfbd9-j5sz4[ContainerCreating ready=false restarts=0;] consul-consul-ingress-gateway-7c9f6b86f8-gd6bs[PodInitializing ready=f)"
+    - "deployment/consul-consul-ingress-gateway: prerequisite-blocked (stuck creating: missing mount/secret/config) (consul-consul-connect-injector-5f47dfbd9-j5sz4[ContainerCreating ready=false restarts=0;] consul-consul-ingress-gateway-7c9f6b86f8-gd6bs[PodInitializing ready=f)"
+    - "deployment/consul-consul-mesh-gateway: prerequisite-blocked (stuck creating: missing mount/secret/config) (consul-consul-connect-injector-5f47dfbd9-j5sz4[ContainerCreating ready=false restarts=0;] consul-consul-ingress-gateway-7c9f6b86f8-gd6bs[PodInitializing ready=f)"
+    - "deployment/consul-consul-terminating-gateway: prerequisite-blocked (stuck creating: missing mount/secret/config) (consul-consul-connect-injector-5f47dfbd9-j5sz4[ContainerCreating ready=false restarts=0;] consul-consul-ingress-gateway-7c9f6b86f8-gd6bs[PodInitializing ready=f)"
+    - "statefulset/consul-consul-server: prerequisite-blocked (stuck creating: missing mount/secret/config) (consul-consul-connect-injector-5f47dfbd9-j5sz4[ContainerCreating ready=false restarts=0;] consul-consul-ingress-gateway-7c9f6b86f8-gd6bs[PodInitializing ready=f)"

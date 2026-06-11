@@ -35,7 +35,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 189 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ | 396 / 7 / 40 / 667 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ | 412 / 7 / 59 / 626 |
 | Variants with the complete core lane set | 20 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -87,15 +87,15 @@ them for width.
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | next80 | `tpl;capabilities;cluster-rbac` | — | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `bitnami/apache@11.4.29` | default | next80 | `lookup;generated-facts;tpl;capabilities` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `bitnami/contour@21.1.4` | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-|  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `bitnami/elasticsearch@22.1.6` | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 |  | ha | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `bitnami/memcached@8.5.5` | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-| `bitnami/mongodb@19.0.7` | existing-secret-replicaset | top20 | `lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
+| `bitnami/mongodb@19.0.7` | existing-secret-replicaset | top20 | `lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
 |  | generated-passwords | top20 | `lookup;generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
-| `bitnami/mongodb@19.0.9` | existing-secret-replicaset | — | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+| `bitnami/mongodb@19.0.9` | existing-secret-replicaset | — | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 |  | generated-passwords | — | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-| `bitnami/mongodb@19.1.0` | existing-secret-replicaset | — | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+| `bitnami/mongodb@19.1.0` | existing-secret-replicaset | — | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 |  | generated-passwords | — | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `bitnami/mysql@14.0.3` | existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ⬜ | fail | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
 |  | generated-passwords | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
@@ -108,9 +108,9 @@ them for width.
 | `bitnami/opensearch@2.0.10` | default | next80 | — | — | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 |  | ha | next80 | — | — | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `bitnami/phpmyadmin@20.0.0` | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-| `bitnami/postgresql@18.6.7` | existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ⬜ | ⬜ | ✅ | ⬜ | ✅ | gitops-live | ⬜ |
+| `bitnami/postgresql@18.6.7` | existing-secret | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ⬜ | ❌ | ✅ | ⬜ | ✅ | gitops-live | ⬜ |
 |  | generated-passwords | top20 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
-| `bitnami/postgresql@18.6.10` | existing-secret | — | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+| `bitnami/postgresql@18.6.10` | existing-secret | — | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 |  | generated-passwords | — | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `bitnami/postgresql@18.7.0` | existing-secret | — | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 |  | generated-passwords | — | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
@@ -121,7 +121,7 @@ them for width.
 | `bitnami/redis@27.0.0` | default | — | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 |  | reuse-existing-secret | — | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `bitnami/spark@10.0.3` | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-|  | ha | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | ha | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `bitnami/zookeeper@13.8.7` | default | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 |  | ha | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | default | next80 | `generated-facts;tpl;crds;cluster-rbac;webhooks` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | local-live | ⬜ |
@@ -131,8 +131,8 @@ them for width.
 | `descheduler/descheduler@0.36.0` | default | next80 | `tpl;cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⚠️ | local-live | ⬜ |
 | `dex/dex@0.24.0` | default | next80 | `tpl;capabilities;cluster-rbac` | — | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `elastic/eck-operator@3.4.0` | default | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | local-live | ⬜ |
-|  | ha | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-|  | no-crds | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | ha | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+|  | no-crds | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `elastic/filebeat@8.5.1` | default | next80 | `tpl;cluster-rbac` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 |  | node-or-cluster-collector | next80 | `tpl;cluster-rbac` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `elastic/kibana@8.5.1` | default | next80 | `tpl` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
@@ -140,8 +140,8 @@ them for width.
 |  | ha | next80 | `tpl;capabilities;stateful-storage` | — | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `elastic/metricbeat@8.5.1` | default | next80 | `tpl;capabilities;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `external-dns/external-dns@1.21.1` | default | next80 | `tpl;crds;cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-|  | dry-run-txt-registry | next80 | `tpl;crds;cluster-rbac` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
-|  | no-crds | next80 | `tpl;crds;cluster-rbac` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | dry-run-txt-registry | next80 | `tpl;crds;cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | local-live | ⬜ |
+|  | no-crds | next80 | `tpl;crds;cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `external-secrets/external-secrets@2.5.0` | default | top20 | — | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
 |  | no-crds | top20 | — | — | ✅ | ⬜ | fail | ❌ | ⬜ | ✅ | render-parity | ⬜ |
 | `fairwinds-stable/goldilocks@10.3.0` | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
@@ -152,48 +152,48 @@ them for width.
 | `fluent/fluent-bit@0.57.6` | default | next80 | `tpl;capabilities;hooks;cluster-rbac` | 1 observed ✅ | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `fluent/fluentd@0.5.3` | default | next80 | `tpl;capabilities;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `gatekeeper/gatekeeper@3.22.2` | default | next80 | `capabilities;hooks;crds;cluster-rbac;webhooks` | unrouted ⚠️ | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-|  | no-crds | next80 | `capabilities;hooks;crds;cluster-rbac;webhooks` | unrouted ⚠️ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | no-crds | next80 | `capabilities;hooks;crds;cluster-rbac;webhooks` | unrouted ⚠️ | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `gitlab/gitlab-runner@0.89.0` | default | next80 | `generated-facts;tpl;capabilities` | — | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `grafana/alloy@1.8.2` | default | next80 | `tpl;capabilities;crds;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | local-live | ⬜ |
-|  | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-| `grafana/grafana@10.5.15` | existing-secret-ingress | top20 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
+|  | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+| `grafana/grafana@10.5.15` | existing-secret-ingress | top20 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
 |  | generated-passwords | top20 | — | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | superseded |
-| `grafana/loki@7.0.0` | simple-scalable-minio | top20 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
+| `grafana/loki@7.0.0` | simple-scalable-minio | top20 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | local-live | ⬜ |
 |  | single-binary-filesystem | top20 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
 | `grafana/promtail@6.17.1` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `grafana/pyroscope@2.0.2` | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-|  | ha | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-|  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | ha | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `grafana/rollout-operator@0.49.0` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-|  | no-crds | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | no-crds | next80 | — | — | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `grafana/tempo@1.24.4` | local-persistent | top20 | — | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | superseded |
-|  | s3-query-observability | top20 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
+|  | s3-query-observability | top20 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
 | `haproxytech/kubernetes-ingress@1.52.0` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `hashicorp/consul@2.0.0` | default-control-plane | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
-|  | secure-mesh-existing-secrets | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ⬜ | ❌ | ⬜ | ✅ | render-parity | ⬜ |
+|  | secure-mesh-existing-secrets | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ❌ | ❌ | ⬜ | ✅ | render-parity | ⬜ |
 | `hashicorp/terraform@1.1.2` | default | next80 | `crds` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-|  | no-crds | next80 | `crds` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | no-crds | next80 | `crds` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `hashicorp/vault@0.32.0` | default | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ✅ | ⚠️ | ⚠️ | ✅ | local-live | ⬜ |
 |  | dev-mode | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ❌ |
-|  | ha-raft-ui | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
+|  | ha-raft-ui | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
 | `ingress-nginx/ingress-nginx@4.15.1` | default | top20 | `tpl;capabilities;cluster-rbac;webhooks` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
 |  | admission-disabled | top20 | `tpl;capabilities;cluster-rbac;webhooks` | — | ✅ | ⬜ | ✅ | ⚠️ | ⚠️ | ✅ | local-live | ⬜ |
 |  | internal-clusterip | top20 | `tpl;capabilities;cluster-rbac;webhooks` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
 | `istio/gateway@1.30.0` | default | next80 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-|  | controller-default-reviewed | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | controller-default-reviewed | next80 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `istio/istiod@1.30.0` | default | next80 | — | — | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `jaegertracing/jaeger@4.8.0` | default | next80 | `lookup;generated-facts;tpl;capabilities` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `jaegertracing/jaeger-operator@2.57.0` | default | next80 | `crds;webhooks` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-|  | no-crds | next80 | `crds;webhooks` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | no-crds | next80 | `crds;webhooks` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `jetstack/cert-manager@v1.20.2` | default | top20 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ❌ | local-live | ⬜ |
 |  | crds-enabled | top20 | — | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
 | `jetstack/cert-manager-csi-driver@v0.14.0` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `jetstack/trust-manager@v0.22.1` | default | next80 | — | — | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-|  | no-crds | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | no-crds | next80 | — | — | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `kedacore/keda@2.19.0` | default | next80 | `tpl;capabilities;crds;cluster-rbac;webhooks` | — | ✅ | ⬜ | ✅ | ✅ | ⬜ | ✅ | gitops-live | ⬜ |
-|  | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac;webhooks` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac;webhooks` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `kyverno/kyverno@3.8.1` | default | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-|  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `kyverno/kyverno-policies@3.8.0` | default | next80 | `lookup;tpl` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `linkerd/linkerd-crds@1.8.0` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `longhorn/longhorn@1.11.2` | default | top20 | `generated-facts;tpl;cluster-rbac` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
@@ -203,21 +203,21 @@ them for width.
 | `minio-operator/operator@7.1.1` | default | next80 | `cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `minio-operator/tenant@7.1.1` | default | next80 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `nats/nack@0.34.0` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-|  | no-crds | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | no-crds | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `nats/nats@2.14.0` | default | next80 | `tpl` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | local-live | ⬜ |
 |  | ha | next80 | `tpl` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `nats/surveyor@0.20.9` | default | next80 | — | — | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-|  | default-reviewed | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | default-reviewed | next80 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | default | next80 | `capabilities;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `open-telemetry/opentelemetry-operator@0.114.0` | default | next80 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-|  | no-crds | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | no-crds | next80 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `opencost/opencost@2.5.21` | default | next80 | `tpl;capabilities;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `percona/pg-operator@3.0.0` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-|  | no-crds | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | no-crds | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `percona/psmdb-operator@1.22.0` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-|  | no-crds | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | no-crds | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `percona/pxc-operator@1.19.1` | default | next80 | `lookup;crds;cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-|  | no-crds | next80 | `lookup;crds;cluster-rbac` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | no-crds | next80 | `lookup;crds;cluster-rbac` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `projectcalico/tigera-operator@v3.32.0` | default | next80 | `lookup;hooks;cluster-rbac` | unrouted ⚠️ | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `prometheus-community/alertmanager@1.37.0` | default | next80 | `tpl;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | local-live | ⬜ |
 |  | ha | next80 | `tpl;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
@@ -227,9 +227,9 @@ them for width.
 |  | no-crds | — | — | 2 observed ✅ (from @85.3.0) | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `prometheus-community/kube-state-metrics@7.4.0` | default | next80 | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 |  | cluster-metrics-readonly | next80 | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-| `prometheus-community/prometheus@29.8.0` | default | top20 | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
+| `prometheus-community/prometheus@29.8.0` | default | top20 | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | local-live | ⬜ |
 |  | server-only-ephemeral | top20 | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
-| `prometheus-community/prometheus@29.9.0` | default | — | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+| `prometheus-community/prometheus@29.9.0` | default | — | — | — | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 |  | server-only-ephemeral | — | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `prometheus-community/prometheus-adapter@5.3.0` | default | next80 | `tpl;capabilities;cluster-rbac` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 |  | cluster-metrics-readonly | next80 | `tpl;capabilities;cluster-rbac` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
@@ -242,20 +242,20 @@ them for width.
 | `rook-release/rook-ceph-cluster@v1.19.5` | default | next80 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `runix/pgadmin4@1.62.0` | default | next80 | `tpl;capabilities;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `sealed-secrets/sealed-secrets@2.18.6` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-|  | no-crds | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | no-crds | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | top20 | — | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
 |  | sync-secret-rotation | top20 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | local-live | ⬜ |
 | `stakater/reloader@2.2.12` | default | next80 | `tpl;capabilities;cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-|  | controller-default-reviewed | next80 | `tpl;capabilities;cluster-rbac` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | controller-default-reviewed | next80 | `tpl;capabilities;cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `strimzi/strimzi-kafka-operator@1.0.0` | default | next80 | `tpl;capabilities;crds;cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-|  | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `traefik/traefik@40.2.0` | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-|  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `velero/velero@12.0.1` | default | next80 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-|  | no-crds | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | no-crds | next80 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `vm/victoria-logs-single@0.12.5` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `vm/victoria-metrics-single@0.39.0` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-|  | default-reviewed | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | default-reviewed | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 
 ## Regenerate
 

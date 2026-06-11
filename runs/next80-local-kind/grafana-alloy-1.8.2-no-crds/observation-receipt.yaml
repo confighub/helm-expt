@@ -1,0 +1,34 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "grafana-alloy-1.8.2-no-crds-local-kind"
+spec:
+  variantRevision: "recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "3284915e4cee6101e8279e10a5ef11937e6d860b01b95549079d809f64a17e22"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T12:02:52.025Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "existing"
+  variant: "no-crds"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "cd80e530684518607d494199bec2f08d10f054fe9dd804d4ea6fef0a666b21b8"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "6 object(s) from recipes/grafana/alloy/1.8.2/revisions/no-crds/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "DaemonSet|default|alloy"

@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "percona-pxc-operator-1.19.1-no-crds-local-kind"
+spec:
+  variantRevision: "recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "ee1aa1c285ef83592cb2488116b126c13c4b3311f0e8a153b9bd6699ae566488"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T14:42:04.508Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "existing"
+  variant: "no-crds"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "9e52bcf07a38d8392a02a4b26ba05a30939b8330c998f66d6f37ed7bedc8a4d4"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "4 object(s) from recipes/percona/pxc-operator/1.19.1/revisions/no-crds/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|default|pxc-operator"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] pxc-operator-5f59645bd-ctt85[CrashLoopBackOff ready=false restarts=4;] rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;]"
+  blockedReasons:
+    - "deployment/pxc-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] pxc-operator-5f59645bd-ctt85[CrashLoopBackOff ready=false restarts=4;] rollout-operator)"

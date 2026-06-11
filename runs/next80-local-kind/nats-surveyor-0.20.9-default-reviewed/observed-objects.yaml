@@ -1,0 +1,171 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"surveyor\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"surveyor\",\"app.kubernetes.io/version\":\"0.9.9\",\"helm.sh/chart\":\"surveyor-0.20.9\"},\"name\":\"surveyor\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T11:37:18Z"
+      labels:
+        app.kubernetes.io/instance: "surveyor"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "surveyor"
+        app.kubernetes.io/version: "0.9.9"
+        helm.sh/chart: "surveyor-0.20.9"
+      name: "surveyor"
+      namespace: "default"
+      resourceVersion: "815"
+      uid: "bae33ee4-5ffc-4daf-8c29-2e7e1236a851"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"surveyor\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"surveyor\",\"app.kubernetes.io/version\":\"0.9.9\",\"helm.sh/chart\":\"surveyor-0.20.9\"},\"name\":\"surveyor\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":7777,\"protocol\":\"TCP\",\"targetPort\":\"http\"}],\"selector\":{\"app.kubernetes.io/instance\":\"surveyor\",\"app.kubernetes.io/name\":\"surveyor\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T11:37:18Z"
+      labels:
+        app.kubernetes.io/instance: "surveyor"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "surveyor"
+        app.kubernetes.io/version: "0.9.9"
+        helm.sh/chart: "surveyor-0.20.9"
+      name: "surveyor"
+      namespace: "default"
+      resourceVersion: "817"
+      uid: "eaa89ece-aa78-4a86-ad16-f3bf232fb41b"
+    spec:
+      clusterIP: "10.96.140.118"
+      clusterIPs:
+        - "10.96.140.118"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http"
+          port: 7777
+          protocol: "TCP"
+          targetPort: "http"
+      selector:
+        app.kubernetes.io/instance: "surveyor"
+        app.kubernetes.io/name: "surveyor"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"surveyor\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"surveyor\",\"app.kubernetes.io/version\":\"0.9.9\",\"helm.sh/chart\":\"surveyor-0.20.9\"},\"name\":\"surveyor\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"surveyor\",\"app.kubernetes.io/name\":\"surveyor\"}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/instance\":\"surveyor\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"surveyor\",\"app.kubernetes.io/version\":\"0.9.9\",\"helm.sh/chart\":\"surveyor-0.20.9\"}},\"spec\":{\"containers\":[{\"args\":[\"-p\",\"7777\",\"-s=nats://nats:4222\",\"--timeout=3s\",\"-c=1\"],\"env\":null,\"image\":\"natsio/nats-surveyor:0.9.9\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"httpGet\":{\"path\":\"/healthz\",\"port\":\"http\"}},\"name\":\"surveyor\",\"ports\":[{\"containerPort\":7777,\"name\":\"http\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/healthz\",\"port\":\"http\"}},\"resources\":{},\"securityContext\":{},\"volumeMounts\":null}],\"securityContext\":{},\"serviceAccountName\":\"surveyor\",\"volumes\":null}}}}\n"
+      creationTimestamp: "2026-06-11T11:37:18Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "surveyor"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "surveyor"
+        app.kubernetes.io/version: "0.9.9"
+        helm.sh/chart: "surveyor-0.20.9"
+      name: "surveyor"
+      namespace: "default"
+      resourceVersion: "2453"
+      uid: "0699d0a9-65e4-45c7-a8b7-7a6754b60d20"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "surveyor"
+          app.kubernetes.io/name: "surveyor"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/instance: "surveyor"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "surveyor"
+            app.kubernetes.io/version: "0.9.9"
+            helm.sh/chart: "surveyor-0.20.9"
+        spec:
+          containers:
+            -
+              args:
+                - "-p"
+                - "7777"
+                - "-s=nats://nats:4222"
+                - "--timeout=3s"
+                - "-c=1"
+              image: "natsio/nats-surveyor:0.9.9"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: "http"
+                  scheme: "HTTP"
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              name: "surveyor"
+              ports:
+                -
+                  containerPort: 7777
+                  name: "http"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: "http"
+                  scheme: "HTTP"
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                {}
+              securityContext:
+                {}
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "surveyor"
+          serviceAccountName: "surveyor"
+          terminationGracePeriodSeconds: 30
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T11:37:18Z"
+          lastUpdateTime: "2026-06-11T11:37:18Z"
+          message: "Deployment does not have minimum availability."
+          reason: "MinimumReplicasUnavailable"
+          status: "False"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T11:47:19Z"
+          lastUpdateTime: "2026-06-11T11:47:19Z"
+          message: "ReplicaSet \"surveyor-c4759d87\" has timed out progressing."
+          reason: "ProgressDeadlineExceeded"
+          status: "False"
+          type: "Progressing"
+      observedGeneration: 1
+      replicas: 1
+      terminatingReplicas: 0
+      unavailableReplicas: 1
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""

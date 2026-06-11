@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "jetstack-trust-manager-v0.22.1-no-crds-local-kind"
+spec:
+  variantRevision: "recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "5d0b08f8abda179089de0d4acead48bd8a3752c16766ed8ef1b95478065e9250"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T15:05:11.782Z"
+  freshnessTTL: "1h"
+  result: "fail"
+  clusterStatus: "existing"
+  variant: "no-crds"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "1195f61868692c3629a5fafad977a6727db31b544e24ed1af543482930e95c97"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||cert-manager"
+    -
+      name: "rendered-objects-applied"
+      result: "blocked"
+      object: "13 object(s) from recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/rendered/release-objects.yaml"
+      reason: "apply-blocked: resource mapping not found for name: \"trust-manager\" namespace: \"default\" from \"STDIN\": no matches for kind \"Certificate\" in version \"cert-manager.io/v1\" ensure CRDs are installed first resource mappi"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "Deployment|default|trust-manager"
+      reason: "not-ready: trust-manager-6db9f66446-vzdf4[PodInitializing ready=false restarts=0;]"
+  blockedReasons:
+    - "apply: resource mapping not found for name: \"trust-manager\" namespace: \"default\" from \"STDIN\": no matches for kind \"Certificate\" in version \"cert-manager.io/v1\" ensure CRDs are installed first resource mappi"
+    - "deployment/trust-manager: not-ready (trust-manager-6db9f66446-vzdf4[PodInitializing ready=false restarts=0;])"

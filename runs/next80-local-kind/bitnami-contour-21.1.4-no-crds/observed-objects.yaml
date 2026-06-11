@@ -1,0 +1,1081 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "networking.k8s.io/v1"
+    kind: "NetworkPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"contour-certgen\",\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"contour\",\"app.kubernetes.io/version\":\"1.32.1\",\"helm.sh/chart\":\"contour-21.1.4\"},\"name\":\"contour-contour-certgen\",\"namespace\":\"default\"},\"spec\":{\"egress\":[{}],\"ingress\":null,\"podSelector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"contour-certgen\",\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/name\":\"contour\"}},\"policyTypes\":[\"Ingress\",\"Egress\"]}}\n"
+      creationTimestamp: "2026-06-11T12:37:34Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "contour-certgen"
+        app.kubernetes.io/instance: "contour"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "contour"
+        app.kubernetes.io/version: "1.32.1"
+        helm.sh/chart: "contour-21.1.4"
+      name: "contour-contour-certgen"
+      namespace: "default"
+      resourceVersion: "9215"
+      uid: "ed17ecfb-2ddf-4566-aa11-8b825272bdc6"
+    spec:
+      egress:
+        -
+          {}
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/component: "contour-certgen"
+          app.kubernetes.io/instance: "contour"
+          app.kubernetes.io/name: "contour"
+      policyTypes:
+        - "Ingress"
+        - "Egress"
+  -
+    apiVersion: "networking.k8s.io/v1"
+    kind: "NetworkPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"contour\",\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"contour\",\"app.kubernetes.io/version\":\"1.32.1\",\"helm.sh/chart\":\"contour-21.1.4\"},\"name\":\"contour-contour\",\"namespace\":\"default\"},\"spec\":{\"egress\":[{}],\"ingress\":[{\"ports\":[{\"port\":8001},{\"port\":8000}]}],\"podSelector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"contour\",\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/name\":\"contour\"}},\"policyTypes\":[\"Ingress\",\"Egress\"]}}\n"
+      creationTimestamp: "2026-06-11T12:37:34Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "contour"
+        app.kubernetes.io/instance: "contour"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "contour"
+        app.kubernetes.io/version: "1.32.1"
+        helm.sh/chart: "contour-21.1.4"
+      name: "contour-contour"
+      namespace: "default"
+      resourceVersion: "9216"
+      uid: "a9b9b1a8-6e3c-408b-bfb3-f730216d2d7c"
+    spec:
+      egress:
+        -
+          {}
+      ingress:
+        -
+          ports:
+            -
+              port: 8001
+              protocol: "TCP"
+            -
+              port: 8000
+              protocol: "TCP"
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/component: "contour"
+          app.kubernetes.io/instance: "contour"
+          app.kubernetes.io/name: "contour"
+      policyTypes:
+        - "Ingress"
+        - "Egress"
+  -
+    apiVersion: "networking.k8s.io/v1"
+    kind: "NetworkPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"envoy\",\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"contour\",\"app.kubernetes.io/version\":\"1.32.1\",\"helm.sh/chart\":\"contour-21.1.4\"},\"name\":\"contour-envoy\",\"namespace\":\"default\"},\"spec\":{\"egress\":[{}],\"ingress\":[{\"ports\":[{\"port\":8080},{\"port\":8443},{\"port\":8002}]}],\"podSelector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"envoy\",\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/name\":\"contour\"}},\"policyTypes\":[\"Ingress\",\"Egress\"]}}\n"
+      creationTimestamp: "2026-06-11T12:37:34Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "envoy"
+        app.kubernetes.io/instance: "contour"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "contour"
+        app.kubernetes.io/version: "1.32.1"
+        helm.sh/chart: "contour-21.1.4"
+      name: "contour-envoy"
+      namespace: "default"
+      resourceVersion: "9217"
+      uid: "3eea4836-1901-4224-8c7f-02046ce81feb"
+    spec:
+      egress:
+        -
+          {}
+      ingress:
+        -
+          ports:
+            -
+              port: 8080
+              protocol: "TCP"
+            -
+              port: 8443
+              protocol: "TCP"
+            -
+              port: 8002
+              protocol: "TCP"
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/component: "envoy"
+          app.kubernetes.io/instance: "contour"
+          app.kubernetes.io/name: "contour"
+      policyTypes:
+        - "Ingress"
+        - "Egress"
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: false
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":false,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"contour\",\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"contour\",\"app.kubernetes.io/version\":\"1.32.1\",\"helm.sh/chart\":\"contour-21.1.4\"},\"name\":\"contour-contour\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T12:37:34Z"
+      labels:
+        app.kubernetes.io/component: "contour"
+        app.kubernetes.io/instance: "contour"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "contour"
+        app.kubernetes.io/version: "1.32.1"
+        helm.sh/chart: "contour-21.1.4"
+      name: "contour-contour"
+      namespace: "default"
+      resourceVersion: "9218"
+      uid: "0cb76145-b124-4277-bf5d-b5033084dc33"
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: false
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":false,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"envoy\",\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"contour\",\"app.kubernetes.io/version\":\"1.34.5\",\"helm.sh/chart\":\"contour-21.1.4\"},\"name\":\"contour-envoy\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T12:37:34Z"
+      labels:
+        app.kubernetes.io/component: "envoy"
+        app.kubernetes.io/instance: "contour"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "contour"
+        app.kubernetes.io/version: "1.34.5"
+        helm.sh/chart: "contour-21.1.4"
+      name: "contour-envoy"
+      namespace: "default"
+      resourceVersion: "9219"
+      uid: "12512ce3-19e3-4a0a-ad1e-34c30ad7b4db"
+  -
+    apiVersion: "v1"
+    data:
+      contour.yaml: "accesslog-format: envoy\ndisablePermitInsecure: false\ntls:\n  fallback-certificate: {}"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"contour.yaml\":\"accesslog-format: envoy\\ndisablePermitInsecure: false\\ntls:\\n  fallback-certificate: {}\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"contour\",\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"contour\",\"app.kubernetes.io/version\":\"1.32.1\",\"helm.sh/chart\":\"contour-21.1.4\"},\"name\":\"contour\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T12:37:34Z"
+      labels:
+        app.kubernetes.io/component: "contour"
+        app.kubernetes.io/instance: "contour"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "contour"
+        app.kubernetes.io/version: "1.32.1"
+        helm.sh/chart: "contour-21.1.4"
+      name: "contour"
+      namespace: "default"
+      resourceVersion: "9220"
+      uid: "91212fc9-dc44-46ee-9834-463ab7fc0dd6"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"contour\",\"app.kubernetes.io/version\":\"1.32.1\",\"helm.sh/chart\":\"contour-21.1.4\"},\"name\":\"contour-contour\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"get\",\"update\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"create\",\"get\",\"update\"]}]}\n"
+      creationTimestamp: "2026-06-11T12:37:34Z"
+      labels:
+        app.kubernetes.io/instance: "contour"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "contour"
+        app.kubernetes.io/version: "1.32.1"
+        helm.sh/chart: "contour-21.1.4"
+      name: "contour-contour"
+      namespace: "default"
+      resourceVersion: "9221"
+      uid: "e4983d13-fda4-4be0-b48b-9abf4a1ca01a"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "get"
+          - "update"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "create"
+          - "get"
+          - "update"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"contour\",\"app.kubernetes.io/version\":\"1.32.1\",\"helm.sh/chart\":\"contour-21.1.4\"},\"name\":\"contour-contour-role\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"contour-contour\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"contour-contour\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T12:37:34Z"
+      labels:
+        app.kubernetes.io/instance: "contour"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "contour"
+        app.kubernetes.io/version: "1.32.1"
+        helm.sh/chart: "contour-21.1.4"
+      name: "contour-contour-role"
+      namespace: "default"
+      resourceVersion: "9222"
+      uid: "3eb2b9fa-21cd-4944-a98c-183cf88d4bcf"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "contour-contour"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "contour-contour"
+        namespace: "default"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"contour\",\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"contour\",\"app.kubernetes.io/version\":\"1.32.1\",\"helm.sh/chart\":\"contour-21.1.4\"},\"name\":\"contour\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"tcp-xds\",\"nodePort\":null,\"port\":8001,\"protocol\":\"TCP\",\"targetPort\":\"xds\"}],\"selector\":{\"app.kubernetes.io/component\":\"contour\",\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/name\":\"contour\"},\"sessionAffinity\":\"None\",\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:37:34Z"
+      labels:
+        app.kubernetes.io/component: "contour"
+        app.kubernetes.io/instance: "contour"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "contour"
+        app.kubernetes.io/version: "1.32.1"
+        helm.sh/chart: "contour-21.1.4"
+      name: "contour"
+      namespace: "default"
+      resourceVersion: "9224"
+      uid: "e47c050d-2d9d-41bc-9d48-b4709693b5df"
+    spec:
+      clusterIP: "10.96.46.160"
+      clusterIPs:
+        - "10.96.46.160"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "tcp-xds"
+          port: 8001
+          protocol: "TCP"
+          targetPort: "xds"
+      selector:
+        app.kubernetes.io/component: "contour"
+        app.kubernetes.io/instance: "contour"
+        app.kubernetes.io/name: "contour"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{\"service.beta.kubernetes.io/aws-load-balancer-backend-protocol\":\"tcp\"},\"labels\":{\"app.kubernetes.io/component\":\"envoy\",\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"contour\",\"app.kubernetes.io/version\":\"1.34.5\",\"helm.sh/chart\":\"contour-21.1.4\"},\"name\":\"contour-envoy\",\"namespace\":\"default\"},\"spec\":{\"externalTrafficPolicy\":\"Local\",\"ports\":[{\"name\":\"http\",\"port\":80,\"protocol\":\"TCP\",\"targetPort\":\"http\"},{\"name\":\"https\",\"port\":443,\"protocol\":\"TCP\",\"targetPort\":\"https\"}],\"selector\":{\"app.kubernetes.io/component\":\"envoy\",\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/name\":\"contour\"},\"sessionAffinity\":\"None\",\"type\":\"LoadBalancer\"}}\n"
+        service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "tcp"
+      creationTimestamp: "2026-06-11T12:37:34Z"
+      labels:
+        app.kubernetes.io/component: "envoy"
+        app.kubernetes.io/instance: "contour"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "contour"
+        app.kubernetes.io/version: "1.34.5"
+        helm.sh/chart: "contour-21.1.4"
+      name: "contour-envoy"
+      namespace: "default"
+      resourceVersion: "9231"
+      uid: "99f71471-d90e-497b-ac08-3b8fd4f585b5"
+    spec:
+      allocateLoadBalancerNodePorts: true
+      clusterIP: "10.96.133.147"
+      clusterIPs:
+        - "10.96.133.147"
+      externalTrafficPolicy: "Local"
+      healthCheckNodePort: 31970
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http"
+          nodePort: 31342
+          port: 80
+          protocol: "TCP"
+          targetPort: "http"
+        -
+          name: "https"
+          nodePort: 32183
+          port: 443
+          protocol: "TCP"
+          targetPort: "https"
+      selector:
+        app.kubernetes.io/component: "envoy"
+        app.kubernetes.io/instance: "contour"
+        app.kubernetes.io/name: "contour"
+      sessionAffinity: "None"
+      type: "LoadBalancer"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "DaemonSet"
+    metadata:
+      annotations:
+        deprecated.daemonset.template.generation: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"DaemonSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"envoy\",\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"contour\",\"app.kubernetes.io/version\":\"1.34.5\",\"helm.sh/chart\":\"contour-21.1.4\"},\"name\":\"contour-envoy\",\"namespace\":\"default\"},\"spec\":{\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"envoy\",\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/name\":\"contour\"}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"envoy\",\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"contour\",\"app.kubernetes.io/version\":\"1.34.5\",\"helm.sh/chart\":\"contour-21.1.4\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":null,\"podAffinity\":null,\"podAntiAffinity\":null},\"automountServiceAccountToken\":false,\"containers\":[{\"args\":[\"envoy\",\"shutdown-manager\",\"--serve-port=8090\"],\"command\":[\"contour\"],\"image\":\"docker.io/bitnami/contour:1.32.1-debian-12-r0\",\"imagePullPolicy\":\"IfNotPresent\",\"lifecycle\":{\"preStop\":{\"exec\":{\"command\":[\"contour\",\"envoy\",\"shutdown\"]}}},\"livenessProbe\":{\"failureThreshold\":6,\"initialDelaySeconds\":120,\"periodSeconds\":20,\"successThreshold\":1,\"tcpSocket\":{\"port\":\"http-shutdown\"},\"timeoutSeconds\":5},\"name\":\"shutdown-manager\",\"ports\":[{\"containerPort\":8090,\"name\":\"http-shutdown\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/healthz\",\"port\":\"http-shutdown\"},\"initialDelaySeconds\":10,\"periodSeconds\":3,\"successThreshold\":1,\"timeoutSeconds\":1},\"resources\":{\"limits\":{\"cpu\":\"150m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"192Mi\"},\"requests\":{\"cpu\":\"100m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"128Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/admin\",\"name\":\"empty-dir\",\"subPath\":\"app-admin-dir\"}]},{\"args\":[\"-c\",\"/config/envoy.json\",\"--service-cluster $(CONTOUR_NAMESPACE)\",\"--service-node $(ENVOY_POD_NAME)\",\"--log-level info\"],\"command\":[\"envoy\"],\"env\":[{\"name\":\"CONTOUR_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"apiVersion\":\"v1\",\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"ENVOY_POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"apiVersion\":\"v1\",\"fieldPath\":\"metadata.name\"}}}],\"image\":\"docker.io/bitnami/envoy:1.34.5-debian-12-r0\",\"imagePullPolicy\":\"IfNotPresent\",\"lifecycle\":{\"preStop\":{\"httpGet\":{\"path\":\"/shutdown\",\"port\":8090,\"scheme\":\"HTTP\"}}},\"livenessProbe\":{\"failureThreshold\":6,\"initialDelaySeconds\":120,\"periodSeconds\":20,\"successThreshold\":1,\"tcpSocket\":{\"port\":8002},\"timeoutSeconds\":5},\"name\":\"envoy\",\"ports\":[{\"containerPort\":8080,\"name\":\"http\",\"protocol\":\"TCP\"},{\"containerPort\":8443,\"name\":\"https\",\"protocol\":\"TCP\"},{\"containerPort\":8002,\"name\":\"metrics\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/ready\",\"port\":8002},\"initialDelaySeconds\":10,\"periodSeconds\":3,\"successThreshold\":1,\"timeoutSeconds\":1},\"resources\":{\"limits\":{\"cpu\":\"150m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"192Mi\"},\"requests\":{\"cpu\":\"100m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"128Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/config\",\"name\":\"empty-dir\",\"subPath\":\"app-conf-dir\"},{\"mountPath\":\"/certs\",\"name\":\"envoycert\",\"readOnly\":true},{\"mountPath\":\"/admin\",\"name\":\"empty-dir\",\"subPath\":\"app-admin-dir\"}]}],\"dnsPolicy\":\"ClusterFirst\",\"hostNetwork\":false,\"initContainers\":[{\"args\":[\"bootstrap\",\"/config/envoy.json\",\"--xds-address=contour\",\"--xds-port=8001\",\"--resources-dir=/config/resources\",\"--envoy-cafile=/certs/ca.crt\",\"--envoy-cert-file=/certs/tls.crt\",\"--envoy-key-file=/certs/tls.key\"],\"command\":[\"contour\"],\"env\":[{\"name\":\"CONTOUR_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}}],\"image\":\"docker.io/bitnami/contour:1.32.1-debian-12-r0\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"envoy-initconfig\",\"resources\":{\"limits\":{\"cpu\":\"150m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"192Mi\"},\"requests\":{\"cpu\":\"100m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"128Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/config\",\"name\":\"empty-dir\",\"subPath\":\"app-conf-dir\"},{\"mountPath\":\"/certs\",\"name\":\"envoycert\",\"readOnly\":true},{\"mountPath\":\"/admin\",\"name\":\"empty-dir\",\"subPath\":\"app-admin-dir\"}]}],\"restartPolicy\":\"Always\",\"securityContext\":{\"fsGroup\":0,\"fsGroupChangePolicy\":\"Always\",\"supplementalGroups\":[],\"sysctls\":[]},\"serviceAccountName\":\"contour-envoy\",\"terminationGracePeriodSeconds\":300,\"volumes\":[{\"emptyDir\":{},\"name\":\"empty-dir\"},{\"name\":\"envoycert\",\"secret\":{\"secretName\":\"envoycert\"}}]}},\"updateStrategy\":{\"type\":\"RollingUpdate\"}}}\n"
+      creationTimestamp: "2026-06-11T12:37:34Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "envoy"
+        app.kubernetes.io/instance: "contour"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "contour"
+        app.kubernetes.io/version: "1.34.5"
+        helm.sh/chart: "contour-21.1.4"
+      name: "contour-envoy"
+      namespace: "default"
+      resourceVersion: "9252"
+      uid: "3aa5f816-322a-4859-890b-db4e8ec2f390"
+    spec:
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "envoy"
+          app.kubernetes.io/instance: "contour"
+          app.kubernetes.io/name: "contour"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/component: "envoy"
+            app.kubernetes.io/instance: "contour"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "contour"
+            app.kubernetes.io/version: "1.34.5"
+            helm.sh/chart: "contour-21.1.4"
+        spec:
+          affinity:
+            {}
+          automountServiceAccountToken: false
+          containers:
+            -
+              args:
+                - "envoy"
+                - "shutdown-manager"
+                - "--serve-port=8090"
+              command:
+                - "contour"
+              image: "docker.io/bitnami/contour:1.32.1-debian-12-r0"
+              imagePullPolicy: "IfNotPresent"
+              lifecycle:
+                preStop:
+                  exec:
+                    command:
+                      - "contour"
+                      - "envoy"
+                      - "shutdown"
+              livenessProbe:
+                failureThreshold: 6
+                initialDelaySeconds: 120
+                periodSeconds: 20
+                successThreshold: 1
+                tcpSocket:
+                  port: "http-shutdown"
+                timeoutSeconds: 5
+              name: "shutdown-manager"
+              ports:
+                -
+                  containerPort: 8090
+                  name: "http-shutdown"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: "http-shutdown"
+                  scheme: "HTTP"
+                initialDelaySeconds: 10
+                periodSeconds: 3
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                limits:
+                  cpu: "150m"
+                  ephemeral-storage: "2Gi"
+                  memory: "192Mi"
+                requests:
+                  cpu: "100m"
+                  ephemeral-storage: "50Mi"
+                  memory: "128Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/admin"
+                  name: "empty-dir"
+                  subPath: "app-admin-dir"
+            -
+              args:
+                - "-c"
+                - "/config/envoy.json"
+                - "--service-cluster $(CONTOUR_NAMESPACE)"
+                - "--service-node $(ENVOY_POD_NAME)"
+                - "--log-level info"
+              command:
+                - "envoy"
+              env:
+                -
+                  name: "CONTOUR_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "ENVOY_POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+              image: "docker.io/bitnami/envoy:1.34.5-debian-12-r0"
+              imagePullPolicy: "IfNotPresent"
+              lifecycle:
+                preStop:
+                  httpGet:
+                    path: "/shutdown"
+                    port: 8090
+                    scheme: "HTTP"
+              livenessProbe:
+                failureThreshold: 6
+                initialDelaySeconds: 120
+                periodSeconds: 20
+                successThreshold: 1
+                tcpSocket:
+                  port: 8002
+                timeoutSeconds: 5
+              name: "envoy"
+              ports:
+                -
+                  containerPort: 8080
+                  name: "http"
+                  protocol: "TCP"
+                -
+                  containerPort: 8443
+                  name: "https"
+                  protocol: "TCP"
+                -
+                  containerPort: 8002
+                  name: "metrics"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/ready"
+                  port: 8002
+                  scheme: "HTTP"
+                initialDelaySeconds: 10
+                periodSeconds: 3
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                limits:
+                  cpu: "150m"
+                  ephemeral-storage: "2Gi"
+                  memory: "192Mi"
+                requests:
+                  cpu: "100m"
+                  ephemeral-storage: "50Mi"
+                  memory: "128Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/config"
+                  name: "empty-dir"
+                  subPath: "app-conf-dir"
+                -
+                  mountPath: "/certs"
+                  name: "envoycert"
+                  readOnly: true
+                -
+                  mountPath: "/admin"
+                  name: "empty-dir"
+                  subPath: "app-admin-dir"
+          dnsPolicy: "ClusterFirst"
+          initContainers:
+            -
+              args:
+                - "bootstrap"
+                - "/config/envoy.json"
+                - "--xds-address=contour"
+                - "--xds-port=8001"
+                - "--resources-dir=/config/resources"
+                - "--envoy-cafile=/certs/ca.crt"
+                - "--envoy-cert-file=/certs/tls.crt"
+                - "--envoy-key-file=/certs/tls.key"
+              command:
+                - "contour"
+              env:
+                -
+                  name: "CONTOUR_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+              image: "docker.io/bitnami/contour:1.32.1-debian-12-r0"
+              imagePullPolicy: "IfNotPresent"
+              name: "envoy-initconfig"
+              resources:
+                limits:
+                  cpu: "150m"
+                  ephemeral-storage: "2Gi"
+                  memory: "192Mi"
+                requests:
+                  cpu: "100m"
+                  ephemeral-storage: "50Mi"
+                  memory: "128Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/config"
+                  name: "empty-dir"
+                  subPath: "app-conf-dir"
+                -
+                  mountPath: "/certs"
+                  name: "envoycert"
+                  readOnly: true
+                -
+                  mountPath: "/admin"
+                  name: "empty-dir"
+                  subPath: "app-admin-dir"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 0
+            fsGroupChangePolicy: "Always"
+          serviceAccount: "contour-envoy"
+          serviceAccountName: "contour-envoy"
+          terminationGracePeriodSeconds: 300
+          volumes:
+            -
+              emptyDir:
+                {}
+              name: "empty-dir"
+            -
+              name: "envoycert"
+              secret:
+                defaultMode: 420
+                secretName: "envoycert"
+      updateStrategy:
+        rollingUpdate:
+          maxSurge: 0
+          maxUnavailable: 1
+        type: "RollingUpdate"
+    status:
+      currentNumberScheduled: 1
+      desiredNumberScheduled: 1
+      numberMisscheduled: 0
+      numberReady: 0
+      numberUnavailable: 1
+      observedGeneration: 1
+      updatedNumberScheduled: 1
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"contour\",\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"contour\",\"app.kubernetes.io/version\":\"1.32.1\",\"helm.sh/chart\":\"contour-21.1.4\"},\"name\":\"contour-contour\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"contour\",\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/name\":\"contour\"}},\"template\":{\"metadata\":{\"annotations\":{\"checksum/config\":\"7a2b79b3bb4ed721a1dfec37c680ffdcaf8d1976e71f115034be9295e367aa36\"},\"labels\":{\"app.kubernetes.io/component\":\"contour\",\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"contour\",\"app.kubernetes.io/version\":\"1.32.1\",\"helm.sh/chart\":\"contour-21.1.4\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":null,\"podAffinity\":null,\"podAntiAffinity\":{\"preferredDuringSchedulingIgnoredDuringExecution\":[{\"podAffinityTerm\":{\"labelSelector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"contour\",\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/name\":\"contour\"}},\"topologyKey\":\"kubernetes.io/hostname\"},\"weight\":1}]}},\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"serve\",\"--incluster\",\"--xds-address=0.0.0.0\",\"--xds-port=8001\",\"--http-port=8000\",\"--envoy-service-http-port=8080\",\"--envoy-service-https-port=8443\",\"--contour-cafile=/certs/ca.crt\",\"--contour-cert-file=/certs/tls.crt\",\"--contour-key-file=/certs/tls.key\",\"--config-path=/config/contour.yaml\",\"--envoy-service-namespace=default\",\"--envoy-service-name=contour-envoy\",\"--leader-election-resource-name=default-contour-contour\",\"--log-format=text\",\"--kubernetes-debug=0\"],\"command\":[\"contour\"],\"env\":[{\"name\":\"CONTOUR_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"apiVersion\":\"v1\",\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"apiVersion\":\"v1\",\"fieldPath\":\"metadata.name\"}}},{\"name\":\"BITNAMI_DEBUG\",\"value\":\"false\"}],\"image\":\"docker.io/bitnami/contour:1.32.1-debian-12-r0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":6,\"initialDelaySeconds\":120,\"periodSeconds\":20,\"successThreshold\":1,\"tcpSocket\":{\"port\":8000},\"timeoutSeconds\":5},\"name\":\"contour\",\"ports\":[{\"containerPort\":8001,\"name\":\"xds\",\"protocol\":\"TCP\"},{\"containerPort\":8000,\"name\":\"metrics\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/healthz\",\"port\":8000},\"initialDelaySeconds\":15,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"resources\":{\"limits\":{\"cpu\":\"150m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"192Mi\"},\"requests\":{\"cpu\":\"100m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"128Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/certs\",\"name\":\"contourcert\",\"readOnly\":true},{\"mountPath\":\"/config\",\"name\":\"contour-config\",\"readOnly\":true}]}],\"dnsPolicy\":\"ClusterFirst\",\"securityContext\":{\"fsGroup\":1001,\"fsGroupChangePolicy\":\"Always\",\"supplementalGroups\":[],\"sysctls\":[]},\"serviceAccountName\":\"contour-contour\",\"volumes\":[{\"name\":\"contourcert\",\"secret\":{\"secretName\":\"contourcert\"}},{\"configMap\":{\"defaultMode\":420,\"items\":[{\"key\":\"contour.yaml\",\"path\":\"contour.yaml\"}],\"name\":\"contour\"},\"name\":\"contour-config\"}]}}}}\n"
+      creationTimestamp: "2026-06-11T12:37:34Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "contour"
+        app.kubernetes.io/instance: "contour"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "contour"
+        app.kubernetes.io/version: "1.32.1"
+        helm.sh/chart: "contour-21.1.4"
+      name: "contour-contour"
+      namespace: "default"
+      resourceVersion: "9254"
+      uid: "2cc98acc-4007-4fc1-b2ae-7e5eb8d1cb9e"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "contour"
+          app.kubernetes.io/instance: "contour"
+          app.kubernetes.io/name: "contour"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          annotations:
+            checksum/config: "7a2b79b3bb4ed721a1dfec37c680ffdcaf8d1976e71f115034be9295e367aa36"
+          labels:
+            app.kubernetes.io/component: "contour"
+            app.kubernetes.io/instance: "contour"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "contour"
+            app.kubernetes.io/version: "1.32.1"
+            helm.sh/chart: "contour-21.1.4"
+        spec:
+          affinity:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                -
+                  podAffinityTerm:
+                    labelSelector:
+                      matchLabels:
+                        app.kubernetes.io/component: "contour"
+                        app.kubernetes.io/instance: "contour"
+                        app.kubernetes.io/name: "contour"
+                    topologyKey: "kubernetes.io/hostname"
+                  weight: 1
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "serve"
+                - "--incluster"
+                - "--xds-address=0.0.0.0"
+                - "--xds-port=8001"
+                - "--http-port=8000"
+                - "--envoy-service-http-port=8080"
+                - "--envoy-service-https-port=8443"
+                - "--contour-cafile=/certs/ca.crt"
+                - "--contour-cert-file=/certs/tls.crt"
+                - "--contour-key-file=/certs/tls.key"
+                - "--config-path=/config/contour.yaml"
+                - "--envoy-service-namespace=default"
+                - "--envoy-service-name=contour-envoy"
+                - "--leader-election-resource-name=default-contour-contour"
+                - "--log-format=text"
+                - "--kubernetes-debug=0"
+              command:
+                - "contour"
+              env:
+                -
+                  name: "CONTOUR_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "BITNAMI_DEBUG"
+                  value: "false"
+              image: "docker.io/bitnami/contour:1.32.1-debian-12-r0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 6
+                initialDelaySeconds: 120
+                periodSeconds: 20
+                successThreshold: 1
+                tcpSocket:
+                  port: 8000
+                timeoutSeconds: 5
+              name: "contour"
+              ports:
+                -
+                  containerPort: 8001
+                  name: "xds"
+                  protocol: "TCP"
+                -
+                  containerPort: 8000
+                  name: "metrics"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: 8000
+                  scheme: "HTTP"
+                initialDelaySeconds: 15
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                limits:
+                  cpu: "150m"
+                  ephemeral-storage: "2Gi"
+                  memory: "192Mi"
+                requests:
+                  cpu: "100m"
+                  ephemeral-storage: "50Mi"
+                  memory: "128Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/certs"
+                  name: "contourcert"
+                  readOnly: true
+                -
+                  mountPath: "/config"
+                  name: "contour-config"
+                  readOnly: true
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 1001
+            fsGroupChangePolicy: "Always"
+          serviceAccount: "contour-contour"
+          serviceAccountName: "contour-contour"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              name: "contourcert"
+              secret:
+                defaultMode: 420
+                secretName: "contourcert"
+            -
+              configMap:
+                defaultMode: 420
+                items:
+                  -
+                    key: "contour.yaml"
+                    path: "contour.yaml"
+                name: "contour"
+              name: "contour-config"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T12:37:34Z"
+          lastUpdateTime: "2026-06-11T12:37:34Z"
+          message: "Deployment does not have minimum availability."
+          reason: "MinimumReplicasUnavailable"
+          status: "False"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T12:37:34Z"
+          lastUpdateTime: "2026-06-11T12:37:34Z"
+          message: "ReplicaSet \"contour-contour-6f88fd5fc6\" is progressing."
+          reason: "ReplicaSetUpdated"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      replicas: 1
+      terminatingReplicas: 0
+      unavailableReplicas: 1
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"contour\",\"app.kubernetes.io/version\":\"1.32.1\",\"helm.sh/chart\":\"contour-21.1.4\"},\"name\":\"contour-contour\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\"],\"verbs\":[\"create\",\"get\",\"list\",\"update\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"endpoints\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"services\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"networking.k8s.io\"],\"resources\":[\"ingressclasses\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"networking.k8s.io\"],\"resources\":[\"ingresses\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"networking.k8s.io\"],\"resources\":[\"ingresses/status\"],\"verbs\":[\"create\",\"get\",\"update\"]},{\"apiGroups\":[\"networking.x-k8s.io\",\"gateway.networking.k8s.io\"],\"resources\":[\"gatewayclasses\",\"gateways\",\"grpcroutes\",\"httproutes\",\"tcproutes\",\"tlsroutes\",\"udproutes\",\"referencepolicies\",\"referencegrants\",\"backendtlspolicies\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"networking.x-k8s.io\",\"gateway.networking.k8s.io\"],\"resources\":[\"gatewayclasses/status\",\"gateways/status\",\"grpcroutes/status\",\"httproutes/status\",\"tcproutes/status\",\"tlsroutes/status\",\"udproutes/status\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"projectcontour.io\"],\"resources\":[\"contourconfigurations\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"projectcontour.io\"],\"resources\":[\"contourconfigurations/status\"],\"verbs\":[\"create\",\"get\",\"update\"]},{\"apiGroups\":[\"projectcontour.io\"],\"resources\":[\"extensionservices\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"projectcontour.io\"],\"resources\":[\"extensionservices/status\"],\"verbs\":[\"create\",\"get\",\"update\"]},{\"apiGroups\":[\"projectcontour.io\"],\"resources\":[\"httpproxies\",\"tlscertificatedelegations\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"projectcontour.io\"],\"resources\":[\"httpproxies/status\"],\"verbs\":[\"create\",\"get\",\"update\"]},{\"apiGroups\":[\"discovery.k8s.io\"],\"resources\":[\"endpointslices\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T12:37:34Z"
+      labels:
+        app.kubernetes.io/instance: "contour"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "contour"
+        app.kubernetes.io/version: "1.32.1"
+        helm.sh/chart: "contour-21.1.4"
+      name: "contour-contour"
+      resourceVersion: "9256"
+      uid: "670d9171-5016-4758-b8ea-56b2d7348a9e"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+        verbs:
+          - "create"
+          - "get"
+          - "list"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "endpoints"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "namespaces"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "services"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "networking.k8s.io"
+        resources:
+          - "ingressclasses"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "networking.k8s.io"
+        resources:
+          - "ingresses"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "networking.k8s.io"
+        resources:
+          - "ingresses/status"
+        verbs:
+          - "create"
+          - "get"
+          - "update"
+      -
+        apiGroups:
+          - "networking.x-k8s.io"
+          - "gateway.networking.k8s.io"
+        resources:
+          - "gatewayclasses"
+          - "gateways"
+          - "grpcroutes"
+          - "httproutes"
+          - "tcproutes"
+          - "tlsroutes"
+          - "udproutes"
+          - "referencepolicies"
+          - "referencegrants"
+          - "backendtlspolicies"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "networking.x-k8s.io"
+          - "gateway.networking.k8s.io"
+        resources:
+          - "gatewayclasses/status"
+          - "gateways/status"
+          - "grpcroutes/status"
+          - "httproutes/status"
+          - "tcproutes/status"
+          - "tlsroutes/status"
+          - "udproutes/status"
+        verbs:
+          - "update"
+      -
+        apiGroups:
+          - "projectcontour.io"
+        resources:
+          - "contourconfigurations"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "projectcontour.io"
+        resources:
+          - "contourconfigurations/status"
+        verbs:
+          - "create"
+          - "get"
+          - "update"
+      -
+        apiGroups:
+          - "projectcontour.io"
+        resources:
+          - "extensionservices"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "projectcontour.io"
+        resources:
+          - "extensionservices/status"
+        verbs:
+          - "create"
+          - "get"
+          - "update"
+      -
+        apiGroups:
+          - "projectcontour.io"
+        resources:
+          - "httpproxies"
+          - "tlscertificatedelegations"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "projectcontour.io"
+        resources:
+          - "httpproxies/status"
+        verbs:
+          - "create"
+          - "get"
+          - "update"
+      -
+        apiGroups:
+          - "discovery.k8s.io"
+        resources:
+          - "endpointslices"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"contour\",\"app.kubernetes.io/version\":\"1.32.1\",\"helm.sh/chart\":\"contour-21.1.4\"},\"name\":\"contour-contour\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"contour-contour\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"contour-contour\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T12:37:34Z"
+      labels:
+        app.kubernetes.io/instance: "contour"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "contour"
+        app.kubernetes.io/version: "1.32.1"
+        helm.sh/chart: "contour-21.1.4"
+      name: "contour-contour"
+      resourceVersion: "9257"
+      uid: "bf571f89-e667-471b-9bfe-9c65d5dbea5f"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "contour-contour"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "contour-contour"
+        namespace: "default"
+  -
+    apiVersion: "networking.k8s.io/v1"
+    kind: "IngressClass"
+    metadata:
+      annotations:
+        ingressclass.kubernetes.io/is-default-class: "true"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"IngressClass\",\"metadata\":{\"annotations\":{\"ingressclass.kubernetes.io/is-default-class\":\"true\"},\"labels\":{\"app.kubernetes.io/component\":\"contour\",\"app.kubernetes.io/instance\":\"contour\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"contour\",\"app.kubernetes.io/version\":\"1.32.1\",\"helm.sh/chart\":\"contour-21.1.4\"},\"name\":\"contour\"},\"spec\":{\"controller\":\"projectcontour.io/default/contour-contour\"}}\n"
+      creationTimestamp: "2026-06-11T12:37:34Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "contour"
+        app.kubernetes.io/instance: "contour"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "contour"
+        app.kubernetes.io/version: "1.32.1"
+        helm.sh/chart: "contour-21.1.4"
+      name: "contour"
+      resourceVersion: "9258"
+      uid: "7adbe80a-93be-43f3-9183-c2f815156bb4"
+    spec:
+      controller: "projectcontour.io/default/contour-contour"
+kind: "List"
+metadata:
+  resourceVersion: ""

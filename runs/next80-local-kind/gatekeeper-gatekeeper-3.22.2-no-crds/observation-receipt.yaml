@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "gatekeeper-gatekeeper-3.22.2-no-crds-local-kind"
+spec:
+  variantRevision: "recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "ab5488411d047ab53e8c5c5cece3730c66ce7c8f9cb3ff9da1135d64eca97e1c"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T14:57:39.469Z"
+  freshnessTTL: "1h"
+  result: "fail"
+  clusterStatus: "existing"
+  variant: "no-crds"
+  workloads: 2
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "1f8de656ba4828c09c663834011f77a52e687ea457552815071467811dddd8c9"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "13 object(s) from recipes/gatekeeper/gatekeeper/3.22.2/revisions/no-crds/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "Deployment|default|gatekeeper-audit"
+      reason: "not-ready: gatekeeper-audit-858d4d5444-rr4kh[ ready=false restarts=1;] gatekeeper-controller-manager-6988f9c779-2gqlv[CrashLoopBackOff ready=false restarts=5;] gatekeeper-controller-manager-6988f9c779-2kwm5[CrashLoopBackOff ready=false restarts=5;] gatekeeper-controller-manager-6988f9c779-bg82c[CrashLoopBackOf"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "Deployment|default|gatekeeper-controller-manager"
+      reason: "not-ready: gatekeeper-audit-858d4d5444-rr4kh[ ready=false restarts=1;] gatekeeper-controller-manager-6988f9c779-2gqlv[CrashLoopBackOff ready=false restarts=5;] gatekeeper-controller-manager-6988f9c779-2kwm5[CrashLoopBackOff ready=false restarts=5;] gatekeeper-controller-manager-6988f9c779-bg82c[CrashLoopBackOf"
+  blockedReasons:
+    - "deployment/gatekeeper-audit: not-ready (gatekeeper-audit-858d4d5444-rr4kh[ ready=false restarts=1;] gatekeeper-controller-manager-6988f9c779-2gqlv[CrashLoopBackOff ready=false restarts=5;] gatekeeper-)"
+    - "deployment/gatekeeper-controller-manager: not-ready (gatekeeper-audit-858d4d5444-rr4kh[ ready=false restarts=1;] gatekeeper-controller-manager-6988f9c779-2gqlv[CrashLoopBackOff ready=false restarts=5;] gatekeeper-)"

@@ -3,28 +3,30 @@ kind: "ObservationReceipt"
 metadata:
   name: "kyverno-kyverno-policies-3.8.0-default-local-kind"
 spec:
-  variantRevision: "recipes/kyverno/kyverno-policies/3.8.0/revisions/default/r001/variant-revision.yaml"
-  renderedObjectSetSHA256: "e486d983f614fe17b5eb85b4a8e9088242c2b94ca3694d1e11294c44a4bc9ef9"
-  observer:
-    name: "next80-local-live"
-    version: "0.1.0"
-    method: "kubectl-kind"
-  target:
-    kind: "kind"
-    name: "claude-helm-expt-codex-kyvpol"
-    context: "kind-claude-helm-expt-codex-kyvpol"
-    namespace: "default"
-  observedAt: "2026-06-11T12:10:18.370Z"
-  freshnessTTL: "1h"
-  result: "blocked"
-  clusterStatus: "created-by-test"
-  variant: "default"
-  workloads: 0
+  blockedReasons:
+    - "apply: resource mapping not found for name: \"disallow-capabilities\" namespace: \"\" from \"STDIN\": no matches for kind \"ClusterPolicy\" in version \"kyverno.io/v1\" ensure CRDs are installed first resource mapping"
   checks:
     -
       name: "rendered-objects-applied"
-      result: "blocked"
       object: "11 object(s) from recipes/kyverno/kyverno-policies/3.8.0/revisions/default/r001/rendered/release-objects.yaml"
       reason: "apply-blocked: resource mapping not found for name: \"disallow-capabilities\" namespace: \"\" from \"STDIN\": no matches for kind \"ClusterPolicy\" in version \"kyverno.io/v1\" ensure CRDs are installed first resource mapping"
-  blockedReasons:
-    - "apply: resource mapping not found for name: \"disallow-capabilities\" namespace: \"\" from \"STDIN\": no matches for kind \"ClusterPolicy\" in version \"kyverno.io/v1\" ensure CRDs are installed first resource mapping"
+      result: "blocked"
+      evidencePath: "observation-log.txt"
+      evidenceSHA256: "8cb709b3852d7f31f15d7dab3e27d85d61b024d5358aa4f1efbd49e14e7476b4"
+  clusterStatus: "created-by-test"
+  freshnessTTL: "1h"
+  observedAt: "2026-06-11T12:10:18.370Z"
+  observer:
+    method: "kubectl-kind"
+    name: "next80-local-live"
+    version: "0.1.0"
+  renderedObjectSetSHA256: "e486d983f614fe17b5eb85b4a8e9088242c2b94ca3694d1e11294c44a4bc9ef9"
+  result: "blocked"
+  target:
+    context: "kind-claude-helm-expt-codex-kyvpol"
+    kind: "kind"
+    name: "claude-helm-expt-codex-kyvpol"
+    namespace: "default"
+  variant: "default"
+  variantRevision: "recipes/kyverno/kyverno-policies/3.8.0/revisions/default/r001/variant-revision.yaml"
+  workloads: 0

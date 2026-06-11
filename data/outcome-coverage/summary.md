@@ -13,7 +13,7 @@ chart/base rows:                     189
 complete core lane rows:             20/189
 render parity rows:                  189/189
 in-ConfigHub proof rows:             20/189
-local live rows:                     90/189
+local live rows:                     106/189
 GitOps/OCI live pass rows:           23/189
 GitOps/OCI non-pass receipts:        6
 live Helm-vs-ConfigHub pass rows:    20/189
@@ -68,7 +68,7 @@ related lifecycle observations:      4/4
 | `bitnami/redis@25.5.3` | default;reuse-existing-secret | yes | 1/2 | 2/2 | 2/2 | 1/2 | 2/2 | - |
 | `external-secrets/external-secrets@2.5.0` | default;no-crds | no | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | - |
 | `grafana/grafana@10.5.15` | generated-passwords;existing-secret-ingress | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | - |
-| `grafana/loki@7.0.0` | single-binary-filesystem;simple-scalable-minio | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | - |
+| `grafana/loki@7.0.0` | single-binary-filesystem;simple-scalable-minio | yes | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | - |
 | `grafana/tempo@1.24.4` | local-persistent;s3-query-observability | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
 | `hashicorp/consul@2.0.0` | default-control-plane;secure-mesh-existing-secrets | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `hashicorp/vault@0.32.0` | dev-mode;default;ha-raft-ui | yes | 1/3 | 2/3 | 1/3 | 1/3 | 3/3 | - |
@@ -77,7 +77,7 @@ related lifecycle observations:      4/4
 | `longhorn/longhorn@1.11.2` | default;ui-ingress | yes | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | - |
 | `metrics-server/metrics-server@3.13.0` | default;external-tls-ca | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default;no-crds | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
-| `prometheus-community/prometheus@29.8.0` | default;server-only-ephemeral | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| `prometheus-community/prometheus@29.8.0` | default;server-only-ephemeral | yes | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default;sync-secret-rotation | yes | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | - |
 
 ## How To Read This

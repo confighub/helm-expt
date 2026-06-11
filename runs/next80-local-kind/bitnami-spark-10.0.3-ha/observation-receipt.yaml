@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-spark-10.0.3-ha-local-kind"
+spec:
+  variantRevision: "recipes/bitnami/spark/10.0.3/revisions/ha/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "55b44c0927f07867cba166634cbf1440028df42dabc48870953a2ddc6c2fbe75"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T13:08:03.666Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "existing"
+  variant: "ha"
+  workloads: 2
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "fe8ff0c009a1eeaf75e9fd8342b33078f056895cf3715ffe524460a32295cf3a"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "10 object(s) from recipes/bitnami/spark/10.0.3/revisions/ha/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "StatefulSet|default|spark-master"
+      reason: "image-pull-blocked: rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;] spark-master-0[ImagePullBackOff ready=false restarts=0;] spark-worker-0[ImagePullBackOff ready=false restarts=0;] surveyor-c4759d87-p4692[CrashLoopBackOff ready=false restarts=22;]"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "StatefulSet|default|spark-worker"
+      reason: "image-pull-blocked: rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;] spark-master-0[ImagePullBackOff ready=false restarts=0;] spark-worker-0[ImagePullBackOff ready=false restarts=0;] surveyor-c4759d87-p4692[CrashLoopBackOff ready=false restarts=22;]"
+  blockedReasons:
+    - "statefulset/spark-master: image-pull-blocked (rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;] spark-master-0[ImagePullBackOff ready=false restarts=0;] spark-worker-0[ImagePullBackOff ready=false)"
+    - "statefulset/spark-worker: image-pull-blocked (rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;] spark-master-0[ImagePullBackOff ready=false restarts=0;] spark-worker-0[ImagePullBackOff ready=false)"

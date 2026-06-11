@@ -1,0 +1,395 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"rbac\",\"app.kubernetes.io/instance\":\"alloy\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"alloy\",\"app.kubernetes.io/part-of\":\"alloy\",\"app.kubernetes.io/version\":\"v1.16.1\",\"helm.sh/chart\":\"alloy-1.8.2\"},\"name\":\"alloy\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T12:02:30Z"
+      labels:
+        app.kubernetes.io/component: "rbac"
+        app.kubernetes.io/instance: "alloy"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "alloy"
+        app.kubernetes.io/part-of: "alloy"
+        app.kubernetes.io/version: "v1.16.1"
+        helm.sh/chart: "alloy-1.8.2"
+      name: "alloy"
+      namespace: "default"
+      resourceVersion: "4465"
+      uid: "c521dac1-cf2a-4ad6-a15e-d33457a8f842"
+  -
+    apiVersion: "v1"
+    data:
+      config.alloy: "logging {\n\tlevel  = \"info\"\n\tformat = \"logfmt\"\n}\n\ndiscovery.kubernetes \"pods\" {\n\trole = \"pod\"\n}\n\ndiscovery.kubernetes \"nodes\" {\n\trole = \"node\"\n}\n\ndiscovery.kubernetes \"services\" {\n\trole = \"service\"\n}\n\ndiscovery.kubernetes \"endpoints\" {\n\trole = \"endpoints\"\n}\n\ndiscovery.kubernetes \"endpointslices\" {\n\trole = \"endpointslice\"\n}\n\ndiscovery.kubernetes \"ingresses\" {\n\trole = \"ingress\"\n}"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"config.alloy\":\"logging {\\n\\tlevel  = \\\"info\\\"\\n\\tformat = \\\"logfmt\\\"\\n}\\n\\ndiscovery.kubernetes \\\"pods\\\" {\\n\\trole = \\\"pod\\\"\\n}\\n\\ndiscovery.kubernetes \\\"nodes\\\" {\\n\\trole = \\\"node\\\"\\n}\\n\\ndiscovery.kubernetes \\\"services\\\" {\\n\\trole = \\\"service\\\"\\n}\\n\\ndiscovery.kubernetes \\\"endpoints\\\" {\\n\\trole = \\\"endpoints\\\"\\n}\\n\\ndiscovery.kubernetes \\\"endpointslices\\\" {\\n\\trole = \\\"endpointslice\\\"\\n}\\n\\ndiscovery.kubernetes \\\"ingresses\\\" {\\n\\trole = \\\"ingress\\\"\\n}\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"config\",\"app.kubernetes.io/instance\":\"alloy\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"alloy\",\"app.kubernetes.io/part-of\":\"alloy\",\"app.kubernetes.io/version\":\"v1.16.1\",\"helm.sh/chart\":\"alloy-1.8.2\"},\"name\":\"alloy\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T12:02:30Z"
+      labels:
+        app.kubernetes.io/component: "config"
+        app.kubernetes.io/instance: "alloy"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "alloy"
+        app.kubernetes.io/part-of: "alloy"
+        app.kubernetes.io/version: "v1.16.1"
+        helm.sh/chart: "alloy-1.8.2"
+      name: "alloy"
+      namespace: "default"
+      resourceVersion: "4466"
+      uid: "de8e55f7-3408-4c3c-bb56-722c127beb34"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"networking\",\"app.kubernetes.io/instance\":\"alloy\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"alloy\",\"app.kubernetes.io/part-of\":\"alloy\",\"app.kubernetes.io/version\":\"v1.16.1\",\"helm.sh/chart\":\"alloy-1.8.2\"},\"name\":\"alloy\",\"namespace\":\"default\"},\"spec\":{\"internalTrafficPolicy\":\"Cluster\",\"ports\":[{\"name\":\"http-metrics\",\"port\":12345,\"protocol\":\"TCP\",\"targetPort\":12345}],\"selector\":{\"app.kubernetes.io/instance\":\"alloy\",\"app.kubernetes.io/name\":\"alloy\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:02:30Z"
+      labels:
+        app.kubernetes.io/component: "networking"
+        app.kubernetes.io/instance: "alloy"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "alloy"
+        app.kubernetes.io/part-of: "alloy"
+        app.kubernetes.io/version: "v1.16.1"
+        helm.sh/chart: "alloy-1.8.2"
+      name: "alloy"
+      namespace: "default"
+      resourceVersion: "4468"
+      uid: "120e3a76-18bf-46cb-b944-87ed9a5c9503"
+    spec:
+      clusterIP: "10.96.140.228"
+      clusterIPs:
+        - "10.96.140.228"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http-metrics"
+          port: 12345
+          protocol: "TCP"
+          targetPort: 12345
+      selector:
+        app.kubernetes.io/instance: "alloy"
+        app.kubernetes.io/name: "alloy"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "DaemonSet"
+    metadata:
+      annotations:
+        deprecated.daemonset.template.generation: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"DaemonSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"alloy\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"alloy\",\"app.kubernetes.io/part-of\":\"alloy\",\"app.kubernetes.io/version\":\"v1.16.1\",\"helm.sh/chart\":\"alloy-1.8.2\"},\"name\":\"alloy\",\"namespace\":\"default\"},\"spec\":{\"minReadySeconds\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"alloy\",\"app.kubernetes.io/name\":\"alloy\"}},\"template\":{\"metadata\":{\"annotations\":{\"kubectl.kubernetes.io/default-container\":\"alloy\"},\"labels\":{\"app.kubernetes.io/instance\":\"alloy\",\"app.kubernetes.io/name\":\"alloy\"}},\"spec\":{\"containers\":[{\"args\":[\"run\",\"/etc/alloy/config.alloy\",\"--storage.path=/tmp/alloy\",\"--server.http.listen-addr=0.0.0.0:12345\",\"--server.http.ui-path-prefix=/\",\"--stability.level=generally-available\"],\"env\":[{\"name\":\"ALLOY_DEPLOY_MODE\",\"value\":\"helm\"},{\"name\":\"HOSTNAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"K8S_NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}}],\"image\":\"docker.io/grafana/alloy:v1.16.1\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"alloy\",\"ports\":[{\"containerPort\":12345,\"name\":\"http-metrics\"}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/-/ready\",\"port\":12345,\"scheme\":\"HTTP\"},\"initialDelaySeconds\":10,\"timeoutSeconds\":1},\"volumeMounts\":[{\"mountPath\":\"/etc/alloy\",\"name\":\"config\"}]},{\"args\":[\"--watched-dir=/etc/alloy\",\"--reload-url=http://localhost:12345/-/reload\"],\"image\":\"quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0@sha256:7d9e4eea5f1139e602508871f422b0116c60e87c662f3dcd234d5ab60cd0d8c1\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"config-reloader\",\"resources\":{\"requests\":{\"cpu\":\"10m\",\"memory\":\"50Mi\"}},\"volumeMounts\":[{\"mountPath\":\"/etc/alloy\",\"name\":\"config\"}]}],\"dnsPolicy\":\"ClusterFirst\",\"serviceAccountName\":\"alloy\",\"volumes\":[{\"configMap\":{\"name\":\"alloy\"},\"name\":\"config\"}]}}}}\n"
+      creationTimestamp: "2026-06-11T12:02:30Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "alloy"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "alloy"
+        app.kubernetes.io/part-of: "alloy"
+        app.kubernetes.io/version: "v1.16.1"
+        helm.sh/chart: "alloy-1.8.2"
+      name: "alloy"
+      namespace: "default"
+      resourceVersion: "4525"
+      uid: "0cc239c7-ebdc-46e3-a712-52440cb37298"
+    spec:
+      minReadySeconds: 10
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "alloy"
+          app.kubernetes.io/name: "alloy"
+      template:
+        metadata:
+          annotations:
+            kubectl.kubernetes.io/default-container: "alloy"
+          labels:
+            app.kubernetes.io/instance: "alloy"
+            app.kubernetes.io/name: "alloy"
+        spec:
+          containers:
+            -
+              args:
+                - "run"
+                - "/etc/alloy/config.alloy"
+                - "--storage.path=/tmp/alloy"
+                - "--server.http.listen-addr=0.0.0.0:12345"
+                - "--server.http.ui-path-prefix=/"
+                - "--stability.level=generally-available"
+              env:
+                -
+                  name: "ALLOY_DEPLOY_MODE"
+                  value: "helm"
+                -
+                  name: "HOSTNAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "spec.nodeName"
+                -
+                  name: "K8S_NODE_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "spec.nodeName"
+              image: "docker.io/grafana/alloy:v1.16.1"
+              imagePullPolicy: "IfNotPresent"
+              name: "alloy"
+              ports:
+                -
+                  containerPort: 12345
+                  name: "http-metrics"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/-/ready"
+                  port: 12345
+                  scheme: "HTTP"
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                {}
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/etc/alloy"
+                  name: "config"
+            -
+              args:
+                - "--watched-dir=/etc/alloy"
+                - "--reload-url=http://localhost:12345/-/reload"
+              image: "quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0@sha256:7d9e4eea5f1139e602508871f422b0116c60e87c662f3dcd234d5ab60cd0d8c1"
+              imagePullPolicy: "IfNotPresent"
+              name: "config-reloader"
+              resources:
+                requests:
+                  cpu: "10m"
+                  memory: "50Mi"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/etc/alloy"
+                  name: "config"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "alloy"
+          serviceAccountName: "alloy"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              configMap:
+                defaultMode: 420
+                name: "alloy"
+              name: "config"
+      updateStrategy:
+        rollingUpdate:
+          maxSurge: 0
+          maxUnavailable: 1
+        type: "RollingUpdate"
+    status:
+      currentNumberScheduled: 1
+      desiredNumberScheduled: 1
+      numberAvailable: 1
+      numberMisscheduled: 0
+      numberReady: 1
+      observedGeneration: 1
+      updatedNumberScheduled: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"rbac\",\"app.kubernetes.io/instance\":\"alloy\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"alloy\",\"app.kubernetes.io/part-of\":\"alloy\",\"app.kubernetes.io/version\":\"v1.16.1\",\"helm.sh/chart\":\"alloy-1.8.2\"},\"name\":\"alloy\"},\"rules\":[{\"apiGroups\":[\"\",\"discovery.k8s.io\",\"networking.k8s.io\"],\"resources\":[\"endpoints\",\"endpointslices\",\"ingresses\",\"pods\",\"services\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods\",\"pods/log\",\"namespaces\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"monitoring.grafana.com\"],\"resources\":[\"podlogs\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"monitoring.coreos.com\"],\"resources\":[\"prometheusrules\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"monitoring.coreos.com\"],\"resources\":[\"alertmanagerconfigs\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"monitoring.coreos.com\"],\"resources\":[\"podmonitors\",\"servicemonitors\",\"probes\",\"scrapeconfigs\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\",\"secrets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"apps\",\"extensions\"],\"resources\":[\"replicasets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"nodes\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"nodes/pods\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"nodes/metrics\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"nonResourceURLs\":[\"/metrics\"],\"verbs\":[\"get\"]}]}\n"
+      creationTimestamp: "2026-06-11T12:02:30Z"
+      labels:
+        app.kubernetes.io/component: "rbac"
+        app.kubernetes.io/instance: "alloy"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "alloy"
+        app.kubernetes.io/part-of: "alloy"
+        app.kubernetes.io/version: "v1.16.1"
+        helm.sh/chart: "alloy-1.8.2"
+      name: "alloy"
+      resourceVersion: "4481"
+      uid: "83def267-69ae-49eb-aac1-cfc80e35133b"
+    rules:
+      -
+        apiGroups:
+          - ""
+          - "discovery.k8s.io"
+          - "networking.k8s.io"
+        resources:
+          - "endpoints"
+          - "endpointslices"
+          - "ingresses"
+          - "pods"
+          - "services"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+          - "pods/log"
+          - "namespaces"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "monitoring.grafana.com"
+        resources:
+          - "podlogs"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "monitoring.coreos.com"
+        resources:
+          - "prometheusrules"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "monitoring.coreos.com"
+        resources:
+          - "alertmanagerconfigs"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "monitoring.coreos.com"
+        resources:
+          - "podmonitors"
+          - "servicemonitors"
+          - "probes"
+          - "scrapeconfigs"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+          - "secrets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apps"
+          - "extensions"
+        resources:
+          - "replicasets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "nodes"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "nodes/pods"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "nodes/metrics"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        nonResourceURLs:
+          - "/metrics"
+        verbs:
+          - "get"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"rbac\",\"app.kubernetes.io/instance\":\"alloy\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"alloy\",\"app.kubernetes.io/part-of\":\"alloy\",\"app.kubernetes.io/version\":\"v1.16.1\",\"helm.sh/chart\":\"alloy-1.8.2\"},\"name\":\"alloy\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"alloy\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"alloy\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T12:02:30Z"
+      labels:
+        app.kubernetes.io/component: "rbac"
+        app.kubernetes.io/instance: "alloy"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "alloy"
+        app.kubernetes.io/part-of: "alloy"
+        app.kubernetes.io/version: "v1.16.1"
+        helm.sh/chart: "alloy-1.8.2"
+      name: "alloy"
+      resourceVersion: "4482"
+      uid: "c1727f37-10e5-411f-9d13-ba1dae947641"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "alloy"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "alloy"
+        namespace: "default"
+kind: "List"
+metadata:
+  resourceVersion: ""

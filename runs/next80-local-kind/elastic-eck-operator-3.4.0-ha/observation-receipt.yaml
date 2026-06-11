@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "elastic-eck-operator-3.4.0-ha-local-kind"
+spec:
+  variantRevision: "recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "20bc4c9cdd28f35aa9c1f646c0af7bc092faac39f8ce3e3606861b98789ee54a"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T13:12:18.874Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "existing"
+  variant: "ha"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "9cc704122a76e4b70354cfdfab5d88eab52ec04ac669dbddd797d272d8886f27"
+  checks:
+    -
+      name: "crds-applied-and-established"
+      result: "pass"
+      object: "12 CustomResourceDefinition(s)"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "22 object(s) from recipes/elastic/eck-operator/3.4.0/revisions/ha/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "StatefulSet|default|elastic-operator"

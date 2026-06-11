@@ -1,0 +1,333 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"name\":\"psmdb-operator\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T14:38:52Z"
+      name: "psmdb-operator"
+      namespace: "default"
+      resourceVersion: "24778"
+      uid: "a6289207-c85e-4290-87ff-6a89ac9e1f1e"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"psmdb-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"psmdb-operator\",\"app.kubernetes.io/version\":\"1.22.0\",\"helm.sh/chart\":\"psmdb-operator-1.22.0\"},\"name\":\"psmdb-operator\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"psmdb.percona.com\"],\"resources\":[\"perconaservermongodbs\",\"perconaservermongodbs/status\",\"perconaservermongodbs/finalizers\",\"perconaservermongodbbackups\",\"perconaservermongodbbackups/status\",\"perconaservermongodbbackups/finalizers\",\"perconaservermongodbrestores\",\"perconaservermongodbrestores/status\",\"perconaservermongodbrestores/finalizers\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods\",\"pods/exec\",\"services\",\"persistentvolumeclaims\",\"secrets\",\"configmaps\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"deployments\",\"replicasets\",\"statefulsets\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"cronjobs\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"policy\"],\"resources\":[\"poddisruptionbudgets\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"events.k8s.io\",\"\"],\"resources\":[\"events\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"patch\"]},{\"apiGroups\":[\"certmanager.k8s.io\",\"cert-manager.io\"],\"resources\":[\"issuers\",\"certificates\",\"certificaterequests\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\",\"deletecollection\"]},{\"apiGroups\":[\"net.gke.io\",\"multicluster.x-k8s.io\"],\"resources\":[\"serviceexports\",\"serviceimports\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\",\"deletecollection\"]}]}\n"
+      creationTimestamp: "2026-06-11T14:38:52Z"
+      labels:
+        app.kubernetes.io/instance: "psmdb-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "psmdb-operator"
+        app.kubernetes.io/version: "1.22.0"
+        helm.sh/chart: "psmdb-operator-1.22.0"
+      name: "psmdb-operator"
+      namespace: "default"
+      resourceVersion: "24779"
+      uid: "b6a7fcf5-a6f4-48e1-8ea9-0ee5161e9048"
+    rules:
+      -
+        apiGroups:
+          - "psmdb.percona.com"
+        resources:
+          - "perconaservermongodbs"
+          - "perconaservermongodbs/status"
+          - "perconaservermongodbs/finalizers"
+          - "perconaservermongodbbackups"
+          - "perconaservermongodbbackups/status"
+          - "perconaservermongodbbackups/finalizers"
+          - "perconaservermongodbrestores"
+          - "perconaservermongodbrestores/status"
+          - "perconaservermongodbrestores/finalizers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+          - "pods/exec"
+          - "services"
+          - "persistentvolumeclaims"
+          - "secrets"
+          - "configmaps"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "deployments"
+          - "replicasets"
+          - "statefulsets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "batch"
+        resources:
+          - "cronjobs"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "policy"
+        resources:
+          - "poddisruptionbudgets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "events.k8s.io"
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "patch"
+      -
+        apiGroups:
+          - "certmanager.k8s.io"
+          - "cert-manager.io"
+        resources:
+          - "issuers"
+          - "certificates"
+          - "certificaterequests"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "net.gke.io"
+          - "multicluster.x-k8s.io"
+        resources:
+          - "serviceexports"
+          - "serviceimports"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+          - "deletecollection"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"psmdb-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"psmdb-operator\",\"app.kubernetes.io/version\":\"1.22.0\",\"helm.sh/chart\":\"psmdb-operator-1.22.0\"},\"name\":\"service-account-psmdb-operator\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"psmdb-operator\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"psmdb-operator\"}]}\n"
+      creationTimestamp: "2026-06-11T14:38:52Z"
+      labels:
+        app.kubernetes.io/instance: "psmdb-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "psmdb-operator"
+        app.kubernetes.io/version: "1.22.0"
+        helm.sh/chart: "psmdb-operator-1.22.0"
+      name: "service-account-psmdb-operator"
+      namespace: "default"
+      resourceVersion: "24780"
+      uid: "69d0f0f9-5b7d-42cf-9f96-eeff1675af14"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "psmdb-operator"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "psmdb-operator"
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"psmdb-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"psmdb-operator\",\"app.kubernetes.io/version\":\"1.22.0\",\"helm.sh/chart\":\"psmdb-operator-1.22.0\"},\"name\":\"psmdb-operator\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"psmdb-operator\",\"app.kubernetes.io/name\":\"psmdb-operator\"}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/instance\":\"psmdb-operator\",\"app.kubernetes.io/name\":\"psmdb-operator\"}},\"spec\":{\"containers\":[{\"command\":[\"percona-server-mongodb-operator\"],\"env\":[{\"name\":\"LOG_STRUCTURED\",\"value\":\"false\"},{\"name\":\"LOG_LEVEL\",\"value\":\"INFO\"},{\"name\":\"WATCH_NAMESPACE\",\"value\":\"default\"},{\"name\":\"POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"OPERATOR_NAME\",\"value\":\"percona-server-mongodb-operator\"},{\"name\":\"RESYNC_PERIOD\",\"value\":\"5s\"},{\"name\":\"DISABLE_TELEMETRY\",\"value\":\"false\"},{\"name\":\"MAX_CONCURRENT_RECONCILES\",\"value\":\"1\"}],\"image\":\"percona/percona-server-mongodb-operator:1.22.0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"httpGet\":{\"path\":\"/healthz\",\"port\":\"health\"}},\"name\":\"psmdb-operator\",\"ports\":[{\"containerPort\":8080,\"name\":\"metrics\",\"protocol\":\"TCP\"},{\"containerPort\":8081,\"name\":\"health\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/healthz\",\"port\":\"health\"}},\"resources\":{},\"securityContext\":{}}],\"securityContext\":{},\"serviceAccountName\":\"psmdb-operator\"}}}}\n"
+      creationTimestamp: "2026-06-11T14:38:52Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "psmdb-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "psmdb-operator"
+        app.kubernetes.io/version: "1.22.0"
+        helm.sh/chart: "psmdb-operator-1.22.0"
+      name: "psmdb-operator"
+      namespace: "default"
+      resourceVersion: "24823"
+      uid: "d6d43be3-8e51-4ad8-a0be-e121e68d8290"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "psmdb-operator"
+          app.kubernetes.io/name: "psmdb-operator"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/instance: "psmdb-operator"
+            app.kubernetes.io/name: "psmdb-operator"
+        spec:
+          containers:
+            -
+              command:
+                - "percona-server-mongodb-operator"
+              env:
+                -
+                  name: "LOG_STRUCTURED"
+                  value: "false"
+                -
+                  name: "LOG_LEVEL"
+                  value: "INFO"
+                -
+                  name: "WATCH_NAMESPACE"
+                  value: "default"
+                -
+                  name: "POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "OPERATOR_NAME"
+                  value: "percona-server-mongodb-operator"
+                -
+                  name: "RESYNC_PERIOD"
+                  value: "5s"
+                -
+                  name: "DISABLE_TELEMETRY"
+                  value: "false"
+                -
+                  name: "MAX_CONCURRENT_RECONCILES"
+                  value: "1"
+              image: "percona/percona-server-mongodb-operator:1.22.0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: "health"
+                  scheme: "HTTP"
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              name: "psmdb-operator"
+              ports:
+                -
+                  containerPort: 8080
+                  name: "metrics"
+                  protocol: "TCP"
+                -
+                  containerPort: 8081
+                  name: "health"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: "health"
+                  scheme: "HTTP"
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                {}
+              securityContext:
+                {}
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "psmdb-operator"
+          serviceAccountName: "psmdb-operator"
+          terminationGracePeriodSeconds: 30
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T14:39:04Z"
+          lastUpdateTime: "2026-06-11T14:39:04Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T14:38:52Z"
+          lastUpdateTime: "2026-06-11T14:39:04Z"
+          message: "ReplicaSet \"psmdb-operator-5f59944ccb\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""

@@ -1,0 +1,1377 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"eck-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elastic-operator\",\"app.kubernetes.io/version\":\"3.4.0\",\"helm.sh/chart\":\"eck-operator-3.4.0\"},\"name\":\"elastic-operator\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T13:12:19Z"
+      labels:
+        app.kubernetes.io/instance: "eck-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elastic-operator"
+        app.kubernetes.io/version: "3.4.0"
+        helm.sh/chart: "eck-operator-3.4.0"
+      name: "elastic-operator"
+      namespace: "default"
+      resourceVersion: "16216"
+      uid: "03544fd7-c931-463a-bdd8-5e76b57f57ad"
+  -
+    apiVersion: "v1"
+    data:
+      redacted: "live Secret data is not committed"
+    kind: "Secret"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "redacted: live Secret last-applied-configuration is not committed"
+      creationTimestamp: "2026-06-11T13:12:19Z"
+      labels:
+        app.kubernetes.io/instance: "eck-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elastic-operator"
+        app.kubernetes.io/version: "3.4.0"
+        helm.sh/chart: "eck-operator-3.4.0"
+      name: "elastic-operator-webhook-cert"
+      namespace: "default"
+      resourceVersion: "16262"
+      uid: "1bd5718a-44fb-46b3-a0f3-e64365108881"
+    type: "Opaque"
+  -
+    apiVersion: "v1"
+    data:
+      eck.yaml: "log-verbosity: 0\nmetrics-port: 0\nmetrics-secure: false\ncontainer-registry: docker.elastic.co\nmax-concurrent-reconciles: 3\nca-cert-validity: 8760h\nca-cert-rotate-before: 24h\ncert-validity: 8760h\ncert-rotate-before: 24h\ndisable-config-watch: false\nexposed-node-labels: [topology.kubernetes.io/.*,failure-domain.beta.kubernetes.io/.*]\nset-default-security-context: auto-detect\nkube-client-timeout: 60s\nelasticsearch-client-timeout: 180s\ndisable-telemetry: false\ndistribution-channel: helm\nvalidate-storage-class: true\nenable-webhook: true\nwebhook-name: elastic-operator.default.k8s.elastic.co\nwebhook-port: 9443\noperator-namespace: default\nenable-leader-election: true\nelasticsearch-observation-interval: 10s\nubi-only: false"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"eck.yaml\":\"log-verbosity: 0\\nmetrics-port: 0\\nmetrics-secure: false\\ncontainer-registry: docker.elastic.co\\nmax-concurrent-reconciles: 3\\nca-cert-validity: 8760h\\nca-cert-rotate-before: 24h\\ncert-validity: 8760h\\ncert-rotate-before: 24h\\ndisable-config-watch: false\\nexposed-node-labels: [topology.kubernetes.io/.*,failure-domain.beta.kubernetes.io/.*]\\nset-default-security-context: auto-detect\\nkube-client-timeout: 60s\\nelasticsearch-client-timeout: 180s\\ndisable-telemetry: false\\ndistribution-channel: helm\\nvalidate-storage-class: true\\nenable-webhook: true\\nwebhook-name: elastic-operator.default.k8s.elastic.co\\nwebhook-port: 9443\\noperator-namespace: default\\nenable-leader-election: true\\nelasticsearch-observation-interval: 10s\\nubi-only: false\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"eck-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elastic-operator\",\"app.kubernetes.io/version\":\"3.4.0\",\"helm.sh/chart\":\"eck-operator-3.4.0\"},\"name\":\"elastic-operator\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T13:12:19Z"
+      labels:
+        app.kubernetes.io/instance: "eck-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elastic-operator"
+        app.kubernetes.io/version: "3.4.0"
+        helm.sh/chart: "eck-operator-3.4.0"
+      name: "elastic-operator"
+      namespace: "default"
+      resourceVersion: "16218"
+      uid: "7448fc4c-ab2b-40aa-a06b-416a94539f4f"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"eck-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elastic-operator\",\"app.kubernetes.io/version\":\"3.4.0\",\"helm.sh/chart\":\"eck-operator-3.4.0\"},\"name\":\"elastic-operator-webhook\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"https\",\"port\":443,\"targetPort\":9443}],\"selector\":{\"app.kubernetes.io/instance\":\"eck-operator\",\"app.kubernetes.io/name\":\"elastic-operator\"}}}\n"
+      creationTimestamp: "2026-06-11T13:12:19Z"
+      labels:
+        app.kubernetes.io/instance: "eck-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elastic-operator"
+        app.kubernetes.io/version: "3.4.0"
+        helm.sh/chart: "eck-operator-3.4.0"
+      name: "elastic-operator-webhook"
+      namespace: "default"
+      resourceVersion: "16220"
+      uid: "eb209e42-fba1-468a-95e4-840a8ca6cc1e"
+    spec:
+      clusterIP: "10.96.47.207"
+      clusterIPs:
+        - "10.96.47.207"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "https"
+          port: 443
+          protocol: "TCP"
+          targetPort: 9443
+      selector:
+        app.kubernetes.io/instance: "eck-operator"
+        app.kubernetes.io/name: "elastic-operator"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "StatefulSet"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"eck-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elastic-operator\",\"app.kubernetes.io/version\":\"3.4.0\",\"helm.sh/chart\":\"eck-operator-3.4.0\"},\"name\":\"elastic-operator\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"eck-operator\",\"app.kubernetes.io/name\":\"elastic-operator\"}},\"serviceName\":\"elastic-operator\",\"template\":{\"metadata\":{\"annotations\":{\"checksum/config\":\"10a2147f517f1eaec8fd162a8df70c7dabcbc6dd5185c804509fc28e6e9feb58\",\"co.elastic.logs/raw\":\"[{\\\"type\\\":\\\"filestream\\\",\\\"enabled\\\":true,\\\"id\\\":\\\"eck-container-logs-${data.kubernetes.container.id}\\\",\\\"paths\\\":[\\\"/var/log/containers/*${data.kubernetes.container.id}.log\\\"],\\\"parsers\\\":[{\\\"container\\\":{}},{\\\"ndjson\\\":{\\\"keys_under_root\\\":true}}],\\\"prospector.scanner.symlinks\\\":true,\\\"processors\\\":[{\\\"convert\\\":{\\\"mode\\\":\\\"rename\\\",\\\"ignore_missing\\\":true,\\\"fields\\\":[{\\\"from\\\":\\\"error\\\",\\\"to\\\":\\\"_error\\\"}]}},{\\\"convert\\\":{\\\"mode\\\":\\\"rename\\\",\\\"ignore_missing\\\":true,\\\"fields\\\":[{\\\"from\\\":\\\"_error\\\",\\\"to\\\":\\\"error.message\\\"}]}},{\\\"convert\\\":{\\\"mode\\\":\\\"rename\\\",\\\"ignore_missing\\\":true,\\\"fields\\\":[{\\\"from\\\":\\\"source\\\",\\\"to\\\":\\\"_source\\\"}]}},{\\\"convert\\\":{\\\"mode\\\":\\\"rename\\\",\\\"ignore_missing\\\":true,\\\"fields\\\":[{\\\"from\\\":\\\"_source\\\",\\\"to\\\":\\\"event.source\\\"}]}}]}]\"},\"labels\":{\"app.kubernetes.io/instance\":\"eck-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elastic-operator\",\"app.kubernetes.io/version\":\"3.4.0\",\"helm.sh/chart\":\"eck-operator-3.4.0\"}},\"spec\":{\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"manager\",\"--config=/conf/eck.yaml\"],\"env\":[{\"name\":\"OPERATOR_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"POD_IP\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"status.podIP\"}}},{\"name\":\"WEBHOOK_SECRET\",\"value\":\"elastic-operator-webhook-cert\"}],\"image\":\"docker.elastic.co/eck/eck-operator:3.4.0\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"manager\",\"ports\":[{\"containerPort\":9443,\"name\":\"https-webhook\",\"protocol\":\"TCP\"}],\"resources\":{\"limits\":{\"cpu\":1,\"memory\":\"1Gi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"150Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":true},\"volumeMounts\":[{\"mountPath\":\"/conf\",\"name\":\"conf\",\"readOnly\":true},{\"mountPath\":\"/tmp/k8s-webhook-server/serving-certs\",\"name\":\"cert\",\"readOnly\":true}]}],\"securityContext\":{\"runAsNonRoot\":true},\"serviceAccountName\":\"elastic-operator\",\"terminationGracePeriodSeconds\":10,\"volumes\":[{\"configMap\":{\"name\":\"elastic-operator\"},\"name\":\"conf\"},{\"name\":\"cert\",\"secret\":{\"defaultMode\":420,\"secretName\":\"elastic-operator-webhook-cert\"}}]}}}}\n"
+      creationTimestamp: "2026-06-11T13:12:19Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "eck-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elastic-operator"
+        app.kubernetes.io/version: "3.4.0"
+        helm.sh/chart: "eck-operator-3.4.0"
+      name: "elastic-operator"
+      namespace: "default"
+      resourceVersion: "16266"
+      uid: "ac44f53e-1745-4feb-a0d7-fb8066ec6275"
+    spec:
+      persistentVolumeClaimRetentionPolicy:
+        whenDeleted: "Retain"
+        whenScaled: "Retain"
+      podManagementPolicy: "OrderedReady"
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "eck-operator"
+          app.kubernetes.io/name: "elastic-operator"
+      serviceName: "elastic-operator"
+      template:
+        metadata:
+          annotations:
+            checksum/config: "10a2147f517f1eaec8fd162a8df70c7dabcbc6dd5185c804509fc28e6e9feb58"
+            co.elastic.logs/raw: "[{\"type\":\"filestream\",\"enabled\":true,\"id\":\"eck-container-logs-${data.kubernetes.container.id}\",\"paths\":[\"/var/log/containers/*${data.kubernetes.container.id}.log\"],\"parsers\":[{\"container\":{}},{\"ndjson\":{\"keys_under_root\":true}}],\"prospector.scanner.symlinks\":true,\"processors\":[{\"convert\":{\"mode\":\"rename\",\"ignore_missing\":true,\"fields\":[{\"from\":\"error\",\"to\":\"_error\"}]}},{\"convert\":{\"mode\":\"rename\",\"ignore_missing\":true,\"fields\":[{\"from\":\"_error\",\"to\":\"error.message\"}]}},{\"convert\":{\"mode\":\"rename\",\"ignore_missing\":true,\"fields\":[{\"from\":\"source\",\"to\":\"_source\"}]}},{\"convert\":{\"mode\":\"rename\",\"ignore_missing\":true,\"fields\":[{\"from\":\"_source\",\"to\":\"event.source\"}]}}]}]"
+          labels:
+            app.kubernetes.io/instance: "eck-operator"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "elastic-operator"
+            app.kubernetes.io/version: "3.4.0"
+            helm.sh/chart: "eck-operator-3.4.0"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "manager"
+                - "--config=/conf/eck.yaml"
+              env:
+                -
+                  name: "OPERATOR_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "POD_IP"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "status.podIP"
+                -
+                  name: "WEBHOOK_SECRET"
+                  value: "elastic-operator-webhook-cert"
+              image: "docker.elastic.co/eck/eck-operator:3.4.0"
+              imagePullPolicy: "IfNotPresent"
+              name: "manager"
+              ports:
+                -
+                  containerPort: 9443
+                  name: "https-webhook"
+                  protocol: "TCP"
+              resources:
+                limits:
+                  cpu: "1"
+                  memory: "1Gi"
+                requests:
+                  cpu: "100m"
+                  memory: "150Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/conf"
+                  name: "conf"
+                  readOnly: true
+                -
+                  mountPath: "/tmp/k8s-webhook-server/serving-certs"
+                  name: "cert"
+                  readOnly: true
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            runAsNonRoot: true
+          serviceAccount: "elastic-operator"
+          serviceAccountName: "elastic-operator"
+          terminationGracePeriodSeconds: 10
+          volumes:
+            -
+              configMap:
+                defaultMode: 420
+                name: "elastic-operator"
+              name: "conf"
+            -
+              name: "cert"
+              secret:
+                defaultMode: 420
+                secretName: "elastic-operator-webhook-cert"
+      updateStrategy:
+        rollingUpdate:
+          maxUnavailable: 1
+          partition: 0
+        type: "RollingUpdate"
+    status:
+      availableReplicas: 1
+      collisionCount: 0
+      currentReplicas: 1
+      currentRevision: "elastic-operator-d8467f4f4"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      updateRevision: "elastic-operator-d8467f4f4"
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"eck-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elastic-operator\",\"app.kubernetes.io/version\":\"3.4.0\",\"helm.sh/chart\":\"eck-operator-3.4.0\"},\"name\":\"elastic-operator\"},\"rules\":[{\"apiGroups\":[\"authorization.k8s.io\"],\"resources\":[\"subjectaccessreviews\"],\"verbs\":[\"create\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"create\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resourceNames\":[\"elastic-operator-leader\"],\"resources\":[\"leases\"],\"verbs\":[\"get\",\"watch\",\"update\"]},{\"apiGroups\":[\"\"],\"resources\":[\"endpoints\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods\",\"events\",\"persistentvolumeclaims\",\"secrets\",\"services\",\"configmaps\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"events.k8s.io\"],\"resources\":[\"events\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"deployments\",\"statefulsets\",\"daemonsets\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"policy\"],\"resources\":[\"poddisruptionbudgets\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"elasticsearch.k8s.elastic.co\"],\"resources\":[\"elasticsearches\",\"elasticsearches/status\",\"elasticsearches/finalizers\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\"]},{\"apiGroups\":[\"autoscaling.k8s.elastic.co\"],\"resources\":[\"elasticsearchautoscalers\",\"elasticsearchautoscalers/status\",\"elasticsearchautoscalers/finalizers\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\"]},{\"apiGroups\":[\"kibana.k8s.elastic.co\"],\"resources\":[\"kibanas\",\"kibanas/status\",\"kibanas/finalizers\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\"]},{\"apiGroups\":[\"apm.k8s.elastic.co\"],\"resources\":[\"apmservers\",\"apmservers/status\",\"apmservers/finalizers\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\"]},{\"apiGroups\":[\"enterprisesearch.k8s.elastic.co\"],\"resources\":[\"enterprisesearches\",\"enterprisesearches/status\",\"enterprisesearches/finalizers\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\"]},{\"apiGroups\":[\"beat.k8s.elastic.co\"],\"resources\":[\"beats\",\"beats/status\",\"beats/finalizers\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\"]},{\"apiGroups\":[\"agent.k8s.elastic.co\"],\"resources\":[\"agents\",\"agents/status\",\"agents/finalizers\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\"]},{\"apiGroups\":[\"maps.k8s.elastic.co\"],\"resources\":[\"elasticmapsservers\",\"elasticmapsservers/status\",\"elasticmapsservers/finalizers\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\"]},{\"apiGroups\":[\"stackconfigpolicy.k8s.elastic.co\"],\"resources\":[\"stackconfigpolicies\",\"stackconfigpolicies/status\",\"stackconfigpolicies/finalizers\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\"]},{\"apiGroups\":[\"logstash.k8s.elastic.co\"],\"resources\":[\"logstashes\",\"logstashes/status\",\"logstashes/finalizers\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\"]},{\"apiGroups\":[\"autoops.k8s.elastic.co\"],\"resources\":[\"autoopsagentpolicies\",\"autoopsagentpolicies/status\",\"autoopsagentpolicies/finalizers\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\"]},{\"apiGroups\":[\"packageregistry.k8s.elastic.co\"],\"resources\":[\"packageregistries\",\"packageregistries/status\",\"packageregistries/finalizers\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\",\"deletecollection\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"storage.k8s.io\"],\"resources\":[\"storageclasses\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"admissionregistration.k8s.io\"],\"resources\":[\"validatingwebhookconfigurations\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"\"],\"resources\":[\"nodes\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:12:19Z"
+      labels:
+        app.kubernetes.io/instance: "eck-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elastic-operator"
+        app.kubernetes.io/version: "3.4.0"
+        helm.sh/chart: "eck-operator-3.4.0"
+      name: "elastic-operator"
+      resourceVersion: "16226"
+      uid: "5657a785-172f-4faf-96f1-0f6b2449a7c9"
+    rules:
+      -
+        apiGroups:
+          - "authorization.k8s.io"
+        resources:
+          - "subjectaccessreviews"
+        verbs:
+          - "create"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "create"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resourceNames:
+          - "elastic-operator-leader"
+        resources:
+          - "leases"
+        verbs:
+          - "get"
+          - "watch"
+          - "update"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "endpoints"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+          - "events"
+          - "persistentvolumeclaims"
+          - "secrets"
+          - "services"
+          - "configmaps"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "events.k8s.io"
+        resources:
+          - "events"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "deployments"
+          - "statefulsets"
+          - "daemonsets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "policy"
+        resources:
+          - "poddisruptionbudgets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "elasticsearch.k8s.elastic.co"
+        resources:
+          - "elasticsearches"
+          - "elasticsearches/status"
+          - "elasticsearches/finalizers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "autoscaling.k8s.elastic.co"
+        resources:
+          - "elasticsearchautoscalers"
+          - "elasticsearchautoscalers/status"
+          - "elasticsearchautoscalers/finalizers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "kibana.k8s.elastic.co"
+        resources:
+          - "kibanas"
+          - "kibanas/status"
+          - "kibanas/finalizers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "apm.k8s.elastic.co"
+        resources:
+          - "apmservers"
+          - "apmservers/status"
+          - "apmservers/finalizers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "enterprisesearch.k8s.elastic.co"
+        resources:
+          - "enterprisesearches"
+          - "enterprisesearches/status"
+          - "enterprisesearches/finalizers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "beat.k8s.elastic.co"
+        resources:
+          - "beats"
+          - "beats/status"
+          - "beats/finalizers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "agent.k8s.elastic.co"
+        resources:
+          - "agents"
+          - "agents/status"
+          - "agents/finalizers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "maps.k8s.elastic.co"
+        resources:
+          - "elasticmapsservers"
+          - "elasticmapsservers/status"
+          - "elasticmapsservers/finalizers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "stackconfigpolicy.k8s.elastic.co"
+        resources:
+          - "stackconfigpolicies"
+          - "stackconfigpolicies/status"
+          - "stackconfigpolicies/finalizers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "logstash.k8s.elastic.co"
+        resources:
+          - "logstashes"
+          - "logstashes/status"
+          - "logstashes/finalizers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "autoops.k8s.elastic.co"
+        resources:
+          - "autoopsagentpolicies"
+          - "autoopsagentpolicies/status"
+          - "autoopsagentpolicies/finalizers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "packageregistry.k8s.elastic.co"
+        resources:
+          - "packageregistries"
+          - "packageregistries/status"
+          - "packageregistries/finalizers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+          - "deletecollection"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "namespaces"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "storage.k8s.io"
+        resources:
+          - "storageclasses"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "admissionregistration.k8s.io"
+        resources:
+          - "validatingwebhookconfigurations"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "nodes"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"eck-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elastic-operator\",\"app.kubernetes.io/version\":\"3.4.0\",\"helm.sh/chart\":\"eck-operator-3.4.0\",\"rbac.authorization.k8s.io/aggregate-to-admin\":\"true\",\"rbac.authorization.k8s.io/aggregate-to-edit\":\"true\",\"rbac.authorization.k8s.io/aggregate-to-view\":\"true\"},\"name\":\"elastic-operator-view\"},\"rules\":[{\"apiGroups\":[\"elasticsearch.k8s.elastic.co\"],\"resources\":[\"elasticsearches\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"autoscaling.k8s.elastic.co\"],\"resources\":[\"elasticsearchautoscalers\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"apm.k8s.elastic.co\"],\"resources\":[\"apmservers\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"kibana.k8s.elastic.co\"],\"resources\":[\"kibanas\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"enterprisesearch.k8s.elastic.co\"],\"resources\":[\"enterprisesearches\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"beat.k8s.elastic.co\"],\"resources\":[\"beats\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"agent.k8s.elastic.co\"],\"resources\":[\"agents\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"maps.k8s.elastic.co\"],\"resources\":[\"elasticmapsservers\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"stackconfigpolicy.k8s.elastic.co\"],\"resources\":[\"stackconfigpolicies\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"logstash.k8s.elastic.co\"],\"resources\":[\"logstashes\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"autoops.k8s.elastic.co\"],\"resources\":[\"autoopsagentpolicies\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"packageregistry.k8s.elastic.co\"],\"resources\":[\"packageregistries\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:12:19Z"
+      labels:
+        app.kubernetes.io/instance: "eck-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elastic-operator"
+        app.kubernetes.io/version: "3.4.0"
+        helm.sh/chart: "eck-operator-3.4.0"
+        rbac.authorization.k8s.io/aggregate-to-admin: "true"
+        rbac.authorization.k8s.io/aggregate-to-edit: "true"
+        rbac.authorization.k8s.io/aggregate-to-view: "true"
+      name: "elastic-operator-view"
+      resourceVersion: "16227"
+      uid: "292b0e85-fad9-4445-9a7f-54d4452eec66"
+    rules:
+      -
+        apiGroups:
+          - "elasticsearch.k8s.elastic.co"
+        resources:
+          - "elasticsearches"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "autoscaling.k8s.elastic.co"
+        resources:
+          - "elasticsearchautoscalers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apm.k8s.elastic.co"
+        resources:
+          - "apmservers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "kibana.k8s.elastic.co"
+        resources:
+          - "kibanas"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "enterprisesearch.k8s.elastic.co"
+        resources:
+          - "enterprisesearches"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "beat.k8s.elastic.co"
+        resources:
+          - "beats"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "agent.k8s.elastic.co"
+        resources:
+          - "agents"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "maps.k8s.elastic.co"
+        resources:
+          - "elasticmapsservers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "stackconfigpolicy.k8s.elastic.co"
+        resources:
+          - "stackconfigpolicies"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "logstash.k8s.elastic.co"
+        resources:
+          - "logstashes"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "autoops.k8s.elastic.co"
+        resources:
+          - "autoopsagentpolicies"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "packageregistry.k8s.elastic.co"
+        resources:
+          - "packageregistries"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"eck-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elastic-operator\",\"app.kubernetes.io/version\":\"3.4.0\",\"helm.sh/chart\":\"eck-operator-3.4.0\",\"rbac.authorization.k8s.io/aggregate-to-admin\":\"true\",\"rbac.authorization.k8s.io/aggregate-to-edit\":\"true\"},\"name\":\"elastic-operator-edit\"},\"rules\":[{\"apiGroups\":[\"elasticsearch.k8s.elastic.co\"],\"resources\":[\"elasticsearches\"],\"verbs\":[\"create\",\"delete\",\"deletecollection\",\"patch\",\"update\"]},{\"apiGroups\":[\"autoscaling.k8s.elastic.co\"],\"resources\":[\"elasticsearchautoscalers\"],\"verbs\":[\"create\",\"delete\",\"deletecollection\",\"patch\",\"update\"]},{\"apiGroups\":[\"apm.k8s.elastic.co\"],\"resources\":[\"apmservers\"],\"verbs\":[\"create\",\"delete\",\"deletecollection\",\"patch\",\"update\"]},{\"apiGroups\":[\"kibana.k8s.elastic.co\"],\"resources\":[\"kibanas\"],\"verbs\":[\"create\",\"delete\",\"deletecollection\",\"patch\",\"update\"]},{\"apiGroups\":[\"enterprisesearch.k8s.elastic.co\"],\"resources\":[\"enterprisesearches\"],\"verbs\":[\"create\",\"delete\",\"deletecollection\",\"patch\",\"update\"]},{\"apiGroups\":[\"beat.k8s.elastic.co\"],\"resources\":[\"beats\"],\"verbs\":[\"create\",\"delete\",\"deletecollection\",\"patch\",\"update\"]},{\"apiGroups\":[\"agent.k8s.elastic.co\"],\"resources\":[\"agents\"],\"verbs\":[\"create\",\"delete\",\"deletecollection\",\"patch\",\"update\"]},{\"apiGroups\":[\"maps.k8s.elastic.co\"],\"resources\":[\"elasticmapsservers\"],\"verbs\":[\"create\",\"delete\",\"deletecollection\",\"patch\",\"update\"]},{\"apiGroups\":[\"stackconfigpolicy.k8s.elastic.co\"],\"resources\":[\"stackconfigpolicies\"],\"verbs\":[\"create\",\"delete\",\"deletecollection\",\"patch\",\"update\"]},{\"apiGroups\":[\"logstash.k8s.elastic.co\"],\"resources\":[\"logstashes\"],\"verbs\":[\"create\",\"delete\",\"deletecollection\",\"patch\",\"update\"]},{\"apiGroups\":[\"autoops.k8s.elastic.co\"],\"resources\":[\"autoopsagentpolicies\"],\"verbs\":[\"create\",\"delete\",\"deletecollection\",\"patch\",\"update\"]},{\"apiGroups\":[\"packageregistry.k8s.elastic.co\"],\"resources\":[\"packageregistries\"],\"verbs\":[\"create\",\"delete\",\"deletecollection\",\"patch\",\"update\"]}]}\n"
+      creationTimestamp: "2026-06-11T13:12:19Z"
+      labels:
+        app.kubernetes.io/instance: "eck-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elastic-operator"
+        app.kubernetes.io/version: "3.4.0"
+        helm.sh/chart: "eck-operator-3.4.0"
+        rbac.authorization.k8s.io/aggregate-to-admin: "true"
+        rbac.authorization.k8s.io/aggregate-to-edit: "true"
+      name: "elastic-operator-edit"
+      resourceVersion: "16228"
+      uid: "6595bbb2-c547-44c8-b897-7a39de2a2fac"
+    rules:
+      -
+        apiGroups:
+          - "elasticsearch.k8s.elastic.co"
+        resources:
+          - "elasticsearches"
+        verbs:
+          - "create"
+          - "delete"
+          - "deletecollection"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "autoscaling.k8s.elastic.co"
+        resources:
+          - "elasticsearchautoscalers"
+        verbs:
+          - "create"
+          - "delete"
+          - "deletecollection"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "apm.k8s.elastic.co"
+        resources:
+          - "apmservers"
+        verbs:
+          - "create"
+          - "delete"
+          - "deletecollection"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "kibana.k8s.elastic.co"
+        resources:
+          - "kibanas"
+        verbs:
+          - "create"
+          - "delete"
+          - "deletecollection"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "enterprisesearch.k8s.elastic.co"
+        resources:
+          - "enterprisesearches"
+        verbs:
+          - "create"
+          - "delete"
+          - "deletecollection"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "beat.k8s.elastic.co"
+        resources:
+          - "beats"
+        verbs:
+          - "create"
+          - "delete"
+          - "deletecollection"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "agent.k8s.elastic.co"
+        resources:
+          - "agents"
+        verbs:
+          - "create"
+          - "delete"
+          - "deletecollection"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "maps.k8s.elastic.co"
+        resources:
+          - "elasticmapsservers"
+        verbs:
+          - "create"
+          - "delete"
+          - "deletecollection"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "stackconfigpolicy.k8s.elastic.co"
+        resources:
+          - "stackconfigpolicies"
+        verbs:
+          - "create"
+          - "delete"
+          - "deletecollection"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "logstash.k8s.elastic.co"
+        resources:
+          - "logstashes"
+        verbs:
+          - "create"
+          - "delete"
+          - "deletecollection"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "autoops.k8s.elastic.co"
+        resources:
+          - "autoopsagentpolicies"
+        verbs:
+          - "create"
+          - "delete"
+          - "deletecollection"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "packageregistry.k8s.elastic.co"
+        resources:
+          - "packageregistries"
+        verbs:
+          - "create"
+          - "delete"
+          - "deletecollection"
+          - "patch"
+          - "update"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"eck-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elastic-operator\",\"app.kubernetes.io/version\":\"3.4.0\",\"helm.sh/chart\":\"eck-operator-3.4.0\"},\"name\":\"elastic-operator\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"elastic-operator\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"elastic-operator\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T13:12:19Z"
+      labels:
+        app.kubernetes.io/instance: "eck-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elastic-operator"
+        app.kubernetes.io/version: "3.4.0"
+        helm.sh/chart: "eck-operator-3.4.0"
+      name: "elastic-operator"
+      resourceVersion: "16233"
+      uid: "5d714ecc-db2d-463c-8199-eaec11fac7f3"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "elastic-operator"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "elastic-operator"
+        namespace: "default"
+  -
+    apiVersion: "admissionregistration.k8s.io/v1"
+    kind: "ValidatingWebhookConfiguration"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"ValidatingWebhookConfiguration\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"eck-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elastic-operator\",\"app.kubernetes.io/version\":\"3.4.0\",\"helm.sh/chart\":\"eck-operator-3.4.0\"},\"name\":\"elastic-operator.default.k8s.elastic.co\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"elastic-operator-webhook\",\"namespace\":\"default\",\"path\":\"/validate-agent-k8s-elastic-co-v1alpha1-agent\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Exact\",\"name\":\"elastic-agent-validation-v1alpha1.k8s.elastic.co\",\"rules\":[{\"apiGroups\":[\"agent.k8s.elastic.co\"],\"apiVersions\":[\"v1alpha1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"agents\"]}],\"sideEffects\":\"None\"},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"elastic-operator-webhook\",\"namespace\":\"default\",\"path\":\"/validate-apm-k8s-elastic-co-v1-apmserver\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Exact\",\"name\":\"elastic-apm-validation-v1.k8s.elastic.co\",\"rules\":[{\"apiGroups\":[\"apm.k8s.elastic.co\"],\"apiVersions\":[\"v1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"apmservers\"]}],\"sideEffects\":\"None\"},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"elastic-operator-webhook\",\"namespace\":\"default\",\"path\":\"/validate-apm-k8s-elastic-co-v1beta1-apmserver\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Exact\",\"name\":\"elastic-apm-validation-v1beta1.k8s.elastic.co\",\"rules\":[{\"apiGroups\":[\"apm.k8s.elastic.co\"],\"apiVersions\":[\"v1beta1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"apmservers\"]}],\"sideEffects\":\"None\"},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"elastic-operator-webhook\",\"namespace\":\"default\",\"path\":\"/validate-beat-k8s-elastic-co-v1beta1-beat\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Exact\",\"name\":\"elastic-beat-validation-v1beta1.k8s.elastic.co\",\"rules\":[{\"apiGroups\":[\"beat.k8s.elastic.co\"],\"apiVersions\":[\"v1beta1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"beats\"]}],\"sideEffects\":\"None\"},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"elastic-operator-webhook\",\"namespace\":\"default\",\"path\":\"/validate-enterprisesearch-k8s-elastic-co-v1-enterprisesearch\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Exact\",\"name\":\"elastic-ent-validation-v1.k8s.elastic.co\",\"rules\":[{\"apiGroups\":[\"enterprisesearch.k8s.elastic.co\"],\"apiVersions\":[\"v1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"enterprisesearches\"]}],\"sideEffects\":\"None\"},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"elastic-operator-webhook\",\"namespace\":\"default\",\"path\":\"/validate-enterprisesearch-k8s-elastic-co-v1beta1-enterprisesearch\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Exact\",\"name\":\"elastic-ent-validation-v1beta1.k8s.elastic.co\",\"rules\":[{\"apiGroups\":[\"enterprisesearch.k8s.elastic.co\"],\"apiVersions\":[\"v1beta1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"enterprisesearches\"]}],\"sideEffects\":\"None\"},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"elastic-operator-webhook\",\"namespace\":\"default\",\"path\":\"/validate-elasticsearch-k8s-elastic-co-v1-elasticsearch\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Exact\",\"name\":\"elastic-es-validation-v1.k8s.elastic.co\",\"rules\":[{\"apiGroups\":[\"elasticsearch.k8s.elastic.co\"],\"apiVersions\":[\"v1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"elasticsearches\"]}],\"sideEffects\":\"None\"},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"elastic-operator-webhook\",\"namespace\":\"default\",\"path\":\"/validate-elasticsearch-k8s-elastic-co-v1beta1-elasticsearch\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Exact\",\"name\":\"elastic-es-validation-v1beta1.k8s.elastic.co\",\"rules\":[{\"apiGroups\":[\"elasticsearch.k8s.elastic.co\"],\"apiVersions\":[\"v1beta1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"elasticsearches\"]}],\"sideEffects\":\"None\"},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"elastic-operator-webhook\",\"namespace\":\"default\",\"path\":\"/validate-ems-k8s-elastic-co-v1alpha1-mapsservers\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Exact\",\"name\":\"elastic-ems-validation-v1alpha1.k8s.elastic.co\",\"rules\":[{\"apiGroups\":[\"maps.k8s.elastic.co\"],\"apiVersions\":[\"v1alpha1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"elasticmapsservers\"]}],\"sideEffects\":\"None\"},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"elastic-operator-webhook\",\"namespace\":\"default\",\"path\":\"/validate-kibana-k8s-elastic-co-v1-kibana\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Exact\",\"name\":\"elastic-kb-validation-v1.k8s.elastic.co\",\"rules\":[{\"apiGroups\":[\"kibana.k8s.elastic.co\"],\"apiVersions\":[\"v1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"kibanas\"]}],\"sideEffects\":\"None\"},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"elastic-operator-webhook\",\"namespace\":\"default\",\"path\":\"/validate-kibana-k8s-elastic-co-v1beta1-kibana\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Exact\",\"name\":\"elastic-kb-validation-v1beta1.k8s.elastic.co\",\"rules\":[{\"apiGroups\":[\"kibana.k8s.elastic.co\"],\"apiVersions\":[\"v1beta1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"kibanas\"]}],\"sideEffects\":\"None\"},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"elastic-operator-webhook\",\"namespace\":\"default\",\"path\":\"/validate-autoscaling-k8s-elastic-co-v1alpha1-elasticsearchautoscaler\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Exact\",\"name\":\"elastic-esa-validation-v1alpha1.k8s.elastic.co\",\"rules\":[{\"apiGroups\":[\"autoscaling.k8s.elastic.co\"],\"apiVersions\":[\"v1alpha1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"elasticsearchautoscalers\"]}],\"sideEffects\":\"None\"},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"elastic-operator-webhook\",\"namespace\":\"default\",\"path\":\"/validate-scp-k8s-elastic-co-v1alpha1-stackconfigpolicies\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Exact\",\"name\":\"elastic-scp-validation-v1alpha1.k8s.elastic.co\",\"rules\":[{\"apiGroups\":[\"stackconfigpolicy.k8s.elastic.co\"],\"apiVersions\":[\"v1alpha1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"stackconfigpolicies\"]}],\"sideEffects\":\"None\"},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"elastic-operator-webhook\",\"namespace\":\"default\",\"path\":\"/validate-logstash-k8s-elastic-co-v1alpha1-logstash\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Exact\",\"name\":\"elastic-logstash-validation-v1alpha1.k8s.elastic.co\",\"rules\":[{\"apiGroups\":[\"logstash.k8s.elastic.co\"],\"apiVersions\":[\"v1alpha1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"logstashes\"]}],\"sideEffects\":\"None\"},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"elastic-operator-webhook\",\"namespace\":\"default\",\"path\":\"/validate-autoops-k8s-elastic-co-v1alpha1-autoopsagentpolicies\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Exact\",\"name\":\"elastic-autoops-validation-v1alpha1.k8s.elastic.co\",\"rules\":[{\"apiGroups\":[\"autoops.k8s.elastic.co\"],\"apiVersions\":[\"v1alpha1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"autoopsagentpolicies\"]}],\"sideEffects\":\"None\"},{\"admissionReviewVersions\":[\"v1\",\"v1beta1\"],\"clientConfig\":{\"service\":{\"name\":\"elastic-operator-webhook\",\"namespace\":\"default\",\"path\":\"/validate-epr-k8s-elastic-co-v1alpha1-packageregistry\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Exact\",\"name\":\"elastic-epr-validation-v1alpha1.k8s.elastic.co\",\"rules\":[{\"apiGroups\":[\"packageregistry.k8s.elastic.co\"],\"apiVersions\":[\"v1alpha1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"packageregistries\"]}],\"sideEffects\":\"None\"}]}\n"
+      creationTimestamp: "2026-06-11T13:12:19Z"
+      generation: 2
+      labels:
+        app.kubernetes.io/instance: "eck-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elastic-operator"
+        app.kubernetes.io/version: "3.4.0"
+        helm.sh/chart: "eck-operator-3.4.0"
+      name: "elastic-operator.default.k8s.elastic.co"
+      resourceVersion: "16261"
+      uid: "6119634b-993c-4855-b1ac-a8520a60ff6a"
+    webhooks:
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURXVENDQWtHZ0F3SUJBZ0lRUlQ3YWEvOXVROVM5QXlNQ2xObEY0REFOQmdrcWhraUc5dzBCQVFzRkFEQTMKTVJnd0ZnWURWUVFMRXc5bGJHRnpkR2xqTFhkbFltaHZiMnN4R3pBWkJnTlZCQU1URW1Wc1lYTjBhV010ZDJWaQphRzl2YXkxallUQWVGdzB5TmpBMk1URXhNekF5TWpGYUZ3MHlOekEyTVRFeE16RXlNakZhTURjeEdEQVdCZ05WCkJBc1REMlZzWVhOMGFXTXRkMlZpYUc5dmF6RWJNQmtHQTFVRUF4TVNaV3hoYzNScFl5MTNaV0pvYjI5ckxXTmgKTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUE4c09DRzVNTjJFUVd3cmFuTjNrTwp3RDFKeDBQbVNrbnBNNkhNaGc2QUYwNDBkYitaajN3SnF4akNkeno4dnQ4L2JZRXZCL3lyekFDOXRQamR5Tnl6CnVvVmJQcnZpYjh0NmRhbklwWnoyeTNHVXZMWlVXNnJVdzhMNXFrUTA5WFUxa0ovR00rNzlJNXdhT2NmVlhXOUQKekxCM0RQOGZhQjFOVEx5S05Panp5SG1KaStDeFNHcTBqbHJLSDBjb2pMTTZDdFVRTC9YSmI4OWsvYktTVVU4VQpRYTlFaTRkNjRpUEZkbGtKMldmbUNTVVRMM0laZmhKbTlyUE1EYlRTNzRhdXozTHBscDdLQkFmbDRyRFFxd1dsClJFNEFDSzJNTmFnNWNOSWs3d0luYjVTeVVKTlpjTjJZR3dsRXBGVnpQck8vTUZUUnhuWnNBUG8rNEU4UEl0Y3MKYndJREFRQUJvMkV3WHpBT0JnTlZIUThCQWY4RUJBTUNBb1F3SFFZRFZSMGxCQll3RkFZSUt3WUJCUVVIQXdFRwpDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdIUVlEVlIwT0JCWUVGQ3hvbDJCZUFzcWp6YkdLCkoyMlhLeW9IL2UrOU1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQUg0aVZya0lRaWVHOXRrYVJ3TVBSdDQ3a0QKSWJyUTNRc1BLTE11VGRIZGh5bzh4akdNTlZxamZCTFFVelFZT3hLaTNxaEVYelhicW9tcGhYVXZzUkdSMUdhTgpuVjZ2Z0E1OWN2dHpacGhuK1FpNmNJdjVsNllDT3d3bFVNeUNyYmlZL2c0YkFMdlFESldrNzlrMWF0UWJkSy9VCk5zL2ljMy9icnhuTytYVmx2bWhRd3Y3WGNOQXpWWlNOMTR1MGU4M24xdWpRWmhsQTU1cVZNUTRtTDFSQTBveUgKRDJMd1JOT1h6K2p2ZWRBS2NkcWtnYkx6YndYbmdnTWQ0MHBIQ3RyTVJlRDZITExlTXZvTnFKVUo5MU5INERwaApSOVdESlVEeDFhV2grbFoyOGhFcXNGd0R0amlITTVibnNIVHhublNBUHNCckRFWmVXREloejR5NDNFK3IKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+          service:
+            name: "elastic-operator-webhook"
+            namespace: "default"
+            path: "/validate-agent-k8s-elastic-co-v1alpha1-agent"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Exact"
+        name: "elastic-agent-validation-v1alpha1.k8s.elastic.co"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "agent.k8s.elastic.co"
+            apiVersions:
+              - "v1alpha1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "agents"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURXVENDQWtHZ0F3SUJBZ0lRUlQ3YWEvOXVROVM5QXlNQ2xObEY0REFOQmdrcWhraUc5dzBCQVFzRkFEQTMKTVJnd0ZnWURWUVFMRXc5bGJHRnpkR2xqTFhkbFltaHZiMnN4R3pBWkJnTlZCQU1URW1Wc1lYTjBhV010ZDJWaQphRzl2YXkxallUQWVGdzB5TmpBMk1URXhNekF5TWpGYUZ3MHlOekEyTVRFeE16RXlNakZhTURjeEdEQVdCZ05WCkJBc1REMlZzWVhOMGFXTXRkMlZpYUc5dmF6RWJNQmtHQTFVRUF4TVNaV3hoYzNScFl5MTNaV0pvYjI5ckxXTmgKTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUE4c09DRzVNTjJFUVd3cmFuTjNrTwp3RDFKeDBQbVNrbnBNNkhNaGc2QUYwNDBkYitaajN3SnF4akNkeno4dnQ4L2JZRXZCL3lyekFDOXRQamR5Tnl6CnVvVmJQcnZpYjh0NmRhbklwWnoyeTNHVXZMWlVXNnJVdzhMNXFrUTA5WFUxa0ovR00rNzlJNXdhT2NmVlhXOUQKekxCM0RQOGZhQjFOVEx5S05Panp5SG1KaStDeFNHcTBqbHJLSDBjb2pMTTZDdFVRTC9YSmI4OWsvYktTVVU4VQpRYTlFaTRkNjRpUEZkbGtKMldmbUNTVVRMM0laZmhKbTlyUE1EYlRTNzRhdXozTHBscDdLQkFmbDRyRFFxd1dsClJFNEFDSzJNTmFnNWNOSWs3d0luYjVTeVVKTlpjTjJZR3dsRXBGVnpQck8vTUZUUnhuWnNBUG8rNEU4UEl0Y3MKYndJREFRQUJvMkV3WHpBT0JnTlZIUThCQWY4RUJBTUNBb1F3SFFZRFZSMGxCQll3RkFZSUt3WUJCUVVIQXdFRwpDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdIUVlEVlIwT0JCWUVGQ3hvbDJCZUFzcWp6YkdLCkoyMlhLeW9IL2UrOU1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQUg0aVZya0lRaWVHOXRrYVJ3TVBSdDQ3a0QKSWJyUTNRc1BLTE11VGRIZGh5bzh4akdNTlZxamZCTFFVelFZT3hLaTNxaEVYelhicW9tcGhYVXZzUkdSMUdhTgpuVjZ2Z0E1OWN2dHpacGhuK1FpNmNJdjVsNllDT3d3bFVNeUNyYmlZL2c0YkFMdlFESldrNzlrMWF0UWJkSy9VCk5zL2ljMy9icnhuTytYVmx2bWhRd3Y3WGNOQXpWWlNOMTR1MGU4M24xdWpRWmhsQTU1cVZNUTRtTDFSQTBveUgKRDJMd1JOT1h6K2p2ZWRBS2NkcWtnYkx6YndYbmdnTWQ0MHBIQ3RyTVJlRDZITExlTXZvTnFKVUo5MU5INERwaApSOVdESlVEeDFhV2grbFoyOGhFcXNGd0R0amlITTVibnNIVHhublNBUHNCckRFWmVXREloejR5NDNFK3IKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+          service:
+            name: "elastic-operator-webhook"
+            namespace: "default"
+            path: "/validate-apm-k8s-elastic-co-v1-apmserver"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Exact"
+        name: "elastic-apm-validation-v1.k8s.elastic.co"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "apm.k8s.elastic.co"
+            apiVersions:
+              - "v1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "apmservers"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURXVENDQWtHZ0F3SUJBZ0lRUlQ3YWEvOXVROVM5QXlNQ2xObEY0REFOQmdrcWhraUc5dzBCQVFzRkFEQTMKTVJnd0ZnWURWUVFMRXc5bGJHRnpkR2xqTFhkbFltaHZiMnN4R3pBWkJnTlZCQU1URW1Wc1lYTjBhV010ZDJWaQphRzl2YXkxallUQWVGdzB5TmpBMk1URXhNekF5TWpGYUZ3MHlOekEyTVRFeE16RXlNakZhTURjeEdEQVdCZ05WCkJBc1REMlZzWVhOMGFXTXRkMlZpYUc5dmF6RWJNQmtHQTFVRUF4TVNaV3hoYzNScFl5MTNaV0pvYjI5ckxXTmgKTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUE4c09DRzVNTjJFUVd3cmFuTjNrTwp3RDFKeDBQbVNrbnBNNkhNaGc2QUYwNDBkYitaajN3SnF4akNkeno4dnQ4L2JZRXZCL3lyekFDOXRQamR5Tnl6CnVvVmJQcnZpYjh0NmRhbklwWnoyeTNHVXZMWlVXNnJVdzhMNXFrUTA5WFUxa0ovR00rNzlJNXdhT2NmVlhXOUQKekxCM0RQOGZhQjFOVEx5S05Panp5SG1KaStDeFNHcTBqbHJLSDBjb2pMTTZDdFVRTC9YSmI4OWsvYktTVVU4VQpRYTlFaTRkNjRpUEZkbGtKMldmbUNTVVRMM0laZmhKbTlyUE1EYlRTNzRhdXozTHBscDdLQkFmbDRyRFFxd1dsClJFNEFDSzJNTmFnNWNOSWs3d0luYjVTeVVKTlpjTjJZR3dsRXBGVnpQck8vTUZUUnhuWnNBUG8rNEU4UEl0Y3MKYndJREFRQUJvMkV3WHpBT0JnTlZIUThCQWY4RUJBTUNBb1F3SFFZRFZSMGxCQll3RkFZSUt3WUJCUVVIQXdFRwpDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdIUVlEVlIwT0JCWUVGQ3hvbDJCZUFzcWp6YkdLCkoyMlhLeW9IL2UrOU1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQUg0aVZya0lRaWVHOXRrYVJ3TVBSdDQ3a0QKSWJyUTNRc1BLTE11VGRIZGh5bzh4akdNTlZxamZCTFFVelFZT3hLaTNxaEVYelhicW9tcGhYVXZzUkdSMUdhTgpuVjZ2Z0E1OWN2dHpacGhuK1FpNmNJdjVsNllDT3d3bFVNeUNyYmlZL2c0YkFMdlFESldrNzlrMWF0UWJkSy9VCk5zL2ljMy9icnhuTytYVmx2bWhRd3Y3WGNOQXpWWlNOMTR1MGU4M24xdWpRWmhsQTU1cVZNUTRtTDFSQTBveUgKRDJMd1JOT1h6K2p2ZWRBS2NkcWtnYkx6YndYbmdnTWQ0MHBIQ3RyTVJlRDZITExlTXZvTnFKVUo5MU5INERwaApSOVdESlVEeDFhV2grbFoyOGhFcXNGd0R0amlITTVibnNIVHhublNBUHNCckRFWmVXREloejR5NDNFK3IKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+          service:
+            name: "elastic-operator-webhook"
+            namespace: "default"
+            path: "/validate-apm-k8s-elastic-co-v1beta1-apmserver"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Exact"
+        name: "elastic-apm-validation-v1beta1.k8s.elastic.co"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "apm.k8s.elastic.co"
+            apiVersions:
+              - "v1beta1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "apmservers"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURXVENDQWtHZ0F3SUJBZ0lRUlQ3YWEvOXVROVM5QXlNQ2xObEY0REFOQmdrcWhraUc5dzBCQVFzRkFEQTMKTVJnd0ZnWURWUVFMRXc5bGJHRnpkR2xqTFhkbFltaHZiMnN4R3pBWkJnTlZCQU1URW1Wc1lYTjBhV010ZDJWaQphRzl2YXkxallUQWVGdzB5TmpBMk1URXhNekF5TWpGYUZ3MHlOekEyTVRFeE16RXlNakZhTURjeEdEQVdCZ05WCkJBc1REMlZzWVhOMGFXTXRkMlZpYUc5dmF6RWJNQmtHQTFVRUF4TVNaV3hoYzNScFl5MTNaV0pvYjI5ckxXTmgKTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUE4c09DRzVNTjJFUVd3cmFuTjNrTwp3RDFKeDBQbVNrbnBNNkhNaGc2QUYwNDBkYitaajN3SnF4akNkeno4dnQ4L2JZRXZCL3lyekFDOXRQamR5Tnl6CnVvVmJQcnZpYjh0NmRhbklwWnoyeTNHVXZMWlVXNnJVdzhMNXFrUTA5WFUxa0ovR00rNzlJNXdhT2NmVlhXOUQKekxCM0RQOGZhQjFOVEx5S05Panp5SG1KaStDeFNHcTBqbHJLSDBjb2pMTTZDdFVRTC9YSmI4OWsvYktTVVU4VQpRYTlFaTRkNjRpUEZkbGtKMldmbUNTVVRMM0laZmhKbTlyUE1EYlRTNzRhdXozTHBscDdLQkFmbDRyRFFxd1dsClJFNEFDSzJNTmFnNWNOSWs3d0luYjVTeVVKTlpjTjJZR3dsRXBGVnpQck8vTUZUUnhuWnNBUG8rNEU4UEl0Y3MKYndJREFRQUJvMkV3WHpBT0JnTlZIUThCQWY4RUJBTUNBb1F3SFFZRFZSMGxCQll3RkFZSUt3WUJCUVVIQXdFRwpDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdIUVlEVlIwT0JCWUVGQ3hvbDJCZUFzcWp6YkdLCkoyMlhLeW9IL2UrOU1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQUg0aVZya0lRaWVHOXRrYVJ3TVBSdDQ3a0QKSWJyUTNRc1BLTE11VGRIZGh5bzh4akdNTlZxamZCTFFVelFZT3hLaTNxaEVYelhicW9tcGhYVXZzUkdSMUdhTgpuVjZ2Z0E1OWN2dHpacGhuK1FpNmNJdjVsNllDT3d3bFVNeUNyYmlZL2c0YkFMdlFESldrNzlrMWF0UWJkSy9VCk5zL2ljMy9icnhuTytYVmx2bWhRd3Y3WGNOQXpWWlNOMTR1MGU4M24xdWpRWmhsQTU1cVZNUTRtTDFSQTBveUgKRDJMd1JOT1h6K2p2ZWRBS2NkcWtnYkx6YndYbmdnTWQ0MHBIQ3RyTVJlRDZITExlTXZvTnFKVUo5MU5INERwaApSOVdESlVEeDFhV2grbFoyOGhFcXNGd0R0amlITTVibnNIVHhublNBUHNCckRFWmVXREloejR5NDNFK3IKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+          service:
+            name: "elastic-operator-webhook"
+            namespace: "default"
+            path: "/validate-beat-k8s-elastic-co-v1beta1-beat"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Exact"
+        name: "elastic-beat-validation-v1beta1.k8s.elastic.co"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "beat.k8s.elastic.co"
+            apiVersions:
+              - "v1beta1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "beats"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURXVENDQWtHZ0F3SUJBZ0lRUlQ3YWEvOXVROVM5QXlNQ2xObEY0REFOQmdrcWhraUc5dzBCQVFzRkFEQTMKTVJnd0ZnWURWUVFMRXc5bGJHRnpkR2xqTFhkbFltaHZiMnN4R3pBWkJnTlZCQU1URW1Wc1lYTjBhV010ZDJWaQphRzl2YXkxallUQWVGdzB5TmpBMk1URXhNekF5TWpGYUZ3MHlOekEyTVRFeE16RXlNakZhTURjeEdEQVdCZ05WCkJBc1REMlZzWVhOMGFXTXRkMlZpYUc5dmF6RWJNQmtHQTFVRUF4TVNaV3hoYzNScFl5MTNaV0pvYjI5ckxXTmgKTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUE4c09DRzVNTjJFUVd3cmFuTjNrTwp3RDFKeDBQbVNrbnBNNkhNaGc2QUYwNDBkYitaajN3SnF4akNkeno4dnQ4L2JZRXZCL3lyekFDOXRQamR5Tnl6CnVvVmJQcnZpYjh0NmRhbklwWnoyeTNHVXZMWlVXNnJVdzhMNXFrUTA5WFUxa0ovR00rNzlJNXdhT2NmVlhXOUQKekxCM0RQOGZhQjFOVEx5S05Panp5SG1KaStDeFNHcTBqbHJLSDBjb2pMTTZDdFVRTC9YSmI4OWsvYktTVVU4VQpRYTlFaTRkNjRpUEZkbGtKMldmbUNTVVRMM0laZmhKbTlyUE1EYlRTNzRhdXozTHBscDdLQkFmbDRyRFFxd1dsClJFNEFDSzJNTmFnNWNOSWs3d0luYjVTeVVKTlpjTjJZR3dsRXBGVnpQck8vTUZUUnhuWnNBUG8rNEU4UEl0Y3MKYndJREFRQUJvMkV3WHpBT0JnTlZIUThCQWY4RUJBTUNBb1F3SFFZRFZSMGxCQll3RkFZSUt3WUJCUVVIQXdFRwpDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdIUVlEVlIwT0JCWUVGQ3hvbDJCZUFzcWp6YkdLCkoyMlhLeW9IL2UrOU1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQUg0aVZya0lRaWVHOXRrYVJ3TVBSdDQ3a0QKSWJyUTNRc1BLTE11VGRIZGh5bzh4akdNTlZxamZCTFFVelFZT3hLaTNxaEVYelhicW9tcGhYVXZzUkdSMUdhTgpuVjZ2Z0E1OWN2dHpacGhuK1FpNmNJdjVsNllDT3d3bFVNeUNyYmlZL2c0YkFMdlFESldrNzlrMWF0UWJkSy9VCk5zL2ljMy9icnhuTytYVmx2bWhRd3Y3WGNOQXpWWlNOMTR1MGU4M24xdWpRWmhsQTU1cVZNUTRtTDFSQTBveUgKRDJMd1JOT1h6K2p2ZWRBS2NkcWtnYkx6YndYbmdnTWQ0MHBIQ3RyTVJlRDZITExlTXZvTnFKVUo5MU5INERwaApSOVdESlVEeDFhV2grbFoyOGhFcXNGd0R0amlITTVibnNIVHhublNBUHNCckRFWmVXREloejR5NDNFK3IKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+          service:
+            name: "elastic-operator-webhook"
+            namespace: "default"
+            path: "/validate-enterprisesearch-k8s-elastic-co-v1-enterprisesearch"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Exact"
+        name: "elastic-ent-validation-v1.k8s.elastic.co"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "enterprisesearch.k8s.elastic.co"
+            apiVersions:
+              - "v1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "enterprisesearches"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURXVENDQWtHZ0F3SUJBZ0lRUlQ3YWEvOXVROVM5QXlNQ2xObEY0REFOQmdrcWhraUc5dzBCQVFzRkFEQTMKTVJnd0ZnWURWUVFMRXc5bGJHRnpkR2xqTFhkbFltaHZiMnN4R3pBWkJnTlZCQU1URW1Wc1lYTjBhV010ZDJWaQphRzl2YXkxallUQWVGdzB5TmpBMk1URXhNekF5TWpGYUZ3MHlOekEyTVRFeE16RXlNakZhTURjeEdEQVdCZ05WCkJBc1REMlZzWVhOMGFXTXRkMlZpYUc5dmF6RWJNQmtHQTFVRUF4TVNaV3hoYzNScFl5MTNaV0pvYjI5ckxXTmgKTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUE4c09DRzVNTjJFUVd3cmFuTjNrTwp3RDFKeDBQbVNrbnBNNkhNaGc2QUYwNDBkYitaajN3SnF4akNkeno4dnQ4L2JZRXZCL3lyekFDOXRQamR5Tnl6CnVvVmJQcnZpYjh0NmRhbklwWnoyeTNHVXZMWlVXNnJVdzhMNXFrUTA5WFUxa0ovR00rNzlJNXdhT2NmVlhXOUQKekxCM0RQOGZhQjFOVEx5S05Panp5SG1KaStDeFNHcTBqbHJLSDBjb2pMTTZDdFVRTC9YSmI4OWsvYktTVVU4VQpRYTlFaTRkNjRpUEZkbGtKMldmbUNTVVRMM0laZmhKbTlyUE1EYlRTNzRhdXozTHBscDdLQkFmbDRyRFFxd1dsClJFNEFDSzJNTmFnNWNOSWs3d0luYjVTeVVKTlpjTjJZR3dsRXBGVnpQck8vTUZUUnhuWnNBUG8rNEU4UEl0Y3MKYndJREFRQUJvMkV3WHpBT0JnTlZIUThCQWY4RUJBTUNBb1F3SFFZRFZSMGxCQll3RkFZSUt3WUJCUVVIQXdFRwpDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdIUVlEVlIwT0JCWUVGQ3hvbDJCZUFzcWp6YkdLCkoyMlhLeW9IL2UrOU1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQUg0aVZya0lRaWVHOXRrYVJ3TVBSdDQ3a0QKSWJyUTNRc1BLTE11VGRIZGh5bzh4akdNTlZxamZCTFFVelFZT3hLaTNxaEVYelhicW9tcGhYVXZzUkdSMUdhTgpuVjZ2Z0E1OWN2dHpacGhuK1FpNmNJdjVsNllDT3d3bFVNeUNyYmlZL2c0YkFMdlFESldrNzlrMWF0UWJkSy9VCk5zL2ljMy9icnhuTytYVmx2bWhRd3Y3WGNOQXpWWlNOMTR1MGU4M24xdWpRWmhsQTU1cVZNUTRtTDFSQTBveUgKRDJMd1JOT1h6K2p2ZWRBS2NkcWtnYkx6YndYbmdnTWQ0MHBIQ3RyTVJlRDZITExlTXZvTnFKVUo5MU5INERwaApSOVdESlVEeDFhV2grbFoyOGhFcXNGd0R0amlITTVibnNIVHhublNBUHNCckRFWmVXREloejR5NDNFK3IKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+          service:
+            name: "elastic-operator-webhook"
+            namespace: "default"
+            path: "/validate-enterprisesearch-k8s-elastic-co-v1beta1-enterprisesearch"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Exact"
+        name: "elastic-ent-validation-v1beta1.k8s.elastic.co"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "enterprisesearch.k8s.elastic.co"
+            apiVersions:
+              - "v1beta1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "enterprisesearches"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURXVENDQWtHZ0F3SUJBZ0lRUlQ3YWEvOXVROVM5QXlNQ2xObEY0REFOQmdrcWhraUc5dzBCQVFzRkFEQTMKTVJnd0ZnWURWUVFMRXc5bGJHRnpkR2xqTFhkbFltaHZiMnN4R3pBWkJnTlZCQU1URW1Wc1lYTjBhV010ZDJWaQphRzl2YXkxallUQWVGdzB5TmpBMk1URXhNekF5TWpGYUZ3MHlOekEyTVRFeE16RXlNakZhTURjeEdEQVdCZ05WCkJBc1REMlZzWVhOMGFXTXRkMlZpYUc5dmF6RWJNQmtHQTFVRUF4TVNaV3hoYzNScFl5MTNaV0pvYjI5ckxXTmgKTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUE4c09DRzVNTjJFUVd3cmFuTjNrTwp3RDFKeDBQbVNrbnBNNkhNaGc2QUYwNDBkYitaajN3SnF4akNkeno4dnQ4L2JZRXZCL3lyekFDOXRQamR5Tnl6CnVvVmJQcnZpYjh0NmRhbklwWnoyeTNHVXZMWlVXNnJVdzhMNXFrUTA5WFUxa0ovR00rNzlJNXdhT2NmVlhXOUQKekxCM0RQOGZhQjFOVEx5S05Panp5SG1KaStDeFNHcTBqbHJLSDBjb2pMTTZDdFVRTC9YSmI4OWsvYktTVVU4VQpRYTlFaTRkNjRpUEZkbGtKMldmbUNTVVRMM0laZmhKbTlyUE1EYlRTNzRhdXozTHBscDdLQkFmbDRyRFFxd1dsClJFNEFDSzJNTmFnNWNOSWs3d0luYjVTeVVKTlpjTjJZR3dsRXBGVnpQck8vTUZUUnhuWnNBUG8rNEU4UEl0Y3MKYndJREFRQUJvMkV3WHpBT0JnTlZIUThCQWY4RUJBTUNBb1F3SFFZRFZSMGxCQll3RkFZSUt3WUJCUVVIQXdFRwpDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdIUVlEVlIwT0JCWUVGQ3hvbDJCZUFzcWp6YkdLCkoyMlhLeW9IL2UrOU1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQUg0aVZya0lRaWVHOXRrYVJ3TVBSdDQ3a0QKSWJyUTNRc1BLTE11VGRIZGh5bzh4akdNTlZxamZCTFFVelFZT3hLaTNxaEVYelhicW9tcGhYVXZzUkdSMUdhTgpuVjZ2Z0E1OWN2dHpacGhuK1FpNmNJdjVsNllDT3d3bFVNeUNyYmlZL2c0YkFMdlFESldrNzlrMWF0UWJkSy9VCk5zL2ljMy9icnhuTytYVmx2bWhRd3Y3WGNOQXpWWlNOMTR1MGU4M24xdWpRWmhsQTU1cVZNUTRtTDFSQTBveUgKRDJMd1JOT1h6K2p2ZWRBS2NkcWtnYkx6YndYbmdnTWQ0MHBIQ3RyTVJlRDZITExlTXZvTnFKVUo5MU5INERwaApSOVdESlVEeDFhV2grbFoyOGhFcXNGd0R0amlITTVibnNIVHhublNBUHNCckRFWmVXREloejR5NDNFK3IKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+          service:
+            name: "elastic-operator-webhook"
+            namespace: "default"
+            path: "/validate-elasticsearch-k8s-elastic-co-v1-elasticsearch"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Exact"
+        name: "elastic-es-validation-v1.k8s.elastic.co"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "elasticsearch.k8s.elastic.co"
+            apiVersions:
+              - "v1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "elasticsearches"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURXVENDQWtHZ0F3SUJBZ0lRUlQ3YWEvOXVROVM5QXlNQ2xObEY0REFOQmdrcWhraUc5dzBCQVFzRkFEQTMKTVJnd0ZnWURWUVFMRXc5bGJHRnpkR2xqTFhkbFltaHZiMnN4R3pBWkJnTlZCQU1URW1Wc1lYTjBhV010ZDJWaQphRzl2YXkxallUQWVGdzB5TmpBMk1URXhNekF5TWpGYUZ3MHlOekEyTVRFeE16RXlNakZhTURjeEdEQVdCZ05WCkJBc1REMlZzWVhOMGFXTXRkMlZpYUc5dmF6RWJNQmtHQTFVRUF4TVNaV3hoYzNScFl5MTNaV0pvYjI5ckxXTmgKTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUE4c09DRzVNTjJFUVd3cmFuTjNrTwp3RDFKeDBQbVNrbnBNNkhNaGc2QUYwNDBkYitaajN3SnF4akNkeno4dnQ4L2JZRXZCL3lyekFDOXRQamR5Tnl6CnVvVmJQcnZpYjh0NmRhbklwWnoyeTNHVXZMWlVXNnJVdzhMNXFrUTA5WFUxa0ovR00rNzlJNXdhT2NmVlhXOUQKekxCM0RQOGZhQjFOVEx5S05Panp5SG1KaStDeFNHcTBqbHJLSDBjb2pMTTZDdFVRTC9YSmI4OWsvYktTVVU4VQpRYTlFaTRkNjRpUEZkbGtKMldmbUNTVVRMM0laZmhKbTlyUE1EYlRTNzRhdXozTHBscDdLQkFmbDRyRFFxd1dsClJFNEFDSzJNTmFnNWNOSWs3d0luYjVTeVVKTlpjTjJZR3dsRXBGVnpQck8vTUZUUnhuWnNBUG8rNEU4UEl0Y3MKYndJREFRQUJvMkV3WHpBT0JnTlZIUThCQWY4RUJBTUNBb1F3SFFZRFZSMGxCQll3RkFZSUt3WUJCUVVIQXdFRwpDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdIUVlEVlIwT0JCWUVGQ3hvbDJCZUFzcWp6YkdLCkoyMlhLeW9IL2UrOU1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQUg0aVZya0lRaWVHOXRrYVJ3TVBSdDQ3a0QKSWJyUTNRc1BLTE11VGRIZGh5bzh4akdNTlZxamZCTFFVelFZT3hLaTNxaEVYelhicW9tcGhYVXZzUkdSMUdhTgpuVjZ2Z0E1OWN2dHpacGhuK1FpNmNJdjVsNllDT3d3bFVNeUNyYmlZL2c0YkFMdlFESldrNzlrMWF0UWJkSy9VCk5zL2ljMy9icnhuTytYVmx2bWhRd3Y3WGNOQXpWWlNOMTR1MGU4M24xdWpRWmhsQTU1cVZNUTRtTDFSQTBveUgKRDJMd1JOT1h6K2p2ZWRBS2NkcWtnYkx6YndYbmdnTWQ0MHBIQ3RyTVJlRDZITExlTXZvTnFKVUo5MU5INERwaApSOVdESlVEeDFhV2grbFoyOGhFcXNGd0R0amlITTVibnNIVHhublNBUHNCckRFWmVXREloejR5NDNFK3IKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+          service:
+            name: "elastic-operator-webhook"
+            namespace: "default"
+            path: "/validate-elasticsearch-k8s-elastic-co-v1beta1-elasticsearch"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Exact"
+        name: "elastic-es-validation-v1beta1.k8s.elastic.co"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "elasticsearch.k8s.elastic.co"
+            apiVersions:
+              - "v1beta1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "elasticsearches"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURXVENDQWtHZ0F3SUJBZ0lRUlQ3YWEvOXVROVM5QXlNQ2xObEY0REFOQmdrcWhraUc5dzBCQVFzRkFEQTMKTVJnd0ZnWURWUVFMRXc5bGJHRnpkR2xqTFhkbFltaHZiMnN4R3pBWkJnTlZCQU1URW1Wc1lYTjBhV010ZDJWaQphRzl2YXkxallUQWVGdzB5TmpBMk1URXhNekF5TWpGYUZ3MHlOekEyTVRFeE16RXlNakZhTURjeEdEQVdCZ05WCkJBc1REMlZzWVhOMGFXTXRkMlZpYUc5dmF6RWJNQmtHQTFVRUF4TVNaV3hoYzNScFl5MTNaV0pvYjI5ckxXTmgKTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUE4c09DRzVNTjJFUVd3cmFuTjNrTwp3RDFKeDBQbVNrbnBNNkhNaGc2QUYwNDBkYitaajN3SnF4akNkeno4dnQ4L2JZRXZCL3lyekFDOXRQamR5Tnl6CnVvVmJQcnZpYjh0NmRhbklwWnoyeTNHVXZMWlVXNnJVdzhMNXFrUTA5WFUxa0ovR00rNzlJNXdhT2NmVlhXOUQKekxCM0RQOGZhQjFOVEx5S05Panp5SG1KaStDeFNHcTBqbHJLSDBjb2pMTTZDdFVRTC9YSmI4OWsvYktTVVU4VQpRYTlFaTRkNjRpUEZkbGtKMldmbUNTVVRMM0laZmhKbTlyUE1EYlRTNzRhdXozTHBscDdLQkFmbDRyRFFxd1dsClJFNEFDSzJNTmFnNWNOSWs3d0luYjVTeVVKTlpjTjJZR3dsRXBGVnpQck8vTUZUUnhuWnNBUG8rNEU4UEl0Y3MKYndJREFRQUJvMkV3WHpBT0JnTlZIUThCQWY4RUJBTUNBb1F3SFFZRFZSMGxCQll3RkFZSUt3WUJCUVVIQXdFRwpDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdIUVlEVlIwT0JCWUVGQ3hvbDJCZUFzcWp6YkdLCkoyMlhLeW9IL2UrOU1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQUg0aVZya0lRaWVHOXRrYVJ3TVBSdDQ3a0QKSWJyUTNRc1BLTE11VGRIZGh5bzh4akdNTlZxamZCTFFVelFZT3hLaTNxaEVYelhicW9tcGhYVXZzUkdSMUdhTgpuVjZ2Z0E1OWN2dHpacGhuK1FpNmNJdjVsNllDT3d3bFVNeUNyYmlZL2c0YkFMdlFESldrNzlrMWF0UWJkSy9VCk5zL2ljMy9icnhuTytYVmx2bWhRd3Y3WGNOQXpWWlNOMTR1MGU4M24xdWpRWmhsQTU1cVZNUTRtTDFSQTBveUgKRDJMd1JOT1h6K2p2ZWRBS2NkcWtnYkx6YndYbmdnTWQ0MHBIQ3RyTVJlRDZITExlTXZvTnFKVUo5MU5INERwaApSOVdESlVEeDFhV2grbFoyOGhFcXNGd0R0amlITTVibnNIVHhublNBUHNCckRFWmVXREloejR5NDNFK3IKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+          service:
+            name: "elastic-operator-webhook"
+            namespace: "default"
+            path: "/validate-ems-k8s-elastic-co-v1alpha1-mapsservers"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Exact"
+        name: "elastic-ems-validation-v1alpha1.k8s.elastic.co"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "maps.k8s.elastic.co"
+            apiVersions:
+              - "v1alpha1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "elasticmapsservers"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURXVENDQWtHZ0F3SUJBZ0lRUlQ3YWEvOXVROVM5QXlNQ2xObEY0REFOQmdrcWhraUc5dzBCQVFzRkFEQTMKTVJnd0ZnWURWUVFMRXc5bGJHRnpkR2xqTFhkbFltaHZiMnN4R3pBWkJnTlZCQU1URW1Wc1lYTjBhV010ZDJWaQphRzl2YXkxallUQWVGdzB5TmpBMk1URXhNekF5TWpGYUZ3MHlOekEyTVRFeE16RXlNakZhTURjeEdEQVdCZ05WCkJBc1REMlZzWVhOMGFXTXRkMlZpYUc5dmF6RWJNQmtHQTFVRUF4TVNaV3hoYzNScFl5MTNaV0pvYjI5ckxXTmgKTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUE4c09DRzVNTjJFUVd3cmFuTjNrTwp3RDFKeDBQbVNrbnBNNkhNaGc2QUYwNDBkYitaajN3SnF4akNkeno4dnQ4L2JZRXZCL3lyekFDOXRQamR5Tnl6CnVvVmJQcnZpYjh0NmRhbklwWnoyeTNHVXZMWlVXNnJVdzhMNXFrUTA5WFUxa0ovR00rNzlJNXdhT2NmVlhXOUQKekxCM0RQOGZhQjFOVEx5S05Panp5SG1KaStDeFNHcTBqbHJLSDBjb2pMTTZDdFVRTC9YSmI4OWsvYktTVVU4VQpRYTlFaTRkNjRpUEZkbGtKMldmbUNTVVRMM0laZmhKbTlyUE1EYlRTNzRhdXozTHBscDdLQkFmbDRyRFFxd1dsClJFNEFDSzJNTmFnNWNOSWs3d0luYjVTeVVKTlpjTjJZR3dsRXBGVnpQck8vTUZUUnhuWnNBUG8rNEU4UEl0Y3MKYndJREFRQUJvMkV3WHpBT0JnTlZIUThCQWY4RUJBTUNBb1F3SFFZRFZSMGxCQll3RkFZSUt3WUJCUVVIQXdFRwpDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdIUVlEVlIwT0JCWUVGQ3hvbDJCZUFzcWp6YkdLCkoyMlhLeW9IL2UrOU1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQUg0aVZya0lRaWVHOXRrYVJ3TVBSdDQ3a0QKSWJyUTNRc1BLTE11VGRIZGh5bzh4akdNTlZxamZCTFFVelFZT3hLaTNxaEVYelhicW9tcGhYVXZzUkdSMUdhTgpuVjZ2Z0E1OWN2dHpacGhuK1FpNmNJdjVsNllDT3d3bFVNeUNyYmlZL2c0YkFMdlFESldrNzlrMWF0UWJkSy9VCk5zL2ljMy9icnhuTytYVmx2bWhRd3Y3WGNOQXpWWlNOMTR1MGU4M24xdWpRWmhsQTU1cVZNUTRtTDFSQTBveUgKRDJMd1JOT1h6K2p2ZWRBS2NkcWtnYkx6YndYbmdnTWQ0MHBIQ3RyTVJlRDZITExlTXZvTnFKVUo5MU5INERwaApSOVdESlVEeDFhV2grbFoyOGhFcXNGd0R0amlITTVibnNIVHhublNBUHNCckRFWmVXREloejR5NDNFK3IKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+          service:
+            name: "elastic-operator-webhook"
+            namespace: "default"
+            path: "/validate-kibana-k8s-elastic-co-v1-kibana"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Exact"
+        name: "elastic-kb-validation-v1.k8s.elastic.co"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "kibana.k8s.elastic.co"
+            apiVersions:
+              - "v1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "kibanas"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURXVENDQWtHZ0F3SUJBZ0lRUlQ3YWEvOXVROVM5QXlNQ2xObEY0REFOQmdrcWhraUc5dzBCQVFzRkFEQTMKTVJnd0ZnWURWUVFMRXc5bGJHRnpkR2xqTFhkbFltaHZiMnN4R3pBWkJnTlZCQU1URW1Wc1lYTjBhV010ZDJWaQphRzl2YXkxallUQWVGdzB5TmpBMk1URXhNekF5TWpGYUZ3MHlOekEyTVRFeE16RXlNakZhTURjeEdEQVdCZ05WCkJBc1REMlZzWVhOMGFXTXRkMlZpYUc5dmF6RWJNQmtHQTFVRUF4TVNaV3hoYzNScFl5MTNaV0pvYjI5ckxXTmgKTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUE4c09DRzVNTjJFUVd3cmFuTjNrTwp3RDFKeDBQbVNrbnBNNkhNaGc2QUYwNDBkYitaajN3SnF4akNkeno4dnQ4L2JZRXZCL3lyekFDOXRQamR5Tnl6CnVvVmJQcnZpYjh0NmRhbklwWnoyeTNHVXZMWlVXNnJVdzhMNXFrUTA5WFUxa0ovR00rNzlJNXdhT2NmVlhXOUQKekxCM0RQOGZhQjFOVEx5S05Panp5SG1KaStDeFNHcTBqbHJLSDBjb2pMTTZDdFVRTC9YSmI4OWsvYktTVVU4VQpRYTlFaTRkNjRpUEZkbGtKMldmbUNTVVRMM0laZmhKbTlyUE1EYlRTNzRhdXozTHBscDdLQkFmbDRyRFFxd1dsClJFNEFDSzJNTmFnNWNOSWs3d0luYjVTeVVKTlpjTjJZR3dsRXBGVnpQck8vTUZUUnhuWnNBUG8rNEU4UEl0Y3MKYndJREFRQUJvMkV3WHpBT0JnTlZIUThCQWY4RUJBTUNBb1F3SFFZRFZSMGxCQll3RkFZSUt3WUJCUVVIQXdFRwpDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdIUVlEVlIwT0JCWUVGQ3hvbDJCZUFzcWp6YkdLCkoyMlhLeW9IL2UrOU1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQUg0aVZya0lRaWVHOXRrYVJ3TVBSdDQ3a0QKSWJyUTNRc1BLTE11VGRIZGh5bzh4akdNTlZxamZCTFFVelFZT3hLaTNxaEVYelhicW9tcGhYVXZzUkdSMUdhTgpuVjZ2Z0E1OWN2dHpacGhuK1FpNmNJdjVsNllDT3d3bFVNeUNyYmlZL2c0YkFMdlFESldrNzlrMWF0UWJkSy9VCk5zL2ljMy9icnhuTytYVmx2bWhRd3Y3WGNOQXpWWlNOMTR1MGU4M24xdWpRWmhsQTU1cVZNUTRtTDFSQTBveUgKRDJMd1JOT1h6K2p2ZWRBS2NkcWtnYkx6YndYbmdnTWQ0MHBIQ3RyTVJlRDZITExlTXZvTnFKVUo5MU5INERwaApSOVdESlVEeDFhV2grbFoyOGhFcXNGd0R0amlITTVibnNIVHhublNBUHNCckRFWmVXREloejR5NDNFK3IKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+          service:
+            name: "elastic-operator-webhook"
+            namespace: "default"
+            path: "/validate-kibana-k8s-elastic-co-v1beta1-kibana"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Exact"
+        name: "elastic-kb-validation-v1beta1.k8s.elastic.co"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "kibana.k8s.elastic.co"
+            apiVersions:
+              - "v1beta1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "kibanas"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURXVENDQWtHZ0F3SUJBZ0lRUlQ3YWEvOXVROVM5QXlNQ2xObEY0REFOQmdrcWhraUc5dzBCQVFzRkFEQTMKTVJnd0ZnWURWUVFMRXc5bGJHRnpkR2xqTFhkbFltaHZiMnN4R3pBWkJnTlZCQU1URW1Wc1lYTjBhV010ZDJWaQphRzl2YXkxallUQWVGdzB5TmpBMk1URXhNekF5TWpGYUZ3MHlOekEyTVRFeE16RXlNakZhTURjeEdEQVdCZ05WCkJBc1REMlZzWVhOMGFXTXRkMlZpYUc5dmF6RWJNQmtHQTFVRUF4TVNaV3hoYzNScFl5MTNaV0pvYjI5ckxXTmgKTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUE4c09DRzVNTjJFUVd3cmFuTjNrTwp3RDFKeDBQbVNrbnBNNkhNaGc2QUYwNDBkYitaajN3SnF4akNkeno4dnQ4L2JZRXZCL3lyekFDOXRQamR5Tnl6CnVvVmJQcnZpYjh0NmRhbklwWnoyeTNHVXZMWlVXNnJVdzhMNXFrUTA5WFUxa0ovR00rNzlJNXdhT2NmVlhXOUQKekxCM0RQOGZhQjFOVEx5S05Panp5SG1KaStDeFNHcTBqbHJLSDBjb2pMTTZDdFVRTC9YSmI4OWsvYktTVVU4VQpRYTlFaTRkNjRpUEZkbGtKMldmbUNTVVRMM0laZmhKbTlyUE1EYlRTNzRhdXozTHBscDdLQkFmbDRyRFFxd1dsClJFNEFDSzJNTmFnNWNOSWs3d0luYjVTeVVKTlpjTjJZR3dsRXBGVnpQck8vTUZUUnhuWnNBUG8rNEU4UEl0Y3MKYndJREFRQUJvMkV3WHpBT0JnTlZIUThCQWY4RUJBTUNBb1F3SFFZRFZSMGxCQll3RkFZSUt3WUJCUVVIQXdFRwpDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdIUVlEVlIwT0JCWUVGQ3hvbDJCZUFzcWp6YkdLCkoyMlhLeW9IL2UrOU1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQUg0aVZya0lRaWVHOXRrYVJ3TVBSdDQ3a0QKSWJyUTNRc1BLTE11VGRIZGh5bzh4akdNTlZxamZCTFFVelFZT3hLaTNxaEVYelhicW9tcGhYVXZzUkdSMUdhTgpuVjZ2Z0E1OWN2dHpacGhuK1FpNmNJdjVsNllDT3d3bFVNeUNyYmlZL2c0YkFMdlFESldrNzlrMWF0UWJkSy9VCk5zL2ljMy9icnhuTytYVmx2bWhRd3Y3WGNOQXpWWlNOMTR1MGU4M24xdWpRWmhsQTU1cVZNUTRtTDFSQTBveUgKRDJMd1JOT1h6K2p2ZWRBS2NkcWtnYkx6YndYbmdnTWQ0MHBIQ3RyTVJlRDZITExlTXZvTnFKVUo5MU5INERwaApSOVdESlVEeDFhV2grbFoyOGhFcXNGd0R0amlITTVibnNIVHhublNBUHNCckRFWmVXREloejR5NDNFK3IKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+          service:
+            name: "elastic-operator-webhook"
+            namespace: "default"
+            path: "/validate-autoscaling-k8s-elastic-co-v1alpha1-elasticsearchautoscaler"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Exact"
+        name: "elastic-esa-validation-v1alpha1.k8s.elastic.co"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "autoscaling.k8s.elastic.co"
+            apiVersions:
+              - "v1alpha1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "elasticsearchautoscalers"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURXVENDQWtHZ0F3SUJBZ0lRUlQ3YWEvOXVROVM5QXlNQ2xObEY0REFOQmdrcWhraUc5dzBCQVFzRkFEQTMKTVJnd0ZnWURWUVFMRXc5bGJHRnpkR2xqTFhkbFltaHZiMnN4R3pBWkJnTlZCQU1URW1Wc1lYTjBhV010ZDJWaQphRzl2YXkxallUQWVGdzB5TmpBMk1URXhNekF5TWpGYUZ3MHlOekEyTVRFeE16RXlNakZhTURjeEdEQVdCZ05WCkJBc1REMlZzWVhOMGFXTXRkMlZpYUc5dmF6RWJNQmtHQTFVRUF4TVNaV3hoYzNScFl5MTNaV0pvYjI5ckxXTmgKTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUE4c09DRzVNTjJFUVd3cmFuTjNrTwp3RDFKeDBQbVNrbnBNNkhNaGc2QUYwNDBkYitaajN3SnF4akNkeno4dnQ4L2JZRXZCL3lyekFDOXRQamR5Tnl6CnVvVmJQcnZpYjh0NmRhbklwWnoyeTNHVXZMWlVXNnJVdzhMNXFrUTA5WFUxa0ovR00rNzlJNXdhT2NmVlhXOUQKekxCM0RQOGZhQjFOVEx5S05Panp5SG1KaStDeFNHcTBqbHJLSDBjb2pMTTZDdFVRTC9YSmI4OWsvYktTVVU4VQpRYTlFaTRkNjRpUEZkbGtKMldmbUNTVVRMM0laZmhKbTlyUE1EYlRTNzRhdXozTHBscDdLQkFmbDRyRFFxd1dsClJFNEFDSzJNTmFnNWNOSWs3d0luYjVTeVVKTlpjTjJZR3dsRXBGVnpQck8vTUZUUnhuWnNBUG8rNEU4UEl0Y3MKYndJREFRQUJvMkV3WHpBT0JnTlZIUThCQWY4RUJBTUNBb1F3SFFZRFZSMGxCQll3RkFZSUt3WUJCUVVIQXdFRwpDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdIUVlEVlIwT0JCWUVGQ3hvbDJCZUFzcWp6YkdLCkoyMlhLeW9IL2UrOU1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQUg0aVZya0lRaWVHOXRrYVJ3TVBSdDQ3a0QKSWJyUTNRc1BLTE11VGRIZGh5bzh4akdNTlZxamZCTFFVelFZT3hLaTNxaEVYelhicW9tcGhYVXZzUkdSMUdhTgpuVjZ2Z0E1OWN2dHpacGhuK1FpNmNJdjVsNllDT3d3bFVNeUNyYmlZL2c0YkFMdlFESldrNzlrMWF0UWJkSy9VCk5zL2ljMy9icnhuTytYVmx2bWhRd3Y3WGNOQXpWWlNOMTR1MGU4M24xdWpRWmhsQTU1cVZNUTRtTDFSQTBveUgKRDJMd1JOT1h6K2p2ZWRBS2NkcWtnYkx6YndYbmdnTWQ0MHBIQ3RyTVJlRDZITExlTXZvTnFKVUo5MU5INERwaApSOVdESlVEeDFhV2grbFoyOGhFcXNGd0R0amlITTVibnNIVHhublNBUHNCckRFWmVXREloejR5NDNFK3IKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+          service:
+            name: "elastic-operator-webhook"
+            namespace: "default"
+            path: "/validate-scp-k8s-elastic-co-v1alpha1-stackconfigpolicies"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Exact"
+        name: "elastic-scp-validation-v1alpha1.k8s.elastic.co"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "stackconfigpolicy.k8s.elastic.co"
+            apiVersions:
+              - "v1alpha1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "stackconfigpolicies"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURXVENDQWtHZ0F3SUJBZ0lRUlQ3YWEvOXVROVM5QXlNQ2xObEY0REFOQmdrcWhraUc5dzBCQVFzRkFEQTMKTVJnd0ZnWURWUVFMRXc5bGJHRnpkR2xqTFhkbFltaHZiMnN4R3pBWkJnTlZCQU1URW1Wc1lYTjBhV010ZDJWaQphRzl2YXkxallUQWVGdzB5TmpBMk1URXhNekF5TWpGYUZ3MHlOekEyTVRFeE16RXlNakZhTURjeEdEQVdCZ05WCkJBc1REMlZzWVhOMGFXTXRkMlZpYUc5dmF6RWJNQmtHQTFVRUF4TVNaV3hoYzNScFl5MTNaV0pvYjI5ckxXTmgKTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUE4c09DRzVNTjJFUVd3cmFuTjNrTwp3RDFKeDBQbVNrbnBNNkhNaGc2QUYwNDBkYitaajN3SnF4akNkeno4dnQ4L2JZRXZCL3lyekFDOXRQamR5Tnl6CnVvVmJQcnZpYjh0NmRhbklwWnoyeTNHVXZMWlVXNnJVdzhMNXFrUTA5WFUxa0ovR00rNzlJNXdhT2NmVlhXOUQKekxCM0RQOGZhQjFOVEx5S05Panp5SG1KaStDeFNHcTBqbHJLSDBjb2pMTTZDdFVRTC9YSmI4OWsvYktTVVU4VQpRYTlFaTRkNjRpUEZkbGtKMldmbUNTVVRMM0laZmhKbTlyUE1EYlRTNzRhdXozTHBscDdLQkFmbDRyRFFxd1dsClJFNEFDSzJNTmFnNWNOSWs3d0luYjVTeVVKTlpjTjJZR3dsRXBGVnpQck8vTUZUUnhuWnNBUG8rNEU4UEl0Y3MKYndJREFRQUJvMkV3WHpBT0JnTlZIUThCQWY4RUJBTUNBb1F3SFFZRFZSMGxCQll3RkFZSUt3WUJCUVVIQXdFRwpDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdIUVlEVlIwT0JCWUVGQ3hvbDJCZUFzcWp6YkdLCkoyMlhLeW9IL2UrOU1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQUg0aVZya0lRaWVHOXRrYVJ3TVBSdDQ3a0QKSWJyUTNRc1BLTE11VGRIZGh5bzh4akdNTlZxamZCTFFVelFZT3hLaTNxaEVYelhicW9tcGhYVXZzUkdSMUdhTgpuVjZ2Z0E1OWN2dHpacGhuK1FpNmNJdjVsNllDT3d3bFVNeUNyYmlZL2c0YkFMdlFESldrNzlrMWF0UWJkSy9VCk5zL2ljMy9icnhuTytYVmx2bWhRd3Y3WGNOQXpWWlNOMTR1MGU4M24xdWpRWmhsQTU1cVZNUTRtTDFSQTBveUgKRDJMd1JOT1h6K2p2ZWRBS2NkcWtnYkx6YndYbmdnTWQ0MHBIQ3RyTVJlRDZITExlTXZvTnFKVUo5MU5INERwaApSOVdESlVEeDFhV2grbFoyOGhFcXNGd0R0amlITTVibnNIVHhublNBUHNCckRFWmVXREloejR5NDNFK3IKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+          service:
+            name: "elastic-operator-webhook"
+            namespace: "default"
+            path: "/validate-logstash-k8s-elastic-co-v1alpha1-logstash"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Exact"
+        name: "elastic-logstash-validation-v1alpha1.k8s.elastic.co"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "logstash.k8s.elastic.co"
+            apiVersions:
+              - "v1alpha1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "logstashes"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURXVENDQWtHZ0F3SUJBZ0lRUlQ3YWEvOXVROVM5QXlNQ2xObEY0REFOQmdrcWhraUc5dzBCQVFzRkFEQTMKTVJnd0ZnWURWUVFMRXc5bGJHRnpkR2xqTFhkbFltaHZiMnN4R3pBWkJnTlZCQU1URW1Wc1lYTjBhV010ZDJWaQphRzl2YXkxallUQWVGdzB5TmpBMk1URXhNekF5TWpGYUZ3MHlOekEyTVRFeE16RXlNakZhTURjeEdEQVdCZ05WCkJBc1REMlZzWVhOMGFXTXRkMlZpYUc5dmF6RWJNQmtHQTFVRUF4TVNaV3hoYzNScFl5MTNaV0pvYjI5ckxXTmgKTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUE4c09DRzVNTjJFUVd3cmFuTjNrTwp3RDFKeDBQbVNrbnBNNkhNaGc2QUYwNDBkYitaajN3SnF4akNkeno4dnQ4L2JZRXZCL3lyekFDOXRQamR5Tnl6CnVvVmJQcnZpYjh0NmRhbklwWnoyeTNHVXZMWlVXNnJVdzhMNXFrUTA5WFUxa0ovR00rNzlJNXdhT2NmVlhXOUQKekxCM0RQOGZhQjFOVEx5S05Panp5SG1KaStDeFNHcTBqbHJLSDBjb2pMTTZDdFVRTC9YSmI4OWsvYktTVVU4VQpRYTlFaTRkNjRpUEZkbGtKMldmbUNTVVRMM0laZmhKbTlyUE1EYlRTNzRhdXozTHBscDdLQkFmbDRyRFFxd1dsClJFNEFDSzJNTmFnNWNOSWs3d0luYjVTeVVKTlpjTjJZR3dsRXBGVnpQck8vTUZUUnhuWnNBUG8rNEU4UEl0Y3MKYndJREFRQUJvMkV3WHpBT0JnTlZIUThCQWY4RUJBTUNBb1F3SFFZRFZSMGxCQll3RkFZSUt3WUJCUVVIQXdFRwpDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdIUVlEVlIwT0JCWUVGQ3hvbDJCZUFzcWp6YkdLCkoyMlhLeW9IL2UrOU1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQUg0aVZya0lRaWVHOXRrYVJ3TVBSdDQ3a0QKSWJyUTNRc1BLTE11VGRIZGh5bzh4akdNTlZxamZCTFFVelFZT3hLaTNxaEVYelhicW9tcGhYVXZzUkdSMUdhTgpuVjZ2Z0E1OWN2dHpacGhuK1FpNmNJdjVsNllDT3d3bFVNeUNyYmlZL2c0YkFMdlFESldrNzlrMWF0UWJkSy9VCk5zL2ljMy9icnhuTytYVmx2bWhRd3Y3WGNOQXpWWlNOMTR1MGU4M24xdWpRWmhsQTU1cVZNUTRtTDFSQTBveUgKRDJMd1JOT1h6K2p2ZWRBS2NkcWtnYkx6YndYbmdnTWQ0MHBIQ3RyTVJlRDZITExlTXZvTnFKVUo5MU5INERwaApSOVdESlVEeDFhV2grbFoyOGhFcXNGd0R0amlITTVibnNIVHhublNBUHNCckRFWmVXREloejR5NDNFK3IKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+          service:
+            name: "elastic-operator-webhook"
+            namespace: "default"
+            path: "/validate-autoops-k8s-elastic-co-v1alpha1-autoopsagentpolicies"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Exact"
+        name: "elastic-autoops-validation-v1alpha1.k8s.elastic.co"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "autoops.k8s.elastic.co"
+            apiVersions:
+              - "v1alpha1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "autoopsagentpolicies"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+      -
+        admissionReviewVersions:
+          - "v1"
+          - "v1beta1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURXVENDQWtHZ0F3SUJBZ0lRUlQ3YWEvOXVROVM5QXlNQ2xObEY0REFOQmdrcWhraUc5dzBCQVFzRkFEQTMKTVJnd0ZnWURWUVFMRXc5bGJHRnpkR2xqTFhkbFltaHZiMnN4R3pBWkJnTlZCQU1URW1Wc1lYTjBhV010ZDJWaQphRzl2YXkxallUQWVGdzB5TmpBMk1URXhNekF5TWpGYUZ3MHlOekEyTVRFeE16RXlNakZhTURjeEdEQVdCZ05WCkJBc1REMlZzWVhOMGFXTXRkMlZpYUc5dmF6RWJNQmtHQTFVRUF4TVNaV3hoYzNScFl5MTNaV0pvYjI5ckxXTmgKTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUE4c09DRzVNTjJFUVd3cmFuTjNrTwp3RDFKeDBQbVNrbnBNNkhNaGc2QUYwNDBkYitaajN3SnF4akNkeno4dnQ4L2JZRXZCL3lyekFDOXRQamR5Tnl6CnVvVmJQcnZpYjh0NmRhbklwWnoyeTNHVXZMWlVXNnJVdzhMNXFrUTA5WFUxa0ovR00rNzlJNXdhT2NmVlhXOUQKekxCM0RQOGZhQjFOVEx5S05Panp5SG1KaStDeFNHcTBqbHJLSDBjb2pMTTZDdFVRTC9YSmI4OWsvYktTVVU4VQpRYTlFaTRkNjRpUEZkbGtKMldmbUNTVVRMM0laZmhKbTlyUE1EYlRTNzRhdXozTHBscDdLQkFmbDRyRFFxd1dsClJFNEFDSzJNTmFnNWNOSWs3d0luYjVTeVVKTlpjTjJZR3dsRXBGVnpQck8vTUZUUnhuWnNBUG8rNEU4UEl0Y3MKYndJREFRQUJvMkV3WHpBT0JnTlZIUThCQWY4RUJBTUNBb1F3SFFZRFZSMGxCQll3RkFZSUt3WUJCUVVIQXdFRwpDQ3NHQVFVRkJ3TUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdIUVlEVlIwT0JCWUVGQ3hvbDJCZUFzcWp6YkdLCkoyMlhLeW9IL2UrOU1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQUg0aVZya0lRaWVHOXRrYVJ3TVBSdDQ3a0QKSWJyUTNRc1BLTE11VGRIZGh5bzh4akdNTlZxamZCTFFVelFZT3hLaTNxaEVYelhicW9tcGhYVXZzUkdSMUdhTgpuVjZ2Z0E1OWN2dHpacGhuK1FpNmNJdjVsNllDT3d3bFVNeUNyYmlZL2c0YkFMdlFESldrNzlrMWF0UWJkSy9VCk5zL2ljMy9icnhuTytYVmx2bWhRd3Y3WGNOQXpWWlNOMTR1MGU4M24xdWpRWmhsQTU1cVZNUTRtTDFSQTBveUgKRDJMd1JOT1h6K2p2ZWRBS2NkcWtnYkx6YndYbmdnTWQ0MHBIQ3RyTVJlRDZITExlTXZvTnFKVUo5MU5INERwaApSOVdESlVEeDFhV2grbFoyOGhFcXNGd0R0amlITTVibnNIVHhublNBUHNCckRFWmVXREloejR5NDNFK3IKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo="
+          service:
+            name: "elastic-operator-webhook"
+            namespace: "default"
+            path: "/validate-epr-k8s-elastic-co-v1alpha1-packageregistry"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Exact"
+        name: "elastic-epr-validation-v1alpha1.k8s.elastic.co"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "packageregistry.k8s.elastic.co"
+            apiVersions:
+              - "v1alpha1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "packageregistries"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+kind: "List"
+metadata:
+  resourceVersion: ""

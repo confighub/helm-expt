@@ -1,0 +1,150 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trust-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trust-manager\",\"app.kubernetes.io/version\":\"v0.22.1\",\"helm.sh/chart\":\"trust-manager-v0.22.1\"},\"name\":\"trust-manager\"},\"rules\":[{\"apiGroups\":[\"trust.cert-manager.io\"],\"resources\":[\"bundles\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"trust.cert-manager.io\"],\"resources\":[\"bundles/finalizers\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"trust.cert-manager.io\"],\"resources\":[\"bundles/status\"],\"verbs\":[\"patch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\"],\"verbs\":[\"get\",\"list\",\"create\",\"patch\",\"watch\",\"delete\"]},{\"apiGroups\":[\"\",\"events.k8s.io\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"patch\"]}]}\n"
+      creationTimestamp: "2026-06-11T15:02:41Z"
+      labels:
+        app.kubernetes.io/instance: "trust-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trust-manager"
+        app.kubernetes.io/version: "v0.22.1"
+        helm.sh/chart: "trust-manager-v0.22.1"
+      name: "trust-manager"
+      resourceVersion: "1685"
+      uid: "8e6b7e43-bbed-40e1-847e-29a214a48901"
+    rules:
+      -
+        apiGroups:
+          - "trust.cert-manager.io"
+        resources:
+          - "bundles"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "trust.cert-manager.io"
+        resources:
+          - "bundles/finalizers"
+        verbs:
+          - "update"
+      -
+        apiGroups:
+          - "trust.cert-manager.io"
+        resources:
+          - "bundles/status"
+        verbs:
+          - "patch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "namespaces"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+        verbs:
+          - "get"
+          - "list"
+          - "create"
+          - "patch"
+          - "watch"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+          - "events.k8s.io"
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "patch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trust-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trust-manager\",\"app.kubernetes.io/version\":\"v0.22.1\",\"helm.sh/chart\":\"trust-manager-v0.22.1\"},\"name\":\"trust-manager\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"trust-manager\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"trust-manager\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T15:02:41Z"
+      labels:
+        app.kubernetes.io/instance: "trust-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trust-manager"
+        app.kubernetes.io/version: "v0.22.1"
+        helm.sh/chart: "trust-manager-v0.22.1"
+      name: "trust-manager"
+      resourceVersion: "1686"
+      uid: "5286e31e-8ddf-4d39-a91e-832ebdfeff42"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "trust-manager"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "trust-manager"
+        namespace: "default"
+  -
+    apiVersion: "admissionregistration.k8s.io/v1"
+    kind: "ValidatingWebhookConfiguration"
+    metadata:
+      annotations:
+        cert-manager.io/inject-ca-from: "default/trust-manager"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"ValidatingWebhookConfiguration\",\"metadata\":{\"annotations\":{\"cert-manager.io/inject-ca-from\":\"default/trust-manager\"},\"labels\":{\"app\":\"trust-manager\",\"app.kubernetes.io/instance\":\"trust-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trust-manager\",\"app.kubernetes.io/version\":\"v0.22.1\",\"helm.sh/chart\":\"trust-manager-v0.22.1\"},\"name\":\"trust-manager\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"trust-manager\",\"namespace\":\"default\",\"path\":\"/validate-trust-cert-manager-io-v1alpha1-bundle\"}},\"failurePolicy\":\"Fail\",\"name\":\"trust.cert-manager.io\",\"rules\":[{\"apiGroups\":[\"trust.cert-manager.io\"],\"apiVersions\":[\"v1alpha1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"bundles\"]}],\"sideEffects\":\"None\",\"timeoutSeconds\":5}]}\n"
+      creationTimestamp: "2026-06-11T15:02:41Z"
+      generation: 1
+      labels:
+        app: "trust-manager"
+        app.kubernetes.io/instance: "trust-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trust-manager"
+        app.kubernetes.io/version: "v0.22.1"
+        helm.sh/chart: "trust-manager-v0.22.1"
+      name: "trust-manager"
+      resourceVersion: "1687"
+      uid: "65f62544-9756-4b42-b366-35d56d17c5b2"
+    webhooks:
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          service:
+            name: "trust-manager"
+            namespace: "default"
+            path: "/validate-trust-cert-manager-io-v1alpha1-bundle"
+            port: 443
+        failurePolicy: "Fail"
+        matchPolicy: "Equivalent"
+        name: "trust.cert-manager.io"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "trust.cert-manager.io"
+            apiVersions:
+              - "v1alpha1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "bundles"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 5
+kind: "List"
+metadata:
+  resourceVersion: ""

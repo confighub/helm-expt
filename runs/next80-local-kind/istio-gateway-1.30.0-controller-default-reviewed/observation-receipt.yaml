@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "istio-gateway-1.30.0-controller-default-reviewed-local-kind"
+spec:
+  variantRevision: "recipes/istio/gateway/1.30.0/revisions/controller-default-reviewed/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "07b3cb11d265a7b857b231a347be2c71742e5bc1eeb02efddd7ce71ecc1c7afc"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T14:35:00.861Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "existing"
+  variant: "controller-default-reviewed"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "6cdf2fa95a6b8b1d82b992200ca20977487a1ed12e8da21e40c82ff92c3c2978"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "6 object(s) from recipes/istio/gateway/1.30.0/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|default|gateway"
+      reason: "image-pull-blocked: gateway-7c598dffd4-w4m4g[ImagePullBackOff ready=false restarts=0;] kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;] surveyor-c4759d87-p4692[CrashLoopBackOff ready=false restarts=39;]"
+  blockedReasons:
+    - "deployment/gateway: image-pull-blocked (gateway-7c598dffd4-w4m4g[ImagePullBackOff ready=false restarts=0;] kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] rollout-operator-5f6)"

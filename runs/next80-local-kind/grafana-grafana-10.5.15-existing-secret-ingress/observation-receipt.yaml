@@ -1,0 +1,41 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "grafana-grafana-10.5.15-existing-secret-ingress-local-kind"
+spec:
+  variantRevision: "recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "04b1fc4abd47d12c2eef1e06e7f4dc7cb2dd6ffd639a7a8967bda1c98a00fb60"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "grafana"
+  observedAt: "2026-06-11T12:06:52.708Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "existing"
+  variant: "existing-secret-ingress"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "654b66c24b36bbebffe81bef01cd70f8f0d2189c064c3f828626b5eae36b2a21"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||grafana"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "9 object(s) from recipes/grafana/grafana/10.5.15/revisions/existing-secret-ingress/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|grafana|grafana"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): grafana-d87c7f949-d9ggm[CreateContainerConfigError ready=false restarts=0;]"
+  blockedReasons:
+    - "deployment/grafana: prerequisite-blocked (stuck creating: missing mount/secret/config) (grafana-d87c7f949-d9ggm[CreateContainerConfigError ready=false restarts=0;])"
