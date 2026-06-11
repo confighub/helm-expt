@@ -992,7 +992,8 @@
       "catalog_path": "recipes/argo-cd/argo-cd/9.5.15/CATALOG.md",
       "helm_pain_report": "recipes/argo-cd/argo-cd/9.5.15/helm-pain-report.yaml",
       "start_base_readiness": "start-here",
-      "start_command": "cub installer setup --pull packages/argo-cd/argo-cd/9.5.15 --base default --work-dir <tmp> --non-interactive --namespace argocd"
+      "start_command": "cub installer setup --pull packages/argo-cd/argo-cd/9.5.15 --base default --work-dir <tmp> --non-interactive --namespace argocd",
+      "chart_page": "site/charts/argo-cd-argo-cd-9-5-15.html"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -1021,7 +1022,8 @@
       "catalog_path": "recipes/bitnami/mongodb/19.0.7/CATALOG.md",
       "helm_pain_report": "recipes/bitnami/mongodb/19.0.7/helm-pain-report.yaml",
       "start_base_readiness": "start-here",
-      "start_command": "cub installer setup --pull packages/bitnami/mongodb/19.0.7 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mongodb"
+      "start_command": "cub installer setup --pull packages/bitnami/mongodb/19.0.7 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mongodb",
+      "chart_page": "site/charts/bitnami-mongodb-19-0-7.html"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -1050,7 +1052,8 @@
       "catalog_path": "recipes/bitnami/mysql/14.0.3/CATALOG.md",
       "helm_pain_report": "recipes/bitnami/mysql/14.0.3/helm-pain-report.yaml",
       "start_base_readiness": "start-here",
-      "start_command": "cub installer setup --pull packages/bitnami/mysql/14.0.3 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mysql"
+      "start_command": "cub installer setup --pull packages/bitnami/mysql/14.0.3 --base generated-passwords --work-dir <tmp> --non-interactive --namespace mysql",
+      "chart_page": "site/charts/bitnami-mysql-14-0-3.html"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -1079,7 +1082,8 @@
       "catalog_path": "recipes/bitnami/nginx/24.0.2/CATALOG.md",
       "helm_pain_report": "recipes/bitnami/nginx/24.0.2/helm-pain-report.yaml",
       "start_base_readiness": "start-here",
-      "start_command": "cub installer setup --pull packages/bitnami/nginx/24.0.2 --base http-clusterip --work-dir <tmp> --non-interactive --namespace nginx"
+      "start_command": "cub installer setup --pull packages/bitnami/nginx/24.0.2 --base http-clusterip --work-dir <tmp> --non-interactive --namespace nginx",
+      "chart_page": "site/charts/bitnami-nginx-24-0-2.html"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -1108,7 +1112,8 @@
       "catalog_path": "recipes/bitnami/postgresql/18.6.7/CATALOG.md",
       "helm_pain_report": "recipes/bitnami/postgresql/18.6.7/helm-pain-report.yaml",
       "start_base_readiness": "start-here",
-      "start_command": "cub installer setup --pull packages/bitnami/postgresql/18.6.7 --base generated-passwords --work-dir <tmp> --non-interactive --namespace postgresql"
+      "start_command": "cub installer setup --pull packages/bitnami/postgresql/18.6.7 --base generated-passwords --work-dir <tmp> --non-interactive --namespace postgresql",
+      "chart_page": "site/charts/bitnami-postgresql-18-6-7.html"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -1137,7 +1142,8 @@
       "catalog_path": "recipes/bitnami/rabbitmq/16.0.14/CATALOG.md",
       "helm_pain_report": "recipes/bitnami/rabbitmq/16.0.14/helm-pain-report.yaml",
       "start_base_readiness": "start-here",
-      "start_command": "cub installer setup --pull packages/bitnami/rabbitmq/16.0.14 --base generated-passwords --work-dir <tmp> --non-interactive --namespace rabbitmq"
+      "start_command": "cub installer setup --pull packages/bitnami/rabbitmq/16.0.14 --base generated-passwords --work-dir <tmp> --non-interactive --namespace rabbitmq",
+      "chart_page": "site/charts/bitnami-rabbitmq-16-0-14.html"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -1166,7 +1172,8 @@
       "catalog_path": "recipes/bitnami/redis/25.5.3/CATALOG.md",
       "helm_pain_report": "recipes/bitnami/redis/25.5.3/helm-pain-report.yaml",
       "start_base_readiness": "start-here",
-      "start_command": "cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir <tmp> --non-interactive --namespace redis"
+      "start_command": "cub installer setup --pull packages/bitnami/redis/25.5.3 --base default --work-dir <tmp> --non-interactive --namespace redis",
+      "chart_page": "site/charts/bitnami-redis-25-5-3.html"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -1195,7 +1202,8 @@
       "catalog_path": "recipes/external-secrets/external-secrets/2.5.0/CATALOG.md",
       "helm_pain_report": "recipes/external-secrets/external-secrets/2.5.0/helm-pain-report.yaml",
       "start_base_readiness": "start-here",
-      "start_command": "cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir <tmp> --non-interactive --namespace external-secrets"
+      "start_command": "cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir <tmp> --non-interactive --namespace external-secrets",
+      "chart_page": "site/charts/external-secrets-external-secrets-2-5-0.html"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -1224,7 +1232,8 @@
       "catalog_path": "recipes/grafana/grafana/10.5.15/CATALOG.md",
       "helm_pain_report": "recipes/grafana/grafana/10.5.15/helm-pain-report.yaml",
       "start_base_readiness": "start-here",
-      "start_command": "cub installer setup --pull packages/grafana/grafana/10.5.15 --base generated-passwords --work-dir <tmp> --non-interactive --namespace grafana"
+      "start_command": "cub installer setup --pull packages/grafana/grafana/10.5.15 --base generated-passwords --work-dir <tmp> --non-interactive --namespace grafana",
+      "chart_page": "site/charts/grafana-grafana-10-5-15.html"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -1253,7 +1262,8 @@
       "catalog_path": "recipes/grafana/loki/7.0.0/CATALOG.md",
       "helm_pain_report": "recipes/grafana/loki/7.0.0/helm-pain-report.yaml",
       "start_base_readiness": "start-here",
-      "start_command": "cub installer setup --pull packages/grafana/loki/7.0.0 --base single-binary-filesystem --work-dir <tmp> --non-interactive --namespace loki"
+      "start_command": "cub installer setup --pull packages/grafana/loki/7.0.0 --base single-binary-filesystem --work-dir <tmp> --non-interactive --namespace loki",
+      "chart_page": "site/charts/grafana-loki-7-0-0.html"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -1282,7 +1292,8 @@
       "catalog_path": "recipes/grafana/tempo/1.24.4/CATALOG.md",
       "helm_pain_report": "recipes/grafana/tempo/1.24.4/helm-pain-report.yaml",
       "start_base_readiness": "start-here",
-      "start_command": "cub installer setup --pull packages/grafana/tempo/1.24.4 --base local-persistent --work-dir <tmp> --non-interactive --namespace tempo"
+      "start_command": "cub installer setup --pull packages/grafana/tempo/1.24.4 --base local-persistent --work-dir <tmp> --non-interactive --namespace tempo",
+      "chart_page": "site/charts/grafana-tempo-1-24-4.html"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -1311,7 +1322,8 @@
       "catalog_path": "recipes/hashicorp/consul/2.0.0/CATALOG.md",
       "helm_pain_report": "recipes/hashicorp/consul/2.0.0/helm-pain-report.yaml",
       "start_base_readiness": "start-here",
-      "start_command": "cub installer setup --pull packages/hashicorp/consul/2.0.0 --base default-control-plane --work-dir <tmp> --non-interactive --namespace consul"
+      "start_command": "cub installer setup --pull packages/hashicorp/consul/2.0.0 --base default-control-plane --work-dir <tmp> --non-interactive --namespace consul",
+      "chart_page": "site/charts/hashicorp-consul-2-0-0.html"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -1340,7 +1352,8 @@
       "catalog_path": "recipes/hashicorp/vault/0.32.0/CATALOG.md",
       "helm_pain_report": "recipes/hashicorp/vault/0.32.0/helm-pain-report.yaml",
       "start_base_readiness": "start-here",
-      "start_command": "cub installer setup --pull packages/hashicorp/vault/0.32.0 --base dev-mode --work-dir <tmp> --non-interactive --namespace vault"
+      "start_command": "cub installer setup --pull packages/hashicorp/vault/0.32.0 --base dev-mode --work-dir <tmp> --non-interactive --namespace vault",
+      "chart_page": "site/charts/hashicorp-vault-0-32-0.html"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -1369,7 +1382,8 @@
       "catalog_path": "recipes/ingress-nginx/ingress-nginx/4.15.1/CATALOG.md",
       "helm_pain_report": "recipes/ingress-nginx/ingress-nginx/4.15.1/helm-pain-report.yaml",
       "start_base_readiness": "start-here",
-      "start_command": "cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base internal-clusterip --work-dir <tmp> --non-interactive --namespace ingress-nginx"
+      "start_command": "cub installer setup --pull packages/ingress-nginx/ingress-nginx/4.15.1 --base internal-clusterip --work-dir <tmp> --non-interactive --namespace ingress-nginx",
+      "chart_page": "site/charts/ingress-nginx-ingress-nginx-4-15-1.html"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -1398,7 +1412,8 @@
       "catalog_path": "recipes/jetstack/cert-manager/v1.20.2/CATALOG.md",
       "helm_pain_report": "recipes/jetstack/cert-manager/v1.20.2/helm-pain-report.yaml",
       "start_base_readiness": "start-here",
-      "start_command": "cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base crds-enabled --work-dir <tmp> --non-interactive --namespace cert-manager"
+      "start_command": "cub installer setup --pull packages/jetstack/cert-manager/v1.20.2 --base crds-enabled --work-dir <tmp> --non-interactive --namespace cert-manager",
+      "chart_page": "site/charts/jetstack-cert-manager-v1-20-2.html"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -1427,7 +1442,8 @@
       "catalog_path": "recipes/longhorn/longhorn/1.11.2/CATALOG.md",
       "helm_pain_report": "recipes/longhorn/longhorn/1.11.2/helm-pain-report.yaml",
       "start_base_readiness": "start-here",
-      "start_command": "cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base default --work-dir <tmp> --non-interactive --namespace longhorn-system"
+      "start_command": "cub installer setup --pull packages/longhorn/longhorn/1.11.2 --base default --work-dir <tmp> --non-interactive --namespace longhorn-system",
+      "chart_page": "site/charts/longhorn-longhorn-1-11-2.html"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -1456,7 +1472,8 @@
       "catalog_path": "recipes/metrics-server/metrics-server/3.13.0/CATALOG.md",
       "helm_pain_report": "recipes/metrics-server/metrics-server/3.13.0/helm-pain-report.yaml",
       "start_base_readiness": "start-here",
-      "start_command": "cub installer setup --pull packages/metrics-server/metrics-server/3.13.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system"
+      "start_command": "cub installer setup --pull packages/metrics-server/metrics-server/3.13.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system",
+      "chart_page": "site/charts/metrics-server-metrics-server-3-13-0.html"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -1485,7 +1502,8 @@
       "catalog_path": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md",
       "helm_pain_report": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/helm-pain-report.yaml",
       "start_base_readiness": "start-here",
-      "start_command": "cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/85.3.3 --base default --work-dir <tmp> --non-interactive --namespace monitoring"
+      "start_command": "cub installer setup --pull packages/prometheus-community/kube-prometheus-stack/85.3.3 --base default --work-dir <tmp> --non-interactive --namespace monitoring",
+      "chart_page": "site/charts/prometheus-community-kube-prometheus-stack-85-3-3.html"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -1514,7 +1532,8 @@
       "catalog_path": "recipes/prometheus-community/prometheus/29.8.0/CATALOG.md",
       "helm_pain_report": "recipes/prometheus-community/prometheus/29.8.0/helm-pain-report.yaml",
       "start_base_readiness": "start-here",
-      "start_command": "cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 --base server-only-ephemeral --work-dir <tmp> --non-interactive --namespace monitoring"
+      "start_command": "cub installer setup --pull packages/prometheus-community/prometheus/29.8.0 --base server-only-ephemeral --work-dir <tmp> --non-interactive --namespace monitoring",
+      "chart_page": "site/charts/prometheus-community-prometheus-29-8-0.html"
     },
     {
       "proof_surface": "top20-catalog-supported",
@@ -1543,7 +1562,8 @@
       "catalog_path": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/CATALOG.md",
       "helm_pain_report": "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/helm-pain-report.yaml",
       "start_base_readiness": "start-here",
-      "start_command": "cub installer setup --pull packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system"
+      "start_command": "cub installer setup --pull packages/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0 --base default --work-dir <tmp> --non-interactive --namespace kube-system",
+      "chart_page": "site/charts/secrets-store-csi-driver-secrets-store-csi-driver-1-6-0.html"
     }
   ],
   "proofGradeEntries": [

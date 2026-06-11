@@ -1,12 +1,14 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 
 import { check, repoRoot, write } from "./lib/proof-common.mjs";
 
 const siteRoot = join(repoRoot, "site");
+const chartPagesRoot = join(siteRoot, "charts");
 const indexPath = join(siteRoot, "index.html");
 const offeringPath = join(siteRoot, "offering.html");
 const tryPath = join(siteRoot, "try.html");
+const chartIndexPath = join(chartPagesRoot, "index.html");
 const catalogJsonPath = join(siteRoot, "catalog.json");
 const readmePath = join(siteRoot, "README.md");
 const top100Path = join(repoRoot, "data", "top100-catalog-analysis", "raw.json");
@@ -36,22 +38,35 @@ const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
   const site = buildSite();
+  rmSync(chartPagesRoot, { recursive: true, force: true });
   write(indexPath, site.indexHtml);
   write(offeringPath, site.offeringHtml);
   write(tryPath, site.tryHtml);
+  write(chartIndexPath, site.chartIndexHtml);
+  for (const page of site.chartPages) write(page.path, page.html);
   write(catalogJsonPath, site.catalogJson);
   write(readmePath, site.readme);
-  console.log("wrote site/index.html, site/offering.html, site/try.html, site/catalog.json, and site/README.md");
+  console.log(`wrote public site outputs and ${site.chartPages.length} chart page(s)`);
 } else if (mode === "--verify") {
   const site = buildSite();
   check(existsSync(indexPath), "site/index.html is missing; run npm run site:generate");
   check(existsSync(offeringPath), "site/offering.html is missing; run npm run site:generate");
   check(existsSync(tryPath), "site/try.html is missing; run npm run site:generate");
+  check(existsSync(chartIndexPath), "site/charts/index.html is missing; run npm run site:generate");
   check(existsSync(catalogJsonPath), "site/catalog.json is missing; run npm run site:generate");
   check(existsSync(readmePath), "site/README.md is missing; run npm run site:generate");
   check(readFileSync(indexPath, "utf8") === site.indexHtml, "site/index.html is stale");
   check(readFileSync(offeringPath, "utf8") === site.offeringHtml, "site/offering.html is stale");
   check(readFileSync(tryPath, "utf8") === site.tryHtml, "site/try.html is stale");
+  check(readFileSync(chartIndexPath, "utf8") === site.chartIndexHtml, "site/charts/index.html is stale");
+  const expectedChartPages = new Map(site.chartPages.map((page) => [page.fileName, page]));
+  const actualChartPages = readdirSync(chartPagesRoot).filter((name) => name.endsWith(".html") && name !== "index.html").sort();
+  check(actualChartPages.length === expectedChartPages.size, `expected ${expectedChartPages.size} generated chart page(s), found ${actualChartPages.length}`);
+  for (const name of actualChartPages) check(expectedChartPages.has(name), `unexpected generated chart page ${name}`);
+  for (const [name, page] of expectedChartPages) {
+    check(existsSync(page.path), `site/charts/${name} is missing; run npm run site:generate`);
+    check(readFileSync(page.path, "utf8") === page.html, `site/charts/${name} is stale`);
+  }
   check(readFileSync(catalogJsonPath, "utf8") === site.catalogJson, "site/catalog.json is stale");
   check(readFileSync(readmePath, "utf8") === site.readme, "site/README.md is stale");
   console.log("verified generated public site outputs");
@@ -97,11 +112,15 @@ function buildSite() {
       const chartKey = `${entry.chart}@${entry.version}`;
       const bestBase = bestBaseByChart.get(chartKey);
       const startVariant = bestBase?.base ?? entry.start_variant;
-      return {
+      const withStartFields = {
         ...entry,
         start_variant: startVariant,
         start_base_readiness: bestBase?.user_readiness ?? baseReadinessByKey.get(`${chartKey}|${startVariant}`)?.user_readiness ?? "",
         start_command: bestBase?.command ?? baseReadinessByKey.get(`${chartKey}|${startVariant}`)?.command ?? "",
+      };
+      return {
+        ...withStartFields,
+        chart_page: `site/charts/${chartPageFileName(withStartFields)}`,
       };
     });
   const proofGrade = top100.entries.filter((entry) => entry.proof_surface === "next80-proof-grade");
@@ -213,11 +232,18 @@ function buildSite() {
     scanDisposition,
     highFanout,
   };
+  const chartPages = catalog.catalogEntries.map((entry) => ({
+    fileName: chartPageFileName(entry),
+    path: join(chartPagesRoot, chartPageFileName(entry)),
+    html: chartPageHtml(catalog, entry),
+  }));
   return {
     catalogJson: `${JSON.stringify(catalog, null, 2)}\n`,
     indexHtml: html(catalog),
     offeringHtml: offeringHtml(catalog),
     tryHtml: tryHtml(catalog),
+    chartIndexHtml: chartIndexHtml(catalog),
+    chartPages,
     readme: readme(),
   };
 }
@@ -424,7 +450,7 @@ function html(catalog) {
 </head>
 <body>
   <header>
-    <nav><a href="./offering.html">Offering</a> · <a href="./try.html">Try now</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
+    <nav><a href="./offering.html">Offering</a> · <a href="./try.html">Try now</a> · <a href="./charts/index.html">Charts</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
     <h1>Use Helm charts. Ship ConfigHub variants.</h1>
     <p class="tagline">The catalog turns popular public Helm charts into reviewed cub installer packages, named variants, rendered objects, checks, and proof receipts.</p>
     <pre>cub installer setup --pull packages/bitnami/redis/25.5.3 \\
@@ -769,7 +795,7 @@ function offeringHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav><a href="./offering.html">Offering</a> · <a href="./try.html">Try now</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
+    <nav><a href="./offering.html">Offering</a> · <a href="./try.html">Try now</a> · <a href="./charts/index.html">Charts</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
     <h1>Public Helm charts, in visible and verifiable stages.</h1>
     <p class="tagline">We port popular public Helm charts to ConfigHub without changing the intended end-to-end semantics of the supported bases.</p>
     <p>Helm is still the renderer. ConfigHub turns the result into reviewed packages, named variants, rendered objects, scans, gates, receipts, and live evidence.</p>
@@ -942,7 +968,7 @@ function tryHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav><a href="./offering.html">Offering</a> · <a href="./try.html">Try now</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
+    <nav><a href="./offering.html">Offering</a> · <a href="./try.html">Try now</a> · <a href="./charts/index.html">Charts</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
     <h1>Try the catalog in three short paths.</h1>
     <p class="tagline">Start without a big commitment. Use Redis for the simplest happy path, then inspect kube-prometheus-stack to see the model on a serious Helm chart.</p>
     ${markdownLikeTable([
@@ -1074,6 +1100,173 @@ npm run kube-prometheus-stack:compare</pre>
 `;
 }
 
+function chartIndexHtml(catalog) {
+  const rows = catalog.catalogEntries.map((entry) => [
+    `<a href="./${chartPageFileName(entry)}">${entry.chart}</a>`,
+    entry.version,
+    entry.start_variant,
+    entry.supported_variants,
+    entry.start_base_readiness || "see chart page",
+    productionSummaryForChart(catalog, entry)?.production_support ?? entry.production_readiness,
+  ]);
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ConfigHub Helm Chart Pages</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header>
+    <nav><a href="../offering.html">Offering</a> · <a href="../try.html">Try now</a> · <a href="../index.html">Catalog dashboard</a> · <a href="../../README.md">Repository</a></nav>
+    <h1>Catalog Chart Pages</h1>
+    <p class="tagline">One public page per catalog-supported chart: base variants, proof lanes, production boundary, quirks, and artifact links.</p>
+  </header>
+  <main>
+    <section aria-labelledby="charts">
+      <h2 id="charts">Charts</h2>
+      ${markdownLikeTable([
+        ["Chart", "Version", "Start base", "Supported bases", "Start status", "Production disposition"],
+        ...rows,
+      ], { rawFirstColumn: true })}
+    </section>
+  </main>
+  <footer>Generated from helm-expt catalog data. Do not edit by hand.</footer>
+</body>
+</html>
+`;
+}
+
+function chartPageHtml(catalog, entry) {
+  const chartKey = `${entry.chart}@${entry.version}`;
+  const baseRows = catalog.baseReadiness.filter((row) => row.chart === chartKey);
+  const production = productionSummaryForChart(catalog, entry);
+  const support = catalog.productionSupportDecisions.find((row) => row.chart === entry.chart && row.version === entry.version);
+  const chartUse = catalog.chartUseGuide.find((row) => row.chart === chartKey);
+  const top100 = catalog.top100Readiness.find((row) => row.chart === chartKey);
+  const userReadiness = catalog.top100UserReadiness.find((row) => row.chart === entry.chart && row.version === entry.version);
+  const extension = catalog.extensionSlots.find((row) => row.chart === chartKey);
+  const proofRows = baseRows.map((row) => [
+    row.base,
+    row.user_readiness,
+    row.render_parity,
+    row.in_confighub,
+    row.local_live,
+    row.gitops_oci_live,
+    row.live_helm_vs_confighub_parity,
+    row.two_cluster_kind_parity,
+  ]);
+  const artifactRows = [
+    ["Chart catalog", entry.catalog_path],
+    ["Recipe", entry.recipe_path],
+    ["Package", entry.package_path],
+    ["Helm pain report", entry.helm_pain_report],
+    ["Production disposition", "data/production-disposition/summary.md"],
+    ["Support decision", support?.path ?? ""],
+    ["Top-20 base readiness", "data/top20-base-readiness/summary.md"],
+    ["Current proof status", "docs/user/current-proof-status.md"],
+  ].filter(([, path]) => path);
+  const openDispositions = splitDisposition(production?.open_dispositions);
+  const acceptedDispositions = splitDisposition(production?.accepted_dispositions);
+  const lanes = [
+    ["Render parity", allBaseStatus(baseRows, "render_parity")],
+    ["ConfigHub proof", allBaseStatus(baseRows, "in_confighub")],
+    ["Local live", allBaseStatus(baseRows, "local_live")],
+    ["GitOps/OCI live", allBaseStatus(baseRows, "gitops_oci_live")],
+    ["Live Helm-vs-ConfigHub", allBaseStatus(baseRows, "live_helm_vs_confighub_parity")],
+    ["Two-cluster kind", allBaseStatus(baseRows, "two_cluster_kind_parity")],
+  ];
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(entry.chart)} ${escapeHtml(entry.version)} · ConfigHub Helm Catalog</title>
+  <style>${siteCss()}</style>
+</head>
+<body>
+  <header>
+    <nav><a href="./index.html">All chart pages</a> · <a href="../index.html">Catalog dashboard</a> · <a href="../try.html">Try now</a> · <a href="../../README.md">Repository</a></nav>
+    <h1>${escapeHtml(entry.chart)}</h1>
+    <p class="tagline">Public catalog page for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)}.</p>
+    <pre>${escapeHtml(entry.start_command || `cub installer setup --pull ${entry.package_path} --base ${entry.start_variant} --work-dir <tmp> --non-interactive`)}</pre>
+  </header>
+  <main>
+    <section aria-labelledby="summary">
+      <h2 id="summary">What To Use</h2>
+      <div class="grid">
+        <div class="metric"><strong>${escapeHtml(entry.start_variant)}</strong><span>Recommended first base</span></div>
+        <div class="metric"><strong>${escapeHtml(entry.variant_count)}</strong><span>Supported base variants</span></div>
+        <div class="metric"><strong>${escapeHtml(entry.start_base_readiness || "see bases")}</strong><span>Start-base status</span></div>
+        <div class="metric"><strong>${escapeHtml(production?.production_support ?? entry.production_readiness)}</strong><span>Production disposition</span></div>
+      </div>
+      <p>${escapeHtml(chartUse?.plain_english ?? "Use the public catalog entry, then check the exact base and proof lane before making a production claim.")}</p>
+      ${markdownLikeTable([
+        ["Question", "Answer"],
+        ["Supported version", entry.version],
+        ["Latest upstream seen", entry.latest_status === "update-available" ? `${entry.latest_version} (update candidate)` : entry.latest_version || "not checked"],
+        ["Supported bases", entry.supported_variants],
+        ["Not yet enabled", entry.not_yet_enabled || "none recorded"],
+        ["Namespace", entry.namespace || "chart default"],
+      ])}
+    </section>
+
+    <section aria-labelledby="proof">
+      <h2 id="proof">Proof Lanes</h2>
+      <p>Each lane proves a different outcome. Missing or non-pass rows are backlog or target-fit evidence; they do not change the render-parity result.</p>
+      ${markdownLikeTable([
+        ["Lane", "Status across bases"],
+        ...lanes,
+      ])}
+      ${markdownLikeTable([
+        ["Base", "Readiness", "Render", "ConfigHub", "Local live", "GitOps/OCI", "Live parity", "Two-cluster kind"],
+        ...proofRows,
+      ])}
+    </section>
+
+    <section aria-labelledby="quirks">
+      <h2 id="quirks">Quirks And Inputs</h2>
+      <p>${escapeHtml(userReadiness?.confighub_absorbs ?? "ConfigHub keeps the rendered objects, proof receipts, and support boundary explicit.")}</p>
+      ${markdownLikeTable([
+        ["Field", "Value"],
+        ["Known quirks", userReadiness?.quirks || top100?.source_features || entry.source_features || "none surfaced"],
+        ["User must provide", userReadiness?.user_must_provide || "check base readiness and target facts"],
+        ["ConfigHub absorbs", userReadiness?.confighub_absorbs || "exact rendered objects, checks, receipts, and catalog evidence"],
+        ["Extension slots", extension?.surfaces || "none surfaced in chart facts"],
+        ["Extension route", extension?.current_route || "no extension-slot route recorded"],
+      ])}
+    </section>
+
+    <section aria-labelledby="production">
+      <h2 id="production">Production Boundary</h2>
+      <p>A green render or local live result is not a production support claim. Production support is target-scoped and uses the support-decision artifact when present.</p>
+      ${markdownLikeTable([
+        ["Field", "Value"],
+        ["Production disposition", production?.production_support ?? entry.production_readiness],
+        ["Target-scoped support decision", support?.decision ?? "not recorded"],
+        ["Supported base", support?.supported_base ?? ""],
+        ["Target scope", support?.target_scope ?? ""],
+        ["Accepted dispositions", acceptedDispositions.join("; ") || "none recorded"],
+        ["Open dispositions", openDispositions.join("; ") || "none"],
+        ["Next action", support?.next_action || production?.next_action || top100?.next_action || ""],
+      ])}
+    </section>
+
+    <section aria-labelledby="files">
+      <h2 id="files">Files To Inspect</h2>
+      ${markdownLikeTable([
+        ["Artifact", "Path"],
+        ...artifactRows.map(([label, path]) => [label, `<a href="../../${path}">${path}</a>`]),
+      ], { rawSecondColumn: true })}
+    </section>
+  </main>
+  <footer>Generated from helm-expt proof data. Check current receipts before making production claims.</footer>
+</body>
+</html>
+`;
+}
+
 function chartCard(entry) {
   const latestStatus = entry.latest_status === "update-available" ? "warn" : "good";
   const latestLabel =
@@ -1091,10 +1284,30 @@ function chartCard(entry) {
             <dt>Start variant</dt><dd>${escapeHtml(entry.start_variant)}</dd>
             <dt>Start status</dt><dd>${escapeHtml(entry.start_base_readiness || "see base-readiness table")}</dd>
             <dt>Variants</dt><dd>${escapeHtml(entry.supported_variants || entry.candidate_variants)}</dd>
+            <dt>Chart page</dt><dd><a href="./charts/${escapeHtml(chartPageFileName(entry))}">Open public chart page</a></dd>
             <dt>Package</dt><dd><a href="../${escapeHtml(entry.package_path)}">${escapeHtml(entry.package_path)}</a></dd>
             <dt>Chart proof</dt><dd><a href="../${escapeHtml(entry.catalog_path)}">CATALOG.md</a></dd>
           </dl>
         </article>`;
+}
+
+function chartPageFileName(entry) {
+  return `${entry.chart}-${entry.version}`
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "") + ".html";
+}
+
+function productionSummaryForChart(catalog, entry) {
+  return catalog.productionDisposition.find((row) => row.chart === entry.chart && row.version === entry.version);
+}
+
+function allBaseStatus(rows, field) {
+  if (rows.length === 0) return "not recorded";
+  const counts = countBy(rows, field);
+  return Object.entries(counts)
+    .map(([status, count]) => `${status}: ${count}/${rows.length}`)
+    .join("; ");
 }
 
 function bestBaseRows(rows) {
@@ -1298,11 +1511,13 @@ function scanRouteMeaning(route) {
   }[route] ?? "Chart-specific scan review.";
 }
 
-function markdownLikeTable(rows) {
+function markdownLikeTable(rows, options = {}) {
   const [headers, ...body] = rows;
   return `<div class="card"><table>
         <thead><tr>${headers.map((header) => `<th>${escapeHtml(header)}</th>`).join("")}</tr></thead>
-        <tbody>${body.map((row) => `<tr>${row.map((cell) => `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`).join("")}</tbody>
+        <tbody>${body
+          .map((row) => `<tr>${row.map((cell, index) => `<td>${formatTableCell(cell, index, options)}</td>`).join("")}</tr>`)
+          .join("")}</tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -1310,6 +1525,12 @@ function markdownLikeTable(rows) {
         td { overflow-wrap: anywhere; }
         th { color: var(--muted); font-weight: 600; }
       </style>`;
+}
+
+function formatTableCell(cell, index, options) {
+  if (options.rawFirstColumn && index === 0) return String(cell ?? "");
+  if (options.rawSecondColumn && index === 1) return String(cell ?? "");
+  return escapeHtml(cell);
 }
 
 function plainTable(rows) {
@@ -1406,6 +1627,7 @@ npm run site:verify
 Open \`site/offering.html\` directly in a browser for the public offering page.
 Open \`site/try.html\` for the short try-now page.
 Open \`site/index.html\` for the static catalog and status dashboard.
+Open \`site/charts/index.html\` for the generated per-chart catalog pages.
 Open \`docs/user/production-support-decisions.md\` for the plain-English
 boundary between production-review-ready and production-supported.
 
