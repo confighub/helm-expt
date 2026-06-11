@@ -11,37 +11,28 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-next80"
-    context: "kind-claude-helm-expt-next80"
+    name: "claude-helm-expt-codex-targetfacts2"
+    context: "kind-claude-helm-expt-codex-targetfacts2"
     namespace: "mongodb"
-  observedAt: "2026-06-11T12:47:37.721Z"
+  observedAt: "2026-06-11T15:55:30.578Z"
   freshnessTTL: "1h"
-  result: "blocked"
+  result: "pass"
   clusterStatus: "existing"
   variant: "existing-secret-replicaset"
   workloads: 2
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "ae774031a2e91b11dcce71164875e2c6cb8dfd98e3710ac90e58a3cd97df003d"
+    sha256: "ebc443ec76333f21a8907caca8e83a4369009eb69a4d802b320338f55c00f893"
   checks:
-    -
-      name: "namespace-created"
-      result: "pass"
-      object: "v1|Namespace||mongodb"
     -
       name: "rendered-objects-applied"
       result: "pass"
       object: "10 object(s) from recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml"
     -
       name: "workload-converged"
-      result: "blocked"
+      result: "pass"
       object: "StatefulSet|mongodb|mongodb-arbiter"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): mongodb-0[PodInitializing ready=false restarts=0;] mongodb-arbiter-0[ContainerCreating ready=false restarts=0;]"
     -
       name: "workload-converged"
-      result: "blocked"
+      result: "pass"
       object: "StatefulSet|mongodb|mongodb"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): mongodb-0[PodInitializing ready=false restarts=0;] mongodb-arbiter-0[ContainerCreating ready=false restarts=0;]"
-  blockedReasons:
-    - "statefulset/mongodb-arbiter: prerequisite-blocked (stuck creating: missing mount/secret/config) (mongodb-0[PodInitializing ready=false restarts=0;] mongodb-arbiter-0[ContainerCreating ready=false restarts=0;])"
-    - "statefulset/mongodb: prerequisite-blocked (stuck creating: missing mount/secret/config) (mongodb-0[PodInitializing ready=false restarts=0;] mongodb-arbiter-0[ContainerCreating ready=false restarts=0;])"

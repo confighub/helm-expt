@@ -6,7 +6,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"nginx\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"nginx\",\"app.kubernetes.io/version\":\"1.31.1\",\"helm.sh/chart\":\"nginx-24.0.2\"},\"name\":\"nginx\",\"namespace\":\"nginx\"},\"spec\":{\"egress\":[{}],\"ingress\":[{\"ports\":[{\"port\":8080},{\"port\":8443}]}],\"podSelector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"nginx\",\"app.kubernetes.io/name\":\"nginx\"}},\"policyTypes\":[\"Ingress\",\"Egress\"]}}\n"
-      creationTimestamp: "2026-06-11T15:10:37Z"
+      creationTimestamp: "2026-06-11T15:55:30Z"
       generation: 1
       labels:
         app.kubernetes.io/instance: "nginx"
@@ -16,8 +16,8 @@ items:
         helm.sh/chart: "nginx-24.0.2"
       name: "nginx"
       namespace: "nginx"
-      resourceVersion: "440"
-      uid: "8d9bff40-397e-4d8b-9715-44573e722266"
+      resourceVersion: "1041"
+      uid: "156c3ef2-11c7-45c7-a770-07134aee383c"
     spec:
       egress:
         -
@@ -44,7 +44,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"policy/v1\",\"kind\":\"PodDisruptionBudget\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"nginx\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"nginx\",\"app.kubernetes.io/version\":\"1.31.1\",\"helm.sh/chart\":\"nginx-24.0.2\"},\"name\":\"nginx\",\"namespace\":\"nginx\"},\"spec\":{\"maxUnavailable\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"nginx\",\"app.kubernetes.io/name\":\"nginx\"}}}}\n"
-      creationTimestamp: "2026-06-11T15:10:37Z"
+      creationTimestamp: "2026-06-11T15:55:30Z"
       generation: 1
       labels:
         app.kubernetes.io/instance: "nginx"
@@ -54,8 +54,8 @@ items:
         helm.sh/chart: "nginx-24.0.2"
       name: "nginx"
       namespace: "nginx"
-      resourceVersion: "459"
-      uid: "2b801a04-50e0-4f74-9678-9b71c742a981"
+      resourceVersion: "1115"
+      uid: "c0fe5950-3325-4795-b065-25e7c62c4d9b"
     spec:
       maxUnavailable: 1
       selector:
@@ -65,15 +65,15 @@ items:
     status:
       conditions:
         -
-          lastTransitionTime: "2026-06-11T15:10:37Z"
+          lastTransitionTime: "2026-06-11T15:55:47Z"
           message: ""
           observedGeneration: 1
-          reason: "InsufficientPods"
-          status: "False"
+          reason: "SufficientPods"
+          status: "True"
           type: "DisruptionAllowed"
-      currentHealthy: 0
+      currentHealthy: 1
       desiredHealthy: 0
-      disruptionsAllowed: 0
+      disruptionsAllowed: 1
       expectedPods: 1
       observedGeneration: 1
   -
@@ -83,7 +83,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":false,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"nginx\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"nginx\",\"app.kubernetes.io/version\":\"1.31.1\",\"helm.sh/chart\":\"nginx-24.0.2\"},\"name\":\"nginx\",\"namespace\":\"nginx\"}}\n"
-      creationTimestamp: "2026-06-11T15:10:37Z"
+      creationTimestamp: "2026-06-11T15:55:30Z"
       labels:
         app.kubernetes.io/instance: "nginx"
         app.kubernetes.io/managed-by: "Helm"
@@ -92,15 +92,15 @@ items:
         helm.sh/chart: "nginx-24.0.2"
       name: "nginx"
       namespace: "nginx"
-      resourceVersion: "445"
-      uid: "844b1a98-e354-40a5-afbd-cec5ad2fc1a0"
+      resourceVersion: "1046"
+      uid: "aada3af3-511f-45a8-ac3a-a80dab294ca4"
   -
     apiVersion: "v1"
     kind: "Service"
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"nginx\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"nginx\",\"app.kubernetes.io/version\":\"1.31.1\",\"helm.sh/chart\":\"nginx-24.0.2\"},\"name\":\"nginx\",\"namespace\":\"nginx\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":80,\"targetPort\":\"http\"},{\"name\":\"https\",\"port\":443,\"targetPort\":\"https\"}],\"selector\":{\"app.kubernetes.io/instance\":\"nginx\",\"app.kubernetes.io/name\":\"nginx\"},\"type\":\"ClusterIP\"}}\n"
-      creationTimestamp: "2026-06-11T15:10:37Z"
+      creationTimestamp: "2026-06-11T15:55:30Z"
       labels:
         app.kubernetes.io/instance: "nginx"
         app.kubernetes.io/managed-by: "Helm"
@@ -109,12 +109,12 @@ items:
         helm.sh/chart: "nginx-24.0.2"
       name: "nginx"
       namespace: "nginx"
-      resourceVersion: "450"
-      uid: "05a158e7-3f3e-4ec5-8a9c-cef90b5a9ed2"
+      resourceVersion: "1049"
+      uid: "b8ea521e-c6eb-4653-b516-71c064b7d856"
     spec:
-      clusterIP: "10.96.26.45"
+      clusterIP: "10.96.94.113"
       clusterIPs:
-        - "10.96.26.45"
+        - "10.96.94.113"
       internalTrafficPolicy: "Cluster"
       ipFamilies:
         - "IPv4"
@@ -145,7 +145,7 @@ items:
       annotations:
         deployment.kubernetes.io/revision: "1"
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"nginx\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"nginx\",\"app.kubernetes.io/version\":\"1.31.1\",\"helm.sh/chart\":\"nginx-24.0.2\"},\"name\":\"nginx\",\"namespace\":\"nginx\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"nginx\",\"app.kubernetes.io/name\":\"nginx\"}},\"strategy\":{\"rollingUpdate\":{},\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"annotations\":null,\"labels\":{\"app.kubernetes.io/instance\":\"nginx\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"nginx\",\"app.kubernetes.io/version\":\"1.31.1\",\"helm.sh/chart\":\"nginx-24.0.2\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":null,\"podAffinity\":null,\"podAntiAffinity\":{\"preferredDuringSchedulingIgnoredDuringExecution\":[{\"podAffinityTerm\":{\"labelSelector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"nginx\",\"app.kubernetes.io/name\":\"nginx\"}},\"topologyKey\":\"kubernetes.io/hostname\"},\"weight\":1}]}},\"automountServiceAccountToken\":false,\"containers\":[{\"env\":[{\"name\":\"BITNAMI_DEBUG\",\"value\":\"false\"},{\"name\":\"NGINX_HTTP_PORT_NUMBER\",\"value\":\"8080\"},{\"name\":\"OPENSSL_FIPS\",\"value\":\"yes\"},{\"name\":\"NGINX_HTTPS_PORT_NUMBER\",\"value\":\"8443\"}],\"envFrom\":null,\"image\":\"registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":6,\"initialDelaySeconds\":30,\"periodSeconds\":10,\"successThreshold\":1,\"tcpSocket\":{\"port\":\"http\"},\"timeoutSeconds\":5},\"name\":\"nginx\",\"ports\":[{\"containerPort\":8080,\"name\":\"http\"},{\"containerPort\":8443,\"name\":\"https\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/\",\"port\":\"http\"},\"initialDelaySeconds\":5,\"periodSeconds\":5,\"successThreshold\":1,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"150m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"192Mi\"},\"requests\":{\"cpu\":\"100m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"128Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"empty-dir\",\"subPath\":\"tmp-dir\"},{\"mountPath\":\"/opt/bitnami/nginx/conf\",\"name\":\"empty-dir\",\"subPath\":\"app-conf-dir\"},{\"mountPath\":\"/opt/bitnami/nginx/logs\",\"name\":\"empty-dir\",\"subPath\":\"app-logs-dir\"},{\"mountPath\":\"/opt/bitnami/nginx/tmp\",\"name\":\"empty-dir\",\"subPath\":\"app-tmp-dir\"},{\"mountPath\":\"/certs\",\"name\":\"certificate\"}]}],\"hostIPC\":false,\"hostNetwork\":false,\"initContainers\":[{\"args\":[\"-ec\",\"#!/bin/bash\\n. /opt/bitnami/scripts/libfs.sh\\n# We copy the logs folder because it has symlinks to stdout and stderr\\nif ! is_dir_empty /opt/bitnami/nginx/logs; then\\n  cp -r /opt/bitnami/nginx/logs /emptydir/app-logs-dir\\nfi\\n\"],\"command\":[\"/bin/bash\"],\"env\":[{\"name\":\"OPENSSL_FIPS\",\"value\":\"yes\"}],\"image\":\"registry-1.docker.io/bitnami/nginx@sha256:805bcc863fc3f602589fc75cae91eeedebad234d5ce5a476c96b03a747821e7f\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"preserve-logs-symlinks\",\"resources\":{\"limits\":{\"cpu\":\"150m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"192Mi\"},\"requests\":{\"cpu\":\"100m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"128Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/emptydir\",\"name\":\"empty-dir\"}]}],\"securityContext\":{\"fsGroup\":1001,\"fsGroupChangePolicy\":\"Always\",\"supplementalGroups\":[],\"sysctls\":[]},\"serviceAccountName\":\"nginx\",\"shareProcessNamespace\":false,\"volumes\":[{\"emptyDir\":{},\"name\":\"empty-dir\"},{\"name\":\"certificate\",\"secret\":{\"secretName\":\"nginx-backend-tls\"}}]}}}}\n"
-      creationTimestamp: "2026-06-11T15:10:37Z"
+      creationTimestamp: "2026-06-11T15:55:30Z"
       generation: 1
       labels:
         app.kubernetes.io/instance: "nginx"
@@ -155,8 +155,8 @@ items:
         helm.sh/chart: "nginx-24.0.2"
       name: "nginx"
       namespace: "nginx"
-      resourceVersion: "467"
-      uid: "193e5e2d-4cbc-4d8b-8e33-99bbc0fb05c7"
+      resourceVersion: "1118"
+      uid: "bb629faf-bba1-4e01-b826-93f362012928"
     spec:
       progressDeadlineSeconds: 600
       replicas: 1
@@ -345,25 +345,26 @@ items:
                 defaultMode: 420
                 secretName: "nginx-backend-tls"
     status:
+      availableReplicas: 1
       conditions:
         -
-          lastTransitionTime: "2026-06-11T15:10:37Z"
-          lastUpdateTime: "2026-06-11T15:10:37Z"
-          message: "Deployment does not have minimum availability."
-          reason: "MinimumReplicasUnavailable"
-          status: "False"
+          lastTransitionTime: "2026-06-11T15:55:47Z"
+          lastUpdateTime: "2026-06-11T15:55:47Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
           type: "Available"
         -
-          lastTransitionTime: "2026-06-11T15:10:37Z"
-          lastUpdateTime: "2026-06-11T15:10:37Z"
-          message: "ReplicaSet \"nginx-5c568bf554\" is progressing."
-          reason: "ReplicaSetUpdated"
+          lastTransitionTime: "2026-06-11T15:55:30Z"
+          lastUpdateTime: "2026-06-11T15:55:47Z"
+          message: "ReplicaSet \"nginx-5c568bf554\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
           status: "True"
           type: "Progressing"
       observedGeneration: 1
+      readyReplicas: 1
       replicas: 1
       terminatingReplicas: 0
-      unavailableReplicas: 1
       updatedReplicas: 1
   -
     apiVersion: "networking.k8s.io/v1"
@@ -371,7 +372,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"Ingress\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"nginx\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"nginx\",\"app.kubernetes.io/version\":\"1.31.1\",\"helm.sh/chart\":\"nginx-24.0.2\"},\"name\":\"nginx\",\"namespace\":\"nginx\"},\"spec\":{\"ingressClassName\":\"nginx\",\"rules\":[{\"host\":\"nginx.example.test\",\"http\":{\"paths\":[{\"backend\":{\"service\":{\"name\":\"nginx\",\"port\":{\"name\":\"http\"}}},\"path\":\"/\",\"pathType\":\"ImplementationSpecific\"}]}}],\"tls\":[{\"hosts\":[\"nginx.example.test\"],\"secretName\":\"nginx-ingress-tls\"}]}}\n"
-      creationTimestamp: "2026-06-11T15:10:37Z"
+      creationTimestamp: "2026-06-11T15:55:30Z"
       generation: 1
       labels:
         app.kubernetes.io/instance: "nginx"
@@ -381,8 +382,8 @@ items:
         helm.sh/chart: "nginx-24.0.2"
       name: "nginx"
       namespace: "nginx"
-      resourceVersion: "457"
-      uid: "fe9a0ef0-14c2-4b49-bb27-b787471c77d7"
+      resourceVersion: "1054"
+      uid: "9aba4bf2-9d24-4221-bd92-508c673b16ad"
     spec:
       ingressClassName: "nginx"
       rules:
