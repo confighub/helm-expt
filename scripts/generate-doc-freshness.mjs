@@ -37,6 +37,7 @@ const outputRoot = join(repoRoot, "data", "doc-freshness");
 const outputs = {
   summary: join(outputRoot, "summary.md"),
   freshness: join(outputRoot, "freshness.csv"),
+  html: join(outputRoot, "freshness.html"),
 };
 // Hand-maintained acknowledgments: a row here says "I reviewed this doc on
 // this date and it is still accurate" — it clears review-due without a
@@ -51,6 +52,7 @@ if (mode === "--generate") {
   const rows = buildRows();
   write(outputs.freshness, toCsv(rows));
   write(outputs.summary, summary(rows));
+  write(outputs.html, htmlReport(rows));
   const due = rows.filter((row) => row.status === "review-due");
   console.log(`wrote doc freshness -> ${relativeRepo(outputRoot)}/ (${rows.length} authored docs, ${due.length} review-due)`);
   for (const row of due) console.log(`  review-due: ${row.doc} (${row.days_behind}d behind ${row.newer_sources.split("; ")[0]})`);
@@ -75,6 +77,7 @@ if (mode === "--generate") {
     check(universe.includes(doc), `data/doc-freshness/reviewed.csv acknowledges ${doc}, which is not an authored doc; remove the row`);
   }
   check(readFileSync(outputs.summary, "utf8") === summary(committed), `${relativeRepo(outputs.summary)} is stale against its CSV; run npm run doc-freshness`);
+  check(existsSync(outputs.html) && readFileSync(outputs.html, "utf8") === htmlReport(committed), `${relativeRepo(outputs.html)} is stale against its CSV; run npm run doc-freshness`);
   console.log(`verified doc freshness snapshot: ${committed.length} authored docs (review-due state is as of commit ${committed[0]?.as_of_commit ?? "?"}; refresh with npm run doc-freshness)`);
 } else {
   console.log(`Usage:
@@ -210,6 +213,7 @@ right now": a doc is **review-due** when an evidence source it links to
 (under ${EVIDENCE_ROOTS.map((root) => `\`${root.replace(/\/$/, "")}\``).join(", ")})
 changed more recently than the doc itself.
 
+Colored rendering: [freshness.html](freshness.html) (open in a browser).
 Snapshot as of ${asOf}. Refresh with \`npm run doc-freshness\` — cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
@@ -254,6 +258,68 @@ npm run doc-freshness
 npm run doc-freshness:verify
 ~~~
 `;
+}
+
+
+function htmlReport(rows) {
+  const order = { "review-due": 0, fresh: 1, "no-linked-sources": 2 };
+  const sorted = [...rows].sort((a, b) => (order[a.status] - order[b.status]) || (Number(b.days_behind || 0) - Number(a.days_behind || 0)) || a.doc.localeCompare(b.doc));
+  const due = rows.filter((row) => row.status === "review-due").length;
+  const fresh = rows.filter((row) => row.status === "fresh").length;
+  const unlinked = rows.filter((row) => row.status === "no-linked-sources").length;
+  const asOf = rows[0] ? `${rows[0].as_of_date} (commit ${rows[0].as_of_commit})` : "?";
+  const statusCell = (status) =>
+    status === "review-due"
+      ? `<td class="s w">review-due</td>`
+      : status === "fresh"
+        ? `<td class="s y">fresh</td>`
+        : `<td class="s t">no linked sources</td>`;
+  const body = sorted
+    .map((row) => {
+      const sources = row.newer_sources
+        ? row.newer_sources.split("; ").map((source) => `<code>${escapeHtml(source)}</code>`).join("<br>")
+        : "";
+      return `<tr><td class="doc">${escapeHtml(row.doc)}</td><td>${escapeHtml(row.area)}</td>${statusCell(row.status)}<td class="num">${escapeHtml(row.days_behind)}</td><td>${escapeHtml(row.last_changed)}</td><td class="num">${escapeHtml(row.linked_sources)}</td><td class="note">${sources}</td></tr>`;
+    })
+    .join("\n");
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Doc Freshness</title>
+<style>
+body{font:13px/1.45 -apple-system,Segoe UI,Helvetica,Arial,sans-serif;margin:24px;color:#202124}
+h1{font-size:20px;margin:0 0 4px}
+p.sub{color:#5f6368;margin:0 0 12px}
+table{border-collapse:collapse;margin-top:16px;width:100%}
+th,td{border:1px solid #dadce0;padding:3px 7px;text-align:left;vertical-align:top}
+thead th{position:sticky;top:0;background:#f1f3f4;z-index:1}
+td.doc{font-weight:600;white-space:nowrap}
+td.s{text-align:center;font-weight:700;white-space:nowrap}
+td.num{text-align:right}
+td.note{color:#5f6368}
+td.note code{font-size:11px}
+.y{background:#1e8e3e;color:#fff}
+.w{background:#f9ab00;color:#202124}
+.t{background:#e8eaed;color:#5f6368}
+</style>
+</head>
+<body>
+<h1>Doc Freshness — when to update the authored docs</h1>
+<p class="sub">${rows.length} authored docs · <b>${due} review-due</b> · ${fresh} fresh · ${unlinked} with no linked evidence sources. Snapshot as of ${escapeHtml(asOf)}; refresh with <code>npm run doc-freshness</code>. A review-due doc is cleared by editing it or acknowledging it in reviewed.csv ("reviewed on this date, still accurate").</p>
+<table>
+<thead><tr><th>Doc</th><th>Area</th><th>Status</th><th>Days behind</th><th>Doc last changed</th><th>Linked sources</th><th>Newer sources (triggers)</th></tr></thead>
+<tbody>
+${body}
+</tbody>
+</table>
+</body>
+</html>
+`;
+}
+
+function escapeHtml(text) {
+  return String(text).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 }
 
 function readCsv(path) {
