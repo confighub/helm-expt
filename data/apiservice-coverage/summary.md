@@ -128,6 +128,8 @@ Current contract rows:
 | `render-path-notes.csv` | Spreadsheet-ready render-path decisions. |
 | `target-compatibility-decisions.md` | Target-scoped compatibility decisions for maintained rows that render unsupported APIService versions. |
 | `target-compatibility-decisions.csv` | Spreadsheet-ready target compatibility decisions. |
+| `promotion-reviews/README.md` | APIService promotion-review packets for rows with enough runtime evidence to review catalog scope. |
+| `promotion-reviews/promotion-reviews.csv` | Spreadsheet-ready APIService promotion-review packet index. |
 | `work-orders.md` | Human next-proof queue for APIService charts. |
 | `work-orders.csv` | Spreadsheet-ready next-proof queue for assignment and reruns. |
 | `data/quirk-work-queue/top100-queue.csv` | Source quirk queue that currently carries the APIService hard gap. |

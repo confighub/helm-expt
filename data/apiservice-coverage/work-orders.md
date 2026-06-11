@@ -50,6 +50,7 @@ enables that path.
 | `work-orders.csv` | Same queue in spreadsheet form. |
 | `render-path-notes.md` | Render-path decisions for maintained rows whose APIService source signals are not active in current bases. |
 | `target-compatibility-decisions.md` | Target-scoped compatibility decisions for maintained rows that render unsupported APIService versions. |
+| `promotion-reviews/README.md` | APIService promotion-review packets for rows with enough runtime evidence to discuss catalog scope. |
 | `data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml` | Existing Metrics Server pattern receipt. |
 | `data/runtime-gitops/receipts/kedacore-keda/default/latest.yaml` | KEDA ConfigHub OCI/Argo APIService receipt. |
 
