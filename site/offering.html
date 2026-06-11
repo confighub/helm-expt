@@ -109,8 +109,8 @@
 
     <section aria-labelledby="offer">
       <h2 id="offer">What The Offering Is</h2>
-      <p>A public catalog of maintained Helm-derived packages, plus a path into ConfigHub for teams that need private variants, approvals, scans, GitOps delivery, fleet operations, and production receipts.</p>
-      <p>The free public lane helps users inspect and install supported public chart bases. The paid lane is for custom values, private charts, GitOps estates, operational services, full stacks, upgrades, patches, approvals, and fleet work.</p>
+      <p>A public catalog of maintained Helm-derived packages, plus a path into ConfigHub for teams that need private variants, approvals, policies, scans, GitOps/OCI delivery, fleet operations, and production receipts.</p>
+      <p>The free public lane helps users browse, inspect, template, install supported public chart bases, pull public artifacts, and verify available signatures, digests, and receipts. The paid lane is for private charts, custom catalogs, teams, policies, approvals, bulk operations, promotions, GitOps/OCI operations, full stacks, patch services, upgrade services, and production support.</p>
       <div class="route">
         <div>1. Pick chart</div>
         <div>2. Pick base variant</div>
@@ -171,11 +171,11 @@
       <div class="split">
         <section class="card">
           <h3>Low-friction public use</h3>
-          <ul><li><strong>Browse public catalog:</strong> See chart versions, base variants, proof status, pain reports, and known gaps.</li><li><strong>Use public packages:</strong> Run cub installer setup --pull &lt;package&gt; --base &lt;base&gt; for supported public bases.</li><li><strong>Verify locally:</strong> Run the repo verifiers or a chart-specific live recipe on your own kind cluster.</li><li><strong>Inspect proof:</strong> Read receipts, rendered objects, Helm pain reports, and current status without trusting a screenshot.</li></ul>
+          <ul><li><strong>Browse public catalog:</strong> See chart versions, base variants, proof status, pain reports, and known gaps.</li><li><strong>Inspect and template:</strong> Use cub helm template and rendered-object views before committing to ConfigHub state.</li><li><strong>Use public packages:</strong> Run cub installer setup --pull &lt;package&gt; --base &lt;base&gt; for supported public bases.</li><li><strong>Pull public artifacts:</strong> Use public package or OCI artifacts where available without uploading private repo or production state.</li><li><strong>Verify locally:</strong> Check available signatures, digests, rendered objects, receipts, or chart-specific verifiers on your own machine.</li><li><strong>Inspect proof:</strong> Read receipts, rendered objects, Helm pain reports, and current status without trusting a screenshot.</li></ul>
         </section>
         <section class="card">
           <h3>ConfigHub-managed use</h3>
-          <ul><li><strong>Private charts and overlays:</strong> Import wrapper charts, private values, customer overlays, and private OCI sources.</li><li><strong>Managed variants:</strong> Create environment, region, customer, and target variants with approvals, links, target facts, and receipts.</li><li><strong>Fleet operations:</strong> Bulk scan, patch, promote, observe, and audit across many spaces or clusters.</li><li><strong>Production support:</strong> Target-scoped support decisions, patch SLAs, old-version support, policies, and approvals.</li></ul>
+          <ul><li><strong>Private and custom catalogs:</strong> Import wrapper charts, private values, customer overlays, private OCI sources, and team-specific catalogs.</li><li><strong>Managed variants and teams:</strong> Create environment, region, customer, and target variants with teams, approvals, policies, links, target facts, and receipts.</li><li><strong>Fleet operations:</strong> Bulk scan, patch, approve, promote, observe, and audit across many spaces or clusters.</li><li><strong>GitOps and OCI operations:</strong> Manage delivery handoffs, controller credentials, artifact access, observations, rollback evidence, and audit history.</li><li><strong>Full-stack support:</strong> Target-scoped production decisions, patch services, upgrade services, old-version support, SLAs, policies, and approvals.</li></ul>
         </section>
       </div>
     </section>

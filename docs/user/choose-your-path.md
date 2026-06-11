@@ -6,6 +6,17 @@ Helm users do not all need the same first step. Pick the smallest path that
 answers your question, then move deeper only when you need durable proof,
 variants, or operations.
 
+If you are new here, try this order:
+
+1. Browse the catalog or run `cub helm template` to see the rendered objects.
+2. Try one public `cub installer` package when you want a maintained base with
+   receipts instead of a one-off render.
+3. Upload to ConfigHub only when the rendered objects should become managed
+   Units for variants, approvals, policies, or team operations.
+4. Use derived variants and GitOps/OCI operations when the value is no longer
+   "can this render?" but "can we promote, patch, observe, and audit the same
+   reviewed objects safely?"
+
 | Path | Use it when | Primary command or surface | Account boundary |
 | --- | --- | --- | --- |
 | Quick render | You only want to see the Kubernetes objects a chart produces. | `cub helm template` | No ConfigHub state. |
@@ -21,7 +32,10 @@ The public lane is useful before a team commits to a platform workflow:
 
 - browse the [catalog dashboard](../../site/index.html), chart pages, proof
   status, and known gaps;
+- render and inspect public charts with `cub helm template`;
 - render and inspect public catalog packages with `cub installer`;
+- pull public package artifacts where available;
+- verify available signatures, digests, rendered objects, and local receipts;
 - run repo verifiers such as `npm run site:verify`, `npm run docs:verify`, and
   chart-specific package or render checks;
 - inspect receipts, rendered objects, pain reports, and top-100 chart guidance.
@@ -34,13 +48,14 @@ production support free.
 
 Use ConfigHub-managed workflows when the work becomes team or production state:
 
-- private charts, private values, customer overlays, or wrapper charts;
+- private charts, private values, custom catalogs, customer overlays, or wrapper
+  charts;
 - environment, region, customer, target, or promotion variants;
-- approvals, target facts, links, policies, gates, scans, and receipts;
+- teams, approvals, target facts, links, policies, gates, scans, and receipts;
 - GitOps/OCI operations, observations, audits, and rollback evidence;
 - bulk scan, patch, review, approve, promote, observe, and audit work;
-- production support decisions, old-version support, patch SLAs, and enterprise
-  workflows.
+- full stacks, production support decisions, old-version support, patch and
+  upgrade services, SLAs, and enterprise workflows.
 
 The dividing line is simple: public packages help you inspect and verify public
 chart bases; ConfigHub manages private inputs, teams, approvals, operational
@@ -71,6 +86,20 @@ promotion metadata, route it through a derived ConfigHub variant.
 If the change involves private inputs, team approvals, fleet operations,
 policies, GitOps operations, or production support, treat it as a
 ConfigHub-managed workflow.
+
+## Where The Extra Value Starts
+
+Plain Helm is enough when the only job is to render or install once. The
+catalog adds value before install by making the selected base explicit and
+reviewable. ConfigHub adds value after upload because every object is a Unit
+that can be diffed, scanned, gated, linked, approved, promoted, observed, and
+audited.
+
+The day-0 path is choosing a public base and verifying what it renders. The
+day-1 path is creating a derived variant for an environment, customer, region,
+or target without rerendering Helm. The day-2 path is operating many reviewed
+variants through bulk scans, patches, approvals, promotions, GitOps/OCI
+handoffs, observations, upgrades, rollbacks, and receipts.
 
 ## Next
 

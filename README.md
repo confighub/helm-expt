@@ -37,6 +37,10 @@ blocked, or refused with a named reason.
 
 ## New Here? Start With These Five Stages
 
+If you are a Helm user, start by asking one question: do you only need to see
+what Helm renders, or do you want a reviewed package that can become managed
+ConfigHub state later?
+
 Each stage asks for more trust and gives more value. You can stop at any stage.
 
 | Stage | You want | Command or surface | Needs a ConfigHub account? |
@@ -48,8 +52,21 @@ Each stage asks for more trust and gives more value. You can stop at any stage.
 | 5. Operations | Variants, diffs, scans, approvals, OCI/GitOps delivery, observations. | `cub variant create`, `cub unit diff`, `cub function vet`, changesets | Yes |
 
 Stages 1 and 2 are direct fast paths and skip the catalog. Stage 3 is the
-durable catalog path this repo maintains. For when each command fits, see
-[Choosing Commands](./docs/user/choosing-commands.md).
+durable catalog path this repo maintains. Stage 5 is where ConfigHub starts to
+pay back the extra structure: the same rendered objects can be cloned into
+environment, region, customer, or target variants; compared before promotion;
+scanned and gated as exact objects; delivered through GitOps or OCI; and
+observed later with receipts.
+
+Free and low-friction use should cover browsing the catalog, inspecting
+rendered objects, running `cub helm template`, trying public `cub installer`
+packages, pulling public artifacts, and verifying signatures, digests, and
+local receipts. Paid or managed use begins when the work involves private or
+custom catalogs, teams, policies, approvals, bulk operations, promotions,
+GitOps/OCI operations, full stacks, patch services, upgrade services, or
+production support.
+
+For when each command fits, see [Choosing Commands](./docs/user/choosing-commands.md).
 
 Four questions, answered up front:
 

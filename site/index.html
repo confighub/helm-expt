@@ -81,6 +81,22 @@
   --namespace redis</pre>
   </header>
   <main>
+    <section aria-labelledby="first-time">
+      <h2 id="first-time">First-Time Helm User Path</h2>
+      <p>Start with the smallest step that answers your question. Direct Helm paths are for quick inspection. The public catalog is for maintained bases and proof. ConfigHub-managed workflows are for private inputs, teams, policies, approvals, variants, promotions, GitOps/OCI operations, full stacks, patch and upgrade services, and production support.</p>
+      <div class="card"><table>
+        <thead><tr><th>Step</th><th>What to do</th><th>Boundary</th></tr></thead>
+        <tbody><tr><td>Browse first</td><td>Open the catalog, chart pages, proof status, and known gaps before trusting an install path.</td><td>Free</td></tr><tr><td>Inspect a render</td><td>Use cub helm template when you only need to see the Kubernetes objects a chart produces.</td><td>Free</td></tr><tr><td>Try a public package</td><td>Use cub installer setup for a maintained public base with rendered objects, receipts, scans, and local verification.</td><td>Free or low-friction</td></tr><tr><td>Upload when state matters</td><td>Use cub installer upload when the reviewed objects should become ConfigHub Units for teams, approvals, or variants.</td><td>Managed</td></tr><tr><td>Operate after upload</td><td>Use variants, diffs, scans, gates, promotions, GitOps/OCI handoff, observations, upgrades, rollbacks, and receipts.</td><td>Managed or paid</td></tr></tbody>
+      </table></div>
+      <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border-bottom: 1px solid var(--line); text-align: left; padding: 8px; vertical-align: top; }
+        td { overflow-wrap: anywhere; }
+        th { color: var(--muted); font-weight: 600; }
+      </style>
+      <p>The extra value starts after rendering: reviewed objects can become Units, then day-1 variants, then day-2 operations with diffs, scans, gates, promotions, observations, and receipts.</p>
+    </section>
+
     <section aria-labelledby="proof-counters">
       <h2 id="proof-counters">Proof Counters</h2>
       <div class="grid">
