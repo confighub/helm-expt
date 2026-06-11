@@ -28,6 +28,7 @@ const chartUseGuidePath = join(repoRoot, "data", "chart-use-guide", "chart-use-g
 const top100ReadinessPath = join(repoRoot, "data", "top100-readiness", "readiness.csv");
 const top100UserReadinessPath = join(repoRoot, "data", "top100-user-readiness", "readiness.csv");
 const top100CoverageWorkQueuePath = join(repoRoot, "data", "top100-coverage", "work-queue.csv");
+const usefulBaseDesignQueuePath = join(repoRoot, "data", "useful-base-design-queue", "summary.md");
 const top100PromotionWavePath = join(repoRoot, "data", "top100-promotion-wave", "wave.csv");
 const refreshSurvivalPath = join(repoRoot, "data", "refresh-survival", "refreshes.csv");
 const liveParityRerunPlanPath = join(repoRoot, "data", "live-parity-rerun-plan", "rerun-plan.csv");
@@ -98,6 +99,7 @@ function buildSite() {
   const top100Readiness = parseCsv(readFileSync(top100ReadinessPath, "utf8"));
   const top100UserReadiness = parseCsv(readFileSync(top100UserReadinessPath, "utf8"));
   const top100CoverageWorkQueue = parseCsv(readFileSync(top100CoverageWorkQueuePath, "utf8"));
+  check(existsSync(usefulBaseDesignQueuePath), "data/useful-base-design-queue/summary.md is missing; run npm run top100:useful-base-queue");
   const top100CoverageQueueCounts = countBy(top100CoverageWorkQueue, "queue");
   const top100PromotionWave = parseCsv(readFileSync(top100PromotionWavePath, "utf8"));
   const refreshSurvival = parseCsv(readFileSync(refreshSurvivalPath, "utf8"));
@@ -172,6 +174,7 @@ function buildSite() {
       top100Readiness: "data/top100-readiness/readiness.csv",
       top100UserReadiness: "data/top100-user-readiness/readiness.csv",
       top100CoverageWorkQueue: "data/top100-coverage/work-queue.csv",
+      usefulBaseDesignQueue: "data/useful-base-design-queue/summary.md",
       top100PromotionWave: "data/top100-promotion-wave/wave.csv",
       refreshSurvival: "data/refresh-survival/refreshes.csv",
       liveParityRerunPlan: "data/live-parity-rerun-plan/rerun-plan.csv",
@@ -614,7 +617,7 @@ function html(catalog) {
         ["Queue", "First rows"],
         ...top100QueueRows,
       ])}
-      <p><a href="../docs/user/top100-status.md">Open the plain-English top-100 status</a>, <a href="../data/top100-user-readiness/summary.md">open the user-readiness table</a>, <a href="../data/top100-coverage/work-queue.md">open the strict coverage work queue</a>, <a href="../data/top100-promotion-wave/summary.md">open the first strict promotion wave</a>, or <a href="../data/top100-coverage/decisions-needed.md">open the limitation decision memos</a>.</p>
+      <p><a href="../docs/user/top100-status.md">Open the plain-English top-100 status</a>, <a href="../data/top100-user-readiness/summary.md">open the user-readiness table</a>, <a href="../data/useful-base-design-queue/summary.md">open the useful-base design queue</a>, <a href="../data/top100-coverage/work-queue.md">open the strict coverage work queue</a>, <a href="../data/top100-promotion-wave/summary.md">open the first strict promotion wave</a>, or <a href="../data/top100-coverage/decisions-needed.md">open the limitation decision memos</a>.</p>
     </section>
 
     <section aria-labelledby="top500-evidence">
@@ -734,6 +737,7 @@ function html(catalog) {
         <li><a href="../data/top20-base-readiness/summary.md">Top-20 base readiness</a></li>
         <li><a href="../docs/user/top100-status.md">Plain-English top-100 status</a></li>
         <li><a href="../data/top100-user-readiness/summary.md">Top-100 user readiness</a></li>
+        <li><a href="../data/useful-base-design-queue/summary.md">Useful base design queue</a></li>
         <li><a href="../data/extension-slots/summary.md">Extension slot coverage</a></li>
         <li><a href="../data/lifecycle-observations/cert-manager-eso/summary.md">Cert-manager and External Secrets lifecycle observations</a></li>
       </ul>
@@ -1656,6 +1660,7 @@ Data source:
 - \`data/top100-readiness/readiness.csv\`
 - \`data/top100-user-readiness/readiness.csv\`
 - \`data/top100-coverage/work-queue.csv\`
+- \`data/useful-base-design-queue/summary.md\`
 - \`data/top100-promotion-wave/wave.csv\`
 - \`data/refresh-survival/refreshes.csv\`
 - \`data/live-parity-rerun-plan/rerun-plan.csv\`
