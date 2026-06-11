@@ -14,7 +14,10 @@ the same live outcome as cub installer output?
 pass: 49
 watch: 0
 blocked: 1
+semantic parity pass: 50
 semantic parity defects: 0
+non-pass rows where semantic parity passed: 1
+non-pass rows with related lifecycle evidence: 1
 ```
 
 Non-pass rows are still useful when object parity passed. They usually point at
@@ -31,57 +34,72 @@ data/live-parity-rerun-plan/summary.md
 | --- | ---: |
 | helm-hook: post-install hook failed (parity passed) | 1 |
 
+## How To Read Non-Pass Rows
+
+The `result` column records the overall live command outcome. The
+`semantic_parity` column records whether regular Helm and `cub installer`
+produced the same Kubernetes object meaning. A non-pass row with
+`semantic_parity=pass` is not an object parity defect. It means the row
+exposed target, runtime, or lifecycle behavior that needs a route, observation,
+or support decision.
+
+The `related_lifecycle_evidence` column links a separate lifecycle receipt
+when one exists. For example, cert-manager's default base can have
+`result=blocked` because Helm's startup API check hook failed in the strict
+two-cluster run, while `semantic_parity=pass` and a separate lifecycle receipt
+records the chart-specific startup API check route.
+
 ## Rows
 
-| Chart | Base | Result | Reason | Receipt |
-| --- | --- | --- | --- | --- |
-| `argo-cd/argo-cd@9.5.15` | default | pass |  | runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml |
-| `argo-cd/argo-cd@9.5.15` | no-crds | pass |  | runs/live-kind-parity/argo-cd-argo-cd-no-crds/receipt.yaml |
-| `bitnami/mongodb@19.0.7` | existing-secret-replicaset | pass |  | runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml |
-| `bitnami/mongodb@19.0.7` | generated-passwords | pass |  | runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml |
-| `bitnami/mysql@14.0.3` | existing-secret | pass |  | runs/live-kind-parity/bitnami-mysql-existing-secret/receipt.yaml |
-| `bitnami/mysql@14.0.3` | generated-passwords | pass |  | runs/live-kind-parity/bitnami-mysql-generated-passwords/receipt.yaml |
-| `bitnami/nginx@24.0.2` | existing-tls-ingress | pass |  | runs/live-kind-parity/bitnami-nginx-existing-tls-ingress/receipt.yaml |
-| `bitnami/nginx@24.0.2` | http-clusterip | pass |  | runs/live-kind-parity/bitnami-nginx-http-clusterip/receipt.yaml |
-| `bitnami/postgresql@18.6.7` | existing-secret | pass |  | runs/live-kind-parity/bitnami-postgresql-existing-secret/receipt.yaml |
-| `bitnami/postgresql@18.6.7` | generated-passwords | pass |  | runs/live-kind-parity/bitnami-postgresql-generated-passwords/receipt.yaml |
-| `bitnami/rabbitmq@16.0.14` | existing-secret | pass |  | runs/live-kind-parity/bitnami-rabbitmq-existing-secret/receipt.yaml |
-| `bitnami/rabbitmq@16.0.14` | generated-passwords | pass |  | runs/live-kind-parity/bitnami-rabbitmq-generated-passwords/receipt.yaml |
-| `bitnami/redis@25.5.3` | default | pass |  | runs/live-kind-parity/bitnami-redis-default/receipt.yaml |
-| `bitnami/redis@25.5.3` | reuse-existing-secret | pass |  | runs/live-kind-parity/bitnami-redis-reuse-existing-secret/receipt.yaml |
-| `cloudnative-pg/cloudnative-pg@0.28.2` | default | pass |  | runs/live-kind-parity/cloudnative-pg-cloudnative-pg-default/receipt.yaml |
-| `elastic/eck-operator@3.4.0` | default | pass |  | runs/live-kind-parity/elastic-eck-operator-default/receipt.yaml |
-| `elastic/logstash@8.5.1` | default | pass |  | runs/live-kind-parity/elastic-logstash-default/receipt.yaml |
-| `external-dns/external-dns@1.21.1` | dry-run-txt-registry | pass |  | runs/live-kind-parity/external-dns-external-dns-dry-run-txt-registry/receipt.yaml |
-| `external-secrets/external-secrets@2.5.0` | default | pass |  | runs/live-kind-parity/external-secrets-external-secrets-default/receipt.yaml |
-| `external-secrets/external-secrets@2.5.0` | no-crds | pass |  | runs/live-kind-parity/external-secrets-external-secrets-no-crds/receipt.yaml |
-| `grafana/alloy@1.8.2` | default | pass |  | runs/live-kind-parity/grafana-alloy-default/receipt.yaml |
-| `grafana/grafana@10.5.15` | existing-secret-ingress | pass |  | runs/live-kind-parity/grafana-grafana-existing-secret-ingress/receipt.yaml |
-| `grafana/grafana@10.5.15` | generated-passwords | pass |  | runs/live-kind-parity/grafana-grafana-generated-passwords/receipt.yaml |
-| `grafana/loki@7.0.0` | simple-scalable-minio | pass |  | runs/live-kind-parity/grafana-loki-simple-scalable-minio/receipt.yaml |
-| `grafana/loki@7.0.0` | single-binary-filesystem | pass |  | runs/live-kind-parity/grafana-loki-single-binary-filesystem/receipt.yaml |
-| `grafana/tempo@1.24.4` | local-persistent | pass |  | runs/live-kind-parity/grafana-tempo-local-persistent/receipt.yaml |
-| `grafana/tempo@1.24.4` | s3-query-observability | pass |  | runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml |
-| `hashicorp/consul@2.0.0` | default-control-plane | pass |  | runs/live-kind-parity/hashicorp-consul-default-control-plane/receipt.yaml |
-| `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | pass |  | runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml |
-| `hashicorp/vault@0.32.0` | default | pass |  | runs/live-kind-parity/hashicorp-vault-default/receipt.yaml |
-| `hashicorp/vault@0.32.0` | dev-mode | pass |  | runs/live-kind-parity/hashicorp-vault-dev-mode/receipt.yaml |
-| `hashicorp/vault@0.32.0` | ha-raft-ui | pass |  | runs/live-kind-parity/hashicorp-vault-ha-raft-ui/receipt.yaml |
-| `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | pass |  | runs/live-kind-parity/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml |
-| `ingress-nginx/ingress-nginx@4.15.1` | default | pass |  | runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml |
-| `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | pass |  | runs/live-kind-parity/ingress-nginx-ingress-nginx-internal-clusterip/receipt.yaml |
-| `jetstack/cert-manager@v1.20.2` | crds-enabled | pass |  | runs/live-kind-parity/jetstack-cert-manager-crds-enabled/receipt.yaml |
-| `jetstack/cert-manager@v1.20.2` | default | blocked | helm-hook: post-install hook failed (parity passed) | runs/live-kind-parity/jetstack-cert-manager-default/receipt.yaml |
-| `kedacore/keda@2.19.0` | default | pass |  | runs/live-kind-parity/kedacore-keda-default/receipt.yaml |
-| `longhorn/longhorn@1.11.2` | default | pass |  | runs/live-kind-parity/longhorn-longhorn-default/receipt.yaml |
-| `longhorn/longhorn@1.11.2` | ui-ingress | pass |  | runs/live-kind-parity/longhorn-longhorn-ui-ingress/receipt.yaml |
-| `metrics-server/metrics-server@3.13.0` | default | pass |  | runs/live-kind-parity/metrics-server-metrics-server-default/receipt.yaml |
-| `metrics-server/metrics-server@3.13.0` | external-tls-ca | pass |  | runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/receipt.yaml |
-| `nats/nats@2.14.0` | default | pass |  | runs/live-kind-parity/nats-nats-default/receipt.yaml |
-| `prometheus-community/alertmanager@1.37.0` | default | pass |  | runs/live-kind-parity/prometheus-community-alertmanager-default/receipt.yaml |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | default | pass |  | runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | pass |  | runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml |
-| `prometheus-community/prometheus@29.8.0` | default | pass |  | runs/live-kind-parity/prometheus-community-prometheus-default/receipt.yaml |
-| `prometheus-community/prometheus@29.8.0` | server-only-ephemeral | pass |  | runs/live-kind-parity/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml |
-| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | pass |  | runs/live-kind-parity/secrets-store-csi-driver-secrets-store-csi-driver-default/receipt.yaml |
-| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | sync-secret-rotation | pass |  | runs/live-kind-parity/secrets-store-csi-driver-secrets-store-csi-driver-sync-secret-rotation/receipt.yaml |
+| Chart | Base | Result | Semantic parity | Reason | Lifecycle evidence | Meaning | Receipt |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `argo-cd/argo-cd@9.5.15` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml |
+| `argo-cd/argo-cd@9.5.15` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-cd-no-crds/receipt.yaml |
+| `bitnami/mongodb@19.0.7` | existing-secret-replicaset | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml |
+| `bitnami/mongodb@19.0.7` | generated-passwords | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml |
+| `bitnami/mysql@14.0.3` | existing-secret | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mysql-existing-secret/receipt.yaml |
+| `bitnami/mysql@14.0.3` | generated-passwords | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mysql-generated-passwords/receipt.yaml |
+| `bitnami/nginx@24.0.2` | existing-tls-ingress | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-nginx-existing-tls-ingress/receipt.yaml |
+| `bitnami/nginx@24.0.2` | http-clusterip | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-nginx-http-clusterip/receipt.yaml |
+| `bitnami/postgresql@18.6.7` | existing-secret | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-postgresql-existing-secret/receipt.yaml |
+| `bitnami/postgresql@18.6.7` | generated-passwords | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-postgresql-generated-passwords/receipt.yaml |
+| `bitnami/rabbitmq@16.0.14` | existing-secret | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-rabbitmq-existing-secret/receipt.yaml |
+| `bitnami/rabbitmq@16.0.14` | generated-passwords | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-rabbitmq-generated-passwords/receipt.yaml |
+| `bitnami/redis@25.5.3` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-redis-default/receipt.yaml |
+| `bitnami/redis@25.5.3` | reuse-existing-secret | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-redis-reuse-existing-secret/receipt.yaml |
+| `cloudnative-pg/cloudnative-pg@0.28.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/cloudnative-pg-cloudnative-pg-default/receipt.yaml |
+| `elastic/eck-operator@3.4.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-eck-operator-default/receipt.yaml |
+| `elastic/logstash@8.5.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-logstash-default/receipt.yaml |
+| `external-dns/external-dns@1.21.1` | dry-run-txt-registry | pass | pass |  |  | live parity passed | runs/live-kind-parity/external-dns-external-dns-dry-run-txt-registry/receipt.yaml |
+| `external-secrets/external-secrets@2.5.0` | default | pass | pass |  | pass: runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-default/receipt.yaml | live parity passed | runs/live-kind-parity/external-secrets-external-secrets-default/receipt.yaml |
+| `external-secrets/external-secrets@2.5.0` | no-crds | pass | pass |  | pass: runs/lifecycle-observations/cert-manager-eso/external-secrets-external-secrets-no-crds/receipt.yaml | live parity passed | runs/live-kind-parity/external-secrets-external-secrets-no-crds/receipt.yaml |
+| `grafana/alloy@1.8.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-alloy-default/receipt.yaml |
+| `grafana/grafana@10.5.15` | existing-secret-ingress | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-grafana-existing-secret-ingress/receipt.yaml |
+| `grafana/grafana@10.5.15` | generated-passwords | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-grafana-generated-passwords/receipt.yaml |
+| `grafana/loki@7.0.0` | simple-scalable-minio | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-loki-simple-scalable-minio/receipt.yaml |
+| `grafana/loki@7.0.0` | single-binary-filesystem | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-loki-single-binary-filesystem/receipt.yaml |
+| `grafana/tempo@1.24.4` | local-persistent | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-tempo-local-persistent/receipt.yaml |
+| `grafana/tempo@1.24.4` | s3-query-observability | pass | pass |  |  | live parity passed | runs/live-kind-parity/grafana-tempo-s3-query-observability/receipt.yaml |
+| `hashicorp/consul@2.0.0` | default-control-plane | pass | pass |  |  | live parity passed | runs/live-kind-parity/hashicorp-consul-default-control-plane/receipt.yaml |
+| `hashicorp/consul@2.0.0` | secure-mesh-existing-secrets | pass | pass |  |  | live parity passed | runs/live-kind-parity/hashicorp-consul-secure-mesh-existing-secrets/receipt.yaml |
+| `hashicorp/vault@0.32.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/hashicorp-vault-default/receipt.yaml |
+| `hashicorp/vault@0.32.0` | dev-mode | pass | pass |  |  | live parity passed | runs/live-kind-parity/hashicorp-vault-dev-mode/receipt.yaml |
+| `hashicorp/vault@0.32.0` | ha-raft-ui | pass | pass |  |  | live parity passed | runs/live-kind-parity/hashicorp-vault-ha-raft-ui/receipt.yaml |
+| `ingress-nginx/ingress-nginx@4.15.1` | admission-disabled | pass | pass |  |  | live parity passed | runs/live-kind-parity/ingress-nginx-ingress-nginx-admission-disabled/receipt.yaml |
+| `ingress-nginx/ingress-nginx@4.15.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/ingress-nginx-ingress-nginx-default/receipt.yaml |
+| `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | pass | pass |  |  | live parity passed | runs/live-kind-parity/ingress-nginx-ingress-nginx-internal-clusterip/receipt.yaml |
+| `jetstack/cert-manager@v1.20.2` | crds-enabled | pass | pass |  | pass: runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-crds-enabled/receipt.yaml | live parity passed | runs/live-kind-parity/jetstack-cert-manager-crds-enabled/receipt.yaml |
+| `jetstack/cert-manager@v1.20.2` | default | blocked | pass | helm-hook: post-install hook failed (parity passed) | pass: runs/lifecycle-observations/cert-manager-eso/jetstack-cert-manager-default/receipt.yaml | semantic parity passed; lifecycle route has evidence | runs/live-kind-parity/jetstack-cert-manager-default/receipt.yaml |
+| `kedacore/keda@2.19.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/kedacore-keda-default/receipt.yaml |
+| `longhorn/longhorn@1.11.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/longhorn-longhorn-default/receipt.yaml |
+| `longhorn/longhorn@1.11.2` | ui-ingress | pass | pass |  |  | live parity passed | runs/live-kind-parity/longhorn-longhorn-ui-ingress/receipt.yaml |
+| `metrics-server/metrics-server@3.13.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/metrics-server-metrics-server-default/receipt.yaml |
+| `metrics-server/metrics-server@3.13.0` | external-tls-ca | pass | pass |  |  | live parity passed | runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/receipt.yaml |
+| `nats/nats@2.14.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/nats-nats-default/receipt.yaml |
+| `prometheus-community/alertmanager@1.37.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-alertmanager-default/receipt.yaml |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-kube-prometheus-stack-default/receipt.yaml |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml |
+| `prometheus-community/prometheus@29.8.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-prometheus-default/receipt.yaml |
+| `prometheus-community/prometheus@29.8.0` | server-only-ephemeral | pass | pass |  |  | live parity passed | runs/live-kind-parity/prometheus-community-prometheus-server-only-ephemeral/receipt.yaml |
+| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/secrets-store-csi-driver-secrets-store-csi-driver-default/receipt.yaml |
+| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | sync-secret-rotation | pass | pass |  |  | live parity passed | runs/live-kind-parity/secrets-store-csi-driver-secrets-store-csi-driver-sync-secret-rotation/receipt.yaml |

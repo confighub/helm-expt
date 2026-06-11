@@ -210,21 +210,17 @@ function resolveTarget(target) {
 function writeSummary() {
   if (latestCandidates) return writeLatestCandidateSummary();
   const root = join(repoRoot, "data", "live-kind-parity");
-  const rows = findReceipts().map((path) => {
-    const receipt = readYaml(path);
-    return {
-      chart: receipt.spec?.chart,
-      version: receipt.spec?.version,
-      base: receipt.spec?.base,
-      result: receipt.spec?.result,
-      reason: classifyReceipt(receipt),
-      receipt: relativeRepo(path),
-    };
-  }).sort((a, b) => `${a.chart}@${a.version}/${a.base}`.localeCompare(`${b.chart}@${b.version}/${b.base}`));
+  const lifecycleEvidence = lifecycleEvidenceMap();
+  const rows = findReceipts()
+    .map((path) => summaryRowForReceipt(path, lifecycleEvidence))
+    .sort((a, b) => `${a.chart}@${a.version}/${a.base}`.localeCompare(`${b.chart}@${b.version}/${b.base}`));
   const counts = new Map();
   for (const row of rows) counts.set(row.result, (counts.get(row.result) ?? 0) + 1);
   const nonPassRows = rows.filter((row) => row.result !== "pass");
-  const semanticDefectRows = rows.filter((row) => row.reason.startsWith("parity:"));
+  const semanticPassRows = rows.filter((row) => row.semantic_parity === "pass");
+  const semanticDefectRows = rows.filter((row) => row.semantic_parity === "defect");
+  const nonPassSemanticPassRows = nonPassRows.filter((row) => row.semantic_parity === "pass");
+  const nonPassLifecycleRows = nonPassRows.filter((row) => row.related_lifecycle_evidence);
   const reasonCounts = groupCount(nonPassRows, "reason");
   const md = `# Two-Cluster Helm-vs-Installer Kind Parity
 
@@ -242,7 +238,10 @@ the same live outcome as cub installer output?
 pass: ${counts.get("pass") ?? 0}
 watch: ${counts.get("watch") ?? 0}
 blocked: ${counts.get("blocked") ?? 0}
+semantic parity pass: ${semanticPassRows.length}
 semantic parity defects: ${semanticDefectRows.length}
+non-pass rows where semantic parity passed: ${nonPassSemanticPassRows.length}
+non-pass rows with related lifecycle evidence: ${nonPassLifecycleRows.length}
 \`\`\`
 
 Non-pass rows are still useful when object parity passed. They usually point at
@@ -259,15 +258,80 @@ data/live-parity-rerun-plan/summary.md
 | --- | ---: |
 ${reasonCounts.size ? mapRows(reasonCounts) : "| - | 0 |"}
 
+## How To Read Non-Pass Rows
+
+The \`result\` column records the overall live command outcome. The
+\`semantic_parity\` column records whether regular Helm and \`cub installer\`
+produced the same Kubernetes object meaning. A non-pass row with
+\`semantic_parity=pass\` is not an object parity defect. It means the row
+exposed target, runtime, or lifecycle behavior that needs a route, observation,
+or support decision.
+
+The \`related_lifecycle_evidence\` column links a separate lifecycle receipt
+when one exists. For example, cert-manager's default base can have
+\`result=blocked\` because Helm's startup API check hook failed in the strict
+two-cluster run, while \`semantic_parity=pass\` and a separate lifecycle receipt
+records the chart-specific startup API check route.
+
 ## Rows
 
-| Chart | Base | Result | Reason | Receipt |
-| --- | --- | --- | --- | --- |
-${rows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.base} | ${row.result} | ${row.reason} | ${row.receipt} |`).join("\n")}
+| Chart | Base | Result | Semantic parity | Reason | Lifecycle evidence | Meaning | Receipt |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+${rows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.base} | ${row.result} | ${row.semantic_parity} | ${row.reason} | ${row.related_lifecycle_evidence || ""} | ${row.meaning} | ${row.receipt} |`).join("\n")}
 `;
   write(join(root, "summary.md"), md);
   write(join(root, "summary.csv"), toCsv(rows));
   console.log(`wrote ${relativeRepo(join(root, "summary.md"))}`);
+}
+
+function summaryRowForReceipt(path, lifecycleEvidence) {
+  const receipt = readYaml(path);
+  const reason = classifyReceipt(receipt);
+  const semanticParity = semanticParityFor(receipt);
+  const relatedLifecycleEvidence = relatedLifecycleEvidenceFor(receipt, lifecycleEvidence);
+  const row = {
+    chart: receipt.spec?.chart,
+    version: receipt.spec?.version,
+    base: receipt.spec?.base,
+    result: receipt.spec?.result,
+    semantic_parity: semanticParity,
+    reason,
+    related_lifecycle_evidence: relatedLifecycleEvidence,
+    receipt: relativeRepo(path),
+  };
+  return { ...row, meaning: meaningFor(row) };
+}
+
+function semanticParityFor(receipt) {
+  const semantic = receipt.spec?.semanticComparison?.helmVsCubInstallerApply;
+  const semanticDiffs = semantic?.semanticDiffs ?? [];
+  if (semantic?.result === "pass" && semanticDiffs.length === 0) return "pass";
+  if (semantic?.result === "blocked" || semanticDiffs.length > 0) return "defect";
+  return "unknown";
+}
+
+function lifecycleEvidenceMap() {
+  const path = join(repoRoot, "data", "lifecycle-observations", "cert-manager-eso", "summary.csv");
+  if (!existsSync(path)) return new Map();
+  const rows = parseCsv(readFileSync(path, "utf8"));
+  return new Map(rows.map((row) => [`${row.chart}|${row.version}|${row.base}`, row]));
+}
+
+function relatedLifecycleEvidenceFor(receipt, lifecycleEvidence) {
+  const spec = receipt.spec ?? {};
+  const row = lifecycleEvidence.get(`${spec.chart}|${spec.version}|${spec.base}`);
+  if (!row) return "";
+  return `${row.result}: ${row.receipt}`;
+}
+
+function meaningFor(row) {
+  if (row.result === "pass") return "live parity passed";
+  if (row.semantic_parity === "defect") return "semantic object parity defect";
+  if (row.semantic_parity === "pass" && row.related_lifecycle_evidence) {
+    return "semantic parity passed; lifecycle route has evidence";
+  }
+  if (row.semantic_parity === "pass") return "semantic parity passed; target or lifecycle behavior needs review";
+  return "inspect receipt";
 }
 
 function classifyReceipt(receipt) {
@@ -393,6 +457,7 @@ function verifyAPIServiceObservation(leg, context) {
 
 function writeLatestCandidateSummary() {
   const root = join(repoRoot, "data", "latest-top20-refresh", "live-parity");
+  const lifecycleEvidence = lifecycleEvidenceMap();
   const rows = latestCandidateTargets().map((target) => {
     const path = join(repoRoot, receiptPath(target));
     if (!existsSync(path)) {
@@ -401,24 +466,19 @@ function writeLatestCandidateSummary() {
         version: target.version,
         base: target.base,
         result: "not-started",
+        semantic_parity: "unknown",
         reason: "candidate live parity not run",
+        related_lifecycle_evidence: "",
+        meaning: "candidate parity not run",
         receipt: receiptPath(target),
       };
     }
-    const receipt = readYaml(path);
-    return {
-      chart: receipt.spec?.chart,
-      version: receipt.spec?.version,
-      base: receipt.spec?.base,
-      result: receipt.spec?.result,
-      reason: classifyReceipt(receipt),
-      receipt: relativeRepo(path),
-    };
+    return summaryRowForReceipt(path, lifecycleEvidence);
   }).sort((a, b) => `${a.chart}@${a.version}/${a.base}`.localeCompare(`${b.chart}@${b.version}/${b.base}`));
   const counts = new Map();
   for (const row of rows) counts.set(row.result, (counts.get(row.result) ?? 0) + 1);
   const nonPassRows = rows.filter((row) => row.result !== "pass");
-  const semanticDefectRows = rows.filter((row) => row.reason.startsWith("parity:"));
+  const semanticDefectRows = rows.filter((row) => row.semantic_parity === "defect");
   const reasonCounts = groupCount(nonPassRows, "reason");
   const md = `# Latest Candidate Two-Cluster Helm-vs-Installer Kind Parity
 
@@ -445,9 +505,9 @@ ${reasonCounts.size ? mapRows(reasonCounts) : "| - | 0 |"}
 
 ## Rows
 
-| Chart | Base | Result | Reason | Receipt |
-| --- | --- | --- | --- | --- |
-${rows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.base} | ${row.result} | ${row.reason} | ${row.receipt} |`).join("\n")}
+| Chart | Base | Result | Semantic parity | Reason | Lifecycle evidence | Meaning | Receipt |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+${rows.map((row) => `| \`${row.chart}@${row.version}\` | ${row.base} | ${row.result} | ${row.semantic_parity} | ${row.reason} | ${row.related_lifecycle_evidence || ""} | ${row.meaning} | ${row.receipt} |`).join("\n")}
 `;
   write(join(root, "summary.md"), md);
   write(join(root, "summary.csv"), toCsv(rows));
@@ -505,7 +565,7 @@ function optionValue(name) {
 }
 
 function toCsv(rows) {
-  const headers = ["chart", "version", "base", "result", "reason", "receipt"];
+  const headers = ["chart", "version", "base", "result", "semantic_parity", "reason", "related_lifecycle_evidence", "meaning", "receipt"];
   return `${[headers.join(","), ...rows.map((row) => headers.map((header) => csvEscape(row[header])).join(","))].join("\n")}\n`;
 }
 
