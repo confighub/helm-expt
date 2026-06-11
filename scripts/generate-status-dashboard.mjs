@@ -65,6 +65,7 @@ function buildReport() {
   const hookReviewRows = readCsv("data/hook-lifecycle-review/top100-source-hook-route-review.csv");
   const hookCandidateRows = readCsv("data/hook-route-candidates/candidates.csv");
   const hookCandidateWorkOrderRows = readCsv("data/hook-route-candidates/work-orders.csv");
+  const hookCoverageRows = readCsv("data/hook-coverage/top100-hook-coverage.csv");
   const lifecycleBoundaryRows = readCsv("data/lifecycle-boundary/lifecycle-boundary.csv");
   const lifecycleObservationRows = readCsv("data/lifecycle-observations/cert-manager-eso/summary.csv");
   const edgeRows = readCsv("data/edge-recovery/edges.csv");
@@ -170,7 +171,9 @@ function buildReport() {
   rows.push(metric("extension slots", "top500 source rows using tpl", Number(quirkRows.find((row) => row.axis === "tpl-extension-slots")?.source_top500_count ?? 0), top500Rows.length, "partial", "data/quirk-coverage/coverage.csv", "Broader source-scan signal for template-powered inputs; not every tpl use is an explicit supported slot."));
 
   const hookQueueRows = lifecycleBoundaryRows.filter((row) => row.lane === "helm-hook-lifecycle-queue");
+  const uncoveredHookCoverageRows = hookCoverageRows.filter((row) => row.coverage_status === "uncovered-source-hook");
   rows.push(metric("hooks", "top100 source-scan hook charts", sourceTop100HookRows.length, 100, "partial", "data/hook-lifecycle/source-top100-hooks.csv", "Public top-100 source scan rows where the retained source scan found Helm hooks."));
+  rows.push(metric("hooks", "top100 source hook rows still uncovered", uncoveredHookCoverageRows.length, sourceTop100HookRows.length, uncoveredHookCoverageRows.length === 0 ? "good" : "gap", "data/hook-coverage/top100-hook-coverage.csv", "Source top-100 hook rows with no maintained lifecycle row and no candidate route plan."));
   rows.push(metric("hooks", "maintained hook queue rows", hookRows.length, sourceTop100HookRows.length, "partial", "data/hook-lifecycle/maintained-hook-queue.csv", "Hook-bearing maintained recipe/package rows with required lifecycle receipt paths; this is not the full top-100 hook inventory."));
   rows.push(metric("hooks", "source-reviewed hook rows not yet maintained", hookReviewRows.filter((row) => row.in_maintained_queue === "no").length, sourceTop100HookRows.length, "gap", "data/hook-lifecycle-review/top100-source-hook-route-review.csv", "Source-scan hook or hook-like rows with a reviewed route candidate but no maintained lifecycle receipt yet."));
   rows.push(metric("hooks", "source-reviewed hook rows with candidate route plans", hookCandidateRows.length, hookReviewRows.filter((row) => row.in_maintained_queue === "no").length, "partial", "data/hook-route-candidates/candidates.csv", "Candidate route plans for source-reviewed hook or hook-like rows. These are not maintained receipts or runtime observations."));
@@ -578,6 +581,7 @@ lifecycle observation.
 | Which Helm quirk axes are still blind spots? | [quirk-coverage/coverage.csv](../quirk-coverage/coverage.csv) |
 | Which source-scan quirk gaps should move first? | [quirk-work-queue/summary.md](../quirk-work-queue/summary.md) |
 | Which remote dependency closures are locked? | [remote-dependency-closure/summary.md](../remote-dependency-closure/summary.md) |
+| Which top-100 source rows contain Helm hooks, and are they covered? | [hook-coverage/summary.md](../hook-coverage/summary.md) |
 | Which top-100 source rows contain Helm hooks? | [hook-lifecycle/source-top100-hooks.csv](../hook-lifecycle/source-top100-hooks.csv) |
 | Which maintained hook rows need lifecycle receipts? | [hook-lifecycle/maintained-hook-queue.csv](../hook-lifecycle/maintained-hook-queue.csv) |
 | Which hook route candidates have assignable next work? | [hook-route-candidates/work-orders.md](../hook-route-candidates/work-orders.md) |

@@ -39,6 +39,9 @@ function buildReport() {
   }));
   check(rows.length > 0, "expected hook route candidates");
   check(rows.every((row) => row.status === "candidate-route-plan"), "hook route work orders must start from candidate route plans");
+  for (const row of rows) {
+    check(existsSync(join(repoRoot, candidateYamlPath(row))), `hook route candidate row is missing ${candidateYamlPath(row)}`);
+  }
   const orders = rows.flatMap((row) => candidateWorkOrders(row));
   return {
     rows,

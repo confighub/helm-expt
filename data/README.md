@@ -34,7 +34,7 @@ smallest generated surface that answers it.
 | I want to know how upstream chart updates are handled. | [refresh-survival/summary.md](./refresh-survival/summary.md)<br>[latest-top20-refresh/action-queue/summary.md](./latest-top20-refresh/action-queue/summary.md)<br>[latest-top20-refresh/replacement-decisions/summary.md](./latest-top20-refresh/replacement-decisions/summary.md) |
 | I want the top-100 or top-500 planning picture. | [top100-readiness/summary.md](./top100-readiness/summary.md)<br>[top100-readiness/next80-queues.md](./top100-readiness/next80-queues.md)<br>[top500-catalog-analysis/review.csv](./top500-catalog-analysis/review.csv) |
 | I want live parity status. | [live-kind-parity/summary.md](./live-kind-parity/summary.md)<br>[live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md) |
-| I want hook, CRD, webhook, or lifecycle status. | [lifecycle-boundary/summary.md](./lifecycle-boundary/summary.md)<br>[outcome-coverage/feature-outcomes.csv](./outcome-coverage/feature-outcomes.csv) |
+| I want hook, CRD, webhook, or lifecycle status. | [hook-coverage/summary.md](./hook-coverage/summary.md)<br>[lifecycle-boundary/summary.md](./lifecycle-boundary/summary.md)<br>[outcome-coverage/feature-outcomes.csv](./outcome-coverage/feature-outcomes.csv) |
 | I want candidate routes for hook-bearing source charts. | [hook-route-candidates/summary.md](./hook-route-candidates/summary.md)<br>[hook-route-candidates/candidates.csv](./hook-route-candidates/candidates.csv)<br>[hook-route-candidates/work-orders.md](./hook-route-candidates/work-orders.md) |
 | I want extension-slot or custom-config risk. | [extension-slots/summary.md](./extension-slots/summary.md)<br>[nginx-config-checks/summary.md](./nginx-config-checks/summary.md) |
 | I want production support status and next actions. | [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv)<br>[production-support-decisions/summary.md](./production-support-decisions/summary.md)<br>[production-support-decisions/work-items.csv](./production-support-decisions/work-items.csv)<br>[production-support-decisions/decisions.csv](./production-support-decisions/decisions.csv) |
@@ -63,6 +63,7 @@ smallest generated surface that answers it.
 | [extension-slots/extension-slots.csv](./extension-slots/extension-slots.csv) | One row per chart with NGINX-like extension slots: scope, built variants, surfaces, route, evidence. |
 | [nginx-config-checks/checks.csv](./nginx-config-checks/checks.csv) | NGINX supported-base checks for empty config extension slots, sidecars, metrics, raw objects, and ingress shape. |
 | [lifecycle-boundary/summary.md](./lifecycle-boundary/summary.md) | Hook and hook-like lifecycle boundary: hook queue rows, lifecycle observations, evidence, and current limits. |
+| [hook-coverage/summary.md](./hook-coverage/summary.md) | Top-100 hook coverage bridge: joins source-scan hook rows to maintained hook lifecycle rows and candidate route plans. |
 | [hook-route-candidates/summary.md](./hook-route-candidates/summary.md) | Candidate hook route plans for source top-100 hook charts that are not yet maintained hook lifecycle queue rows. |
 | [hook-route-candidates/work-orders.md](./hook-route-candidates/work-orders.md) | Generated work orders for turning hook route candidates into maintained route receipts, observations, or explicit blockers. |
 | [lifecycle-observations/cert-manager-eso/summary.md](./lifecycle-observations/cert-manager-eso/summary.md) | Concrete lifecycle observations for cert-manager and External Secrets: CRD policy, post-apply API readiness, webhook CA injection, and controller-populated Secret data. |
@@ -197,6 +198,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `external-scan-lane` | [external-scan-lane/summary.md](./external-scan-lane/summary.md) | external scanner lane review output |
 | `hard-proof-gaps` | [hard-proof-gaps/summary.md](./hard-proof-gaps/summary.md) | hard top-100 proof gaps joined across quirk, hook, and dependency queues |
 | `high-fanout-demo` | [high-fanout-demo/summary.md](./high-fanout-demo/summary.md) | Prometheus base-variant fanout and prerequisite example |
+| `hook-coverage` | [hook-coverage/summary.md](./hook-coverage/summary.md) | top-100 source hook coverage joined across maintained lifecycle rows and candidate route plans |
 | `hook-lifecycle` | [hook-lifecycle/summary.md](./hook-lifecycle/summary.md) | hook-bearing charts and required lifecycle receipt paths |
 | `hook-lifecycle-review` | [hook-lifecycle-review/summary.md](./hook-lifecycle-review/summary.md) | supporting generated evidence |
 | `hook-route-candidates` | [hook-route-candidates/summary.md](./hook-route-candidates/summary.md) | candidate hook route plans before maintained lifecycle queue admission |
@@ -247,7 +249,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 101 CSV files. Each row records the path, audience,
+It includes 102 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

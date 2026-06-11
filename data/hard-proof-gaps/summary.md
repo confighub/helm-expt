@@ -14,7 +14,7 @@ production claims are made.
 shortlist rows: 25
 catalog-supported rows on shortlist: 3
 rows with remote dependency work: 20
-rows with hook route candidates: 8
+rows with hook route candidates: 9
 ~~~
 
 ## Main Gap Types

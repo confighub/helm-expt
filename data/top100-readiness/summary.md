@@ -14,7 +14,7 @@ charts with live evidence on at least one variant: 28
 charts with named hard gaps: 25
 source top-100 charts with Helm hooks: 11
 maintained hook lifecycle rows: 5
-source-reviewed hook route candidate plans: 8
+source-reviewed hook route candidate plans: 9
 source-reviewed hook routes not yet maintained: 8
 ~~~
 
@@ -57,7 +57,7 @@ surfaces:
 | --- | ---: | --- |
 | Source top-100 hook rows | 11 | Find public top-100 charts whose retained source scan found Helm hooks. |
 | Maintained hook lifecycle rows | 5 | Check current recipe/package rows with required lifecycle receipts. |
-| Source-reviewed hook route candidate plans | 8 | Read candidate routes that are not receipts and do not claim runtime behavior. |
+| Source-reviewed hook route candidate plans | 9 | Read candidate routes that are not receipts and do not claim runtime behavior. |
 | Observed hook rows | 3 | Rows with runtime lifecycle observation or execution evidence. |
 | Partially observed hook rows | 2 | Rows where one lifecycle phase remains, usually upgrade or delete. |
 | Source-reviewed routes not yet maintained | 8 | Promote the candidate route into a maintained lifecycle receipt, runtime observation path, or blocker. |
