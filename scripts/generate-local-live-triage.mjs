@@ -64,12 +64,13 @@ function buildReport() {
 function triageRow(row) {
   const receipt = receiptFor(row);
   const receiptText = receipt.path ? readFileSync(join(repoRoot, receipt.path), "utf8") : "";
+  const observedText = observedObjectsText(receipt.path);
   const spec = receipt.value?.spec ?? {};
   const checks = Array.isArray(spec.checks) ? spec.checks : [];
   const failedChecks = checks.filter((checkRow) => ["fail", "blocked", "watch"].includes(String(checkRow.result ?? "")));
   const passChecks = checks.filter((checkRow) => checkRow.result === "pass").length;
   const reasonText = reasonBundle({ receiptText, spec, failedChecks, row });
-  const route = classify(reasonText, row);
+  const route = classify(reasonText, row, observedText.toLowerCase());
   return {
     chart: row.chart,
     base: row.base,
@@ -96,6 +97,12 @@ function receiptFor(row) {
   return { path, value: readYaml(join(repoRoot, path)) };
 }
 
+function observedObjectsText(receiptPath) {
+  if (!receiptPath) return "";
+  const path = join(dirname(join(repoRoot, receiptPath)), "observed-objects.yaml");
+  return existsSync(path) ? readFileSync(path, "utf8") : "";
+}
+
 function reasonBundle({ receiptText, spec, failedChecks, row }) {
   const parts = [
     row.chart,
@@ -108,7 +115,7 @@ function reasonBundle({ receiptText, spec, failedChecks, row }) {
   return parts.filter(Boolean).join("\n").toLowerCase();
 }
 
-function classify(text, row) {
+function classify(text, row, observedText = "") {
   const base = row.base.toLowerCase();
   const chart = row.chart.toLowerCase();
   if (includesAny(text, ["being terminate", "is being terminate", "currently being deleted", "unable to create new content in namespace"])) {
@@ -130,8 +137,22 @@ function classify(text, row) {
   const explicitSecretFailure = includesAny(text, ["secret not found", "couldn't find key", "references non-existent secret"]);
   const runtimeFailure = includesAny(text, ["crashloopbackoff", "not-ready", "did not converge", "error ready=false", "runtime"]);
   const missingSecretLikePrereq = includesAny(text, ["missing mount/secret/config", "createcontainerconfigerror", "containercreating", "podinitializing"]);
+  const webhookCertLike =
+    includesAny(observedText, [
+      "secretname: \"ingress-nginx-admission\"",
+      "secretname: \"kube-prometheus-stack-admission\"",
+      "secretname: \"external-secrets-webhook\"",
+      "secretname: \"opentelemetry-operator-controller-manager-service-cert\"",
+      "secretname: \"vpa-tls",
+      "secretname: \"jaeger-operator-service-cert\"",
+    ]) ||
+    (observedText.includes("secretname:") &&
+      includesAny(observedText, ["tls-certs", "serving-certs", "/tmp/certs", "webhook-server", "admission-controller", "webhook certificate"]));
   if (explicitSecretFailure || (baseDeclaresTargetSecret && missingSecretLikePrereq && !runtimeFailure)) {
     return route("target-secret", baseDeclaresTargetSecret ? "high" : "medium");
+  }
+  if (missingSecretLikePrereq && webhookCertLike) {
+    return route("webhook-cert-lifecycle", "high");
   }
   if (includesAny(text, ["insufficient", "nodes are available", "persistentvolumeclaim", "unbound", "storageclass", "too many pods", "didn't have free ports"])) {
     return route("target-fit", "high");
@@ -166,6 +187,7 @@ function classMeaning(routeClass) {
     "missing-crds": "The rendered objects refer to custom resource types that were not present on the target.",
     "api-version-unsupported": "The rendered objects use a Kubernetes API version that the tested target no longer serves.",
     "lifecycle-ordering": "The rendered objects are valid, but the target needs a staged lifecycle sequence instead of one bulk apply.",
+    "webhook-cert-lifecycle": "A webhook or admission controller needs certificate material or a cert-generation lifecycle step before the workload can become ready.",
     "target-secret": "The base deliberately expects a Secret or TLS material that was not staged on the target.",
     "target-prerequisite": "The workload reached Kubernetes but one or more pods were waiting for target-provided config, mounts, certificates, or setup.",
     "image-dependency": "The target could not pull at least one rendered image, so the row is testing image availability rather than ConfigHub parity.",
@@ -184,6 +206,7 @@ function classNextAction(routeClass) {
     "missing-crds": "Use a CRD-owning base, preinstall the CRDs, or record an explicit no-CRDs support boundary before rerun.",
     "api-version-unsupported": "Use a supported chart version, compatibility base, or target Kubernetes profile before rerun.",
     "lifecycle-ordering": "Use the lifecycle route for this chart, then observe the staged apply or cleanup sequence with a receipt.",
+    "webhook-cert-lifecycle": "Model the serving certificate as a generated fact, target fact, cert-manager dependency, preflight, or explicit lifecycle action, then rerun.",
     "target-secret": "Stage the declared Secret or TLS material as a target fact, then rerun the local live and parity lanes.",
     "target-prerequisite": "Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant.",
     "image-dependency": "Pin, mirror, override, or document the image dependency, then rerun against a target that can pull it.",
@@ -202,6 +225,7 @@ function classBoundary(routeClass) {
     "missing-crds": "Render parity still stands; live success is scoped to targets with the required CRDs or a CRD-owning base.",
     "api-version-unsupported": "Render parity still stands; live support is scoped to targets that serve the rendered API versions.",
     "lifecycle-ordering": "The row is not a bulk-apply success claim; support depends on the documented lifecycle route.",
+    "webhook-cert-lifecycle": "The rendered objects are visible, but readiness depends on certificate lifecycle evidence rather than render parity alone.",
     "target-secret": "The model is working when it refuses to invent secret material; live success requires the target fact.",
     "target-prerequisite": "The row is not production-supported until the prerequisite is modeled and observed.",
     "image-dependency": "The row does not prove a ConfigHub semantic defect; it proves an image supply-chain dependency.",

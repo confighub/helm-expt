@@ -204,18 +204,22 @@ classified here so they become next actions rather than vague failures.
 
 | Route class | Rows | Next action |
 | --- | ---: | --- |
-| `runtime-readiness` | 27 | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
-| `target-prerequisite` | 21 | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
+| `runtime-readiness` | 25 | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
+| `webhook-cert-lifecycle` | 14 | Model the serving certificate as a generated fact, target fact, cert-manager dependency, preflight, or explicit lifecycle action, then rerun. |
+| `target-prerequisite` | 9 | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
 | `image-dependency` | 6 | Pin, mirror, override, or document the image dependency, then rerun against a target that can pull it. |
 | `admission-or-rbac` | 3 | Decide whether the base needs a permission/admission preflight, a different target scope, or a rejected support boundary. |
-| `missing-crds` | 3 | Use a CRD-owning base, preinstall the CRDs, or record an explicit no-CRDs support boundary before rerun. |
+| `api-version-unsupported` | 2 | Use a supported chart version, compatibility base, or target Kubernetes profile before rerun. |
 | `cloud-or-provider-prerequisite` | 2 | Model the provider dependency as target facts or an external managed prerequisite before rerun. |
+| `lifecycle-ordering` | 1 | Use the lifecycle route for this chart, then observe the staged apply or cleanup sequence with a receipt. |
 
 | Chart | Base | Result | Route class |
 | --- | --- | --- | --- |
 | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | default | fail | `admission-or-rbac` |
 | `velero/velero@12.0.1` | default | blocked | `admission-or-rbac` |
 | `velero/velero@12.0.1` | no-crds | blocked | `admission-or-rbac` |
+| `prometheus-community/prometheus-adapter@5.3.0` | cluster-metrics-readonly | blocked | `api-version-unsupported` |
+| `prometheus-community/prometheus-adapter@5.3.0` | default | blocked | `api-version-unsupported` |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | fail | `cloud-or-provider-prerequisite` |
 | `grafana/tempo@1.24.4` | s3-query-observability | blocked | `cloud-or-provider-prerequisite` |
 | `bitnami/spark@10.0.3` | default | blocked | `image-dependency` |
@@ -223,8 +227,6 @@ classified here so they become next actions rather than vague failures.
 | `bitnami/zookeeper@13.8.7` | default | blocked | `image-dependency` |
 | `bitnami/zookeeper@13.8.7` | ha | blocked | `image-dependency` |
 | `istio/gateway@1.30.0` | controller-default-reviewed | blocked | `image-dependency` |
-| `istio/gateway@1.30.0` | default | blocked | `image-dependency` |
-| `projectcalico/tigera-operator@v3.32.0` | default | blocked | `missing-crds` |
 
 Use [local-live-triage/summary.md](../local-live-triage/summary.md) for the
 full table with receipts and per-row next actions.
