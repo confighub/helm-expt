@@ -34,6 +34,7 @@ top500,version-drift review rows,21,500,partial,data/top500-catalog-analysis/rev
 proof lanes,render parity rows,189,189,good,data/outcome-coverage/base-outcomes.csv,Every chart/base row has render parity under recorded inputs.
 proof lanes,in-ConfigHub proof rows,20,189,partial,data/outcome-coverage/base-outcomes.csv,"Rows with upload, scan, or safe-operation proof receipts."
 proof lanes,local live rows,133,189,partial,data/outcome-coverage/base-outcomes.csv,Rows with committed local Kubernetes observation receipts.
+proof lanes,explicit lifecycle observation rows,4,4,good,data/outcome-coverage/base-outcomes.csv,"Rows where CRD, webhook, controller-owned field, or post-apply API readiness was proven through an explicit lifecycle receipt rather than a plain bulk apply."
 proof lanes,local live non-pass rows classified,56,56,good,data/local-live-triage/triage.csv,"Every local live non-pass receipt is mapped to a route class, next action, and proof boundary."
 proof lanes,GitOps/OCI live pass rows,23,189,partial,data/outcome-coverage/base-outcomes.csv,6 rows have non-pass GitOps/OCI receipts.
 proof lanes,live Helm-vs-ConfigHub parity pass rows,20,189,partial,data/outcome-coverage/base-outcomes.csv,2 rows have non-pass live parity receipts.

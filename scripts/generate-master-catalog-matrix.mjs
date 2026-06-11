@@ -49,6 +49,7 @@ const LANE_COLUMNS = [
   ["lane_render_parity", "render_parity"],
   ["lane_confighub_scan_ops", "in_confighub"],
   ["lane_local_kind", "local_live"],
+  ["lane_lifecycle_observed", "lifecycle_observation"],
   ["lane_gitops_oci_live", "gitops_oci_live"],
   ["lane_live_dual_parity", "live_helm_vs_confighub_parity"],
 ];
@@ -58,7 +59,7 @@ const LANE_COLUMNS = [
 const COLUMN_PROVENANCE = [
   {
     source: "outcome-coverage/base-outcomes.csv",
-    carried: "the spine: variants, the five proof lanes, two-cluster kind parity (K), outcome level, core-lane completeness, recipe path",
+    carried: "the spine: variants, the five proof lanes, lifecycle observation, two-cluster kind parity (K), outcome level, core-lane completeness, recipe path",
     dropped: "two_cluster_kind_parity_reason, missing_or_non_pass_lanes, evidence_notes, package_path, variant_revision",
   },
   {
