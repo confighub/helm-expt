@@ -1,0 +1,100 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "KubePrometheusStackCrdLiveUpgradeReceipt"
+metadata:
+  name: "kps-crd-live-upgrade-85.3.3-to-86.1.0"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  base: "default"
+  fromVersion: "85.3.3"
+  toVersion: "86.1.0"
+  result: "pass"
+  observedAt: "2026-06-11T04:03:12Z"
+  run:
+    mode: "single-kind-cluster-crd-upgrade-rehearsal"
+    cluster: "helm-expt-kps-crd-upgrade-8z2pbk"
+    namespace: "monitoring"
+    cleanup:
+      result: "pass"
+      detail: "deleted kind cluster"
+  basis:
+    deltaReceipt: "data/serious-chart-reviews/kps-crd-upgrade-delta-85.3.3-to-86.1.0.yaml"
+    fromRender: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+    toRender: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/rendered/release-objects.yaml"
+  claim: "The committed kube-prometheus-stack CRD desired-state upgrade can be applied to a fresh Kubernetes API server and the upgraded monitoring API accepts a server-side dry-run object."
+  notClaimed:
+    - "full kube-prometheus-stack workload upgrade"
+    - "Prometheus Operator controller compatibility after upgrade"
+    - "stored-object migration or conversion behavior"
+    - "upgrade behavior for other values, bases, clusters, or private overlays"
+  checks:
+    -
+      name: "rendered-crd-inputs"
+      result: "pass"
+      fromCrdCount: 10
+      toCrdCount: 10
+      inputs:
+        -
+          path: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+          sha256: "9fac2a0e4140eee298c84ce61f13dd8ca392bb92e2037d0ef0aaa4d8015ee491"
+          detail: "85.3.3 committed render containing source CRDs"
+        -
+          path: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/rendered/release-objects.yaml"
+          sha256: "58c19d82e70831986861de45eba5697418105140625afa840f5e329f1c21d1dd"
+          detail: "86.1.0 committed render containing target CRDs"
+    -
+      name: "kind-create"
+      result: "pass"
+      detail: "fresh kind cluster created for CRD upgrade rehearsal"
+      evidencePath: "kind-create.txt"
+      evidenceSHA256: "f95aee0c63f5575c26acfecf4246f913dd1bf7c1207c6dc2f0c5d4dd6b6673e0"
+    -
+      name: "namespace-create"
+      result: "pass"
+      detail: "created monitoring namespace for server-side CR dry-run"
+      evidencePath: "namespace-create.txt"
+      evidenceSHA256: "bd3b803add365cf4d0e35bca07d705d79ee7d51a81773d7ae64db9e144f0d561"
+    -
+      name: "apply-from-crds"
+      result: "pass"
+      detail: "85.3.3 CRDs applied with server-side apply"
+      evidencePath: "apply-from-crds.txt"
+      evidenceSHA256: "b216176e6b6297f328533407f27ed249c1405b2375605f9338de3b6c3ac9ed9b"
+    -
+      name: "from-crds-established"
+      result: "pass"
+      detail: "85.3.3 CRDs reached Established"
+      evidencePath: "from-crds-established.txt"
+      evidenceSHA256: "0e04b255db30f74d324e6d93bea9c06d05b37c095997c35024fa154cb5f3fef8"
+      crdCount: 10
+    -
+      name: "server-dry-run-before-upgrade"
+      result: "pass"
+      detail: "monitoring.coreos.com ServiceMonitor accepted before CRD upgrade"
+      evidencePath: "server-dry-run-before-upgrade.yaml"
+      evidenceSHA256: "781b12a0c1ec98e1f1ff221df7c153a6655db6dc8b43657f3b3580e1cca9adfb"
+    -
+      name: "crd-upgrade-diff"
+      result: "pass"
+      diffExitCode: 1
+      detail: "86.1.0 CRD server-side diff recorded before apply"
+      evidencePath: "crd-upgrade-diff.txt"
+      evidenceSHA256: "59128b7ec53a6f051a58a0978358cfc26212fb71f274e59c6db14c48daeb1fd7"
+    -
+      name: "apply-to-crds"
+      result: "pass"
+      detail: "86.1.0 CRDs applied over 85.3.3 CRDs"
+      evidencePath: "apply-to-crds.txt"
+      evidenceSHA256: "b216176e6b6297f328533407f27ed249c1405b2375605f9338de3b6c3ac9ed9b"
+    -
+      name: "to-crds-established"
+      result: "pass"
+      detail: "86.1.0 CRDs remained Established after upgrade apply"
+      evidencePath: "to-crds-established.txt"
+      evidenceSHA256: "0e04b255db30f74d324e6d93bea9c06d05b37c095997c35024fa154cb5f3fef8"
+      crdCount: 10
+    -
+      name: "server-dry-run-after-upgrade"
+      result: "pass"
+      detail: "monitoring.coreos.com ServiceMonitor accepted after CRD upgrade"
+      evidencePath: "server-dry-run-after-upgrade.yaml"
+      evidenceSHA256: "781b12a0c1ec98e1f1ff221df7c153a6655db6dc8b43657f3b3580e1cca9adfb"

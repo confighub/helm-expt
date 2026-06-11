@@ -95,6 +95,12 @@ Check the generated high-fanout example:
 npm run high-fanout:verify
 ```
 
+Check the live CRD upgrade rehearsal:
+
+```sh
+npm run kps:crd-upgrade-live:verify
+```
+
 Check the current production-support artifacts:
 
 ```sh
@@ -121,7 +127,8 @@ Do not claim that every kube-prometheus-stack topology is supported. The
 current support decision is for one base and one target scope.
 
 Do not claim that upgrades are solved. The repo has a render-level CRD upgrade
-delta for the latest candidate, but no live upgrade receipt for that upgrade.
+delta and a live API-server CRD upgrade rehearsal for the latest candidate.
+It still does not have a full kube-prometheus-stack workload upgrade receipt.
 
 Do not claim that all hook patterns are solved. This chart's hook route is
 observed for the selected profile. Other hook-bearing charts need their own
