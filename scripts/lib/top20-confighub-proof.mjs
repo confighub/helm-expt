@@ -187,6 +187,17 @@ export const TOP20_CONFIGHUB_PROOF_CHARTS = [
 
 export const CONFIGHUB_PROMOTION_PROOF_CHARTS = [
   {
+    slug: "cloudnative-pg",
+    displayName: "CloudNativePG",
+    component: "CloudNativePG",
+    packagePath: "packages/cloudnative-pg/cloudnative-pg/0.28.2",
+    chart: "cloudnative-pg/cloudnative-pg",
+    chartVersion: "0.28.2",
+    namespace: "cnpg-system",
+    defaultBase: "default",
+    skipDemoDocs: true,
+  },
+  {
     slug: "keda",
     displayName: "KEDA",
     component: "KEDA",
