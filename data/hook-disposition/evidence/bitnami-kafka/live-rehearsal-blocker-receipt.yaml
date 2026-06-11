@@ -1,0 +1,43 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HookRouteRehearsalBlockerReceipt
+metadata:
+  name: bitnami-kafka-provisioning-rehearsal-blocked
+spec:
+  chart: bitnami/kafka
+  version: 32.4.3
+  route: explicit-managed-action (provisioning Job, post-install/post-upgrade)
+  result: live-attempted-blocked
+  attemptedAt: "2026-06-11"
+  cluster: claude-helm-expt-kafka-6792 (created and deleted by this attempt; no shared cluster touched)
+  rehearsalProfile:
+    valuesArgs: --set controller.replicaCount=1 --set provisioning.enabled=true --set provisioning.topics[0].name=rehearsal-topic
+    renderedDocs: 12
+    hookDocs: 1 (Job rel-kafka-provisioning)
+  stepsCompleted:
+    - kind create cluster (180s wait) - pass
+    - namespace + non-hook object apply (11 objects) - pass
+    - statefulset rel-kafka-controller rollout (480s timeout) - BLOCKED
+  blockingError: |
+    Failed to pull image "docker.io/bitnami/kafka:4.0.0-debian-12-r10":
+    rpc error: code = NotFound desc = failed to resolve reference
+    "docker.io/bitnami/kafka:4.0.0-debian-12-r10":
+    docker.io/bitnami/kafka:4.0.0-debian-12-r10: not found
+    (kubelet, x5 pulls over 8m; pod rel-kafka-controller-0 Init:ImagePullBackOff)
+  diagnosis: The pinned chart's default image tag no longer exists on Docker
+    Hub. This is the remote-dependency / image-availability risk class the
+    quirk audits flag - the chart renders perfectly and live-installs nothing.
+    The hook Job itself references the same image, so the route rehearsal
+    cannot proceed on the pinned defaults.
+  preconditionsForRehearsal:
+    - an image override base or digest-pinned base whose images exist and are
+      pullable (connects to data/image-digest-workdown/)
+    - then re-run: apply non-hook objects, wait controller ready, apply the
+      extracted provisioning Job, observe completion
+  notClaimed:
+    - any live behavior of this chart or its hook
+    - that the chart is broken (the render is fine; the upstream image tag is gone)
+  evidence:
+    - path: data/hook-disposition/evidence/bitnami-kafka/evidence.yaml
+      claim: render-level proof that the hook is values-conditional
+    - path: data/hook-disposition/evidence/bitnami-kafka/hook-resources.yaml
+      claim: the exact extracted hook Job this rehearsal would have applied

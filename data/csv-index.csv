@@ -27,6 +27,7 @@ data/hard-chart-production-packets/packets.csv,hard-chart-production-packets,use
 data/hard-proof-gaps/shortlist.csv,hard-proof-gaps,supporting,"shortlist of top-100 quirk, hook, and dependency gaps most likely to undermine trust if overclaimed",data/hard-proof-gaps/summary.md,npm run top100:hard-gaps,npm run top100:hard-gaps:verify
 data/high-fanout-demo/prometheus-kps.csv,high-fanout-demo,user/front-door,Prometheus/kube-prometheus-stack high-fanout base-variant example,data/high-fanout-demo/summary.md,npm run high-fanout:generate,npm run high-fanout:verify
 data/hook-coverage/top100-hook-coverage.csv,hook-coverage,user/front-door,one row per source top-100 hook chart joined to maintained lifecycle coverage or candidate route coverage,data/hook-coverage/summary.md,npm run hooks:coverage,npm run hooks:coverage:verify
+data/hook-disposition/top100-hook-dispositions.csv,hook-disposition,corpus,supporting generated CSV,data/hook-disposition/summary.md,,
 data/hook-lifecycle-review/top100-source-hook-route-review.csv,hook-lifecycle-review,corpus,review or promotion worksheet,data/hook-lifecycle-review/summary.md,,
 data/hook-lifecycle/maintained-hook-queue.csv,hook-lifecycle,corpus,review queue,data/hook-lifecycle/summary.md,npm run hooks:lifecycle,npm run hooks:lifecycle:verify
 data/hook-lifecycle/receipt-index.csv,hook-lifecycle,corpus,required receipt paths and minimum checks,data/hook-lifecycle/summary.md,npm run hooks:lifecycle,npm run hooks:lifecycle:verify

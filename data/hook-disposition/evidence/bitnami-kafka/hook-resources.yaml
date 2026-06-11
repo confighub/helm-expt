@@ -1,0 +1,169 @@
+# Extracted helm.sh/hook resources from the renders described in evidence.yaml.
+# Static render evidence; not applied by this extraction.
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: rel-kafka-provisioning
+  namespace: test-ns
+  labels:
+    app.kubernetes.io/instance: rel
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: kafka
+    app.kubernetes.io/version: 4.0.0
+    helm.sh/chart: kafka-32.4.3
+    app.kubernetes.io/component: kafka-provisioning
+  annotations:
+    helm.sh/hook: post-install,post-upgrade
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+    helm-expt.confighub.com/render-profile: provisioning-enabled
+spec:
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: rel
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: kafka
+        app.kubernetes.io/version: 4.0.0
+        helm.sh/chart: kafka-32.4.3
+        app.kubernetes.io/component: kafka-provisioning
+    spec:
+      serviceAccountName: rel-kafka-provisioning
+      automountServiceAccountToken: false
+      enableServiceLinks: true
+      securityContext:
+        fsGroup: 1001
+        fsGroupChangePolicy: Always
+        seccompProfile:
+          type: RuntimeDefault
+        supplementalGroups: []
+        sysctls: []
+      restartPolicy: OnFailure
+      terminationGracePeriodSeconds: 0
+      initContainers:
+      - name: prepare-config
+        image: docker.io/bitnami/kafka:4.0.0-debian-12-r10
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsGroup: 1001
+          runAsNonRoot: true
+          runAsUser: 1001
+          seLinuxOptions: {}
+        command:
+        - /bin/bash
+        args:
+        - -ec
+        - ". /opt/bitnami/scripts/libkafka.sh\n\nif [[ ! -f \"$KAFKA_CONF_FILE\" ]];\
+          \ then\n    touch $KAFKA_CONF_FILE\n\n    kafka_server_conf_set security.protocol\
+          \ \"SASL_PLAINTEXT\"\n    kafka_server_conf_set sasl.mechanism PLAIN\n \
+          \   kafka_server_conf_set sasl.jaas.config \"org.apache.kafka.common.security.plain.PlainLoginModule\
+          \ required username=\\\"$SASL_USERNAME\\\" password=\\\"$SASL_USER_PASSWORD\\\
+          \";\"\nfi\n"
+        env:
+        - name: KAFKA_CONF_FILE
+          value: /shared/client.properties
+        - name: SASL_USERNAME
+          value: user1
+        - name: SASL_USER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rel-kafka-user-passwords
+              key: system-user-password
+        resources:
+          limits:
+            cpu: 375m
+            ephemeral-storage: 2Gi
+            memory: 384Mi
+          requests:
+            cpu: 250m
+            ephemeral-storage: 50Mi
+            memory: 256Mi
+        volumeMounts:
+        - name: shared
+          mountPath: /shared
+      - name: wait-for-available-kafka
+        image: docker.io/bitnami/kafka:4.0.0-debian-12-r10
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsGroup: 1001
+          runAsNonRoot: true
+          runAsUser: 1001
+          seLinuxOptions: {}
+        command:
+        - /bin/bash
+        args:
+        - -ec
+        - ". /opt/bitnami/scripts/libos.sh\n\nexit_code=0\nif ! retry_while \"/opt/bitnami/kafka/bin/kafka-broker-api-versions.sh\
+          \ --bootstrap-server ${KAFKA_SERVICE} --command-config /shared/client.properties\"\
+          ; then\n    echo \"Kafka is not ready\"\n    exit_code=1\nelse\n    echo\
+          \ \"Kafka ready\"\nfi\n\nexit \"$exit_code\"\n"
+        env:
+        - name: KAFKA_SERVICE
+          value: rel-kafka:9092
+        resources:
+          limits:
+            cpu: 375m
+            ephemeral-storage: 2Gi
+            memory: 384Mi
+          requests:
+            cpu: 250m
+            ephemeral-storage: 50Mi
+            memory: 256Mi
+        volumeMounts:
+        - name: shared
+          mountPath: /shared
+      containers:
+      - name: kafka-provisioning
+        image: docker.io/bitnami/kafka:4.0.0-debian-12-r10
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsGroup: 1001
+          runAsNonRoot: true
+          runAsUser: 1001
+          seLinuxOptions: {}
+        command:
+        - /bin/bash
+        args:
+        - -ec
+        - "\nkafka_provisioning_commands=(\n    \"/opt/bitnami/kafka/bin/kafka-topics.sh\
+          \ \\\n        --create \\\n        --if-not-exists \\\n        --bootstrap-server\
+          \ ${KAFKA_SERVICE} \\\n        --replication-factor 1 \\\n        --partitions\
+          \ 1 \\\n        --command-config /shared/client.properties \\\n        --topic\
+          \ demo\"\n)\n\necho \"Starting provisioning\"\nfor ((index=0; index < ${#kafka_provisioning_commands[@]};\
+          \ index+=1)); do\n    for j in $(seq ${index} $((${index}+1-1))); do\n \
+          \       ${kafka_provisioning_commands[j]} &\n    done\n    # Wait the end\
+          \ of the jobs\n    wait\ndone\n\necho \"Provisioning succeeded\"\n"
+        env:
+        - name: BITNAMI_DEBUG
+          value: 'false'
+        - name: KAFKA_SERVICE
+          value: rel-kafka:9092
+        resources:
+          limits:
+            cpu: 375m
+            ephemeral-storage: 2Gi
+            memory: 384Mi
+          requests:
+            cpu: 250m
+            ephemeral-storage: 50Mi
+            memory: 256Mi
+        volumeMounts:
+        - name: shared
+          mountPath: /shared
+      volumes:
+      - name: shared
+        emptyDir: {}

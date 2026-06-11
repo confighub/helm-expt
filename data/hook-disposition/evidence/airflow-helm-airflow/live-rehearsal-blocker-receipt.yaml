@@ -1,0 +1,39 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HookRouteRehearsalBlockerReceipt
+metadata:
+  name: airflow-helm-airflow-dbmigrations-rehearsal-blocked
+spec:
+  chart: airflow-helm/airflow
+  version: 8.9.0
+  route: explicit-managed-action or upgrade-action (db-migrations Job when
+    airflow.dbMigrations.runAsJob=true; hook-weight -100, delete-policy
+    before-hook-creation)
+  result: refusal-blocked-before-attempt
+  reviewedAt: "2026-06-11"
+  reason: A live rehearsal of the migration hook requires the chart's
+    dependency closure to be running first. That closure is itself blocked by
+    the same image-availability risk observed live on bitnami/kafka.
+  preconditionsForRehearsal:
+    - a running PostgreSQL the migration Job can reach (the chart's bundled
+      postgres is a bitnami subchart, subject to the purged-image-tag risk
+      recorded in the kafka blocker receipt)
+    - a running Redis when the executor requires it
+    - an image override or digest-pinned base for the airflow and dependency
+      images
+    - a cluster sized for scheduler + web + workers (heavier than the
+      single-node rehearsal profile used for kafka)
+  renderEvidenceInstead:
+    - default render is hook-free (db migrations run as a Deployment)
+    - --set airflow.dbMigrations.runAsJob=true renders exactly one hook Job
+    - see evidence.yaml renders with sha256 digests
+  notClaimed:
+    - any live behavior of this chart or its hooks
+    - that the five source-scan hook templates render together under any
+      single values profile (only the db-migrations toggle was proven)
+  evidence:
+    - path: data/hook-disposition/evidence/airflow-helm-airflow/evidence.yaml
+      claim: render-level proof of the values-conditional hook structure
+    - path: data/hook-disposition/evidence/airflow-helm-airflow/hook-resources.yaml
+      claim: the extracted db-migrations hook Job
+    - path: data/hook-disposition/evidence/bitnami-kafka/live-rehearsal-blocker-receipt.yaml
+      claim: the live-observed image-availability blocker this refusal cites

@@ -1,0 +1,18 @@
+chart: kong/kong
+version: 3.2.0
+method: helm template (Helm v4.1.4) against the pinned upstream chart archive; static
+  render evidence only - no live claim
+renderedAt: '2026-06-11'
+renders:
+- profile: default-dbless
+  valuesArgs: (chart defaults; DB-less)
+  hookDocs: 0
+  renderSha256: 063222e82932d7dbd3ddaa84df2c188ed326197d04f66b026bf6fbb6ed48020e
+- profile: postgres
+  valuesArgs: --set env.database=postgres --set postgresql.enabled=true --set postgresql.image.repository=bitnami/postgresql
+    --set postgresql.image.tag=16.4.0
+  hookDocs: 2
+  renderSha256: 55b36681b03ef529a32cf3c86b2ef22f1358af8b90a4feec2d7270713664b198
+finding: The pre/post-upgrade migration hook pair renders only in postgres mode; the
+  DB-less default is hook-free. Postgres mode also requires explicit postgresql image
+  values.
