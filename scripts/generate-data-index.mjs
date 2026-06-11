@@ -50,6 +50,7 @@ function buildReport() {
 
 function readme(rows) {
   const quickRoutes = [
+    ["I want the compact catalog data routing index.", "data/catalog-index/summary.md"],
     ["I want the current headline status.", "data/status-dashboard/summary.md"],
     ["I want to know if I can use a specific chart.", "data/chart-use-guide/summary.md; data/chart-use-guide/chart-use-guide.csv"],
     ["I want to know what outcomes are actually promised and proven.", "data/outcome-evidence-contract/summary.md; data/outcome-evidence-contract/outcomes.csv"],
@@ -77,6 +78,7 @@ function readme(rows) {
     ["I want accepted pre-review production dispositions.", "data/production-disposition/summary.md; data/production-disposition/support-decision-contract.md; data/production-disposition/support-decision-queue.csv"],
   ];
   const primary = [
+    ["data/catalog-index/summary.md", "Compact question-to-source router for top100/top500 catalog status, prerequisites, base gaps, blockers, and evidence."],
     ["data/status-dashboard/summary.md", "Start here for a one-page status dashboard: top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity."],
     ["data/chart-use-guide/summary.md", "Chart-use guide: one short answer per top-100 chart for whether to use it now, promote it, design a better base, or decide a limitation first."],
     ["data/status-dashboard/next-work-queues.csv", "Machine-readable next work queues for top100 catalog work, top20 production support, live parity, and hook/lifecycle work."],
@@ -295,6 +297,7 @@ function audienceFor(path) {
   if (path.startsWith("data/claims-register/")) return "user/front-door";
   if (path.startsWith("data/blast-radius-accuracy/")) return "user/front-door";
   if (path.startsWith("data/pain-point-coverage/")) return "user/front-door";
+  if (path.startsWith("data/top100-user-readiness/")) return "user/front-door";
   if (path.startsWith("data/top100-readiness/")) return "user/front-door";
   if (path.startsWith("data/top100-coverage/")) return "user/front-door";
   if (path.startsWith("data/useful-base-design-queue/")) return "user/front-door";
@@ -337,6 +340,7 @@ function roleFor(path) {
   if (path === "data/claims-register/claims.csv") return "one row per public claim: status, evidence paths, scoped verifier, and limit";
   if (path === "data/blast-radius-accuracy/cases.csv") return "one row per value-source-map blast-radius case: measured score or unmeasured backlog";
   if (path === "data/pain-point-coverage/pain-points.csv") return "one row per Helm pain point: answer, handoff, evidence, gap";
+  if (path === "data/top100-user-readiness/readiness.csv") return "one row per top-100 chart in user language: bucket, current proof, first base, prerequisites, absorbed responsibilities, and next action";
   if (path === "data/top100-readiness/readiness.csv") return "one row per top-100 chart: workability, adoption bucket, strongest evidence, gap, next action, and queue source";
   if (path === "data/top100-readiness/next80-queues.csv") return "one row per next80 proof-grade chart: queue, rank, features, artifacts, and next action";
   if (path === "data/top100-coverage/coverage.csv") return "one row per top-100 chart: strict coverage contract status, item statuses, evidence paths, and next action";
@@ -404,6 +408,7 @@ function familyRole(family) {
     "status-dashboard": "one-page front-door status dashboard",
     "top20-base-readiness": "top-20 base-variant readiness and first-path guidance",
     "pain-point-coverage": "front-door Helm pain point coverage map",
+    "top100-user-readiness": "front-door top-100 user-language readiness, prerequisites, first base, and next action",
     "top100-readiness": "front-door top-100 user readiness and evidence summary",
     "top100-coverage": "front-door top-100 coverage contract and work queue",
     "useful-base-design-queue": "front-door proposed useful-base queue for default-shaped top-100 charts",
@@ -498,6 +503,7 @@ function commandMap() {
     "status-dashboard": { generate: "npm run status:dashboard", verify: "npm run status:dashboard:verify" },
     "top20-base-readiness": { generate: "npm run top20:base-readiness", verify: "npm run top20:base-readiness:verify" },
     "pain-point-coverage": { generate: "npm run pain-points:generate", verify: "npm run pain-points:verify" },
+    "top100-user-readiness": { generate: "npm run top100:user-readiness", verify: "npm run top100:user-readiness:verify" },
     "top100-readiness": { generate: "npm run top100:readiness", verify: "npm run top100:readiness:verify" },
     "top100-coverage": { generate: "npm run top100:coverage", verify: "npm run top100:coverage:verify" },
     "useful-base-design-queue": { generate: "npm run top100:useful-base-queue", verify: "npm run top100:useful-base-queue:verify" },
