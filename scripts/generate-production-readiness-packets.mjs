@@ -81,14 +81,18 @@ const CHARTS = [
         "ConfigHub OCI default-base rehearsal with separated webhook Secret pre-staged: Argo synced and runtime became healthy",
         "data/runtime-gitops/receipts/external-secrets-external-secrets/default-prestaged-secret/latest.yaml",
       ],
+      [
+        "ConfigHub OCI default-base rehearsal with fake-provider SecretStore and ExternalSecret round trip",
+        "data/runtime-gitops/receipts/external-secrets-external-secrets/default-fake-provider-roundtrip/latest.yaml",
+      ],
     ],
     mustNot: [
       "\"strict rendered-object/live parity holds on Kubernetes 1.30\" - same selectableFields watchlist row as cert-manager; not claimed for that profile",
       "\"external-secrets/default is live-ready through workload-only OCI\" - the workload-only rehearsal blocks; the passing rehearsal requires the separated external-secrets-webhook Secret to be staged as an explicit prerequisite",
-      "\"secrets reconcile end to end\" - no receipt exercises a real external provider; live evidence covers the controller, not a provider round-trip",
+      "\"production providers are proven\" - the provider round-trip receipt uses the disposable fake provider; AWS, Vault, Kubernetes, GCP, Azure, and provider credential behavior still need separate evidence",
     ],
     nextTest:
-      "run a provider round-trip rehearsal against a disposable secrets backend plus the 1.31+ capability-profile witness",
+      "run the 1.31+ capability-profile witness, or commit a profile-specific base that does not claim selectableFields compatibility on targets that drop it",
   },
 ];
 

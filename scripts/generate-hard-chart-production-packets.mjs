@@ -36,9 +36,10 @@ const hardCharts = [
   },
   {
     chart: "external-secrets/external-secrets",
-    reason: "CRD-owning secrets controller where the install succeeds before provider SecretStores and ExternalSecrets prove useful runtime behavior.",
+    reason:
+      "CRD-owning secrets controller where install readiness, webhook Secret delivery, and provider SecretStore/ExternalSecret reconciliation are separate lifecycle facts.",
     safeUse:
-      "Use default for the controller install. Provider-specific SecretStore and ExternalSecret use cases need separate bases, overlays, or derived variants with provider evidence.",
+      "Use default for the controller install with the recorded separated-Secret prerequisite. The disposable fake-provider round trip is proven; production providers and credentials still need separate bases, overlays, or derived variants with provider-specific evidence.",
   },
   {
     chart: "argo-cd/argo-cd",

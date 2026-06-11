@@ -32,6 +32,7 @@ Lane summary: local:1/2 gitops:1/2 live-parity:1/2 two-cluster:2/2. Authoritativ
 - CRD/webhook/controller runtime lifecycle observations ([evidence](../../../data/lifecycle-observations/cert-manager-eso/summary.md))
 - ConfigHub OCI default-base rehearsal: Argo synced, runtime blocked on separated webhook Secret delivery ([evidence](../../../data/runtime-gitops/receipts/external-secrets-external-secrets/default/latest.yaml))
 - ConfigHub OCI default-base rehearsal with separated webhook Secret pre-staged: Argo synced and runtime became healthy ([evidence](../../../data/runtime-gitops/receipts/external-secrets-external-secrets/default-prestaged-secret/latest.yaml))
+- ConfigHub OCI default-base rehearsal with fake-provider SecretStore and ExternalSecret round trip ([evidence](../../../data/runtime-gitops/receipts/external-secrets-external-secrets/default-fake-provider-roundtrip/latest.yaml))
 
 ## What is only watch, per-target, or manual?
 
@@ -45,18 +46,17 @@ The support decision is `draft`; live evidence is `fresh-target-evidence-passed-
 Required before final support:
 
 - Run a Kubernetes 1.31+ capability-profile witness, or create a profile-specific base, before claiming selectableFields compatibility.
-- Run a provider round-trip rehearsal against a disposable secrets backend before claiming provider behavior.
 
-Next action: Run a provider round-trip rehearsal against a disposable secrets backend and a Kubernetes 1.31+ capability-profile witness before final production support.
+Next action: Run a Kubernetes 1.31+ capability-profile witness, or create a profile-specific base, before final production support.
 
 ## Claims we must not make yet
 
 - "strict rendered-object/live parity holds on Kubernetes 1.30" - same selectableFields watchlist row as cert-manager; not claimed for that profile
 - "external-secrets/default is live-ready through workload-only OCI" - the workload-only rehearsal blocks; the passing rehearsal requires the separated external-secrets-webhook Secret to be staged as an explicit prerequisite
-- "secrets reconcile end to end" - no receipt exercises a real external provider; live evidence covers the controller, not a provider round-trip
+- "production providers are proven" - the provider round-trip receipt uses the disposable fake provider; AWS, Vault, Kubernetes, GCP, Azure, and provider credential behavior still need separate evidence
 - "production-supported beyond the named target scope" - support is a per-scope decision
 - "works on any Kubernetes" - live claims are bounded to the tested capability profile
 
 ## The exact next test
 
-run a provider round-trip rehearsal against a disposable secrets backend plus the 1.31+ capability-profile witness.
+run the 1.31+ capability-profile witness, or commit a profile-specific base that does not claim selectableFields compatibility on targets that drop it.

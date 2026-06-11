@@ -12,21 +12,21 @@ is a navigation surface over existing evidence, not a new support decision.
 | Production disposition | `production-review-ready` |
 | Target scope | cub-lk-kind-vanilla; namespace=external-secrets; delivery=confighub-oci; controller=argo |
 | Delivery path | `confighub-oci` |
-| Evidence count | 17 |
+| Evidence count | 18 |
 | Strongest user-facing evidence | live-helm-vs-confighub-parity |
 | Live summary | local:1/2 gitops:1/2 live-parity:1/2 two-cluster:2/2 |
 
 ## Why This Chart Is Hard
 
-CRD-owning secrets controller where the install succeeds before provider SecretStores and ExternalSecrets prove useful runtime behavior.
+CRD-owning secrets controller where install readiness, webhook Secret delivery, and provider SecretStore/ExternalSecret reconciliation are separate lifecycle facts.
 
 ## What A User Can Safely Do Today
 
-Use default for the controller install. Provider-specific SecretStore and ExternalSecret use cases need separate bases, overlays, or derived variants with provider evidence.
+Use default for the controller install with the recorded separated-Secret prerequisite. The disposable fake-provider round trip is proven; production providers and credentials still need separate bases, overlays, or derived variants with provider-specific evidence.
 
 ## What Remains Before Broader Production Use
 
-Run a provider round-trip rehearsal against a disposable secrets backend and a Kubernetes 1.31+ capability-profile witness before final production support.
+Run a Kubernetes 1.31+ capability-profile witness, or create a profile-specific base, before final production support.
 
 ## Bases
 
