@@ -1,0 +1,34 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  labels:
+    confighub.io/chart-ref: "nats/surveyor"
+    confighub.io/chart-version: "0.20.9"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default-reviewed"
+    helm-expt.confighub.com/useful-base-status: "realized-alias-base"
+  name: "default-reviewed"
+spec:
+  capabilityProfile:
+    apiVersions:
+      []
+    kubeVersion: "1.30.0"
+  hookPolicy: "no-hooks"
+  namespace: "default"
+  recipe: "../../recipe.yaml"
+  releaseName: "surveyor"
+  valuesProfile: "../../effective-values.yaml"
+  usefulBase:
+    realizationStrategy: "alias-of-default-render"
+    sourceBase: "default"
+    userJob: "turn the default render into a named, reviewed install shape"
+    renderTimeChoices:
+      - "required values"
+      - "Secret policy"
+      - "Service/Ingress shape"
+      - "storage if present"
+    remainingBeforeCatalog:
+      - "ConfigHub proof lane"
+      - "selected live lane"
+      - "production disposition"
+    note: "This base intentionally reuses the default rendered object set and makes the user-facing install shape explicit."

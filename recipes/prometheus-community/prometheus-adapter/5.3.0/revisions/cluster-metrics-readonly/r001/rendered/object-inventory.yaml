@@ -1,0 +1,80 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-adapter"
+    confighub.io/chart-version: "5.3.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "cluster-metrics-readonly"
+  name: "prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly-r001"
+spec:
+  objectCount: 11
+  objects:
+    -
+      apiVersion: "apiregistration.k8s.io/v1beta1"
+      identity: "apiregistration.k8s.io/v1beta1|APIService||v1beta1.custom.metrics.k8s.io"
+      kind: "APIService"
+      name: "v1beta1.custom.metrics.k8s.io"
+      namespace: ""
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|prometheus-adapter"
+      kind: "Deployment"
+      name: "prometheus-adapter"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||prometheus-adapter-hpa-controller"
+      kind: "ClusterRoleBinding"
+      name: "prometheus-adapter-hpa-controller"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||prometheus-adapter-resource-reader"
+      kind: "ClusterRoleBinding"
+      name: "prometheus-adapter-resource-reader"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||prometheus-adapter-system-auth-delegator"
+      kind: "ClusterRoleBinding"
+      name: "prometheus-adapter-system-auth-delegator"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||prometheus-adapter-resource-reader"
+      kind: "ClusterRole"
+      name: "prometheus-adapter-resource-reader"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||prometheus-adapter-server-resources"
+      kind: "ClusterRole"
+      name: "prometheus-adapter-server-resources"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|kube-system|prometheus-adapter-auth-reader"
+      kind: "RoleBinding"
+      name: "prometheus-adapter-auth-reader"
+      namespace: "kube-system"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|prometheus-adapter"
+      kind: "ConfigMap"
+      name: "prometheus-adapter"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|prometheus-adapter"
+      kind: "ServiceAccount"
+      name: "prometheus-adapter"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|prometheus-adapter"
+      kind: "Service"
+      name: "prometheus-adapter"
+      namespace: "default"
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a"

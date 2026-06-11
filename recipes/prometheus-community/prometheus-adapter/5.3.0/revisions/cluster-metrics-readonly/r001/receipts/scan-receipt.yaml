@@ -1,0 +1,63 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-adapter"
+    confighub.io/chart-version: "5.3.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "cluster-metrics-readonly"
+  name: "prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly-r001"
+spec:
+  findingCounts:
+    critical: 0
+    high: 0
+    info: 0
+    low: 0
+    medium: 6
+  findings:
+    -
+      id: "apiservice-requires-observation:apiregistration.k8s.io/v1beta1|APIService||v1beta1.custom.metrics.k8s.io"
+      message: "APIService availability must be observed after apply"
+      object: "apiregistration.k8s.io/v1beta1|APIService||v1beta1.custom.metrics.k8s.io"
+      rule: "apiservice-requires-observation"
+      severity: "medium"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||prometheus-adapter-resource-reader"
+      message: "Cluster-scoped RBAC requires production review"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||prometheus-adapter-resource-reader"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||prometheus-adapter-server-resources"
+      message: "Cluster-scoped RBAC requires production review"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||prometheus-adapter-server-resources"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||prometheus-adapter-hpa-controller"
+      message: "Cluster-scoped RBAC requires production review"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||prometheus-adapter-hpa-controller"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||prometheus-adapter-resource-reader"
+      message: "Cluster-scoped RBAC requires production review"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||prometheus-adapter-resource-reader"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||prometheus-adapter-system-auth-delegator"
+      message: "Cluster-scoped RBAC requires production review"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||prometheus-adapter-system-auth-delegator"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+  policyBundleDigest: "d4913c44f60cee40b376761c82c0c5b84e3f65043012ae875d8f376330dabc35"
+  renderedObjectSetSHA256: "50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.2.0"
+  variantRevision: "../variant-revision.yaml"
+  usefulBaseAlias:
+    sourceBase: "default"
+    realizationStrategy: "alias-of-default-render"

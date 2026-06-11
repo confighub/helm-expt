@@ -4,18 +4,29 @@ metadata:
   name: "autoscaler-cluster-autoscaler-9-57-0"
 spec:
   chart:
-    repository: "autoscaler"
     name: "cluster-autoscaler"
+    repository: "autoscaler"
     version: "9.57.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/autoscaler/cluster-autoscaler/9.57.0 -o <tmp>/autoscaler-cluster-autoscaler-9-57-0.tgz"
+    sha256: "351121a8d10b6a6fa0ba0a81b1d5345038f25968c117c5ae4dc9c4e1a7474b8d"
   package:
-    path: "packages/autoscaler/cluster-autoscaler/9.57.0"
     name: "autoscaler-cluster-autoscaler"
-    version: "9.57.0"
+    path: "packages/autoscaler/cluster-autoscaler/9.57.0"
     sourceFiles:
       -
         path: "README.md"
         sha256: "da31102ed8a16616ca354c8b81a95b922d17d6262450b2ddc87aad361c98d5c9"
         bytes: 210
+      -
+        path: "bases/controller-default-reviewed/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/controller-default-reviewed/upstream.yaml"
+        sha256: "9e67f520b5c65ff34d72f8c85e4245c2d9d238b6da336112dfa272a060d69446"
+        bytes: 6270
       -
         path: "bases/default/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
@@ -26,20 +37,27 @@ spec:
         bytes: 6270
       -
         path: "installer.yaml"
-        sha256: "d6bdce5e56fb4571a14d37f6f4a6a3fb8b85053d327542a8a6f9d78e955657d3"
-        bytes: 342
-  deterministicBundle:
-    command: "cub installer package packages/autoscaler/cluster-autoscaler/9.57.0 -o <tmp>/autoscaler-cluster-autoscaler-9-57-0.tgz"
-    sha256: "53c288d91500c85560161b78f6c05f493ad2c67e213e203f75053cdb8caafeb3"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "fc58e02f3abf561fda805f5bc99a2eadb95b3b62ea6527bfadd5ae0260c3ac28"
+        bytes: 607
+    version: "9.57.0"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/autoscaler/cluster-autoscaler/9.57.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 7
-      cubInstallObjectCountIncludingSupport: 8
-      semanticObjectMatches: "7/7"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/autoscaler/cluster-autoscaler/9.57.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 8
+      helmReleaseObjectCount: 7
+      semanticObjectMatches: "7/7"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
+      base: "controller-default-reviewed"
+      command: "cub installer setup --pull packages/autoscaler/cluster-autoscaler/9.57.0 --base controller-default-reviewed --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 8
+      helmReleaseObjectCount: 7
+      semanticObjectMatches: "7/7"
+      separatedSecretCount: 0
+      variant: "controller-default-reviewed"

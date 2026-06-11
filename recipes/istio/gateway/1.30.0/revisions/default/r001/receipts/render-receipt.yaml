@@ -1,30 +1,30 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "RenderReceipt"
 metadata:
-  name: "istio-gateway-1-30-0-default-r001"
   labels:
     confighub.io/chart-ref: "istio/gateway"
     confighub.io/chart-version: "1.30.0"
     confighub.io/proof-tier: "next80-full"
     confighub.io/variant: "default"
+  name: "istio-gateway-1-30-0-default-r001"
 spec:
-  variantRevision: "../variant-revision.yaml"
+  inputs:
+    dependencyLockSHA256: "2c43475fc4b0148a8a4a45076ffe9b88c9bd9b75e4d3d06f9e7287973a9ac6e6"
+    effectiveValuesSHA256: "89025092d72d1996631cdede94ba9babc2f3cc1e27f82c71c1f386f341f9621c"
+    sourceLockSHA256: "d6eed67be6ee42948caaa105eafa61b02734eb52c61b0533d147d8214a42825f"
+  outputs:
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 6
+    renderedObjectInventorySHA256: "fcad59727809c588e6e998a57d611b8d05b2c685de5de4d86160e36aec36e5e4"
+    renderedObjectSetSHA256: "07b3cb11d265a7b857b231a347be2c71742e5bc1eeb02efddd7ce71ecc1c7afc"
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0
   renderer:
-    name: "helm"
-    version: "v4.1.4+g05fa379"
-    kubeVersion: "1.30.0"
     flags:
       - "--include-crds"
       - "--skip-tests"
       - "--no-hooks"
-  inputs:
-    sourceLockSHA256: "d6eed67be6ee42948caaa105eafa61b02734eb52c61b0533d147d8214a42825f"
-    dependencyLockSHA256: "2c43475fc4b0148a8a4a45076ffe9b88c9bd9b75e4d3d06f9e7287973a9ac6e6"
-    effectiveValuesSHA256: "89025092d72d1996631cdede94ba9babc2f3cc1e27f82c71c1f386f341f9621c"
-  outputs:
-    renderedObjectSetSHA256: "07b3cb11d265a7b857b231a347be2c71742e5bc1eeb02efddd7ce71ecc1c7afc"
-    renderedObjectInventorySHA256: "fcad59727809c588e6e998a57d611b8d05b2c685de5de4d86160e36aec36e5e4"
-    deterministicAcrossTwoLocalRenders: true
-    objectCount: 6
-    renderedSecretCount: 0
-    secretCountSeparatedByCubInstall: 0
+    kubeVersion: "1.30.0"
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+  variantRevision: "../variant-revision.yaml"

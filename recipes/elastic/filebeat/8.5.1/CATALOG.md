@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, node-or-cluster-collector |
 | Control points | capability-profile, cluster-rbac, dependency-lock, extension-slots, helm-equivalence, rendered-manifest-scan, source-lock, tpl-extension-slots, variant-revision |
 
 ## Feature And Proof Summary
@@ -58,12 +58,14 @@ for exact base-variant evidence.
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/elastic/filebeat/8.5.1/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/elastic/filebeat/8.5.1/bases/default](../../../../packages/elastic/filebeat/8.5.1/bases/default) | [recipes/elastic/filebeat/8.5.1/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 7 | 8 | 7/7 | pass | warn | warn | none |
+| node-or-cluster-collector | [recipes/elastic/filebeat/8.5.1/variants/node-or-cluster-collector/variant.yaml](variants/node-or-cluster-collector/variant.yaml) | [packages/elastic/filebeat/8.5.1/bases/node-or-cluster-collector](../../../../packages/elastic/filebeat/8.5.1/bases/node-or-cluster-collector) | [recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/variant-revision.yaml](revisions/node-or-cluster-collector/r001/variant-revision.yaml) | 7 | 8 | 7/7 | pass | warn | warn | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/elastic/filebeat/8.5.1/bases/default](../../../../packages/elastic/filebeat/8.5.1/bases/default) | yes | elastic/filebeat default variant rendered from elastic/filebeat@8.5.1 |
+| node-or-cluster-collector | [packages/elastic/filebeat/8.5.1/bases/node-or-cluster-collector](../../../../packages/elastic/filebeat/8.5.1/bases/node-or-cluster-collector) | no | elastic/filebeat node-or-cluster-collector useful base; aliases the default render with a named user start path |
 
 ## Receipts
 
@@ -73,6 +75,10 @@ for exact base-variant evidence.
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/elastic/filebeat/8.5.1/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | warn | [recipes/elastic/filebeat/8.5.1/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | warn | [recipes/elastic/filebeat/8.5.1/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| node-or-cluster-collector | r001 | render | RenderReceipt | recorded | [recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/receipts/render-receipt.yaml](revisions/node-or-cluster-collector/r001/receipts/render-receipt.yaml) |
+| node-or-cluster-collector | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/receipts/helm-equivalence-receipt.yaml](revisions/node-or-cluster-collector/r001/receipts/helm-equivalence-receipt.yaml) |
+| node-or-cluster-collector | r001 | scan | ScanReceipt | warn | [recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/receipts/scan-receipt.yaml](revisions/node-or-cluster-collector/r001/receipts/scan-receipt.yaml) |
+| node-or-cluster-collector | r001 | installGate | InstallGate | warn | [recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/receipts/install-gate.yaml](revisions/node-or-cluster-collector/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

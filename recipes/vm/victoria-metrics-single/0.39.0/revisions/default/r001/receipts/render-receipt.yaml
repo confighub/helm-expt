@@ -1,30 +1,30 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "RenderReceipt"
 metadata:
-  name: "vm-victoria-metrics-single-0-39-0-default-r001"
   labels:
     confighub.io/chart-ref: "vm/victoria-metrics-single"
     confighub.io/chart-version: "0.39.0"
     confighub.io/proof-tier: "next80-full"
     confighub.io/variant: "default"
+  name: "vm-victoria-metrics-single-0-39-0-default-r001"
 spec:
-  variantRevision: "../variant-revision.yaml"
+  inputs:
+    dependencyLockSHA256: "1529e9a7bbac6203199549696ce4cf30e967b28430f52b52ba9606d505a2c52b"
+    effectiveValuesSHA256: "bc1b78efe7f132b99e23f72d30078be364fb23f68f50738ea51b158e9ade4da3"
+    sourceLockSHA256: "fda602abffd4e1efe49ddc34ff51406b3f1abd6547aa02187435f29ba2a72472"
+  outputs:
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 3
+    renderedObjectInventorySHA256: "b2bd6c372af82470372ea7bcddc7ed7e3fcb53c1cbe094530ce3a56a366142d3"
+    renderedObjectSetSHA256: "10c95bd43cb02502fb823b0d461c26b60fb0b4fe988ccf8a0cbe2e29f0a8c5f8"
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0
   renderer:
-    name: "helm"
-    version: "v4.1.4+g05fa379"
-    kubeVersion: "1.30.0"
     flags:
       - "--include-crds"
       - "--skip-tests"
       - "--no-hooks"
-  inputs:
-    sourceLockSHA256: "fda602abffd4e1efe49ddc34ff51406b3f1abd6547aa02187435f29ba2a72472"
-    dependencyLockSHA256: "1529e9a7bbac6203199549696ce4cf30e967b28430f52b52ba9606d505a2c52b"
-    effectiveValuesSHA256: "bc1b78efe7f132b99e23f72d30078be364fb23f68f50738ea51b158e9ade4da3"
-  outputs:
-    renderedObjectSetSHA256: "10c95bd43cb02502fb823b0d461c26b60fb0b4fe988ccf8a0cbe2e29f0a8c5f8"
-    renderedObjectInventorySHA256: "b2bd6c372af82470372ea7bcddc7ed7e3fcb53c1cbe094530ce3a56a366142d3"
-    deterministicAcrossTwoLocalRenders: true
-    objectCount: 3
-    renderedSecretCount: 0
-    secretCountSeparatedByCubInstall: 0
+    kubeVersion: "1.30.0"
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+  variantRevision: "../variant-revision.yaml"

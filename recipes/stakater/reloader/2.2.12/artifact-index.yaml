@@ -45,6 +45,7 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "controller-default-reviewed"
     deferredVariants:
       []
   proofSummary:
@@ -64,7 +65,7 @@ spec:
     path: "packages/stakater/reloader/2.2.12"
     installer: "packages/stakater/reloader/2.2.12/installer.yaml"
     receipt: "recipes/stakater/reloader/2.2.12/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "6b6facb3366b616b523a5fd81ed41620e108e418104619646255e756344c537d"
+    deterministicBundleSHA256: "c6d0f3f0fffec34fdf8200acfc98757bba8a4f83d9e3bb87fcc999000b156ff1"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -72,6 +73,11 @@ spec:
         path: "packages/stakater/reloader/2.2.12/bases/default"
         default: true
         description: "stakater/reloader default variant rendered from stakater/reloader@2.2.12"
+      -
+        name: "controller-default-reviewed"
+        path: "packages/stakater/reloader/2.2.12/bases/controller-default-reviewed"
+        default: false
+        description: "stakater/reloader controller-default-reviewed useful base; aliases the default render with a named user start path"
   variants:
     -
       name: "default"
@@ -105,7 +111,7 @@ spec:
           name: "default-r001"
           revision: "r001"
           variantRevision: "recipes/stakater/reloader/2.2.12/revisions/default/r001/variant-revision.yaml"
-          digest: "da2bffebedb54650f984ae32800a014f3ae84d193f839d49aaecb05b3075be5e"
+          digest: "72146487afac39062ec6bbd172803779ef9676f8f0d3933050709edfef483e04"
           renderedObjectSetSHA256: "d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e"
           renderedObjects: "recipes/stakater/reloader/2.2.12/revisions/default/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/stakater/reloader/2.2.12/revisions/default/r001/rendered/object-inventory.yaml"
@@ -133,5 +139,67 @@ spec:
             installGate:
               kind: "InstallGate"
               path: "recipes/stakater/reloader/2.2.12/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e"
+    -
+      name: "controller-default-reviewed"
+      variant: "recipes/stakater/reloader/2.2.12/variants/controller-default-reviewed/variant.yaml"
+      namespace: "default"
+      releaseName: "reloader"
+      valuesProfile: "recipes/stakater/reloader/2.2.12/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "controller-default-reviewed"
+        path: "packages/stakater/reloader/2.2.12/bases/controller-default-reviewed"
+        default: false
+        description: "stakater/reloader controller-default-reviewed useful base; aliases the default render with a named user start path"
+      setupCheck:
+        command: "cub installer setup --pull packages/stakater/reloader/2.2.12 --base controller-default-reviewed --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 6
+        cubInstallObjectCountIncludingSupport: 7
+        semanticObjectMatches: "6/6"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "controller-default-reviewed-r001"
+          revision: "r001"
+          variantRevision: "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/variant-revision.yaml"
+          digest: "dd5515670b808b776594418e711ad3230bab02d2db853461dcc12fd3d8f11281"
+          renderedObjectSetSHA256: "d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e"
+          renderedObjects: "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/rendered/object-inventory.yaml"
+          objectCount: 6
+          helmObjectCount: 6
+          cubInstallObjectCountIncludingSupport: 7
+          semanticObjectMatches: "6/6"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e"

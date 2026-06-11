@@ -1,23 +1,23 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "VariantRevision"
 metadata:
-  name: "default-r001"
   labels:
     confighub.io/chart-ref: "prometheus-community/prometheus-adapter"
     confighub.io/chart-version: "5.3.0"
     confighub.io/proof-tier: "next80-full"
     confighub.io/variant: "default"
+  name: "default-r001"
 spec:
-  variant: "../../../variants/default/variant.yaml"
-  revision: "r001"
-  digest: "04f387caa2db2643e1eaf6e0c1c3784aea20943899b3361d133c4f6ee4484345"
+  digest: "f970e1f0bbee94d4b7e67bb3b89dedbda06e6bec32da3a07390620d46cc099a3"
   digestInputs:
-    recipeSHA256: "0aa2b5803c4da2708c611466d6a02c4ec65bff35168054800d9d38a0b86dbce4"
-    variantSHA256: "21bf414c1de7325259ade141c73f0b9b97eadd7b18cd018991e49d79de14ea1f"
     effectiveValuesSHA256: "d7c8d6edeb00db3a677ef87e5084558ea3ac10a7f8ba4efd71779f985f632371"
-    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    recipeSHA256: "64959eea1378e5f7c45409e5c982a29ee30f2dd9939dec471205aacc04a74d27"
     renderedObjectSetSHA256: "50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    variantSHA256: "21bf414c1de7325259ade141c73f0b9b97eadd7b18cd018991e49d79de14ea1f"
   rendered:
-    releaseObjects: "rendered/release-objects.yaml"
-    objectInventory: "rendered/object-inventory.yaml"
     objectCount: 11
+    objectInventory: "rendered/object-inventory.yaml"
+    releaseObjects: "rendered/release-objects.yaml"
+  revision: "r001"
+  variant: "../../../variants/default/variant.yaml"

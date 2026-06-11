@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  labels:
+    confighub.io/chart-ref: "prometheus-community/kube-state-metrics"
+    confighub.io/chart-version: "7.4.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "cluster-metrics-readonly"
+  name: "cluster-metrics-readonly-r001"
+spec:
+  digest: "3538ece277c56fe569b451f8775169f194992d31722d3a6b68bf6d338a61702e"
+  digestInputs:
+    effectiveValuesSHA256: "f19aafe9a8b0ba7eec97b3a1d1165dc4f476a1dacc4dde2968d397952b91085b"
+    recipeSHA256: "93a53c2e2446509a32768e2bf8e3370feb053ea765525d2a08bddb2ae0b62164"
+    renderedObjectSetSHA256: "b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    variantSHA256: "a43437ef5d73aec2ecb01d1a8a6f5e116880275fab39fc5ac96aad3b3131493e"
+  rendered:
+    objectCount: 5
+    objectInventory: "rendered/object-inventory.yaml"
+    releaseObjects: "rendered/release-objects.yaml"
+  revision: "r001"
+  variant: "../../../variants/cluster-metrics-readonly/variant.yaml"

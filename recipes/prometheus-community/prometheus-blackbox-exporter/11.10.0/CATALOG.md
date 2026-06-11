@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, cluster-metrics-readonly |
 | Control points | capability-profile, dependency-lock, extension-slots, helm-equivalence, rendered-manifest-scan, source-lock, tpl-extension-slots, variant-revision |
 
 ## Feature And Proof Summary
@@ -58,12 +58,14 @@ for exact base-variant evidence.
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/prometheus-community/prometheus-blackbox-exporter/11.10.0/bases/default](../../../../packages/prometheus-community/prometheus-blackbox-exporter/11.10.0/bases/default) | [recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 4 | 5 | 4/4 | pass | pass | allow | none |
+| cluster-metrics-readonly | [recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/variants/cluster-metrics-readonly/variant.yaml](variants/cluster-metrics-readonly/variant.yaml) | [packages/prometheus-community/prometheus-blackbox-exporter/11.10.0/bases/cluster-metrics-readonly](../../../../packages/prometheus-community/prometheus-blackbox-exporter/11.10.0/bases/cluster-metrics-readonly) | [recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml](revisions/cluster-metrics-readonly/r001/variant-revision.yaml) | 4 | 5 | 4/4 | pass | pass | allow | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/prometheus-community/prometheus-blackbox-exporter/11.10.0/bases/default](../../../../packages/prometheus-community/prometheus-blackbox-exporter/11.10.0/bases/default) | yes | prometheus-community/prometheus-blackbox-exporter default variant rendered from prometheus-community/prometheus-blackbox-exporter@11.10.0 |
+| cluster-metrics-readonly | [packages/prometheus-community/prometheus-blackbox-exporter/11.10.0/bases/cluster-metrics-readonly](../../../../packages/prometheus-community/prometheus-blackbox-exporter/11.10.0/bases/cluster-metrics-readonly) | no | prometheus-community/prometheus-blackbox-exporter cluster-metrics-readonly useful base; aliases the default render with a named user start path |
 
 ## Receipts
 
@@ -73,6 +75,10 @@ for exact base-variant evidence.
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | pass | [recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | allow | [recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| cluster-metrics-readonly | r001 | render | RenderReceipt | recorded | [recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/receipts/render-receipt.yaml](revisions/cluster-metrics-readonly/r001/receipts/render-receipt.yaml) |
+| cluster-metrics-readonly | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/receipts/helm-equivalence-receipt.yaml](revisions/cluster-metrics-readonly/r001/receipts/helm-equivalence-receipt.yaml) |
+| cluster-metrics-readonly | r001 | scan | ScanReceipt | pass | [recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/receipts/scan-receipt.yaml](revisions/cluster-metrics-readonly/r001/receipts/scan-receipt.yaml) |
+| cluster-metrics-readonly | r001 | installGate | InstallGate | allow | [recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/revisions/cluster-metrics-readonly/r001/receipts/install-gate.yaml](revisions/cluster-metrics-readonly/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

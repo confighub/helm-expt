@@ -1,30 +1,30 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "RenderReceipt"
 metadata:
-  name: "prometheus-community-kube-state-metrics-7-4-0-default-r001"
   labels:
     confighub.io/chart-ref: "prometheus-community/kube-state-metrics"
     confighub.io/chart-version: "7.4.0"
     confighub.io/proof-tier: "next80-full"
     confighub.io/variant: "default"
+  name: "prometheus-community-kube-state-metrics-7-4-0-default-r001"
 spec:
-  variantRevision: "../variant-revision.yaml"
+  inputs:
+    dependencyLockSHA256: "9d38e68acae176598d2653ff02209fd68cc2b5d44897d28510d9200054f02cb0"
+    effectiveValuesSHA256: "f19aafe9a8b0ba7eec97b3a1d1165dc4f476a1dacc4dde2968d397952b91085b"
+    sourceLockSHA256: "e92268fe7efc27129030c198105ae4d8eea728398a3409b4d57979466419dc20"
+  outputs:
+    deterministicAcrossTwoLocalRenders: true
+    objectCount: 5
+    renderedObjectInventorySHA256: "b80353bc2e7a27b91e9d8b4337a1201a8272a41d72de80af08b0ad6c15553729"
+    renderedObjectSetSHA256: "b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc"
+    renderedSecretCount: 0
+    secretCountSeparatedByCubInstall: 0
   renderer:
-    name: "helm"
-    version: "v4.1.4+g05fa379"
-    kubeVersion: "1.30.0"
     flags:
       - "--include-crds"
       - "--skip-tests"
       - "--no-hooks"
-  inputs:
-    sourceLockSHA256: "e92268fe7efc27129030c198105ae4d8eea728398a3409b4d57979466419dc20"
-    dependencyLockSHA256: "9d38e68acae176598d2653ff02209fd68cc2b5d44897d28510d9200054f02cb0"
-    effectiveValuesSHA256: "f19aafe9a8b0ba7eec97b3a1d1165dc4f476a1dacc4dde2968d397952b91085b"
-  outputs:
-    renderedObjectSetSHA256: "b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc"
-    renderedObjectInventorySHA256: "b80353bc2e7a27b91e9d8b4337a1201a8272a41d72de80af08b0ad6c15553729"
-    deterministicAcrossTwoLocalRenders: true
-    objectCount: 5
-    renderedSecretCount: 0
-    secretCountSeparatedByCubInstall: 0
+    kubeVersion: "1.30.0"
+    name: "helm"
+    version: "v4.1.4+g05fa379"
+  variantRevision: "../variant-revision.yaml"

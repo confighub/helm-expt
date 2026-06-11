@@ -20,6 +20,8 @@ const outputs = {
   summary: "data/useful-base-design-queue/summary.md",
 };
 
+const realizationWavePath = "data/useful-base-realization-wave/wave.csv";
+
 const familyRules = [
   {
     family: "monitoring-metrics",
@@ -115,6 +117,11 @@ function readCsv(path) {
   return parseCsv(readFileSync(join(repoRoot, path), "utf8"));
 }
 
+function readCsvIfPresent(path) {
+  const absolute = join(repoRoot, path);
+  return existsSync(absolute) ? parseCsv(readFileSync(absolute, "utf8")) : [];
+}
+
 function csvEscape(value) {
   const text = String(value ?? "");
   return /[",\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
@@ -198,6 +205,9 @@ function buildReport() {
   const readinessByChart = new Map(readCsv(sources.readiness).map((row) => [row.chart, row]));
   const factsByChart = new Map(readCsv(sources.chartFacts).map((row) => [row.chart, row]));
   const queueByChart = new Map(readCsv(sources.top100Coverage).map((row) => [row.chart_ref, row]));
+  const realizedByKey = new Map(
+    readCsvIfPresent(realizationWavePath).map((row) => [`${row.chart}@${row.version}#${row.base}`, row]),
+  );
 
   const rows = chartUseRows.map((chartUse) => {
     const { chart, version } = splitChart(chartUse.chart);
@@ -206,23 +216,28 @@ function buildReport() {
     const facts = factsFor(chart, factsByChart);
     const rule = familyFor(chart);
     const quirks = quirkList(readiness, facts);
+    const realized = realizedByKey.get(`${chart}@${version}#${rule.base}`);
+    const proposalStatus = realized?.status || "proposal-not-built";
+    const currentEvidence = [chartUse.strongest_evidence, realized ? "useful-base-realized" : ""].filter(Boolean).join(";");
     return {
       priority: priority(chartUse, quirks),
       chart,
       version,
       family: rule.family,
       proposed_base: rule.base,
-      proposal_status: "proposal-not-built",
+      proposal_status: proposalStatus,
       user_job: rule.userJob,
       render_time_choices: rule.renderChoices,
       target_inputs: targetInputs(facts, quirks),
       post_render_variant_knobs: rule.derivedKnobs,
       quirks: quirks.join(";") || "none-flagged",
-      current_evidence: chartUse.strongest_evidence,
+      current_evidence: currentEvidence,
       proof_required_before_catalog: proofRequired(quirks),
       source_next_action: chartUse.first_action || chartUse.next_action,
-      done_when: coverage.done_when || "the proposed base has recipe/package artifacts, render parity, scan/gate evidence, and a catalog decision",
-      evidence: [chartUse.catalog_path, chartUse.helm_pain_report, coverage.evidence].filter(Boolean).join(";"),
+      done_when: realized
+        ? "the realized base has ConfigHub proof, selected live evidence, production disposition, and a catalog decision"
+        : coverage.done_when || "the proposed base has recipe/package artifacts, render parity, scan/gate evidence, and a catalog decision",
+      evidence: [chartUse.catalog_path, chartUse.helm_pain_report, coverage.evidence, realized ? realizationWavePath : ""].filter(Boolean).join(";"),
     };
   });
 
@@ -274,6 +289,7 @@ function familySummary(rows) {
 
 function summaryMarkdown(rows, familyRows) {
   const topRows = rows.slice(0, 20);
+  const statusRows = statusSummary(rows);
   return `# Useful Base Design Queue
 
 Generated. Do not edit by hand.
@@ -296,7 +312,7 @@ What must be proven before that base becomes a catalog offer?
 ~~~text
 charts needing useful bases: ${rows.length}
 families: ${familyRows.length}
-proposal status: proposal-not-built
+proposal statuses: ${statusRows.map((row) => `${row.status}=${row.count}`).join(", ")}
 ~~~
 
 ## Design Families
@@ -307,13 +323,16 @@ ${familyRows.map((row) => `| ${row.family} | ${row.charts} | ${row.proposed_base
 
 ## First Twenty Rows
 
-| Priority | Chart | Proposed base | User job | Target inputs | Proof required |
-| ---: | --- | --- | --- | --- | --- |
-${topRows.map((row) => `| ${row.priority} | ${row.chart}@${row.version} | ${row.proposed_base} | ${row.user_job} | ${row.target_inputs} | ${row.proof_required_before_catalog} |`).join("\n")}
+| Priority | Chart | Proposed base | Status | User job | Target inputs | Proof required |
+| ---: | --- | --- | --- | --- | --- | --- |
+${topRows.map((row) => `| ${row.priority} | ${row.chart}@${row.version} | ${row.proposed_base} | ${row.proposal_status} | ${row.user_job} | ${row.target_inputs} | ${row.proof_required_before_catalog} |`).join("\n")}
 
 ## Reading Rule
 
 - \`proposal-not-built\` means the row is a product/design candidate only.
+- \`realized-alias-base\` means the recipe variant and package base exist, but
+  the base still needs ConfigHub proof, selected live evidence, production
+  disposition, and a catalog decision.
 - If the choice changes rendered Kubernetes objects, build it as a recipe/package
   base and rerun render parity.
 - If the choice only changes target, labels, approvals, links, observations, or
@@ -334,6 +353,14 @@ npm run top100:useful-base-queue
 npm run top100:useful-base-queue:verify
 ~~~
 `;
+}
+
+function statusSummary(rows) {
+  const counts = new Map();
+  for (const row of rows) counts.set(row.proposal_status, (counts.get(row.proposal_status) ?? 0) + 1);
+  return [...counts.entries()]
+    .map(([status, count]) => ({ status, count }))
+    .sort((a, b) => a.status.localeCompare(b.status));
 }
 
 function writeOutputs(report) {

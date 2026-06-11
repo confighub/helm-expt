@@ -45,6 +45,7 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "node-or-cluster-collector"
     deferredVariants:
       []
   proofSummary:
@@ -64,7 +65,7 @@ spec:
     path: "packages/elastic/filebeat/8.5.1"
     installer: "packages/elastic/filebeat/8.5.1/installer.yaml"
     receipt: "recipes/elastic/filebeat/8.5.1/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "c31d6c291caaf2bb4942f058051bdf1df44c14762599d9123124be6d7bc6257a"
+    deterministicBundleSHA256: "30587401053a7a2e7bd7ab87a13d4cae6e788d7ba69e09375afdc5df38421525"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -72,6 +73,11 @@ spec:
         path: "packages/elastic/filebeat/8.5.1/bases/default"
         default: true
         description: "elastic/filebeat default variant rendered from elastic/filebeat@8.5.1"
+      -
+        name: "node-or-cluster-collector"
+        path: "packages/elastic/filebeat/8.5.1/bases/node-or-cluster-collector"
+        default: false
+        description: "elastic/filebeat node-or-cluster-collector useful base; aliases the default render with a named user start path"
   variants:
     -
       name: "default"
@@ -105,7 +111,7 @@ spec:
           name: "default-r001"
           revision: "r001"
           variantRevision: "recipes/elastic/filebeat/8.5.1/revisions/default/r001/variant-revision.yaml"
-          digest: "d89f17439a842df3491b3d343ebec283e4a7f7b0feeecec8815abeaf33283025"
+          digest: "21859c4651af8f254468a996b425cbe5d7da4d5c45df74b7aba857de457d4cc7"
           renderedObjectSetSHA256: "690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"
           renderedObjects: "recipes/elastic/filebeat/8.5.1/revisions/default/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/elastic/filebeat/8.5.1/revisions/default/r001/rendered/object-inventory.yaml"
@@ -133,5 +139,67 @@ spec:
             installGate:
               kind: "InstallGate"
               path: "recipes/elastic/filebeat/8.5.1/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"
+    -
+      name: "node-or-cluster-collector"
+      variant: "recipes/elastic/filebeat/8.5.1/variants/node-or-cluster-collector/variant.yaml"
+      namespace: "default"
+      releaseName: "filebeat"
+      valuesProfile: "recipes/elastic/filebeat/8.5.1/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "node-or-cluster-collector"
+        path: "packages/elastic/filebeat/8.5.1/bases/node-or-cluster-collector"
+        default: false
+        description: "elastic/filebeat node-or-cluster-collector useful base; aliases the default render with a named user start path"
+      setupCheck:
+        command: "cub installer setup --pull packages/elastic/filebeat/8.5.1 --base node-or-cluster-collector --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 7
+        cubInstallObjectCountIncludingSupport: 8
+        semanticObjectMatches: "7/7"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "node-or-cluster-collector-r001"
+          revision: "r001"
+          variantRevision: "recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/variant-revision.yaml"
+          digest: "90821ca2dd82d1dc06428a568a8cdacfff1e2b2413bef0eb44c5628d3a7baf61"
+          renderedObjectSetSHA256: "690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"
+          renderedObjects: "recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/rendered/object-inventory.yaml"
+          objectCount: 7
+          helmObjectCount: 7
+          cubInstallObjectCountIncludingSupport: 8
+          semanticObjectMatches: "7/7"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/elastic/filebeat/8.5.1/revisions/node-or-cluster-collector/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"

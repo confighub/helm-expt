@@ -283,6 +283,15 @@
     },
     {
       "section": "top100",
+      "metric": "useful-base realized rows",
+      "value": "10",
+      "total": "46",
+      "status": "partial",
+      "source": "data/useful-base-realization-wave/wave.csv",
+      "note": "Useful-base proposals that now have recipe variants and cub installer package bases. These still need ConfigHub proof, live evidence, and production disposition."
+    },
+    {
+      "section": "top100",
       "metric": "useful-base proposal families",
       "value": "7",
       "total": "7",
@@ -293,7 +302,7 @@
     {
       "section": "top100",
       "metric": "useful-base proposals not yet built",
-      "value": "46",
+      "value": "36",
       "total": "46",
       "status": "gap",
       "source": "data/useful-base-design-queue/queue.csv",
@@ -401,8 +410,8 @@
     {
       "section": "proof lanes",
       "metric": "render parity rows",
-      "value": "179",
-      "total": "179",
+      "value": "189",
+      "total": "189",
       "status": "good",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Every chart/base row has render parity under recorded inputs."
@@ -411,7 +420,7 @@
       "section": "proof lanes",
       "metric": "in-ConfigHub proof rows",
       "value": "20",
-      "total": "179",
+      "total": "189",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with upload, scan, or safe-operation proof receipts."
@@ -420,7 +429,7 @@
       "section": "proof lanes",
       "metric": "local live rows",
       "value": "23",
-      "total": "179",
+      "total": "189",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with committed local Kubernetes observation receipts."
@@ -429,7 +438,7 @@
       "section": "proof lanes",
       "metric": "GitOps/OCI live pass rows",
       "value": "22",
-      "total": "179",
+      "total": "189",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "6 rows have non-pass GitOps/OCI receipts."
@@ -438,7 +447,7 @@
       "section": "proof lanes",
       "metric": "live Helm-vs-ConfigHub parity pass rows",
       "value": "20",
-      "total": "179",
+      "total": "189",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "2 rows have non-pass live parity receipts."
@@ -465,7 +474,7 @@
       "section": "proof lanes",
       "metric": "complete core lane rows",
       "value": "20",
-      "total": "179",
+      "total": "189",
       "status": "gap",
       "source": "data/outcome-coverage/base-outcomes.csv",
       "note": "Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."

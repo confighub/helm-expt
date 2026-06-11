@@ -1,15 +1,13 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "RenderedObjectInventory"
 metadata:
-  name: "prometheus-community-kube-state-metrics-7-4-0-default-r001"
   labels:
     confighub.io/chart-ref: "prometheus-community/kube-state-metrics"
     confighub.io/chart-version: "7.4.0"
     confighub.io/proof-tier: "next80-full"
     confighub.io/variant: "default"
+  name: "prometheus-community-kube-state-metrics-7-4-0-default-r001"
 spec:
-  source: "rendered/release-objects.yaml"
-  sourceSHA256: "b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc"
   objectCount: 5
   objects:
     -
@@ -42,3 +40,5 @@ spec:
       kind: "Service"
       name: "kube-state-metrics"
       namespace: "default"
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc"

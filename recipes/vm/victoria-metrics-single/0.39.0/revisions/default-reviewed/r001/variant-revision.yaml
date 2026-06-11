@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  labels:
+    confighub.io/chart-ref: "vm/victoria-metrics-single"
+    confighub.io/chart-version: "0.39.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default-reviewed"
+  name: "default-reviewed-r001"
+spec:
+  digest: "f9dd6161a753504ce30ac4a3e6bd514b8a657e89ec088abc7cdc35d7f535f6bf"
+  digestInputs:
+    effectiveValuesSHA256: "bc1b78efe7f132b99e23f72d30078be364fb23f68f50738ea51b158e9ade4da3"
+    recipeSHA256: "17d728fbffb886877af8f9d2a8a12db1719718d5342c59a0dd1f324b32bd15b2"
+    renderedObjectSetSHA256: "10c95bd43cb02502fb823b0d461c26b60fb0b4fe988ccf8a0cbe2e29f0a8c5f8"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    variantSHA256: "756c67b19f50867ae734d05e237e6ad18e21718daba3d00e1a1e794a3de1c38f"
+  rendered:
+    objectCount: 3
+    objectInventory: "rendered/object-inventory.yaml"
+    releaseObjects: "rendered/release-objects.yaml"
+  revision: "r001"
+  variant: "../../../variants/default-reviewed/variant.yaml"

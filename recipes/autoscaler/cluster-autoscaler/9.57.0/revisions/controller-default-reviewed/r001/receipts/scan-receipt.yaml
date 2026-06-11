@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  labels:
+    confighub.io/chart-ref: "autoscaler/cluster-autoscaler"
+    confighub.io/chart-version: "9.57.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "controller-default-reviewed"
+  name: "autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed-r001"
+spec:
+  findingCounts:
+    critical: 0
+    high: 1
+    info: 0
+    low: 0
+    medium: 2
+  findings:
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRole||cluster-autoscaler-aws-cluster-autoscaler"
+      message: "Cluster-scoped RBAC requires production review"
+      object: "rbac.authorization.k8s.io/v1|ClusterRole||cluster-autoscaler-aws-cluster-autoscaler"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+    -
+      id: "cluster-rbac-review:rbac.authorization.k8s.io/v1|ClusterRoleBinding||cluster-autoscaler-aws-cluster-autoscaler"
+      message: "Cluster-scoped RBAC requires production review"
+      object: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||cluster-autoscaler-aws-cluster-autoscaler"
+      rule: "cluster-rbac-review"
+      severity: "medium"
+    -
+      id: "service-selector-has-workload-match:v1|Service|default|cluster-autoscaler-aws-cluster-autoscaler"
+      message: "Service selector matches no rendered workload pod template"
+      object: "v1|Service|default|cluster-autoscaler-aws-cluster-autoscaler"
+      rule: "service-selector-has-workload-match"
+      severity: "high"
+  policyBundleDigest: "d4913c44f60cee40b376761c82c0c5b84e3f65043012ae875d8f376330dabc35"
+  renderedObjectSetSHA256: "9e67f520b5c65ff34d72f8c85e4245c2d9d238b6da336112dfa272a060d69446"
+  result: "warn"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.2.0"
+  variantRevision: "../variant-revision.yaml"
+  usefulBaseAlias:
+    sourceBase: "default"
+    realizationStrategy: "alias-of-default-render"

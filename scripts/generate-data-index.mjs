@@ -62,6 +62,7 @@ function readme(rows) {
     ["I want the top-100 coverage contract.", "data/top100-coverage/summary.md; data/top100-coverage/coverage.csv"],
     ["I want the strict top-100 work queue.", "data/top100-coverage/work-queue.md; data/top100-coverage/work-queue.csv; data/top100-coverage/decisions-needed.md"],
     ["I want to know which useful base variants need designing next.", "data/useful-base-design-queue/summary.md; data/useful-base-design-queue/queue.csv"],
+    ["I want to know which useful base variants have been made real.", "data/useful-base-realization-wave/summary.md; data/useful-base-realization-wave/wave.csv"],
     ["I want the source-scan quirk work queue.", "data/quirk-work-queue/summary.md; data/quirk-work-queue/top100-queue.csv"],
     ["I want the hardest top-100 proof gaps to assign next.", "data/hard-proof-gaps/summary.md; data/hard-proof-gaps/shortlist.csv"],
     ["I want remote dependency closure status.", "data/remote-dependency-closure/summary.md; data/remote-dependency-closure/top100.csv"],
@@ -126,6 +127,8 @@ function readme(rows) {
     ["data/useful-base-design-queue/summary.md", "Useful base design queue for top-100 charts that are proof-grade but too default-shaped to recommend."],
     ["data/useful-base-design-queue/queue.csv", "One row per chart needing a useful base proposal: proposed base shape, user job, render choices, target inputs, and proof required."],
     ["data/useful-base-design-queue/families.csv", "Grouped useful-base design families for assigning batches of related chart work."],
+    ["data/useful-base-realization-wave/summary.md", "First wave of useful base proposals made real as recipe variants and cub installer package bases."],
+    ["data/useful-base-realization-wave/wave.csv", "One row per realized useful base: strategy, remaining proof work, package base, and recipe variant."],
     ["data/top100-promotion-wave/summary.md", "First strict top-100 promotion-review wave: proof-grade charts with two-cluster parity that need production disposition and support decisions."],
     ["data/top100-promotion-wave/wave.csv", "One row per selected top-100 promotion wave chart: variants, evidence, scan/gate status, first step, and done-when rule."],
     ["data/top100-promotion-wave/wave.yaml", "Machine-readable strict top-100 promotion wave input."],
@@ -295,6 +298,7 @@ function audienceFor(path) {
   if (path.startsWith("data/top100-readiness/")) return "user/front-door";
   if (path.startsWith("data/top100-coverage/")) return "user/front-door";
   if (path.startsWith("data/useful-base-design-queue/")) return "user/front-door";
+  if (path.startsWith("data/useful-base-realization-wave/")) return "user/front-door";
   if (path.startsWith("data/refresh-survival/")) return "user/front-door";
   if (path.startsWith("data/variant-path-coverage/")) return "user/front-door";
   if (path.startsWith("data/quirk-coverage/")) return "user/front-door";
@@ -339,6 +343,7 @@ function roleFor(path) {
   if (path === "data/top100-coverage/work-queue.csv") return "one row per partial top-100 chart: strict coverage queue, priority, missing items, first step, and done-when rule";
   if (path === "data/useful-base-design-queue/queue.csv") return "one row per top-100 chart that needs a useful base: proposed base shape, user job, render choices, target inputs, and proof required";
   if (path === "data/useful-base-design-queue/families.csv") return "useful base queue grouped by proposed design family";
+  if (path === "data/useful-base-realization-wave/wave.csv") return "one row per useful base made real as a recipe variant and cub installer package base";
   if (path === "data/top100-promotion-wave/wave.csv") return "one row per selected strict top-100 promotion wave chart";
   if (path === "data/top100-promotion-wave/fast-track.csv") return "one row per low-residue top-100 promotion candidate with clean scan/gate state";
   if (path === "data/top100-promotion-wave/fast-track-reviews/review-packets.csv") return "one row per fast-track promotion review packet";
@@ -402,6 +407,7 @@ function familyRole(family) {
     "top100-readiness": "front-door top-100 user readiness and evidence summary",
     "top100-coverage": "front-door top-100 coverage contract and work queue",
     "useful-base-design-queue": "front-door proposed useful-base queue for default-shaped top-100 charts",
+    "useful-base-realization-wave": "front-door useful-base proposals made real as candidate recipe/package bases",
     "top100-promotion-wave": "first strict top-100 promotion-review wave",
     "refresh-survival": "latest-version refresh survival and upgrade seed",
     "edge-recovery": "recovered desired-state graph fragments",
@@ -495,6 +501,7 @@ function commandMap() {
     "top100-readiness": { generate: "npm run top100:readiness", verify: "npm run top100:readiness:verify" },
     "top100-coverage": { generate: "npm run top100:coverage", verify: "npm run top100:coverage:verify" },
     "useful-base-design-queue": { generate: "npm run top100:useful-base-queue", verify: "npm run top100:useful-base-queue:verify" },
+    "useful-base-realization-wave": { generate: "npm run top100:useful-base-realization", verify: "npm run top100:useful-base-realization:verify" },
     "top100-promotion-wave": { generate: "npm run top100:promotion-wave", verify: "npm run top100:promotion-wave:verify" },
     "refresh-survival": { generate: "npm run refresh:survival", verify: "npm run refresh:survival:verify" },
     "edge-recovery": { generate: "npm run edges:generate", verify: "npm run edges:verify" },

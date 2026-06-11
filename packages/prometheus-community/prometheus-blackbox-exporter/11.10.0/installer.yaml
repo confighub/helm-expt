@@ -6,7 +6,12 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "prometheus-community/prometheus-blackbox-exporter default variant rendered from prometheus-community/prometheus-blackbox-exporter@11.10.0"
+      name: "default"
+      path: "bases/default"
+    -
+      name: "cluster-metrics-readonly"
+      path: "bases/cluster-metrics-readonly"
+      default: false
+      description: "prometheus-community/prometheus-blackbox-exporter cluster-metrics-readonly useful base; aliases the default render with a named user start path"

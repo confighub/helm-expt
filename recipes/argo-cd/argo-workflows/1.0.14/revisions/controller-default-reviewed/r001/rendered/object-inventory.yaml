@@ -1,0 +1,128 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  labels:
+    confighub.io/chart-ref: "argo-cd/argo-workflows"
+    confighub.io/chart-version: "1.0.14"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "controller-default-reviewed"
+  name: "argo-cd-argo-workflows-1-0-14-controller-default-reviewed-r001"
+spec:
+  objectCount: 19
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|argo-workflows-server"
+      kind: "Deployment"
+      name: "argo-workflows-server"
+      namespace: "default"
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment|default|argo-workflows-workflow-controller"
+      kind: "Deployment"
+      name: "argo-workflows-workflow-controller"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||argo-workflows-server"
+      kind: "ClusterRoleBinding"
+      name: "argo-workflows-server"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||argo-workflows-server-cluster-template"
+      kind: "ClusterRoleBinding"
+      name: "argo-workflows-server-cluster-template"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||argo-workflows-workflow-controller"
+      kind: "ClusterRoleBinding"
+      name: "argo-workflows-workflow-controller"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||argo-workflows-workflow-controller-cluster-template"
+      kind: "ClusterRoleBinding"
+      name: "argo-workflows-workflow-controller-cluster-template"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||argo-workflows-admin"
+      kind: "ClusterRole"
+      name: "argo-workflows-admin"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||argo-workflows-edit"
+      kind: "ClusterRole"
+      name: "argo-workflows-edit"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||argo-workflows-server"
+      kind: "ClusterRole"
+      name: "argo-workflows-server"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||argo-workflows-server-cluster-template"
+      kind: "ClusterRole"
+      name: "argo-workflows-server-cluster-template"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||argo-workflows-view"
+      kind: "ClusterRole"
+      name: "argo-workflows-view"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||argo-workflows-workflow-controller"
+      kind: "ClusterRole"
+      name: "argo-workflows-workflow-controller"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||argo-workflows-workflow-controller-cluster-template"
+      kind: "ClusterRole"
+      name: "argo-workflows-workflow-controller-cluster-template"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|default|argo-workflows-workflow"
+      kind: "RoleBinding"
+      name: "argo-workflows-workflow"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|default|argo-workflows-workflow"
+      kind: "Role"
+      name: "argo-workflows-workflow"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ConfigMap|default|argo-workflows-workflow-controller-configmap"
+      kind: "ConfigMap"
+      name: "argo-workflows-workflow-controller-configmap"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|argo-workflows-server"
+      kind: "ServiceAccount"
+      name: "argo-workflows-server"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|argo-workflows-workflow-controller"
+      kind: "ServiceAccount"
+      name: "argo-workflows-workflow-controller"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|argo-workflows-server"
+      kind: "Service"
+      name: "argo-workflows-server"
+      namespace: "default"
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"

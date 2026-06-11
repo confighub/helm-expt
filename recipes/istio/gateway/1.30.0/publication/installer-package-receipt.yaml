@@ -4,18 +4,29 @@ metadata:
   name: "istio-gateway-1-30-0"
 spec:
   chart:
-    repository: "istio"
     name: "gateway"
+    repository: "istio"
     version: "1.30.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/istio/gateway/1.30.0 -o <tmp>/istio-gateway-1-30-0.tgz"
+    sha256: "42db618bfad3b83002abc50d06a2950526e0bf548bca689fc41a8be1a3bd948f"
   package:
-    path: "packages/istio/gateway/1.30.0"
     name: "istio-gateway"
-    version: "1.30.0"
+    path: "packages/istio/gateway/1.30.0"
     sourceFiles:
       -
         path: "README.md"
         sha256: "eee6b47e29bfc0971e90b31f3d39f0f5647f8201332d0671e268c702c0acf62c"
         bytes: 194
+      -
+        path: "bases/controller-default-reviewed/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/controller-default-reviewed/upstream.yaml"
+        sha256: "07b3cb11d265a7b857b231a347be2c71742e5bc1eeb02efddd7ce71ecc1c7afc"
+        bytes: 5488
       -
         path: "bases/default/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
@@ -26,20 +37,27 @@ spec:
         bytes: 5488
       -
         path: "installer.yaml"
-        sha256: "850fbdc3a495755e2e7805395dbfede230dcb7d6548a114a17038b22c561406a"
-        bytes: 294
-  deterministicBundle:
-    command: "cub installer package packages/istio/gateway/1.30.0 -o <tmp>/istio-gateway-1-30-0.tgz"
-    sha256: "afa9979e36708df71b47e709b184a31dbb1d97ec3b25d5c5d436eb3855f432f7"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "55d9900662c23cb5382dcca7873e856ea2048d59792f94dd401efd27a14bc56e"
+        bytes: 543
+    version: "1.30.0"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/istio/gateway/1.30.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 6
-      cubInstallObjectCountIncludingSupport: 7
-      semanticObjectMatches: "6/6"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/istio/gateway/1.30.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 7
+      helmReleaseObjectCount: 6
+      semanticObjectMatches: "6/6"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
+      base: "controller-default-reviewed"
+      command: "cub installer setup --pull packages/istio/gateway/1.30.0 --base controller-default-reviewed --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 7
+      helmReleaseObjectCount: 6
+      semanticObjectMatches: "6/6"
+      separatedSecretCount: 0
+      variant: "controller-default-reviewed"

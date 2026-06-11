@@ -1,28 +1,28 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "HelmEquivalenceReceipt"
 metadata:
-  name: "vm-victoria-metrics-single-0-39-0-default-r001"
   labels:
     confighub.io/chart-ref: "vm/victoria-metrics-single"
     confighub.io/chart-version: "0.39.0"
     confighub.io/proof-tier: "next80-full"
     confighub.io/variant: "default"
+  name: "vm-victoria-metrics-single-0-39-0-default-r001"
 spec:
-  variantRevision: "../variant-revision.yaml"
-  regularHelm:
-    renderedSHA256: "10c95bd43cb02502fb823b0d461c26b60fb0b4fe988ccf8a0cbe2e29f0a8c5f8"
-    objectCount: 3
-  cubInstall:
-    objectCountIncludingSecretsAndSupportObjects: 4
-    uploadedManifestFiles: 4
-    separatedSecretFiles: 0
-    semanticObjectMatches: "3/3"
-  semanticNormalizations:
-    - "prune-null-fields"
   classifications:
     -
-      identity: "v1|Namespace||default"
       classification: "installer-support-object"
       disposition: "allowed"
-  result: "pass"
+      identity: "v1|Namespace||default"
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 4
+    semanticObjectMatches: "3/3"
+    separatedSecretFiles: 0
+    uploadedManifestFiles: 4
   evidenceCommand: "npm run next80:verify-packages"
+  regularHelm:
+    objectCount: 3
+    renderedSHA256: "10c95bd43cb02502fb823b0d461c26b60fb0b4fe988ccf8a0cbe2e29f0a8c5f8"
+  result: "pass"
+  semanticNormalizations:
+    - "prune-null-fields"
+  variantRevision: "../variant-revision.yaml"

@@ -1,15 +1,13 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "RenderedObjectInventory"
 metadata:
-  name: "prometheus-community-prometheus-blackbox-exporter-11-10-0-default-r001"
   labels:
     confighub.io/chart-ref: "prometheus-community/prometheus-blackbox-exporter"
     confighub.io/chart-version: "11.10.0"
     confighub.io/proof-tier: "next80-full"
     confighub.io/variant: "default"
+  name: "prometheus-community-prometheus-blackbox-exporter-11-10-0-default-r001"
 spec:
-  source: "rendered/release-objects.yaml"
-  sourceSHA256: "43dbd48cda5a6f5aa85365fdba15a04cb328d513a0123983ec943c505a01730c"
   objectCount: 4
   objects:
     -
@@ -36,3 +34,5 @@ spec:
       kind: "Service"
       name: "prometheus-blackbox-exporter"
       namespace: "default"
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "43dbd48cda5a6f5aa85365fdba15a04cb328d513a0123983ec943c505a01730c"

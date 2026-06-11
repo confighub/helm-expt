@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, controller-default-reviewed |
 | Control points | capability-profile, dependency-lock, helm-equivalence, rendered-manifest-scan, source-lock, variant-revision |
 
 ## Feature And Proof Summary
@@ -58,12 +58,14 @@ for exact base-variant evidence.
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/istio/gateway/1.30.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/istio/gateway/1.30.0/bases/default](../../../../packages/istio/gateway/1.30.0/bases/default) | [recipes/istio/gateway/1.30.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 6 | 7 | 6/6 | pass | warn | warn | none |
+| controller-default-reviewed | [recipes/istio/gateway/1.30.0/variants/controller-default-reviewed/variant.yaml](variants/controller-default-reviewed/variant.yaml) | [packages/istio/gateway/1.30.0/bases/controller-default-reviewed](../../../../packages/istio/gateway/1.30.0/bases/controller-default-reviewed) | [recipes/istio/gateway/1.30.0/revisions/controller-default-reviewed/r001/variant-revision.yaml](revisions/controller-default-reviewed/r001/variant-revision.yaml) | 6 | 7 | 6/6 | pass | warn | warn | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/istio/gateway/1.30.0/bases/default](../../../../packages/istio/gateway/1.30.0/bases/default) | yes | istio/gateway default variant rendered from istio/gateway@1.30.0 |
+| controller-default-reviewed | [packages/istio/gateway/1.30.0/bases/controller-default-reviewed](../../../../packages/istio/gateway/1.30.0/bases/controller-default-reviewed) | no | istio/gateway controller-default-reviewed useful base; aliases the default render with a named user start path |
 
 ## Receipts
 
@@ -73,6 +75,10 @@ for exact base-variant evidence.
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/istio/gateway/1.30.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | warn | [recipes/istio/gateway/1.30.0/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | warn | [recipes/istio/gateway/1.30.0/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| controller-default-reviewed | r001 | render | RenderReceipt | recorded | [recipes/istio/gateway/1.30.0/revisions/controller-default-reviewed/r001/receipts/render-receipt.yaml](revisions/controller-default-reviewed/r001/receipts/render-receipt.yaml) |
+| controller-default-reviewed | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/istio/gateway/1.30.0/revisions/controller-default-reviewed/r001/receipts/helm-equivalence-receipt.yaml](revisions/controller-default-reviewed/r001/receipts/helm-equivalence-receipt.yaml) |
+| controller-default-reviewed | r001 | scan | ScanReceipt | warn | [recipes/istio/gateway/1.30.0/revisions/controller-default-reviewed/r001/receipts/scan-receipt.yaml](revisions/controller-default-reviewed/r001/receipts/scan-receipt.yaml) |
+| controller-default-reviewed | r001 | installGate | InstallGate | warn | [recipes/istio/gateway/1.30.0/revisions/controller-default-reviewed/r001/receipts/install-gate.yaml](revisions/controller-default-reviewed/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

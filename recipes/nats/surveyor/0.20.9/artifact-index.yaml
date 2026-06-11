@@ -43,6 +43,7 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "default-reviewed"
     deferredVariants:
       []
   proofSummary:
@@ -62,7 +63,7 @@ spec:
     path: "packages/nats/surveyor/0.20.9"
     installer: "packages/nats/surveyor/0.20.9/installer.yaml"
     receipt: "recipes/nats/surveyor/0.20.9/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "7b5991c8dfec43a534076acc00b8944f0c10c859e77705bd525ac9068ae75e33"
+    deterministicBundleSHA256: "477c5a5d1d55e272745e3948373b7577381dd50a19876d0165661cd81618284f"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -70,6 +71,11 @@ spec:
         path: "packages/nats/surveyor/0.20.9/bases/default"
         default: true
         description: "nats/surveyor default variant rendered from nats/surveyor@0.20.9"
+      -
+        name: "default-reviewed"
+        path: "packages/nats/surveyor/0.20.9/bases/default-reviewed"
+        default: false
+        description: "nats/surveyor default-reviewed useful base; aliases the default render with a named user start path"
   variants:
     -
       name: "default"
@@ -103,7 +109,7 @@ spec:
           name: "default-r001"
           revision: "r001"
           variantRevision: "recipes/nats/surveyor/0.20.9/revisions/default/r001/variant-revision.yaml"
-          digest: "85417260bb520c0f7d8961ce697b98d6b308fd74dd5d51a89bd88d8054f14790"
+          digest: "a97870c81f4fd0c14a158763365ddb131f848c1324fd70e3da181a5faadbb598"
           renderedObjectSetSHA256: "c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1"
           renderedObjects: "recipes/nats/surveyor/0.20.9/revisions/default/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/nats/surveyor/0.20.9/revisions/default/r001/rendered/object-inventory.yaml"
@@ -131,5 +137,67 @@ spec:
             installGate:
               kind: "InstallGate"
               path: "recipes/nats/surveyor/0.20.9/revisions/default/r001/receipts/install-gate.yaml"
+              result: "allow"
+              renderedObjectSetSHA256: "c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1"
+    -
+      name: "default-reviewed"
+      variant: "recipes/nats/surveyor/0.20.9/variants/default-reviewed/variant.yaml"
+      namespace: "default"
+      releaseName: "surveyor"
+      valuesProfile: "recipes/nats/surveyor/0.20.9/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "default-reviewed"
+        path: "packages/nats/surveyor/0.20.9/bases/default-reviewed"
+        default: false
+        description: "nats/surveyor default-reviewed useful base; aliases the default render with a named user start path"
+      setupCheck:
+        command: "cub installer setup --pull packages/nats/surveyor/0.20.9 --base default-reviewed --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 3
+        cubInstallObjectCountIncludingSupport: 4
+        semanticObjectMatches: "3/3"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "default-reviewed-r001"
+          revision: "r001"
+          variantRevision: "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/variant-revision.yaml"
+          digest: "c6bacf768440e4207e99fa4f30c12fb48e1ecbcb265cac9d4577290f991852dd"
+          renderedObjectSetSHA256: "c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1"
+          renderedObjects: "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/rendered/object-inventory.yaml"
+          objectCount: 3
+          helmObjectCount: 3
+          cubInstallObjectCountIncludingSupport: 4
+          semanticObjectMatches: "3/3"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/receipts/scan-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/receipts/install-gate.yaml"
               result: "allow"
               renderedObjectSetSHA256: "c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1"
