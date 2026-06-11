@@ -1,0 +1,34 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "TargetCompatibilityDecision"
+metadata:
+  name: "prometheus-community-prometheus-adapter-5-3-0-kind-kubernetes-v1-36"
+spec:
+  chart: "prometheus-community/prometheus-adapter"
+  version: "5.3.0"
+  targetProfile: "kind-kubernetes-v1.36"
+  status: "target-api-version-refused"
+  decision: "do-not-promote-for-this-target-profile"
+  summary: "The current chart renders APIService objects using apiregistration.k8s.io/v1beta1. The tested Kubernetes target does not serve that API version, so this recipe remains proof-grade and must not be catalog-promoted for this target profile."
+  renderedIssue:
+    apiVersion: "apiregistration.k8s.io/v1beta1"
+    kind: "APIService"
+    objects:
+      - "v1beta1.custom.metrics.k8s.io"
+  targetEvidence:
+    routeClass: "api-version-unsupported"
+    receipt: "runs/next80-local-kind/prometheus-community-prometheus-adapter-5.3.0-default/observation-receipt.yaml"
+    observedError: "no matches for kind APIService in version apiregistration.k8s.io/v1beta1"
+  evidence:
+    - path: "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/object-inventory.yaml"
+      claim: "The default base renders an APIService using apiregistration.k8s.io/v1beta1."
+    - path: "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/cluster-metrics-readonly/r001/rendered/object-inventory.yaml"
+      claim: "The cluster-metrics-readonly base renders an APIService using apiregistration.k8s.io/v1beta1."
+    - path: "runs/next80-local-kind/prometheus-community-prometheus-adapter-5.3.0-default/observation-receipt.yaml"
+      claim: "The live target refused the rendered APIService API version during apply."
+    - path: "data/apiservice-coverage/maintained-apiservice-coverage.csv"
+      claim: "The APIService coverage row records the target API-version block."
+  nextAction: "Keep prometheus-community/prometheus-adapter@5.3.0 proof-grade for this target profile. Promote only after an upstream chart version or explicit compatibility base renders a target-supported APIService object and passes the APIService runtime contract."
+  claimsNotMade:
+    - "This does not claim Prometheus Adapter is unusable on every Kubernetes target."
+    - "This does not claim APIService runtime aggregation has been observed for this recipe."
+    - "This does not patch upstream Helm output silently."

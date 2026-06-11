@@ -27,7 +27,7 @@ rows with object/workload observation:   2
 rows with two-cluster parity only:       0
 rows still source-detected only:         3
 aggregated API availability receipts:    2
-active proof/import work orders:          5
+active proof/import work orders:          4
 ~~~
 
 Only rows with both an `Available=True` APIService condition and a successful
@@ -58,13 +58,13 @@ signals even when the source chart sits outside the source top-100 slice. It
 keeps target compatibility blockers visible without changing the source-top-100
 counts above.
 
-| Rank | Chart | Source version | Rendered APIService objects | Status | ConfigHub proof | Target block | Next action |
-| ---: | --- | --- | ---: | --- | --- | --- | --- |
-| 11 | `metrics-server/metrics-server` | 3.13.0 | 2 | `api-aggregation-observed` | yes | - | keep the runtime/GitOps APIService receipt fresh; use this pattern for the next APIService chart |
-| 53 | `kedacore/keda` | 2.19.0 | 2 | `api-aggregation-observed` | yes | - | decide whether KEDA enters a catalog promotion wave using the two-cluster parity and ConfigHub OCI APIService receipts |
-| 118 | `prometheus-community/prometheus-adapter` | 5.3.0 | 2 | `target-api-version-blocked` | yes | `api-version-unsupported` | choose a supported chart version, compatibility base, or target Kubernetes profile before rerunning live APIService observation |
-| 130 | `fairwinds-stable/goldilocks` | 10.3.0 | 0 | `source-signal-not-rendered-in-maintained-bases` | no | - | render path recorded: current maintained bases do not render APIService objects; require runtime aggregation evidence only for a future APIService-enabled base |
-| 148 | `fairwinds-stable/vpa` | 4.11.0 | 0 | `source-signal-not-rendered-in-maintained-bases` | no | - | render path recorded: current maintained bases do not render APIService objects; require runtime aggregation evidence only for a future APIService-enabled base |
+| Rank | Chart | Source version | Rendered APIService objects | Status | ConfigHub proof | Target block | Target decision | Next action |
+| ---: | --- | --- | ---: | --- | --- | --- | --- | --- |
+| 11 | `metrics-server/metrics-server` | 3.13.0 | 2 | `api-aggregation-observed` | yes | - | - | keep the runtime/GitOps APIService receipt fresh; use this pattern for the next APIService chart |
+| 53 | `kedacore/keda` | 2.19.0 | 2 | `api-aggregation-observed` | yes | - | - | decide whether KEDA enters a catalog promotion wave using the two-cluster parity and ConfigHub OCI APIService receipts |
+| 118 | `prometheus-community/prometheus-adapter` | 5.3.0 | 2 | `target-api-version-refused` | yes | `api-version-unsupported` | `do-not-promote-for-this-target-profile` | Keep prometheus-community/prometheus-adapter@5.3.0 proof-grade for this target profile. Promote only after an upstream chart version or explicit compatibility base renders a target-supported APIService object and passes the APIService runtime contract. |
+| 130 | `fairwinds-stable/goldilocks` | 10.3.0 | 0 | `source-signal-not-rendered-in-maintained-bases` | no | - | - | render path recorded: current maintained bases do not render APIService objects; require runtime aggregation evidence only for a future APIService-enabled base |
+| 148 | `fairwinds-stable/vpa` | 4.11.0 | 0 | `source-signal-not-rendered-in-maintained-bases` | no | - | - | render path recorded: current maintained bases do not render APIService objects; require runtime aggregation evidence only for a future APIService-enabled base |
 
 Maintained status counts:
 
@@ -72,7 +72,7 @@ Maintained status counts:
 | --- | ---: |
 | `api-aggregation-observed` | 2 |
 | `source-signal-not-rendered-in-maintained-bases` | 2 |
-| `target-api-version-blocked` | 1 |
+| `target-api-version-refused` | 1 |
 
 ## Runtime Contract
 
@@ -108,6 +108,9 @@ Current contract rows:
   live semantic parity, but there is no dedicated APIService observation.
 - `modeled-needs-runtime-observation` means recipe proof exists, but runtime
   APIService evidence is missing.
+- `target-api-version-refused` means a target-scoped compatibility decision
+  records that the rendered APIService API version is unsupported for the tested
+  target profile. It is not a global chart refusal.
 - `source-signal-not-rendered-in-maintained-bases` means the source scan found
   APIService templates, but the maintained recipe bases do not render APIService
   objects. Runtime aggregation evidence is not owed until a base enables that
@@ -123,6 +126,8 @@ Current contract rows:
 | `maintained-apiservice-coverage.csv` | Maintained recipe/package rows with APIService source signals, including rows outside the source top-100 slice. |
 | `render-path-notes.md` | Maintained rows where APIService source signals are conditional or vendored but not rendered by current bases. |
 | `render-path-notes.csv` | Spreadsheet-ready render-path decisions. |
+| `target-compatibility-decisions.md` | Target-scoped compatibility decisions for maintained rows that render unsupported APIService versions. |
+| `target-compatibility-decisions.csv` | Spreadsheet-ready target compatibility decisions. |
 | `work-orders.md` | Human next-proof queue for APIService charts. |
 | `work-orders.csv` | Spreadsheet-ready next-proof queue for assignment and reruns. |
 | `data/quirk-work-queue/top100-queue.csv` | Source quirk queue that currently carries the APIService hard gap. |

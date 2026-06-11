@@ -22,6 +22,8 @@ const outputs = {
   maintainedCsv: join(outputRoot, "maintained-apiservice-coverage.csv"),
   renderPathCsv: join(outputRoot, "render-path-notes.csv"),
   renderPathMd: join(outputRoot, "render-path-notes.md"),
+  targetDecisionCsv: join(outputRoot, "target-compatibility-decisions.csv"),
+  targetDecisionMd: join(outputRoot, "target-compatibility-decisions.md"),
   summary: join(outputRoot, "summary.md"),
   workOrdersCsv: join(outputRoot, "work-orders.csv"),
   workOrdersMd: join(outputRoot, "work-orders.md"),
@@ -58,6 +60,8 @@ if (mode === "--generate") {
   write(outputs.maintainedCsv, report.outputs.maintainedCsv);
   write(outputs.renderPathCsv, report.outputs.renderPathCsv);
   write(outputs.renderPathMd, report.outputs.renderPathMd);
+  write(outputs.targetDecisionCsv, report.outputs.targetDecisionCsv);
+  write(outputs.targetDecisionMd, report.outputs.targetDecisionMd);
   write(outputs.summary, report.outputs.summary);
   write(outputs.workOrdersCsv, report.outputs.workOrdersCsv);
   write(outputs.workOrdersMd, report.outputs.workOrdersMd);
@@ -71,6 +75,8 @@ if (mode === "--generate") {
   check(readFileSync(outputs.maintainedCsv, "utf8") === report.outputs.maintainedCsv, `${relativeRepo(outputs.maintainedCsv)} is stale; run npm run apiservice:coverage`);
   check(readFileSync(outputs.renderPathCsv, "utf8") === report.outputs.renderPathCsv, `${relativeRepo(outputs.renderPathCsv)} is stale; run npm run apiservice:coverage`);
   check(readFileSync(outputs.renderPathMd, "utf8") === report.outputs.renderPathMd, `${relativeRepo(outputs.renderPathMd)} is stale; run npm run apiservice:coverage`);
+  check(readFileSync(outputs.targetDecisionCsv, "utf8") === report.outputs.targetDecisionCsv, `${relativeRepo(outputs.targetDecisionCsv)} is stale; run npm run apiservice:coverage`);
+  check(readFileSync(outputs.targetDecisionMd, "utf8") === report.outputs.targetDecisionMd, `${relativeRepo(outputs.targetDecisionMd)} is stale; run npm run apiservice:coverage`);
   check(readFileSync(outputs.summary, "utf8") === report.outputs.summary, `${relativeRepo(outputs.summary)} is stale; run npm run apiservice:coverage`);
   check(readFileSync(outputs.workOrdersCsv, "utf8") === report.outputs.workOrdersCsv, `${relativeRepo(outputs.workOrdersCsv)} is stale; run npm run apiservice:coverage`);
   check(readFileSync(outputs.workOrdersMd, "utf8") === report.outputs.workOrdersMd, `${relativeRepo(outputs.workOrdersMd)} is stale; run npm run apiservice:coverage`);
@@ -89,29 +95,33 @@ function buildReport() {
   const quirkRows = parseCsvFile("data/quirk-work-queue/top100-queue.csv");
   const reviewByChart = new Map(reviewRows.map((row) => [row.chart, row]));
   const quirkByRef = new Map(quirkRows.map((row) => [`${row.chart}@${row.source_version}`, row]));
+  const targetDecisions = targetCompatibilityDecisionIndex();
 
   check(sourceRows.length === 5, `expected 5 source top100 APIService rows; found ${sourceRows.length}`);
 
   const localTriageRows = parseCsvFile("data/local-live-triage/triage.csv");
   const localTriageByRef = new Map(localTriageRows.map((row) => [row.chart, row]));
 
-  const rows = sourceRows.map((source) => rowFor(source, reviewByChart.get(source.chart), quirkByRef.get(`${source.chart}@${source.version}`), localTriageByRef));
+  const rows = sourceRows.map((source) => rowFor(source, reviewByChart.get(source.chart), quirkByRef.get(`${source.chart}@${source.version}`), localTriageByRef, targetDecisions));
   const sourceRefs = new Set(rows.map((row) => `${row.chart}@${row.source_version}`));
   const maintainedRows = JSON.parse(readFileSync(join(repoRoot, "data/top500-catalog-analysis/source/source-feature-scan.raw.json"), "utf8"))
     .filter((row) => row.scanStatus === "scanned" && Number(row.apiServices ?? 0) > 0)
-    .map((source) => rowFor(source, reviewByChart.get(source.chart), quirkByRef.get(`${source.chart}@${source.version}`), localTriageByRef))
+    .map((source) => rowFor(source, reviewByChart.get(source.chart), quirkByRef.get(`${source.chart}@${source.version}`), localTriageByRef, targetDecisions))
     .filter((row) => Boolean(row.evidence_recipe_path))
     .sort((left, right) => Number(left.rank) - Number(right.rank));
   const maintainedExtraRows = maintainedRows.filter((row) => !sourceRefs.has(`${row.chart}@${row.source_version}`));
   const aggregationRows = rows.filter((row) => row.api_aggregation_observed === "yes");
   const renderPathRows = renderPathNotesFor(maintainedRows);
+  const targetDecisionRows = targetDecisionRowsFor(rows.concat(maintainedExtraRows));
 
   check(rows.some((row) => row.chart === "metrics-server/metrics-server" && row.coverage_status === "api-aggregation-observed"), "expected Metrics Server API aggregation observation row");
   check(rows.some((row) => row.chart === "kedacore/keda" && row.coverage_status === "api-aggregation-observed"), "expected KEDA ConfigHub OCI/API aggregation observation row");
-  check(maintainedExtraRows.some((row) => row.chart === "prometheus-community/prometheus-adapter" && row.coverage_status === "target-api-version-blocked"), "expected Prometheus Adapter target API-version blocked maintained row");
+  check(maintainedExtraRows.some((row) => row.chart === "prometheus-community/prometheus-adapter" && row.coverage_status === "target-api-version-refused"), "expected Prometheus Adapter target API-version refused maintained row");
   check(renderPathRows.length === 2, `expected two APIService render-path note rows; found ${renderPathRows.length}`);
   check(renderPathRows.some((row) => row.chart === "fairwinds-stable/goldilocks" && row.conditional_dependencies.includes("metrics-server.enabled")), "expected Goldilocks metrics-server render-path note");
   check(renderPathRows.some((row) => row.chart === "fairwinds-stable/vpa" && row.conditional_dependencies.includes("metrics-server.enabled")), "expected VPA metrics-server render-path note");
+  check(targetDecisionRows.length === 1, `expected one APIService target compatibility decision row; found ${targetDecisionRows.length}`);
+  check(targetDecisionRows[0]?.chart === "prometheus-community/prometheus-adapter", "expected Prometheus Adapter target compatibility decision row");
   check(aggregationRows.length === 2, `expected exactly two API aggregation availability rows; found ${aggregationRows.length}`);
   for (const row of aggregationRows) {
     check(row.api_condition_observed === "yes", `${row.chart}@${row.source_version} aggregation row missing APIService condition evidence`);
@@ -134,6 +144,8 @@ function buildReport() {
       maintainedCsv: toCsv(maintainedRows),
       renderPathCsv: toCsv(renderPathRows),
       renderPathMd: renderPathMarkdown(renderPathRows),
+      targetDecisionCsv: toCsv(targetDecisionRows),
+      targetDecisionMd: targetDecisionMarkdown(targetDecisionRows),
       summary: summaryMarkdown(rows, workOrders, maintainedRows, maintainedExtraRows),
       workOrdersCsv: toCsv(workOrders),
       workOrdersMd: workOrdersMarkdown(workOrders),
@@ -141,10 +153,11 @@ function buildReport() {
   };
 }
 
-function rowFor(source, review, quirk, localTriageByRef) {
+function rowFor(source, review, quirk, localTriageByRef, targetDecisions) {
   const ref = `${source.chart}@${source.version}`;
   const receipts = knownReceipts[ref] ?? {};
   const targetBlock = localTriageByRef.get(ref);
+  const targetDecision = targetDecisions.get(ref);
   const renderedApiService = renderedApiServiceEvidence(review?.recipe_path);
   const local = receiptExists(receipts.localObservation) && observationHasPassCheck(receipts.localObservation, "apiservice-");
   const objectSet = receiptExists(receipts.objectSet) && objectSetHasAPIService(receipts.objectSet);
@@ -168,6 +181,7 @@ function rowFor(source, review, quirk, localTriageByRef) {
     runtimeGitOpsAggregation,
     kindParityAggregation,
     targetBlock,
+    targetDecision,
     renderedApiServiceCount: renderedApiService.count,
   });
   const contract = contractFor({
@@ -177,6 +191,7 @@ function rowFor(source, review, quirk, localTriageByRef) {
     runtimeGitOpsEvidence,
     kindParityEvidence,
     apiAggregation,
+    targetDecision,
     renderedApiServiceCount: renderedApiService.count,
   });
   return {
@@ -200,17 +215,20 @@ function rowFor(source, review, quirk, localTriageByRef) {
     aggregated_query_observed: contract.query,
     freshness_observed: contract.freshness,
     contract_gaps: contract.gaps,
-    evidence: evidenceFor({ review, quirk, receipts, kindParity }),
+    evidence: evidenceFor({ review, quirk, receipts, kindParity, targetDecision }),
     evidence_recipe_path: review?.recipe_path ?? "",
     rendered_api_service_evidence: renderedApiService.evidence,
     target_block_route: targetBlock?.route_class ?? "",
     target_block_receipt: targetBlock?.receipt ?? "",
-    next_action: nextActionFor({ ref, hasRecipe, coverageStatus }),
+    target_compatibility_decision: targetDecision?.decision ?? "",
+    target_compatibility_status: targetDecision?.status ?? "",
+    target_compatibility_receipt: targetDecision?.path ?? "",
+    next_action: nextActionFor({ ref, hasRecipe, coverageStatus, targetDecision }),
     limitation: "APIService object evidence is not the same as Kubernetes API aggregation availability. Close this with an explicit Available=True or aggregated API query receipt.",
   };
 }
 
-function contractFor({ hasRecipe, objectObserved, workloadObserved, runtimeGitOpsEvidence, kindParityEvidence, apiAggregation, renderedApiServiceCount }) {
+function contractFor({ hasRecipe, objectObserved, workloadObserved, runtimeGitOpsEvidence, kindParityEvidence, apiAggregation, targetDecision, renderedApiServiceCount }) {
   const best = runtimeGitOpsEvidence.contract === "pass" ? runtimeGitOpsEvidence : kindParityEvidence.contract === "pass" ? kindParityEvidence : null;
   if (best) {
     return {
@@ -222,6 +240,7 @@ function contractFor({ hasRecipe, objectObserved, workloadObserved, runtimeGitOp
     };
   }
   const gaps = [];
+  if (targetDecision) gaps.push(`target compatibility decision: ${targetDecision.status}`);
   if (!hasRecipe) gaps.push("no maintained recipe/import row");
   if (hasRecipe && renderedApiServiceCount === 0) gaps.push("source APIService templates not rendered by maintained bases");
   if (!objectObserved) gaps.push("no rendered APIService object observation");
@@ -236,18 +255,19 @@ function contractFor({ hasRecipe, objectObserved, workloadObserved, runtimeGitOp
   };
 }
 
-function coverageStatusFor({ hasRecipe, local, objectSet, workload, liveParity, kindParity, runtimeGitOpsAggregation, kindParityAggregation, targetBlock, renderedApiServiceCount }) {
+function coverageStatusFor({ hasRecipe, local, objectSet, workload, liveParity, kindParity, runtimeGitOpsAggregation, kindParityAggregation, targetBlock, targetDecision, renderedApiServiceCount }) {
   if (runtimeGitOpsAggregation && hasRecipe && kindParity.length > 0) return "api-aggregation-observed";
   if (kindParityAggregation && hasRecipe && kindParity.length > 0) return "two-cluster-api-aggregation-observed";
   if (local && objectSet && workload && liveParity && kindParity.length > 0) return "object-and-workload-observed";
   if (hasRecipe && kindParity.length > 0) return "two-cluster-parity-only";
+  if (hasRecipe && targetDecision?.status) return targetDecision.status;
   if (hasRecipe && targetBlock?.route_class === "api-version-unsupported") return "target-api-version-blocked";
   if (hasRecipe && renderedApiServiceCount === 0) return "source-signal-not-rendered-in-maintained-bases";
   if (hasRecipe) return "modeled-needs-runtime-observation";
   return "source-detected-needs-recipe";
 }
 
-function nextActionFor({ ref, hasRecipe, coverageStatus }) {
+function nextActionFor({ ref, hasRecipe, coverageStatus, targetDecision }) {
   if (ref === "metrics-server/metrics-server@3.13.0") {
     return "keep the runtime/GitOps APIService receipt fresh; use this pattern for the next APIService chart";
   }
@@ -263,6 +283,9 @@ function nextActionFor({ ref, hasRecipe, coverageStatus }) {
   if (coverageStatus === "target-api-version-blocked") {
     return "choose a supported chart version, compatibility base, or target Kubernetes profile before rerunning live APIService observation";
   }
+  if (coverageStatus === "target-api-version-refused" && targetDecision?.nextAction) {
+    return targetDecision.nextAction;
+  }
   if (coverageStatus === "source-signal-not-rendered-in-maintained-bases") {
     return "render path recorded: current maintained bases do not render APIService objects; require runtime aggregation evidence only for a future APIService-enabled base";
   }
@@ -272,11 +295,12 @@ function nextActionFor({ ref, hasRecipe, coverageStatus }) {
   return "create recipe/import candidate, then model APIService readiness and aggregation observation before catalog claims";
 }
 
-function evidenceFor({ review, quirk, receipts, kindParity }) {
+function evidenceFor({ review, quirk, receipts, kindParity, targetDecision }) {
   return [
     "data/top500-catalog-analysis/source/source-feature-scan.raw.json",
     quirk ? "data/quirk-work-queue/top100-queue.csv" : "",
     review?.recipe_path,
+    targetDecision?.path,
     receipts.localObservation,
     receipts.objectSet,
     receipts.workload,
@@ -336,6 +360,41 @@ function dependencyRenderPathInfo(recipeDir) {
     .sort()
     .join(";");
   return { conditionalDependencies, dependencySources };
+}
+
+function targetCompatibilityDecisionIndex() {
+  const result = new Map();
+  const decisionRoot = join(outputRoot, "target-compatibility-decisions");
+  if (!existsSync(decisionRoot)) return result;
+  for (const entry of readdirSync(decisionRoot, { withFileTypes: true })) {
+    if (!entry.isFile() || !entry.name.endsWith(".yaml")) continue;
+    const path = join(decisionRoot, entry.name);
+    const decision = readYaml(path);
+    const spec = decision.spec ?? {};
+    check(spec.chart && spec.version, `${relativeRepo(path)} is missing spec.chart or spec.version`);
+    result.set(`${spec.chart}@${spec.version}`, {
+      ...spec,
+      path: relativeRepo(path),
+    });
+  }
+  return result;
+}
+
+function targetDecisionRowsFor(rows) {
+  return rows
+    .filter((row) => row.target_compatibility_receipt)
+    .map((row) => ({
+      chart: row.chart,
+      version: row.source_version,
+      status: row.target_compatibility_status,
+      decision: row.target_compatibility_decision,
+      target_block_route: row.target_block_route,
+      rendered_api_service_count: row.rendered_api_service_count,
+      receipt: row.target_compatibility_receipt,
+      blocker_receipt: row.target_block_receipt,
+      next_action: row.next_action,
+      claims_not_made: "not a global chart refusal; not an APIService runtime success claim; not a silent upstream patch",
+    }));
 }
 
 function maintainedBasesFor(recipeDir) {
@@ -402,6 +461,20 @@ function workOrderFor(row) {
       evidence: row.evidence,
     };
   }
+  if (row.coverage_status === "target-api-version-refused") {
+    return {
+      priority: 9,
+      chart: row.chart,
+      version: row.source_version,
+      current_state: row.coverage_status,
+      work_type: "target-compatibility-recorded",
+      owner_hint: "catalog-review",
+      first_task: "no rerun is useful for the recorded target profile until the chart or compatibility base renders a supported APIService API version",
+      receipts_to_add: "none for the recorded target profile; add a new runtime aggregation receipt only after a compatible render path exists",
+      done_when: "target compatibility decision records the refusal and the row stays proof-grade for that target profile",
+      evidence: row.evidence,
+    };
+  }
   if (row.coverage_status === "target-api-version-blocked") {
     return {
       priority: 3,
@@ -451,7 +524,7 @@ function summaryMarkdown(rows, workOrders, maintainedRows, maintainedExtraRows) 
   const objectWorkloadRows = rows.filter((row) => row.api_object_observed === "yes" && row.workload_observed === "yes");
   const aggregationRows = rows.filter((row) => row.api_aggregation_observed === "yes");
   const maintainedCounts = countBy(maintainedRows, (row) => row.coverage_status);
-  const activeWorkOrders = workOrders.filter((row) => !["keep-fresh-pattern", "render-path-recorded"].includes(row.work_type));
+  const activeWorkOrders = workOrders.filter((row) => !["keep-fresh-pattern", "render-path-recorded", "target-compatibility-recorded"].includes(row.work_type));
   const statusRows = [...counts.entries()].sort((a, b) => a[0].localeCompare(b[0]));
   return `# Top-100 APIService Coverage
 
@@ -508,9 +581,9 @@ signals even when the source chart sits outside the source top-100 slice. It
 keeps target compatibility blockers visible without changing the source-top-100
 counts above.
 
-| Rank | Chart | Source version | Rendered APIService objects | Status | ConfigHub proof | Target block | Next action |
-| ---: | --- | --- | ---: | --- | --- | --- | --- |
-${maintainedRows.map((row) => `| ${row.rank} | \`${row.chart}\` | ${row.source_version} | ${row.rendered_api_service_count} | \`${row.coverage_status}\` | ${receiptExists(knownReceipts[`${row.chart}@${row.source_version}`]?.configHubProof) ? "yes" : "no"} | ${row.target_block_route ? `\`${row.target_block_route}\`` : "-"} | ${escapePipes(row.next_action)} |`).join("\n")}
+| Rank | Chart | Source version | Rendered APIService objects | Status | ConfigHub proof | Target block | Target decision | Next action |
+| ---: | --- | --- | ---: | --- | --- | --- | --- | --- |
+${maintainedRows.map((row) => `| ${row.rank} | \`${row.chart}\` | ${row.source_version} | ${row.rendered_api_service_count} | \`${row.coverage_status}\` | ${receiptExists(knownReceipts[`${row.chart}@${row.source_version}`]?.configHubProof) ? "yes" : "no"} | ${row.target_block_route ? `\`${row.target_block_route}\`` : "-"} | ${row.target_compatibility_decision ? `\`${row.target_compatibility_decision}\`` : "-"} | ${escapePipes(row.next_action)} |`).join("\n")}
 
 Maintained status counts:
 
@@ -548,6 +621,9 @@ ${rows.map((row) => `| \`${row.chart}@${row.source_version}\` | ${row.aggregatio
   live semantic parity, but there is no dedicated APIService observation.
 - \`modeled-needs-runtime-observation\` means recipe proof exists, but runtime
   APIService evidence is missing.
+- \`target-api-version-refused\` means a target-scoped compatibility decision
+  records that the rendered APIService API version is unsupported for the tested
+  target profile. It is not a global chart refusal.
 - \`source-signal-not-rendered-in-maintained-bases\` means the source scan found
   APIService templates, but the maintained recipe bases do not render APIService
   objects. Runtime aggregation evidence is not owed until a base enables that
@@ -563,6 +639,8 @@ ${rows.map((row) => `| \`${row.chart}@${row.source_version}\` | ${row.aggregatio
 | \`maintained-apiservice-coverage.csv\` | Maintained recipe/package rows with APIService source signals, including rows outside the source top-100 slice. |
 | \`render-path-notes.md\` | Maintained rows where APIService source signals are conditional or vendored but not rendered by current bases. |
 | \`render-path-notes.csv\` | Spreadsheet-ready render-path decisions. |
+| \`target-compatibility-decisions.md\` | Target-scoped compatibility decisions for maintained rows that render unsupported APIService versions. |
+| \`target-compatibility-decisions.csv\` | Spreadsheet-ready target compatibility decisions. |
 | \`work-orders.md\` | Human next-proof queue for APIService charts. |
 | \`work-orders.csv\` | Spreadsheet-ready next-proof queue for assignment and reruns. |
 | \`data/quirk-work-queue/top100-queue.csv\` | Source quirk queue that currently carries the APIService hard gap. |
@@ -612,9 +690,11 @@ catalog-supported entry for a named target profile, or keep it proof-grade.
 Kubernetes Dashboard, Datadog, and Bitnami Metrics Server need import/catalog
 decisions before a runtime aggregation receipt can close the gap. Prometheus
 Adapter has a maintained recipe and ConfigHub proof, but the tested target does
-not serve the rendered APIService version. Goldilocks and VPA have render-path
-notes: their current maintained bases do not render APIService objects, so they
-do not owe runtime aggregation evidence unless a future base enables that path.
+not serve the rendered APIService version; the target-compatibility decision
+records that it stays proof-grade for that target profile. Goldilocks and VPA
+have render-path notes: their current maintained bases do not render APIService
+objects, so they do not owe runtime aggregation evidence unless a future base
+enables that path.
 
 ## Files
 
@@ -623,6 +703,7 @@ do not owe runtime aggregation evidence unless a future base enables that path.
 | \`top100-apiservice-coverage.csv\` | Current APIService state per top-100 source row. |
 | \`work-orders.csv\` | Same queue in spreadsheet form. |
 | \`render-path-notes.md\` | Render-path decisions for maintained rows whose APIService source signals are not active in current bases. |
+| \`target-compatibility-decisions.md\` | Target-scoped compatibility decisions for maintained rows that render unsupported APIService versions. |
 | \`data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml\` | Existing Metrics Server pattern receipt. |
 | \`data/runtime-gitops/receipts/kedacore-keda/default/latest.yaml\` | KEDA ConfigHub OCI/Argo APIService receipt. |
 
@@ -672,6 +753,37 @@ freshness timestamp recorded
 | Chart | Dependency sources | Evidence |
 | --- | --- | --- |
 ${rows.map((row) => `| \`${row.chart}@${row.version}\` | ${escapePipes(row.dependency_sources || "-")} | ${escapePipes(row.evidence)} |`).join("\n")}
+
+Regenerate:
+
+~~~sh
+npm run apiservice:coverage
+npm run apiservice:coverage:verify
+~~~
+`;
+}
+
+function targetDecisionMarkdown(rows) {
+  return `# APIService Target Compatibility Decisions
+
+This generated note lists APIService rows where the maintained recipe renders
+APIService objects, but the tested target profile does not support the rendered
+API version or equivalent prerequisite.
+
+These are target-scoped support decisions. They do not claim that the upstream
+chart is unusable everywhere, and they do not silently patch Helm output.
+
+## Current Decisions
+
+| Chart | Version | Status | Decision | Target block | Receipt | Next action |
+| --- | --- | --- | --- | --- | --- | --- |
+${rows.map((row) => `| \`${row.chart}\` | ${row.version} | \`${row.status}\` | \`${row.decision}\` | ${row.target_block_route ? `\`${row.target_block_route}\`` : "-"} | \`${row.receipt}\` | ${escapePipes(row.next_action)} |`).join("\n")}
+
+## Claim Boundary
+
+| Chart | Not claimed |
+| --- | --- |
+${rows.map((row) => `| \`${row.chart}@${row.version}\` | ${escapePipes(row.claims_not_made)} |`).join("\n")}
 
 Regenerate:
 

@@ -45,7 +45,7 @@ const BUCKET_MEANING = {
   "needs-better-base-variant":
     "The mechanism is proven, but the install shapes a real user wants are not built or reviewed yet.",
   "not-ready-yet":
-    "A named limitation needs a support / disclose / defer decision before this chart can be promoted.",
+    "A named limitation or target compatibility issue needs a support / disclose / defer / refuse decision before this chart can be promoted.",
 };
 
 function parseCsv(text) {
@@ -156,7 +156,11 @@ function userMustProvide(bucket, row, facts, tokens) {
   if (tokens.includes("webhooks")) needs.push("webhook/cert readiness at delivery time");
   if (tokens.includes("lookup") || tokens.includes("generated-facts")) needs.push("target facts at variant time");
   if (flagged(facts?.required_values)) needs.push("mandatory chart inputs");
-  if (bucket === "not-ready-yet") needs.push("a decision on the named limitation before use");
+  if (bucket === "not-ready-yet" && row.proof_focus === "api-service-target-compatibility") {
+    needs.push("a compatible Kubernetes target profile or a compatibility base");
+  } else if (bucket === "not-ready-yet") {
+    needs.push("a decision on the named limitation before use");
+  }
   if (bucket === "needs-better-base-variant") needs.push("your wanted install shape, until a reviewed base exists");
   return needs.length ? needs.join("; ") : "nothing beyond a cluster and namespace";
 }
