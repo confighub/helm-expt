@@ -84,6 +84,13 @@ function buildReport() {
   check(rows.some((row) => row.chart === "metrics-server/metrics-server" && row.coverage_status === "api-aggregation-observed"), "expected Metrics Server API aggregation observation row");
   check(rows.some((row) => row.chart === "kedacore/keda" && row.coverage_status === "api-aggregation-observed"), "expected KEDA ConfigHub OCI/API aggregation observation row");
   check(aggregationRows.length === 2, `expected exactly two API aggregation availability rows; found ${aggregationRows.length}`);
+  for (const row of aggregationRows) {
+    check(row.api_condition_observed === "yes", `${row.chart}@${row.source_version} aggregation row missing APIService condition evidence`);
+    check(row.aggregated_query_observed === "yes", `${row.chart}@${row.source_version} aggregation row missing aggregated API query evidence`);
+    check(row.freshness_observed === "yes", `${row.chart}@${row.source_version} aggregation row missing freshness evidence`);
+    check(row.aggregation_receipt && receiptExists(row.aggregation_receipt), `${row.chart}@${row.source_version} aggregation row missing receipt path`);
+    check(row.contract_gaps === "none", `${row.chart}@${row.source_version} aggregation row has unresolved contract gap: ${row.contract_gaps}`);
+  }
 
   const workOrders = workOrdersFor(rows);
 
@@ -110,12 +117,22 @@ function rowFor(source, review, quirk) {
   const workload = receiptExists(receipts.workload) && receiptVerdict(receipts.workload) === "PASS";
   const liveParity = receiptExists(receipts.liveParity);
   const kindParity = (receipts.kindParity ?? []).filter(receiptExists);
-  const runtimeGitOpsAggregation = runtimeGitOpsHasAPIAggregation(receipts.runtimeGitOps);
-  const runtimeGitOpsWorkload = runtimeGitOpsHasWorkload(receipts.runtimeGitOps);
-  const kindParityAggregation = kindParity.some((path) => kindParityHasAPIAggregation(path));
+  const runtimeGitOpsEvidence = runtimeGitOpsAggregationEvidence(receipts.runtimeGitOps);
+  const runtimeGitOpsAggregation = runtimeGitOpsEvidence.contract === "pass";
+  const runtimeGitOpsWorkload = runtimeGitOpsEvidence.workload === "yes";
+  const kindParityEvidence = kindParityAggregationEvidence(kindParity);
+  const kindParityAggregation = kindParityEvidence.contract === "pass";
   const apiAggregation = runtimeGitOpsAggregation || kindParityAggregation;
   const hasRecipe = Boolean(review?.recipe_path);
   const coverageStatus = coverageStatusFor({ hasRecipe, local, objectSet, workload, liveParity, kindParity, runtimeGitOpsAggregation, kindParityAggregation });
+  const contract = contractFor({
+    hasRecipe,
+    objectObserved: objectSet || local || runtimeGitOpsAggregation,
+    workloadObserved: workload || runtimeGitOpsWorkload,
+    runtimeGitOpsEvidence,
+    kindParityEvidence,
+    apiAggregation,
+  });
   return {
     rank: source.rank,
     chart: source.chart,
@@ -131,9 +148,39 @@ function rowFor(source, review, quirk) {
     two_cluster_parity_observed: kindParity.length > 0 ? "yes" : "no",
     api_aggregation_observed: apiAggregation ? "yes" : "no",
     api_aggregation_evidence: runtimeGitOpsAggregation ? "runtime-gitops" : kindParityAggregation ? "two-cluster-kind" : "",
+    aggregation_receipt: contract.receipt,
+    api_condition_observed: contract.condition,
+    aggregated_query_observed: contract.query,
+    freshness_observed: contract.freshness,
+    contract_gaps: contract.gaps,
     evidence: evidenceFor({ review, quirk, receipts, kindParity }),
     next_action: nextActionFor({ ref, hasRecipe, coverageStatus }),
     limitation: "APIService object evidence is not the same as Kubernetes API aggregation availability. Close this with an explicit Available=True or aggregated API query receipt.",
+  };
+}
+
+function contractFor({ hasRecipe, objectObserved, workloadObserved, runtimeGitOpsEvidence, kindParityEvidence, apiAggregation }) {
+  const best = runtimeGitOpsEvidence.contract === "pass" ? runtimeGitOpsEvidence : kindParityEvidence.contract === "pass" ? kindParityEvidence : null;
+  if (best) {
+    return {
+      receipt: best.path,
+      condition: best.condition,
+      query: best.query,
+      freshness: best.freshness,
+      gaps: "none",
+    };
+  }
+  const gaps = [];
+  if (!hasRecipe) gaps.push("no maintained recipe/import row");
+  if (!objectObserved) gaps.push("no rendered APIService object observation");
+  if (!workloadObserved) gaps.push("no backing workload observation");
+  if (!apiAggregation) gaps.push("no APIService Available=True plus aggregated API query receipt");
+  return {
+    receipt: "",
+    condition: "no",
+    query: "no",
+    freshness: "no",
+    gaps: gaps.join("; "),
   };
 }
 
@@ -312,6 +359,25 @@ ${statusRows.map(([status, count]) => `| \`${status}\` | ${count} |`).join("\n")
 | ---: | --- | --- | --- | --- | --- | --- | --- | --- |
 ${rows.map((row) => `| ${row.rank} | \`${row.chart}\` | ${row.source_version} | \`${row.coverage_status}\` | ${row.api_object_observed} | ${row.workload_observed} | ${row.live_parity_observed} | ${row.api_aggregation_observed} | ${escapePipes(row.next_action)} |`).join("\n")}
 
+## Runtime Contract
+
+APIService rows become trusted runtime evidence only when one committed receipt
+records all of these facts for the selected chart/base:
+
+| Fact | Why it matters |
+| --- | --- |
+| rendered APIService object observed | proves the desired aggregation object is present in the object set |
+| backing workload observed | proves the APIService has a real server behind it |
+| APIService \`Available=True\` observed | proves Kubernetes API aggregation accepted the route and trust chain |
+| aggregated API query observed | proves a client can use the aggregated API, not only read the object |
+| freshness timestamp recorded | lets support decide whether the observation is still usable |
+
+Current contract rows:
+
+| Chart | Receipt | Condition | Query | Freshness | Gaps |
+| --- | --- | --- | --- | --- | --- |
+${rows.map((row) => `| \`${row.chart}@${row.source_version}\` | ${row.aggregation_receipt ? `\`${row.aggregation_receipt}\`` : "-"} | ${row.api_condition_observed} | ${row.aggregated_query_observed} | ${row.freshness_observed} | ${escapePipes(row.contract_gaps)} |`).join("\n")}
+
 ## How To Use This
 
 - \`api-aggregation-observed\` means committed runtime evidence records both
@@ -422,14 +488,23 @@ function receiptVerdict(path) {
   return String(receipt.predicate?.verdict ?? "");
 }
 
-function runtimeGitOpsHasAPIAggregation(path) {
-  if (!receiptExists(path)) return false;
+function runtimeGitOpsAggregationEvidence(path) {
+  if (!receiptExists(path)) return evidenceResult({ path });
   const receipt = readYaml(join(repoRoot, path));
   const apiServiceAvailable = receipt.spec?.runtime?.apiService?.available === true;
   const metricsApiPass = (receipt.spec?.checks ?? []).some((checkItem) => checkItem.name === "metrics-api" && checkItem.result === "pass");
   const aggregatedApiPass = receipt.spec?.runtime?.aggregatedApiQuery?.result === "pass" ||
     (receipt.spec?.checks ?? []).some((checkItem) => checkItem.name === "aggregated-api-query" && checkItem.result === "pass");
-  return apiServiceAvailable && (metricsApiPass || aggregatedApiPass);
+  const observedAt = Boolean(receipt.spec?.observedAt);
+  const resultPass = receipt.spec?.result === "pass";
+  return evidenceResult({
+    path,
+    condition: apiServiceAvailable,
+    query: metricsApiPass || aggregatedApiPass,
+    freshness: observedAt,
+    workload: runtimeGitOpsHasWorkload(path),
+    contract: resultPass && apiServiceAvailable && (metricsApiPass || aggregatedApiPass) && observedAt,
+  });
 }
 
 function runtimeGitOpsHasWorkload(path) {
@@ -441,14 +516,45 @@ function runtimeGitOpsHasWorkload(path) {
   );
 }
 
-function kindParityHasAPIAggregation(path) {
-  if (!receiptExists(path)) return false;
-  const receipt = readYaml(join(repoRoot, path));
-  const helmItems = receipt.spec?.legs?.regularHelm?.runtime?.apiServices?.items ?? [];
-  const installerItems = receipt.spec?.legs?.cubInstallerApply?.runtime?.apiServices?.items ?? [];
-  return [helmItems, installerItems].every((items) =>
-    items.length > 0 && items.every((item) => item.available === true && item.queryResult === "pass")
-  );
+function kindParityAggregationEvidence(paths) {
+  const usable = paths.filter(receiptExists);
+  if (usable.length === 0) return evidenceResult({});
+  for (const path of usable) {
+    const receipt = readYaml(join(repoRoot, path));
+    const helmItems = receipt.spec?.legs?.regularHelm?.runtime?.apiServices?.items ?? [];
+    const installerItems = receipt.spec?.legs?.cubInstallerApply?.runtime?.apiServices?.items ?? [];
+    const itemsPass = [helmItems, installerItems].every((items) =>
+      items.length > 0 && items.every((item) =>
+        item.available === true &&
+        item.conditionStatus === "True" &&
+        item.queryResult === "pass" &&
+        /^[a-f0-9]{64}$/.test(item.querySHA256 ?? "")
+      )
+    );
+    const observedAt = Boolean(receipt.spec?.observedAt ?? receipt.spec?.run?.observedAt);
+    if (receipt.spec?.result === "pass" && itemsPass && observedAt) {
+      return evidenceResult({
+        path,
+        condition: true,
+        query: true,
+        freshness: true,
+        workload: true,
+        contract: true,
+      });
+    }
+  }
+  return evidenceResult({ path: usable[0] });
+}
+
+function evidenceResult({ path = "", condition = false, query = false, freshness = false, workload = false, contract = false }) {
+  return {
+    path,
+    condition: condition ? "yes" : "no",
+    query: query ? "yes" : "no",
+    freshness: freshness ? "yes" : "no",
+    workload: workload ? "yes" : "no",
+    contract: contract ? "pass" : "missing",
+  };
 }
 
 function parseCsvFile(path) {

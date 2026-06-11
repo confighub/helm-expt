@@ -49,6 +49,29 @@ evidence exists for Metrics Server and KEDA.
 | 53 | `kedacore/keda` | 2.19.0 | `api-aggregation-observed` | yes | yes | no | yes | decide whether KEDA enters a catalog promotion wave using the two-cluster parity and ConfigHub OCI APIService receipts |
 | 71 | `bitnami/metrics-server` | 7.4.12 | `source-detected-needs-recipe` | no | no | no | no | create recipe/import candidate, then model APIService readiness and aggregation observation before catalog claims |
 
+## Runtime Contract
+
+APIService rows become trusted runtime evidence only when one committed receipt
+records all of these facts for the selected chart/base:
+
+| Fact | Why it matters |
+| --- | --- |
+| rendered APIService object observed | proves the desired aggregation object is present in the object set |
+| backing workload observed | proves the APIService has a real server behind it |
+| APIService `Available=True` observed | proves Kubernetes API aggregation accepted the route and trust chain |
+| aggregated API query observed | proves a client can use the aggregated API, not only read the object |
+| freshness timestamp recorded | lets support decide whether the observation is still usable |
+
+Current contract rows:
+
+| Chart | Receipt | Condition | Query | Freshness | Gaps |
+| --- | --- | --- | --- | --- | --- |
+| `k8s-dashboard/kubernetes-dashboard@7.14.0` | - | no | no | no | no maintained recipe/import row; no rendered APIService object observation; no backing workload observation; no APIService Available=True plus aggregated API query receipt |
+| `metrics-server/metrics-server@3.13.0` | `data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml` | yes | yes | yes | none |
+| `datadog/datadog@3.214.0` | - | no | no | no | no maintained recipe/import row; no rendered APIService object observation; no backing workload observation; no APIService Available=True plus aggregated API query receipt |
+| `kedacore/keda@2.19.0` | `data/runtime-gitops/receipts/kedacore-keda/default/latest.yaml` | yes | yes | yes | none |
+| `bitnami/metrics-server@7.4.12` | - | no | no | no | no maintained recipe/import row; no rendered APIService object observation; no backing workload observation; no APIService Available=True plus aggregated API query receipt |
+
 ## How To Use This
 
 - `api-aggregation-observed` means committed runtime evidence records both
