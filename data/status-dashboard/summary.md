@@ -54,8 +54,8 @@ Which detailed CSV should I open next?
 | proof lanes | local live rows | 23/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | GitOps/OCI live pass rows | 23/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | live Helm-vs-ConfigHub parity pass rows | 20/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | two-cluster kind parity pass rows | 49/50 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| proof lanes | two-cluster semantic parity pass rows | 50/50 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| proof lanes | two-cluster kind parity pass rows | 54/58 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| proof lanes | two-cluster semantic parity pass rows | 57/58 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | complete core lane rows | 20/189 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | top20 start-here base variants | 20/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
 | proof lanes | top20 bases needing unresolved prerequisite or runtime review | 0/42 | partial | [data/top20-base-readiness/base-readiness.csv](../../data/top20-base-readiness/base-readiness.csv) |
@@ -69,12 +69,12 @@ Which detailed CSV should I open next?
 | graph bridge | rows with field reachability | 4/102 | partial | [data/edge-recovery/edges.csv](../../data/edge-recovery/edges.csv) |
 | live evidence | runtime/GitOps wave rows | 10/10 | partial | [data/runtime-gitops/wave1.csv](../../data/runtime-gitops/wave1.csv) |
 | live evidence | selected live Helm-vs-ConfigHub parity receipts | 20/20 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
-| live evidence | two-cluster kind parity receipts | 50/50 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| live evidence | two-cluster kind parity receipts | 58/58 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | live evidence | live parity rerun rows needing decisions | 0/0 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | live parity rows needing model or staging first | 0/0 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | live parity rows needing target review first | 0/0 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/20 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
-| live evidence | two-cluster semantic parity defect receipts | 0/50 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
+| live evidence | two-cluster semantic parity defect receipts | 0/58 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | production disposition | top20 production-review-ready charts | 19/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | top20 production-blocked charts | 1/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | charts with accepted production dispositions | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
@@ -317,7 +317,7 @@ first.
 | local live | 23 | 0 | 166 | 189 |
 | GitOps/OCI live | 23 | 6 | 160 | 189 |
 | live Helm-vs-ConfigHub parity | 20 | 2 | 167 | 189 |
-| two-cluster kind parity | 49 | 1 | 0 | 50 |
+| two-cluster kind parity | 54 | 4 | 0 | 58 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
 prerequisite, runtime behavior, or provisioning boundary rather than a render
@@ -327,7 +327,7 @@ Current semantic parity defect receipts:
 
 ~~~text
 ConfigHub/OCI live comparison: 0/20
-two-cluster kind parity:       0/50
+two-cluster kind parity:       0/58
 ~~~
 
 The two-cluster kind parity lane is the cleanest live comparison for chart/base
@@ -359,6 +359,9 @@ Current two-cluster kind parity non-pass receipts:
 
 | Chart | Base | Result | Reason |
 | --- | --- | --- | --- |
+| aqua/trivy-operator@0.32.1 | no-crds | blocked | target-prerequisite: CRDs missing |
+| autoscaler/vertical-pod-autoscaler@0.9.0 | default | watch | target-runtime: installer-applied workload not ready at observation cutoff (parity passed) |
+| autoscaler/vertical-pod-autoscaler@0.9.0 | no-crds | watch | target-runtime: installer-applied workload not ready at observation cutoff (parity passed) |
 | jetstack/cert-manager@v1.20.2 | default | blocked | helm-hook: post-install hook failed (parity passed) |
 
 
