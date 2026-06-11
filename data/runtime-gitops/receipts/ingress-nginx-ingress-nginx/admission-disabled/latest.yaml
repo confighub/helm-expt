@@ -1,7 +1,7 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: RuntimeGitOpsReceipt
 metadata:
-  name: ingress-nginx-admission-disabled-argo-oci-helm-expt-oci-0605
+  name: ingress-nginx-admission-disabled-argo-oci-codex-live-evidence-ingress-0611
 spec:
   chart: ingress-nginx/ingress-nginx
   version: 4.15.1
@@ -9,47 +9,73 @@ spec:
   packagePath: packages/ingress-nginx/ingress-nginx/4.15.1
   recipePath: recipes/ingress-nginx/ingress-nginx/4.15.1
   controller: Argo CD OCI
-  observedAt: "2026-06-05T10:02:28Z"
+  observedAt: "2026-06-11T05:55:58Z"
   result: watch
   run:
-    rig: helm-expt-oci-0605
-    clusterSpace: helm-expt-oci-0605-cluster
-    workloadSpace: helm-expt-oci-0605-ingress-nginx
-    target: helm-expt-oci-0605-cluster/oci
+    rig: codex-live-evidence-ingress-0611
+    clusterSpace: codex-live-evidence-ingress-0611-cluster
+    workloadSpace: codex-live-evidence-ingress-0611-ingress-nginx
+    target: codex-live-evidence-ingress-0611-cluster/oci
     namespace: ingress-nginx
-    kubeContext: kind-helm-expt-oci-0605
-    kubeconfig: /Users/alexis/.confighub/lk/helm-expt-oci-0605.kubeconfig
-    keptForInspection: true
+    kubeContext: kind-codex-live-evidence-ingress-0611
+    kubeconfig: /Users/alexis/.confighub/lk/codex-live-evidence-ingress-0611.kubeconfig
+    keptForInspection: false
+  commands:
+    setupRig: CONFIGHUB_AGENT=1 cub lk up --name codex-live-evidence-ingress-0611
+    workload: CONFIGHUB_AGENT=1 tests/chart-install-test --package packages/ingress-nginx/ingress-nginx/4.15.1 --slug ingress-nginx --namespace ingress-nginx --rig codex-live-evidence-ingress-0611 --base admission-disabled --helm-expt /Users/alexis/code/helm-expt-codex-live-evidence --wait 300 --keep --json
+    inspectApplications: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-live-evidence-ingress-0611.kubeconfig --context kind-codex-live-evidence-ingress-0611 get applications -n argocd -o custom-columns='NAME:.metadata.name,SYNC:.status.sync.status,HEALTH:.status.health.status,REV:.status.sync.revision'
+    inspectRuntime: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-live-evidence-ingress-0611.kubeconfig --context kind-codex-live-evidence-ingress-0611 get deploy,pods,svc -n ingress-nginx -o wide
+    teardown: CONFIGHUB_AGENT=1 cub lk down --name codex-live-evidence-ingress-0611
   oci:
-    repoURL: oci://oci.hub.confighub.com:443/target/helm-expt-oci-0605-cluster/oci
-    path: ./helm-expt-oci-0605-ingress-nginx
-    revision: sha256:9672fd1b2da39cffada83cfa7b4cc8610ff65c7bbc2e2ba68dd3a20a1dc10960
+    repoURL: oci://oci.hub.confighub.com:443/target/codex-live-evidence-ingress-0611-cluster/oci
+    path: ./codex-live-evidence-ingress-0611-ingress-nginx
+    targetRevision: latest
+    revision: sha256:7fa4a3827c2b879cbc0d301bcf88890008549e825ecb5ed6a4cb4869c9811dac
   notes:
     harnessStatus: WATCH
-    finding: "Argo synced the OCI artifact and the controller Deployment became Ready, but Argo health stayed Progressing because the LoadBalancer Service has no external IP on this kind rig."
+    finding: "Argo CD pulled and synced the ConfigHub OCI artifact into a live kind cluster. The ingress-nginx controller Deployment became Ready, but Argo health stayed Progressing because the rendered LoadBalancer Service has no external load balancer assignment on this vanilla kind target."
+    gitopsPulledConfigHubOCI: true
   checks:
     - name: render
       result: pass
-      detail: "namespaces in render: ['ingress-nginx']"
+      detail: "namespaces in render: ['ingress-nginx']; 10 manifest files; no separated Secret files"
     - name: confighub-upload
       result: pass
-      detail: units uploaded to helm-expt-oci-0605-ingress-nginx
+      detail: "units uploaded to codex-live-evidence-ingress-0611-ingress-nginx"
+    - name: confighub-units
+      result: pass
+      detail: "10 workload Units Ready on target oci; installer-record NotLive"
+    - name: argo-root-sync
+      result: pass
+      detail: "root app codex-live-evidence-ingress-0611-cluster: sync=Synced health=Healthy revision=sha256:7fa4a3827c2b879cbc0d301bcf88890008549e825ecb5ed6a4cb4869c9811dac"
     - name: argo-sync
       result: watch
-      detail: "app ingress-nginx: sync=Synced health=Progressing after 300s"
+      detail: "app ingress-nginx: sync=Synced health=Progressing after 300s revision=sha256:7fa4a3827c2b879cbc0d301bcf88890008549e825ecb5ed6a4cb4869c9811dac"
     - name: runtime
       result: pass
-      detail: "deployment.apps/ingress-nginx-controller 1/1 1 1"
+      detail: "deployment.apps/ingress-nginx-controller 1/1 1 1; pod/ingress-nginx-controller-5486dbd97f-7mt4g 1/1 Running; rollout status succeeded"
     - name: target-fit
       result: watch
-      detail: "service/ingress-nginx-controller type LoadBalancer has EXTERNAL-IP <pending> on kind"
+      detail: "service/ingress-nginx-controller type LoadBalancer had status.loadBalancer.ingress empty and EXTERNAL-IP <pending> on kind"
+    - name: teardown
+      result: pass
+      detail: "cub lk down --name codex-live-evidence-ingress-0611 deleted the named kind cluster and recursive ConfigHub cluster space"
   gitops:
     applications:
+      - name: codex-live-evidence-ingress-0611-cluster
+        namespace: argocd
+        sync: Synced
+        health: Healthy
+        revision: sha256:7fa4a3827c2b879cbc0d301bcf88890008549e825ecb5ed6a4cb4869c9811dac
       - name: ingress-nginx
         namespace: argocd
         sync: Synced
         health: Progressing
-        revision: sha256:9672fd1b2da39cffada83cfa7b4cc8610ff65c7bbc2e2ba68dd3a20a1dc10960
+        revision: sha256:7fa4a3827c2b879cbc0d301bcf88890008549e825ecb5ed6a4cb4869c9811dac
+        source:
+          repoURL: oci://oci.hub.confighub.com:443/target/codex-live-evidence-ingress-0611-cluster/oci
+          path: ./codex-live-evidence-ingress-0611-ingress-nginx
+          targetRevision: latest
   runtime:
     namespace: ingress-nginx
     deployment:
@@ -59,17 +85,21 @@ spec:
       available: 1
       image: registry.k8s.io/ingress-nginx/controller:v1.15.1@sha256:594ceea76b01c592858f803f9ff4d2cb40542cae2060410b2c95f75907d659e1
     pod:
+      name: ingress-nginx-controller-5486dbd97f-7mt4g
       ready: "1/1"
       status: Running
+      node: codex-live-evidence-ingress-0611-control-plane
     service:
       name: ingress-nginx-controller
       type: LoadBalancer
+      clusterIP: 10.96.44.117
       externalIP: "<pending>"
-      ports: "80:31724/TCP,443:32432/TCP"
+      ports: "80:32284/TCP,443:31266/TCP"
+      endpoints: "10.244.0.12:80,10.244.0.12:443"
     ingressClass:
       name: nginx
       controller: k8s.io/ingress-nginx
   confighub:
-    workloadSpace: helm-expt-oci-0605-ingress-nginx
+    workloadSpace: codex-live-evidence-ingress-0611-ingress-nginx
     workloadUnitsReady: 10
     installerRecordStatus: NotLive
