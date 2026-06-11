@@ -1,5 +1,5 @@
 doc,reviewed_on,note
-README.md,2026-06-11,"Triggers were status-dashboard (APIService observation count 1->2 of 5; not cited in README) and regenerated CATALOG.md (role described generically; top-20 set unchanged). 20/20 and 19/20 production claims verified untouched."
+README.md,2026-06-11,"Triggers were status-dashboard and production-support refreshes. README current proof counts verified against generated data: 20/20 production-review-ready, 0/20 blocked pre-review dispositions, 17/20 supported target-scoped proof scopes, 2 superseded, 1 rejected, 0 draft."
 docs/README.md,2026-06-11,"Triggers were claims-register (row count 16->17 from the environment-determinism claim; doc describes the register's role, not its count) and regenerated CATALOG.md (generic role description). Map entries verified accurate."
 docs/user/extension-slots.md,2026-06-11,"Trigger: extension-slots data regen after candidate promotions (#447, redis 27). All four cited counts (13/20, 82/100, 254/500, 363/500) verified still exact against data/extension-slots/summary.md."
 docs/user/nginx-configuration-files.md,2026-06-11,"Trigger: same extension-slots regen. Doc describes the slot mechanism for nginx, no counts cited; mechanism unchanged by candidate promotions."
