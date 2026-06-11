@@ -875,18 +875,18 @@
     {
       "section": "hooks",
       "metric": "hook lifecycle observations present",
-      "value": "4",
+      "value": "5",
       "total": "5",
-      "status": "gap",
+      "status": "good",
       "source": "data/hook-lifecycle/maintained-hook-queue.csv",
       "note": "Maintained hook queue rows with runtime lifecycle observation or execution receipts."
     },
     {
       "section": "hooks",
       "metric": "hook partial lifecycle observations present",
-      "value": "1",
+      "value": "0",
       "total": "5",
-      "status": "partial",
+      "status": "good",
       "source": "data/hook-lifecycle/maintained-hook-queue.csv",
       "note": "Maintained hook queue rows whose fresh-install route has live observation while another hook phase remains pending."
     },
@@ -911,9 +911,9 @@
     {
       "section": "hooks",
       "metric": "hook routes still needing execution or observation",
-      "value": "1",
+      "value": "0",
       "total": "5",
-      "status": "gap",
+      "status": "good",
       "source": "data/lifecycle-boundary/lifecycle-boundary.csv",
       "note": "Hook-bearing rows with a selected route and at least one missing runtime observation or execution receipt."
     },
@@ -13091,8 +13091,8 @@
       "two_cluster_kind_parity": "pass",
       "strict_live_configHub_argo": "pass",
       "runtime_gitops_wave": "not-selected",
-      "production_status": "production-review-ready",
-      "next_hard_work": "record final target-scoped support decision and refresh live/e2e evidence for that scope",
+      "production_status": "supported-for-declared-target-scope",
+      "next_hard_work": "Keep the target-scoped evidence fresh before using this supported scope as a production-support example.",
       "lesson": "Use this base when this release owns the CRDs as part of the install.",
       "evidence": "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
     },
@@ -13113,7 +13113,7 @@
       "two_cluster_kind_parity": "pass",
       "strict_live_configHub_argo": "not-selected",
       "runtime_gitops_wave": "blocked",
-      "production_status": "production-review-ready",
+      "production_status": "separate-support-decision-needed",
       "next_hard_work": "stage CRDs and admission Secret for the target, then rerun GitOps/OCI and record a target-scoped support decision",
       "lesson": "Use this base only when CRDs and separated secrets are supplied by the target environment.",
       "evidence": "data/runtime-gitops/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml"

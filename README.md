@@ -63,11 +63,12 @@ Four questions, answered up front:
   of values files, changes route through named variants with receipts, and
   failures surface as routed watch/blocked rows instead of silent drift. See
   [Why This Exists](./docs/user/why-this-exists.md).
-- **What is not claimed yet?** Helm hook *execution* is routed but not yet
-  proven by execution receipts; the GitOps/OCI runtime lane is partial; the
-  stricter in-ConfigHub proof lane covers a minority of chart/base rows; live
-  claims are bounded to the tested Kubernetes capability profile; and
-  production support is a per-target decision, never implied by a green render.
+- **What is not claimed yet?** The maintained hook queue has lifecycle receipts,
+  but that is not universal Helm hook support across the top-100 or top-500;
+  the GitOps/OCI runtime lane is partial; the stricter in-ConfigHub proof lane
+  covers a minority of chart/base rows; live claims are bounded to the tested
+  Kubernetes capability profile; and production support is a per-target
+  decision, never implied by a green render.
   Current counts live in the
   [status dashboard](./data/status-dashboard/summary.md); deliberate refusals
   live in [What We Refuse To Claim](./docs/user/what-we-refuse-to-claim.md).
@@ -278,7 +279,8 @@ chart/base row has every lane complete.
 20 popular Helm charts have catalog entries.
 20/20 top-20 charts have at least one passing local kind live/e2e receipt.
 20/20 top-20 charts have chart-level ConfigHub upload, scan, and safe-ops proof receipt sets.
-20/20 top-20 charts are production-review-ready by disposition receipt.
+19/20 top-20 charts are production-review-ready by disposition receipt.
+1/20 top-20 charts is production-blocked pending target-fit disposition.
 0/20 top-20 charts still need pre-review target-fact preflight disposition.
 20/20 top-20 charts have target-scoped support decision artifacts.
 17/20 top-20 charts have supported target-scoped proof scopes.
@@ -286,8 +288,8 @@ chart/base row has every lane complete.
 1/20 top-20 charts has a rejected target-scoped proof scope with a concrete target-fit or runtime reason.
 0/20 top-20 charts remain draft decisions.
 100 charts have recipe/package proof artifacts.
-159 chart/base rows have Helm-template versus cub installer render parity.
-20/159 chart/base rows currently have the stricter in-ConfigHub proof lane marked pass.
+179 chart/base rows have Helm-template versus cub installer render parity.
+20/179 chart/base rows currently have the stricter in-ConfigHub proof lane marked pass.
 The selected top-20 live Helm-vs-ConfigHub comparison lane has 20 pass,
 0 watch, and 0 blocked receipts.
 The top-20 base-variant two-cluster kind parity lane has 42 committed
@@ -296,9 +298,8 @@ The broader two-cluster kind parity corpus has 50 committed receipts:
 49 pass, 0 watch, 1 blocked, and 0 semantic parity defects.
 11/100 public top-100 source-scan rows contain Helm hooks.
 5 maintained hook queue rows have hook route receipts.
-3/5 maintained hook queue rows have lifecycle observation receipts, and 2/5
-have partial install-lifecycle observation with another phase pending. No
-maintained hook queue row remains route-only.
+5/5 maintained hook queue rows have lifecycle observation receipts.
+0/5 maintained hook queue rows remain partial or route-only.
 Separately, cert-manager has 2/2 `startupapicheck` Helm hook lifecycle
 observations. External Secrets has lifecycle-observation receipts for
 CRD/webhook/controller-owned runtime behavior, but no Helm hook in the tested
@@ -346,7 +347,7 @@ and exercised outside the pure local `npm run verify` corpus. The first
 runtime/GitOps wave currently has 10 committed receipts: 5 pass and 5 non-pass
 target-fit receipts. The strict live Helm-vs-ConfigHub comparison lane has 20
 committed receipts for selected top-20 rows: 20 pass, 0 watch, and 0 blocked.
-Across the full 159-row lane matrix, there are still 2 watch rows and 137
+Across the full 179-row lane matrix, there are still 2 watch rows and 157
 missing backlog rows for this lane. The strict two-cluster kind parity lane has
 receipts for all 42 maintained top-20 base variants and 50 committed receipts
 overall. It separates semantic parity from target prerequisites, runtime

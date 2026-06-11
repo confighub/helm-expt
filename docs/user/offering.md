@@ -63,7 +63,7 @@ The current catalog proves a lot, but not everything:
 
 - 20 top-chart entries have public catalog bases;
 - 100 charts have recipe/package proof artifacts;
-- 159 chart/base rows have render parity against regular Helm;
+- 179 chart/base rows have render parity against regular Helm;
 - local, GitOps, parity, lifecycle, and production support lanes are tracked
   separately.
 

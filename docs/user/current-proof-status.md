@@ -238,11 +238,11 @@ different outcome.
 Current aggregate status:
 
 ```text
-helm_template_vs_installer_setup:        159 pass, 0 missing
-confighub_upload_variant_scan_safe_ops:   20 pass, 139 missing
-local_kind_kubectl_apply:                 23 pass, 136 missing
-confighub_oci_argo_live:                  22 pass, 2 watch, 4 blocked, 131 missing
-live_helm_vs_confighub_dual_compare:      20 pass, 2 watch, 0 blocked, 137 missing
+helm_template_vs_installer_setup:        179 pass, 0 missing
+confighub_upload_variant_scan_safe_ops:   20 pass, 159 missing
+local_kind_kubectl_apply:                 23 pass, 156 missing
+confighub_oci_argo_live:                  22 pass, 2 watch, 4 blocked, 151 missing
+live_helm_vs_confighub_dual_compare:      20 pass, 2 watch, 0 blocked, 157 missing
 ```
 
 Those counts come from the generated lane matrix:
@@ -265,7 +265,7 @@ Live Helm-vs-ConfigHub parity has started:
 - The selected top-20 live comparison lane has committed receipts for all 20
   rows.
 - 20 rows pass, no rows are watch, and no rows are blocked.
-- Across the full 159-row lane matrix, 2 older watch rows remain as backlog
+- Across the full 179-row lane matrix, 2 older watch rows remain as backlog
   evidence for non-selected bases. They have semantic object parity, but need
   target, runtime, storage, controller-health, initialization, or
   operating-policy review before they should be promoted.
