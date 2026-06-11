@@ -3,42 +3,36 @@ kind: "ObservationReceipt"
 metadata:
   name: "bitnami-mongodb-19.0.9-existing-secret-replicaset-local-kind"
 spec:
-  blockedReasons:
-    - "apply: Error from server (Forbidden): error when creating \"STDIN\": networkpolicies.networking.k8s.io \"mongodb\" is forbidden: unable to create new content in namespace mongodb because it is being terminated E"
-    - "statefulset/mongodb-arbiter: prerequisite-blocked (stuck creating: missing mount/secret/config) (mongodb-0[PodInitializing ready=false restarts=0;] mongodb-arbiter-0[ContainerCreating ready=false restarts=0;])"
-    - "statefulset/mongodb: prerequisite-blocked (stuck creating: missing mount/secret/config) (mongodb-0[PodInitializing ready=false restarts=0;] mongodb-arbiter-0[ContainerCreating ready=false restarts=0;])"
+  variantRevision: "recipes/bitnami/mongodb/19.0.9/revisions/existing-secret-replicaset/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "ba28659f7a827714941ba587c403de0e7afec7bf77a35512ff751bf6c2fdd3a2"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-cleanup-mongo1909"
+    context: "kind-claude-helm-expt-codex-cleanup-mongo1909"
+    namespace: "mongodb"
+  observedAt: "2026-06-11T17:27:25.041Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "existing"
+  variant: "existing-secret-replicaset"
+  workloads: 2
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "d221d031be53af7faed1973fde05f1c7b734a36bb62a8ec909079f916bfe85ef"
   checks:
     -
       name: "rendered-objects-applied"
+      result: "pass"
       object: "10 object(s) from recipes/bitnami/mongodb/19.0.9/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml"
-      reason: "apply-blocked: Error from server (Forbidden): error when creating \"STDIN\": networkpolicies.networking.k8s.io \"mongodb\" is forbidden: unable to create new content in namespace mongodb because it is being terminated E"
-      result: "blocked"
-      evidencePath: "observation-log.txt"
-      evidenceSHA256: "b271b46a62dba0f08269a8fe4a3fb94c2812fd4c92d78bf29cf6d985419c148b"
     -
       name: "workload-converged"
+      result: "pass"
       object: "StatefulSet|mongodb|mongodb-arbiter"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): mongodb-0[PodInitializing ready=false restarts=0;] mongodb-arbiter-0[ContainerCreating ready=false restarts=0;]"
-      result: "blocked"
     -
       name: "workload-converged"
+      result: "pass"
       object: "StatefulSet|mongodb|mongodb"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): mongodb-0[PodInitializing ready=false restarts=0;] mongodb-arbiter-0[ContainerCreating ready=false restarts=0;]"
-      result: "blocked"
-  clusterStatus: "existing"
-  freshnessTTL: "1h"
-  observedAt: "2026-06-11T12:47:38.189Z"
-  observer:
-    method: "kubectl-kind"
-    name: "next80-local-live"
-    version: "0.1.0"
-  renderedObjectSetSHA256: "ba28659f7a827714941ba587c403de0e7afec7bf77a35512ff751bf6c2fdd3a2"
-  result: "blocked"
-  target:
-    context: "kind-claude-helm-expt-next80"
-    kind: "kind"
-    name: "claude-helm-expt-next80"
-    namespace: "mongodb"
-  variant: "existing-secret-replicaset"
-  variantRevision: "recipes/bitnami/mongodb/19.0.9/revisions/existing-secret-replicaset/r001/variant-revision.yaml"
-  workloads: 2

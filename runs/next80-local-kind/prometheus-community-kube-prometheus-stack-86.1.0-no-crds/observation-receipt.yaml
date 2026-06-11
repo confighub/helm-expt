@@ -11,10 +11,10 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-codex-crd-prereq"
-    context: "kind-claude-helm-expt-codex-crd-prereq"
+    name: "claude-helm-expt-codex-cleanup-kps86-nocrds2"
+    context: "kind-claude-helm-expt-codex-cleanup-kps86-nocrds2"
     namespace: "monitoring"
-  observedAt: "2026-06-11T16:29:00.692Z"
+  observedAt: "2026-06-11T17:41:40.192Z"
   freshnessTTL: "1h"
   result: "blocked"
   clusterStatus: "existing"
@@ -22,36 +22,32 @@ spec:
   workloads: 4
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "c254ee93c685b5f8bb6379a7e785c31d604d79140075525b01cef897dfe0712e"
+    sha256: "425984d23ba720fa7bc92c6ff7c9573202c8049c347008b44400e08810c0693e"
   checks:
     -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||monitoring"
+    -
       name: "rendered-objects-applied"
-      result: "blocked"
+      result: "pass"
       object: "114 object(s) from recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/no-crds/r001/rendered/release-objects.yaml"
-      reason: "apply-blocked: Error from server (Forbidden): error when creating \"STDIN\": serviceaccounts \"kube-prometheus-stack-grafana\" is forbidden: unable to create new content in namespace monitoring because it is being termi"
     -
       name: "workload-converged"
-      result: "blocked"
+      result: "pass"
       object: "DaemonSet|monitoring|kube-prometheus-stack-prometheus-node-exporter"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): kube-prometheus-stack-operator-6d54798576-c46cn[ContainerCreating ready=false restarts=0;]"
     -
       name: "workload-converged"
-      result: "blocked"
+      result: "pass"
       object: "Deployment|monitoring|kube-prometheus-stack-grafana"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): kube-prometheus-stack-operator-6d54798576-c46cn[ContainerCreating ready=false restarts=0;]"
     -
       name: "workload-converged"
-      result: "blocked"
+      result: "pass"
       object: "Deployment|monitoring|kube-prometheus-stack-kube-state-metrics"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): kube-prometheus-stack-operator-6d54798576-c46cn[ContainerCreating ready=false restarts=0;]"
     -
       name: "workload-converged"
       result: "blocked"
       object: "Deployment|monitoring|kube-prometheus-stack-operator"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): kube-prometheus-stack-operator-6d54798576-c46cn[ContainerCreating ready=false restarts=0;]"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): kube-prometheus-stack-grafana-689f864759-lflpl[ ready=true restarts=0; ready=true restarts=0; ready=true restarts=0;] kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-8qnv2[ ready=true restarts=0;] kube-prometheus-stack-operator-6cd9d8fb8d-rb9gr[ContainerCreating ready=false restarts=0;] kube-pro"
   blockedReasons:
-    - "apply: Error from server (Forbidden): error when creating \"STDIN\": serviceaccounts \"kube-prometheus-stack-grafana\" is forbidden: unable to create new content in namespace monitoring because it is being termi"
-    - "daemonset/kube-prometheus-stack-prometheus-node-exporter: prerequisite-blocked (stuck creating: missing mount/secret/config) (kube-prometheus-stack-operator-6d54798576-c46cn[ContainerCreating ready=false restarts=0;])"
-    - "deployment/kube-prometheus-stack-grafana: prerequisite-blocked (stuck creating: missing mount/secret/config) (kube-prometheus-stack-operator-6d54798576-c46cn[ContainerCreating ready=false restarts=0;])"
-    - "deployment/kube-prometheus-stack-kube-state-metrics: prerequisite-blocked (stuck creating: missing mount/secret/config) (kube-prometheus-stack-operator-6d54798576-c46cn[ContainerCreating ready=false restarts=0;])"
-    - "deployment/kube-prometheus-stack-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (kube-prometheus-stack-operator-6d54798576-c46cn[ContainerCreating ready=false restarts=0;])"
+    - "deployment/kube-prometheus-stack-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (kube-prometheus-stack-grafana-689f864759-lflpl[ ready=true restarts=0; ready=true restarts=0; ready=true restarts=0;] kube-prometheus-stack-kube-state-metrics-5)"

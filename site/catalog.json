@@ -428,7 +428,7 @@
     {
       "section": "proof lanes",
       "metric": "local live rows",
-      "value": "121",
+      "value": "127",
       "total": "189",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
@@ -437,8 +437,8 @@
     {
       "section": "proof lanes",
       "metric": "local live non-pass rows classified",
-      "value": "68",
-      "total": "68",
+      "value": "62",
+      "total": "62",
       "status": "good",
       "source": "data/local-live-triage/triage.csv",
       "note": "Every local live non-pass receipt is mapped to a route class, next action, and proof boundary."
@@ -4108,7 +4108,7 @@
       "target_facts": "required Secret postgresql/postgresql-auth keys postgres-password",
       "render_parity": "pass",
       "in_confighub": "missing",
-      "local_live": "blocked",
+      "local_live": "pass",
       "gitops_oci_live": "pass",
       "live_helm_vs_confighub_parity": "missing",
       "two_cluster_kind_parity": "pass",
@@ -8132,7 +8132,7 @@
       "variants": "generated-passwords;existing-secret",
       "render_parity": "2/2",
       "in_confighub": "1/2",
-      "local_live": "1/2",
+      "local_live": "2/2",
       "gitops_live": "2/2",
       "live_parity": "1/2",
       "two_cluster_kind_parity": "2/2",

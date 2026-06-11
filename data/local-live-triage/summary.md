@@ -10,9 +10,9 @@ clear without turning every non-pass row into a product defect.
 ~~~text
 chart/base rows:          189
 local live observed rows: 189
-local live pass rows:     121
-local live non-pass rows: 68
-classified non-pass rows: 68
+local live pass rows:     127
+local live non-pass rows: 62
+classified non-pass rows: 62
 needs manual inspection:  0
 ~~~
 
@@ -20,9 +20,8 @@ needs manual inspection:  0
 
 | Route class | Rows | Meaning | Next action |
 | --- | ---: | --- | --- |
-| `runtime-readiness` | 26 | The objects applied, but a controller or workload did not become healthy in the observation budget. | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
-| `target-prerequisite` | 20 | The workload reached Kubernetes but one or more pods were waiting for target-provided config, mounts, certificates, or setup. | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
-| `test-environment-cleanup` | 8 | The receipt shows stale namespace or cleanup interference, so the next useful step is a clean rerun. | Delete the stale namespace or rerun on a fresh cluster with an isolated namespace. |
+| `runtime-readiness` | 27 | The objects applied, but a controller or workload did not become healthy in the observation budget. | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
+| `target-prerequisite` | 21 | The workload reached Kubernetes but one or more pods were waiting for target-provided config, mounts, certificates, or setup. | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
 | `image-dependency` | 6 | The target could not pull at least one rendered image, so the row is testing image availability rather than ConfigHub parity. | Pin, mirror, override, or document the image dependency, then rerun against a target that can pull it. |
 | `admission-or-rbac` | 3 | Kubernetes rejected an object because of permissions, admission, immutability, or API validation. | Decide whether the base needs a permission/admission preflight, a different target scope, or a rejected support boundary. |
 | `missing-crds` | 3 | The rendered objects refer to custom resource types that were not present on the target. | Use a CRD-owning base, preinstall the CRDs, or record an explicit no-CRDs support boundary before rerun. |

@@ -51,8 +51,8 @@ Which detailed CSV should I open next?
 | top500 | version-drift review rows | 21/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | proof lanes | render parity rows | 189/189 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | in-ConfigHub proof rows | 20/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | local live rows | 121/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | local live non-pass rows classified | 68/68 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
+| proof lanes | local live rows | 127/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | local live non-pass rows classified | 62/62 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
 | proof lanes | GitOps/OCI live pass rows | 23/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | live Helm-vs-ConfigHub parity pass rows | 20/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | two-cluster kind parity pass rows | 54/59 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
@@ -204,9 +204,8 @@ classified here so they become next actions rather than vague failures.
 
 | Route class | Rows | Next action |
 | --- | ---: | --- |
-| `runtime-readiness` | 26 | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
-| `target-prerequisite` | 20 | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
-| `test-environment-cleanup` | 8 | Delete the stale namespace or rerun on a fresh cluster with an isolated namespace. |
+| `runtime-readiness` | 27 | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
+| `target-prerequisite` | 21 | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
 | `image-dependency` | 6 | Pin, mirror, override, or document the image dependency, then rerun against a target that can pull it. |
 | `admission-or-rbac` | 3 | Decide whether the base needs a permission/admission preflight, a different target scope, or a rejected support boundary. |
 | `missing-crds` | 3 | Use a CRD-owning base, preinstall the CRDs, or record an explicit no-CRDs support boundary before rerun. |
@@ -320,7 +319,7 @@ spreadsheet.
 | bitnami/mongodb@19.0.7 | generated-passwords (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | - |
 | bitnami/mysql@14.0.3 | generated-passwords (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | bitnami/nginx@24.0.2 | http-clusterip (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle) |
-| bitnami/postgresql@18.6.7 | generated-passwords (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 2/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
+| bitnami/postgresql@18.6.7 | generated-passwords (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 2/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | bitnami/rabbitmq@16.0.14 | generated-passwords (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | bitnami/redis@25.5.3 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 2/2 | 1/2 | - |
 | external-secrets/external-secrets@2.5.0 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 1/2 | 1/2 | 1/2 | - |
@@ -350,7 +349,7 @@ first.
 | Lane | Pass | Non-pass | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | in-ConfigHub | 20 | 0 | 169 | 189 |
-| local live | 121 | 68 | 0 | 189 |
+| local live | 127 | 62 | 0 | 189 |
 | GitOps/OCI live | 23 | 6 | 160 | 189 |
 | live Helm-vs-ConfigHub parity | 20 | 2 | 167 | 189 |
 | two-cluster kind parity | 54 | 5 | 0 | 59 |

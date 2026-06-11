@@ -13,7 +13,7 @@ chart/base rows:                     189
 complete core lane rows:             20/189
 render parity rows:                  189/189
 in-ConfigHub proof rows:             20/189
-local live rows:                     121/189
+local live rows:                     127/189
 GitOps/OCI live pass rows:           23/189
 GitOps/OCI non-pass receipts:        6
 live Helm-vs-ConfigHub pass rows:    20/189
@@ -63,7 +63,7 @@ related lifecycle observations:      4/4
 | `bitnami/mongodb@19.0.7` | generated-passwords;existing-secret-replicaset | yes | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | - |
 | `bitnami/mysql@14.0.3` | generated-passwords;existing-secret | yes | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/nginx@24.0.2` | http-clusterip;existing-tls-ingress | yes | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
-| `bitnami/postgresql@18.6.7` | generated-passwords;existing-secret | yes | 1/2 | 1/2 | 2/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| `bitnami/postgresql@18.6.7` | generated-passwords;existing-secret | yes | 1/2 | 2/2 | 2/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/rabbitmq@16.0.14` | generated-passwords;existing-secret | yes | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/redis@25.5.3` | default;reuse-existing-secret | yes | 1/2 | 2/2 | 2/2 | 1/2 | 2/2 | - |
 | `external-secrets/external-secrets@2.5.0` | default;no-crds | no | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | - |

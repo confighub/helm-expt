@@ -11,53 +11,44 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-next80"
-    context: "kind-claude-helm-expt-next80"
+    name: "claude-helm-expt-codex-cleanup-prom299"
+    context: "kind-claude-helm-expt-codex-cleanup-prom299"
     namespace: "monitoring"
-  observedAt: "2026-06-11T15:14:38.865Z"
+  observedAt: "2026-06-11T17:30:01.381Z"
   freshnessTTL: "1h"
-  result: "fail"
+  result: "pass"
   clusterStatus: "existing"
   variant: "default"
   workloads: 5
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "9a127fd22bf57c14f1102695e628d4878ad99b2b410786d4b38ecd48f9f44020"
+    sha256: "c005127b8a763f548e43e71a2c1f1188e6b5eb54b6ec237d49479b42ad25e285"
   checks:
     -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||monitoring"
+    -
       name: "rendered-objects-applied"
-      result: "blocked"
+      result: "pass"
       object: "23 object(s) from recipes/prometheus-community/prometheus/29.9.0/revisions/default/r001/rendered/release-objects.yaml"
-      reason: "apply-blocked: Warning: Detected changes to resource prometheus-server which is currently being deleted. Error from server (Forbidden): error when creating \"STDIN\": serviceaccounts \"prometheus-alertmanager\" is forbi"
     -
       name: "workload-converged"
-      result: "fail"
+      result: "pass"
       object: "DaemonSet|monitoring|prometheus-prometheus-node-exporter"
-      reason: "not-ready: prometheus-alertmanager-0[Completed ready=false restarts=0;] prometheus-kube-state-metrics-68ff7c5cc5-gldk8[Error ready=false restarts=0;] prometheus-prometheus-node-exporter-gf7dj[Error ready=false restarts=0;] prometheus-prometheus-pushgateway-75b8bf7c77-mnwrw[Completed ready=false restarts=0;] pr"
     -
       name: "workload-converged"
-      result: "fail"
+      result: "pass"
       object: "Deployment|monitoring|prometheus-kube-state-metrics"
-      reason: "not-ready: prometheus-alertmanager-0[Completed ready=false restarts=0;] prometheus-kube-state-metrics-68ff7c5cc5-gldk8[Error ready=false restarts=0;] prometheus-prometheus-node-exporter-gf7dj[Error ready=false restarts=0;] prometheus-prometheus-pushgateway-75b8bf7c77-mnwrw[Completed ready=false restarts=0;] pr"
     -
       name: "workload-converged"
-      result: "fail"
+      result: "pass"
       object: "Deployment|monitoring|prometheus-prometheus-pushgateway"
-      reason: "not-ready: prometheus-alertmanager-0[Completed ready=false restarts=0;] prometheus-kube-state-metrics-68ff7c5cc5-gldk8[Error ready=false restarts=0;] prometheus-prometheus-node-exporter-gf7dj[Error ready=false restarts=0;] prometheus-prometheus-pushgateway-75b8bf7c77-mnwrw[Completed ready=false restarts=0;] pr"
     -
       name: "workload-converged"
-      result: "fail"
+      result: "pass"
       object: "Deployment|monitoring|prometheus-server"
-      reason: "not-ready: prometheus-alertmanager-0[Completed ready=false restarts=0;] prometheus-kube-state-metrics-68ff7c5cc5-gldk8[Error ready=false restarts=0;] prometheus-prometheus-node-exporter-gf7dj[Error ready=false restarts=0;] prometheus-prometheus-pushgateway-75b8bf7c77-mnwrw[Completed ready=false restarts=0;] pr"
     -
       name: "workload-converged"
-      result: "fail"
+      result: "pass"
       object: "StatefulSet|monitoring|prometheus-alertmanager"
-      reason: "not-ready: did not converge within the budget"
-  blockedReasons:
-    - "apply: Warning: Detected changes to resource prometheus-server which is currently being deleted. Error from server (Forbidden): error when creating \"STDIN\": serviceaccounts \"prometheus-alertmanager\" is forbi"
-    - "daemonset/prometheus-prometheus-node-exporter: not-ready (prometheus-alertmanager-0[Completed ready=false restarts=0;] prometheus-kube-state-metrics-68ff7c5cc5-gldk8[Error ready=false restarts=0;] prometheus-prometheus)"
-    - "deployment/prometheus-kube-state-metrics: not-ready (prometheus-alertmanager-0[Completed ready=false restarts=0;] prometheus-kube-state-metrics-68ff7c5cc5-gldk8[Error ready=false restarts=0;] prometheus-prometheus)"
-    - "deployment/prometheus-prometheus-pushgateway: not-ready (prometheus-alertmanager-0[Completed ready=false restarts=0;] prometheus-kube-state-metrics-68ff7c5cc5-gldk8[Error ready=false restarts=0;] prometheus-prometheus)"
-    - "deployment/prometheus-server: not-ready (prometheus-alertmanager-0[Completed ready=false restarts=0;] prometheus-kube-state-metrics-68ff7c5cc5-gldk8[Error ready=false restarts=0;] prometheus-prometheus)"
-    - "statefulset/prometheus-alertmanager: not-ready ()"
