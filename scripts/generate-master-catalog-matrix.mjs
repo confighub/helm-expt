@@ -101,7 +101,9 @@ if (mode === "--generate") {
 function buildReport() {
   const outcomes = readCsv(SOURCES.outcomes);
   const readiness = indexBy(readCsv(SOURCES.readiness), (row) => row.chart);
-  const hooksByChart = indexBy(readCsv(SOURCES.hooks), (row) => row.chart);
+  const hookRows = readCsv(SOURCES.hooks);
+  const hooksExact = indexBy(hookRows, (row) => `${row.chart}@${row.version}`);
+  const hooksByChart = indexBy(hookRows, (row) => row.chart);
   const decisions = indexBy(readCsv(SOURCES.decisions), (row) => `${row.chart}|${row.version}|${row.supported_base}`);
 
   const rows = outcomes
@@ -113,9 +115,20 @@ function buildReport() {
       const version = chartAtVersion.slice(at + 1);
       const variant = outcome.base;
       const ready = readiness.get(chartAtVersion);
-      const hook = hooksByChart.get(chartName);
+      // Hook evidence joins by exact chart@version when available; otherwise
+      // it falls back to the chart family's disposition row and SAYS SO via
+      // hook_evidence_version — family evidence must not read as evidence
+      // for this exact version.
+      const hookExact = hooksExact.get(chartAtVersion);
+      const hookFamily = hooksByChart.get(chartName);
+      const hook = hookExact ?? hookFamily;
+      const hookEvidenceVersion = hookExact || !hook ? "" : hook.version;
       const decision = decisions.get(`${chartName}|${version}|${variant}`);
       const hookCount = hook ? Number(hook.source_hook_count) : null;
+      // A chart whose source scan flags hooks but that has no disposition row
+      // is UNROUTED — rendering it as "no hooks" would hide exactly the gap
+      // the hook-disposition completeness gate exists to surface.
+      const hookFlagged = (ready?.source_features ?? "").split(";").includes("hooks");
       const row = {
         chart: chartName,
         version,
@@ -127,7 +140,8 @@ function buildReport() {
         strongest_evidence: ready?.strongest_evidence ?? "",
         next_action: ready?.next_action ?? "",
         hook_count: hook ? String(hookCount) : "",
-        hook_disposition: hook ? (hookCount === 0 ? "n/a" : hook.disposition) : "",
+        hook_disposition: hook ? (hookCount === 0 ? "n/a" : hook.disposition) : hookFlagged ? "unrouted" : "",
+        hook_evidence_version: hookEvidenceVersion,
         hook_live_status: hook && hookCount > 0 ? (hook.live_status === "observed" ? "yes" : hook.live_status === "none" ? "todo" : hook.live_status.startsWith("none (") ? "n/a" : "no") : hook ? "n/a" : "",
         ...Object.fromEntries(LANE_COLUMNS.map(([target, source]) => [target, normalizeLane(outcome[source])])),
         lane_two_cluster_kind: normalizeLane(outcome.two_cluster_kind_parity),
@@ -189,6 +203,9 @@ function summary(rows, charts, unmatchedReadiness) {
   };
   const complete = rows.filter((row) => row.core_lanes_complete === "yes").length;
   const supported = rows.filter((row) => row.production_decision === "yes").length;
+  const superseded = rows.filter((row) => row.production_decision === "superseded").length;
+  const rejected = rows.filter((row) => row.production_decision === "no").length;
+  const unrouted = rows.filter((row) => row.hook_disposition === "unrouted").length;
 
   let lastChart = "";
   const table = rows
@@ -196,7 +213,14 @@ function summary(rows, charts, unmatchedReadiness) {
       const chartAtVersion = `${row.chart}@${row.version}`;
       const chartCell = chartAtVersion === lastChart ? "" : `\`${chartAtVersion}\``;
       lastChart = chartAtVersion;
-      const hooks = row.hook_count === "" ? "—" : row.hook_count === "0" ? "0 —" : `${row.hook_count} ${row.hook_disposition} ${icon(row.hook_live_status)}`;
+      const hooks =
+        row.hook_disposition === "unrouted"
+          ? "unrouted ⚠️"
+          : row.hook_count === ""
+            ? "—"
+            : row.hook_count === "0"
+              ? "0 —"
+              : `${row.hook_count} ${row.hook_disposition} ${icon(row.hook_live_status)}${row.hook_evidence_version ? ` (from @${row.hook_evidence_version})` : ""}`;
       const quirks = row.quirk_features ? `\`${row.quirk_features}\`` : "—";
       return `| ${chartCell} | ${row.variant} | ${tierShort(row.catalog_tier)} | ${quirks} | ${hooks} | ${icon(row.lane_render_parity)} | ${icon(row.lane_confighub_scan_ops)} | ${icon(row.lane_local_kind)} | ${icon(row.lane_gitops_oci_live)} | ${icon(row.lane_live_dual_parity)} | ${icon(row.lane_two_cluster_kind)} | ${row.outcome_level || "—"} | ${icon(row.production_decision)} |`;
     })
@@ -231,6 +255,9 @@ Lane columns: **R** render parity (helm template vs installer setup) ·
 **G** ConfigHub OCI + Argo live · **P** live Helm-vs-ConfigHub dual parity ·
 **K** two-cluster kind parity.
 Hooks column: source hook count, disposition route, live-rehearsal status.
+\`unrouted ⚠️\` marks a chart whose source scan flags hooks but that has no
+hook-disposition row yet; \`(from @x.y.z)\` marks chart-family evidence taken
+from a different chart version's disposition row.
 
 ## Current Status
 
@@ -240,7 +267,9 @@ Hooks column: source hook count, disposition route, live-rehearsal status.
 | Variant rows | ${rows.length} |
 | Lane cells ✅ / ⚠️ / ❌ / ⬜ | ${counts.yes} / ${counts.watch} / ${counts.no} / ${counts.todo} |
 | Variants with the complete core lane set | ${complete} |
-| Variants with a recorded production support decision | ${supported} |
+| Variants with a SUPPORTED production decision | ${supported} |
+| Recorded production decisions (supported / superseded / rejected) | ${supported} / ${superseded} / ${rejected} |
+| Hook-flagged variants with no disposition row (unrouted) | ${unrouted} |
 
 ${unmatchedReadiness.length ? `Chart versions in the lane matrix but not in top-100 readiness (retained candidates or version drift): ${unmatchedReadiness.map((chart) => `\`${chart}\``).join(", ")}.\n` : ""}
 ## Sources joined, and what this view compresses
@@ -284,6 +313,9 @@ function htmlReport(rows, charts, unmatchedReadiness) {
     todo: laneCells.filter((value) => value === "todo").length,
   };
   const supported = rows.filter((row) => row.production_decision === "yes").length;
+  const superseded = rows.filter((row) => row.production_decision === "superseded").length;
+  const rejected = rows.filter((row) => row.production_decision === "no").length;
+  const unrouted = rows.filter((row) => row.hook_disposition === "unrouted").length;
 
   const statusCell = (value, title, label) => {
     const cls = value === "yes" ? "y" : value === "watch" ? "w" : value === "no" ? "n" : value === "todo" ? "t" : "na";
@@ -298,11 +330,13 @@ function htmlReport(rows, charts, unmatchedReadiness) {
       const first = chartAtVersion !== lastChart;
       lastChart = chartAtVersion;
       const hooks =
-        row.hook_count === ""
-          ? `<td class="s na">–</td>`
-          : row.hook_count === "0"
-            ? `<td class="s na" title="no source hooks">0</td>`
-            : statusCell(row.hook_live_status, `${row.hook_count} hook(s), disposition: ${row.hook_disposition}`, row.hook_count);
+        row.hook_disposition === "unrouted"
+          ? `<td class="s w" title="source scan flags hooks; no hook-disposition row yet">U</td>`
+          : row.hook_count === ""
+            ? `<td class="s na">–</td>`
+            : row.hook_count === "0"
+              ? `<td class="s na" title="no source hooks">0</td>`
+              : statusCell(row.hook_live_status, `${row.hook_count} hook(s), disposition: ${row.hook_disposition}${row.hook_evidence_version ? ` — evidence from @${row.hook_evidence_version} (chart-family, not this version)` : ""}`, row.hook_count);
       const nextAction = row.next_action ? `<td class="note" title="${escapeHtml(row.next_action)}">${escapeHtml(row.next_action.length > 70 ? `${row.next_action.slice(0, 67)}...` : row.next_action)}</td>` : `<td class="note"></td>`;
       return `<tr${first ? ' class="grp"' : ""}><td class="chart">${first ? escapeHtml(chartAtVersion) : ""}</td><td>${escapeHtml(row.variant)}</td><td>${escapeHtml(tierShort(row.catalog_tier))}</td><td class="note" title="${escapeHtml(row.quirk_features)}${row.hard_gap ? ` | hard gap: ${escapeHtml(row.hard_gap)}` : ""}">${escapeHtml(row.quirk_features)}</td>${hooks}${statusCell(row.lane_render_parity)}${statusCell(row.lane_confighub_scan_ops)}${statusCell(row.lane_local_kind)}${statusCell(row.lane_gitops_oci_live)}${statusCell(row.lane_live_dual_parity)}${statusCell(row.lane_two_cluster_kind)}<td>${escapeHtml(row.outcome_level || "–")}</td>${statusCell(row.production_decision, row.production_target_scope || "")}${nextAction}</tr>`;
     })
@@ -334,9 +368,9 @@ td.note{max-width:330px;overflow:hidden;text-overflow:ellipsis;white-space:nowra
 </head>
 <body>
 <h1>Master Catalog Matrix</h1>
-<p class="sub">${charts} chart versions · ${rows.length} variant rows · lane cells: ${counts.yes} pass / ${counts.watch} watch / ${counts.no} blocked / ${counts.todo} not yet run · ${supported} variants production-supported. Generated from committed sources by scripts/generate-master-catalog-matrix.mjs; regenerate with <code>npm run master-matrix</code>.</p>
+<p class="sub">${charts} chart versions · ${rows.length} variant rows · lane cells: ${counts.yes} pass / ${counts.watch} watch / ${counts.no} blocked / ${counts.todo} not yet run · production decisions: ${supported} supported / ${superseded} superseded / ${rejected} rejected · ${unrouted} hook-flagged variants unrouted (U). Generated from committed sources by scripts/generate-master-catalog-matrix.mjs; regenerate with <code>npm run master-matrix</code>.</p>
 <p class="chips"><span class="y">✓ pass</span><span class="w">! watch</span><span class="n">✗ blocked/failed</span><span class="t">· not yet run</span><span class="na">– n/a</span></p>
-<p class="sub">Lanes: R render parity · C ConfigHub upload+scan+ops · L local kind apply · G OCI+Argo live · P live dual parity · K two-cluster kind parity. Hover cells for detail (hooks, quirks, production target scope, next action).${unmatchedReadiness.length ? ` Not in top-100 readiness (candidates/version drift): ${unmatchedReadiness.map(escapeHtml).join(", ")}.` : ""}</p>
+<p class="sub">Lanes: R render parity · C ConfigHub upload+scan+ops · L local kind apply · G OCI+Argo live · P live dual parity · K two-cluster kind parity. Hover cells for detail (hooks, quirks, production target scope, next action). Hooks: U = source scan flags hooks but no disposition row yet; family evidence from another chart version is named in the tooltip.${unmatchedReadiness.length ? ` Not in top-100 readiness (candidates/version drift): ${unmatchedReadiness.map(escapeHtml).join(", ")}.` : ""}</p>
 <table>
 <thead><tr><th>Chart</th><th>Variant</th><th>Tier</th><th>Quirks</th><th>Hooks</th><th>R</th><th>C</th><th>L</th><th>G</th><th>P</th><th>K</th><th>Outcome</th><th>Prod</th><th>Next action</th></tr></thead>
 <tbody>
