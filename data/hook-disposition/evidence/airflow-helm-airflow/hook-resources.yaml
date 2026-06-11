@@ -1,0 +1,121 @@
+# Extracted helm.sh/hook resources from the renders described in evidence.yaml.
+# Static render evidence; not applied by this extraction.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rel-db-migrations
+  labels:
+    app: airflow
+    component: db-migrations
+    chart: airflow-8.9.0
+    release: rel
+    heritage: Helm
+  annotations:
+    helm.sh/hook: post-install,post-upgrade
+    helm.sh/hook-weight: '-100'
+    helm.sh/hook-delete-policy: before-hook-creation
+    helm-expt.confighub.com/render-profile: db-migrations-as-job
+spec:
+  template:
+    metadata:
+      annotations:
+        checksum/secret-config-envs: 080a843f33ee78ac74ecfc493ca426b8380d79d4206c578df311db47789aa48d
+        checksum/secret-local-settings: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+        checksum/db-migrations-script: b63c3bcb15abfa0e63b81c7b1c0ca6e53cd92b7520375530e56e5f6462fb6cc1
+        cluster-autoscaler.kubernetes.io/safe-to-evict: 'true'
+      labels:
+        app: airflow
+        component: db-migrations
+        release: rel
+    spec:
+      restartPolicy: OnFailure
+      nodeSelector: {}
+      topologySpreadConstraints: []
+      affinity: {}
+      tolerations: []
+      securityContext:
+        fsGroup: 0
+      serviceAccountName: rel
+      initContainers:
+      - name: check-db
+        image: apache/airflow:2.8.4-python3.9
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          runAsUser: 50000
+          runAsGroup: 0
+        resources: {}
+        envFrom:
+        - secretRef:
+            name: rel-config-envs
+        env:
+        - name: DATABASE_USER
+          value: postgres
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rel-postgresql
+              key: postgresql-password
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rel-redis
+              key: redis-password
+        - name: CONNECTION_CHECK_MAX_COUNT
+          value: '0'
+        command:
+        - /usr/bin/dumb-init
+        - --
+        - /entrypoint
+        args:
+        - bash
+        - -c
+        - exec timeout 60s airflow db check
+        volumeMounts:
+        - name: logs-data
+          mountPath: /opt/airflow/logs
+      containers:
+      - name: db-migrations
+        image: apache/airflow:2.8.4-python3.9
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          runAsUser: 50000
+          runAsGroup: 0
+        resources: {}
+        envFrom:
+        - secretRef:
+            name: rel-config-envs
+        env:
+        - name: DATABASE_USER
+          value: postgres
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rel-postgresql
+              key: postgresql-password
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rel-redis
+              key: redis-password
+        - name: CONNECTION_CHECK_MAX_COUNT
+          value: '0'
+        command:
+        - /usr/bin/dumb-init
+        - --
+        - /entrypoint
+        args:
+        - python
+        - -u
+        - /mnt/scripts/db_migrations.py
+        volumeMounts:
+        - name: logs-data
+          mountPath: /opt/airflow/logs
+        - name: scripts
+          mountPath: /mnt/scripts
+          readOnly: true
+      volumes:
+      - name: logs-data
+        emptyDir: {}
+      - name: scripts
+        secret:
+          secretName: rel-db-migrations

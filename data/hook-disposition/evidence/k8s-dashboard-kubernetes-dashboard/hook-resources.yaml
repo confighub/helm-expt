@@ -1,0 +1,457 @@
+# Extracted helm.sh/hook resources from the renders described in evidence.yaml.
+# Static render evidence; not applied by this extraction.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rel-kong-post-upgrade-migrations
+  namespace: test-ns
+  labels:
+    app.kubernetes.io/name: kong
+    helm.sh/chart: kong-2.52.0
+    app.kubernetes.io/instance: rel
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: '3.9'
+    app.kubernetes.io/component: post-upgrade-migrations
+  annotations:
+    helm.sh/hook: post-upgrade
+    helm.sh/hook-delete-policy: before-hook-creation
+    helm-expt.confighub.com/render-profile: kong-postgres
+spec:
+  backoffLimit: null
+  template:
+    metadata:
+      name: kong-post-upgrade-migrations
+      labels:
+        app.kubernetes.io/name: kong
+        helm.sh/chart: kong-2.52.0
+        app.kubernetes.io/instance: rel
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/version: '3.9'
+        app.kubernetes.io/component: post-upgrade-migrations
+      annotations:
+        sidecar.istio.io/inject: 'false'
+        kuma.io/service-account-token-volume: rel-kong-token
+    spec:
+      serviceAccountName: rel-kong
+      automountServiceAccountToken: false
+      initContainers:
+      - name: wait-for-postgres
+        image: kong:3.9
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: KONG_ADMIN_ACCESS_LOG
+          value: /dev/stdout
+        - name: KONG_ADMIN_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_ADMIN_GUI_ACCESS_LOG
+          value: /dev/stdout
+        - name: KONG_ADMIN_GUI_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_ADMIN_LISTEN
+          value: 127.0.0.1:8444 http2 ssl, [::1]:8444 http2 ssl
+        - name: KONG_CLUSTER_LISTEN
+          value: 'off'
+        - name: KONG_DATABASE
+          value: postgres
+        - name: KONG_DNS_ORDER
+          value: LAST,A,CNAME,AAAA,SRV
+        - name: KONG_LUA_PACKAGE_PATH
+          value: /opt/?.lua;/opt/?/init.lua;;
+        - name: KONG_NGINX_WORKER_PROCESSES
+          value: '1'
+        - name: KONG_PG_HOST
+          value: rel-postgresql
+        - name: KONG_PG_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rel-postgresql
+              key: password
+        - name: KONG_PG_PORT
+          value: '5432'
+        - name: KONG_PLUGINS
+          value: 'off'
+        - name: KONG_PORTAL_API_ACCESS_LOG
+          value: /dev/stdout
+        - name: KONG_PORTAL_API_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_PORT_MAPS
+          value: 443:8443
+        - name: KONG_PREFIX
+          value: /kong_prefix/
+        - name: KONG_PROXY_ACCESS_LOG
+          value: /dev/stdout
+        - name: KONG_PROXY_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_PROXY_LISTEN
+          value: 0.0.0.0:8443 http2 ssl, [::]:8443 http2 ssl
+        - name: KONG_PROXY_STREAM_ACCESS_LOG
+          value: /dev/stdout basic
+        - name: KONG_PROXY_STREAM_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_ROUTER_FLAVOR
+          value: traditional
+        - name: KONG_STATUS_ACCESS_LOG
+          value: 'off'
+        - name: KONG_STATUS_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_STATUS_LISTEN
+          value: 0.0.0.0:8100, [::]:8100
+        - name: KONG_STREAM_LISTEN
+          value: 'off'
+        - name: KONG_NGINX_DAEMON
+          value: 'off'
+        command:
+        - bash
+        - /wait_postgres/wait.sh
+        volumeMounts:
+        - name: rel-kong-bash-wait-for-postgres
+          mountPath: /wait_postgres
+        resources: {}
+      containers:
+      - name: kong-post-upgrade-migrations
+        image: kong:3.9
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+          seccompProfile:
+            type: RuntimeDefault
+        env:
+        - name: KONG_ADMIN_ACCESS_LOG
+          value: /dev/stdout
+        - name: KONG_ADMIN_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_ADMIN_GUI_ACCESS_LOG
+          value: /dev/stdout
+        - name: KONG_ADMIN_GUI_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_ADMIN_LISTEN
+          value: 127.0.0.1:8444 http2 ssl, [::1]:8444 http2 ssl
+        - name: KONG_CLUSTER_LISTEN
+          value: 'off'
+        - name: KONG_DATABASE
+          value: postgres
+        - name: KONG_DNS_ORDER
+          value: LAST,A,CNAME,AAAA,SRV
+        - name: KONG_LUA_PACKAGE_PATH
+          value: /opt/?.lua;/opt/?/init.lua;;
+        - name: KONG_NGINX_WORKER_PROCESSES
+          value: '1'
+        - name: KONG_PG_HOST
+          value: rel-postgresql
+        - name: KONG_PG_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rel-postgresql
+              key: password
+        - name: KONG_PG_PORT
+          value: '5432'
+        - name: KONG_PLUGINS
+          value: 'off'
+        - name: KONG_PORTAL_API_ACCESS_LOG
+          value: /dev/stdout
+        - name: KONG_PORTAL_API_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_PORT_MAPS
+          value: 443:8443
+        - name: KONG_PREFIX
+          value: /kong_prefix/
+        - name: KONG_PROXY_ACCESS_LOG
+          value: /dev/stdout
+        - name: KONG_PROXY_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_PROXY_LISTEN
+          value: 0.0.0.0:8443 http2 ssl, [::]:8443 http2 ssl
+        - name: KONG_PROXY_STREAM_ACCESS_LOG
+          value: /dev/stdout basic
+        - name: KONG_PROXY_STREAM_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_ROUTER_FLAVOR
+          value: traditional
+        - name: KONG_STATUS_ACCESS_LOG
+          value: 'off'
+        - name: KONG_STATUS_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_STATUS_LISTEN
+          value: 0.0.0.0:8100, [::]:8100
+        - name: KONG_STREAM_LISTEN
+          value: 'off'
+        - name: KONG_NGINX_DAEMON
+          value: 'off'
+        args:
+        - kong
+        - migrations
+        - finish
+        volumeMounts:
+        - name: rel-kong-prefix-dir
+          mountPath: /kong_prefix/
+        - name: rel-kong-tmp
+          mountPath: /tmp
+        resources: {}
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      restartPolicy: OnFailure
+      volumes:
+      - name: rel-kong-prefix-dir
+        emptyDir:
+          sizeLimit: 256Mi
+      - name: rel-kong-tmp
+        emptyDir:
+          sizeLimit: 1Gi
+      - name: rel-kong-token
+        projected:
+          sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+              - key: ca.crt
+                path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+              - fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+                path: namespace
+      - name: rel-kong-bash-wait-for-postgres
+        configMap:
+          name: rel-kong-bash-wait-for-postgres
+          defaultMode: 493
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rel-kong-pre-upgrade-migrations
+  namespace: test-ns
+  labels:
+    app.kubernetes.io/name: kong
+    helm.sh/chart: kong-2.52.0
+    app.kubernetes.io/instance: rel
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: '3.9'
+    app.kubernetes.io/component: pre-upgrade-migrations
+  annotations:
+    helm.sh/hook: pre-upgrade
+    helm.sh/hook-delete-policy: before-hook-creation
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    helm-expt.confighub.com/render-profile: kong-postgres
+spec:
+  backoffLimit: null
+  template:
+    metadata:
+      name: kong-pre-upgrade-migrations
+      labels:
+        app.kubernetes.io/name: kong
+        helm.sh/chart: kong-2.52.0
+        app.kubernetes.io/instance: rel
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/version: '3.9'
+        app.kubernetes.io/component: pre-upgrade-migrations
+      annotations:
+        sidecar.istio.io/inject: 'false'
+        kuma.io/service-account-token-volume: rel-kong-token
+    spec:
+      serviceAccountName: rel-kong
+      automountServiceAccountToken: false
+      initContainers:
+      - name: wait-for-postgres
+        image: kong:3.9
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: KONG_ADMIN_ACCESS_LOG
+          value: /dev/stdout
+        - name: KONG_ADMIN_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_ADMIN_GUI_ACCESS_LOG
+          value: /dev/stdout
+        - name: KONG_ADMIN_GUI_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_ADMIN_LISTEN
+          value: 127.0.0.1:8444 http2 ssl, [::1]:8444 http2 ssl
+        - name: KONG_CLUSTER_LISTEN
+          value: 'off'
+        - name: KONG_DATABASE
+          value: postgres
+        - name: KONG_DNS_ORDER
+          value: LAST,A,CNAME,AAAA,SRV
+        - name: KONG_LUA_PACKAGE_PATH
+          value: /opt/?.lua;/opt/?/init.lua;;
+        - name: KONG_NGINX_WORKER_PROCESSES
+          value: '1'
+        - name: KONG_PG_HOST
+          value: rel-postgresql
+        - name: KONG_PG_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rel-postgresql
+              key: password
+        - name: KONG_PG_PORT
+          value: '5432'
+        - name: KONG_PLUGINS
+          value: 'off'
+        - name: KONG_PORTAL_API_ACCESS_LOG
+          value: /dev/stdout
+        - name: KONG_PORTAL_API_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_PORT_MAPS
+          value: 443:8443
+        - name: KONG_PREFIX
+          value: /kong_prefix/
+        - name: KONG_PROXY_ACCESS_LOG
+          value: /dev/stdout
+        - name: KONG_PROXY_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_PROXY_LISTEN
+          value: 0.0.0.0:8443 http2 ssl, [::]:8443 http2 ssl
+        - name: KONG_PROXY_STREAM_ACCESS_LOG
+          value: /dev/stdout basic
+        - name: KONG_PROXY_STREAM_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_ROUTER_FLAVOR
+          value: traditional
+        - name: KONG_STATUS_ACCESS_LOG
+          value: 'off'
+        - name: KONG_STATUS_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_STATUS_LISTEN
+          value: 0.0.0.0:8100, [::]:8100
+        - name: KONG_STREAM_LISTEN
+          value: 'off'
+        - name: KONG_NGINX_DAEMON
+          value: 'off'
+        command:
+        - bash
+        - /wait_postgres/wait.sh
+        volumeMounts:
+        - name: rel-kong-bash-wait-for-postgres
+          mountPath: /wait_postgres
+        resources: {}
+      containers:
+      - name: kong-upgrade-migrations
+        image: kong:3.9
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+          seccompProfile:
+            type: RuntimeDefault
+        env:
+        - name: KONG_ADMIN_ACCESS_LOG
+          value: /dev/stdout
+        - name: KONG_ADMIN_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_ADMIN_GUI_ACCESS_LOG
+          value: /dev/stdout
+        - name: KONG_ADMIN_GUI_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_ADMIN_LISTEN
+          value: 127.0.0.1:8444 http2 ssl, [::1]:8444 http2 ssl
+        - name: KONG_CLUSTER_LISTEN
+          value: 'off'
+        - name: KONG_DATABASE
+          value: postgres
+        - name: KONG_DNS_ORDER
+          value: LAST,A,CNAME,AAAA,SRV
+        - name: KONG_LUA_PACKAGE_PATH
+          value: /opt/?.lua;/opt/?/init.lua;;
+        - name: KONG_NGINX_WORKER_PROCESSES
+          value: '1'
+        - name: KONG_PG_HOST
+          value: rel-postgresql
+        - name: KONG_PG_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: rel-postgresql
+              key: password
+        - name: KONG_PG_PORT
+          value: '5432'
+        - name: KONG_PLUGINS
+          value: 'off'
+        - name: KONG_PORTAL_API_ACCESS_LOG
+          value: /dev/stdout
+        - name: KONG_PORTAL_API_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_PORT_MAPS
+          value: 443:8443
+        - name: KONG_PREFIX
+          value: /kong_prefix/
+        - name: KONG_PROXY_ACCESS_LOG
+          value: /dev/stdout
+        - name: KONG_PROXY_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_PROXY_LISTEN
+          value: 0.0.0.0:8443 http2 ssl, [::]:8443 http2 ssl
+        - name: KONG_PROXY_STREAM_ACCESS_LOG
+          value: /dev/stdout basic
+        - name: KONG_PROXY_STREAM_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_ROUTER_FLAVOR
+          value: traditional
+        - name: KONG_STATUS_ACCESS_LOG
+          value: 'off'
+        - name: KONG_STATUS_ERROR_LOG
+          value: /dev/stderr
+        - name: KONG_STATUS_LISTEN
+          value: 0.0.0.0:8100, [::]:8100
+        - name: KONG_STREAM_LISTEN
+          value: 'off'
+        - name: KONG_NGINX_DAEMON
+          value: 'off'
+        args:
+        - kong
+        - migrations
+        - up
+        volumeMounts:
+        - name: rel-kong-prefix-dir
+          mountPath: /kong_prefix/
+        - name: rel-kong-tmp
+          mountPath: /tmp
+        resources: {}
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      restartPolicy: OnFailure
+      volumes:
+      - name: rel-kong-prefix-dir
+        emptyDir:
+          sizeLimit: 256Mi
+      - name: rel-kong-tmp
+        emptyDir:
+          sizeLimit: 1Gi
+      - name: rel-kong-token
+        projected:
+          sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+              - key: ca.crt
+                path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+              - fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+                path: namespace
+      - name: rel-kong-bash-wait-for-postgres
+        configMap:
+          name: rel-kong-bash-wait-for-postgres
+          defaultMode: 493

@@ -1,0 +1,16 @@
+chart: bitnami/kafka
+version: 32.4.3
+method: helm template (Helm v4.1.4) against the pinned upstream chart archive; static
+  render evidence only - no live claim
+renderedAt: '2026-06-11'
+renders:
+- profile: default
+  valuesArgs: (chart defaults)
+  hookDocs: 0
+  renderSha256: cfff1605c83f3c6c8a62d7edb060ef8de20ad85759fa4d69823c29c5a1ae855b
+- profile: provisioning-enabled
+  valuesArgs: --set provisioning.enabled=true --set provisioning.topics[0].name=demo
+  hookDocs: 1
+  renderSha256: 1b8b1be1fa08d251eaa6e274312e280c3b8ecbcf70432ab1731b16ebf11e45ff
+finding: The provisioning hook Job renders only when provisioning is enabled; the
+  default render is hook-free.

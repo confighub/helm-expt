@@ -1,0 +1,17 @@
+chart: k8s-dashboard/kubernetes-dashboard
+version: 7.14.0
+method: helm template (Helm v4.1.4) against the pinned upstream chart archive; static
+  render evidence only - no live claim
+renderedAt: '2026-06-11'
+renders:
+- profile: default
+  valuesArgs: (chart defaults; vendored kong in DB-less mode)
+  hookDocs: 0
+  renderSha256: 276c759751e7066cd3f3321550276b362275c291b9e14c6f6a6ab7df62db2668
+- profile: kong-postgres
+  valuesArgs: --set kong.env.database=postgres --set kong.postgresql.enabled=true
+  hookDocs: 2
+  renderSha256: c9602595581eaa1005ecac23d463f4d0037532d8715d0662084cd72cd932225c
+finding: 'Resolves the open candidate question: under default values the vendored
+  kong migration hooks DO NOT render. They appear only if the vendored kong is switched
+  to postgres mode.'

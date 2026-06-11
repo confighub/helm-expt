@@ -1,0 +1,20 @@
+chart: airflow-helm/airflow
+version: 8.9.0
+method: helm template (Helm v4.1.4) against the pinned upstream chart archive; static
+  render evidence only - no live claim
+renderedAt: '2026-06-11'
+renders:
+- profile: default
+  valuesArgs: '(chart defaults: dbMigrations.runAsJob=false renders a Deployment,
+    not a hook)'
+  hookDocs: 0
+  renderSha256: 3a0f26472b5557d4142548e9697240410b0ec66c7c73629cc5f0b6e42a7a5de1
+- profile: db-migrations-as-job
+  valuesArgs: --set airflow.dbMigrations.runAsJob=true
+  hookDocs: 1
+  renderSha256: 4f28565d8526ad530dfbbfd67a2691d0dd1aed8983fb714b57cc9989721ccc7f
+finding: 'All five source-scan hook templates are values-conditional. The default
+  render is hook-free: db migrations run as a continuous Deployment. Setting airflow.dbMigrations.runAsJob=true
+  renders the post-install,post-upgrade hook Job with hook-weight -100 and delete-policy
+  before-hook-creation. The four sync-*-job templates are likewise conditional on
+  their sync features.'
