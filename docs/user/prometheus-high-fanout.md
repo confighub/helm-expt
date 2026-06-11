@@ -105,12 +105,11 @@ required CRDs.
 That is useful evidence. It means the model caught the prerequisite before
 pretending the workload was healthy.
 
-Today this page proves the routing model and the high-fanout base difference. It
-does not claim that every kube-prometheus-stack lifecycle concern is production
-supported. The remaining hard work is to record target-scoped support decisions
-for CRD ownership, CRD upgrades, webhook readiness, generated material, GitOps
-handoff, and any lifecycle actions that should become operator-reviewed
-procedures.
+Today this page proves the routing model and the high-fanout base difference.
+The `default` base also has a target-scoped support decision for the recorded
+vanilla kind, `monitoring` namespace, ConfigHub OCI, and Argo path. That is a
+narrow supported scope, not a claim that every kube-prometheus-stack topology,
+cluster, or values overlay is production-supported.
 
 ## Production Support Checklist
 
@@ -132,7 +131,7 @@ when CRDs have their own owner, version, and fresh observation.
 
 ## Current Production Proof Plan
 
-The current target-scoped support decision is still a draft:
+The current target-scoped support decision covers the `default` base:
 
 [kube-prometheus-stack support decision](../../data/production-support-decisions/prometheus-community-kube-prometheus-stack/support-decision.yaml)
 
@@ -149,20 +148,19 @@ The `default` base already has useful proof:
 | ConfigHub proof | pass |
 | Two-cluster kind parity | pass |
 | Strict ConfigHub OCI/Argo live path | pass |
-| Production support | draft |
+| Production support | supported for the declared target scope |
 
-To make `default` production-supported for one target scope, the remaining work
-is:
+To widen or refresh the `default` support scope, the remaining work is:
 
 1. Choose the exact target scope: controller, namespace, cluster class, and OCI
    artifact digest.
-2. Resolve image digests or record an explicit mutable-image exception.
-3. Record security acceptance for the monitoring stack scope, or create a
-   narrower hardened base.
-4. Execute or observe the selected hook/lifecycle route for admission webhook
-   TLS, readiness, cleanup, ordering, and upgrade behavior.
-5. Refresh ConfigHub OCI/GitOps and live/e2e evidence after the previous
-   decisions are closed.
+2. Reuse the current mutable-image exception and security acceptance only if
+   the new scope has the same posture; otherwise create a hardened or
+   digest-pinned base.
+3. Keep the selected hook/lifecycle route and live evidence fresh for the new
+   scope.
+4. Record a replacement support decision before calling the wider scope
+   supported.
 
 The `no-crds` base is a separate support decision. Its GitOps receipt is
 currently useful because it blocked on missing CRDs; production support for
