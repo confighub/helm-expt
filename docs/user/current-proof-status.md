@@ -305,14 +305,15 @@ observation lane. In the generated two-cluster summary, that row is explicit:
 `result=blocked`, `semantic_parity=pass`, and
 `related_lifecycle_evidence=pass`.
 
-Production support decisions are now closed for the top-20 catalog:
+Production support decisions are now explicit for the top-20 catalog:
 
-- 17 of 20 top-20 charts have supported target-scoped proof scopes.
+- 16 of 20 top-20 charts have supported target-scoped proof scopes.
 - 2 of 20 top-20 charts are superseded deprecated source charts and remain
   catalog proof evidence only.
 - 1 of 20 top-20 charts has a rejected target-scoped proof scope with a
   concrete target-fit or runtime reason.
-- 0 of 20 top-20 charts still have draft support decision artifacts.
+- 1 of 20 top-20 charts has a draft support decision after a fresh
+  runtime/GitOps rehearsal exposed a separated Secret delivery gap.
 - 19 of 20 are production-review-ready by pre-review disposition receipt.
 - 1 of 20 still has a blocked pre-review production disposition.
 - 104 production-disposition receipts are accepted across 20 charts.
@@ -332,10 +333,10 @@ evidence work before it becomes production-supported for a target scope.
 
 | Decision group | Charts | Meaning |
 | --- | ---: | --- |
-| Supported scope evidence | 17 | Keep target-scoped evidence fresh before using the supported scope as a production example. |
+| Supported scope evidence | 16 | Keep target-scoped evidence fresh before using the supported scope as a production example. |
 | Superseded source chart | 2 | Keep the existing proof as evidence, but review a maintained chart source before making a production-support claim. |
 | Rejected default base | 1 | Keep parity evidence, then create a better production base or target scope before support. |
-| Draft support decision | 0 | No top-20 chart is waiting on an unmade target-scoped support decision. |
+| Draft support decision | 1 | External-secrets needs its rendered webhook Secret modeled as deliverable or prerequisite before final support. |
 
 Use the target-scoped decision table for exact blockers and next actions:
 [Production Support Decisions](../../data/production-support-decisions/summary.md).

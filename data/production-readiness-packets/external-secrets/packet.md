@@ -10,7 +10,9 @@ CRDs plus webhooks plus an external-system dependency by design: the chart's who
 
 ## What should a serious user try first?
 
-Base `default` - support decision `supported`, disposition `production-review-ready`, bounded to target scope: cub-lk-kind-vanilla; namespace=external-secrets; delivery=confighub-oci; controller=argo.
+Base `default` - support decision `draft`, disposition `production-review-ready`, bounded to target scope: cub-lk-kind-vanilla; namespace=external-secrets; delivery=confighub-oci; controller=argo.
+
+Support decision evidence: `needs-runtime-decision-before-final` ([decision](../../../data/production-support-decisions/external-secrets-external-secrets/support-decision.yaml)).
 
 ## Quirks
 
@@ -33,13 +35,21 @@ Lane summary: local:1/2 gitops:1/2 live-parity:1/2 two-cluster:2/2. Authoritativ
 ## What is only watch, per-target, or manual?
 
 - WATCH/BLOCK (routed): Rendered ExternalSecret CRD contains selectableFields but the live Kubernetes 1.30 API omitted the field after apply - route: capability-profile plus CRD lifecycle review ([watchlist](../../../data/live-e2e/cub-scout-watchlist.md))
-- every supported claim is per-target: the decision above covers `cub-lk-kind-vanilla; namespace=external-secrets; delivery=confighub-oci; controller=argo` and nothing broader
+- no final production support is claimed yet: the draft scope is `cub-lk-kind-vanilla; namespace=external-secrets; delivery=confighub-oci; controller=argo` and must be closed before support is claimed
 
 ## What production decision is still open, and why?
 
-Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate provider-specific bases for SecretStore and ExternalSecret use cases.
+The support decision is `draft`; live evidence is `needs-runtime-decision-before-final`.
 
-Current work item: supported-scope-evidence - [work items](../../../data/production-support-decisions/work-items.csv).
+Required before final support:
+
+- Model the generated external-secrets-webhook Secret as a deliverable unit or explicit target prerequisite.
+- Rerun the external-secrets/default ConfigHub OCI rehearsal and record a passing runtime receipt.
+- Run a provider round-trip rehearsal against a disposable secrets backend before claiming provider behavior.
+
+Next action: Model the generated webhook Secret as deliverable or prerequisite, rerun the default-base Argo OCI rehearsal, then run a provider round-trip rehearsal against a disposable secrets backend.
+
+Current work item: runtime-decision - [work items](../../../data/production-support-decisions/work-items.csv).
 
 ## Claims we must not make yet
 

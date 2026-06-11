@@ -12,6 +12,8 @@ CRD-heavy controller with webhooks, CA injection, and controller-owned runtime s
 
 Base `crds-enabled` - support decision `supported`, disposition `production-review-ready`, bounded to target scope: cub-lk-kind-vanilla; namespace=cert-manager; delivery=confighub-oci; controller=argo.
 
+Support decision evidence: `fresh-target-evidence-passed` ([decision](../../../data/production-support-decisions/jetstack-cert-manager/support-decision.yaml)).
+
 ## Quirks
 
 extension-slots

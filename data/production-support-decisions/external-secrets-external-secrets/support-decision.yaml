@@ -1,22 +1,21 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ProductionSupportDecision
 metadata:
-  name: "external-secrets-external-secrets-default-public-oci-supported"
+  name: "external-secrets-external-secrets-default-public-oci-draft"
 spec:
   chart: "external-secrets/external-secrets"
   version: "2.5.0"
-  decision: supported
-  decisionDate: "2026-06-09"
-  supportedSince: "2026-06-08T17:11:42Z"
+  decision: draft
+  decisionDate: "2026-06-11"
   supportedBase: "default"
   targetScope:
     clusterClass: cub-lk-kind-vanilla
     namespace: "external-secrets"
     deliveryPath: confighub-oci
     gitopsController: argo
-    lastEvidenceAt: "2026-06-08T17:11:42Z"
-    lastEvidenceTarget: helm-expt-parity-externalsecrets-mq5gx5ta-19j0-cluster/oci
-    lastEvidenceKubeContext: kind-helm-expt-parity-externalsecrets-mq5gx5ta-19j0
+    lastEvidenceAt: "2026-06-11T06:19:49Z"
+    lastEvidenceTarget: codex-live-evidence-es-default-0611-cluster/oci
+    lastEvidenceKubeContext: kind-codex-live-evidence-es-default-0611
     liveEvidenceTTL: 30d
     storageAssumptions:
       - "Use the chart's recorded storage behavior for the supported scope unless a narrower scope is separately reviewed."
@@ -26,12 +25,13 @@ spec:
   supportBoundary:
     includes:
       - "external-secrets/external-secrets@2.5.0 default base"
-      - ConfigHub OCI delivery through Argo for the declared cub-lk vanilla kind target scope
+      - candidate ConfigHub OCI delivery through Argo for the declared cub-lk vanilla kind target scope after separated Secret delivery is resolved
       - rendered objects, labels, gates, receipts, and support objects produced by the recorded base
       - recorded mutable-image exception for the declared public controller support scope
       - recorded resource-policy acceptance for the declared public controller support scope
       - controller-owned webhook lifecycle observation for the declared public controller support scope
     excludes:
+      - "workload-only OCI delivery that omits the rendered external-secrets-webhook Secret"
       - "private values overlays, wrapper charts, and populated extension slots unless separately reviewed"
       - "SecretStore, ClusterSecretStore, ExternalSecret, PushSecret, provider credentials, and provider-specific workloads"
       - "digest-pinned, resource-hardened, or provider-specific production bases unless separately reviewed"
@@ -51,8 +51,8 @@ spec:
       state: "no-unresolved-target-prerequisite-in-candidate-base"
       detail: "no unresolved target prerequisite in candidate base"
     liveEvidenceDecision:
-      state: "fresh-target-evidence-passed"
-      detail: "fresh target-scoped ConfigHub OCI and Argo evidence passed on 2026-06-08 for the declared cub-lk vanilla kind External Secrets scope"
+      state: "needs-runtime-decision-before-final"
+      detail: "a fresh 2026-06-11 default-base ConfigHub OCI rehearsal synced through Argo but blocked at runtime because the rendered external-secrets-webhook Secret was staged under out/secrets and was not delivered through the workload OCI path"
   evidence:
     - path: "recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
       claim: "The candidate base is Helm-equivalent under recorded inputs."
@@ -63,7 +63,9 @@ spec:
     - path: "runs/live-helm-confighub-compare/external-secrets-external-secrets-default/receipt.yaml"
       claim: "The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base."
     - path: "data/production-support-decisions/external-secrets-external-secrets/fresh-target-evidence-2026-06-08.yaml"
-      claim: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope."
+      claim: "Earlier target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope before the separated Secret delivery gap was isolated."
+    - path: "data/runtime-gitops/receipts/external-secrets-external-secrets/default/latest.yaml"
+      claim: "Fresh default-base ConfigHub OCI rehearsal synced through Argo but blocked at runtime because the rendered webhook Secret was not delivered through workload OCI."
     - path: "data/image-digest-workdown/receipts/external-secrets-external-secrets/default/image-digest-resolution.yaml"
       claim: "The rendered mutable image references for the candidate base have registry digest-resolution evidence."
     - path: "data/production-support-decisions/external-secrets-external-secrets/image-policy-decision.yaml"
@@ -84,5 +86,8 @@ spec:
       claim: "The target fact preflight receipt exists for this chart."
     - path: "data/production-disposition/receipts/external-secrets-external-secrets/webhook-readiness-and-failure-policy.yaml"
       claim: "The webhook readiness and failure policy receipt exists for this chart."
-  requiredBeforeFinal: []
-  nextAction: "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate provider-specific bases for SecretStore and ExternalSecret use cases."
+  requiredBeforeFinal:
+    - "Model the generated external-secrets-webhook Secret as a deliverable unit or explicit target prerequisite."
+    - "Rerun the external-secrets/default ConfigHub OCI rehearsal and record a passing runtime receipt."
+    - "Run a provider round-trip rehearsal against a disposable secrets backend before claiming provider behavior."
+  nextAction: "Model the generated webhook Secret as deliverable or prerequisite, rerun the default-base Argo OCI rehearsal, then run a provider round-trip rehearsal against a disposable secrets backend."

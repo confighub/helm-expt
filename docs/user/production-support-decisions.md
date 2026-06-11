@@ -120,11 +120,11 @@ The current generated summary is:
 
 ```text
 decision artifacts: 20
-supported decisions: 17
-draft decisions: 0
+supported decisions: 16
+draft decisions: 1
 rejected decisions: 1
 superseded decisions: 2
-open work items: 0
+open work items: 1
 ```
 
 Each decision names:
@@ -152,14 +152,15 @@ being a loose spreadsheet.
 
 | Group | Charts | What it means |
 | --- | ---: | --- |
-| `supported` | 17 | The named chart/base/target/delivery scope has fresh evidence and an explicit operating boundary. |
+| `supported` | 16 | The named chart/base/target/delivery scope has fresh evidence and an explicit operating boundary. |
 | `superseded` | 2 | The proof remains useful, but the upstream chart source is deprecated and should not be promoted as production-supported. |
 | `rejected` | 1 | The base remains parity evidence, but it is not a good production support boundary. |
-| `draft` | 0 | No top-20 chart is waiting on an unmade support decision. |
+| `draft` | 1 | One chart has a concrete runtime gap to close before final support. |
 
 The next production work is specific:
 
-- keep evidence fresh for the 17 supported scopes;
+- keep evidence fresh for the 16 supported scopes;
+- resolve external-secrets default-base separated Secret delivery, rerun Argo OCI, then run a provider round-trip rehearsal;
 - choose maintained successor sources for Grafana and Tempo;
 - create a production Vault base with init/unseal, storage, TLS, backup/restore,
   and an operator runbook;

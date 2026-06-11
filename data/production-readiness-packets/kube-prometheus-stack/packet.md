@@ -12,6 +12,8 @@ CRDs, admission webhooks with hook-driven cert patching, cluster RBAC, generated
 
 Base `default` - support decision `supported`, disposition `production-review-ready`, bounded to target scope: cub-lk-kind-vanilla; namespace=monitoring; delivery=confighub-oci; controller=argo.
 
+Support decision evidence: `fresh-target-evidence-passed` ([decision](../../../data/production-support-decisions/prometheus-community-kube-prometheus-stack/support-decision.yaml)).
+
 ## Quirks
 
 hooks;crds;generated-secrets;existing-secret;webhooks;extension-slots;install-vs-upgrade-divergence;required-values;lookup;generated-facts;tpl;capabilities;rbac;storage

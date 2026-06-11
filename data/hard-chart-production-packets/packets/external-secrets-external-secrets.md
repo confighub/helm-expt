@@ -8,11 +8,11 @@ is a navigation surface over existing evidence, not a new support decision.
 | Field | Value |
 | --- | --- |
 | Supported base | `default` |
-| Support decision | `supported` |
+| Support decision | `draft` |
 | Production disposition | `production-review-ready` |
 | Target scope | cub-lk-kind-vanilla; namespace=external-secrets; delivery=confighub-oci; controller=argo |
 | Delivery path | `confighub-oci` |
-| Evidence count | 15 |
+| Evidence count | 16 |
 | Strongest user-facing evidence | live-helm-vs-confighub-parity |
 | Live summary | local:1/2 gitops:1/2 live-parity:1/2 two-cluster:2/2 |
 
@@ -26,7 +26,7 @@ Use default for the controller install. Provider-specific SecretStore and Extern
 
 ## What Remains Before Broader Production Use
 
-Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate provider-specific bases for SecretStore and ExternalSecret use cases.
+Model the generated webhook Secret as deliverable or prerequisite, rerun the default-base Argo OCI rehearsal, then run a provider round-trip rehearsal against a disposable secrets backend.
 
 ## Bases
 
@@ -52,7 +52,7 @@ Keep the target-scoped evidence fresh before using this supported scope as a pro
 | Scan policy | `resource-policy-accepted-for-target-scope` |
 | Lifecycle policy | `lifecycle-observed-for-proof-scope` |
 | Target facts | `no-unresolved-target-prerequisite-in-candidate-base` |
-| Live evidence | `fresh-target-evidence-passed` |
+| Live evidence | `needs-runtime-decision-before-final` |
 
 ## Evidence Links
 

@@ -301,10 +301,10 @@ chart/base row has every lane complete.
 1/20 top-20 charts is production-blocked pending target-fit disposition.
 0/20 top-20 charts still need pre-review target-fact preflight disposition.
 20/20 top-20 charts have target-scoped support decision artifacts.
-17/20 top-20 charts have supported target-scoped proof scopes.
+16/20 top-20 charts have supported target-scoped proof scopes.
 2/20 top-20 charts are superseded deprecated source charts.
 1/20 top-20 charts has a rejected target-scoped proof scope with a concrete target-fit or runtime reason.
-0/20 top-20 charts remain draft decisions.
+1/20 top-20 charts remains a draft decision after a fresh runtime/GitOps rehearsal exposed a separated Secret delivery gap.
 100 charts have recipe/package proof artifacts.
 179 chart/base rows have Helm-template versus cub installer render parity.
 20/179 chart/base rows currently have the stricter in-ConfigHub proof lane marked pass.

@@ -17,10 +17,10 @@ live/e2e observed charts: 20
 production-review-ready disposition rows: 19
 production-blocked pending disposition: 1
 target-scoped support decision artifacts: 20
-target-scoped supported decisions: 17
+target-scoped supported decisions: 16
 target-scoped superseded decisions: 2
 target-scoped rejected decisions: 1
-target-scoped draft decisions: 0
+target-scoped draft decisions: 1
 source Helm-hook rows: 1
 hook/lifecycle disposition rows: 12
 related lifecycle observation rows: 2
