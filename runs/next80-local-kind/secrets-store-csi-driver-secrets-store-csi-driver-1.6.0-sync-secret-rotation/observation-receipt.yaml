@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-sync-secret-rotation-local-kind"
+spec:
+  variantRevision: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "3667c16d411f773ef20e51c9980d484eb770c1173092878f1b018f5b4377a182"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-sscd-sync"
+    context: "kind-claude-helm-expt-codex-sscd-sync"
+    namespace: "kube-system"
+  observedAt: "2026-06-11T13:52:35.767Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "sync-secret-rotation"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "7aec20d1d28f1f915a54d9c0f59ff5b5a02f89df1173531ed6846e335f653d5f"
+  checks:
+    -
+      name: "crds-applied-and-established"
+      result: "pass"
+      object: "2 CustomResourceDefinition(s)"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "12 object(s) from recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "DaemonSet|kube-system|secrets-store-csi-driver"

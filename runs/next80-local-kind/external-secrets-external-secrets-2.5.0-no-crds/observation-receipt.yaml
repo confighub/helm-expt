@@ -1,0 +1,53 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "external-secrets-external-secrets-2.5.0-no-crds-local-kind"
+spec:
+  variantRevision: "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "da5857fba93e0394594d7e072b31e3cf28985392b5cc0443730a23b722d7670b"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-eso-nocrds"
+    context: "kind-claude-helm-expt-codex-eso-nocrds"
+    namespace: "external-secrets"
+  observedAt: "2026-06-11T13:32:55.478Z"
+  freshnessTTL: "1h"
+  result: "fail"
+  clusterStatus: "created-by-test"
+  variant: "no-crds"
+  workloads: 3
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "3f453fcd07b66c248323c62dd7f6d8f8a30051656cb92eec9dacdbaee83618ec"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||external-secrets"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "19 object(s) from recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "Deployment|external-secrets|external-secrets-cert-controller"
+      reason: "not-ready: external-secrets-b86785d68-gzprn[Error ready=false restarts=5;] external-secrets-cert-controller-647c64d965-pmc5z[ ready=false restarts=0;] external-secrets-webhook-5bc7b6dbd-6zbvl[ ready=false restarts=1;]"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "Deployment|external-secrets|external-secrets"
+      reason: "not-ready: external-secrets-b86785d68-gzprn[Error ready=false restarts=5;] external-secrets-cert-controller-647c64d965-pmc5z[ ready=false restarts=0;] external-secrets-webhook-5bc7b6dbd-6zbvl[ ready=false restarts=1;]"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "Deployment|external-secrets|external-secrets-webhook"
+      reason: "not-ready: external-secrets-b86785d68-gzprn[CrashLoopBackOff ready=false restarts=5;] external-secrets-cert-controller-647c64d965-pmc5z[ ready=false restarts=0;] external-secrets-webhook-5bc7b6dbd-6zbvl[Error ready=false restarts=1;]"
+  blockedReasons:
+    - "deployment/external-secrets-cert-controller: not-ready (external-secrets-b86785d68-gzprn[Error ready=false restarts=5;] external-secrets-cert-controller-647c64d965-pmc5z[ ready=false restarts=0;] external-secrets-web)"
+    - "deployment/external-secrets: not-ready (external-secrets-b86785d68-gzprn[Error ready=false restarts=5;] external-secrets-cert-controller-647c64d965-pmc5z[ ready=false restarts=0;] external-secrets-web)"
+    - "deployment/external-secrets-webhook: not-ready (external-secrets-b86785d68-gzprn[CrashLoopBackOff ready=false restarts=5;] external-secrets-cert-controller-647c64d965-pmc5z[ ready=false restarts=0;] external-)"

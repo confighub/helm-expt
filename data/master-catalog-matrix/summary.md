@@ -35,7 +35,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 189 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ | 389 / 6 / 29 / 696 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ | 392 / 7 / 33 / 687 |
 | Variants with the complete core lane set | 20 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -128,7 +128,7 @@ them for width.
 |  | no-crds | next80 | `generated-facts;tpl;crds;cluster-rbac;webhooks` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `coredns/coredns@1.45.2` | default | next80 | `generated-facts;tpl;capabilities;cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `crossplane-stable/crossplane@2.3.1` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-| `descheduler/descheduler@0.36.0` | default | next80 | `tpl;cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
+| `descheduler/descheduler@0.36.0` | default | next80 | `tpl;cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⚠️ | local-live | ⬜ |
 | `dex/dex@0.24.0` | default | next80 | `tpl;capabilities;cluster-rbac` | — | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `elastic/eck-operator@3.4.0` | default | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | local-live | ⬜ |
 |  | ha | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
@@ -143,7 +143,7 @@ them for width.
 |  | dry-run-txt-registry | next80 | `tpl;crds;cluster-rbac` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
 |  | no-crds | next80 | `tpl;crds;cluster-rbac` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `external-secrets/external-secrets@2.5.0` | default | top20 | — | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
-|  | no-crds | top20 | — | — | ✅ | ⬜ | ⬜ | ❌ | ⬜ | ✅ | render-parity | ⬜ |
+|  | no-crds | top20 | — | — | ✅ | ⬜ | fail | ❌ | ⬜ | ✅ | render-parity | ⬜ |
 | `fairwinds-stable/goldilocks@10.3.0` | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `fairwinds-stable/vpa@4.11.0` | default | next80 | `lookup;tpl;capabilities;crds;cluster-rbac;webhooks` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 |  | no-crds | next80 | `lookup;tpl;capabilities;crds;cluster-rbac;webhooks` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
@@ -176,7 +176,7 @@ them for width.
 | `hashicorp/vault@0.32.0` | default | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ✅ | ⚠️ | ⚠️ | ✅ | local-live | ⬜ |
 |  | dev-mode | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ❌ |
 |  | ha-raft-ui | top20 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
-| `ingress-nginx/ingress-nginx@4.15.1` | default | top20 | `tpl;capabilities;cluster-rbac;webhooks` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
+| `ingress-nginx/ingress-nginx@4.15.1` | default | top20 | `tpl;capabilities;cluster-rbac;webhooks` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
 |  | admission-disabled | top20 | `tpl;capabilities;cluster-rbac;webhooks` | — | ✅ | ⬜ | ✅ | ⚠️ | ⚠️ | ✅ | local-live | ⬜ |
 |  | internal-clusterip | top20 | `tpl;capabilities;cluster-rbac;webhooks` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
 | `istio/gateway@1.30.0` | default | next80 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
@@ -185,7 +185,7 @@ them for width.
 | `jaegertracing/jaeger@4.8.0` | default | next80 | `lookup;generated-facts;tpl;capabilities` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `jaegertracing/jaeger-operator@2.57.0` | default | next80 | `crds;webhooks` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 |  | no-crds | next80 | `crds;webhooks` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-| `jetstack/cert-manager@v1.20.2` | default | top20 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ❌ | render-parity | ⬜ |
+| `jetstack/cert-manager@v1.20.2` | default | top20 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ❌ | local-live | ⬜ |
 |  | crds-enabled | top20 | — | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
 | `jetstack/cert-manager-csi-driver@v0.14.0` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `jetstack/trust-manager@v0.22.1` | default | next80 | — | — | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
@@ -197,9 +197,9 @@ them for width.
 | `kyverno/kyverno-policies@3.8.0` | default | next80 | `lookup;tpl` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `linkerd/linkerd-crds@1.8.0` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `longhorn/longhorn@1.11.2` | default | top20 | `generated-facts;tpl;cluster-rbac` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
-|  | ui-ingress | top20 | `generated-facts;tpl;cluster-rbac` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
+|  | ui-ingress | top20 | `generated-facts;tpl;cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | local-live | ⬜ |
 | `metrics-server/metrics-server@3.13.0` | default | top20 | `lookup;generated-facts;capabilities;cluster-rbac` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
-|  | external-tls-ca | top20 | `lookup;generated-facts;capabilities;cluster-rbac` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
+|  | external-tls-ca | top20 | `lookup;generated-facts;capabilities;cluster-rbac` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
 | `minio-operator/operator@7.1.1` | default | next80 | `cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `minio-operator/tenant@7.1.1` | default | next80 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `nats/nack@0.34.0` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
@@ -222,9 +222,9 @@ them for width.
 | `prometheus-community/alertmanager@1.37.0` | default | next80 | `tpl;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | local-live | ⬜ |
 |  | ha | next80 | `tpl;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default | top20 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage` | 2 observed ✅ (from @85.3.0) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
-|  | no-crds | top20 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage` | 2 observed ✅ (from @85.3.0) | ✅ | ⬜ | ⬜ | ❌ | ⬜ | ✅ | render-parity | ⬜ |
+|  | no-crds | top20 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;webhooks;stateful-storage` | 2 observed ✅ (from @85.3.0) | ✅ | ⬜ | ❌ | ❌ | ⬜ | ✅ | render-parity | ⬜ |
 | `prometheus-community/kube-prometheus-stack@86.1.0` | default | — | — | 2 observed ✅ (from @85.3.0) | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-|  | no-crds | — | — | 2 observed ✅ (from @85.3.0) | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | no-crds | — | — | 2 observed ✅ (from @85.3.0) | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `prometheus-community/kube-state-metrics@7.4.0` | default | next80 | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 |  | cluster-metrics-readonly | next80 | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `prometheus-community/prometheus@29.8.0` | default | top20 | `generated-facts;tpl;capabilities;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
@@ -244,7 +244,7 @@ them for width.
 | `sealed-secrets/sealed-secrets@2.18.6` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 |  | no-crds | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | top20 | — | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
-|  | sync-secret-rotation | top20 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
+|  | sync-secret-rotation | top20 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | local-live | ⬜ |
 | `stakater/reloader@2.2.12` | default | next80 | `tpl;capabilities;cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 |  | controller-default-reviewed | next80 | `tpl;capabilities;cluster-rbac` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `strimzi/strimzi-kafka-operator@1.0.0` | default | next80 | `tpl;capabilities;crds;cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
