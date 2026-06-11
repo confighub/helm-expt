@@ -44,14 +44,17 @@ function buildReport() {
   const hookCandidateRows = parseCsvFile("data/hook-route-candidates/candidates.csv");
   const lifecycleObservationRows = parseCsvFile("data/lifecycle-observations/cert-manager-eso/summary.csv");
   const productionNextActions = productionNextActionIndex();
+  const apiServiceEvidence = apiServiceEvidenceIndex();
   const outcomeByChart = new Map(outcomeRows.map((row) => [row.chart, row]));
 
   const rows = top100Rows.map((top100) => {
     const key = `${top100.chart}@${top100.version}`;
     const outcome = outcomeByChart.get(key) ?? {};
+    const apiService = apiServiceEvidence.get(key);
     const strongestEvidence = strongestEvidenceFor(outcome);
     const productionNextAction = productionNextActions.get(key);
-    const status = userStatusFor(top100, outcome, strongestEvidence, productionNextAction);
+    const status = userStatusFor(top100, outcome, strongestEvidence, productionNextAction, apiService);
+    const proofFocus = proofFocusFor(apiService);
     const workability = workabilityFor(status.userStatus);
     return {
       proof_surface_rank: top100.proof_surface_rank,
@@ -71,6 +74,9 @@ function buildReport() {
       live_parity: countText(outcome.live_parity_pass, outcome.base_rows),
       two_cluster_kind_parity: countText(outcome.two_cluster_kind_parity_pass, outcome.base_rows),
       hard_gap: shortGap(outcome.hard_gap || top100.not_yet_enabled),
+      proof_focus: proofFocus.focus,
+      proof_focus_status: proofFocus.status,
+      proof_focus_receipt: proofFocus.receipt,
       source_features: top100.source_features || "",
       next_action: status.nextAction,
       next_action_source: status.nextActionSource,
@@ -86,6 +92,16 @@ function buildReport() {
     .filter((row) => !productionNextActions.has(row.chart))
     .map((row) => row.chart);
   check(missingProductionRows.length === 0, `missing production next actions for top20 rows: ${missingProductionRows.join(", ")}`);
+  check(rows.some((row) =>
+    row.chart === "kedacore/keda@2.19.0" &&
+    row.proof_focus === "api-service-aggregation-promotion" &&
+    row.next_action_source === "apiservice-coverage" &&
+    row.next_action_receipt === "data/runtime-gitops/receipts/kedacore-keda/default/latest.yaml"
+  ), "expected KEDA APIService promotion focus row");
+  check(rows.some((row) =>
+    row.chart === "prometheus-community/prometheus-adapter@5.3.0" &&
+    row.proof_focus === "api-service-target-compatibility"
+  ), "expected Prometheus Adapter APIService target-compatibility focus row");
 
   return {
     rows,
@@ -106,7 +122,7 @@ function strongestEvidenceFor(row) {
   return "not-proven";
 }
 
-function userStatusFor(top100, outcome, strongestEvidence, productionNextAction) {
+function userStatusFor(top100, outcome, strongestEvidence, productionNextAction, apiService = null) {
   const hardGap = shortGap(outcome.hard_gap || top100.not_yet_enabled);
   if (top100.catalog_status === "catalog-supported") {
     if (["live-helm-vs-confighub-parity", "gitops-oci-live", "local-kubernetes-live"].includes(strongestEvidence)) {
@@ -126,6 +142,30 @@ function userStatusFor(top100, outcome, strongestEvidence, productionNextAction)
   }
   if (top100.catalog_status === "proof-grade") {
     if (number(top100.variant_count) > 1) {
+      if (apiService?.coverage_status === "api-aggregation-observed") {
+        return {
+          userStatus: "proof-grade-ready-for-promotion-review",
+          nextAction: "run APIService promotion review: choose supported base, target scope, CRD ownership path, and evidence refresh rule using the committed aggregation receipt",
+          nextActionSource: "apiservice-coverage",
+          nextActionReceipt: apiService.aggregation_receipt,
+        };
+      }
+      if (apiService?.coverage_status === "target-api-version-blocked") {
+        return {
+          userStatus: "proof-grade-ready-for-promotion-review",
+          nextAction: "resolve APIService target compatibility before catalog promotion; the tested target does not serve the rendered APIService version",
+          nextActionSource: "apiservice-coverage",
+          nextActionReceipt: apiService.target_block_receipt,
+        };
+      }
+      if (apiService?.coverage_status === "source-signal-not-rendered-in-maintained-bases") {
+        return {
+          userStatus: hardGap === "-" ? "proof-grade-ready-for-promotion-review" : "proof-grade-with-named-limitation",
+          nextAction: "review APIService render-path notes: current maintained bases do not render APIService objects; create a separate APIService-enabled base only if product chooses that path",
+          nextActionSource: "apiservice-coverage",
+          nextActionReceipt: "data/apiservice-coverage/render-path-notes.md",
+        };
+      }
       return {
         userStatus: hardGap === "-" ? "proof-grade-ready-for-promotion-review" : "proof-grade-with-named-limitation",
         nextAction: hardGap === "-" ? "run catalog promotion review" : `review limitation before promotion: ${hardGap}`,
@@ -145,6 +185,46 @@ function userStatusFor(top100, outcome, strongestEvidence, productionNextAction)
     nextAction: top100.top500_next_action || "review chart analysis and create a recipe candidate",
     nextActionSource: "top500-catalog-analysis",
     nextActionReceipt: "",
+  };
+}
+
+function apiServiceEvidenceIndex() {
+  const result = new Map();
+  const path = join(repoRoot, "data", "apiservice-coverage", "maintained-apiservice-coverage.csv");
+  if (!existsSync(path)) return result;
+  for (const row of parseCsvFile("data/apiservice-coverage/maintained-apiservice-coverage.csv")) {
+    if (row.chart && row.source_version) result.set(`${row.chart}@${row.source_version}`, row);
+  }
+  return result;
+}
+
+function proofFocusFor(apiService) {
+  if (!apiService) return { focus: "-", status: "-", receipt: "" };
+  if (apiService.coverage_status === "api-aggregation-observed") {
+    const catalog = apiService.catalog_status === "catalog-supported" ? "api-service-keep-fresh" : "api-service-aggregation-promotion";
+    const status = apiService.catalog_status === "catalog-supported"
+      ? "APIService aggregation is observed; keep the runtime receipt fresh"
+      : "APIService aggregation is observed; promotion needs a target-scoped decision";
+    return { focus: catalog, status, receipt: apiService.aggregation_receipt };
+  }
+  if (apiService.coverage_status === "target-api-version-blocked") {
+    return {
+      focus: "api-service-target-compatibility",
+      status: "rendered APIService objects exist, but the tested target does not serve that API version",
+      receipt: apiService.target_block_receipt,
+    };
+  }
+  if (apiService.coverage_status === "source-signal-not-rendered-in-maintained-bases") {
+    return {
+      focus: "api-service-render-path-recorded",
+      status: "source APIService signal exists, but current maintained bases render no APIService objects",
+      receipt: "data/apiservice-coverage/render-path-notes.md",
+    };
+  }
+  return {
+    focus: `api-service-${apiService.coverage_status}`,
+    status: apiService.next_action || "review APIService coverage before promotion",
+    receipt: apiService.aggregation_receipt || apiService.target_block_receipt || "",
   };
 }
 
@@ -173,6 +253,7 @@ function summary(rows, hookContext) {
   const promotionReview = rows.filter((row) => row.user_status === "proof-grade-ready-for-promotion-review");
   const needsVariant = rows.filter((row) => row.user_status === "proof-grade-needs-user-shaped-variant");
   const namedLimitation = rows.filter((row) => row.user_status === "proof-grade-with-named-limitation");
+  const proofFocusRows = rows.filter((row) => row.proof_focus !== "-");
   const hookSummary = hookReadinessSummary(hookContext);
   return `# Top-100 Readiness
 
@@ -212,6 +293,20 @@ ${workabilityRows(rows).map((row) => `| ${row.question} | ${row.count} | ${row.a
 ## Next Workstreams
 
 ${top100Workstreams({ top20, promotionReview, needsVariant, namedLimitation, liveEvidence, rows, hookSummary })}
+
+## Proof-Focus Rows
+
+Some rows carry a specific proof focus because a hard Helm feature needs more
+than render parity. These rows point to the evidence or decision surface that
+should drive promotion.
+
+| Focus | Rows | First charts |
+| --- | ---: | --- |
+${proofFocusSummaryRows(proofFocusRows).map((row) => `| \`${row.focus}\` | ${row.count} | ${row.examples} |`).join("\n")}
+
+### APIService Focus
+
+${proofFocusTable(proofFocusRows.filter((row) => row.proof_focus.startsWith("api-service-")))}
 
 ## Hook And Lifecycle Work
 
@@ -310,6 +405,7 @@ ${rows.slice(0, 25).map((row) => `| \`${row.chart}\` | \`${row.adoption_bucket}\
 | --- | --- |
 | \`data/top100-readiness/readiness.csv\` | One row per top-100 chart: workability, user status, strongest evidence, lane counts, gap, next action, next receipt path where available, and next-action source. |
 | \`data/top100-readiness/next80-queues.csv\` | Compact next80 action queue: promotion review, user-shaped variant work, and limitation review. |
+| \`data/apiservice-coverage/summary.md\` | APIService-specific evidence: rendered object status, aggregation receipts, target blockers, and render-path notes. |
 | \`data/top100-catalog-analysis/review.csv\` | Catalog analysis and promotion surface. |
 | \`data/outcome-coverage/chart-outcomes.csv\` | Detailed outcome counts per chart. |
 | \`data/outcome-coverage/base-outcomes.csv\` | Per base-variant proof lane status. |
@@ -346,6 +442,9 @@ function next80QueueRows(rows) {
         variant_count: row.variant_count,
         strongest_evidence: row.strongest_evidence,
         hard_gap: row.hard_gap,
+        proof_focus: row.proof_focus,
+        proof_focus_status: row.proof_focus_status,
+        proof_focus_receipt: row.proof_focus_receipt,
         source_features: row.source_features,
         next_action: row.next_action,
         first_step: next80FirstStep(queue),
@@ -385,6 +484,7 @@ function next80QueuesSummary(rows) {
   const queueRows = next80QueueRows(rows);
   const counts = countBy(queueRows, (row) => row.queue);
   const kindParityRows = queueRows.filter((row) => row.strongest_evidence === "two-cluster-kind-parity");
+  const proofFocusRows = queueRows.filter((row) => row.proof_focus !== "-");
   return `# Next80 Action Queues
 
 This generated file is the compact operating view for the 80 proof-grade charts
@@ -418,6 +518,13 @@ ${["promotion-review", "limitation-review", "user-shaped-variant"].map((queue) =
 These tables show the first rows a maintainer should open in each queue. They
 do not replace the CSV; they make the first review path visible without a
 spreadsheet.
+
+## Proof-Focus Rows
+
+These rows have a focused evidence or decision path for a hard Helm feature.
+They should not disappear into a generic promotion-review queue.
+
+${proofFocusTable(proofFocusRows)}
 
 ### Promotion Review
 
@@ -471,9 +578,25 @@ function sampleQueueCharts(rows, queue) {
 function actionRowsTable(rows, queue) {
   const values = rows.filter((row) => row.queue === queue).slice(0, 8);
   if (!values.length) return "_No rows._";
-  return `| Chart | Candidate bases | Evidence | Gap | Next action |
+  return `| Chart | Candidate bases | Evidence | Proof focus | Gap | Next action |
+| --- | --- | --- | --- | --- | --- |
+${values.map((row) => `| \`${row.chart}\` | ${formatVariants(row.variants)} | \`${row.strongest_evidence || "-"}\` | ${escapePipes(row.proof_focus || "-")} | ${escapePipes(row.hard_gap || "-")} | ${escapePipes(row.next_action || row.first_step || "-")} |`).join("\n")}`;
+}
+
+function proofFocusSummaryRows(rows) {
+  const counts = countBy(rows, (row) => row.proof_focus);
+  return [...counts.entries()].map(([focus, count]) => ({
+    focus,
+    count,
+    examples: rows.filter((row) => row.proof_focus === focus).slice(0, 5).map((row) => `\`${row.chart}\``).join("<br>"),
+  }));
+}
+
+function proofFocusTable(rows) {
+  if (!rows.length) return "_No focused proof rows._";
+  return `| Chart | Focus | Status | Receipt | Next action |
 | --- | --- | --- | --- | --- |
-${values.map((row) => `| \`${row.chart}\` | ${formatVariants(row.variants)} | \`${row.strongest_evidence || "-"}\` | ${escapePipes(row.hard_gap || "-")} | ${escapePipes(row.next_action || row.first_step || "-")} |`).join("\n")}`;
+${rows.map((row) => `| \`${row.chart}\` | \`${row.proof_focus}\` | ${escapePipes(row.proof_focus_status || "-")} | ${row.proof_focus_receipt ? `\`${row.proof_focus_receipt}\`` : "-"} | ${escapePipes(row.next_action || "-")} |`).join("\n")}`;
 }
 
 function formatVariants(value) {

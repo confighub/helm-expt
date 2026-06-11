@@ -65,16 +65,16 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 
 | Chart | First base | You provide | Next action |
 | --- | --- | --- | --- |
-| kedacore/keda@2.19.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time | run catalog promotion review |
+| kedacore/keda@2.19.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time | run APIService promotion review: choose supported base, target scope, CRD ownership path, and evidence refresh rule using the committed aggregation receipt |
 | prometheus-community/prometheus-blackbox-exporter@11.10.0 | default (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
 | stakater/reloader@2.2.12 | default (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
 | grafana/alloy@1.8.2 | default (unreviewed first guess) | a StorageClass / storage decision; a CRD ownership choice (crds vs no-crds base); mandatory chart inputs | run catalog promotion review |
 | prometheus-community/alertmanager@1.37.0 | default (unreviewed first guess) | a StorageClass / storage decision | run catalog promotion review |
 | elastic/logstash@8.5.1 | default (unreviewed first guess) | a StorageClass / storage decision | run catalog promotion review |
-| prometheus-community/prometheus-adapter@5.3.0 | default (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
+| prometheus-community/prometheus-adapter@5.3.0 | default (unreviewed first guess) | nothing beyond a cluster and namespace | resolve APIService target compatibility before catalog promotion; the tested target does not serve the rendered APIService version |
 | elastic/filebeat@8.5.1 | default (unreviewed first guess) | nothing beyond a cluster and namespace | run catalog promotion review |
 | hashicorp/terraform@1.1.2 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); mandatory chart inputs | run catalog promotion review |
-| fairwinds-stable/vpa@4.11.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time | run catalog promotion review |
+| fairwinds-stable/vpa@4.11.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time; target facts at variant time | review APIService render-path notes: current maintained bases do not render APIService objects; create a separate APIService-enabled base only if product chooses that path |
 | jaegertracing/jaeger-operator@2.57.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); webhook/cert readiness at delivery time | run catalog promotion review |
 | strimzi/strimzi-kafka-operator@1.0.0 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base) | run catalog promotion review |
 | percona/pxc-operator@1.19.1 | default (unreviewed first guess) | a CRD ownership choice (crds vs no-crds base); target facts at variant time | run catalog promotion review |
