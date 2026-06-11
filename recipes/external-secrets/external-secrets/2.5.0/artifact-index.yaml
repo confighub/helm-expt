@@ -66,7 +66,7 @@ spec:
     path: "packages/external-secrets/external-secrets/2.5.0"
     installer: "packages/external-secrets/external-secrets/2.5.0/installer.yaml"
     receipt: "recipes/external-secrets/external-secrets/2.5.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "6a2d043823e029d93d93c1de0e7164c5a1dd8660d109987bc0932b0ecb897bef"
+    deterministicBundleSHA256: "2f93a84e205a330a232e716b2c440fb677d011a4e5fb18c1e4e6acc5cb9bd477"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -92,8 +92,20 @@ spec:
         kubeVersion: "1.30.0"
       hookPolicy: "no-hooks"
       targetFacts:
-        {}
-      targetFactSummary: "none"
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            keys:
+              []
+            name: "external-secrets-webhook"
+            namespace: "external-secrets"
+            purpose: "Rendered webhook Secret separated by installer and populated by the cert-controller after apply"
+            sourceVariant: "default"
+            suggestedSource: "kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml"
+      targetFactSummary: "required Secret external-secrets/external-secrets-webhook"
       packageBase:
         name: "default"
         path: "packages/external-secrets/external-secrets/2.5.0/bases/default"
@@ -112,7 +124,7 @@ spec:
           name: "default-r001"
           revision: "r001"
           variantRevision: "recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/variant-revision.yaml"
-          digest: "dc7c51ed23a0fe29c6e5bcd30ca38cb3f087f090f3e5a0da66eb6a2ff2b1adeb"
+          digest: "cde00fd0f20069be91d607e11360ee418bc49ecf61e4d319d2e37af3130d8e8e"
           renderedObjectSetSHA256: "f1c832a9af788c9d2a7a0b066d76a7d8af253d83f5b0fa39c1aa91271230d3db"
           renderedObjects: "recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/external-secrets/external-secrets/2.5.0/revisions/default/r001/rendered/object-inventory.yaml"
@@ -362,7 +374,20 @@ spec:
             name: "webhooks.generators.external-secrets.io"
             purpose: "External Secrets CRD managed outside this no-crds base"
             sourceVariant: "default"
-      targetFactSummary: "required CRD acraccesstokens.generators.external-secrets.io; required CRD cloudsmithaccesstokens.generators.external-secrets.io; required CRD clusterexternalsecrets.external-secrets.io; required CRD clustergenerators.generators.external-secrets.io; required CRD clusterpushsecrets.external-secrets.io; required CRD clustersecretstores.external-secrets.io; required CRD ecrauthorizationtokens.generators.external-secrets.io; required CRD externalsecrets.external-secrets.io; required CRD fakes.generators.external-secrets.io; required CRD gcraccesstokens.generators.external-secrets.io; required CRD generatorstates.generators.external-secrets.io; required CRD githubaccesstokens.generators.external-secrets.io; required CRD grafanas.generators.external-secrets.io; required CRD mfas.generators.external-secrets.io; required CRD passwords.generators.external-secrets.io; required CRD pushsecrets.external-secrets.io; required CRD quayaccesstokens.generators.external-secrets.io; required CRD secretstores.external-secrets.io; required CRD sshkeys.generators.external-secrets.io; required CRD stssessiontokens.generators.external-secrets.io; required CRD uuids.generators.external-secrets.io; required CRD vaultdynamicsecrets.generators.external-secrets.io; required CRD webhooks.generators.external-secrets.io"
+        requiredSecrets:
+          -
+            deliveryLanes:
+              - "cubInstallerApply"
+              - "configHubKubectlApply"
+              - "configHubOciArgo"
+            keys:
+              []
+            name: "external-secrets-webhook"
+            namespace: "external-secrets"
+            purpose: "Rendered webhook Secret separated by installer and populated by the cert-controller after apply"
+            sourceVariant: "default"
+            suggestedSource: "kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml"
+      targetFactSummary: "required Secret external-secrets/external-secrets-webhook; required CRD acraccesstokens.generators.external-secrets.io; required CRD cloudsmithaccesstokens.generators.external-secrets.io; required CRD clusterexternalsecrets.external-secrets.io; required CRD clustergenerators.generators.external-secrets.io; required CRD clusterpushsecrets.external-secrets.io; required CRD clustersecretstores.external-secrets.io; required CRD ecrauthorizationtokens.generators.external-secrets.io; required CRD externalsecrets.external-secrets.io; required CRD fakes.generators.external-secrets.io; required CRD gcraccesstokens.generators.external-secrets.io; required CRD generatorstates.generators.external-secrets.io; required CRD githubaccesstokens.generators.external-secrets.io; required CRD grafanas.generators.external-secrets.io; required CRD mfas.generators.external-secrets.io; required CRD passwords.generators.external-secrets.io; required CRD pushsecrets.external-secrets.io; required CRD quayaccesstokens.generators.external-secrets.io; required CRD secretstores.external-secrets.io; required CRD sshkeys.generators.external-secrets.io; required CRD stssessiontokens.generators.external-secrets.io; required CRD uuids.generators.external-secrets.io; required CRD vaultdynamicsecrets.generators.external-secrets.io; required CRD webhooks.generators.external-secrets.io"
       packageBase:
         name: "no-crds"
         path: "packages/external-secrets/external-secrets/2.5.0/bases/no-crds"
@@ -381,7 +406,7 @@ spec:
           name: "no-crds-r001"
           revision: "r001"
           variantRevision: "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/variant-revision.yaml"
-          digest: "ee72c5d128bfebad619514ec4287ae278f4b6a116c2dcf2ba119c7f9e82c2767"
+          digest: "bec9b5454faba0fd70ba4db15ccf25a5f560b72e6c73bf1228d5c7df307cbb3b"
           renderedObjectSetSHA256: "da5857fba93e0394594d7e072b31e3cf28985392b5cc0443730a23b722d7670b"
           renderedObjects: "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/rendered/object-inventory.yaml"

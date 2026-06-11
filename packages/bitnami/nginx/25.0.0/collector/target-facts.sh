@@ -9,8 +9,6 @@ emit_empty() {
 targetFacts:
   requiredSecrets: []
   requiredCRDs: []
-  requiredValues: []
-  requiredObjectStores: []
 targetFactChecks:
   base: "$base"
   mode: not-required
@@ -29,6 +27,9 @@ live_check_secret() {
   if ! kubectl -n "$namespace" get secret "$name" >/dev/null 2>&1; then
     echo "required Secret $namespace/$name was not found" >&2
     exit 1
+  fi
+  if [ -z "$key" ]; then
+    return 0
   fi
   if ! kubectl -n "$namespace" get secret "$name" -o yaml | awk -v key="$key" '$1 == key ":" { found=1 } END { exit found ? 0 : 1 }'; then
     echo "required Secret $namespace/$name is missing key $key" >&2
@@ -63,26 +64,24 @@ case "$base" in
     cat <<YAML
 targetFacts:
   requiredSecrets:
-  -
-    namespace: "nginx"
-    name: "nginx-backend-tls"
-    keys:
-      - "tls.crt"
-      - "tls.key"
-      - "ca.crt"
-    purpose: "TLS certificate material mounted by the NGINX pod"
-  -
-    namespace: "nginx"
-    name: "nginx-ingress-tls"
-    keys:
-      - "tls.crt"
-      - "tls.key"
-    purpose: "TLS certificate material referenced by the Ingress"
+  - keys:
+    - tls.crt
+    - tls.key
+    - ca.crt
+    name: nginx-backend-tls
+    namespace: nginx
+    purpose: TLS certificate material mounted by the NGINX pod
+  - keys:
+    - tls.crt
+    - tls.key
+    name: nginx-ingress-tls
+    namespace: nginx
+    purpose: TLS certificate material referenced by the Ingress
+
   requiredCRDs: []
-  requiredValues: []
-  requiredObjectStores: []
+
 targetFactChecks:
-  base: "$base"
+  base: "existing-tls-ingress"
   mode: "$check_mode"
   result: "$result"
 YAML

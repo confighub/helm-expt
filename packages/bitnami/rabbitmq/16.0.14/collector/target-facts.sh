@@ -28,6 +28,9 @@ live_check_secret() {
     echo "required Secret $namespace/$name was not found" >&2
     exit 1
   fi
+  if [ -z "$key" ]; then
+    return 0
+  fi
   if ! kubectl -n "$namespace" get secret "$name" -o yaml | awk -v key="$key" '$1 == key ":" { found=1 } END { exit found ? 0 : 1 }'; then
     echo "required Secret $namespace/$name is missing key $key" >&2
     exit 1

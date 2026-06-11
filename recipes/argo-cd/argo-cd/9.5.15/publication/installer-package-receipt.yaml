@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/argo-cd/argo-cd/9.5.15 -o <tmp>/argo-cd-9.5.15.tgz"
-    sha256: "fc41f9c4ea2b0841ed23cdc31fc2ecd74b5fe271958fe24bd0fa46097b03df3b"
+    sha256: "b09ba30c4420aa5f99b6c5507902b4eaca08dd79338b2122ed00050255629f3c"
   package:
     name: "argo-cd-argo-cd"
     path: "packages/argo-cd/argo-cd/9.5.15"
@@ -37,8 +37,8 @@ spec:
         bytes: 104729
       -
         path: "collector/target-facts.sh"
-        sha256: "aa828f86652b94a5f3afa324f10b875472d7ab9bf1f068617c6e495458c5dfa1"
-        bytes: 3244
+        sha256: "1d5ecfefd254dd720957e0127256882373fd16573687f17712a62b2b4ed1abf2"
+        bytes: 3287
       -
         path: "installer.yaml"
         sha256: "b31431cce5545592572df4548c43a467a6e2b4ac1092a548960271ef147bbee8"

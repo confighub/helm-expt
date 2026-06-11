@@ -1,26 +1,24 @@
-apiVersion: "helm-expt.confighub.com/v1alpha1"
-kind: "CatalogStatus"
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: CatalogStatus
 metadata:
   name: "autoscaler-cluster-autoscaler-9.57.0"
 spec:
-  candidateVariants:
-    - "default"
-    - "controller-default-reviewed"
   chart: "autoscaler/cluster-autoscaler"
-  deferredVariants:
-    []
-  notes:
-    - "Machine proof exists; catalog support is not claimed until variant and product review are complete."
-    - "controller-default-reviewed is a realized useful-base alias of the default render; catalog support still requires ConfigHub proof, selected live evidence, and production disposition."
-  productionReadiness: "not-reviewed-for-production"
-  review:
-    humanReviewRequired: true
-    lastReviewed: "2026-05-27"
-    productReviewRequired: true
+  version: "9.57.0"
   status: "proof-grade"
   supportLevel: "machine-proof-only"
   supportedScopes:
     []
+  productionReadiness: "not-reviewed-for-production"
   supportedVariants:
     []
-  version: "9.57.0"
+  candidateVariants:
+    - "default"
+    - "controller-default-reviewed"
+  deferredVariants: []
+  review:
+    lastReviewed: "2026-05-27"
+    humanReviewRequired: true
+    productReviewRequired: true
+  notes:
+    - "Machine proof exists; catalog support is not claimed until variant and product review are complete."

@@ -69,7 +69,7 @@ spec:
     path: "packages/hashicorp/vault/0.32.0"
     installer: "packages/hashicorp/vault/0.32.0/installer.yaml"
     receipt: "recipes/hashicorp/vault/0.32.0/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "94f717011fd360cf4e7568a71f63bc80f2fcab03277f8f54a8aa3182a25dccd4"
+    deterministicBundleSHA256: "7cbfc7e3c2df9460d598aa94d933825d1a3a56d6e2ca080fb1dd8f942e6b7d51"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -

@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/ingress-nginx/ingress-nginx/4.15.1 -o <tmp>/ingress-nginx-4.15.1.tgz"
-    sha256: "3d02ef3574f6f2e82546c647645f3fa8f3e766f127de1d80b000ded490f919a4"
+    sha256: "7a128d36ff637796c08d8aaa8d2bea2ac8dfc0bc9b4add8f6be0e7dd869551c5"
   package:
     name: "ingress-nginx-ingress-nginx"
     path: "packages/ingress-nginx/ingress-nginx/4.15.1"
@@ -45,8 +45,8 @@ spec:
         bytes: 10597
       -
         path: "collector/target-facts.sh"
-        sha256: "84c0ad8eceb069825e9481ab6d6879fe1a6097be541219d214f1e64f8dad9bbb"
-        bytes: 1871
+        sha256: "7f0fe8bc812f2988c7a07e2babb1c440aae446cee32be5c1f95cb0e467773a9f"
+        bytes: 1914
       -
         path: "installer.yaml"
         sha256: "a43d0b09f70a4f98bd8e8aa564c0ef0f8b2afa0e62d702a67dc28c8606d4c642"

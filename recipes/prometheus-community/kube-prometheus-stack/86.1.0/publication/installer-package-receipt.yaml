@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/prometheus-community/kube-prometheus-stack/86.1.0 -o <tmp>/kube-prometheus-stack-86.1.0.tgz"
-    sha256: "6dd9090882c9ce698cc76bc038693914e8b5d7f8251ca610f1e73b32ba84679b"
+    sha256: "943ab5fc05633ee812c57f5777b077f5ee2bc0aec8c251a2965bfaf1f26564de"
   package:
     name: "kube-prometheus-stack-kube-prometheus-stack"
     path: "packages/prometheus-community/kube-prometheus-stack/86.1.0"
@@ -37,8 +37,8 @@ spec:
         bytes: 649682
       -
         path: "collector/target-facts.sh"
-        sha256: "3752ac3f4f1c14d9db20b895d672bb2ac87589726e63c020aeb60fa9b6f17706"
-        bytes: 5769
+        sha256: "89e37e7ad9542d8d773ea7fa561ccd9caf4cb539596dbc99477690cf30a780df"
+        bytes: 5812
       -
         path: "installer.yaml"
         sha256: "076cb294f05a0809007c6bb9b9bc53e0eebb0311c055b6d45171002df9c05be4"

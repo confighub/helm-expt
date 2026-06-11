@@ -182,9 +182,13 @@ function externalRequiresFor(targetFacts) {
     kind: "ClusterFeature",
     name: secretRequirementName(secret),
     namespace: secret.namespace ?? "",
-    suggestedSource: `kubectl -n ${secret.namespace ?? "default"} create secret generic ${secret.name} ${secret.keys
-      .map((key) => `--from-literal=${key}=<value>`)
-      .join(" ")}`,
+    suggestedSource:
+      secret.suggestedSource ??
+      ((secret.keys ?? []).length
+        ? `kubectl -n ${secret.namespace ?? "default"} create secret generic ${secret.name} ${(secret.keys ?? [])
+            .map((key) => `--from-literal=${key}=<value>`)
+            .join(" ")}`
+        : `kubectl -n ${secret.namespace ?? "default"} apply -f <secret-manifest.yaml>`),
   }));
   requirements.push(
     ...(targetFacts.requiredCRDs ?? []).map((crd) => ({
@@ -197,8 +201,10 @@ function externalRequiresFor(targetFacts) {
 }
 
 function secretRequirementName(secret) {
-  const keyLabel = (secret.keys ?? []).length === 1 ? "key" : "keys";
-  return `Secret ${secret.namespace ?? "default"}/${secret.name} ${keyLabel} ${(secret.keys ?? []).join(",")}`;
+  const keys = secret.keys ?? [];
+  if (keys.length === 0) return `Secret ${secret.namespace ?? "default"}/${secret.name}`;
+  const keyLabel = keys.length === 1 ? "key" : "keys";
+  return `Secret ${secret.namespace ?? "default"}/${secret.name} ${keyLabel} ${keys.join(",")}`;
 }
 
 function crdRequirementName(crd) {
@@ -248,6 +254,9 @@ live_check_secret() {
     echo "required Secret $namespace/$name was not found" >&2
     exit 1
   fi
+  if [ -z "$key" ]; then
+    return 0
+  fi
   if ! kubectl -n "$namespace" get secret "$name" -o yaml | awk -v key="$key" '$1 == key ":" { found=1 } END { exit found ? 0 : 1 }'; then
     echo "required Secret $namespace/$name is missing key $key" >&2
     exit 1
@@ -277,7 +286,11 @@ esac
 
 function collectorCase(variantName, targetFacts) {
   const checks = (targetFacts.requiredSecrets ?? [])
-    .flatMap((secret) => (secret.keys ?? []).map((key) => `      live_check_secret ${shellQuote(secret.namespace ?? "default")} ${shellQuote(secret.name)} ${shellQuote(key)}`))
+    .flatMap((secret) =>
+      (secret.keys ?? []).length
+        ? (secret.keys ?? []).map((key) => `      live_check_secret ${shellQuote(secret.namespace ?? "default")} ${shellQuote(secret.name)} ${shellQuote(key)}`)
+        : [`      live_check_secret ${shellQuote(secret.namespace ?? "default")} ${shellQuote(secret.name)} ''`],
+    )
     .concat((targetFacts.requiredCRDs ?? []).map((crd) => `      live_check_crd ${shellQuote(crd.name)}`))
     .join("\n");
   return `  ${shellQuote(variantName)})

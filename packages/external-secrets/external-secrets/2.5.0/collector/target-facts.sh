@@ -28,6 +28,9 @@ live_check_secret() {
     echo "required Secret $namespace/$name was not found" >&2
     exit 1
   fi
+  if [ -z "$key" ]; then
+    return 0
+  fi
   if ! kubectl -n "$namespace" get secret "$name" -o yaml | awk -v key="$key" '$1 == key ":" { found=1 } END { exit found ? 0 : 1 }'; then
     echo "required Secret $namespace/$name is missing key $key" >&2
     exit 1
@@ -47,8 +50,39 @@ live_check_crd() {
 }
 
 case "$base" in
+  'default')
+    if [ "$check_mode" = "live" ]; then
+      live_check_secret 'external-secrets' 'external-secrets-webhook' ''
+      result="pass"
+    else
+      result="recorded"
+    fi
+    cat <<YAML
+targetFacts:
+  requiredSecrets:
+  - deliveryLanes:
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    keys: []
+    name: external-secrets-webhook
+    namespace: external-secrets
+    purpose: Rendered webhook Secret separated by installer and populated by the cert-controller
+      after apply
+    sourceVariant: default
+    suggestedSource: kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml
+
+  requiredCRDs: []
+
+targetFactChecks:
+  base: "default"
+  mode: "$check_mode"
+  result: "$result"
+YAML
+    ;;
   'no-crds')
     if [ "$check_mode" = "live" ]; then
+      live_check_secret 'external-secrets' 'external-secrets-webhook' ''
       live_check_crd 'acraccesstokens.generators.external-secrets.io'
       live_check_crd 'cloudsmithaccesstokens.generators.external-secrets.io'
       live_check_crd 'clusterexternalsecrets.external-secrets.io'
@@ -78,7 +112,18 @@ case "$base" in
     fi
     cat <<YAML
 targetFacts:
-  requiredSecrets: []
+  requiredSecrets:
+  - deliveryLanes:
+    - cubInstallerApply
+    - configHubKubectlApply
+    - configHubOciArgo
+    keys: []
+    name: external-secrets-webhook
+    namespace: external-secrets
+    purpose: Rendered webhook Secret separated by installer and populated by the cert-controller
+      after apply
+    sourceVariant: default
+    suggestedSource: kubectl -n external-secrets apply -f <work-dir>/out/secrets/secret-external-secrets-external-secrets-webhook.yaml
 
   requiredCRDs:
   - deliveryLanes:

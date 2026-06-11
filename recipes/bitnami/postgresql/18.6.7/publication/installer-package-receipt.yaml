@@ -10,7 +10,7 @@ spec:
   deterministicBundle:
     byteIdenticalAcrossTwoLocalBundles: true
     command: "cub installer package packages/bitnami/postgresql/18.6.7 -o <tmp>/postgresql-18.6.7.tgz"
-    sha256: "68f5561ebc036c2b46785a1f00497f279bbfa818323187f86d7d63bb73475a9f"
+    sha256: "6eb1e6f44ed42268e41c8fe7cf8c94fb1d68016ef06ecf242451378c189af30e"
   package:
     name: "bitnami-postgresql"
     path: "packages/bitnami/postgresql/18.6.7"
@@ -37,8 +37,8 @@ spec:
         bytes: 9707
       -
         path: "collector/target-facts.sh"
-        sha256: "5220d213dfd2664ae94f5f494a1953e8f066574193f04cdf922873cd984c6b8e"
-        bytes: 1655
+        sha256: "113a7a5b95fffee0fe1058fd922fec35d02aaddbec3aebe2e4edb46c5f71d44a"
+        bytes: 1698
       -
         path: "installer.yaml"
         sha256: "ed1e8a41e49bb3d366d87265856568f57ae9a62a64c078b4c89da32a042bbdd5"

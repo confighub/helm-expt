@@ -9,8 +9,8 @@ can become desired-state graph input.
 
 ~~~text
 charts with inheritance graphs: 20
-edge rows:                      100
-target-fact edges:              57
+edge rows:                      102
+target-fact edges:              59
 generated-fact edges:           1
 charts with target facts:        14
 charts with field reachability:  3
@@ -27,7 +27,7 @@ charts with field reachability:  3
 | bitnami/postgresql@18.6.7 | [../../recipes/bitnami/postgresql/18.6.7/inheritance-graph.yaml](../../recipes/bitnami/postgresql/18.6.7/inheritance-graph.yaml) | Catalog-supported chart with 1 target fact edge captured from recipe artifacts. |
 | bitnami/rabbitmq@16.0.14 | [../../recipes/bitnami/rabbitmq/16.0.14/inheritance-graph.yaml](../../recipes/bitnami/rabbitmq/16.0.14/inheritance-graph.yaml) | Catalog-supported chart with 2 target fact edges captured from recipe artifacts. |
 | bitnami/redis@25.5.3 | [../../recipes/bitnami/redis/25.5.3/inheritance-graph.yaml](../../recipes/bitnami/redis/25.5.3/inheritance-graph.yaml) | Teaching chart for generated facts, target facts, and secret variants. |
-| external-secrets/external-secrets@2.5.0 | [../../recipes/external-secrets/external-secrets/2.5.0/inheritance-graph.yaml](../../recipes/external-secrets/external-secrets/2.5.0/inheritance-graph.yaml) | Catalog-supported chart with 23 target fact edges captured from recipe artifacts. |
+| external-secrets/external-secrets@2.5.0 | [../../recipes/external-secrets/external-secrets/2.5.0/inheritance-graph.yaml](../../recipes/external-secrets/external-secrets/2.5.0/inheritance-graph.yaml) | Catalog-supported chart with 25 target fact edges captured from recipe artifacts. |
 | grafana/grafana@10.5.15 | [../../recipes/grafana/grafana/10.5.15/inheritance-graph.yaml](../../recipes/grafana/grafana/10.5.15/inheritance-graph.yaml) | Catalog-supported chart with 1 target fact edge captured from recipe artifacts. |
 | grafana/loki@7.0.0 | [../../recipes/grafana/loki/7.0.0/inheritance-graph.yaml](../../recipes/grafana/loki/7.0.0/inheritance-graph.yaml) | Catalog-supported chart with base and variant inheritance captured from recipe artifacts. |
 | grafana/tempo@1.24.4 | [../../recipes/grafana/tempo/1.24.4/inheritance-graph.yaml](../../recipes/grafana/tempo/1.24.4/inheritance-graph.yaml) | Catalog-supported chart with 2 target fact edges captured from recipe artifacts. |

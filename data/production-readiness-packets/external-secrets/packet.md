@@ -12,7 +12,7 @@ CRDs plus webhooks plus an external-system dependency by design: the chart's who
 
 Base `default` - support decision `draft`, disposition `production-review-ready`, bounded to target scope: cub-lk-kind-vanilla; namespace=external-secrets; delivery=confighub-oci; controller=argo.
 
-Support decision evidence: `needs-runtime-decision-before-final` ([decision](../../../data/production-support-decisions/external-secrets-external-secrets/support-decision.yaml)).
+Support decision evidence: `fresh-target-evidence-passed-with-prestaged-secret-prerequisite` ([decision](../../../data/production-support-decisions/external-secrets-external-secrets/support-decision.yaml)).
 
 ## Quirks
 
@@ -31,6 +31,7 @@ Lane summary: local:1/2 gitops:1/2 live-parity:1/2 two-cluster:2/2. Authoritativ
 - local kind live e2e: pass, strict witness `-` (-)
 - CRD/webhook/controller runtime lifecycle observations ([evidence](../../../data/lifecycle-observations/cert-manager-eso/summary.md))
 - ConfigHub OCI default-base rehearsal: Argo synced, runtime blocked on separated webhook Secret delivery ([evidence](../../../data/runtime-gitops/receipts/external-secrets-external-secrets/default/latest.yaml))
+- ConfigHub OCI default-base rehearsal with separated webhook Secret pre-staged: Argo synced and runtime became healthy ([evidence](../../../data/runtime-gitops/receipts/external-secrets-external-secrets/default-prestaged-secret/latest.yaml))
 
 ## What is only watch, per-target, or manual?
 
@@ -39,26 +40,23 @@ Lane summary: local:1/2 gitops:1/2 live-parity:1/2 two-cluster:2/2. Authoritativ
 
 ## What production decision is still open, and why?
 
-The support decision is `draft`; live evidence is `needs-runtime-decision-before-final`.
+The support decision is `draft`; live evidence is `fresh-target-evidence-passed-with-prestaged-secret-prerequisite`.
 
 Required before final support:
 
-- Model the generated external-secrets-webhook Secret as a deliverable unit or explicit target prerequisite.
-- Rerun the external-secrets/default ConfigHub OCI rehearsal and record a passing runtime receipt.
+- Run a Kubernetes 1.31+ capability-profile witness, or create a profile-specific base, before claiming selectableFields compatibility.
 - Run a provider round-trip rehearsal against a disposable secrets backend before claiming provider behavior.
 
-Next action: Model the generated webhook Secret as deliverable or prerequisite, rerun the default-base Argo OCI rehearsal, then run a provider round-trip rehearsal against a disposable secrets backend.
-
-Current work item: runtime-decision - [work items](../../../data/production-support-decisions/work-items.csv).
+Next action: Run a provider round-trip rehearsal against a disposable secrets backend and a Kubernetes 1.31+ capability-profile witness before final production support.
 
 ## Claims we must not make yet
 
 - "strict rendered-object/live parity holds on Kubernetes 1.30" - same selectableFields watchlist row as cert-manager; not claimed for that profile
-- "external-secrets/default is live-ready through workload-only OCI" - the 2026-06-11 rehearsal blocks because the rendered external-secrets-webhook Secret is staged under out/secrets and is not delivered through the workload OCI path
+- "external-secrets/default is live-ready through workload-only OCI" - the workload-only rehearsal blocks; the passing rehearsal requires the separated external-secrets-webhook Secret to be staged as an explicit prerequisite
 - "secrets reconcile end to end" - no receipt exercises a real external provider; live evidence covers the controller, not a provider round-trip
 - "production-supported beyond the named target scope" - support is a per-scope decision
 - "works on any Kubernetes" - live claims are bounded to the tested capability profile
 
 ## The exact next test
 
-model the generated external-secrets-webhook Secret as a deliverable unit or explicit secret prerequisite, re-run the default-base Argo OCI rehearsal, then run a provider round-trip rehearsal against a disposable secrets backend plus the 1.31+ capability-profile witness.
+run a provider round-trip rehearsal against a disposable secrets backend plus the 1.31+ capability-profile witness.

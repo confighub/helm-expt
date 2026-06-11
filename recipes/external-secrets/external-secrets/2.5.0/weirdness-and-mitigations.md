@@ -25,7 +25,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 - no-crds variant omits CRDs for clusters that manage CRDs separately and records those CRDs as target facts.
 - Chart declares a bitwarden-sdk-server dependency that remains disabled in promoted variants but is recorded in dependency-lock.yaml.
 - Validating webhook readiness must be observed after apply because rendered objects alone do not prove webhook health.
-- The rendered webhook Secret contains metadata only; cert-controller populates certificate material after apply.
+- The rendered webhook Secret is separated by installer and must be staged before ConfigHub/GitOps sync; cert-controller populates certificate material after apply.
 - A stricter cub-scout live witness on kind Kubernetes 1.30 found that the rendered ExternalSecret CRD contains spec.versions[0].selectableFields that the live API omitted after apply; workloads converged, but this blocks strict rendered-object/live parity for that target profile.
 - extraObjects is a tpl-powered extension slot; promoted variants keep it empty.
 
@@ -47,7 +47,7 @@ operating-policy dispositions plus a final target-scoped support decision.
 | capability-profile-live-pruning | strict-live-object-parity-blocked-on-kubernetes-1.30 | cub-scout live witness on kind Kubernetes 1.30 found the ExternalSecret CRD renders spec.versions[0].selectableFields, but the live CRD omitted it after apply; workloads converged, but strict rendered-object/live parity is blocked until the capability/feature-gate route is decided. |
 | crd-policy | variant-controlled-and-target-fact | CRDs are ordinary rendered objects in the default variant and required target facts for the no-crds variant. |
 | admission-webhook | scan-and-observe | recorded in control-points.yaml |
-| webhook-secret | scan-and-observe | rendered Secret contains metadata only; cert-controller populates certificate material later. |
+| webhook-secret | target-fact-and-observe | rendered Secret is separated by installer and must be staged before ConfigHub/GitOps sync; cert-controller populates certificate material later. |
 | cluster-rbac | scan-and-review | scan receipts |
 | tpl | controlled-by-empty-defaults | extraObjects uses tpl; promoted variants do not set that value. |
 | installer-support-object | handled | v1\|Namespace\|\|external-secrets |

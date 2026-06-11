@@ -4,13 +4,16 @@ metadata:
   name: "bitnami-nginx-25.0.0"
 spec:
   chart:
-    repository: "bitnami"
     name: "nginx"
+    repository: "bitnami"
     version: "25.0.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/bitnami/nginx/25.0.0 -o <tmp>/nginx-25.0.0.tgz"
+    sha256: "05a0edb7d40b92b2279e3dd4d48a168013cf0cfaae6ac4f180332fe0d4fddd9e"
   package:
-    path: "packages/bitnami/nginx/25.0.0"
     name: "bitnami-nginx"
-    version: "25.0.0"
+    path: "packages/bitnami/nginx/25.0.0"
     sourceFiles:
       -
         path: "README.md"
@@ -34,38 +37,35 @@ spec:
         bytes: 7244
       -
         path: "collector/target-facts.sh"
-        sha256: "77f49d5a7ed0df4a7f7e2d9ec9d5dcabbe4fe59530ba0cc459acaf6d23067fdb"
-        bytes: 2199
+        sha256: "97000c32a9f8422f0c02a1cc0117daa667d1c5e8ce7b417d1f99922bc341312a"
+        bytes: 2123
       -
         path: "installer.yaml"
-        sha256: "421e8da56f38059540c5d1b910cc454420a81f174da55109f29ec1bb06dfe53f"
-        bytes: 1326
-  deterministicBundle:
-    command: "cub installer package packages/bitnami/nginx/25.0.0 -o <tmp>/nginx-25.0.0.tgz"
-    sha256: "06b01d8f00d3232db6df0f9fd6cdf142dfb3eb9058fc31c5c4a33b4db525e901"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "03810c9a918df93f7715dfedab1fd953a9ab9021c1d373590ff771b61b596d84"
+        bytes: 1311
+    version: "25.0.0"
   setupChecks:
     -
-      variant: "http-clusterip"
+      allowedCubOnlyObjects:
+        - "v1|Namespace||nginx"
       base: "http-clusterip"
       command: "cub installer setup --pull packages/bitnami/nginx/25.0.0 --base http-clusterip --work-dir <tmp> --non-interactive --namespace nginx"
-      helmReleaseObjectCount: 5
       cubInstallObjectCountIncludingSupport: 6
+      helmReleaseObjectCount: 5
       semanticObjectMatches: "5/5"
       separatedSecretCount: 0
       targetFactMode: "not-required"
       targetFactsBound: false
+      variant: "http-clusterip"
+    -
       allowedCubOnlyObjects:
         - "v1|Namespace||nginx"
-    -
-      variant: "existing-tls-ingress"
       base: "existing-tls-ingress"
       command: "cub installer setup --pull packages/bitnami/nginx/25.0.0 --base existing-tls-ingress --work-dir <tmp> --non-interactive --namespace nginx"
-      helmReleaseObjectCount: 6
       cubInstallObjectCountIncludingSupport: 7
+      helmReleaseObjectCount: 6
       semanticObjectMatches: "6/6"
       separatedSecretCount: 0
       targetFactMode: "collector-facts"
       targetFactsBound: true
-      allowedCubOnlyObjects:
-        - "v1|Namespace||nginx"
+      variant: "existing-tls-ingress"

@@ -17,20 +17,16 @@ support decision. It does not replace the source decision artifact:
 
 ## Open Work
 
-| Work | Action |
-| --- | --- |
-| Runtime decision | Decide whether the runtime condition is supported before refreshing live evidence. |
+- No open generated work item for this decision.
 
 
 ## Closeout Sequence
 
 1. Choose the final target scope, GitOps controller, namespace, and artifact digest.
-2. Decide whether the runtime condition is supported, excluded, or operator-owned.
 
 ## Required Before Final Support
 
-- Model the generated external-secrets-webhook Secret as a deliverable unit or explicit target prerequisite.
-- Rerun the external-secrets/default ConfigHub OCI rehearsal and record a passing runtime receipt.
+- Run a Kubernetes 1.31+ capability-profile witness, or create a profile-specific base, before claiming selectableFields compatibility.
 - Run a provider round-trip rehearsal against a disposable secrets backend before claiming provider behavior.
 
 ## Support Boundary
@@ -38,7 +34,7 @@ support decision. It does not replace the source decision artifact:
 Included:
 
 - external-secrets/external-secrets@2.5.0 default base
-- candidate ConfigHub OCI delivery through Argo for the declared cub-lk vanilla kind target scope after separated Secret delivery is resolved
+- candidate ConfigHub OCI delivery through Argo for the declared cub-lk vanilla kind target scope with the separated webhook Secret pre-staged
 - rendered objects, labels, gates, receipts, and support objects produced by the recorded base
 - recorded mutable-image exception for the declared public controller support scope
 - recorded resource-policy acceptance for the declared public controller support scope
@@ -61,6 +57,7 @@ Excluded:
 - [runs/live-helm-confighub-compare/external-secrets-external-secrets-default/receipt.yaml](../../../runs/live-helm-confighub-compare/external-secrets-external-secrets-default/receipt.yaml) - The selected live Helm-vs-ConfigHub comparison receipt exists for the candidate base.
 - [data/production-support-decisions/external-secrets-external-secrets/fresh-target-evidence-2026-06-08.yaml](../../../data/production-support-decisions/external-secrets-external-secrets/fresh-target-evidence-2026-06-08.yaml) - Earlier target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope before the separated Secret delivery gap was isolated.
 - [data/runtime-gitops/receipts/external-secrets-external-secrets/default/latest.yaml](../../../data/runtime-gitops/receipts/external-secrets-external-secrets/default/latest.yaml) - Fresh default-base ConfigHub OCI rehearsal synced through Argo but blocked at runtime because the rendered webhook Secret was not delivered through workload OCI.
+- [data/runtime-gitops/receipts/external-secrets-external-secrets/default-prestaged-secret/latest.yaml](../../../data/runtime-gitops/receipts/external-secrets-external-secrets/default-prestaged-secret/latest.yaml) - Fresh default-base ConfigHub OCI rehearsal passed through Argo and runtime readiness after the rendered webhook Secret was pre-staged as an explicit target prerequisite.
 - [data/image-digest-workdown/receipts/external-secrets-external-secrets/default/image-digest-resolution.yaml](../../../data/image-digest-workdown/receipts/external-secrets-external-secrets/default/image-digest-resolution.yaml) - The rendered mutable image references for the candidate base have registry digest-resolution evidence.
 - [data/production-support-decisions/external-secrets-external-secrets/image-policy-decision.yaml](../../../data/production-support-decisions/external-secrets-external-secrets/image-policy-decision.yaml) - The target-scoped image policy decision accepts mutable rendered tags for this public controller support scope with explicit limits.
 - [data/production-support-decisions/external-secrets-external-secrets/security-decision.yaml](../../../data/production-support-decisions/external-secrets-external-secrets/security-decision.yaml) - The target-scoped security decision accepts missing resource requests/limits only for this public cub-lk proof scope.
@@ -74,7 +71,7 @@ Excluded:
 
 ## Next Action
 
-Model the generated webhook Secret as deliverable or prerequisite, rerun the default-base Argo OCI rehearsal, then run a provider round-trip rehearsal against a disposable secrets backend.
+Run a provider round-trip rehearsal against a disposable secrets backend and a Kubernetes 1.31+ capability-profile witness before final production support.
 
 Regenerate:
 

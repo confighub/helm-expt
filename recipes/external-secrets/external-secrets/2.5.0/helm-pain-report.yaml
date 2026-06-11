@@ -20,7 +20,7 @@ spec:
     - "no-crds variant omits CRDs for clusters that manage CRDs separately and records those CRDs as target facts."
     - "Chart declares a bitwarden-sdk-server dependency that remains disabled in promoted variants but is recorded in dependency-lock.yaml."
     - "Validating webhook readiness must be observed after apply because rendered objects alone do not prove webhook health."
-    - "The rendered webhook Secret contains metadata only; cert-controller populates certificate material after apply."
+    - "The rendered webhook Secret is separated by installer and must be staged before ConfigHub/GitOps sync; cert-controller populates certificate material after apply."
     - "A stricter cub-scout live witness on kind Kubernetes 1.30 found that the rendered ExternalSecret CRD contains spec.versions[0].selectableFields that the live API omitted after apply; workloads converged, but this blocks strict rendered-object/live parity for that target profile."
     - "extraObjects is a tpl-powered extension slot; promoted variants keep it empty."
   painPoints:
@@ -80,13 +80,13 @@ spec:
       supportedVariantStatus: "scan-and-observe"
     -
       id: "webhook-secret"
-      detectedPainPoint: "rendered Secret contains metadata only; cert-controller populates certificate material later."
+      detectedPainPoint: "rendered Secret is separated by installer and must be staged before ConfigHub/GitOps sync; cert-controller populates certificate material later."
       evidence:
         - "v1|Secret|external-secrets|external-secrets-webhook"
       configHubHome: "lifecycle-policy"
       disposition: "handled-by-scan-or-gate"
       linkedReceipt: "revisions/default/r001/receipts/install-gate.yaml"
-      supportedVariantStatus: "scan-and-observe"
+      supportedVariantStatus: "target-fact-and-observe"
     -
       id: "cluster-rbac"
       detectedPainPoint: "cluster-rbac requires scan receipts"

@@ -536,8 +536,8 @@
     {
       "section": "graph bridge",
       "metric": "recovered graph edge rows",
-      "value": "100",
-      "total": "100",
+      "value": "102",
+      "total": "102",
       "status": "good",
       "source": "data/edge-recovery/edges.csv",
       "note": "Recovered base, override, target-fact, generated-fact, and field-reachability rows."
@@ -545,8 +545,8 @@
     {
       "section": "graph bridge",
       "metric": "target-fact graph edges",
-      "value": "57",
-      "total": "100",
+      "value": "59",
+      "total": "102",
       "status": "partial",
       "source": "data/edge-recovery/edges.csv",
       "note": "Edges from a variant to required target facts such as pre-existing Secrets, CRDs, or hook-produced material."
@@ -555,7 +555,7 @@
       "section": "graph bridge",
       "metric": "generated-fact graph edges",
       "value": "1",
-      "total": "100",
+      "total": "102",
       "status": "partial",
       "source": "data/edge-recovery/edges.csv",
       "note": "Edges from generated facts to the rendered fields they affect where field reachability is available."
@@ -564,7 +564,7 @@
       "section": "graph bridge",
       "metric": "rows with field reachability",
       "value": "4",
-      "total": "100",
+      "total": "102",
       "status": "partial",
       "source": "data/edge-recovery/edges.csv",
       "note": "Rows that connect an input, generated fact, or variant change to rendered output fields."
@@ -4231,7 +4231,7 @@
       "live_rerun_next_step": "",
       "live_rerun_command": "",
       "command": "cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir <tmp> --non-interactive --namespace external-secrets",
-      "target_facts": "none",
+      "target_facts": "required Secret external-secrets/external-secrets-webhook",
       "render_parity": "pass",
       "in_confighub": "pass",
       "local_live": "pass",
@@ -4258,7 +4258,7 @@
       "live_rerun_next_step": "",
       "live_rerun_command": "",
       "command": "cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base no-crds --work-dir <tmp> --non-interactive --namespace external-secrets",
-      "target_facts": "required CRD acraccesstokens.generators.external-secrets.io; required CRD cloudsmithaccesstokens.generators.external-secrets.io; required CRD clusterexternalsecrets.external-secrets.io; required CRD clustergenerators.generators.external-secrets.io; required CRD clusterpushsecrets.external-secrets.io; required CRD clustersecretstores.external-secrets.io; required CRD ecrauthorizationtokens.generators.external-secrets.io; required CRD externalsecrets.external-secrets.io; required CRD fakes.generators.external-secrets.io; required CRD gcraccesstokens.generators.external-secrets.io; required CRD generatorstates.generators.external-secrets.io; required CRD githubaccesstokens.generators.external-secrets.io; required CRD grafanas.generators.external-secrets.io; required CRD mfas.generators.external-secrets.io; required CRD passwords.generators.external-secrets.io; required CRD pushsecrets.external-secrets.io; required CRD quayaccesstokens.generators.external-secrets.io; required CRD secretstores.external-secrets.io; required CRD sshkeys.generators.external-secrets.io; required CRD stssessiontokens.generators.external-secrets.io; required CRD uuids.generators.external-secrets.io; required CRD vaultdynamicsecrets.generators.external-secrets.io; required CRD webhooks.generators.external-secrets.io",
+      "target_facts": "required Secret external-secrets/external-secrets-webhook; required CRD acraccesstokens.generators.external-secrets.io; required CRD cloudsmithaccesstokens.generators.external-secrets.io; required CRD clusterexternalsecrets.external-secrets.io; required CRD clustergenerators.generators.external-secrets.io; required CRD clusterpushsecrets.external-secrets.io; required CRD clustersecretstores.external-secrets.io; required CRD ecrauthorizationtokens.generators.external-secrets.io; required CRD externalsecrets.external-secrets.io; required CRD fakes.generators.external-secrets.io; required CRD gcraccesstokens.generators.external-secrets.io; required CRD generatorstates.generators.external-secrets.io; required CRD githubaccesstokens.generators.external-secrets.io; required CRD grafanas.generators.external-secrets.io; required CRD mfas.generators.external-secrets.io; required CRD passwords.generators.external-secrets.io; required CRD pushsecrets.external-secrets.io; required CRD quayaccesstokens.generators.external-secrets.io; required CRD secretstores.external-secrets.io; required CRD sshkeys.generators.external-secrets.io; required CRD stssessiontokens.generators.external-secrets.io; required CRD uuids.generators.external-secrets.io; required CRD vaultdynamicsecrets.generators.external-secrets.io; required CRD webhooks.generators.external-secrets.io",
       "render_parity": "pass",
       "in_confighub": "missing",
       "local_live": "missing",
@@ -8210,7 +8210,7 @@
       "two_cluster_kind_parity": "2/2",
       "hard_gap": "-",
       "source_features": "",
-      "next_action": "Model the generated webhook Secret as deliverable or prerequisite, rerun the default-base Argo OCI rehearsal, then run a provider round-trip rehearsal against a disposable secrets backend.",
+      "next_action": "Run a provider round-trip rehearsal against a disposable secrets backend and a Kubernetes 1.31+ capability-profile witness before final production support.",
       "next_action_source": "production-support-decisions",
       "next_action_receipt": "",
       "recipe_path": "recipes/external-secrets/external-secrets/2.5.0/recipe.yaml",
@@ -12558,11 +12558,11 @@
       "image_decision": "mutable-image-exception-accepted-for-target-scope",
       "scan_decision": "resource-policy-accepted-for-target-scope",
       "lifecycle_decision": "lifecycle-observed-for-proof-scope",
-      "target_fact_decision": "no-unresolved-target-prerequisite-in-candidate-base",
-      "live_evidence_decision": "needs-runtime-decision-before-final",
-      "evidence_count": "16",
-      "remaining_final_requirements": "Model the generated external-secrets-webhook Secret as a deliverable unit or explicit target prerequisite.; Rerun the external-secrets/default ConfigHub OCI rehearsal and record a passing runtime receipt.; Run a provider round-trip rehearsal against a disposable secrets backend before claiming provider behavior.",
-      "next_action": "Model the generated webhook Secret as deliverable or prerequisite, rerun the default-base Argo OCI rehearsal, then run a provider round-trip rehearsal against a disposable secrets backend.",
+      "target_fact_decision": "explicit-separated-secret-prerequisite-rehearsed-for-target-scope",
+      "live_evidence_decision": "fresh-target-evidence-passed-with-prestaged-secret-prerequisite",
+      "evidence_count": "17",
+      "remaining_final_requirements": "Run a Kubernetes 1.31+ capability-profile witness, or create a profile-specific base, before claiming selectableFields compatibility.; Run a provider round-trip rehearsal against a disposable secrets backend before claiming provider behavior.",
+      "next_action": "Run a provider round-trip rehearsal against a disposable secrets backend and a Kubernetes 1.31+ capability-profile witness before final production support.",
       "path": "data/production-support-decisions/external-secrets-external-secrets/support-decision.yaml"
     },
     {
