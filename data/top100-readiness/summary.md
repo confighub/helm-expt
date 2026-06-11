@@ -47,6 +47,29 @@ source-reviewed hook routes not yet maintained: 8
 | Expand live evidence | 27 | Select rows that only have render parity and add local, GitOps, or live Helm-vs-ConfigHub evidence. | The strongest evidence moves beyond render parity for the selected chart/base. | `gitlab/gitlab-runner@0.89.0`<br>`nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18`<br>`elastic/kibana@8.5.1`<br>`bitnami/elasticsearch@22.1.6`<br>`dex/dex@0.24.0` |
 | Promote reviewed hook routes | 8 | Open `data/hook-route-candidates/summary.md` and choose one candidate route. | The route has a maintained lifecycle receipt, runtime observation path, or explicit blocker. | `k8s-dashboard/kubernetes-dashboard@7.14.0`<br>`gitlab/gitlab@10.0.0`<br>`bitnami/kafka@32.4.3`<br>`bitnami/minio@17.0.21`<br>`datadog/datadog@3.214.0` |
 
+## Proof-Focus Rows
+
+Some rows carry a specific proof focus because a hard Helm feature needs more
+than render parity. These rows point to the evidence or decision surface that
+should drive promotion.
+
+| Focus | Rows | First charts |
+| --- | ---: | --- |
+| `api-service-aggregation-promotion` | 1 | `kedacore/keda@2.19.0` |
+| `api-service-keep-fresh` | 1 | `metrics-server/metrics-server@3.13.0` |
+| `api-service-render-path-recorded` | 2 | `fairwinds-stable/goldilocks@10.3.0`<br>`fairwinds-stable/vpa@4.11.0` |
+| `api-service-target-compatibility` | 1 | `prometheus-community/prometheus-adapter@5.3.0` |
+
+### APIService Focus
+
+| Chart | Focus | Status | Receipt | Next action |
+| --- | --- | --- | --- | --- |
+| `metrics-server/metrics-server@3.13.0` | `api-service-keep-fresh` | APIService aggregation is observed; keep the runtime receipt fresh | `data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml` | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
+| `kedacore/keda@2.19.0` | `api-service-aggregation-promotion` | APIService aggregation is observed; promotion needs a target-scoped decision | `data/runtime-gitops/receipts/kedacore-keda/default/latest.yaml` | run APIService promotion review: choose supported base, target scope, CRD ownership path, and evidence refresh rule using the committed aggregation receipt |
+| `prometheus-community/prometheus-adapter@5.3.0` | `api-service-target-compatibility` | rendered APIService objects exist, but the tested target does not serve that API version | `runs/next80-local-kind/prometheus-community-prometheus-adapter-5.3.0-default/observation-receipt.yaml` | resolve APIService target compatibility before catalog promotion; the tested target does not serve the rendered APIService version |
+| `fairwinds-stable/goldilocks@10.3.0` | `api-service-render-path-recorded` | source APIService signal exists, but current maintained bases render no APIService objects | `data/apiservice-coverage/render-path-notes.md` | add at least one user-shaped variant before catalog promotion |
+| `fairwinds-stable/vpa@4.11.0` | `api-service-render-path-recorded` | source APIService signal exists, but current maintained bases render no APIService objects | `data/apiservice-coverage/render-path-notes.md` | review APIService render-path notes: current maintained bases do not render APIService objects; create a separate APIService-enabled base only if product chooses that path |
+
 ## Hook And Lifecycle Work
 
 Hooks are not hidden inside render parity. The source scan, maintained hook
@@ -184,6 +207,7 @@ decision before catalog promotion.
 | --- | --- |
 | `data/top100-readiness/readiness.csv` | One row per top-100 chart: workability, user status, strongest evidence, lane counts, gap, next action, next receipt path where available, and next-action source. |
 | `data/top100-readiness/next80-queues.csv` | Compact next80 action queue: promotion review, user-shaped variant work, and limitation review. |
+| `data/apiservice-coverage/summary.md` | APIService-specific evidence: rendered object status, aggregation receipts, target blockers, and render-path notes. |
 | `data/top100-catalog-analysis/review.csv` | Catalog analysis and promotion surface. |
 | `data/outcome-coverage/chart-outcomes.csv` | Detailed outcome counts per chart. |
 | `data/outcome-coverage/base-outcomes.csv` | Per base-variant proof lane status. |

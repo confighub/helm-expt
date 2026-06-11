@@ -34,43 +34,55 @@ These tables show the first rows a maintainer should open in each queue. They
 do not replace the CSV; they make the first review path visible without a
 spreadsheet.
 
+## Proof-Focus Rows
+
+These rows have a focused evidence or decision path for a hard Helm feature.
+They should not disappear into a generic promotion-review queue.
+
+| Chart | Focus | Status | Receipt | Next action |
+| --- | --- | --- | --- | --- |
+| `kedacore/keda@2.19.0` | `api-service-aggregation-promotion` | APIService aggregation is observed; promotion needs a target-scoped decision | `data/runtime-gitops/receipts/kedacore-keda/default/latest.yaml` | run APIService promotion review: choose supported base, target scope, CRD ownership path, and evidence refresh rule using the committed aggregation receipt |
+| `prometheus-community/prometheus-adapter@5.3.0` | `api-service-target-compatibility` | rendered APIService objects exist, but the tested target does not serve that API version | `runs/next80-local-kind/prometheus-community-prometheus-adapter-5.3.0-default/observation-receipt.yaml` | resolve APIService target compatibility before catalog promotion; the tested target does not serve the rendered APIService version |
+| `fairwinds-stable/vpa@4.11.0` | `api-service-render-path-recorded` | source APIService signal exists, but current maintained bases render no APIService objects | `data/apiservice-coverage/render-path-notes.md` | review APIService render-path notes: current maintained bases do not render APIService objects; create a separate APIService-enabled base only if product chooses that path |
+| `fairwinds-stable/goldilocks@10.3.0` | `api-service-render-path-recorded` | source APIService signal exists, but current maintained bases render no APIService objects | `data/apiservice-coverage/render-path-notes.md` | add at least one user-shaped variant before catalog promotion |
+
 ### Promotion Review
 
-| Chart | Candidate bases | Evidence | Gap | Next action |
-| --- | --- | --- | --- | --- |
-| `external-dns/external-dns@1.21.1` | `default`<br>`no-crds`<br>`dry-run-txt-registry` | `two-cluster-kind-parity` | - | run catalog promotion review |
-| `cloudnative-pg/cloudnative-pg@0.28.2` | `default`<br>`no-crds` | `two-cluster-kind-parity` | - | run catalog promotion review |
-| `kedacore/keda@2.19.0` | `default`<br>`no-crds` | `live-helm-vs-confighub-parity` | - | run catalog promotion review |
-| `prometheus-community/kube-state-metrics@7.4.0` | `default`<br>`cluster-metrics-readonly` | `local-kubernetes-live` | - | run catalog promotion review |
-| `elastic/eck-operator@3.4.0` | `default`<br>`ha`<br>`no-crds` | `two-cluster-kind-parity` | - | run catalog promotion review |
-| `prometheus-community/prometheus-blackbox-exporter@11.10.0` | `default`<br>`cluster-metrics-readonly` | `local-kubernetes-live` | - | run catalog promotion review |
-| `stakater/reloader@2.2.12` | `default`<br>`controller-default-reviewed` | `local-kubernetes-live` | - | run catalog promotion review |
-| `grafana/alloy@1.8.2` | `default`<br>`no-crds` | `two-cluster-kind-parity` | - | run catalog promotion review |
+| Chart | Candidate bases | Evidence | Proof focus | Gap | Next action |
+| --- | --- | --- | --- | --- | --- |
+| `external-dns/external-dns@1.21.1` | `default`<br>`no-crds`<br>`dry-run-txt-registry` | `two-cluster-kind-parity` | - | - | run catalog promotion review |
+| `cloudnative-pg/cloudnative-pg@0.28.2` | `default`<br>`no-crds` | `two-cluster-kind-parity` | - | - | run catalog promotion review |
+| `kedacore/keda@2.19.0` | `default`<br>`no-crds` | `live-helm-vs-confighub-parity` | api-service-aggregation-promotion | - | run APIService promotion review: choose supported base, target scope, CRD ownership path, and evidence refresh rule using the committed aggregation receipt |
+| `prometheus-community/kube-state-metrics@7.4.0` | `default`<br>`cluster-metrics-readonly` | `local-kubernetes-live` | - | - | run catalog promotion review |
+| `elastic/eck-operator@3.4.0` | `default`<br>`ha`<br>`no-crds` | `two-cluster-kind-parity` | - | - | run catalog promotion review |
+| `prometheus-community/prometheus-blackbox-exporter@11.10.0` | `default`<br>`cluster-metrics-readonly` | `local-kubernetes-live` | - | - | run catalog promotion review |
+| `stakater/reloader@2.2.12` | `default`<br>`controller-default-reviewed` | `local-kubernetes-live` | - | - | run catalog promotion review |
+| `grafana/alloy@1.8.2` | `default`<br>`no-crds` | `two-cluster-kind-parity` | - | - | run catalog promotion review |
 
 ### Limitation Review
 
-| Chart | Candidate bases | Evidence | Gap | Next action |
-| --- | --- | --- | --- | --- |
-| `traefik/traefik@40.2.0` | `default`<br>`no-crds` | `local-kubernetes-live` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
-| `kyverno/kyverno@3.8.1` | `default`<br>`no-crds` | `local-kubernetes-live` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
-| `bitnami/elasticsearch@22.1.6` | `default`<br>`ha` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
-| `bitnami/spark@10.0.3` | `default`<br>`ha` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
-| `bitnami/zookeeper@13.8.7` | `default`<br>`ha` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
-| `bitnami/contour@21.1.4` | `default`<br>`no-crds` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
-| `grafana/pyroscope@2.0.2` | `default`<br>`ha`<br>`no-crds` | `local-kubernetes-live` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+| Chart | Candidate bases | Evidence | Proof focus | Gap | Next action |
+| --- | --- | --- | --- | --- | --- |
+| `traefik/traefik@40.2.0` | `default`<br>`no-crds` | `local-kubernetes-live` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+| `kyverno/kyverno@3.8.1` | `default`<br>`no-crds` | `local-kubernetes-live` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+| `bitnami/elasticsearch@22.1.6` | `default`<br>`ha` | `render-parity` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+| `bitnami/spark@10.0.3` | `default`<br>`ha` | `render-parity` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+| `bitnami/zookeeper@13.8.7` | `default`<br>`ha` | `render-parity` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+| `bitnami/contour@21.1.4` | `default`<br>`no-crds` | `render-parity` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+| `grafana/pyroscope@2.0.2` | `default`<br>`ha`<br>`no-crds` | `local-kubernetes-live` | - | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 
 ### User-Shaped Variant Work
 
-| Chart | Candidate bases | Evidence | Gap | Next action |
-| --- | --- | --- | --- | --- |
-| `gitlab/gitlab-runner@0.89.0` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
-| `fluent/fluent-bit@0.57.6` | `default` | `local-kubernetes-live` | - | add at least one user-shaped variant before catalog promotion |
-| `runix/pgadmin4@1.62.0` | `default` | `local-kubernetes-live` | - | add at least one user-shaped variant before catalog promotion |
-| `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
-| `elastic/kibana@8.5.1` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
-| `descheduler/descheduler@0.36.0` | `default` | `local-kubernetes-live` | - | add at least one user-shaped variant before catalog promotion |
-| `jaegertracing/jaeger@4.8.0` | `default` | `local-kubernetes-live` | existing-secret (chart ships no Secret toggle) | add at least one user-shaped variant before catalog promotion |
-| `dex/dex@0.24.0` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
+| Chart | Candidate bases | Evidence | Proof focus | Gap | Next action |
+| --- | --- | --- | --- | --- | --- |
+| `gitlab/gitlab-runner@0.89.0` | `default` | `render-parity` | - | - | add at least one user-shaped variant before catalog promotion |
+| `fluent/fluent-bit@0.57.6` | `default` | `local-kubernetes-live` | - | - | add at least one user-shaped variant before catalog promotion |
+| `runix/pgadmin4@1.62.0` | `default` | `local-kubernetes-live` | - | - | add at least one user-shaped variant before catalog promotion |
+| `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | `default` | `render-parity` | - | - | add at least one user-shaped variant before catalog promotion |
+| `elastic/kibana@8.5.1` | `default` | `render-parity` | - | - | add at least one user-shaped variant before catalog promotion |
+| `descheduler/descheduler@0.36.0` | `default` | `local-kubernetes-live` | - | - | add at least one user-shaped variant before catalog promotion |
+| `jaegertracing/jaeger@4.8.0` | `default` | `local-kubernetes-live` | - | existing-secret (chart ships no Secret toggle) | add at least one user-shaped variant before catalog promotion |
+| `dex/dex@0.24.0` | `default` | `render-parity` | - | - | add at least one user-shaped variant before catalog promotion |
 
 ## How This Relates To Top100
 
