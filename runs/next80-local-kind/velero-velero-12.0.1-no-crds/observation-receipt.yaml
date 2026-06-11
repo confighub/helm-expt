@@ -11,10 +11,10 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-next80"
-    context: "kind-claude-helm-expt-next80"
+    name: "claude-helm-expt-codex-crd-prereq"
+    context: "kind-claude-helm-expt-codex-crd-prereq"
     namespace: "default"
-  observedAt: "2026-06-11T14:48:05.885Z"
+  observedAt: "2026-06-11T16:36:48.138Z"
   freshnessTTL: "1h"
   result: "blocked"
   clusterStatus: "existing"
@@ -22,18 +22,16 @@ spec:
   workloads: 1
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "3c4caa43c1ccef95d63d9520b80fb62cdadf9c52f0206de3d84d6748303e548e"
+    sha256: "947f04de29d0dccea006f6392fa34392b240e2e0cfaa5ae067dac9f353f96bcc"
   checks:
     -
       name: "rendered-objects-applied"
       result: "blocked"
       object: "10 object(s) from recipes/velero/velero/12.0.1/revisions/no-crds/r001/rendered/release-objects.yaml"
-      reason: "apply-blocked: resource mapping not found for name: \"default\" namespace: \"default\" from \"STDIN\": no matches for kind \"BackupStorageLocation\" in version \"velero.io/v1\" ensure CRDs are installed first resource mapping"
+      reason: "apply-blocked: Error from server (Invalid): error when creating \"STDIN\": BackupStorageLocation.velero.io \"default\" is invalid: spec.provider: Required value Error from server (Invalid): error when creating \"STDIN\": "
     -
       name: "workload-converged"
-      result: "blocked"
+      result: "pass"
       object: "Deployment|default|velero"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;] velero-597c95894b-7sld9[CrashLoopBackOff ready=false restarts=4;]"
   blockedReasons:
-    - "apply: resource mapping not found for name: \"default\" namespace: \"default\" from \"STDIN\": no matches for kind \"BackupStorageLocation\" in version \"velero.io/v1\" ensure CRDs are installed first resource mapping"
-    - "deployment/velero: prerequisite-blocked (stuck creating: missing mount/secret/config) (kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;] velero-597c95894b-7sld9[Cra)"
+    - "apply: Error from server (Invalid): error when creating \"STDIN\": BackupStorageLocation.velero.io \"default\" is invalid: spec.provider: Required value Error from server (Invalid): error when creating \"STDIN\": "

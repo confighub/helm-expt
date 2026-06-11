@@ -51,8 +51,8 @@ Which detailed CSV should I open next?
 | top500 | version-drift review rows | 21/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | proof lanes | render parity rows | 189/189 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | in-ConfigHub proof rows | 20/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | local live rows | 117/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | local live non-pass rows classified | 72/72 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
+| proof lanes | local live rows | 121/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | local live non-pass rows classified | 68/68 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
 | proof lanes | GitOps/OCI live pass rows | 23/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | live Helm-vs-ConfigHub parity pass rows | 20/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | two-cluster kind parity pass rows | 54/59 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
@@ -204,28 +204,28 @@ classified here so they become next actions rather than vague failures.
 
 | Route class | Rows | Next action |
 | --- | ---: | --- |
-| `runtime-readiness` | 25 | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
-| `missing-crds` | 17 | Use a CRD-owning base, preinstall the CRDs, or record an explicit no-CRDs support boundary before rerun. |
-| `target-prerequisite` | 15 | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
+| `runtime-readiness` | 26 | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
+| `target-prerequisite` | 20 | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
+| `test-environment-cleanup` | 8 | Delete the stale namespace or rerun on a fresh cluster with an isolated namespace. |
 | `image-dependency` | 6 | Pin, mirror, override, or document the image dependency, then rerun against a target that can pull it. |
-| `test-environment-cleanup` | 6 | Delete the stale namespace or rerun on a fresh cluster with an isolated namespace. |
-| `admission-or-rbac` | 2 | Decide whether the base needs a permission/admission preflight, a different target scope, or a rejected support boundary. |
-| `cloud-or-provider-prerequisite` | 1 | Model the provider dependency as target facts or an external managed prerequisite before rerun. |
+| `admission-or-rbac` | 3 | Decide whether the base needs a permission/admission preflight, a different target scope, or a rejected support boundary. |
+| `missing-crds` | 3 | Use a CRD-owning base, preinstall the CRDs, or record an explicit no-CRDs support boundary before rerun. |
+| `cloud-or-provider-prerequisite` | 2 | Model the provider dependency as target facts or an external managed prerequisite before rerun. |
 
 | Chart | Base | Result | Route class |
 | --- | --- | --- | --- |
 | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | default | fail | `admission-or-rbac` |
 | `velero/velero@12.0.1` | default | blocked | `admission-or-rbac` |
+| `velero/velero@12.0.1` | no-crds | blocked | `admission-or-rbac` |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | fail | `cloud-or-provider-prerequisite` |
+| `grafana/tempo@1.24.4` | s3-query-observability | blocked | `cloud-or-provider-prerequisite` |
 | `bitnami/spark@10.0.3` | default | blocked | `image-dependency` |
 | `bitnami/spark@10.0.3` | ha | blocked | `image-dependency` |
 | `bitnami/zookeeper@13.8.7` | default | blocked | `image-dependency` |
 | `bitnami/zookeeper@13.8.7` | ha | blocked | `image-dependency` |
 | `istio/gateway@1.30.0` | controller-default-reviewed | blocked | `image-dependency` |
 | `istio/gateway@1.30.0` | default | blocked | `image-dependency` |
-| `aqua/trivy-operator@0.32.1` | no-crds | blocked | `missing-crds` |
-| `grafana/tempo@1.24.4` | s3-query-observability | blocked | `missing-crds` |
-| `jaegertracing/jaeger-operator@2.57.0` | default | blocked | `missing-crds` |
+| `projectcalico/tigera-operator@v3.32.0` | default | blocked | `missing-crds` |
 
 Use [local-live-triage/summary.md](../local-live-triage/summary.md) for the
 full table with receipts and per-row next actions.
@@ -272,8 +272,8 @@ top-100 chart and the next command or file to open.
 
 | Strongest evidence | Charts |
 | --- | ---: |
-| local-kubernetes-live | 38 |
-| render-parity | 31 |
+| local-kubernetes-live | 41 |
+| render-parity | 28 |
 | live-helm-vs-confighub-parity | 20 |
 | two-cluster-kind-parity | 11 |
 
@@ -350,7 +350,7 @@ first.
 | Lane | Pass | Non-pass | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | in-ConfigHub | 20 | 0 | 169 | 189 |
-| local live | 117 | 72 | 0 | 189 |
+| local live | 121 | 68 | 0 | 189 |
 | GitOps/OCI live | 23 | 6 | 160 | 189 |
 | live Helm-vs-ConfigHub parity | 20 | 2 | 167 | 189 |
 | two-cluster kind parity | 54 | 5 | 0 | 59 |

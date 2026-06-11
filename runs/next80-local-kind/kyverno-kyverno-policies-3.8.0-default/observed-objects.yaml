@@ -1,0 +1,698 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "kyverno.io/v1"
+    kind: "ClusterPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"kyverno.io/v1\",\"kind\":\"ClusterPolicy\",\"metadata\":{\"annotations\":{\"kyverno.io/kubernetes-version\":\"\\u003e=1.25.0-0\",\"kyverno.io/kyverno-version\":\"v1.18.0\",\"policies.kyverno.io/category\":\"Pod Security Standards (Baseline)\",\"policies.kyverno.io/description\":\"Adding capabilities beyond those listed in the policy must be disallowed.\",\"policies.kyverno.io/minversion\":\"1.6.0\",\"policies.kyverno.io/severity\":\"medium\",\"policies.kyverno.io/subject\":\"Pod\",\"policies.kyverno.io/title\":\"Disallow Capabilities\"},\"labels\":{\"app.kubernetes.io/component\":\"kyverno\",\"app.kubernetes.io/instance\":\"kyverno-policies\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-policies\",\"app.kubernetes.io/part-of\":\"kyverno-policies\",\"app.kubernetes.io/version\":\"3.8.0\",\"helm.sh/chart\":\"kyverno-policies-3.8.0\"},\"name\":\"disallow-capabilities\"},\"spec\":{\"background\":true,\"failurePolicy\":\"Fail\",\"rules\":[{\"match\":{\"any\":[{\"resources\":{\"kinds\":[\"Pod\"]}}]},\"name\":\"adding-capabilities\",\"preconditions\":{\"all\":[{\"key\":\"{{ request.operation || 'BACKGROUND' }}\",\"operator\":\"NotEquals\",\"value\":\"DELETE\"}]},\"validate\":{\"allowExistingViolations\":true,\"deny\":{\"conditions\":{\"all\":[{\"key\":\"{{ request.object.spec.[ephemeralContainers, initContainers, containers][].securityContext.capabilities.add[] }}\",\"operator\":\"AnyNotIn\",\"value\":[\"AUDIT_WRITE\",\"CHOWN\",\"DAC_OVERRIDE\",\"FOWNER\",\"FSETID\",\"KILL\",\"MKNOD\",\"NET_BIND_SERVICE\",\"SETFCAP\",\"SETGID\",\"SETPCAP\",\"SETUID\",\"SYS_CHROOT\"]}]}},\"failureAction\":\"Audit\",\"message\":\"Any capabilities added beyond the allowed list (AUDIT_WRITE, CHOWN, DAC_OVERRIDE, FOWNER, FSETID, KILL, MKNOD, NET_BIND_SERVICE, SETFCAP, SETGID, SETPCAP, SETUID, SYS_CHROOT) are disallowed.\"}}],\"validationFailureAction\":\"Audit\"}}\n"
+        kyverno.io/kubernetes-version: ">=1.25.0-0"
+        kyverno.io/kyverno-version: "v1.18.0"
+        policies.kyverno.io/category: "Pod Security Standards (Baseline)"
+        policies.kyverno.io/description: "Adding capabilities beyond those listed in the policy must be disallowed."
+        policies.kyverno.io/minversion: "1.6.0"
+        policies.kyverno.io/severity: "medium"
+        policies.kyverno.io/subject: "Pod"
+        policies.kyverno.io/title: "Disallow Capabilities"
+      creationTimestamp: "2026-06-11T16:18:55Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "kyverno"
+        app.kubernetes.io/instance: "kyverno-policies"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-policies"
+        app.kubernetes.io/part-of: "kyverno-policies"
+        app.kubernetes.io/version: "3.8.0"
+        helm.sh/chart: "kyverno-policies-3.8.0"
+      name: "disallow-capabilities"
+      resourceVersion: "1293"
+      uid: "46b23611-c5e9-4abb-ae4b-31304e895cfb"
+    spec:
+      admission: true
+      background: true
+      emitWarning: false
+      failurePolicy: "Fail"
+      rules:
+        -
+          match:
+            any:
+              -
+                resources:
+                  kinds:
+                    - "Pod"
+          name: "adding-capabilities"
+          preconditions:
+            all:
+              -
+                key: "{{ request.operation || 'BACKGROUND' }}"
+                operator: "NotEquals"
+                value: "DELETE"
+          skipBackgroundRequests: true
+          validate:
+            allowExistingViolations: true
+            deny:
+              conditions:
+                all:
+                  -
+                    key: "{{ request.object.spec.[ephemeralContainers, initContainers, containers][].securityContext.capabilities.add[] }}"
+                    operator: "AnyNotIn"
+                    value:
+                      - "AUDIT_WRITE"
+                      - "CHOWN"
+                      - "DAC_OVERRIDE"
+                      - "FOWNER"
+                      - "FSETID"
+                      - "KILL"
+                      - "MKNOD"
+                      - "NET_BIND_SERVICE"
+                      - "SETFCAP"
+                      - "SETGID"
+                      - "SETPCAP"
+                      - "SETUID"
+                      - "SYS_CHROOT"
+            failureAction: "Audit"
+            message: "Any capabilities added beyond the allowed list (AUDIT_WRITE, CHOWN, DAC_OVERRIDE, FOWNER, FSETID, KILL, MKNOD, NET_BIND_SERVICE, SETFCAP, SETGID, SETPCAP, SETUID, SYS_CHROOT) are disallowed."
+      validationFailureAction: "Audit"
+  -
+    apiVersion: "kyverno.io/v1"
+    kind: "ClusterPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"kyverno.io/v1\",\"kind\":\"ClusterPolicy\",\"metadata\":{\"annotations\":{\"kyverno.io/kubernetes-version\":\"\\u003e=1.25.0-0\",\"kyverno.io/kyverno-version\":\"v1.18.0\",\"policies.kyverno.io/category\":\"Pod Security Standards (Baseline)\",\"policies.kyverno.io/description\":\"Host namespaces (Process ID namespace, Inter-Process Communication namespace, and network namespace) allow access to shared information and can be used to elevate privileges. Pods should not be allowed access to host namespaces. This policy ensures fields which make use of these host namespaces are unset or set to `false`.\",\"policies.kyverno.io/severity\":\"medium\",\"policies.kyverno.io/subject\":\"Pod\",\"policies.kyverno.io/title\":\"Disallow Host Namespaces\"},\"labels\":{\"app.kubernetes.io/component\":\"kyverno\",\"app.kubernetes.io/instance\":\"kyverno-policies\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-policies\",\"app.kubernetes.io/part-of\":\"kyverno-policies\",\"app.kubernetes.io/version\":\"3.8.0\",\"helm.sh/chart\":\"kyverno-policies-3.8.0\"},\"name\":\"disallow-host-namespaces\"},\"spec\":{\"background\":true,\"failurePolicy\":\"Fail\",\"rules\":[{\"match\":{\"any\":[{\"resources\":{\"kinds\":[\"Pod\"]}}]},\"name\":\"host-namespaces\",\"validate\":{\"allowExistingViolations\":true,\"failureAction\":\"Audit\",\"message\":\"Sharing the host namespaces is disallowed. The fields spec.hostNetwork, spec.hostIPC, and spec.hostPID must be unset or set to `false`.\",\"pattern\":{\"spec\":{\"=(hostIPC)\":\"false\",\"=(hostNetwork)\":\"false\",\"=(hostPID)\":\"false\"}}}}],\"validationFailureAction\":\"Audit\"}}\n"
+        kyverno.io/kubernetes-version: ">=1.25.0-0"
+        kyverno.io/kyverno-version: "v1.18.0"
+        policies.kyverno.io/category: "Pod Security Standards (Baseline)"
+        policies.kyverno.io/description: "Host namespaces (Process ID namespace, Inter-Process Communication namespace, and network namespace) allow access to shared information and can be used to elevate privileges. Pods should not be allowed access to host namespaces. This policy ensures fields which make use of these host namespaces are unset or set to `false`."
+        policies.kyverno.io/severity: "medium"
+        policies.kyverno.io/subject: "Pod"
+        policies.kyverno.io/title: "Disallow Host Namespaces"
+      creationTimestamp: "2026-06-11T16:18:55Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "kyverno"
+        app.kubernetes.io/instance: "kyverno-policies"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-policies"
+        app.kubernetes.io/part-of: "kyverno-policies"
+        app.kubernetes.io/version: "3.8.0"
+        helm.sh/chart: "kyverno-policies-3.8.0"
+      name: "disallow-host-namespaces"
+      resourceVersion: "1294"
+      uid: "20b5ea5d-19e3-492b-9669-2512ebc96f6b"
+    spec:
+      admission: true
+      background: true
+      emitWarning: false
+      failurePolicy: "Fail"
+      rules:
+        -
+          match:
+            any:
+              -
+                resources:
+                  kinds:
+                    - "Pod"
+          name: "host-namespaces"
+          skipBackgroundRequests: true
+          validate:
+            allowExistingViolations: true
+            failureAction: "Audit"
+            message: "Sharing the host namespaces is disallowed. The fields spec.hostNetwork, spec.hostIPC, and spec.hostPID must be unset or set to `false`."
+            pattern:
+              spec:
+                =(hostIPC): "false"
+                =(hostNetwork): "false"
+                =(hostPID): "false"
+      validationFailureAction: "Audit"
+  -
+    apiVersion: "kyverno.io/v1"
+    kind: "ClusterPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"kyverno.io/v1\",\"kind\":\"ClusterPolicy\",\"metadata\":{\"annotations\":{\"kyverno.io/kubernetes-version\":\"\\u003e=1.25.0-0\",\"kyverno.io/kyverno-version\":\"v1.18.0\",\"policies.kyverno.io/category\":\"Pod Security Standards (Baseline)\",\"policies.kyverno.io/description\":\"HostPath volumes let Pods use host directories and volumes in containers. Using host resources can be used to access shared data or escalate privileges and should not be allowed. This policy ensures no hostPath volumes are in use.\",\"policies.kyverno.io/severity\":\"medium\",\"policies.kyverno.io/subject\":\"Pod,Volume\",\"policies.kyverno.io/title\":\"Disallow hostPath\"},\"labels\":{\"app.kubernetes.io/component\":\"kyverno\",\"app.kubernetes.io/instance\":\"kyverno-policies\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-policies\",\"app.kubernetes.io/part-of\":\"kyverno-policies\",\"app.kubernetes.io/version\":\"3.8.0\",\"helm.sh/chart\":\"kyverno-policies-3.8.0\"},\"name\":\"disallow-host-path\"},\"spec\":{\"background\":true,\"failurePolicy\":\"Fail\",\"rules\":[{\"match\":{\"any\":[{\"resources\":{\"kinds\":[\"Pod\"]}}]},\"name\":\"host-path\",\"validate\":{\"allowExistingViolations\":true,\"failureAction\":\"Audit\",\"message\":\"HostPath volumes are forbidden. The field spec.volumes[*].hostPath must be unset.\",\"pattern\":{\"spec\":{\"=(volumes)\":[{\"X(hostPath)\":\"null\"}]}}}}],\"validationFailureAction\":\"Audit\"}}\n"
+        kyverno.io/kubernetes-version: ">=1.25.0-0"
+        kyverno.io/kyverno-version: "v1.18.0"
+        policies.kyverno.io/category: "Pod Security Standards (Baseline)"
+        policies.kyverno.io/description: "HostPath volumes let Pods use host directories and volumes in containers. Using host resources can be used to access shared data or escalate privileges and should not be allowed. This policy ensures no hostPath volumes are in use."
+        policies.kyverno.io/severity: "medium"
+        policies.kyverno.io/subject: "Pod,Volume"
+        policies.kyverno.io/title: "Disallow hostPath"
+      creationTimestamp: "2026-06-11T16:18:55Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "kyverno"
+        app.kubernetes.io/instance: "kyverno-policies"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-policies"
+        app.kubernetes.io/part-of: "kyverno-policies"
+        app.kubernetes.io/version: "3.8.0"
+        helm.sh/chart: "kyverno-policies-3.8.0"
+      name: "disallow-host-path"
+      resourceVersion: "1295"
+      uid: "0f761775-142f-4585-816c-6d1f4a2704b3"
+    spec:
+      admission: true
+      background: true
+      emitWarning: false
+      failurePolicy: "Fail"
+      rules:
+        -
+          match:
+            any:
+              -
+                resources:
+                  kinds:
+                    - "Pod"
+          name: "host-path"
+          skipBackgroundRequests: true
+          validate:
+            allowExistingViolations: true
+            failureAction: "Audit"
+            message: "HostPath volumes are forbidden. The field spec.volumes[*].hostPath must be unset."
+            pattern:
+              spec:
+                =(volumes):
+                  -
+                    X(hostPath): "null"
+      validationFailureAction: "Audit"
+  -
+    apiVersion: "kyverno.io/v1"
+    kind: "ClusterPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"kyverno.io/v1\",\"kind\":\"ClusterPolicy\",\"metadata\":{\"annotations\":{\"kyverno.io/kubernetes-version\":\"\\u003e=1.25.0-0\",\"kyverno.io/kyverno-version\":\"v1.18.0\",\"policies.kyverno.io/category\":\"Pod Security Standards (Baseline)\",\"policies.kyverno.io/description\":\"Access to host ports allows potential snooping of network traffic and should not be allowed, or at minimum restricted to a known list. This policy ensures the `hostPort` field is unset or set to `0`.\",\"policies.kyverno.io/severity\":\"medium\",\"policies.kyverno.io/subject\":\"Pod\",\"policies.kyverno.io/title\":\"Disallow hostPorts\"},\"labels\":{\"app.kubernetes.io/component\":\"kyverno\",\"app.kubernetes.io/instance\":\"kyverno-policies\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-policies\",\"app.kubernetes.io/part-of\":\"kyverno-policies\",\"app.kubernetes.io/version\":\"3.8.0\",\"helm.sh/chart\":\"kyverno-policies-3.8.0\"},\"name\":\"disallow-host-ports\"},\"spec\":{\"background\":true,\"failurePolicy\":\"Fail\",\"rules\":[{\"match\":{\"any\":[{\"resources\":{\"kinds\":[\"Pod\"]}}]},\"name\":\"host-ports-none\",\"validate\":{\"allowExistingViolations\":true,\"failureAction\":\"Audit\",\"message\":\"Use of host ports is disallowed. The fields spec.containers[*].ports[*].hostPort , spec.initContainers[*].ports[*].hostPort, and spec.ephemeralContainers[*].ports[*].hostPort must either be unset or set to `0`.\",\"pattern\":{\"spec\":{\"=(ephemeralContainers)\":[{\"=(ports)\":[{\"=(hostPort)\":0}]}],\"=(initContainers)\":[{\"=(ports)\":[{\"=(hostPort)\":0}]}],\"containers\":[{\"=(ports)\":[{\"=(hostPort)\":0}]}]}}}}],\"validationFailureAction\":\"Audit\"}}\n"
+        kyverno.io/kubernetes-version: ">=1.25.0-0"
+        kyverno.io/kyverno-version: "v1.18.0"
+        policies.kyverno.io/category: "Pod Security Standards (Baseline)"
+        policies.kyverno.io/description: "Access to host ports allows potential snooping of network traffic and should not be allowed, or at minimum restricted to a known list. This policy ensures the `hostPort` field is unset or set to `0`."
+        policies.kyverno.io/severity: "medium"
+        policies.kyverno.io/subject: "Pod"
+        policies.kyverno.io/title: "Disallow hostPorts"
+      creationTimestamp: "2026-06-11T16:18:56Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "kyverno"
+        app.kubernetes.io/instance: "kyverno-policies"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-policies"
+        app.kubernetes.io/part-of: "kyverno-policies"
+        app.kubernetes.io/version: "3.8.0"
+        helm.sh/chart: "kyverno-policies-3.8.0"
+      name: "disallow-host-ports"
+      resourceVersion: "1296"
+      uid: "f504b2be-9dce-4b5f-b569-3abf446d1649"
+    spec:
+      admission: true
+      background: true
+      emitWarning: false
+      failurePolicy: "Fail"
+      rules:
+        -
+          match:
+            any:
+              -
+                resources:
+                  kinds:
+                    - "Pod"
+          name: "host-ports-none"
+          skipBackgroundRequests: true
+          validate:
+            allowExistingViolations: true
+            failureAction: "Audit"
+            message: "Use of host ports is disallowed. The fields spec.containers[*].ports[*].hostPort , spec.initContainers[*].ports[*].hostPort, and spec.ephemeralContainers[*].ports[*].hostPort must either be unset or set to `0`."
+            pattern:
+              spec:
+                =(ephemeralContainers):
+                  -
+                    =(ports):
+                      -
+                        =(hostPort): 0
+                =(initContainers):
+                  -
+                    =(ports):
+                      -
+                        =(hostPort): 0
+                containers:
+                  -
+                    =(ports):
+                      -
+                        =(hostPort): 0
+      validationFailureAction: "Audit"
+  -
+    apiVersion: "kyverno.io/v1"
+    kind: "ClusterPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"kyverno.io/v1\",\"kind\":\"ClusterPolicy\",\"metadata\":{\"annotations\":{\"kyverno.io/kubernetes-version\":\"\\u003e=1.25.0-0\",\"kyverno.io/kyverno-version\":\"v1.18.0\",\"policies.kyverno.io/category\":\"Pod Security Standards (Baseline)\",\"policies.kyverno.io/description\":\"Windows pods offer the ability to run HostProcess containers which enables privileged access to the Windows node. Privileged access to the host is disallowed in the baseline policy. HostProcess pods are an alpha feature as of Kubernetes v1.22. This policy ensures the `hostProcess` field, if present, is set to `false`.\",\"policies.kyverno.io/severity\":\"medium\",\"policies.kyverno.io/subject\":\"Pod\",\"policies.kyverno.io/title\":\"Disallow hostProcess\"},\"labels\":{\"app.kubernetes.io/component\":\"kyverno\",\"app.kubernetes.io/instance\":\"kyverno-policies\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-policies\",\"app.kubernetes.io/part-of\":\"kyverno-policies\",\"app.kubernetes.io/version\":\"3.8.0\",\"helm.sh/chart\":\"kyverno-policies-3.8.0\"},\"name\":\"disallow-host-process\"},\"spec\":{\"background\":true,\"failurePolicy\":\"Fail\",\"rules\":[{\"match\":{\"any\":[{\"resources\":{\"kinds\":[\"Pod\"]}}]},\"name\":\"host-process-containers\",\"validate\":{\"allowExistingViolations\":true,\"failureAction\":\"Audit\",\"message\":\"HostProcess containers are disallowed. The fields spec.securityContext.windowsOptions.hostProcess, spec.containers[*].securityContext.windowsOptions.hostProcess, spec.initContainers[*].securityContext.windowsOptions.hostProcess, and spec.ephemeralContainers[*].securityContext.windowsOptions.hostProcess must either be undefined or set to `false`.\",\"pattern\":{\"spec\":{\"=(ephemeralContainers)\":[{\"=(securityContext)\":{\"=(windowsOptions)\":{\"=(hostProcess)\":\"false\"}}}],\"=(initContainers)\":[{\"=(securityContext)\":{\"=(windowsOptions)\":{\"=(hostProcess)\":\"false\"}}}],\"containers\":[{\"=(securityContext)\":{\"=(windowsOptions)\":{\"=(hostProcess)\":\"false\"}}}]}}}}],\"validationFailureAction\":\"Audit\"}}\n"
+        kyverno.io/kubernetes-version: ">=1.25.0-0"
+        kyverno.io/kyverno-version: "v1.18.0"
+        policies.kyverno.io/category: "Pod Security Standards (Baseline)"
+        policies.kyverno.io/description: "Windows pods offer the ability to run HostProcess containers which enables privileged access to the Windows node. Privileged access to the host is disallowed in the baseline policy. HostProcess pods are an alpha feature as of Kubernetes v1.22. This policy ensures the `hostProcess` field, if present, is set to `false`."
+        policies.kyverno.io/severity: "medium"
+        policies.kyverno.io/subject: "Pod"
+        policies.kyverno.io/title: "Disallow hostProcess"
+      creationTimestamp: "2026-06-11T16:18:56Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "kyverno"
+        app.kubernetes.io/instance: "kyverno-policies"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-policies"
+        app.kubernetes.io/part-of: "kyverno-policies"
+        app.kubernetes.io/version: "3.8.0"
+        helm.sh/chart: "kyverno-policies-3.8.0"
+      name: "disallow-host-process"
+      resourceVersion: "1297"
+      uid: "d915c91a-7646-4472-867d-92c77e91a0ea"
+    spec:
+      admission: true
+      background: true
+      emitWarning: false
+      failurePolicy: "Fail"
+      rules:
+        -
+          match:
+            any:
+              -
+                resources:
+                  kinds:
+                    - "Pod"
+          name: "host-process-containers"
+          skipBackgroundRequests: true
+          validate:
+            allowExistingViolations: true
+            failureAction: "Audit"
+            message: "HostProcess containers are disallowed. The fields spec.securityContext.windowsOptions.hostProcess, spec.containers[*].securityContext.windowsOptions.hostProcess, spec.initContainers[*].securityContext.windowsOptions.hostProcess, and spec.ephemeralContainers[*].securityContext.windowsOptions.hostProcess must either be undefined or set to `false`."
+            pattern:
+              spec:
+                =(ephemeralContainers):
+                  -
+                    =(securityContext):
+                      =(windowsOptions):
+                        =(hostProcess): "false"
+                =(initContainers):
+                  -
+                    =(securityContext):
+                      =(windowsOptions):
+                        =(hostProcess): "false"
+                containers:
+                  -
+                    =(securityContext):
+                      =(windowsOptions):
+                        =(hostProcess): "false"
+      validationFailureAction: "Audit"
+  -
+    apiVersion: "kyverno.io/v1"
+    kind: "ClusterPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"kyverno.io/v1\",\"kind\":\"ClusterPolicy\",\"metadata\":{\"annotations\":{\"kyverno.io/kubernetes-version\":\"\\u003e=1.25.0-0\",\"kyverno.io/kyverno-version\":\"v1.18.0\",\"policies.kyverno.io/category\":\"Pod Security Standards (Baseline)\",\"policies.kyverno.io/description\":\"Privileged mode disables most security mechanisms and must not be allowed. This policy ensures Pods do not call for privileged mode.\",\"policies.kyverno.io/severity\":\"medium\",\"policies.kyverno.io/subject\":\"Pod\",\"policies.kyverno.io/title\":\"Disallow Privileged Containers\"},\"labels\":{\"app.kubernetes.io/component\":\"kyverno\",\"app.kubernetes.io/instance\":\"kyverno-policies\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-policies\",\"app.kubernetes.io/part-of\":\"kyverno-policies\",\"app.kubernetes.io/version\":\"3.8.0\",\"helm.sh/chart\":\"kyverno-policies-3.8.0\"},\"name\":\"disallow-privileged-containers\"},\"spec\":{\"background\":true,\"failurePolicy\":\"Fail\",\"rules\":[{\"match\":{\"any\":[{\"resources\":{\"kinds\":[\"Pod\"]}}]},\"name\":\"privileged-containers\",\"validate\":{\"allowExistingViolations\":true,\"failureAction\":\"Audit\",\"message\":\"Privileged mode is disallowed. The fields spec.containers[*].securityContext.privileged and spec.initContainers[*].securityContext.privileged must be unset or set to `false`.\",\"pattern\":{\"spec\":{\"=(ephemeralContainers)\":[{\"=(securityContext)\":{\"=(privileged)\":\"false\"}}],\"=(initContainers)\":[{\"=(securityContext)\":{\"=(privileged)\":\"false\"}}],\"containers\":[{\"=(securityContext)\":{\"=(privileged)\":\"false\"}}]}}}}],\"validationFailureAction\":\"Audit\"}}\n"
+        kyverno.io/kubernetes-version: ">=1.25.0-0"
+        kyverno.io/kyverno-version: "v1.18.0"
+        policies.kyverno.io/category: "Pod Security Standards (Baseline)"
+        policies.kyverno.io/description: "Privileged mode disables most security mechanisms and must not be allowed. This policy ensures Pods do not call for privileged mode."
+        policies.kyverno.io/severity: "medium"
+        policies.kyverno.io/subject: "Pod"
+        policies.kyverno.io/title: "Disallow Privileged Containers"
+      creationTimestamp: "2026-06-11T16:18:56Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "kyverno"
+        app.kubernetes.io/instance: "kyverno-policies"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-policies"
+        app.kubernetes.io/part-of: "kyverno-policies"
+        app.kubernetes.io/version: "3.8.0"
+        helm.sh/chart: "kyverno-policies-3.8.0"
+      name: "disallow-privileged-containers"
+      resourceVersion: "1298"
+      uid: "a4900dba-d896-4c2d-921a-ad34050c35bd"
+    spec:
+      admission: true
+      background: true
+      emitWarning: false
+      failurePolicy: "Fail"
+      rules:
+        -
+          match:
+            any:
+              -
+                resources:
+                  kinds:
+                    - "Pod"
+          name: "privileged-containers"
+          skipBackgroundRequests: true
+          validate:
+            allowExistingViolations: true
+            failureAction: "Audit"
+            message: "Privileged mode is disallowed. The fields spec.containers[*].securityContext.privileged and spec.initContainers[*].securityContext.privileged must be unset or set to `false`."
+            pattern:
+              spec:
+                =(ephemeralContainers):
+                  -
+                    =(securityContext):
+                      =(privileged): "false"
+                =(initContainers):
+                  -
+                    =(securityContext):
+                      =(privileged): "false"
+                containers:
+                  -
+                    =(securityContext):
+                      =(privileged): "false"
+      validationFailureAction: "Audit"
+  -
+    apiVersion: "kyverno.io/v1"
+    kind: "ClusterPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"kyverno.io/v1\",\"kind\":\"ClusterPolicy\",\"metadata\":{\"annotations\":{\"kyverno.io/kubernetes-version\":\"\\u003e=1.25.0-0\",\"kyverno.io/kyverno-version\":\"v1.18.0\",\"policies.kyverno.io/category\":\"Pod Security Standards (Baseline)\",\"policies.kyverno.io/description\":\"The default /proc masks are set up to reduce attack surface and should be required. This policy ensures nothing but the default procMount can be specified. Note that in order for users to deviate from the `Default` procMount requires setting a feature gate at the API server.\",\"policies.kyverno.io/severity\":\"medium\",\"policies.kyverno.io/subject\":\"Pod\",\"policies.kyverno.io/title\":\"Disallow procMount\"},\"labels\":{\"app.kubernetes.io/component\":\"kyverno\",\"app.kubernetes.io/instance\":\"kyverno-policies\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-policies\",\"app.kubernetes.io/part-of\":\"kyverno-policies\",\"app.kubernetes.io/version\":\"3.8.0\",\"helm.sh/chart\":\"kyverno-policies-3.8.0\"},\"name\":\"disallow-proc-mount\"},\"spec\":{\"background\":true,\"failurePolicy\":\"Fail\",\"rules\":[{\"match\":{\"any\":[{\"resources\":{\"kinds\":[\"Pod\"]}}]},\"name\":\"check-proc-mount\",\"validate\":{\"allowExistingViolations\":true,\"failureAction\":\"Audit\",\"message\":\"Changing the proc mount from the default is not allowed. The fields spec.containers[*].securityContext.procMount, spec.initContainers[*].securityContext.procMount, and spec.ephemeralContainers[*].securityContext.procMount must be unset or set to `Default`.\",\"pattern\":{\"spec\":{\"=(ephemeralContainers)\":[{\"=(securityContext)\":{\"=(procMount)\":\"Default\"}}],\"=(initContainers)\":[{\"=(securityContext)\":{\"=(procMount)\":\"Default\"}}],\"containers\":[{\"=(securityContext)\":{\"=(procMount)\":\"Default\"}}]}}}}],\"validationFailureAction\":\"Audit\"}}\n"
+        kyverno.io/kubernetes-version: ">=1.25.0-0"
+        kyverno.io/kyverno-version: "v1.18.0"
+        policies.kyverno.io/category: "Pod Security Standards (Baseline)"
+        policies.kyverno.io/description: "The default /proc masks are set up to reduce attack surface and should be required. This policy ensures nothing but the default procMount can be specified. Note that in order for users to deviate from the `Default` procMount requires setting a feature gate at the API server."
+        policies.kyverno.io/severity: "medium"
+        policies.kyverno.io/subject: "Pod"
+        policies.kyverno.io/title: "Disallow procMount"
+      creationTimestamp: "2026-06-11T16:18:56Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "kyverno"
+        app.kubernetes.io/instance: "kyverno-policies"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-policies"
+        app.kubernetes.io/part-of: "kyverno-policies"
+        app.kubernetes.io/version: "3.8.0"
+        helm.sh/chart: "kyverno-policies-3.8.0"
+      name: "disallow-proc-mount"
+      resourceVersion: "1299"
+      uid: "8128df3c-fe78-4997-a179-deb7619b347d"
+    spec:
+      admission: true
+      background: true
+      emitWarning: false
+      failurePolicy: "Fail"
+      rules:
+        -
+          match:
+            any:
+              -
+                resources:
+                  kinds:
+                    - "Pod"
+          name: "check-proc-mount"
+          skipBackgroundRequests: true
+          validate:
+            allowExistingViolations: true
+            failureAction: "Audit"
+            message: "Changing the proc mount from the default is not allowed. The fields spec.containers[*].securityContext.procMount, spec.initContainers[*].securityContext.procMount, and spec.ephemeralContainers[*].securityContext.procMount must be unset or set to `Default`."
+            pattern:
+              spec:
+                =(ephemeralContainers):
+                  -
+                    =(securityContext):
+                      =(procMount): "Default"
+                =(initContainers):
+                  -
+                    =(securityContext):
+                      =(procMount): "Default"
+                containers:
+                  -
+                    =(securityContext):
+                      =(procMount): "Default"
+      validationFailureAction: "Audit"
+  -
+    apiVersion: "kyverno.io/v1"
+    kind: "ClusterPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"kyverno.io/v1\",\"kind\":\"ClusterPolicy\",\"metadata\":{\"annotations\":{\"kyverno.io/kubernetes-version\":\"\\u003e=1.25.0-0\",\"kyverno.io/kyverno-version\":\"v1.18.0\",\"policies.kyverno.io/category\":\"Pod Security Standards (Baseline)\",\"policies.kyverno.io/description\":\"SELinux options can be used to escalate privileges and should not be allowed. This policy ensures that the `seLinuxOptions` field is undefined.\",\"policies.kyverno.io/severity\":\"medium\",\"policies.kyverno.io/subject\":\"Pod\",\"policies.kyverno.io/title\":\"Disallow SELinux\"},\"labels\":{\"app.kubernetes.io/component\":\"kyverno\",\"app.kubernetes.io/instance\":\"kyverno-policies\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-policies\",\"app.kubernetes.io/part-of\":\"kyverno-policies\",\"app.kubernetes.io/version\":\"3.8.0\",\"helm.sh/chart\":\"kyverno-policies-3.8.0\"},\"name\":\"disallow-selinux\"},\"spec\":{\"background\":true,\"failurePolicy\":\"Fail\",\"rules\":[{\"match\":{\"any\":[{\"resources\":{\"kinds\":[\"Pod\"]}}]},\"name\":\"selinux-type\",\"validate\":{\"allowExistingViolations\":true,\"failureAction\":\"Audit\",\"message\":\"Setting the SELinux type is restricted. The fields spec.securityContext.seLinuxOptions.type, spec.containers[*].securityContext.seLinuxOptions.type, , spec.initContainers[*].securityContext.seLinuxOptions, and spec.ephemeralContainers[*].securityContext.seLinuxOptions.type must either be unset or set to one of the allowed values (container_t, container_init_t, or container_kvm_t).\",\"pattern\":{\"spec\":{\"=(ephemeralContainers)\":[{\"=(securityContext)\":{\"=(seLinuxOptions)\":{\"=(type)\":\"container_t | container_init_t | container_kvm_t\"}}}],\"=(initContainers)\":[{\"=(securityContext)\":{\"=(seLinuxOptions)\":{\"=(type)\":\"container_t | container_init_t | container_kvm_t\"}}}],\"=(securityContext)\":{\"=(seLinuxOptions)\":{\"=(type)\":\"container_t | container_init_t | container_kvm_t\"}},\"containers\":[{\"=(securityContext)\":{\"=(seLinuxOptions)\":{\"=(type)\":\"container_t | container_init_t | container_kvm_t\"}}}]}}}},{\"match\":{\"any\":[{\"resources\":{\"kinds\":[\"Pod\"]}}]},\"name\":\"selinux-user-role\",\"validate\":{\"allowExistingViolations\":true,\"failureAction\":\"Audit\",\"message\":\"Setting the SELinux user or role is forbidden. The fields spec.securityContext.seLinuxOptions.user, spec.securityContext.seLinuxOptions.role, spec.containers[*].securityContext.seLinuxOptions.user, spec.containers[*].securityContext.seLinuxOptions.role, spec.initContainers[*].securityContext.seLinuxOptions.user, spec.initContainers[*].securityContext.seLinuxOptions.role, spec.ephemeralContainers[*].securityContext.seLinuxOptions.user, and spec.ephemeralContainers[*].securityContext.seLinuxOptions.role must be unset.\",\"pattern\":{\"spec\":{\"=(ephemeralContainers)\":[{\"=(securityContext)\":{\"=(seLinuxOptions)\":{\"X(role)\":\"null\",\"X(user)\":\"null\"}}}],\"=(initContainers)\":[{\"=(securityContext)\":{\"=(seLinuxOptions)\":{\"X(role)\":\"null\",\"X(user)\":\"null\"}}}],\"=(securityContext)\":{\"=(seLinuxOptions)\":{\"X(role)\":\"null\",\"X(user)\":\"null\"}},\"containers\":[{\"=(securityContext)\":{\"=(seLinuxOptions)\":{\"X(role)\":\"null\",\"X(user)\":\"null\"}}}]}}}}],\"validationFailureAction\":\"Audit\"}}\n"
+        kyverno.io/kubernetes-version: ">=1.25.0-0"
+        kyverno.io/kyverno-version: "v1.18.0"
+        policies.kyverno.io/category: "Pod Security Standards (Baseline)"
+        policies.kyverno.io/description: "SELinux options can be used to escalate privileges and should not be allowed. This policy ensures that the `seLinuxOptions` field is undefined."
+        policies.kyverno.io/severity: "medium"
+        policies.kyverno.io/subject: "Pod"
+        policies.kyverno.io/title: "Disallow SELinux"
+      creationTimestamp: "2026-06-11T16:18:56Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "kyverno"
+        app.kubernetes.io/instance: "kyverno-policies"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-policies"
+        app.kubernetes.io/part-of: "kyverno-policies"
+        app.kubernetes.io/version: "3.8.0"
+        helm.sh/chart: "kyverno-policies-3.8.0"
+      name: "disallow-selinux"
+      resourceVersion: "1300"
+      uid: "01b4df35-61ab-4c2b-8f9b-2d62731bc173"
+    spec:
+      admission: true
+      background: true
+      emitWarning: false
+      failurePolicy: "Fail"
+      rules:
+        -
+          match:
+            any:
+              -
+                resources:
+                  kinds:
+                    - "Pod"
+          name: "selinux-type"
+          skipBackgroundRequests: true
+          validate:
+            allowExistingViolations: true
+            failureAction: "Audit"
+            message: "Setting the SELinux type is restricted. The fields spec.securityContext.seLinuxOptions.type, spec.containers[*].securityContext.seLinuxOptions.type, , spec.initContainers[*].securityContext.seLinuxOptions, and spec.ephemeralContainers[*].securityContext.seLinuxOptions.type must either be unset or set to one of the allowed values (container_t, container_init_t, or container_kvm_t)."
+            pattern:
+              spec:
+                =(ephemeralContainers):
+                  -
+                    =(securityContext):
+                      =(seLinuxOptions):
+                        =(type): "container_t | container_init_t | container_kvm_t"
+                =(initContainers):
+                  -
+                    =(securityContext):
+                      =(seLinuxOptions):
+                        =(type): "container_t | container_init_t | container_kvm_t"
+                =(securityContext):
+                  =(seLinuxOptions):
+                    =(type): "container_t | container_init_t | container_kvm_t"
+                containers:
+                  -
+                    =(securityContext):
+                      =(seLinuxOptions):
+                        =(type): "container_t | container_init_t | container_kvm_t"
+        -
+          match:
+            any:
+              -
+                resources:
+                  kinds:
+                    - "Pod"
+          name: "selinux-user-role"
+          skipBackgroundRequests: true
+          validate:
+            allowExistingViolations: true
+            failureAction: "Audit"
+            message: "Setting the SELinux user or role is forbidden. The fields spec.securityContext.seLinuxOptions.user, spec.securityContext.seLinuxOptions.role, spec.containers[*].securityContext.seLinuxOptions.user, spec.containers[*].securityContext.seLinuxOptions.role, spec.initContainers[*].securityContext.seLinuxOptions.user, spec.initContainers[*].securityContext.seLinuxOptions.role, spec.ephemeralContainers[*].securityContext.seLinuxOptions.user, and spec.ephemeralContainers[*].securityContext.seLinuxOptions.role must be unset."
+            pattern:
+              spec:
+                =(ephemeralContainers):
+                  -
+                    =(securityContext):
+                      =(seLinuxOptions):
+                        X(role): "null"
+                        X(user): "null"
+                =(initContainers):
+                  -
+                    =(securityContext):
+                      =(seLinuxOptions):
+                        X(role): "null"
+                        X(user): "null"
+                =(securityContext):
+                  =(seLinuxOptions):
+                    X(role): "null"
+                    X(user): "null"
+                containers:
+                  -
+                    =(securityContext):
+                      =(seLinuxOptions):
+                        X(role): "null"
+                        X(user): "null"
+      validationFailureAction: "Audit"
+  -
+    apiVersion: "kyverno.io/v1"
+    kind: "ClusterPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"kyverno.io/v1\",\"kind\":\"ClusterPolicy\",\"metadata\":{\"annotations\":{\"kyverno.io/kubernetes-version\":\"\\u003e=1.25.0-0\",\"kyverno.io/kyverno-version\":\"v1.18.0\",\"policies.kyverno.io/category\":\"Pod Security Standards (Baseline)\",\"policies.kyverno.io/description\":\"On supported hosts, the 'runtime/default' AppArmor profile is applied by default. The default policy should prevent overriding or disabling the policy, or restrict overrides to an allowed set of profiles. This policy ensures Pods do not specify any other AppArmor profiles than `runtime/default` or `localhost/*`.\",\"policies.kyverno.io/minversion\":\"1.3.0\",\"policies.kyverno.io/severity\":\"medium\",\"policies.kyverno.io/subject\":\"Pod, Annotation\",\"policies.kyverno.io/title\":\"Restrict AppArmor\"},\"labels\":{\"app.kubernetes.io/component\":\"kyverno\",\"app.kubernetes.io/instance\":\"kyverno-policies\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-policies\",\"app.kubernetes.io/part-of\":\"kyverno-policies\",\"app.kubernetes.io/version\":\"3.8.0\",\"helm.sh/chart\":\"kyverno-policies-3.8.0\"},\"name\":\"restrict-apparmor-profiles\"},\"spec\":{\"background\":true,\"failurePolicy\":\"Fail\",\"rules\":[{\"match\":{\"any\":[{\"resources\":{\"kinds\":[\"Pod\"]}}]},\"name\":\"app-armor\",\"validate\":{\"allowExistingViolations\":true,\"failureAction\":\"Audit\",\"message\":\"Specifying other AppArmor profiles is disallowed. The annotation `container.apparmor.security.beta.kubernetes.io` if defined must not be set to anything other than `runtime/default` or `localhost/*`.\",\"pattern\":{\"=(metadata)\":{\"=(annotations)\":{\"=(container.apparmor.security.beta.kubernetes.io/*)\":\"runtime/default | localhost/*\"}}}}}],\"validationFailureAction\":\"Audit\"}}\n"
+        kyverno.io/kubernetes-version: ">=1.25.0-0"
+        kyverno.io/kyverno-version: "v1.18.0"
+        policies.kyverno.io/category: "Pod Security Standards (Baseline)"
+        policies.kyverno.io/description: "On supported hosts, the 'runtime/default' AppArmor profile is applied by default. The default policy should prevent overriding or disabling the policy, or restrict overrides to an allowed set of profiles. This policy ensures Pods do not specify any other AppArmor profiles than `runtime/default` or `localhost/*`."
+        policies.kyverno.io/minversion: "1.3.0"
+        policies.kyverno.io/severity: "medium"
+        policies.kyverno.io/subject: "Pod, Annotation"
+        policies.kyverno.io/title: "Restrict AppArmor"
+      creationTimestamp: "2026-06-11T16:18:56Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "kyverno"
+        app.kubernetes.io/instance: "kyverno-policies"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-policies"
+        app.kubernetes.io/part-of: "kyverno-policies"
+        app.kubernetes.io/version: "3.8.0"
+        helm.sh/chart: "kyverno-policies-3.8.0"
+      name: "restrict-apparmor-profiles"
+      resourceVersion: "1301"
+      uid: "0d7877aa-0bd9-4e33-bd77-e126ce47beb0"
+    spec:
+      admission: true
+      background: true
+      emitWarning: false
+      failurePolicy: "Fail"
+      rules:
+        -
+          match:
+            any:
+              -
+                resources:
+                  kinds:
+                    - "Pod"
+          name: "app-armor"
+          skipBackgroundRequests: true
+          validate:
+            allowExistingViolations: true
+            failureAction: "Audit"
+            message: "Specifying other AppArmor profiles is disallowed. The annotation `container.apparmor.security.beta.kubernetes.io` if defined must not be set to anything other than `runtime/default` or `localhost/*`."
+            pattern:
+              =(metadata):
+                =(annotations):
+                  =(container.apparmor.security.beta.kubernetes.io/*): "runtime/default | localhost/*"
+      validationFailureAction: "Audit"
+  -
+    apiVersion: "kyverno.io/v1"
+    kind: "ClusterPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"kyverno.io/v1\",\"kind\":\"ClusterPolicy\",\"metadata\":{\"annotations\":{\"kyverno.io/kubernetes-version\":\"\\u003e=1.25.0-0\",\"kyverno.io/kyverno-version\":\"v1.18.0\",\"policies.kyverno.io/category\":\"Pod Security Standards (Baseline)\",\"policies.kyverno.io/description\":\"The seccomp profile must not be explicitly set to Unconfined. This policy, requiring Kubernetes v1.19 or later, ensures that seccomp is unset or set to `RuntimeDefault` or `Localhost`.\",\"policies.kyverno.io/severity\":\"medium\",\"policies.kyverno.io/subject\":\"Pod\",\"policies.kyverno.io/title\":\"Restrict Seccomp\"},\"labels\":{\"app.kubernetes.io/component\":\"kyverno\",\"app.kubernetes.io/instance\":\"kyverno-policies\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-policies\",\"app.kubernetes.io/part-of\":\"kyverno-policies\",\"app.kubernetes.io/version\":\"3.8.0\",\"helm.sh/chart\":\"kyverno-policies-3.8.0\"},\"name\":\"restrict-seccomp\"},\"spec\":{\"background\":true,\"failurePolicy\":\"Fail\",\"rules\":[{\"match\":{\"any\":[{\"resources\":{\"kinds\":[\"Pod\"]}}]},\"name\":\"check-seccomp\",\"validate\":{\"allowExistingViolations\":true,\"failureAction\":\"Audit\",\"message\":\"Use of custom Seccomp profiles is disallowed. The fields spec.securityContext.seccompProfile.type, spec.containers[*].securityContext.seccompProfile.type, spec.initContainers[*].securityContext.seccompProfile.type, and spec.ephemeralContainers[*].securityContext.seccompProfile.type must be unset or set to `RuntimeDefault` or `Localhost`.\",\"pattern\":{\"spec\":{\"=(ephemeralContainers)\":[{\"=(securityContext)\":{\"=(seccompProfile)\":{\"=(type)\":\"RuntimeDefault | Localhost\"}}}],\"=(initContainers)\":[{\"=(securityContext)\":{\"=(seccompProfile)\":{\"=(type)\":\"RuntimeDefault | Localhost\"}}}],\"=(securityContext)\":{\"=(seccompProfile)\":{\"=(type)\":\"RuntimeDefault | Localhost\"}},\"containers\":[{\"=(securityContext)\":{\"=(seccompProfile)\":{\"=(type)\":\"RuntimeDefault | Localhost\"}}}]}}}}],\"validationFailureAction\":\"Audit\"}}\n"
+        kyverno.io/kubernetes-version: ">=1.25.0-0"
+        kyverno.io/kyverno-version: "v1.18.0"
+        policies.kyverno.io/category: "Pod Security Standards (Baseline)"
+        policies.kyverno.io/description: "The seccomp profile must not be explicitly set to Unconfined. This policy, requiring Kubernetes v1.19 or later, ensures that seccomp is unset or set to `RuntimeDefault` or `Localhost`."
+        policies.kyverno.io/severity: "medium"
+        policies.kyverno.io/subject: "Pod"
+        policies.kyverno.io/title: "Restrict Seccomp"
+      creationTimestamp: "2026-06-11T16:18:56Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "kyverno"
+        app.kubernetes.io/instance: "kyverno-policies"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-policies"
+        app.kubernetes.io/part-of: "kyverno-policies"
+        app.kubernetes.io/version: "3.8.0"
+        helm.sh/chart: "kyverno-policies-3.8.0"
+      name: "restrict-seccomp"
+      resourceVersion: "1302"
+      uid: "b441b1d6-9196-40e4-bcee-469802155fd0"
+    spec:
+      admission: true
+      background: true
+      emitWarning: false
+      failurePolicy: "Fail"
+      rules:
+        -
+          match:
+            any:
+              -
+                resources:
+                  kinds:
+                    - "Pod"
+          name: "check-seccomp"
+          skipBackgroundRequests: true
+          validate:
+            allowExistingViolations: true
+            failureAction: "Audit"
+            message: "Use of custom Seccomp profiles is disallowed. The fields spec.securityContext.seccompProfile.type, spec.containers[*].securityContext.seccompProfile.type, spec.initContainers[*].securityContext.seccompProfile.type, and spec.ephemeralContainers[*].securityContext.seccompProfile.type must be unset or set to `RuntimeDefault` or `Localhost`."
+            pattern:
+              spec:
+                =(ephemeralContainers):
+                  -
+                    =(securityContext):
+                      =(seccompProfile):
+                        =(type): "RuntimeDefault | Localhost"
+                =(initContainers):
+                  -
+                    =(securityContext):
+                      =(seccompProfile):
+                        =(type): "RuntimeDefault | Localhost"
+                =(securityContext):
+                  =(seccompProfile):
+                    =(type): "RuntimeDefault | Localhost"
+                containers:
+                  -
+                    =(securityContext):
+                      =(seccompProfile):
+                        =(type): "RuntimeDefault | Localhost"
+      validationFailureAction: "Audit"
+  -
+    apiVersion: "kyverno.io/v1"
+    kind: "ClusterPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"kyverno.io/v1\",\"kind\":\"ClusterPolicy\",\"metadata\":{\"annotations\":{\"kyverno.io/kubernetes-version\":\"\\u003e=1.25.0-0\",\"kyverno.io/kyverno-version\":\"v1.18.0\",\"policies.kyverno.io/category\":\"Pod Security Standards (Baseline)\",\"policies.kyverno.io/description\":\"Sysctls can disable security mechanisms or affect all containers on a host, and should be disallowed except for an allowed \\\"safe\\\" subset. A sysctl is considered safe if it is namespaced in the container or the Pod, and it is isolated from other Pods or processes on the same Node. This policy ensures that only those \\\"safe\\\" subsets can be specified in a Pod.\",\"policies.kyverno.io/severity\":\"medium\",\"policies.kyverno.io/subject\":\"Pod\",\"policies.kyverno.io/title\":\"Restrict sysctls\"},\"labels\":{\"app.kubernetes.io/component\":\"kyverno\",\"app.kubernetes.io/instance\":\"kyverno-policies\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-policies\",\"app.kubernetes.io/part-of\":\"kyverno-policies\",\"app.kubernetes.io/version\":\"3.8.0\",\"helm.sh/chart\":\"kyverno-policies-3.8.0\"},\"name\":\"restrict-sysctls\"},\"spec\":{\"background\":true,\"failurePolicy\":\"Fail\",\"rules\":[{\"match\":{\"any\":[{\"resources\":{\"kinds\":[\"Pod\"]}}]},\"name\":\"check-sysctls\",\"validate\":{\"allowExistingViolations\":true,\"failureAction\":\"Audit\",\"message\":\"Setting additional sysctls above the allowed type is disallowed. The field spec.securityContext.sysctls must be unset or not use any other names than kernel.shm_rmid_forced, net.ipv4.ip_local_port_range, net.ipv4.ip_unprivileged_port_start, net.ipv4.tcp_syncookies and net.ipv4.ping_group_range.\",\"pattern\":{\"spec\":{\"=(securityContext)\":{\"=(sysctls)\":[{\"=(name)\":\"kernel.shm_rmid_forced | net.ipv4.ip_local_port_range | net.ipv4.ip_unprivileged_port_start | net.ipv4.tcp_syncookies | net.ipv4.ping_group_range\"}]}}}}}],\"validationFailureAction\":\"Audit\"}}\n"
+        kyverno.io/kubernetes-version: ">=1.25.0-0"
+        kyverno.io/kyverno-version: "v1.18.0"
+        policies.kyverno.io/category: "Pod Security Standards (Baseline)"
+        policies.kyverno.io/description: "Sysctls can disable security mechanisms or affect all containers on a host, and should be disallowed except for an allowed \"safe\" subset. A sysctl is considered safe if it is namespaced in the container or the Pod, and it is isolated from other Pods or processes on the same Node. This policy ensures that only those \"safe\" subsets can be specified in a Pod."
+        policies.kyverno.io/severity: "medium"
+        policies.kyverno.io/subject: "Pod"
+        policies.kyverno.io/title: "Restrict sysctls"
+      creationTimestamp: "2026-06-11T16:18:56Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "kyverno"
+        app.kubernetes.io/instance: "kyverno-policies"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-policies"
+        app.kubernetes.io/part-of: "kyverno-policies"
+        app.kubernetes.io/version: "3.8.0"
+        helm.sh/chart: "kyverno-policies-3.8.0"
+      name: "restrict-sysctls"
+      resourceVersion: "1303"
+      uid: "9993ef9e-7239-4efd-8b83-d30e68310da2"
+    spec:
+      admission: true
+      background: true
+      emitWarning: false
+      failurePolicy: "Fail"
+      rules:
+        -
+          match:
+            any:
+              -
+                resources:
+                  kinds:
+                    - "Pod"
+          name: "check-sysctls"
+          skipBackgroundRequests: true
+          validate:
+            allowExistingViolations: true
+            failureAction: "Audit"
+            message: "Setting additional sysctls above the allowed type is disallowed. The field spec.securityContext.sysctls must be unset or not use any other names than kernel.shm_rmid_forced, net.ipv4.ip_local_port_range, net.ipv4.ip_unprivileged_port_start, net.ipv4.tcp_syncookies and net.ipv4.ping_group_range."
+            pattern:
+              spec:
+                =(securityContext):
+                  =(sysctls):
+                    -
+                      =(name): "kernel.shm_rmid_forced | net.ipv4.ip_local_port_range | net.ipv4.ip_unprivileged_port_start | net.ipv4.tcp_syncookies | net.ipv4.ping_group_range"
+      validationFailureAction: "Audit"
+kind: "List"
+metadata:
+  resourceVersion: ""

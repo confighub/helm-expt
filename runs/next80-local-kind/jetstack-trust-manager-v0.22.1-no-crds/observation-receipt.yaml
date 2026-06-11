@@ -11,10 +11,10 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-next80"
-    context: "kind-claude-helm-expt-next80"
+    name: "claude-helm-expt-codex-crd-prereq"
+    context: "kind-claude-helm-expt-codex-crd-prereq"
     namespace: "default"
-  observedAt: "2026-06-11T15:05:11.782Z"
+  observedAt: "2026-06-11T17:04:52.987Z"
   freshnessTTL: "1h"
   result: "fail"
   clusterStatus: "existing"
@@ -22,22 +22,18 @@ spec:
   workloads: 1
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "1195f61868692c3629a5fafad977a6727db31b544e24ed1af543482930e95c97"
+    sha256: "b7cdec812f0f68d082508bcfdbf488d2ff33c0a9aaa7a2cdaec305f27beb2acc"
   checks:
-    -
-      name: "namespace-created"
-      result: "pass"
-      object: "v1|Namespace||cert-manager"
     -
       name: "rendered-objects-applied"
       result: "blocked"
       object: "13 object(s) from recipes/jetstack/trust-manager/v0.22.1/revisions/no-crds/r001/rendered/release-objects.yaml"
-      reason: "apply-blocked: resource mapping not found for name: \"trust-manager\" namespace: \"default\" from \"STDIN\": no matches for kind \"Certificate\" in version \"cert-manager.io/v1\" ensure CRDs are installed first resource mappi"
+      reason: "apply-blocked: Error from server (Forbidden): error when creating \"STDIN\": roles.rbac.authorization.k8s.io \"trust-manager\" is forbidden: unable to create new content in namespace cert-manager because it is being ter"
     -
       name: "workload-converged"
       result: "fail"
       object: "Deployment|default|trust-manager"
-      reason: "not-ready: trust-manager-6db9f66446-vzdf4[PodInitializing ready=false restarts=0;]"
+      reason: "not-ready: node-collector-df9b9bcd9-nnjs4[Completed ready=false restarts=0;] scan-vulnerabilityreport-578fc5b667-79lfn[Completed ready=false restarts=0;] scan-vulnerabilityreport-586849b65-s792c[Completed ready=false restarts=0;] scan-vulnerabilityreport-59d76d58d5-hq4jg[Completed ready=false restarts=0;] scan"
   blockedReasons:
-    - "apply: resource mapping not found for name: \"trust-manager\" namespace: \"default\" from \"STDIN\": no matches for kind \"Certificate\" in version \"cert-manager.io/v1\" ensure CRDs are installed first resource mappi"
-    - "deployment/trust-manager: not-ready (trust-manager-6db9f66446-vzdf4[PodInitializing ready=false restarts=0;])"
+    - "apply: Error from server (Forbidden): error when creating \"STDIN\": roles.rbac.authorization.k8s.io \"trust-manager\" is forbidden: unable to create new content in namespace cert-manager because it is being ter"
+    - "deployment/trust-manager: not-ready (node-collector-df9b9bcd9-nnjs4[Completed ready=false restarts=0;] scan-vulnerabilityreport-578fc5b667-79lfn[Completed ready=false restarts=0;] scan-vulnerabilit)"

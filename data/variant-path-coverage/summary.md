@@ -23,12 +23,12 @@ ConfigHub variant, or an upgrade/customization path.
 
 ## Rows By Live Status
 
-- blocked: 46
+- blocked: 42
 - fail: 26
 - not-attempted: 10
 - not-tested: 4
 - not-tested-by-diff: 2
-- pass: 115
+- pass: 119
 - watch: 2
 
 ## Live Status Meanings
@@ -47,7 +47,6 @@ ConfigHub variant, or an upgrade/customization path.
 
 | Chart | Path | Type | Live status | Remaining gap |
 | --- | --- | --- | --- | --- |
-| `aqua/trivy-operator@0.32.1` | `no-crds` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `argo-cd/argo-cd@9.5.15` | `no-crds` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `argo-cd/argo-cd@9.5.17` | `default` | base-variant | fail | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `argo-cd/argo-cd@9.5.17` | `no-crds` | base-variant | fail | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
@@ -59,6 +58,7 @@ ConfigHub variant, or an upgrade/customization path.
 | `bitnami/apache@11.4.29` | `default` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `bitnami/contour@21.1.4` | `default` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `bitnami/contour@21.1.4` | `no-crds` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
+| `bitnami/elasticsearch@22.1.6` | `default` | base-variant | fail | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 
 ## How To Use This Matrix
 

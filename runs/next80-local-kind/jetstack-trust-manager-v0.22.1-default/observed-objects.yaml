@@ -1,12 +1,442 @@
 apiVersion: "v1"
 items:
   -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trust-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trust-manager\",\"app.kubernetes.io/version\":\"v0.22.1\",\"helm.sh/chart\":\"trust-manager-v0.22.1\"},\"name\":\"trust-manager\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T16:50:51Z"
+      labels:
+        app.kubernetes.io/instance: "trust-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trust-manager"
+        app.kubernetes.io/version: "v0.22.1"
+        helm.sh/chart: "trust-manager-v0.22.1"
+      name: "trust-manager"
+      namespace: "default"
+      resourceVersion: "5345"
+      uid: "f24d2251-72ca-4987-89bd-32dd0cdcc685"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trust-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trust-manager\",\"app.kubernetes.io/version\":\"v0.22.1\",\"helm.sh/chart\":\"trust-manager-v0.22.1\"},\"name\":\"trust-manager\",\"namespace\":\"cert-manager\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T16:50:51Z"
+      labels:
+        app.kubernetes.io/instance: "trust-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trust-manager"
+        app.kubernetes.io/version: "v0.22.1"
+        helm.sh/chart: "trust-manager-v0.22.1"
+      name: "trust-manager"
+      namespace: "cert-manager"
+      resourceVersion: "5346"
+      uid: "1a683328-f07b-476d-a81b-a7ba82a12cd9"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trust-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trust-manager\",\"app.kubernetes.io/version\":\"v0.22.1\",\"helm.sh/chart\":\"trust-manager-v0.22.1\"},\"name\":\"trust-manager:leaderelection\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"get\",\"create\",\"update\",\"watch\",\"list\"]}]}\n"
+      creationTimestamp: "2026-06-11T16:50:51Z"
+      labels:
+        app.kubernetes.io/instance: "trust-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trust-manager"
+        app.kubernetes.io/version: "v0.22.1"
+        helm.sh/chart: "trust-manager-v0.22.1"
+      name: "trust-manager:leaderelection"
+      namespace: "default"
+      resourceVersion: "5347"
+      uid: "bd34deb7-4c29-4cb0-bcd1-2ae8c1396700"
+    rules:
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "get"
+          - "create"
+          - "update"
+          - "watch"
+          - "list"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trust-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trust-manager\",\"app.kubernetes.io/version\":\"v0.22.1\",\"helm.sh/chart\":\"trust-manager-v0.22.1\"},\"name\":\"trust-manager\",\"namespace\":\"cert-manager\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"trust-manager\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"trust-manager\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T16:50:51Z"
+      labels:
+        app.kubernetes.io/instance: "trust-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trust-manager"
+        app.kubernetes.io/version: "v0.22.1"
+        helm.sh/chart: "trust-manager-v0.22.1"
+      name: "trust-manager"
+      namespace: "cert-manager"
+      resourceVersion: "5348"
+      uid: "64cb6f47-7f8c-473a-bbfe-9ff22c8471c0"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "trust-manager"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "trust-manager"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trust-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trust-manager\",\"app.kubernetes.io/version\":\"v0.22.1\",\"helm.sh/chart\":\"trust-manager-v0.22.1\"},\"name\":\"trust-manager:leaderelection\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"trust-manager:leaderelection\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"trust-manager\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T16:50:51Z"
+      labels:
+        app.kubernetes.io/instance: "trust-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trust-manager"
+        app.kubernetes.io/version: "v0.22.1"
+        helm.sh/chart: "trust-manager-v0.22.1"
+      name: "trust-manager:leaderelection"
+      namespace: "default"
+      resourceVersion: "5349"
+      uid: "626c14b6-7927-4af1-8f09-7ba6dc295b56"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "trust-manager:leaderelection"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "trust-manager"
+        namespace: "default"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"trust-manager\",\"app.kubernetes.io/instance\":\"trust-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trust-manager\",\"app.kubernetes.io/version\":\"v0.22.1\",\"helm.sh/chart\":\"trust-manager-v0.22.1\"},\"name\":\"trust-manager-metrics\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"metrics\",\"port\":9402,\"protocol\":\"TCP\",\"targetPort\":9402}],\"selector\":{\"app\":\"trust-manager\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T16:50:51Z"
+      labels:
+        app: "trust-manager"
+        app.kubernetes.io/instance: "trust-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trust-manager"
+        app.kubernetes.io/version: "v0.22.1"
+        helm.sh/chart: "trust-manager-v0.22.1"
+      name: "trust-manager-metrics"
+      namespace: "default"
+      resourceVersion: "5351"
+      uid: "afc646e8-52ce-4b04-abd3-383d59fb48f8"
+    spec:
+      clusterIP: "10.96.245.69"
+      clusterIPs:
+        - "10.96.245.69"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "metrics"
+          port: 9402
+          protocol: "TCP"
+          targetPort: 9402
+      selector:
+        app: "trust-manager"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"trust-manager\",\"app.kubernetes.io/instance\":\"trust-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trust-manager\",\"app.kubernetes.io/version\":\"v0.22.1\",\"helm.sh/chart\":\"trust-manager-v0.22.1\"},\"name\":\"trust-manager\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"webhook\",\"port\":443,\"protocol\":\"TCP\",\"targetPort\":6443}],\"selector\":{\"app\":\"trust-manager\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T16:50:51Z"
+      labels:
+        app: "trust-manager"
+        app.kubernetes.io/instance: "trust-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trust-manager"
+        app.kubernetes.io/version: "v0.22.1"
+        helm.sh/chart: "trust-manager-v0.22.1"
+      name: "trust-manager"
+      namespace: "default"
+      resourceVersion: "5355"
+      uid: "156d4370-b3ec-46f0-978e-2039f510c64c"
+    spec:
+      clusterIP: "10.96.86.54"
+      clusterIPs:
+        - "10.96.86.54"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "webhook"
+          port: 443
+          protocol: "TCP"
+          targetPort: 6443
+      selector:
+        app: "trust-manager"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trust-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trust-manager\",\"app.kubernetes.io/version\":\"v0.22.1\",\"helm.sh/chart\":\"trust-manager-v0.22.1\"},\"name\":\"trust-manager\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app\":\"trust-manager\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"trust-manager\",\"app.kubernetes.io/instance\":\"trust-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trust-manager\",\"app.kubernetes.io/version\":\"v0.22.1\",\"helm.sh/chart\":\"trust-manager-v0.22.1\"}},\"spec\":{\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"--log-format=text\",\"--log-level=1\",\"--metrics-port=9402\",\"--readiness-probe-port=6060\",\"--readiness-probe-path=/readyz\",\"--leader-elect=true\",\"--leader-election-lease-duration=15s\",\"--leader-election-renew-deadline=10s\",\"--trust-namespace=cert-manager\",\"--webhook-host=0.0.0.0\",\"--webhook-port=6443\",\"--webhook-certificate-dir=/tls\",\"--default-package-location=/packages/cert-manager-package-debian.json\"],\"image\":\"quay.io/jetstack/trust-manager:v0.22.1\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"trust-manager\",\"ports\":[{\"containerPort\":6443,\"name\":\"webhook\"},{\"containerPort\":9402,\"name\":\"metrics\"}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/readyz\",\"port\":6060},\"initialDelaySeconds\":3,\"periodSeconds\":7},\"resources\":{},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":true,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/tls\",\"name\":\"tls\",\"readOnly\":true},{\"mountPath\":\"/packages\",\"name\":\"packages\",\"readOnly\":true}]}],\"initContainers\":[{\"args\":[\"/copyandmaybepause\",\"/debian-package\",\"/packages\"],\"image\":\"quay.io/jetstack/trust-pkg-debian-bookworm:20230311-deb12u1.6\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"cert-manager-package-debian\",\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":true,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/packages\",\"name\":\"packages\",\"readOnly\":false}]}],\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"serviceAccountName\":\"trust-manager\",\"volumes\":[{\"emptyDir\":{\"sizeLimit\":\"50M\"},\"name\":\"packages\"},{\"name\":\"tls\",\"secret\":{\"defaultMode\":420,\"secretName\":\"trust-manager-tls\"}}]}}}}\n"
+      creationTimestamp: "2026-06-11T16:50:51Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "trust-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trust-manager"
+        app.kubernetes.io/version: "v0.22.1"
+        helm.sh/chart: "trust-manager-v0.22.1"
+      name: "trust-manager"
+      namespace: "default"
+      resourceVersion: "5371"
+      uid: "418ac1c9-ffcf-46e3-84c0-eae11d7a159d"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app: "trust-manager"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app: "trust-manager"
+            app.kubernetes.io/instance: "trust-manager"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "trust-manager"
+            app.kubernetes.io/version: "v0.22.1"
+            helm.sh/chart: "trust-manager-v0.22.1"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "--log-format=text"
+                - "--log-level=1"
+                - "--metrics-port=9402"
+                - "--readiness-probe-port=6060"
+                - "--readiness-probe-path=/readyz"
+                - "--leader-elect=true"
+                - "--leader-election-lease-duration=15s"
+                - "--leader-election-renew-deadline=10s"
+                - "--trust-namespace=cert-manager"
+                - "--webhook-host=0.0.0.0"
+                - "--webhook-port=6443"
+                - "--webhook-certificate-dir=/tls"
+                - "--default-package-location=/packages/cert-manager-package-debian.json"
+              image: "quay.io/jetstack/trust-manager:v0.22.1"
+              imagePullPolicy: "IfNotPresent"
+              name: "trust-manager"
+              ports:
+                -
+                  containerPort: 6443
+                  name: "webhook"
+                  protocol: "TCP"
+                -
+                  containerPort: 9402
+                  name: "metrics"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/readyz"
+                  port: 6060
+                  scheme: "HTTP"
+                initialDelaySeconds: 3
+                periodSeconds: 7
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/tls"
+                  name: "tls"
+                  readOnly: true
+                -
+                  mountPath: "/packages"
+                  name: "packages"
+                  readOnly: true
+          dnsPolicy: "ClusterFirst"
+          initContainers:
+            -
+              args:
+                - "/copyandmaybepause"
+                - "/debian-package"
+                - "/packages"
+              image: "quay.io/jetstack/trust-pkg-debian-bookworm:20230311-deb12u1.6"
+              imagePullPolicy: "IfNotPresent"
+              name: "cert-manager-package-debian"
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/packages"
+                  name: "packages"
+          nodeSelector:
+            kubernetes.io/os: "linux"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "trust-manager"
+          serviceAccountName: "trust-manager"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              emptyDir:
+                sizeLimit: "50M"
+              name: "packages"
+            -
+              name: "tls"
+              secret:
+                defaultMode: 420
+                secretName: "trust-manager-tls"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T16:50:51Z"
+          lastUpdateTime: "2026-06-11T16:50:51Z"
+          message: "Deployment does not have minimum availability."
+          reason: "MinimumReplicasUnavailable"
+          status: "False"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T16:50:51Z"
+          lastUpdateTime: "2026-06-11T16:50:51Z"
+          message: "ReplicaSet \"trust-manager-6db9f66446\" is progressing."
+          reason: "ReplicaSetUpdated"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      replicas: 1
+      terminatingReplicas: 0
+      unavailableReplicas: 1
+      updatedReplicas: 1
+  -
+    apiVersion: "cert-manager.io/v1"
+    kind: "Certificate"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"cert-manager.io/v1\",\"kind\":\"Certificate\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trust-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trust-manager\",\"app.kubernetes.io/version\":\"v0.22.1\",\"helm.sh/chart\":\"trust-manager-v0.22.1\"},\"name\":\"trust-manager\",\"namespace\":\"default\"},\"spec\":{\"commonName\":\"trust-manager.default.svc\",\"dnsNames\":[\"trust-manager.default.svc\"],\"issuerRef\":{\"group\":\"cert-manager.io\",\"kind\":\"Issuer\",\"name\":\"trust-manager\"},\"privateKey\":{\"rotationPolicy\":\"Always\"},\"revisionHistoryLimit\":1,\"secretName\":\"trust-manager-tls\"}}\n"
+      creationTimestamp: "2026-06-11T16:50:51Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "trust-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trust-manager"
+        app.kubernetes.io/version: "v0.22.1"
+        helm.sh/chart: "trust-manager-v0.22.1"
+      name: "trust-manager"
+      namespace: "default"
+      resourceVersion: "5360"
+      uid: "2b396975-f06c-4a08-a51e-620ed58fd6c2"
+    spec:
+      commonName: "trust-manager.default.svc"
+      dnsNames:
+        - "trust-manager.default.svc"
+      issuerRef:
+        group: "cert-manager.io"
+        kind: "Issuer"
+        name: "trust-manager"
+      privateKey:
+        rotationPolicy: "Always"
+      revisionHistoryLimit: 1
+      secretName: "trust-manager-tls"
+  -
+    apiVersion: "cert-manager.io/v1"
+    kind: "Issuer"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"cert-manager.io/v1\",\"kind\":\"Issuer\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trust-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trust-manager\",\"app.kubernetes.io/version\":\"v0.22.1\",\"helm.sh/chart\":\"trust-manager-v0.22.1\"},\"name\":\"trust-manager\",\"namespace\":\"default\"},\"spec\":{\"selfSigned\":{}}}\n"
+      creationTimestamp: "2026-06-11T16:50:51Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "trust-manager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trust-manager"
+        app.kubernetes.io/version: "v0.22.1"
+        helm.sh/chart: "trust-manager-v0.22.1"
+      name: "trust-manager"
+      namespace: "default"
+      resourceVersion: "5363"
+      uid: "a99dada1-bbca-46fa-aa10-2fd7b7615727"
+    spec:
+      selfSigned:
+        {}
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
     apiVersion: "apiextensions.k8s.io/v1"
     kind: "CustomResourceDefinition"
     metadata:
       annotations:
         helm.sh/resource-policy: "keep"
-      creationTimestamp: "2026-06-11T11:20:34Z"
+      creationTimestamp: "2026-06-11T16:50:51Z"
       generation: 1
       labels:
         app.kubernetes.io/instance: "trust-manager"
@@ -15,8 +445,8 @@ items:
         app.kubernetes.io/version: "v0.22.1"
         helm.sh/chart: "trust-manager-v0.22.1"
       name: "bundles.trust.cert-manager.io"
-      resourceVersion: "482"
-      uid: "25375f97-da64-46f3-997c-6c10aa5c3091"
+      resourceVersion: "5344"
+      uid: "658a1552-ebdc-4d6f-89c2-d8c9ad6fd419"
     spec:
       conversion:
         strategy: "None"
@@ -431,13 +861,13 @@ items:
         singular: "bundle"
       conditions:
         -
-          lastTransitionTime: "2026-06-11T11:20:34Z"
+          lastTransitionTime: "2026-06-11T16:50:51Z"
           message: "no conflicts found"
           reason: "NoConflicts"
           status: "True"
           type: "NamesAccepted"
         -
-          lastTransitionTime: "2026-06-11T11:20:34Z"
+          lastTransitionTime: "2026-06-11T16:50:51Z"
           message: "the initial names have been accepted"
           reason: "InitialNamesAccepted"
           status: "True"
@@ -450,7 +880,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trust-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trust-manager\",\"app.kubernetes.io/version\":\"v0.22.1\",\"helm.sh/chart\":\"trust-manager-v0.22.1\"},\"name\":\"trust-manager\"},\"rules\":[{\"apiGroups\":[\"trust.cert-manager.io\"],\"resources\":[\"bundles\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"trust.cert-manager.io\"],\"resources\":[\"bundles/finalizers\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"trust.cert-manager.io\"],\"resources\":[\"bundles/status\"],\"verbs\":[\"patch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\"],\"verbs\":[\"get\",\"list\",\"create\",\"patch\",\"watch\",\"delete\"]},{\"apiGroups\":[\"\",\"events.k8s.io\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"patch\"]}]}\n"
-      creationTimestamp: "2026-06-11T11:20:34Z"
+      creationTimestamp: "2026-06-11T16:50:51Z"
       labels:
         app.kubernetes.io/instance: "trust-manager"
         app.kubernetes.io/managed-by: "Helm"
@@ -458,8 +888,8 @@ items:
         app.kubernetes.io/version: "v0.22.1"
         helm.sh/chart: "trust-manager-v0.22.1"
       name: "trust-manager"
-      resourceVersion: "516"
-      uid: "8826cad7-497f-49e1-8e49-d33495909967"
+      resourceVersion: "5373"
+      uid: "21bec763-fb82-4ee2-834b-35542af85cbb"
     rules:
       -
         apiGroups:
@@ -520,7 +950,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trust-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trust-manager\",\"app.kubernetes.io/version\":\"v0.22.1\",\"helm.sh/chart\":\"trust-manager-v0.22.1\"},\"name\":\"trust-manager\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"trust-manager\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"trust-manager\",\"namespace\":\"default\"}]}\n"
-      creationTimestamp: "2026-06-11T11:20:34Z"
+      creationTimestamp: "2026-06-11T16:50:51Z"
       labels:
         app.kubernetes.io/instance: "trust-manager"
         app.kubernetes.io/managed-by: "Helm"
@@ -528,8 +958,8 @@ items:
         app.kubernetes.io/version: "v0.22.1"
         helm.sh/chart: "trust-manager-v0.22.1"
       name: "trust-manager"
-      resourceVersion: "517"
-      uid: "8ee92263-34f6-4340-be1b-7f933568d1be"
+      resourceVersion: "5374"
+      uid: "f37071fd-640e-4546-9645-8f7fca868ff1"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "ClusterRole"
@@ -546,7 +976,7 @@ items:
       annotations:
         cert-manager.io/inject-ca-from: "default/trust-manager"
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"ValidatingWebhookConfiguration\",\"metadata\":{\"annotations\":{\"cert-manager.io/inject-ca-from\":\"default/trust-manager\"},\"labels\":{\"app\":\"trust-manager\",\"app.kubernetes.io/instance\":\"trust-manager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trust-manager\",\"app.kubernetes.io/version\":\"v0.22.1\",\"helm.sh/chart\":\"trust-manager-v0.22.1\"},\"name\":\"trust-manager\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"trust-manager\",\"namespace\":\"default\",\"path\":\"/validate-trust-cert-manager-io-v1alpha1-bundle\"}},\"failurePolicy\":\"Fail\",\"name\":\"trust.cert-manager.io\",\"rules\":[{\"apiGroups\":[\"trust.cert-manager.io\"],\"apiVersions\":[\"v1alpha1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"bundles\"]}],\"sideEffects\":\"None\",\"timeoutSeconds\":5}]}\n"
-      creationTimestamp: "2026-06-11T11:20:34Z"
+      creationTimestamp: "2026-06-11T16:50:51Z"
       generation: 1
       labels:
         app: "trust-manager"
@@ -556,8 +986,8 @@ items:
         app.kubernetes.io/version: "v0.22.1"
         helm.sh/chart: "trust-manager-v0.22.1"
       name: "trust-manager"
-      resourceVersion: "518"
-      uid: "e485cc69-3123-425f-8aa2-ec12acc62591"
+      resourceVersion: "5375"
+      uid: "b1964d7b-877f-40be-b735-6d78abe2c054"
     webhooks:
       -
         admissionReviewVersions:

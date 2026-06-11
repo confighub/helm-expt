@@ -11,45 +11,47 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-codex-kps8610-nocrds"
-    context: "kind-claude-helm-expt-codex-kps8610-nocrds"
+    name: "claude-helm-expt-codex-crd-prereq"
+    context: "kind-claude-helm-expt-codex-crd-prereq"
     namespace: "monitoring"
-  observedAt: "2026-06-11T13:41:48.159Z"
+  observedAt: "2026-06-11T16:29:00.692Z"
   freshnessTTL: "1h"
   result: "blocked"
-  clusterStatus: "created-by-test"
+  clusterStatus: "existing"
   variant: "no-crds"
   workloads: 4
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "6fa60c0a75677f691748712ece2ca55966327aa49b823ac39c75a70e64a1e8a2"
+    sha256: "c254ee93c685b5f8bb6379a7e785c31d604d79140075525b01cef897dfe0712e"
   checks:
-    -
-      name: "namespace-created"
-      result: "pass"
-      object: "v1|Namespace||monitoring"
     -
       name: "rendered-objects-applied"
       result: "blocked"
       object: "114 object(s) from recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/no-crds/r001/rendered/release-objects.yaml"
-      reason: "apply-blocked: resource mapping not found for name: \"kube-prometheus-stack-alertmanager\" namespace: \"monitoring\" from \"STDIN\": no matches for kind \"Alertmanager\" in version \"monitoring.coreos.com/v1\" ensure CRDs are"
+      reason: "apply-blocked: Error from server (Forbidden): error when creating \"STDIN\": serviceaccounts \"kube-prometheus-stack-grafana\" is forbidden: unable to create new content in namespace monitoring because it is being termi"
     -
       name: "workload-converged"
-      result: "pass"
+      result: "blocked"
       object: "DaemonSet|monitoring|kube-prometheus-stack-prometheus-node-exporter"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): kube-prometheus-stack-operator-6d54798576-c46cn[ContainerCreating ready=false restarts=0;]"
     -
       name: "workload-converged"
-      result: "pass"
+      result: "blocked"
       object: "Deployment|monitoring|kube-prometheus-stack-grafana"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): kube-prometheus-stack-operator-6d54798576-c46cn[ContainerCreating ready=false restarts=0;]"
     -
       name: "workload-converged"
-      result: "pass"
+      result: "blocked"
       object: "Deployment|monitoring|kube-prometheus-stack-kube-state-metrics"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): kube-prometheus-stack-operator-6d54798576-c46cn[ContainerCreating ready=false restarts=0;]"
     -
       name: "workload-converged"
       result: "blocked"
       object: "Deployment|monitoring|kube-prometheus-stack-operator"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): kube-prometheus-stack-grafana-689f864759-csdh5[ ready=true restarts=0; ready=true restarts=0; ready=true restarts=0;] kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-q2ssz[ ready=true restarts=0;] kube-prometheus-stack-operator-6cd9d8fb8d-8sn59[ContainerCreating ready=false restarts=0;] kube-pro"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): kube-prometheus-stack-operator-6d54798576-c46cn[ContainerCreating ready=false restarts=0;]"
   blockedReasons:
-    - "apply: resource mapping not found for name: \"kube-prometheus-stack-alertmanager\" namespace: \"monitoring\" from \"STDIN\": no matches for kind \"Alertmanager\" in version \"monitoring.coreos.com/v1\" ensure CRDs are"
-    - "deployment/kube-prometheus-stack-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (kube-prometheus-stack-grafana-689f864759-csdh5[ ready=true restarts=0; ready=true restarts=0; ready=true restarts=0;] kube-prometheus-stack-kube-state-metrics-5)"
+    - "apply: Error from server (Forbidden): error when creating \"STDIN\": serviceaccounts \"kube-prometheus-stack-grafana\" is forbidden: unable to create new content in namespace monitoring because it is being termi"
+    - "daemonset/kube-prometheus-stack-prometheus-node-exporter: prerequisite-blocked (stuck creating: missing mount/secret/config) (kube-prometheus-stack-operator-6d54798576-c46cn[ContainerCreating ready=false restarts=0;])"
+    - "deployment/kube-prometheus-stack-grafana: prerequisite-blocked (stuck creating: missing mount/secret/config) (kube-prometheus-stack-operator-6d54798576-c46cn[ContainerCreating ready=false restarts=0;])"
+    - "deployment/kube-prometheus-stack-kube-state-metrics: prerequisite-blocked (stuck creating: missing mount/secret/config) (kube-prometheus-stack-operator-6d54798576-c46cn[ContainerCreating ready=false restarts=0;])"
+    - "deployment/kube-prometheus-stack-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (kube-prometheus-stack-operator-6d54798576-c46cn[ContainerCreating ready=false restarts=0;])"

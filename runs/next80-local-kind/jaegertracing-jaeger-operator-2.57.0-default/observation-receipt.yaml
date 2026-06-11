@@ -11,18 +11,18 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-next80"
-    context: "kind-claude-helm-expt-next80"
+    name: "claude-helm-expt-codex-crd-prereq"
+    context: "kind-claude-helm-expt-codex-crd-prereq"
     namespace: "default"
-  observedAt: "2026-06-11T11:20:09.052Z"
+  observedAt: "2026-06-11T16:43:50.559Z"
   freshnessTTL: "1h"
   result: "blocked"
-  clusterStatus: "created-by-test"
+  clusterStatus: "existing"
   variant: "default"
   workloads: 1
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "0e6358d830640ec9c1207637f3380f7f55c545d8e9ef1235aa28d0602e6185cc"
+    sha256: "4bc0725e41a0953a6e88cd3f3c0204b1b04dbb7f14cd1611253bf22655e6c83b"
   checks:
     -
       name: "crds-applied-and-established"
@@ -30,14 +30,12 @@ spec:
       object: "1 CustomResourceDefinition(s)"
     -
       name: "rendered-objects-applied"
-      result: "blocked"
+      result: "pass"
       object: "11 object(s) from recipes/jaegertracing/jaeger-operator/2.57.0/revisions/default/r001/rendered/release-objects.yaml"
-      reason: "apply-blocked: resource mapping not found for name: \"jaeger-operator-service-cert\" namespace: \"default\" from \"STDIN\": no matches for kind \"Certificate\" in version \"cert-manager.io/v1\" ensure CRDs are installed first"
     -
       name: "workload-converged"
       result: "blocked"
       object: "Deployment|default|jaeger-operator"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): jaeger-operator-b44465548-26ddm[ContainerCreating ready=false restarts=0;]"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): jaeger-operator-b44465548-9bsgh[ContainerCreating ready=false restarts=0;] node-collector-df9b9bcd9-nnjs4[Completed ready=false restarts=0;] scan-vulnerabilityreport-578fc5b667-79lfn[Completed ready=false restarts=0;] scan-vulnerabilityreport-586849b65-s792c[Completed ready=false restarts=0;] scan-v"
   blockedReasons:
-    - "apply: resource mapping not found for name: \"jaeger-operator-service-cert\" namespace: \"default\" from \"STDIN\": no matches for kind \"Certificate\" in version \"cert-manager.io/v1\" ensure CRDs are installed first"
-    - "deployment/jaeger-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (jaeger-operator-b44465548-26ddm[ContainerCreating ready=false restarts=0;])"
+    - "deployment/jaeger-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (jaeger-operator-b44465548-9bsgh[ContainerCreating ready=false restarts=0;] node-collector-df9b9bcd9-nnjs4[Completed ready=false restarts=0;] scan-vulnerabilityr)"

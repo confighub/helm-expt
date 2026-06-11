@@ -1,0 +1,469 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "networking.k8s.io/v1"
+    kind: "NetworkPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"tempo\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"tempo\",\"app.kubernetes.io/version\":\"2.9.0\",\"helm.sh/chart\":\"tempo-1.24.4\"},\"name\":\"tempo\",\"namespace\":\"tempo\"},\"spec\":{\"ingress\":[{\"ports\":[{\"port\":3200}]}],\"podSelector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"tempo\",\"app.kubernetes.io/name\":\"tempo\"}},\"policyTypes\":[\"Ingress\"]}}\n"
+      creationTimestamp: "2026-06-11T16:29:00Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "tempo"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "tempo"
+        app.kubernetes.io/version: "2.9.0"
+        helm.sh/chart: "tempo-1.24.4"
+      name: "tempo"
+      namespace: "tempo"
+      resourceVersion: "2924"
+      uid: "0e4d7bf0-9870-4242-91fe-eb46207d20ac"
+    spec:
+      ingress:
+        -
+          ports:
+            -
+              port: 3200
+              protocol: "TCP"
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/instance: "tempo"
+          app.kubernetes.io/name: "tempo"
+      policyTypes:
+        - "Ingress"
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"tempo\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"tempo\",\"app.kubernetes.io/version\":\"2.9.0\",\"helm.sh/chart\":\"tempo-1.24.4\"},\"name\":\"tempo\",\"namespace\":\"tempo\"}}\n"
+      creationTimestamp: "2026-06-11T16:29:01Z"
+      labels:
+        app.kubernetes.io/instance: "tempo"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "tempo"
+        app.kubernetes.io/version: "2.9.0"
+        helm.sh/chart: "tempo-1.24.4"
+      name: "tempo"
+      namespace: "tempo"
+      resourceVersion: "2925"
+      uid: "551ea6db-f8e1-4601-833f-b2725464d4a1"
+  -
+    apiVersion: "v1"
+    data:
+      tempo-query.yaml: "backend: tempo:3200\n"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"tempo-query.yaml\":\"backend: tempo:3200\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"tempo\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"tempo\",\"app.kubernetes.io/version\":\"2.9.0\",\"helm.sh/chart\":\"tempo-1.24.4\"},\"name\":\"tempo-query\",\"namespace\":\"tempo\"}}\n"
+      creationTimestamp: "2026-06-11T16:29:01Z"
+      labels:
+        app.kubernetes.io/instance: "tempo"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "tempo"
+        app.kubernetes.io/version: "2.9.0"
+        helm.sh/chart: "tempo-1.24.4"
+      name: "tempo-query"
+      namespace: "tempo"
+      resourceVersion: "2926"
+      uid: "f1264dbd-fc96-4139-b4f1-12f8bc7cfe11"
+  -
+    apiVersion: "v1"
+    data:
+      overrides.yaml: "overrides:\n  {}\n"
+      tempo.yaml: "memberlist:\n  cluster_label: \"tempo.tempo\"\nmultitenancy_enabled: false\nusage_report:\n  reporting_enabled: false\ncompactor:\n  compaction:\n    block_retention: 24h\ndistributor:\n  receivers:\n        jaeger:\n          protocols:\n            grpc:\n              endpoint: 0.0.0.0:14250\n            thrift_binary:\n              endpoint: 0.0.0.0:6832\n            thrift_compact:\n              endpoint: 0.0.0.0:6831\n            thrift_http:\n              endpoint: 0.0.0.0:14268\n        opencensus: null\n        otlp:\n          protocols:\n            grpc:\n              endpoint: 0.0.0.0:4317\n            http:\n              endpoint: 0.0.0.0:4318\ningester:\n      {}\nserver:\n      http_listen_port: 3200\nstorage:\n      trace:\n        backend: s3\n        s3:\n          bucket: tempo-traces\n          endpoint: tempo-object-store.tempo.svc.cluster.local:9000\n          forcepathstyle: true\n          insecure: true\n          region: us-east-1\n        wal:\n          path: /var/tempo/wal\nquerier:\n      {}\nquery_frontend:\n      {}\noverrides:\n      defaults: {}\n      per_tenant_override_config: /conf/overrides.yaml\n"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"overrides.yaml\":\"overrides:\\n  {}\\n\",\"tempo.yaml\":\"memberlist:\\n  cluster_label: \\\"tempo.tempo\\\"\\nmultitenancy_enabled: false\\nusage_report:\\n  reporting_enabled: false\\ncompactor:\\n  compaction:\\n    block_retention: 24h\\ndistributor:\\n  receivers:\\n        jaeger:\\n          protocols:\\n            grpc:\\n              endpoint: 0.0.0.0:14250\\n            thrift_binary:\\n              endpoint: 0.0.0.0:6832\\n            thrift_compact:\\n              endpoint: 0.0.0.0:6831\\n            thrift_http:\\n              endpoint: 0.0.0.0:14268\\n        opencensus: null\\n        otlp:\\n          protocols:\\n            grpc:\\n              endpoint: 0.0.0.0:4317\\n            http:\\n              endpoint: 0.0.0.0:4318\\ningester:\\n      {}\\nserver:\\n      http_listen_port: 3200\\nstorage:\\n      trace:\\n        backend: s3\\n        s3:\\n          bucket: tempo-traces\\n          endpoint: tempo-object-store.tempo.svc.cluster.local:9000\\n          forcepathstyle: true\\n          insecure: true\\n          region: us-east-1\\n        wal:\\n          path: /var/tempo/wal\\nquerier:\\n      {}\\nquery_frontend:\\n      {}\\noverrides:\\n      defaults: {}\\n      per_tenant_override_config: /conf/overrides.yaml\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"tempo\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"tempo\",\"app.kubernetes.io/version\":\"2.9.0\",\"helm.sh/chart\":\"tempo-1.24.4\"},\"name\":\"tempo\",\"namespace\":\"tempo\"}}\n"
+      creationTimestamp: "2026-06-11T16:29:01Z"
+      labels:
+        app.kubernetes.io/instance: "tempo"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "tempo"
+        app.kubernetes.io/version: "2.9.0"
+        helm.sh/chart: "tempo-1.24.4"
+      name: "tempo"
+      namespace: "tempo"
+      resourceVersion: "2927"
+      uid: "1cc78680-86ac-4cd1-b6d7-b7032ca04e71"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"tempo\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"tempo\",\"app.kubernetes.io/version\":\"2.9.0\",\"helm.sh/chart\":\"tempo-1.24.4\"},\"name\":\"tempo\",\"namespace\":\"tempo\"},\"spec\":{\"ports\":[{\"name\":\"tempo-jaeger-thrift-compact\",\"port\":6831,\"protocol\":\"UDP\",\"targetPort\":6831},{\"name\":\"tempo-jaeger-thrift-binary\",\"port\":6832,\"protocol\":\"UDP\",\"targetPort\":6832},{\"name\":\"tempo-prom-metrics\",\"port\":3200,\"protocol\":\"TCP\",\"targetPort\":3200},{\"name\":\"jaeger-metrics\",\"port\":16687,\"protocol\":\"TCP\",\"targetPort\":16687},{\"name\":\"tempo-query-jaeger-ui\",\"port\":16686,\"targetPort\":16686},{\"name\":\"tempo-jaeger-thrift-http\",\"port\":14268,\"protocol\":\"TCP\",\"targetPort\":14268},{\"name\":\"grpc-tempo-jaeger\",\"port\":14250,\"protocol\":\"TCP\",\"targetPort\":14250},{\"name\":\"tempo-zipkin\",\"port\":9411,\"protocol\":\"TCP\",\"targetPort\":9411},{\"name\":\"tempo-otlp-legacy\",\"port\":55680,\"protocol\":\"TCP\",\"targetPort\":55680},{\"name\":\"tempo-otlp-http-legacy\",\"port\":55681,\"protocol\":\"TCP\",\"targetPort\":55681},{\"name\":\"grpc-tempo-otlp\",\"port\":4317,\"protocol\":\"TCP\",\"targetPort\":4317},{\"name\":\"tempo-otlp-http\",\"port\":4318,\"protocol\":\"TCP\",\"targetPort\":4318},{\"name\":\"tempo-opencensus\",\"port\":55678,\"protocol\":\"TCP\",\"targetPort\":55678}],\"selector\":{\"app.kubernetes.io/instance\":\"tempo\",\"app.kubernetes.io/name\":\"tempo\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T16:29:01Z"
+      labels:
+        app.kubernetes.io/instance: "tempo"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "tempo"
+        app.kubernetes.io/version: "2.9.0"
+        helm.sh/chart: "tempo-1.24.4"
+      name: "tempo"
+      namespace: "tempo"
+      resourceVersion: "2929"
+      uid: "2ca99a41-ca00-42d2-a111-077bd0069902"
+    spec:
+      clusterIP: "10.96.240.211"
+      clusterIPs:
+        - "10.96.240.211"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "tempo-jaeger-thrift-compact"
+          port: 6831
+          protocol: "UDP"
+          targetPort: 6831
+        -
+          name: "tempo-jaeger-thrift-binary"
+          port: 6832
+          protocol: "UDP"
+          targetPort: 6832
+        -
+          name: "tempo-prom-metrics"
+          port: 3200
+          protocol: "TCP"
+          targetPort: 3200
+        -
+          name: "jaeger-metrics"
+          port: 16687
+          protocol: "TCP"
+          targetPort: 16687
+        -
+          name: "tempo-query-jaeger-ui"
+          port: 16686
+          protocol: "TCP"
+          targetPort: 16686
+        -
+          name: "tempo-jaeger-thrift-http"
+          port: 14268
+          protocol: "TCP"
+          targetPort: 14268
+        -
+          name: "grpc-tempo-jaeger"
+          port: 14250
+          protocol: "TCP"
+          targetPort: 14250
+        -
+          name: "tempo-zipkin"
+          port: 9411
+          protocol: "TCP"
+          targetPort: 9411
+        -
+          name: "tempo-otlp-legacy"
+          port: 55680
+          protocol: "TCP"
+          targetPort: 55680
+        -
+          name: "tempo-otlp-http-legacy"
+          port: 55681
+          protocol: "TCP"
+          targetPort: 55681
+        -
+          name: "grpc-tempo-otlp"
+          port: 4317
+          protocol: "TCP"
+          targetPort: 4317
+        -
+          name: "tempo-otlp-http"
+          port: 4318
+          protocol: "TCP"
+          targetPort: 4318
+        -
+          name: "tempo-opencensus"
+          port: 55678
+          protocol: "TCP"
+          targetPort: 55678
+      selector:
+        app.kubernetes.io/instance: "tempo"
+        app.kubernetes.io/name: "tempo"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "StatefulSet"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"tempo\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"tempo\",\"app.kubernetes.io/version\":\"2.9.0\",\"helm.sh/chart\":\"tempo-1.24.4\"},\"name\":\"tempo\",\"namespace\":\"tempo\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"tempo\",\"app.kubernetes.io/name\":\"tempo\"}},\"serviceName\":\"tempo-headless\",\"template\":{\"metadata\":{\"annotations\":{\"checksum/config\":\"fc9e07fe98f8d4639765dd059d30b68b28d8f46c569c2bbd357434ebad8632aa\"},\"labels\":{\"app.kubernetes.io/instance\":\"tempo\",\"app.kubernetes.io/name\":\"tempo\"}},\"spec\":{\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"-config.file=/conf/tempo.yaml\",\"-mem-ballast-size-mbs=1024\"],\"env\":[{\"name\":\"AWS_ACCESS_KEY_ID\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"access_key\",\"name\":\"tempo-s3-credentials\"}}},{\"name\":\"AWS_SECRET_ACCESS_KEY\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"secret_key\",\"name\":\"tempo-s3-credentials\"}}}],\"image\":\"docker.io/grafana/tempo:2.9.0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/ready\",\"port\":3200},\"initialDelaySeconds\":30,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"name\":\"tempo\",\"ports\":[{\"containerPort\":3200,\"name\":\"prom-metrics\"},{\"containerPort\":6831,\"name\":\"jaeger-thrift-c\",\"protocol\":\"UDP\"},{\"containerPort\":6832,\"name\":\"jaeger-thrift-b\",\"protocol\":\"UDP\"},{\"containerPort\":14268,\"name\":\"jaeger-thrift-h\"},{\"containerPort\":14250,\"name\":\"jaeger-grpc\"},{\"containerPort\":9411,\"name\":\"zipkin\"},{\"containerPort\":55680,\"name\":\"otlp-legacy\"},{\"containerPort\":4317,\"name\":\"otlp-grpc\"},{\"containerPort\":55681,\"name\":\"otlp-httplegacy\"},{\"containerPort\":4318,\"name\":\"otlp-http\"},{\"containerPort\":55678,\"name\":\"opencensus\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/ready\",\"port\":3200},\"initialDelaySeconds\":20,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"resources\":{},\"volumeMounts\":[{\"mountPath\":\"/conf\",\"name\":\"tempo-conf\"},{\"mountPath\":\"/var/tempo\",\"name\":\"storage\"}]},{\"args\":[\"-config\",\"/conf/tempo-query.yaml\"],\"env\":null,\"image\":\"grafana/tempo-query:2.9.0\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"tempo-query\",\"ports\":[{\"containerPort\":16686,\"name\":\"jaeger-ui\"},{\"containerPort\":16687,\"name\":\"jaeger-metrics\"}],\"resources\":{},\"volumeMounts\":[{\"mountPath\":\"/conf\",\"name\":\"tempo-query-conf\"}]}],\"securityContext\":{\"fsGroup\":10001,\"runAsGroup\":10001,\"runAsNonRoot\":true,\"runAsUser\":10001},\"serviceAccountName\":\"tempo\",\"volumes\":[{\"configMap\":{\"name\":\"tempo-query\"},\"name\":\"tempo-query-conf\"},{\"configMap\":{\"name\":\"tempo\"},\"name\":\"tempo-conf\"}]}},\"updateStrategy\":{\"type\":\"RollingUpdate\"},\"volumeClaimTemplates\":[{\"apiVersion\":\"v1\",\"kind\":\"PersistentVolumeClaim\",\"metadata\":{\"annotations\":{},\"name\":\"storage\"},\"spec\":{\"accessModes\":[\"ReadWriteOnce\"],\"resources\":{\"requests\":{\"storage\":\"10Gi\"}},\"storageClassName\":\"standard\"}}]}}\n"
+      creationTimestamp: "2026-06-11T16:29:01Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "tempo"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "tempo"
+        app.kubernetes.io/version: "2.9.0"
+        helm.sh/chart: "tempo-1.24.4"
+      name: "tempo"
+      namespace: "tempo"
+      resourceVersion: "2945"
+      uid: "b0d57609-057e-4916-8336-2afe88e66a57"
+    spec:
+      persistentVolumeClaimRetentionPolicy:
+        whenDeleted: "Retain"
+        whenScaled: "Retain"
+      podManagementPolicy: "OrderedReady"
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "tempo"
+          app.kubernetes.io/name: "tempo"
+      serviceName: "tempo-headless"
+      template:
+        metadata:
+          annotations:
+            checksum/config: "fc9e07fe98f8d4639765dd059d30b68b28d8f46c569c2bbd357434ebad8632aa"
+          labels:
+            app.kubernetes.io/instance: "tempo"
+            app.kubernetes.io/name: "tempo"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "-config.file=/conf/tempo.yaml"
+                - "-mem-ballast-size-mbs=1024"
+              env:
+                -
+                  name: "AWS_ACCESS_KEY_ID"
+                  valueFrom:
+                    secretKeyRef:
+                      key: "access_key"
+                      name: "tempo-s3-credentials"
+                -
+                  name: "AWS_SECRET_ACCESS_KEY"
+                  valueFrom:
+                    secretKeyRef:
+                      key: "secret_key"
+                      name: "tempo-s3-credentials"
+              image: "docker.io/grafana/tempo:2.9.0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/ready"
+                  port: 3200
+                  scheme: "HTTP"
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: "tempo"
+              ports:
+                -
+                  containerPort: 3200
+                  name: "prom-metrics"
+                  protocol: "TCP"
+                -
+                  containerPort: 6831
+                  name: "jaeger-thrift-c"
+                  protocol: "UDP"
+                -
+                  containerPort: 6832
+                  name: "jaeger-thrift-b"
+                  protocol: "UDP"
+                -
+                  containerPort: 14268
+                  name: "jaeger-thrift-h"
+                  protocol: "TCP"
+                -
+                  containerPort: 14250
+                  name: "jaeger-grpc"
+                  protocol: "TCP"
+                -
+                  containerPort: 9411
+                  name: "zipkin"
+                  protocol: "TCP"
+                -
+                  containerPort: 55680
+                  name: "otlp-legacy"
+                  protocol: "TCP"
+                -
+                  containerPort: 4317
+                  name: "otlp-grpc"
+                  protocol: "TCP"
+                -
+                  containerPort: 55681
+                  name: "otlp-httplegacy"
+                  protocol: "TCP"
+                -
+                  containerPort: 4318
+                  name: "otlp-http"
+                  protocol: "TCP"
+                -
+                  containerPort: 55678
+                  name: "opencensus"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/ready"
+                  port: 3200
+                  scheme: "HTTP"
+                initialDelaySeconds: 20
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                {}
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/conf"
+                  name: "tempo-conf"
+                -
+                  mountPath: "/var/tempo"
+                  name: "storage"
+            -
+              args:
+                - "-config"
+                - "/conf/tempo-query.yaml"
+              image: "grafana/tempo-query:2.9.0"
+              imagePullPolicy: "IfNotPresent"
+              name: "tempo-query"
+              ports:
+                -
+                  containerPort: 16686
+                  name: "jaeger-ui"
+                  protocol: "TCP"
+                -
+                  containerPort: 16687
+                  name: "jaeger-metrics"
+                  protocol: "TCP"
+              resources:
+                {}
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/conf"
+                  name: "tempo-query-conf"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 10001
+            runAsGroup: 10001
+            runAsNonRoot: true
+            runAsUser: 10001
+          serviceAccount: "tempo"
+          serviceAccountName: "tempo"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              configMap:
+                defaultMode: 420
+                name: "tempo-query"
+              name: "tempo-query-conf"
+            -
+              configMap:
+                defaultMode: 420
+                name: "tempo"
+              name: "tempo-conf"
+      updateStrategy:
+        type: "RollingUpdate"
+      volumeClaimTemplates:
+        -
+          apiVersion: "v1"
+          kind: "PersistentVolumeClaim"
+          metadata:
+            name: "storage"
+          spec:
+            accessModes:
+              - "ReadWriteOnce"
+            resources:
+              requests:
+                storage: "10Gi"
+            storageClassName: "standard"
+            volumeMode: "Filesystem"
+          status:
+            phase: "Pending"
+    status:
+      availableReplicas: 0
+      collisionCount: 0
+      currentReplicas: 1
+      currentRevision: "tempo-6977b44fb9"
+      observedGeneration: 1
+      replicas: 1
+      updateRevision: "tempo-6977b44fb9"
+      updatedReplicas: 1
+  -
+    apiVersion: "networking.k8s.io/v1"
+    kind: "Ingress"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"Ingress\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"tempo\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"tempo\",\"app.kubernetes.io/version\":\"2.9.0\",\"helm.sh/chart\":\"tempo-1.24.4\"},\"name\":\"tempo\",\"namespace\":\"tempo\"},\"spec\":{\"ingressClassName\":\"nginx\",\"rules\":[{\"host\":\"query.tempo.example.com\",\"http\":{\"paths\":[{\"backend\":{\"service\":{\"name\":\"tempo\",\"port\":{\"number\":16686}}},\"path\":\"/\",\"pathType\":\"Prefix\"}]}}]}}\n"
+      creationTimestamp: "2026-06-11T16:29:01Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "tempo"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "tempo"
+        app.kubernetes.io/version: "2.9.0"
+        helm.sh/chart: "tempo-1.24.4"
+      name: "tempo"
+      namespace: "tempo"
+      resourceVersion: "2933"
+      uid: "b8cfcf49-cfc5-48bf-af5c-2bb2c1561998"
+    spec:
+      ingressClassName: "nginx"
+      rules:
+        -
+          host: "query.tempo.example.com"
+          http:
+            paths:
+              -
+                backend:
+                  service:
+                    name: "tempo"
+                    port:
+                      number: 16686
+                path: "/"
+                pathType: "Prefix"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "monitoring.coreos.com/v1"
+    kind: "ServiceMonitor"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"monitoring.coreos.com/v1\",\"kind\":\"ServiceMonitor\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"tempo\",\"chart\":\"tempo-1.24.4\",\"heritage\":\"Helm\"},\"name\":\"tempo\",\"namespace\":\"tempo\"},\"spec\":{\"endpoints\":[{\"port\":\"tempo-prom-metrics\"},{\"port\":\"jaeger-metrics\"}],\"namespaceSelector\":{\"matchNames\":[\"tempo\"]},\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"tempo\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"tempo\",\"app.kubernetes.io/version\":\"2.9.0\",\"helm.sh/chart\":\"tempo-1.24.4\"}}}}\n"
+      creationTimestamp: "2026-06-11T16:29:01Z"
+      generation: 1
+      labels:
+        app: "tempo"
+        chart: "tempo-1.24.4"
+        heritage: "Helm"
+      name: "tempo"
+      namespace: "tempo"
+      resourceVersion: "2935"
+      uid: "f422f022-314d-4833-bf49-b0d9eb6755cd"
+    spec:
+      endpoints:
+        -
+          port: "tempo-prom-metrics"
+        -
+          port: "jaeger-metrics"
+      namespaceSelector:
+        matchNames:
+          - "tempo"
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "tempo"
+          app.kubernetes.io/managed-by: "Helm"
+          app.kubernetes.io/name: "tempo"
+          app.kubernetes.io/version: "2.9.0"
+          helm.sh/chart: "tempo-1.24.4"
+kind: "List"
+metadata:
+  resourceVersion: ""

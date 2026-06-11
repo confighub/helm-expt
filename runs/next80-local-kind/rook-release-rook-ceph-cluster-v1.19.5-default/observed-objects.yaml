@@ -1,6 +1,813 @@
 apiVersion: "v1"
 items:
   -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/created-by\":\"helm\",\"app.kubernetes.io/instance\":\"rook-ceph-cluster\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rook-ceph\",\"app.kubernetes.io/part-of\":\"rook-ceph-operator\",\"app.kubernetes.io/version\":\"v1.19.5\",\"helm.sh/chart\":\"rook-ceph-cluster-v1.19.5\",\"operator\":\"rook\",\"storage-backend\":\"ceph\"},\"name\":\"rook-ceph-osd\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T16:36:48Z"
+      labels:
+        app.kubernetes.io/created-by: "helm"
+        app.kubernetes.io/instance: "rook-ceph-cluster"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rook-ceph"
+        app.kubernetes.io/part-of: "rook-ceph-operator"
+        app.kubernetes.io/version: "v1.19.5"
+        helm.sh/chart: "rook-ceph-cluster-v1.19.5"
+        operator: "rook"
+        storage-backend: "ceph"
+      name: "rook-ceph-osd"
+      namespace: "default"
+      resourceVersion: "3885"
+      uid: "34a1b5c9-6119-4b94-95ea-bd5b69345909"
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/created-by\":\"helm\",\"app.kubernetes.io/instance\":\"rook-ceph-cluster\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rook-ceph\",\"app.kubernetes.io/part-of\":\"rook-ceph-operator\",\"app.kubernetes.io/version\":\"v1.19.5\",\"helm.sh/chart\":\"rook-ceph-cluster-v1.19.5\",\"operator\":\"rook\",\"storage-backend\":\"ceph\"},\"name\":\"rook-ceph-mgr\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T16:36:48Z"
+      labels:
+        app.kubernetes.io/created-by: "helm"
+        app.kubernetes.io/instance: "rook-ceph-cluster"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rook-ceph"
+        app.kubernetes.io/part-of: "rook-ceph-operator"
+        app.kubernetes.io/version: "v1.19.5"
+        helm.sh/chart: "rook-ceph-cluster-v1.19.5"
+        operator: "rook"
+        storage-backend: "ceph"
+      name: "rook-ceph-mgr"
+      namespace: "default"
+      resourceVersion: "3886"
+      uid: "376d2f89-a166-42b7-adc9-c6921096a8f2"
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/created-by\":\"helm\",\"app.kubernetes.io/instance\":\"rook-ceph-cluster\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rook-ceph\",\"app.kubernetes.io/part-of\":\"rook-ceph-operator\",\"app.kubernetes.io/version\":\"v1.19.5\",\"helm.sh/chart\":\"rook-ceph-cluster-v1.19.5\",\"operator\":\"rook\",\"storage-backend\":\"ceph\"},\"name\":\"rook-ceph-cmd-reporter\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T16:36:48Z"
+      labels:
+        app.kubernetes.io/created-by: "helm"
+        app.kubernetes.io/instance: "rook-ceph-cluster"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rook-ceph"
+        app.kubernetes.io/part-of: "rook-ceph-operator"
+        app.kubernetes.io/version: "v1.19.5"
+        helm.sh/chart: "rook-ceph-cluster-v1.19.5"
+        operator: "rook"
+        storage-backend: "ceph"
+      name: "rook-ceph-cmd-reporter"
+      namespace: "default"
+      resourceVersion: "3887"
+      uid: "e9cef92a-fe76-40be-a3e2-f6e76f1318bd"
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/created-by\":\"helm\",\"app.kubernetes.io/instance\":\"rook-ceph-cluster\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rook-ceph\",\"app.kubernetes.io/part-of\":\"rook-ceph-operator\",\"app.kubernetes.io/version\":\"v1.19.5\",\"helm.sh/chart\":\"rook-ceph-cluster-v1.19.5\",\"operator\":\"rook\",\"storage-backend\":\"ceph\"},\"name\":\"rook-ceph-purge-osd\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T16:36:48Z"
+      labels:
+        app.kubernetes.io/created-by: "helm"
+        app.kubernetes.io/instance: "rook-ceph-cluster"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rook-ceph"
+        app.kubernetes.io/part-of: "rook-ceph-operator"
+        app.kubernetes.io/version: "v1.19.5"
+        helm.sh/chart: "rook-ceph-cluster-v1.19.5"
+        operator: "rook"
+        storage-backend: "ceph"
+      name: "rook-ceph-purge-osd"
+      namespace: "default"
+      resourceVersion: "3888"
+      uid: "713a888d-b875-4a58-a797-b21a47d0d64e"
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/created-by\":\"helm\",\"app.kubernetes.io/instance\":\"rook-ceph-cluster\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rook-ceph\",\"app.kubernetes.io/part-of\":\"rook-ceph-operator\",\"app.kubernetes.io/version\":\"v1.19.5\",\"helm.sh/chart\":\"rook-ceph-cluster-v1.19.5\",\"operator\":\"rook\",\"storage-backend\":\"ceph\"},\"name\":\"rook-ceph-rgw\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T16:36:48Z"
+      labels:
+        app.kubernetes.io/created-by: "helm"
+        app.kubernetes.io/instance: "rook-ceph-cluster"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rook-ceph"
+        app.kubernetes.io/part-of: "rook-ceph-operator"
+        app.kubernetes.io/version: "v1.19.5"
+        helm.sh/chart: "rook-ceph-cluster-v1.19.5"
+        operator: "rook"
+        storage-backend: "ceph"
+      name: "rook-ceph-rgw"
+      namespace: "default"
+      resourceVersion: "3889"
+      uid: "3c6b0524-5a42-4470-8aa4-b4efc8723e9c"
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/created-by\":\"helm\",\"app.kubernetes.io/instance\":\"rook-ceph-cluster\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rook-ceph\",\"app.kubernetes.io/part-of\":\"rook-ceph-operator\",\"app.kubernetes.io/version\":\"v1.19.5\",\"helm.sh/chart\":\"rook-ceph-cluster-v1.19.5\",\"operator\":\"rook\",\"storage-backend\":\"ceph\"},\"name\":\"rook-ceph-default\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T16:36:48Z"
+      labels:
+        app.kubernetes.io/created-by: "helm"
+        app.kubernetes.io/instance: "rook-ceph-cluster"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rook-ceph"
+        app.kubernetes.io/part-of: "rook-ceph-operator"
+        app.kubernetes.io/version: "v1.19.5"
+        helm.sh/chart: "rook-ceph-cluster-v1.19.5"
+        operator: "rook"
+        storage-backend: "ceph"
+      name: "rook-ceph-default"
+      namespace: "default"
+      resourceVersion: "3890"
+      uid: "7d730284-3871-4c39-a47a-22b07cdb238a"
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/created-by\":\"helm\",\"app.kubernetes.io/instance\":\"rook-ceph-cluster\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rook-ceph\",\"app.kubernetes.io/part-of\":\"rook-ceph-operator\",\"app.kubernetes.io/version\":\"v1.19.5\",\"helm.sh/chart\":\"rook-ceph-cluster-v1.19.5\",\"operator\":\"rook\",\"storage-backend\":\"ceph\"},\"name\":\"rook-ceph-nvmeof\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T16:36:48Z"
+      labels:
+        app.kubernetes.io/created-by: "helm"
+        app.kubernetes.io/instance: "rook-ceph-cluster"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rook-ceph"
+        app.kubernetes.io/part-of: "rook-ceph-operator"
+        app.kubernetes.io/version: "v1.19.5"
+        helm.sh/chart: "rook-ceph-cluster-v1.19.5"
+        operator: "rook"
+        storage-backend: "ceph"
+      name: "rook-ceph-nvmeof"
+      namespace: "default"
+      resourceVersion: "3891"
+      uid: "b755fa5a-7fe0-4bea-b4bb-5f46a43c64f4"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/created-by\":\"helm\",\"app.kubernetes.io/instance\":\"rook-ceph-cluster\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rook-ceph\",\"app.kubernetes.io/part-of\":\"rook-ceph-operator\",\"app.kubernetes.io/version\":\"v1.19.5\",\"helm.sh/chart\":\"rook-ceph-cluster-v1.19.5\",\"operator\":\"rook\",\"storage-backend\":\"ceph\"},\"name\":\"rook-ceph-osd\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"get\",\"update\"]},{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"delete\"]},{\"apiGroups\":[\"ceph.rook.io\"],\"resources\":[\"cephclusters\",\"cephclusters/finalizers\"],\"verbs\":[\"get\",\"list\",\"create\",\"update\",\"delete\"]}]}\n"
+      creationTimestamp: "2026-06-11T16:36:48Z"
+      labels:
+        app.kubernetes.io/created-by: "helm"
+        app.kubernetes.io/instance: "rook-ceph-cluster"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rook-ceph"
+        app.kubernetes.io/part-of: "rook-ceph-operator"
+        app.kubernetes.io/version: "v1.19.5"
+        helm.sh/chart: "rook-ceph-cluster-v1.19.5"
+        operator: "rook"
+        storage-backend: "ceph"
+      name: "rook-ceph-osd"
+      namespace: "default"
+      resourceVersion: "3892"
+      uid: "8890e5b8-0f6c-4a38-899f-5726bfad9d55"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "get"
+          - "update"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "delete"
+      -
+        apiGroups:
+          - "ceph.rook.io"
+        resources:
+          - "cephclusters"
+          - "cephclusters/finalizers"
+        verbs:
+          - "get"
+          - "list"
+          - "create"
+          - "update"
+          - "delete"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/created-by\":\"helm\",\"app.kubernetes.io/instance\":\"rook-ceph-cluster\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rook-ceph\",\"app.kubernetes.io/part-of\":\"rook-ceph-operator\",\"app.kubernetes.io/version\":\"v1.19.5\",\"helm.sh/chart\":\"rook-ceph-cluster-v1.19.5\",\"operator\":\"rook\",\"storage-backend\":\"ceph\"},\"name\":\"rook-ceph-mgr\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"pods\",\"services\",\"pods/log\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"delete\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"jobs\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"delete\"]},{\"apiGroups\":[\"ceph.rook.io\"],\"resources\":[\"cephclients\",\"cephclusters\",\"cephclusters/finalizers\",\"cephblockpools\",\"cephfilesystems\",\"cephnfses\",\"cephnvmeofgateways\",\"cephobjectstores\",\"cephobjectstoreusers\",\"cephobjectrealms\",\"cephobjectzonegroups\",\"cephobjectzones\",\"cephbuckettopics\",\"cephbucketnotifications\",\"cephrbdmirrors\",\"cephfilesystemmirrors\",\"cephfilesystemsubvolumegroups\",\"cephblockpoolradosnamespaces\",\"cephcosidrivers\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"delete\",\"patch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"deployments/scale\",\"deployments\"],\"verbs\":[\"patch\",\"delete\"]},{\"apiGroups\":[\"\"],\"resources\":[\"persistentvolumeclaims\"],\"verbs\":[\"delete\"]}]}\n"
+      creationTimestamp: "2026-06-11T16:36:48Z"
+      labels:
+        app.kubernetes.io/created-by: "helm"
+        app.kubernetes.io/instance: "rook-ceph-cluster"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rook-ceph"
+        app.kubernetes.io/part-of: "rook-ceph-operator"
+        app.kubernetes.io/version: "v1.19.5"
+        helm.sh/chart: "rook-ceph-cluster-v1.19.5"
+        operator: "rook"
+        storage-backend: "ceph"
+      name: "rook-ceph-mgr"
+      namespace: "default"
+      resourceVersion: "3893"
+      uid: "cf34afb2-7988-4c49-8685-9b9fbaf3f050"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+          - "services"
+          - "pods/log"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "delete"
+      -
+        apiGroups:
+          - "batch"
+        resources:
+          - "jobs"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "delete"
+      -
+        apiGroups:
+          - "ceph.rook.io"
+        resources:
+          - "cephclients"
+          - "cephclusters"
+          - "cephclusters/finalizers"
+          - "cephblockpools"
+          - "cephfilesystems"
+          - "cephnfses"
+          - "cephnvmeofgateways"
+          - "cephobjectstores"
+          - "cephobjectstoreusers"
+          - "cephobjectrealms"
+          - "cephobjectzonegroups"
+          - "cephobjectzones"
+          - "cephbuckettopics"
+          - "cephbucketnotifications"
+          - "cephrbdmirrors"
+          - "cephfilesystemmirrors"
+          - "cephfilesystemsubvolumegroups"
+          - "cephblockpoolradosnamespaces"
+          - "cephcosidrivers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "delete"
+          - "patch"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "deployments/scale"
+          - "deployments"
+        verbs:
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "persistentvolumeclaims"
+        verbs:
+          - "delete"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/created-by\":\"helm\",\"app.kubernetes.io/instance\":\"rook-ceph-cluster\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rook-ceph\",\"app.kubernetes.io/part-of\":\"rook-ceph-operator\",\"app.kubernetes.io/version\":\"v1.19.5\",\"helm.sh/chart\":\"rook-ceph-cluster-v1.19.5\",\"operator\":\"rook\",\"storage-backend\":\"ceph\"},\"name\":\"rook-ceph-cmd-reporter\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"pods\",\"configmaps\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"delete\"]}]}\n"
+      creationTimestamp: "2026-06-11T16:36:48Z"
+      labels:
+        app.kubernetes.io/created-by: "helm"
+        app.kubernetes.io/instance: "rook-ceph-cluster"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rook-ceph"
+        app.kubernetes.io/part-of: "rook-ceph-operator"
+        app.kubernetes.io/version: "v1.19.5"
+        helm.sh/chart: "rook-ceph-cluster-v1.19.5"
+        operator: "rook"
+        storage-backend: "ceph"
+      name: "rook-ceph-cmd-reporter"
+      namespace: "default"
+      resourceVersion: "3894"
+      uid: "e3ad3de1-b135-4d08-b208-ab0f8284da3c"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+          - "configmaps"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "delete"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/created-by\":\"helm\",\"app.kubernetes.io/instance\":\"rook-ceph-cluster\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rook-ceph\",\"app.kubernetes.io/part-of\":\"rook-ceph-operator\",\"app.kubernetes.io/version\":\"v1.19.5\",\"helm.sh/chart\":\"rook-ceph-cluster-v1.19.5\",\"operator\":\"rook\",\"storage-backend\":\"ceph\"},\"name\":\"rook-ceph-purge-osd\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\"],\"verbs\":[\"get\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"deployments\"],\"verbs\":[\"get\",\"delete\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"jobs\"],\"verbs\":[\"get\",\"list\",\"delete\"]},{\"apiGroups\":[\"\"],\"resources\":[\"persistentvolumeclaims\"],\"verbs\":[\"get\",\"update\",\"delete\",\"list\"]}]}\n"
+      creationTimestamp: "2026-06-11T16:36:48Z"
+      labels:
+        app.kubernetes.io/created-by: "helm"
+        app.kubernetes.io/instance: "rook-ceph-cluster"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rook-ceph"
+        app.kubernetes.io/part-of: "rook-ceph-operator"
+        app.kubernetes.io/version: "v1.19.5"
+        helm.sh/chart: "rook-ceph-cluster-v1.19.5"
+        operator: "rook"
+        storage-backend: "ceph"
+      name: "rook-ceph-purge-osd"
+      namespace: "default"
+      resourceVersion: "3895"
+      uid: "3b115b5c-e9f6-4ed7-be89-e7779c79bbf1"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+        verbs:
+          - "get"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "deployments"
+        verbs:
+          - "get"
+          - "delete"
+      -
+        apiGroups:
+          - "batch"
+        resources:
+          - "jobs"
+        verbs:
+          - "get"
+          - "list"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "persistentvolumeclaims"
+        verbs:
+          - "get"
+          - "update"
+          - "delete"
+          - "list"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/created-by\":\"helm\",\"app.kubernetes.io/instance\":\"rook-ceph-cluster\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rook-ceph\",\"app.kubernetes.io/part-of\":\"rook-ceph-operator\",\"app.kubernetes.io/version\":\"v1.19.5\",\"helm.sh/chart\":\"rook-ceph-cluster-v1.19.5\",\"operator\":\"rook\",\"storage-backend\":\"ceph\"},\"name\":\"rook-ceph-cluster-mgmt\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"rook-ceph-cluster-mgmt\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"rook-ceph-system\",\"namespace\":\"rook-ceph\"}]}\n"
+      creationTimestamp: "2026-06-11T16:36:48Z"
+      labels:
+        app.kubernetes.io/created-by: "helm"
+        app.kubernetes.io/instance: "rook-ceph-cluster"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rook-ceph"
+        app.kubernetes.io/part-of: "rook-ceph-operator"
+        app.kubernetes.io/version: "v1.19.5"
+        helm.sh/chart: "rook-ceph-cluster-v1.19.5"
+        operator: "rook"
+        storage-backend: "ceph"
+      name: "rook-ceph-cluster-mgmt"
+      namespace: "default"
+      resourceVersion: "3896"
+      uid: "6d579534-482f-47cd-ad4b-0fcfbb192cc4"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "rook-ceph-cluster-mgmt"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "rook-ceph-system"
+        namespace: "rook-ceph"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/created-by\":\"helm\",\"app.kubernetes.io/instance\":\"rook-ceph-cluster\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rook-ceph\",\"app.kubernetes.io/part-of\":\"rook-ceph-operator\",\"app.kubernetes.io/version\":\"v1.19.5\",\"helm.sh/chart\":\"rook-ceph-cluster-v1.19.5\",\"operator\":\"rook\",\"storage-backend\":\"ceph\"},\"name\":\"rook-ceph-osd\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"rook-ceph-osd\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"rook-ceph-osd\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T16:36:48Z"
+      labels:
+        app.kubernetes.io/created-by: "helm"
+        app.kubernetes.io/instance: "rook-ceph-cluster"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rook-ceph"
+        app.kubernetes.io/part-of: "rook-ceph-operator"
+        app.kubernetes.io/version: "v1.19.5"
+        helm.sh/chart: "rook-ceph-cluster-v1.19.5"
+        operator: "rook"
+        storage-backend: "ceph"
+      name: "rook-ceph-osd"
+      namespace: "default"
+      resourceVersion: "3897"
+      uid: "05f5a9cc-6203-4ba8-ab0a-454e14895deb"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "rook-ceph-osd"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "rook-ceph-osd"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/created-by\":\"helm\",\"app.kubernetes.io/instance\":\"rook-ceph-cluster\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rook-ceph\",\"app.kubernetes.io/part-of\":\"rook-ceph-operator\",\"app.kubernetes.io/version\":\"v1.19.5\",\"helm.sh/chart\":\"rook-ceph-cluster-v1.19.5\",\"operator\":\"rook\",\"storage-backend\":\"ceph\"},\"name\":\"rook-ceph-mgr\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"rook-ceph-mgr\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"rook-ceph-mgr\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T16:36:48Z"
+      labels:
+        app.kubernetes.io/created-by: "helm"
+        app.kubernetes.io/instance: "rook-ceph-cluster"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rook-ceph"
+        app.kubernetes.io/part-of: "rook-ceph-operator"
+        app.kubernetes.io/version: "v1.19.5"
+        helm.sh/chart: "rook-ceph-cluster-v1.19.5"
+        operator: "rook"
+        storage-backend: "ceph"
+      name: "rook-ceph-mgr"
+      namespace: "default"
+      resourceVersion: "3898"
+      uid: "c447eb75-65d1-4a5a-bba4-fcfa969c7097"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "rook-ceph-mgr"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "rook-ceph-mgr"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/created-by\":\"helm\",\"app.kubernetes.io/instance\":\"rook-ceph-cluster\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rook-ceph\",\"app.kubernetes.io/part-of\":\"rook-ceph-operator\",\"app.kubernetes.io/version\":\"v1.19.5\",\"helm.sh/chart\":\"rook-ceph-cluster-v1.19.5\",\"operator\":\"rook\",\"storage-backend\":\"ceph\"},\"name\":\"rook-ceph-mgr-system-default\",\"namespace\":\"rook-ceph\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"rook-ceph-mgr-system\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"rook-ceph-mgr\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T16:36:48Z"
+      labels:
+        app.kubernetes.io/created-by: "helm"
+        app.kubernetes.io/instance: "rook-ceph-cluster"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rook-ceph"
+        app.kubernetes.io/part-of: "rook-ceph-operator"
+        app.kubernetes.io/version: "v1.19.5"
+        helm.sh/chart: "rook-ceph-cluster-v1.19.5"
+        operator: "rook"
+        storage-backend: "ceph"
+      name: "rook-ceph-mgr-system-default"
+      namespace: "rook-ceph"
+      resourceVersion: "3899"
+      uid: "e8d03c36-6d07-4c7d-92ff-521d73d6fd8c"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "rook-ceph-mgr-system"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "rook-ceph-mgr"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/created-by\":\"helm\",\"app.kubernetes.io/instance\":\"rook-ceph-cluster\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rook-ceph\",\"app.kubernetes.io/part-of\":\"rook-ceph-operator\",\"app.kubernetes.io/version\":\"v1.19.5\",\"helm.sh/chart\":\"rook-ceph-cluster-v1.19.5\",\"operator\":\"rook\",\"storage-backend\":\"ceph\"},\"name\":\"rook-ceph-cmd-reporter\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"rook-ceph-cmd-reporter\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"rook-ceph-cmd-reporter\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T16:36:48Z"
+      labels:
+        app.kubernetes.io/created-by: "helm"
+        app.kubernetes.io/instance: "rook-ceph-cluster"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rook-ceph"
+        app.kubernetes.io/part-of: "rook-ceph-operator"
+        app.kubernetes.io/version: "v1.19.5"
+        helm.sh/chart: "rook-ceph-cluster-v1.19.5"
+        operator: "rook"
+        storage-backend: "ceph"
+      name: "rook-ceph-cmd-reporter"
+      namespace: "default"
+      resourceVersion: "3900"
+      uid: "25e59586-490a-49de-b995-83fae72b321b"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "rook-ceph-cmd-reporter"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "rook-ceph-cmd-reporter"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/created-by\":\"helm\",\"app.kubernetes.io/instance\":\"rook-ceph-cluster\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rook-ceph\",\"app.kubernetes.io/part-of\":\"rook-ceph-operator\",\"app.kubernetes.io/version\":\"v1.19.5\",\"helm.sh/chart\":\"rook-ceph-cluster-v1.19.5\",\"operator\":\"rook\",\"storage-backend\":\"ceph\"},\"name\":\"rook-ceph-purge-osd\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"rook-ceph-purge-osd\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"rook-ceph-purge-osd\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T16:36:48Z"
+      labels:
+        app.kubernetes.io/created-by: "helm"
+        app.kubernetes.io/instance: "rook-ceph-cluster"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "rook-ceph"
+        app.kubernetes.io/part-of: "rook-ceph-operator"
+        app.kubernetes.io/version: "v1.19.5"
+        helm.sh/chart: "rook-ceph-cluster-v1.19.5"
+        operator: "rook"
+        storage-backend: "ceph"
+      name: "rook-ceph-purge-osd"
+      namespace: "default"
+      resourceVersion: "3901"
+      uid: "eaba394f-7392-4022-a522-67ef98c830ba"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "rook-ceph-purge-osd"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "rook-ceph-purge-osd"
+        namespace: "default"
+  -
+    apiVersion: "ceph.rook.io/v1"
+    kind: "CephBlockPool"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"ceph.rook.io/v1\",\"kind\":\"CephBlockPool\",\"metadata\":{\"annotations\":{},\"name\":\"ceph-blockpool\",\"namespace\":\"default\"},\"spec\":{\"failureDomain\":\"host\",\"replicated\":{\"size\":3}}}\n"
+      creationTimestamp: "2026-06-11T16:36:48Z"
+      generation: 1
+      name: "ceph-blockpool"
+      namespace: "default"
+      resourceVersion: "3902"
+      uid: "33201cd0-6dd4-4a89-8c80-fae9aac63625"
+    spec:
+      failureDomain: "host"
+      replicated:
+        size: 3
+  -
+    apiVersion: "ceph.rook.io/v1"
+    kind: "CephCluster"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"ceph.rook.io/v1\",\"kind\":\"CephCluster\",\"metadata\":{\"annotations\":{},\"name\":\"default\",\"namespace\":\"default\"},\"spec\":{\"cephVersion\":{\"allowUnsupported\":false,\"image\":\"quay.io/ceph/ceph:v19.2.3\"},\"cleanupPolicy\":{\"allowUninstallWithVolumes\":false,\"confirmation\":\"\",\"sanitizeDisks\":{\"dataSource\":\"zero\",\"iteration\":1,\"method\":\"quick\"}},\"continueUpgradeAfterChecksEvenIfNotHealthy\":false,\"crashCollector\":{\"disable\":false},\"dashboard\":{\"enabled\":true,\"ssl\":true},\"dataDirHostPath\":\"/var/lib/rook\",\"disruptionManagement\":{\"managePodBudgets\":true,\"osdMaintenanceTimeout\":30},\"healthCheck\":{\"daemonHealth\":{\"mon\":{\"disabled\":false,\"interval\":\"45s\"},\"osd\":{\"disabled\":false,\"interval\":\"60s\"},\"status\":{\"disabled\":false,\"interval\":\"60s\"}},\"livenessProbe\":{\"mgr\":{\"disabled\":false},\"mon\":{\"disabled\":false},\"osd\":{\"disabled\":false}}},\"logCollector\":{\"enabled\":true,\"maxLogSize\":\"500M\",\"periodicity\":\"daily\"},\"mgr\":{\"allowMultiplePerNode\":false,\"count\":2,\"modules\":null},\"mon\":{\"allowMultiplePerNode\":false,\"count\":3},\"monitoring\":{\"enabled\":false},\"network\":{\"connections\":{\"compression\":{\"enabled\":false},\"encryption\":{\"enabled\":false},\"requireMsgr2\":false}},\"priorityClassNames\":{\"mgr\":\"system-cluster-critical\",\"mon\":\"system-node-critical\",\"osd\":\"system-node-critical\"},\"removeOSDsIfOutAndSafeToRemove\":false,\"resources\":{\"cleanup\":{\"limits\":{\"memory\":\"1Gi\"},\"requests\":{\"cpu\":\"500m\",\"memory\":\"100Mi\"}},\"crashcollector\":{\"limits\":{\"memory\":\"60Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"60Mi\"}},\"exporter\":{\"limits\":{\"memory\":\"128Mi\"},\"requests\":{\"cpu\":\"50m\",\"memory\":\"50Mi\"}},\"logcollector\":{\"limits\":{\"memory\":\"1Gi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"100Mi\"}},\"mgr\":{\"limits\":{\"memory\":\"1Gi\"},\"requests\":{\"cpu\":\"500m\",\"memory\":\"512Mi\"}},\"mgr-sidecar\":{\"limits\":{\"memory\":\"100Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"40Mi\"}},\"mon\":{\"limits\":{\"memory\":\"2Gi\"},\"requests\":{\"cpu\":\"1000m\",\"memory\":\"1Gi\"}},\"osd\":{\"limits\":{\"memory\":\"4Gi\"},\"requests\":{\"cpu\":\"1000m\",\"memory\":\"4Gi\"}},\"prepareosd\":{\"requests\":{\"cpu\":\"500m\",\"memory\":\"50Mi\"}}},\"skipUpgradeChecks\":false,\"storage\":{\"useAllDevices\":true,\"useAllNodes\":true},\"upgradeOSDRequiresHealthyPGs\":false,\"waitTimeoutForHealthyOSDInMinutes\":10}}\n"
+      creationTimestamp: "2026-06-11T16:36:48Z"
+      generation: 1
+      name: "default"
+      namespace: "default"
+      resourceVersion: "3903"
+      uid: "9409e715-167d-48d8-b8ab-911ee8ce1f63"
+    spec:
+      cephVersion:
+        allowUnsupported: false
+        image: "quay.io/ceph/ceph:v19.2.3"
+      cleanupPolicy:
+        allowUninstallWithVolumes: false
+        confirmation: ""
+        sanitizeDisks:
+          dataSource: "zero"
+          iteration: 1
+          method: "quick"
+      continueUpgradeAfterChecksEvenIfNotHealthy: false
+      crashCollector:
+        disable: false
+      dashboard:
+        enabled: true
+        ssl: true
+      dataDirHostPath: "/var/lib/rook"
+      disruptionManagement:
+        managePodBudgets: true
+        osdMaintenanceTimeout: 30
+      healthCheck:
+        daemonHealth:
+          mon:
+            disabled: false
+            interval: "45s"
+          osd:
+            disabled: false
+            interval: "60s"
+          status:
+            disabled: false
+            interval: "60s"
+        livenessProbe:
+          mgr:
+            disabled: false
+          mon:
+            disabled: false
+          osd:
+            disabled: false
+      logCollector:
+        enabled: true
+        maxLogSize: "500M"
+        periodicity: "daily"
+      mgr:
+        allowMultiplePerNode: false
+        count: 2
+      mon:
+        allowMultiplePerNode: false
+        count: 3
+      monitoring:
+        enabled: false
+      network:
+        connections:
+          compression:
+            enabled: false
+          encryption:
+            enabled: false
+          requireMsgr2: false
+      priorityClassNames:
+        mgr: "system-cluster-critical"
+        mon: "system-node-critical"
+        osd: "system-node-critical"
+      removeOSDsIfOutAndSafeToRemove: false
+      resources:
+        cleanup:
+          limits:
+            memory: "1Gi"
+          requests:
+            cpu: "500m"
+            memory: "100Mi"
+        crashcollector:
+          limits:
+            memory: "60Mi"
+          requests:
+            cpu: "100m"
+            memory: "60Mi"
+        exporter:
+          limits:
+            memory: "128Mi"
+          requests:
+            cpu: "50m"
+            memory: "50Mi"
+        logcollector:
+          limits:
+            memory: "1Gi"
+          requests:
+            cpu: "100m"
+            memory: "100Mi"
+        mgr:
+          limits:
+            memory: "1Gi"
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
+        mgr-sidecar:
+          limits:
+            memory: "100Mi"
+          requests:
+            cpu: "100m"
+            memory: "40Mi"
+        mon:
+          limits:
+            memory: "2Gi"
+          requests:
+            cpu: "1000m"
+            memory: "1Gi"
+        osd:
+          limits:
+            memory: "4Gi"
+          requests:
+            cpu: "1000m"
+            memory: "4Gi"
+        prepareosd:
+          requests:
+            cpu: "500m"
+            memory: "50Mi"
+      skipUpgradeChecks: false
+      storage:
+        useAllDevices: true
+        useAllNodes: true
+      upgradeOSDRequiresHealthyPGs: false
+      waitTimeoutForHealthyOSDInMinutes: 10
+  -
+    apiVersion: "ceph.rook.io/v1"
+    kind: "CephFilesystem"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"ceph.rook.io/v1\",\"kind\":\"CephFilesystem\",\"metadata\":{\"annotations\":{},\"name\":\"ceph-filesystem\",\"namespace\":\"default\"},\"spec\":{\"dataPools\":[{\"failureDomain\":\"host\",\"name\":\"data0\",\"replicated\":{\"size\":3}}],\"metadataPool\":{\"replicated\":{\"size\":3}},\"metadataServer\":{\"activeCount\":1,\"activeStandby\":true,\"priorityClassName\":\"system-cluster-critical\",\"resources\":{\"limits\":{\"memory\":\"4Gi\"},\"requests\":{\"cpu\":\"1000m\",\"memory\":\"4Gi\"}}}}}\n"
+      creationTimestamp: "2026-06-11T16:36:48Z"
+      generation: 1
+      name: "ceph-filesystem"
+      namespace: "default"
+      resourceVersion: "3904"
+      uid: "b6707d74-7f68-499d-bd47-9fab37884c50"
+    spec:
+      dataPools:
+        -
+          failureDomain: "host"
+          name: "data0"
+          replicated:
+            size: 3
+      metadataPool:
+        replicated:
+          size: 3
+      metadataServer:
+        activeCount: 1
+        activeStandby: true
+        priorityClassName: "system-cluster-critical"
+        resources:
+          limits:
+            memory: "4Gi"
+          requests:
+            cpu: "1000m"
+            memory: "4Gi"
+  -
+    apiVersion: "ceph.rook.io/v1"
+    kind: "CephFilesystemSubVolumeGroup"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"ceph.rook.io/v1\",\"kind\":\"CephFilesystemSubVolumeGroup\",\"metadata\":{\"annotations\":{},\"name\":\"ceph-filesystem-csi\",\"namespace\":\"default\"},\"spec\":{\"filesystemName\":\"ceph-filesystem\",\"name\":\"csi\",\"pinning\":{\"distributed\":1}}}\n"
+      creationTimestamp: "2026-06-11T16:36:48Z"
+      generation: 1
+      name: "ceph-filesystem-csi"
+      namespace: "default"
+      resourceVersion: "3905"
+      uid: "def5578c-53bb-4ad1-951f-57dfed19f45f"
+    spec:
+      filesystemName: "ceph-filesystem"
+      name: "csi"
+      pinning:
+        distributed: 1
+  -
+    apiVersion: "ceph.rook.io/v1"
+    kind: "CephObjectStore"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"ceph.rook.io/v1\",\"kind\":\"CephObjectStore\",\"metadata\":{\"annotations\":{},\"name\":\"ceph-objectstore\",\"namespace\":\"default\"},\"spec\":{\"dataPool\":{\"erasureCoded\":{\"codingChunks\":1,\"dataChunks\":2},\"failureDomain\":\"host\",\"parameters\":{\"bulk\":\"true\"}},\"gateway\":{\"instances\":1,\"port\":80,\"priorityClassName\":\"system-cluster-critical\",\"resources\":{\"limits\":{\"memory\":\"2Gi\"},\"requests\":{\"cpu\":\"1000m\",\"memory\":\"1Gi\"}}},\"metadataPool\":{\"failureDomain\":\"host\",\"replicated\":{\"size\":3}},\"preservePoolsOnDelete\":true}}\n"
+      creationTimestamp: "2026-06-11T16:36:48Z"
+      generation: 1
+      name: "ceph-objectstore"
+      namespace: "default"
+      resourceVersion: "3906"
+      uid: "d2af2692-58c8-414f-8eb8-de55fcb477aa"
+    spec:
+      dataPool:
+        erasureCoded:
+          codingChunks: 1
+          dataChunks: 2
+        failureDomain: "host"
+        parameters:
+          bulk: "true"
+      gateway:
+        instances: 1
+        port: 80
+        priorityClassName: "system-cluster-critical"
+        resources:
+          limits:
+            memory: "2Gi"
+          requests:
+            cpu: "1000m"
+            memory: "1Gi"
+      metadataPool:
+        failureDomain: "host"
+        replicated:
+          size: 3
+      preservePoolsOnDelete: true
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
     allowVolumeExpansion: true
     apiVersion: "storage.k8s.io/v1"
     kind: "StorageClass"
@@ -8,10 +815,10 @@ items:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"allowVolumeExpansion\":true,\"apiVersion\":\"storage.k8s.io/v1\",\"kind\":\"StorageClass\",\"metadata\":{\"annotations\":{\"storageclass.kubernetes.io/is-default-class\":\"true\"},\"name\":\"ceph-block\"},\"parameters\":{\"clusterID\":\"default\",\"csi.storage.k8s.io/controller-expand-secret-name\":\"rook-csi-rbd-provisioner\",\"csi.storage.k8s.io/controller-expand-secret-namespace\":\"default\",\"csi.storage.k8s.io/controller-publish-secret-name\":\"rook-csi-rbd-provisioner\",\"csi.storage.k8s.io/controller-publish-secret-namespace\":\"default\",\"csi.storage.k8s.io/fstype\":\"ext4\",\"csi.storage.k8s.io/node-stage-secret-name\":\"rook-csi-rbd-node\",\"csi.storage.k8s.io/node-stage-secret-namespace\":\"default\",\"csi.storage.k8s.io/provisioner-secret-name\":\"rook-csi-rbd-provisioner\",\"csi.storage.k8s.io/provisioner-secret-namespace\":\"default\",\"imageFeatures\":\"layering\",\"imageFormat\":\"2\",\"pool\":\"ceph-blockpool\"},\"provisioner\":\"rook-ceph.rbd.csi.ceph.com\",\"reclaimPolicy\":\"Delete\",\"volumeBindingMode\":\"Immediate\"}\n"
         storageclass.kubernetes.io/is-default-class: "true"
-      creationTimestamp: "2026-06-11T13:23:09Z"
+      creationTimestamp: "2026-06-11T16:36:48Z"
       name: "ceph-block"
-      resourceVersion: "498"
-      uid: "8a000ce6-b546-476d-afeb-1d6ce736dbda"
+      resourceVersion: "3907"
+      uid: "014a134b-6d20-4ae7-9c06-247841145646"
     parameters:
       clusterID: "default"
       csi.storage.k8s.io/controller-expand-secret-name: "rook-csi-rbd-provisioner"
@@ -37,10 +844,10 @@ items:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"allowVolumeExpansion\":true,\"apiVersion\":\"storage.k8s.io/v1\",\"kind\":\"StorageClass\",\"metadata\":{\"annotations\":{\"storageclass.kubernetes.io/is-default-class\":\"false\"},\"name\":\"ceph-filesystem\"},\"parameters\":{\"clusterID\":\"default\",\"csi.storage.k8s.io/controller-expand-secret-name\":\"rook-csi-cephfs-provisioner\",\"csi.storage.k8s.io/controller-expand-secret-namespace\":\"default\",\"csi.storage.k8s.io/controller-publish-secret-name\":\"rook-csi-cephfs-provisioner\",\"csi.storage.k8s.io/controller-publish-secret-namespace\":\"default\",\"csi.storage.k8s.io/fstype\":\"ext4\",\"csi.storage.k8s.io/node-stage-secret-name\":\"rook-csi-cephfs-node\",\"csi.storage.k8s.io/node-stage-secret-namespace\":\"default\",\"csi.storage.k8s.io/provisioner-secret-name\":\"rook-csi-cephfs-provisioner\",\"csi.storage.k8s.io/provisioner-secret-namespace\":\"default\",\"fsName\":\"ceph-filesystem\",\"pool\":\"ceph-filesystem-data0\"},\"provisioner\":\"rook-ceph.cephfs.csi.ceph.com\",\"reclaimPolicy\":\"Delete\",\"volumeBindingMode\":\"Immediate\"}\n"
         storageclass.kubernetes.io/is-default-class: "false"
-      creationTimestamp: "2026-06-11T13:23:09Z"
+      creationTimestamp: "2026-06-11T16:36:48Z"
       name: "ceph-filesystem"
-      resourceVersion: "499"
-      uid: "e0a26e03-3708-4390-9427-349c891ae9b0"
+      resourceVersion: "3908"
+      uid: "994f3cb7-08ba-448d-8e33-bddf0ade26fc"
     parameters:
       clusterID: "default"
       csi.storage.k8s.io/controller-expand-secret-name: "rook-csi-cephfs-provisioner"
@@ -63,10 +870,10 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"storage.k8s.io/v1\",\"kind\":\"StorageClass\",\"metadata\":{\"annotations\":{},\"name\":\"ceph-bucket\"},\"parameters\":{\"objectStoreName\":\"ceph-objectstore\",\"objectStoreNamespace\":\"default\",\"region\":\"us-east-1\"},\"provisioner\":\"default.ceph.rook.io/bucket\",\"reclaimPolicy\":\"Delete\",\"volumeBindingMode\":\"Immediate\"}\n"
-      creationTimestamp: "2026-06-11T13:23:09Z"
+      creationTimestamp: "2026-06-11T16:36:48Z"
       name: "ceph-bucket"
-      resourceVersion: "500"
-      uid: "b746206b-ecd4-4787-a768-8cf4c905e176"
+      resourceVersion: "3909"
+      uid: "a77306df-2ccb-448f-80c8-0194d399736f"
     parameters:
       objectStoreName: "ceph-objectstore"
       objectStoreNamespace: "default"
@@ -80,7 +887,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/created-by\":\"helm\",\"app.kubernetes.io/instance\":\"rook-ceph-cluster\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rook-ceph\",\"app.kubernetes.io/part-of\":\"rook-ceph-operator\",\"app.kubernetes.io/version\":\"v1.19.5\",\"helm.sh/chart\":\"rook-ceph-cluster-v1.19.5\",\"operator\":\"rook\",\"storage-backend\":\"ceph\"},\"name\":\"rook-ceph-mgr-cluster-default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"rook-ceph-mgr-cluster\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"rook-ceph-mgr\",\"namespace\":\"default\"}]}\n"
-      creationTimestamp: "2026-06-11T13:23:09Z"
+      creationTimestamp: "2026-06-11T16:36:48Z"
       labels:
         app.kubernetes.io/created-by: "helm"
         app.kubernetes.io/instance: "rook-ceph-cluster"
@@ -92,8 +899,8 @@ items:
         operator: "rook"
         storage-backend: "ceph"
       name: "rook-ceph-mgr-cluster-default"
-      resourceVersion: "501"
-      uid: "a822fb78-643b-4098-a486-200b4db817f7"
+      resourceVersion: "3910"
+      uid: "e66e0439-8cee-4aee-adfc-5349ad8b043c"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "ClusterRole"
@@ -109,7 +916,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/created-by\":\"helm\",\"app.kubernetes.io/instance\":\"rook-ceph-cluster\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"rook-ceph\",\"app.kubernetes.io/part-of\":\"rook-ceph-operator\",\"app.kubernetes.io/version\":\"v1.19.5\",\"helm.sh/chart\":\"rook-ceph-cluster-v1.19.5\",\"operator\":\"rook\",\"storage-backend\":\"ceph\"},\"name\":\"rook-ceph-osd-default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"rook-ceph-osd\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"rook-ceph-osd\",\"namespace\":\"default\"}]}\n"
-      creationTimestamp: "2026-06-11T13:23:09Z"
+      creationTimestamp: "2026-06-11T16:36:48Z"
       labels:
         app.kubernetes.io/created-by: "helm"
         app.kubernetes.io/instance: "rook-ceph-cluster"
@@ -121,8 +928,8 @@ items:
         operator: "rook"
         storage-backend: "ceph"
       name: "rook-ceph-osd-default"
-      resourceVersion: "502"
-      uid: "80beef1b-2c9f-4f37-8e67-70dc8d770c78"
+      resourceVersion: "3911"
+      uid: "ff8be7d3-e4b6-406e-bd8f-e7e231095f50"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "ClusterRole"

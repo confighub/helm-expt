@@ -35,7 +35,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 189 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ | 423 / 7 / 52 / 626 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ | 427 / 7 / 48 / 626 |
 | Variants with the complete core lane set | 20 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -68,7 +68,7 @@ them for width.
 | Chart | Variant | Tier | Quirks | Hooks | R | C | L | G | P | K | Outcome | Prod |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | `aqua/trivy-operator@0.32.1` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | local-live | ⬜ |
-|  | no-crds | next80 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ❌ | render-parity | ⬜ |
+|  | no-crds | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ❌ | local-live | ⬜ |
 | `argo-cd/argo-cd@9.5.15` | default | top20 | — | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
 |  | no-crds | top20 | — | — | ✅ | ⬜ | ❌ | ❌ | ⬜ | ✅ | render-parity | ⬜ |
 | `argo-cd/argo-cd@9.5.17` | default | — | — | — | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
@@ -194,14 +194,14 @@ them for width.
 |  | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac;webhooks` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `kyverno/kyverno@3.8.1` | default | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 |  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-| `kyverno/kyverno-policies@3.8.0` | default | next80 | `lookup;tpl` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+| `kyverno/kyverno-policies@3.8.0` | default | next80 | `lookup;tpl` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `linkerd/linkerd-crds@1.8.0` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `longhorn/longhorn@1.11.2` | default | top20 | `generated-facts;tpl;cluster-rbac` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
 |  | ui-ingress | top20 | `generated-facts;tpl;cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | local-live | ⬜ |
 | `metrics-server/metrics-server@3.13.0` | default | top20 | `lookup;generated-facts;capabilities;cluster-rbac` | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
 |  | external-tls-ca | top20 | `lookup;generated-facts;capabilities;cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | local-live | ⬜ |
 | `minio-operator/operator@7.1.1` | default | next80 | `cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-| `minio-operator/tenant@7.1.1` | default | next80 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+| `minio-operator/tenant@7.1.1` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `nats/nack@0.34.0` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 |  | no-crds | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `nats/nats@2.14.0` | default | next80 | `tpl` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ✅ | local-live | ⬜ |
@@ -239,7 +239,7 @@ them for width.
 | `prometheus-community/prometheus-operator-crds@29.0.0` | default | next80 | `generated-facts;crds` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `prometheus-community/prometheus-pushgateway@3.6.0` | default | next80 | `tpl;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `rook-release/rook-ceph@v1.19.5` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-| `rook-release/rook-ceph-cluster@v1.19.5` | default | next80 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+| `rook-release/rook-ceph-cluster@v1.19.5` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `runix/pgadmin4@1.62.0` | default | next80 | `tpl;capabilities;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `sealed-secrets/sealed-secrets@2.18.6` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 |  | no-crds | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
