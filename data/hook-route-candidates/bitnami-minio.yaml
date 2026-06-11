@@ -43,10 +43,19 @@ spec:
   execution:
     helmHooksExecutedByHarness: false
     runtimeObserved: false
+    rehearsal:
+      path: data/hook-route-candidates/rehearsals/bitnami-minio-provisioning/rehearsal-receipt.yaml
+      result: blocked
+      disposition: route-shape-rendered-live-runtime-blocked
+      reason: pinned chart image tags did not resolve from Docker Hub during
+        the live kind run; desired state applied, but workloads did not become
+        available, so the provisioning Job could not be executed as a
+        meaningful managed action.
   promotionNextStep: Create the recipe with a default base (provisioning off)
-    and a provisioning-enabled base; route the Job as an explicit managed
-    post-install action with a receipt; reuse the same route receipt shape
-    for bitnami/kafka and the thanos-vendored minio; then admit to the
+    and a provisioning-enabled base; select supported image inputs or a newer
+    chart version whose images are pullable; route the Job as an explicit
+    managed post-install action with a receipt; reuse the same route receipt
+    shape for bitnami/kafka and the thanos-vendored minio; then admit to the
     maintained hook queue.
   notClaimed:
     - production readiness
