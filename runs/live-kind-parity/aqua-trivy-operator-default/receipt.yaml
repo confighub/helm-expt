@@ -1,0 +1,189 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: aqua-trivy-operator-0.32.1-default-kind-parity-20260606
+spec:
+  chart: aqua/trivy-operator
+  version: 0.32.1
+  base: default
+  result: pass
+  observedAt: '2026-06-11T09:33:54Z'
+  package:
+    path: packages/aqua/trivy-operator/0.32.1
+  recipe:
+    path: recipes/aqua/trivy-operator/0.32.1
+  variantRevision: recipes/aqua/trivy-operator/0.32.1/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-trivyo-8986a-vyw1-helm
+    installerCluster: hx-trivyo-8986a-vyw1-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-trivyo-8986a-vyw1-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-trivyo-8986a-vyw1-helm" ...
+
+          Deleted nodes: ["hx-trivyo-8986a-vyw1-helm-control-plane"]'
+      - cluster: hx-trivyo-8986a-vyw1-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-trivyo-8986a-vyw1-installer" ...
+
+          Deleted nodes: ["hx-trivyo-8986a-vyw1-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install trivy-operator trivy-operator --repo https://aquasecurity.github.io/helm-charts/
+        --version 0.32.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/aqua-trivy-operator-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25
+      objectCount: 33
+      liveHelmManifestSHA256: 875c8aa838c2841aeda6fbd5ffe95e4f7e2c6a36d64194715bb4039aff0ed492
+      liveHelmManifestObjectCount: 21
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/trivy-operator   1/1   1     1     2m36s'
+        pods: '# default
+
+          scan-vulnerabilityreport-568cd76d54-sw44p   1/1   Running     0     2m29s
+
+          scan-vulnerabilityreport-586849b65-9s54s    0/1   Completed   0     2m29s
+
+          scan-vulnerabilityreport-5f5648c959-5d9dp   1/1   Running     0     2m29s
+
+          scan-vulnerabilityreport-6bcd69df55-46mwh   1/1   Running     0     2m29s
+
+          scan-vulnerabilityreport-6f8c47bfb5-jnk5s   1/1   Running     0     2m29s
+
+          scan-vulnerabilityreport-74b9cf67dd-kcbpb   1/1   Running     0     2m29s
+
+          scan-vulnerabilityreport-7f49d4545b-fpxpq   1/1   Running     0     2m29s
+
+          trivy-operator-7b77959c86-x5f7h             1/1   Running     0     2m36s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/aqua/trivy-operator/0.32.1
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-trivyo-8986a-vyw1-trivy-operator
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 726ebf28413851da2135b35d2426977b513308b7b352db0c8133e44242459241
+      objectCount: 34
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/trivy-operator   1/1   1     1     2m56s'
+        pods: '# default
+
+          scan-vulnerabilityreport-578fc5b667-6kfb2   1/1   Running   0     2m45s
+
+          scan-vulnerabilityreport-595674f4b9-wtdwn   1/1   Running   0     2m45s
+
+          scan-vulnerabilityreport-5cd7867c46-5q7q5   1/1   Running   0     2m45s
+
+          scan-vulnerabilityreport-6f8c47bfb5-6c46x   1/1   Running   0     2m45s
+
+          trivy-operator-7b77959c86-g7spz             1/1   Running   0     2m56s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 33
+      installerObjectCount: 34
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"trivy-operator\" does not exist. Installing it now.\nNAME:\
+      \ trivy-operator\nLAST DEPLOYED: Thu Jun 11 10:34:49 2026\nNAMESPACE: default\n\
+      STATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\n\
+      NOTES:\nYou have installed Trivy Operator in the default namespace.\nIt is configured\
+      \ to discover Kubernetes workloads and resources in\nall namespace(s).\n\nInspect\
+      \ created VulnerabilityReports by:\n\n    kubectl get vulnerabilityreports --all-namespaces\
+      \ -o wide\n\nInspect created ConfigAuditReports by:\n\n    kubectl get configauditreports\
+      \ --all-namespaces -o wide\n\nInspect the work log of trivy-operator by:\n\n\
+      \    kubectl logs -n default deployment/trivy-operator"
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/trivy-operator   1/1   1     1     2m56s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

@@ -1,6 +1,10 @@
 chart,version,base,result,semantic_parity,reason,related_lifecycle_evidence,meaning,receipt
+aqua/trivy-operator,0.32.1,default,pass,pass,,,live parity passed,runs/live-kind-parity/aqua-trivy-operator-default/receipt.yaml
+aqua/trivy-operator,0.32.1,no-crds,blocked,unknown,target-prerequisite: CRDs missing,,inspect receipt,runs/live-kind-parity/aqua-trivy-operator-no-crds/receipt.yaml
 argo-cd/argo-cd,9.5.15,default,pass,pass,,,live parity passed,runs/live-kind-parity/argo-cd-argo-cd-default/receipt.yaml
 argo-cd/argo-cd,9.5.15,no-crds,pass,pass,,,live parity passed,runs/live-kind-parity/argo-cd-argo-cd-no-crds/receipt.yaml
+argo-cd/argo-events,2.4.21,default,pass,pass,,,live parity passed,runs/live-kind-parity/argo-cd-argo-events-default/receipt.yaml
+argo-cd/argo-events,2.4.21,no-crds,pass,pass,,,live parity passed,runs/live-kind-parity/argo-cd-argo-events-no-crds/receipt.yaml
 bitnami/mongodb,19.0.7,existing-secret-replicaset,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml
 bitnami/mongodb,19.0.7,generated-passwords,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml
 bitnami/mysql,14.0.3,existing-secret,pass,pass,,,live parity passed,runs/live-kind-parity/bitnami-mysql-existing-secret/receipt.yaml

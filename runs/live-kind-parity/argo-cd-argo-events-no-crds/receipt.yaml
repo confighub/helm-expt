@@ -1,0 +1,172 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: argo-cd-argo-events-2.4.21-no-crds-kind-parity-20260606
+spec:
+  chart: argo-cd/argo-events
+  version: 2.4.21
+  base: no-crds
+  result: pass
+  observedAt: '2026-06-11T09:47:09Z'
+  package:
+    path: packages/argo-cd/argo-events/2.4.21
+  recipe:
+    path: recipes/argo-cd/argo-events/2.4.21
+  variantRevision: recipes/argo-cd/argo-events/2.4.21/revisions/no-crds/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-argoev-ffb87-d0vp-helm
+    installerCluster: hx-argoev-ffb87-d0vp-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-argoev-ffb87-d0vp-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-argoev-ffb87-d0vp-helm" ...
+
+          Deleted nodes: ["hx-argoev-ffb87-d0vp-helm-control-plane"]'
+      - cluster: hx-argoev-ffb87-d0vp-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-argoev-ffb87-d0vp-installer" ...
+
+          Deleted nodes: ["hx-argoev-ffb87-d0vp-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install argo-events argo-events --repo https://argoproj.github.io/argo-helm
+        --version 2.4.21 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/argo-cd-argo-events-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: 4858a0854eb393c136be157686a7417478ee33c88428452eaa21ad3fed65ad49
+      objectCount: 6
+      liveHelmManifestSHA256: fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b
+      liveHelmManifestObjectCount: 9
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/argo-events-controller-manager   1/1   1     1     30s'
+        pods: '# default
+
+          argo-events-controller-manager-6b4c999c9c-n4ccg   1/1   Running   0     30s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argo-events/2.4.21
+        --base no-crds --work-dir /tmp/helm-expt-kind-parity-hx-argoev-ffb87-d0vp-argo-events
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: 476a4b84c3ba23c608e52a184efa9fafa64e5e4ae61855a9b19bfd1e7671cf33
+      objectCount: 7
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/argo-events-controller-manager   1/1   1     1     31s'
+        pods: '# default
+
+          argo-events-controller-manager-6b4c999c9c-jpwqq   1/1   Running   0     31s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: []
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 6
+      installerObjectCount: 7
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: []
+      comparisonSHA256: 7ed51edded6eabf9dc814acd874d678f1fb7683e09d0b660dbf25048807aaef9
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "argo-events" does not exist. Installing it now.
+
+      NAME: argo-events
+
+      LAST DEPLOYED: Thu Jun 11 10:48:00 2026
+
+      NAMESPACE: default
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/argo-events-controller-manager   1/1   1     1     31s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none
