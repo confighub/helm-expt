@@ -56,7 +56,7 @@ spec:
     proofLanes:
       renderParity: "3/3"
       inConfigHub: "1/3"
-      localLive: "2/3"
+      localLive: "3/3"
       gitopsLive: "1/3"
       liveParity: "1/3"
     featureSummary: "webhooks;required-values"

@@ -54,11 +54,11 @@ spec:
   proofSummary:
     adoptionBucket: "limitation-decision-first"
     userStatus: "proof-grade-with-named-limitation"
-    strongestEvidence: "render-parity"
+    strongestEvidence: "local-kubernetes-live"
     proofLanes:
       renderParity: "2/2"
       inConfigHub: "0/2"
-      localLive: "0/2"
+      localLive: "2/2"
       gitopsLive: "0/2"
       liveParity: "0/2"
     featureSummary: "generated-secrets;crds;webhooks;required-values;values-schema;extension-slots"

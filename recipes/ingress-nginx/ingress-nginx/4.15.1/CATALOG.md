@@ -31,7 +31,7 @@ for exact base-variant evidence.
 | Adoption bucket | try-from-public-catalog |
 | User status | catalog-supported-with-live-evidence |
 | Strongest evidence | live-helm-vs-confighub-parity |
-| Proof lanes | render parity 3/3; ConfigHub 1/3; local live 2/3; GitOps live 1/3; live parity 1/3 |
+| Proof lanes | render parity 3/3; ConfigHub 1/3; local live 3/3; GitOps live 1/3; live parity 1/3 |
 | Feature summary | webhooks;required-values |
 | Hard gap | - |
 | Next action | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |

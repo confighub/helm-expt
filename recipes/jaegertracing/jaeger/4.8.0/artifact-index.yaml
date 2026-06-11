@@ -52,11 +52,11 @@ spec:
   proofSummary:
     adoptionBucket: "needs-useful-variant"
     userStatus: "proof-grade-needs-user-shaped-variant"
-    strongestEvidence: "render-parity"
+    strongestEvidence: "local-kubernetes-live"
     proofLanes:
       renderParity: "1/1"
       inConfigHub: "0/1"
-      localLive: "0/1"
+      localLive: "1/1"
       gitopsLive: "0/1"
       liveParity: "0/1"
     featureSummary: "generated-secrets;install-vs-upgrade;extension-slots;remote-dependencies;dependency-range-frozen"
