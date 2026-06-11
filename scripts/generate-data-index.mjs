@@ -53,6 +53,7 @@ function readme(rows) {
     ["I want the compact catalog data routing index.", "data/catalog-index/summary.md"],
     ["I want the current headline status.", "data/status-dashboard/summary.md"],
     ["I want to know if I can use a specific chart.", "data/chart-use-guide/summary.md; data/chart-use-guide/chart-use-guide.csv"],
+    ["I know the chart name and need paths to bases, receipts, hook routes, quirk routes, and decisions.", "data/chart-evidence-router/summary.md; data/chart-evidence-router/router.csv"],
     ["I want to know what outcomes are actually promised and proven.", "data/outcome-evidence-contract/summary.md; data/outcome-evidence-contract/outcomes.csv"],
     ["I want the next work queues.", "data/status-dashboard/next-work-queues.csv; data/status-dashboard/active-proof-queue.csv"],
     ["I want to know which catalog base to try first.", "data/top20-base-readiness/start-here.md"],
@@ -81,6 +82,7 @@ function readme(rows) {
     ["data/catalog-index/summary.md", "Compact question-to-source router for top100/top500 catalog status, prerequisites, base gaps, blockers, and evidence."],
     ["data/status-dashboard/summary.md", "Start here for a one-page status dashboard: top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity."],
     ["data/chart-use-guide/summary.md", "Chart-use guide: one short answer per top-100 chart for whether to use it now, promote it, design a better base, or decide a limitation first."],
+    ["data/chart-evidence-router/summary.md", "Per-chart evidence router: chart-use answer, first base, catalog path, proof lanes, variant revisions, receipts, hooks, quirks, production decisions, and next action."],
     ["data/status-dashboard/next-work-queues.csv", "Machine-readable next work queues for top100 catalog work, top20 production support, live parity, and hook/lifecycle work."],
     ["data/status-dashboard/active-proof-queue.csv", "Current non-pass live parity rows with the exact support artifact that should be handled before rerun."],
     ["data/status-dashboard/top20-status.csv", "Compact chart-by-chart status for the top-20 public catalog: recommended base, setup command, base-readiness mix, evidence strength, proof lanes, feature summary, gaps, next action."],
@@ -290,6 +292,7 @@ npm run verify
 function audienceFor(path) {
   if (path === "data/csv-index.csv") return "user/front-door";
   if (path.startsWith("data/chart-use-guide/")) return "user/front-door";
+  if (path.startsWith("data/chart-evidence-router/")) return "user/front-door";
   if (path.startsWith("data/status-dashboard/")) return "user/front-door";
   if (path.startsWith("data/outcome-evidence-contract/")) return "user/front-door";
   if (path.startsWith("data/top20-base-readiness/")) return "user/front-door";
@@ -326,6 +329,7 @@ function audienceFor(path) {
 function roleFor(path) {
   if (path === "data/csv-index.csv") return "machine-readable index of every CSV under data";
   if (path === "data/chart-use-guide/chart-use-guide.csv") return "one row per top-100 chart: whether to use now, promote, design a better base, or decide a limitation first";
+  if (path === "data/chart-evidence-router/router.csv") return "one row per top-100 chart: catalog path, base rows, variant revisions, receipts, hook route, quirk route, production decisions, and next action";
   if (path === "data/status-dashboard/status.csv") return "front-door status dashboard across top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity";
   if (path === "data/status-dashboard/next-work-queues.csv") return "machine-readable next work queues: section, item, count, action, source table, and detail";
   if (path === "data/status-dashboard/active-proof-queue.csv") return "current non-pass live parity rows with their next step, support artifact, receipt, and rerun command";
@@ -403,6 +407,7 @@ function familyRole(family) {
     adversarial10: "hard-chart readiness and control-point analysis",
     "outcome-coverage": "front-door outcome, test, and status map",
     "chart-use-guide": "front-door can-I-use-this-chart guide",
+    "chart-evidence-router": "front-door per-chart evidence router across bases, receipts, hooks, quirks, and decisions",
     "claims-register": "front-door public claim-to-evidence register",
     "blast-radius-accuracy": "front-door measured blast-radius accuracy seed and backlog",
     "status-dashboard": "one-page front-door status dashboard",
@@ -498,6 +503,7 @@ function commandMap() {
   return {
     "outcome-coverage": { generate: "npm run outcomes:generate", verify: "npm run outcomes:verify" },
     "chart-use-guide": { generate: "npm run chart-use:guide", verify: "npm run chart-use:guide:verify" },
+    "chart-evidence-router": { generate: "npm run chart:evidence-router", verify: "npm run chart:evidence-router:verify" },
     "claims-register": { generate: "npm run claims:register", verify: "npm run claims:register:verify" },
     "blast-radius-accuracy": { generate: "npm run blast-radius:accuracy", verify: "npm run blast-radius:accuracy:verify" },
     "status-dashboard": { generate: "npm run status:dashboard", verify: "npm run status:dashboard:verify" },
