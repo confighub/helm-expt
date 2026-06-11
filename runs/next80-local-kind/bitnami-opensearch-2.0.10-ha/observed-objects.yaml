@@ -1,0 +1,1662 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "networking.k8s.io/v1"
+    kind: "NetworkPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opensearch\",\"app.kubernetes.io/part-of\":\"opensearch\",\"app.kubernetes.io/version\":\"3.2.0\",\"helm.sh/chart\":\"opensearch-2.0.10\"},\"name\":\"opensearch-coordinating\",\"namespace\":\"default\"},\"spec\":{\"egress\":[{}],\"ingress\":[{\"ports\":[{\"port\":9200},{\"port\":9300}]}],\"podSelector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/name\":\"opensearch\"}},\"policyTypes\":[\"Ingress\",\"Egress\"]}}\n"
+      creationTimestamp: "2026-06-11T15:02:39Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "coordinating-only"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "opensearch"
+        app.kubernetes.io/part-of: "opensearch"
+        app.kubernetes.io/version: "3.2.0"
+        helm.sh/chart: "opensearch-2.0.10"
+      name: "opensearch-coordinating"
+      namespace: "default"
+      resourceVersion: "476"
+      uid: "51eb9299-e0de-402d-8019-3c273a902990"
+    spec:
+      egress:
+        -
+          {}
+      ingress:
+        -
+          ports:
+            -
+              port: 9200
+              protocol: "TCP"
+            -
+              port: 9300
+              protocol: "TCP"
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/component: "coordinating-only"
+          app.kubernetes.io/instance: "opensearch"
+          app.kubernetes.io/name: "opensearch"
+      policyTypes:
+        - "Ingress"
+        - "Egress"
+  -
+    apiVersion: "networking.k8s.io/v1"
+    kind: "NetworkPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"dashboards\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opensearch\",\"app.kubernetes.io/part-of\":\"opensearch\",\"app.kubernetes.io/version\":\"3.2.0\",\"helm.sh/chart\":\"opensearch-2.0.10\"},\"name\":\"opensearch-dashboards\",\"namespace\":\"default\"},\"spec\":{\"egress\":[{}],\"ingress\":[{\"ports\":[{\"port\":5601}]}],\"podSelector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"dashboards\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/name\":\"opensearch\"}},\"policyTypes\":[\"Ingress\",\"Egress\"]}}\n"
+      creationTimestamp: "2026-06-11T15:02:39Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "dashboards"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "opensearch"
+        app.kubernetes.io/part-of: "opensearch"
+        app.kubernetes.io/version: "3.2.0"
+        helm.sh/chart: "opensearch-2.0.10"
+      name: "opensearch-dashboards"
+      namespace: "default"
+      resourceVersion: "477"
+      uid: "373800a5-e86f-4152-8f82-c1b212f75df1"
+    spec:
+      egress:
+        -
+          {}
+      ingress:
+        -
+          ports:
+            -
+              port: 5601
+              protocol: "TCP"
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/component: "dashboards"
+          app.kubernetes.io/instance: "opensearch"
+          app.kubernetes.io/name: "opensearch"
+      policyTypes:
+        - "Ingress"
+        - "Egress"
+  -
+    apiVersion: "networking.k8s.io/v1"
+    kind: "NetworkPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"data\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opensearch\",\"app.kubernetes.io/part-of\":\"opensearch\",\"app.kubernetes.io/version\":\"3.2.0\",\"helm.sh/chart\":\"opensearch-2.0.10\"},\"name\":\"opensearch-data\",\"namespace\":\"default\"},\"spec\":{\"egress\":[{}],\"ingress\":[{\"ports\":[{\"port\":9200},{\"port\":9300}]}],\"podSelector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"data\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/name\":\"opensearch\"}},\"policyTypes\":[\"Ingress\",\"Egress\"]}}\n"
+      creationTimestamp: "2026-06-11T15:02:39Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "data"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "opensearch"
+        app.kubernetes.io/part-of: "opensearch"
+        app.kubernetes.io/version: "3.2.0"
+        helm.sh/chart: "opensearch-2.0.10"
+      name: "opensearch-data"
+      namespace: "default"
+      resourceVersion: "478"
+      uid: "a6a485d6-a8cd-49f2-9225-9af55fa48ce9"
+    spec:
+      egress:
+        -
+          {}
+      ingress:
+        -
+          ports:
+            -
+              port: 9200
+              protocol: "TCP"
+            -
+              port: 9300
+              protocol: "TCP"
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/component: "data"
+          app.kubernetes.io/instance: "opensearch"
+          app.kubernetes.io/name: "opensearch"
+      policyTypes:
+        - "Ingress"
+        - "Egress"
+  -
+    apiVersion: "networking.k8s.io/v1"
+    kind: "NetworkPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"ingest\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opensearch\",\"app.kubernetes.io/part-of\":\"opensearch\",\"app.kubernetes.io/version\":\"3.2.0\",\"helm.sh/chart\":\"opensearch-2.0.10\"},\"name\":\"opensearch-ingest\",\"namespace\":\"default\"},\"spec\":{\"egress\":[{}],\"ingress\":[{\"ports\":[{\"port\":9200},{\"port\":9300}]}],\"podSelector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"ingest\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/name\":\"opensearch\"}},\"policyTypes\":[\"Ingress\",\"Egress\"]}}\n"
+      creationTimestamp: "2026-06-11T15:02:39Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "ingest"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "opensearch"
+        app.kubernetes.io/part-of: "opensearch"
+        app.kubernetes.io/version: "3.2.0"
+        helm.sh/chart: "opensearch-2.0.10"
+      name: "opensearch-ingest"
+      namespace: "default"
+      resourceVersion: "479"
+      uid: "e261fae4-4639-4ee9-8541-baa827d2e49b"
+    spec:
+      egress:
+        -
+          {}
+      ingress:
+        -
+          ports:
+            -
+              port: 9200
+              protocol: "TCP"
+            -
+              port: 9300
+              protocol: "TCP"
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/component: "ingest"
+          app.kubernetes.io/instance: "opensearch"
+          app.kubernetes.io/name: "opensearch"
+      policyTypes:
+        - "Ingress"
+        - "Egress"
+  -
+    apiVersion: "networking.k8s.io/v1"
+    kind: "NetworkPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opensearch\",\"app.kubernetes.io/part-of\":\"opensearch\",\"app.kubernetes.io/version\":\"3.2.0\",\"helm.sh/chart\":\"opensearch-2.0.10\"},\"name\":\"opensearch-master\",\"namespace\":\"default\"},\"spec\":{\"egress\":[{}],\"ingress\":[{\"ports\":[{\"port\":9200},{\"port\":9300}]}],\"podSelector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/name\":\"opensearch\"}},\"policyTypes\":[\"Ingress\",\"Egress\"]}}\n"
+      creationTimestamp: "2026-06-11T15:02:39Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "master"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "opensearch"
+        app.kubernetes.io/part-of: "opensearch"
+        app.kubernetes.io/version: "3.2.0"
+        helm.sh/chart: "opensearch-2.0.10"
+      name: "opensearch-master"
+      namespace: "default"
+      resourceVersion: "480"
+      uid: "ff379a35-0842-4307-849e-8216e40ebcf2"
+    spec:
+      egress:
+        -
+          {}
+      ingress:
+        -
+          ports:
+            -
+              port: 9200
+              protocol: "TCP"
+            -
+              port: 9300
+              protocol: "TCP"
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/component: "master"
+          app.kubernetes.io/instance: "opensearch"
+          app.kubernetes.io/name: "opensearch"
+      policyTypes:
+        - "Ingress"
+        - "Egress"
+  -
+    apiVersion: "policy/v1"
+    kind: "PodDisruptionBudget"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"policy/v1\",\"kind\":\"PodDisruptionBudget\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opensearch\",\"app.kubernetes.io/version\":\"3.2.0\",\"helm.sh/chart\":\"opensearch-2.0.10\"},\"name\":\"opensearch-coordinating\",\"namespace\":\"default\"},\"spec\":{\"maxUnavailable\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/name\":\"opensearch\"}}}}\n"
+      creationTimestamp: "2026-06-11T15:02:39Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "coordinating-only"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "opensearch"
+        app.kubernetes.io/version: "3.2.0"
+        helm.sh/chart: "opensearch-2.0.10"
+      name: "opensearch-coordinating"
+      namespace: "default"
+      resourceVersion: "522"
+      uid: "645c4f9e-5905-4848-87a9-9b144e342118"
+    spec:
+      maxUnavailable: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "coordinating-only"
+          app.kubernetes.io/instance: "opensearch"
+          app.kubernetes.io/name: "opensearch"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T15:02:39Z"
+          message: ""
+          observedGeneration: 1
+          reason: "InsufficientPods"
+          status: "False"
+          type: "DisruptionAllowed"
+      currentHealthy: 0
+      desiredHealthy: 1
+      disruptionsAllowed: 0
+      expectedPods: 2
+      observedGeneration: 1
+  -
+    apiVersion: "policy/v1"
+    kind: "PodDisruptionBudget"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"policy/v1\",\"kind\":\"PodDisruptionBudget\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"data\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opensearch\",\"app.kubernetes.io/version\":\"3.2.0\",\"helm.sh/chart\":\"opensearch-2.0.10\"},\"name\":\"opensearch-data\",\"namespace\":\"default\"},\"spec\":{\"maxUnavailable\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"data\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/name\":\"opensearch\"}}}}\n"
+      creationTimestamp: "2026-06-11T15:02:39Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "data"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "opensearch"
+        app.kubernetes.io/version: "3.2.0"
+        helm.sh/chart: "opensearch-2.0.10"
+      name: "opensearch-data"
+      namespace: "default"
+      resourceVersion: "545"
+      uid: "df0192c8-b4a6-4c19-b3a9-8843bcd22462"
+    spec:
+      maxUnavailable: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "data"
+          app.kubernetes.io/instance: "opensearch"
+          app.kubernetes.io/name: "opensearch"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T15:02:39Z"
+          message: ""
+          observedGeneration: 1
+          reason: "InsufficientPods"
+          status: "False"
+          type: "DisruptionAllowed"
+      currentHealthy: 0
+      desiredHealthy: 2
+      disruptionsAllowed: 0
+      expectedPods: 3
+      observedGeneration: 1
+  -
+    apiVersion: "policy/v1"
+    kind: "PodDisruptionBudget"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"policy/v1\",\"kind\":\"PodDisruptionBudget\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"ingest\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opensearch\",\"app.kubernetes.io/version\":\"3.2.0\",\"helm.sh/chart\":\"opensearch-2.0.10\"},\"name\":\"opensearch-ingest\",\"namespace\":\"default\"},\"spec\":{\"maxUnavailable\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"ingest\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/name\":\"opensearch\"}}}}\n"
+      creationTimestamp: "2026-06-11T15:02:39Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "ingest"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "opensearch"
+        app.kubernetes.io/version: "3.2.0"
+        helm.sh/chart: "opensearch-2.0.10"
+      name: "opensearch-ingest"
+      namespace: "default"
+      resourceVersion: "533"
+      uid: "bc8a38b1-eb7a-4d9f-851b-a7018ce295c7"
+    spec:
+      maxUnavailable: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "ingest"
+          app.kubernetes.io/instance: "opensearch"
+          app.kubernetes.io/name: "opensearch"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T15:02:39Z"
+          message: ""
+          observedGeneration: 1
+          reason: "InsufficientPods"
+          status: "False"
+          type: "DisruptionAllowed"
+      currentHealthy: 0
+      desiredHealthy: 1
+      disruptionsAllowed: 0
+      expectedPods: 2
+      observedGeneration: 1
+  -
+    apiVersion: "policy/v1"
+    kind: "PodDisruptionBudget"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"policy/v1\",\"kind\":\"PodDisruptionBudget\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opensearch\",\"app.kubernetes.io/version\":\"3.2.0\",\"helm.sh/chart\":\"opensearch-2.0.10\"},\"name\":\"opensearch-master\",\"namespace\":\"default\"},\"spec\":{\"maxUnavailable\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/name\":\"opensearch\"}}}}\n"
+      creationTimestamp: "2026-06-11T15:02:39Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "master"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "opensearch"
+        app.kubernetes.io/version: "3.2.0"
+        helm.sh/chart: "opensearch-2.0.10"
+      name: "opensearch-master"
+      namespace: "default"
+      resourceVersion: "565"
+      uid: "ce49b48a-04ab-4c3d-b768-3f909c135e0e"
+    spec:
+      maxUnavailable: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "master"
+          app.kubernetes.io/instance: "opensearch"
+          app.kubernetes.io/name: "opensearch"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T15:02:39Z"
+          message: ""
+          observedGeneration: 1
+          reason: "InsufficientPods"
+          status: "False"
+          type: "DisruptionAllowed"
+      currentHealthy: 0
+      desiredHealthy: 2
+      disruptionsAllowed: 0
+      expectedPods: 3
+      observedGeneration: 1
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opensearch\",\"app.kubernetes.io/version\":\"3.2.0\",\"helm.sh/chart\":\"opensearch-2.0.10\"},\"name\":\"opensearch-coordinating-hl\",\"namespace\":\"default\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"name\":\"tcp-rest-api\",\"port\":9200,\"targetPort\":\"rest-api\"},{\"name\":\"tcp-transport\",\"port\":9300,\"targetPort\":\"transport\"}],\"publishNotReadyAddresses\":true,\"selector\":{\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/name\":\"opensearch\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T15:02:39Z"
+      labels:
+        app.kubernetes.io/component: "coordinating-only"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "opensearch"
+        app.kubernetes.io/version: "3.2.0"
+        helm.sh/chart: "opensearch-2.0.10"
+      name: "opensearch-coordinating-hl"
+      namespace: "default"
+      resourceVersion: "490"
+      uid: "2e246afc-3cc6-4e19-8121-ff8429ad6708"
+    spec:
+      clusterIP: "None"
+      clusterIPs:
+        - "None"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "tcp-rest-api"
+          port: 9200
+          protocol: "TCP"
+          targetPort: "rest-api"
+        -
+          name: "tcp-transport"
+          port: 9300
+          protocol: "TCP"
+          targetPort: "transport"
+      publishNotReadyAddresses: true
+      selector:
+        app.kubernetes.io/component: "coordinating-only"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/name: "opensearch"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"data\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opensearch\",\"app.kubernetes.io/version\":\"3.2.0\",\"helm.sh/chart\":\"opensearch-2.0.10\"},\"name\":\"opensearch-data-hl\",\"namespace\":\"default\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"name\":\"tcp-rest-api\",\"port\":9200,\"targetPort\":\"rest-api\"},{\"name\":\"tcp-transport\",\"port\":9300,\"targetPort\":\"transport\"}],\"publishNotReadyAddresses\":true,\"selector\":{\"app.kubernetes.io/component\":\"data\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/name\":\"opensearch\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T15:02:39Z"
+      labels:
+        app.kubernetes.io/component: "data"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "opensearch"
+        app.kubernetes.io/version: "3.2.0"
+        helm.sh/chart: "opensearch-2.0.10"
+      name: "opensearch-data-hl"
+      namespace: "default"
+      resourceVersion: "496"
+      uid: "3392e9c5-7cea-418b-a8d1-5e047b33032b"
+    spec:
+      clusterIP: "None"
+      clusterIPs:
+        - "None"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "tcp-rest-api"
+          port: 9200
+          protocol: "TCP"
+          targetPort: "rest-api"
+        -
+          name: "tcp-transport"
+          port: 9300
+          protocol: "TCP"
+          targetPort: "transport"
+      publishNotReadyAddresses: true
+      selector:
+        app.kubernetes.io/component: "data"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/name: "opensearch"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"ingest\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opensearch\",\"app.kubernetes.io/version\":\"3.2.0\",\"helm.sh/chart\":\"opensearch-2.0.10\"},\"name\":\"opensearch-ingest-hl\",\"namespace\":\"default\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"name\":\"tcp-rest-api\",\"port\":9200,\"targetPort\":\"rest-api\"},{\"name\":\"tcp-transport\",\"port\":9300,\"targetPort\":\"transport\"}],\"publishNotReadyAddresses\":true,\"selector\":{\"app.kubernetes.io/component\":\"ingest\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/name\":\"opensearch\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T15:02:39Z"
+      labels:
+        app.kubernetes.io/component: "ingest"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "opensearch"
+        app.kubernetes.io/version: "3.2.0"
+        helm.sh/chart: "opensearch-2.0.10"
+      name: "opensearch-ingest-hl"
+      namespace: "default"
+      resourceVersion: "500"
+      uid: "8d3d9de7-3e7b-46ba-bd95-28193665903d"
+    spec:
+      clusterIP: "None"
+      clusterIPs:
+        - "None"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "tcp-rest-api"
+          port: 9200
+          protocol: "TCP"
+          targetPort: "rest-api"
+        -
+          name: "tcp-transport"
+          port: 9300
+          protocol: "TCP"
+          targetPort: "transport"
+      publishNotReadyAddresses: true
+      selector:
+        app.kubernetes.io/component: "ingest"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/name: "opensearch"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opensearch\",\"app.kubernetes.io/version\":\"3.2.0\",\"helm.sh/chart\":\"opensearch-2.0.10\"},\"name\":\"opensearch-master-hl\",\"namespace\":\"default\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"name\":\"tcp-rest-api\",\"port\":9200,\"targetPort\":\"rest-api\"},{\"name\":\"tcp-transport\",\"port\":9300,\"targetPort\":\"transport\"}],\"publishNotReadyAddresses\":true,\"selector\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/name\":\"opensearch\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T15:02:39Z"
+      labels:
+        app.kubernetes.io/component: "master"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "opensearch"
+        app.kubernetes.io/version: "3.2.0"
+        helm.sh/chart: "opensearch-2.0.10"
+      name: "opensearch-master-hl"
+      namespace: "default"
+      resourceVersion: "505"
+      uid: "b54763bd-7f32-4215-9ed5-7f9160d22789"
+    spec:
+      clusterIP: "None"
+      clusterIPs:
+        - "None"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "tcp-rest-api"
+          port: 9200
+          protocol: "TCP"
+          targetPort: "rest-api"
+        -
+          name: "tcp-transport"
+          port: 9300
+          protocol: "TCP"
+          targetPort: "transport"
+      publishNotReadyAddresses: true
+      selector:
+        app.kubernetes.io/component: "master"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/name: "opensearch"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opensearch\",\"app.kubernetes.io/version\":\"3.2.0\",\"helm.sh/chart\":\"opensearch-2.0.10\"},\"name\":\"opensearch\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"tcp-rest-api\",\"nodePort\":null,\"port\":9200,\"targetPort\":\"rest-api\"},{\"name\":\"tcp-transport\",\"nodePort\":null,\"port\":9300}],\"selector\":{\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/name\":\"opensearch\"},\"sessionAffinity\":\"None\",\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T15:02:39Z"
+      labels:
+        app.kubernetes.io/component: "coordinating-only"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "opensearch"
+        app.kubernetes.io/version: "3.2.0"
+        helm.sh/chart: "opensearch-2.0.10"
+      name: "opensearch"
+      namespace: "default"
+      resourceVersion: "510"
+      uid: "b5e2fb3f-db76-47c4-851e-7584d715e6b7"
+    spec:
+      clusterIP: "10.96.191.109"
+      clusterIPs:
+        - "10.96.191.109"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "tcp-rest-api"
+          port: 9200
+          protocol: "TCP"
+          targetPort: "rest-api"
+        -
+          name: "tcp-transport"
+          port: 9300
+          protocol: "TCP"
+          targetPort: 9300
+      selector:
+        app.kubernetes.io/component: "coordinating-only"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/name: "opensearch"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "StatefulSet"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"coordinating-only\",\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opensearch\",\"app.kubernetes.io/version\":\"3.2.0\",\"helm.sh/chart\":\"opensearch-2.0.10\"},\"name\":\"opensearch-coordinating\",\"namespace\":\"default\"},\"spec\":{\"podManagementPolicy\":\"Parallel\",\"replicas\":2,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/name\":\"opensearch\"}},\"serviceName\":\"opensearch-coordinating-hl\",\"template\":{\"metadata\":{\"annotations\":null,\"labels\":{\"app\":\"coordinating-only\",\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opensearch\",\"app.kubernetes.io/version\":\"3.2.0\",\"helm.sh/chart\":\"opensearch-2.0.10\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":null,\"podAffinity\":null,\"podAntiAffinity\":null},\"automountServiceAccountToken\":false,\"containers\":[{\"env\":[{\"name\":\"MY_POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"BITNAMI_DEBUG\",\"value\":\"false\"},{\"name\":\"OPENSEARCH_CLUSTER_NAME\",\"value\":\"open\"},{\"name\":\"OPENSEARCH_IS_DEDICATED_NODE\",\"value\":\"yes\"},{\"name\":\"OPENSEARCH_NODE_ROLES\",\"value\":\"\"},{\"name\":\"OPENSEARCH_TRANSPORT_PORT_NUMBER\",\"value\":\"9300\"},{\"name\":\"OPENSEARCH_HTTP_PORT_NUMBER\",\"value\":\"9200\"},{\"name\":\"OPENSEARCH_CLUSTER_HOSTS\",\"value\":\"opensearch-master-hl.default.svc.cluster.local,opensearch-coordinating-hl.default.svc.cluster.local,opensearch-data-hl.default.svc.cluster.local,opensearch-ingest-hl.default.svc.cluster.local,\"},{\"name\":\"OPENSEARCH_TOTAL_NODES\",\"value\":\"6\"},{\"name\":\"OPENSEARCH_CLUSTER_MASTER_HOSTS\",\"value\":\"opensearch-master-0 opensearch-master-1 opensearch-master-2\"},{\"name\":\"OPENSEARCH_MINIMUM_MASTER_NODES\",\"value\":\"2\"},{\"name\":\"OPENSEARCH_ADVERTISED_HOSTNAME\",\"value\":\"$(MY_POD_NAME).opensearch-coordinating-hl.default.svc.cluster.local\"},{\"name\":\"OPENSEARCH_HEAP_SIZE\",\"value\":\"512m\"}],\"image\":\"docker.io/bitnami/opensearch:3.2.0-debian-12-r0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":5,\"initialDelaySeconds\":180,\"periodSeconds\":10,\"successThreshold\":1,\"tcpSocket\":{\"port\":\"rest-api\"},\"timeoutSeconds\":5},\"name\":\"opensearch\",\"ports\":[{\"containerPort\":9200,\"name\":\"rest-api\"},{\"containerPort\":9300,\"name\":\"transport\"}],\"readinessProbe\":{\"exec\":{\"command\":[\"/opt/bitnami/scripts/opensearch/healthcheck.sh\"]},\"failureThreshold\":5,\"initialDelaySeconds\":90,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"resources\":{\"limits\":{\"cpu\":\"750m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"1536Mi\"},\"requests\":{\"cpu\":\"500m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"1024Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"empty-dir\",\"subPath\":\"tmp-dir\"},{\"mountPath\":\"/opt/bitnami/opensearch/config\",\"name\":\"empty-dir\",\"subPath\":\"app-conf-dir\"},{\"mountPath\":\"/opt/bitnami/opensearch/tmp\",\"name\":\"empty-dir\",\"subPath\":\"app-tmp-dir\"},{\"mountPath\":\"/opt/bitnami/opensearch/logs\",\"name\":\"empty-dir\",\"subPath\":\"app-logs-dir\"},{\"mountPath\":\"/opt/bitnami/opensearch/plugins\",\"name\":\"empty-dir\",\"subPath\":\"app-plugins-dir\"},{\"mountPath\":\"/bitnami/opensearch/data\",\"name\":\"data\"}]}],\"initContainers\":[{\"command\":[\"/bin/bash\",\"-ec\",\"CURRENT=`sysctl -n vm.max_map_count`;\\nDESIRED=\\\"262144\\\";\\nif [ \\\"$DESIRED\\\" -gt \\\"$CURRENT\\\" ]; then\\n    sysctl -w vm.max_map_count=262144;\\nfi;\\nCURRENT=`sysctl -n fs.file-max`;\\nDESIRED=\\\"65536\\\";\\nif [ \\\"$DESIRED\\\" -gt \\\"$CURRENT\\\" ]; then\\n    sysctl -w fs.file-max=65536;\\nfi;\\n\"],\"image\":\"docker.io/bitnami/os-shell:12-debian-12-r51\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"sysctl\",\"resources\":{\"limits\":{\"cpu\":\"150m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"192Mi\"},\"requests\":{\"cpu\":\"100m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"128Mi\"}},\"securityContext\":{\"privileged\":true,\"runAsUser\":0}},{\"args\":[\"-ec\",\". /opt/bitnami/scripts/liblog.sh\\n. /opt/bitnami/scripts/libfs.sh\\n. /opt/bitnami/scripts/opensearch-env.sh\\n\\nmkdir -p /emptydir/app-conf-dir /emptydir/app-plugins-dir\\ninfo \\\"Copying directories to empty dir\\\"\\n\\nif ! is_dir_empty \\\"$DB_DEFAULT_CONF_DIR\\\"; then\\n    info \\\"Copying default configuration\\\"\\n    cp -nr --preserve=mode \\\"$DB_DEFAULT_CONF_DIR\\\"/* /emptydir/app-conf-dir\\nfi\\nif ! is_dir_empty \\\"$DB_DEFAULT_PLUGINS_DIR\\\"; then\\n    info \\\"Copying default plugins\\\"\\n    cp -nr \\\"$DB_DEFAULT_PLUGINS_DIR\\\"/* /emptydir/app-plugins-dir\\nfi\\n\\ninfo \\\"Copy operation completed\\\"\\n\"],\"command\":[\"/bin/bash\"],\"image\":\"docker.io/bitnami/opensearch:3.2.0-debian-12-r0\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"copy-default-plugins\",\"resources\":{\"limits\":{\"cpu\":\"750m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"1536Mi\"},\"requests\":{\"cpu\":\"500m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"1024Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/emptydir\",\"name\":\"empty-dir\"}]}],\"securityContext\":{\"fsGroup\":1001,\"fsGroupChangePolicy\":\"Always\",\"supplementalGroups\":[],\"sysctls\":[]},\"serviceAccountName\":\"default\",\"volumes\":[{\"emptyDir\":{},\"name\":\"empty-dir\"},{\"emptyDir\":{},\"name\":\"data\"}]}},\"updateStrategy\":{\"type\":\"RollingUpdate\"}}}\n"
+      creationTimestamp: "2026-06-11T15:02:39Z"
+      generation: 1
+      labels:
+        app: "coordinating-only"
+        app.kubernetes.io/component: "coordinating-only"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "opensearch"
+        app.kubernetes.io/version: "3.2.0"
+        helm.sh/chart: "opensearch-2.0.10"
+      name: "opensearch-coordinating"
+      namespace: "default"
+      resourceVersion: "573"
+      uid: "513cb08b-cf14-45b5-b48f-705dc5973485"
+    spec:
+      persistentVolumeClaimRetentionPolicy:
+        whenDeleted: "Retain"
+        whenScaled: "Retain"
+      podManagementPolicy: "Parallel"
+      replicas: 2
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "coordinating-only"
+          app.kubernetes.io/instance: "opensearch"
+          app.kubernetes.io/name: "opensearch"
+      serviceName: "opensearch-coordinating-hl"
+      template:
+        metadata:
+          labels:
+            app: "coordinating-only"
+            app.kubernetes.io/component: "coordinating-only"
+            app.kubernetes.io/instance: "opensearch"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "opensearch"
+            app.kubernetes.io/version: "3.2.0"
+            helm.sh/chart: "opensearch-2.0.10"
+        spec:
+          affinity:
+            {}
+          automountServiceAccountToken: false
+          containers:
+            -
+              env:
+                -
+                  name: "MY_POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "BITNAMI_DEBUG"
+                  value: "false"
+                -
+                  name: "OPENSEARCH_CLUSTER_NAME"
+                  value: "open"
+                -
+                  name: "OPENSEARCH_IS_DEDICATED_NODE"
+                  value: "yes"
+                -
+                  name: "OPENSEARCH_NODE_ROLES"
+                -
+                  name: "OPENSEARCH_TRANSPORT_PORT_NUMBER"
+                  value: "9300"
+                -
+                  name: "OPENSEARCH_HTTP_PORT_NUMBER"
+                  value: "9200"
+                -
+                  name: "OPENSEARCH_CLUSTER_HOSTS"
+                  value: "opensearch-master-hl.default.svc.cluster.local,opensearch-coordinating-hl.default.svc.cluster.local,opensearch-data-hl.default.svc.cluster.local,opensearch-ingest-hl.default.svc.cluster.local,"
+                -
+                  name: "OPENSEARCH_TOTAL_NODES"
+                  value: "6"
+                -
+                  name: "OPENSEARCH_CLUSTER_MASTER_HOSTS"
+                  value: "opensearch-master-0 opensearch-master-1 opensearch-master-2"
+                -
+                  name: "OPENSEARCH_MINIMUM_MASTER_NODES"
+                  value: "2"
+                -
+                  name: "OPENSEARCH_ADVERTISED_HOSTNAME"
+                  value: "$(MY_POD_NAME).opensearch-coordinating-hl.default.svc.cluster.local"
+                -
+                  name: "OPENSEARCH_HEAP_SIZE"
+                  value: "512m"
+              image: "docker.io/bitnami/opensearch:3.2.0-debian-12-r0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 5
+                initialDelaySeconds: 180
+                periodSeconds: 10
+                successThreshold: 1
+                tcpSocket:
+                  port: "rest-api"
+                timeoutSeconds: 5
+              name: "opensearch"
+              ports:
+                -
+                  containerPort: 9200
+                  name: "rest-api"
+                  protocol: "TCP"
+                -
+                  containerPort: 9300
+                  name: "transport"
+                  protocol: "TCP"
+              readinessProbe:
+                exec:
+                  command:
+                    - "/opt/bitnami/scripts/opensearch/healthcheck.sh"
+                failureThreshold: 5
+                initialDelaySeconds: 90
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                limits:
+                  cpu: "750m"
+                  ephemeral-storage: "2Gi"
+                  memory: "1536Mi"
+                requests:
+                  cpu: "500m"
+                  ephemeral-storage: "50Mi"
+                  memory: "1Gi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/tmp"
+                  name: "empty-dir"
+                  subPath: "tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/opensearch/config"
+                  name: "empty-dir"
+                  subPath: "app-conf-dir"
+                -
+                  mountPath: "/opt/bitnami/opensearch/tmp"
+                  name: "empty-dir"
+                  subPath: "app-tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/opensearch/logs"
+                  name: "empty-dir"
+                  subPath: "app-logs-dir"
+                -
+                  mountPath: "/opt/bitnami/opensearch/plugins"
+                  name: "empty-dir"
+                  subPath: "app-plugins-dir"
+                -
+                  mountPath: "/bitnami/opensearch/data"
+                  name: "data"
+          dnsPolicy: "ClusterFirst"
+          initContainers:
+            -
+              command:
+                - "/bin/bash"
+                - "-ec"
+                - "CURRENT=`sysctl -n vm.max_map_count`;\nDESIRED=\"262144\";\nif [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n    sysctl -w vm.max_map_count=262144;\nfi;\nCURRENT=`sysctl -n fs.file-max`;\nDESIRED=\"65536\";\nif [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n    sysctl -w fs.file-max=65536;\nfi;\n"
+              image: "docker.io/bitnami/os-shell:12-debian-12-r51"
+              imagePullPolicy: "IfNotPresent"
+              name: "sysctl"
+              resources:
+                limits:
+                  cpu: "150m"
+                  ephemeral-storage: "2Gi"
+                  memory: "192Mi"
+                requests:
+                  cpu: "100m"
+                  ephemeral-storage: "50Mi"
+                  memory: "128Mi"
+              securityContext:
+                privileged: true
+                runAsUser: 0
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+            -
+              args:
+                - "-ec"
+                - ". /opt/bitnami/scripts/liblog.sh\n. /opt/bitnami/scripts/libfs.sh\n. /opt/bitnami/scripts/opensearch-env.sh\n\nmkdir -p /emptydir/app-conf-dir /emptydir/app-plugins-dir\ninfo \"Copying directories to empty dir\"\n\nif ! is_dir_empty \"$DB_DEFAULT_CONF_DIR\"; then\n    info \"Copying default configuration\"\n    cp -nr --preserve=mode \"$DB_DEFAULT_CONF_DIR\"/* /emptydir/app-conf-dir\nfi\nif ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n    info \"Copying default plugins\"\n    cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /emptydir/app-plugins-dir\nfi\n\ninfo \"Copy operation completed\"\n"
+              command:
+                - "/bin/bash"
+              image: "docker.io/bitnami/opensearch:3.2.0-debian-12-r0"
+              imagePullPolicy: "IfNotPresent"
+              name: "copy-default-plugins"
+              resources:
+                limits:
+                  cpu: "750m"
+                  ephemeral-storage: "2Gi"
+                  memory: "1536Mi"
+                requests:
+                  cpu: "500m"
+                  ephemeral-storage: "50Mi"
+                  memory: "1Gi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/emptydir"
+                  name: "empty-dir"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 1001
+            fsGroupChangePolicy: "Always"
+          serviceAccount: "default"
+          serviceAccountName: "default"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              emptyDir:
+                {}
+              name: "empty-dir"
+            -
+              emptyDir:
+                {}
+              name: "data"
+      updateStrategy:
+        type: "RollingUpdate"
+    status:
+      availableReplicas: 0
+      collisionCount: 0
+      currentReplicas: 2
+      currentRevision: "opensearch-coordinating-86f8c4cdd7"
+      observedGeneration: 1
+      replicas: 2
+      updateRevision: "opensearch-coordinating-86f8c4cdd7"
+      updatedReplicas: 2
+  -
+    apiVersion: "apps/v1"
+    kind: "StatefulSet"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"data\",\"app.kubernetes.io/component\":\"data\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opensearch\",\"app.kubernetes.io/version\":\"3.2.0\",\"helm.sh/chart\":\"opensearch-2.0.10\"},\"name\":\"opensearch-data\",\"namespace\":\"default\"},\"spec\":{\"podManagementPolicy\":\"Parallel\",\"replicas\":3,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"data\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/name\":\"opensearch\"}},\"serviceName\":\"opensearch-data-hl\",\"template\":{\"metadata\":{\"annotations\":null,\"labels\":{\"app\":\"data\",\"app.kubernetes.io/component\":\"data\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opensearch\",\"app.kubernetes.io/version\":\"3.2.0\",\"helm.sh/chart\":\"opensearch-2.0.10\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":null,\"podAffinity\":null,\"podAntiAffinity\":null},\"automountServiceAccountToken\":false,\"containers\":[{\"env\":[{\"name\":\"BITNAMI_DEBUG\",\"value\":\"false\"},{\"name\":\"MY_POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"OPENSEARCH_IS_DEDICATED_NODE\",\"value\":\"yes\"},{\"name\":\"OPENSEARCH_NODE_ROLES\",\"value\":\"data\"},{\"name\":\"OPENSEARCH_TRANSPORT_PORT_NUMBER\",\"value\":\"9300\"},{\"name\":\"OPENSEARCH_HTTP_PORT_NUMBER\",\"value\":\"9200\"},{\"name\":\"OPENSEARCH_CLUSTER_NAME\",\"value\":\"open\"},{\"name\":\"OPENSEARCH_CLUSTER_HOSTS\",\"value\":\"opensearch-master-hl.default.svc.cluster.local,opensearch-coordinating-hl.default.svc.cluster.local,opensearch-data-hl.default.svc.cluster.local,opensearch-ingest-hl.default.svc.cluster.local,\"},{\"name\":\"OPENSEARCH_TOTAL_NODES\",\"value\":\"6\"},{\"name\":\"OPENSEARCH_CLUSTER_MASTER_HOSTS\",\"value\":\"opensearch-master-0 opensearch-master-1 opensearch-master-2\"},{\"name\":\"OPENSEARCH_MINIMUM_MASTER_NODES\",\"value\":\"2\"},{\"name\":\"OPENSEARCH_ADVERTISED_HOSTNAME\",\"value\":\"$(MY_POD_NAME).opensearch-data-hl.default.svc.cluster.local\"},{\"name\":\"OPENSEARCH_HEAP_SIZE\",\"value\":\"1024m\"}],\"image\":\"docker.io/bitnami/opensearch:3.2.0-debian-12-r0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":5,\"initialDelaySeconds\":180,\"periodSeconds\":10,\"successThreshold\":1,\"tcpSocket\":{\"port\":\"rest-api\"},\"timeoutSeconds\":5},\"name\":\"opensearch\",\"ports\":[{\"containerPort\":9200,\"name\":\"rest-api\"},{\"containerPort\":9300,\"name\":\"transport\"}],\"readinessProbe\":{\"exec\":{\"command\":[\"/opt/bitnami/scripts/opensearch/healthcheck.sh\"]},\"failureThreshold\":5,\"initialDelaySeconds\":90,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"resources\":{\"limits\":{\"cpu\":\"750m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"1536Mi\"},\"requests\":{\"cpu\":\"500m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"1024Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"empty-dir\",\"subPath\":\"tmp-dir\"},{\"mountPath\":\"/opt/bitnami/opensearch/config\",\"name\":\"empty-dir\",\"subPath\":\"app-conf-dir\"},{\"mountPath\":\"/opt/bitnami/opensearch/tmp\",\"name\":\"empty-dir\",\"subPath\":\"app-tmp-dir\"},{\"mountPath\":\"/opt/bitnami/opensearch/logs\",\"name\":\"empty-dir\",\"subPath\":\"app-logs-dir\"},{\"mountPath\":\"/opt/bitnami/opensearch/plugins\",\"name\":\"empty-dir\",\"subPath\":\"app-plugins-dir\"},{\"mountPath\":\"/bitnami/opensearch/data\",\"name\":\"data\"}]}],\"initContainers\":[{\"command\":[\"/bin/bash\",\"-ec\",\"CURRENT=`sysctl -n vm.max_map_count`;\\nDESIRED=\\\"262144\\\";\\nif [ \\\"$DESIRED\\\" -gt \\\"$CURRENT\\\" ]; then\\n    sysctl -w vm.max_map_count=262144;\\nfi;\\nCURRENT=`sysctl -n fs.file-max`;\\nDESIRED=\\\"65536\\\";\\nif [ \\\"$DESIRED\\\" -gt \\\"$CURRENT\\\" ]; then\\n    sysctl -w fs.file-max=65536;\\nfi;\\n\"],\"image\":\"docker.io/bitnami/os-shell:12-debian-12-r51\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"sysctl\",\"resources\":{\"limits\":{\"cpu\":\"150m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"192Mi\"},\"requests\":{\"cpu\":\"100m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"128Mi\"}},\"securityContext\":{\"privileged\":true,\"runAsUser\":0}},{\"args\":[\"-ec\",\". /opt/bitnami/scripts/liblog.sh\\n. /opt/bitnami/scripts/libfs.sh\\n. /opt/bitnami/scripts/opensearch-env.sh\\n\\nmkdir -p /emptydir/app-conf-dir /emptydir/app-plugins-dir\\ninfo \\\"Copying directories to empty dir\\\"\\n\\nif ! is_dir_empty \\\"$DB_DEFAULT_CONF_DIR\\\"; then\\n    info \\\"Copying default configuration\\\"\\n    cp -nr --preserve=mode \\\"$DB_DEFAULT_CONF_DIR\\\"/* /emptydir/app-conf-dir\\nfi\\nif ! is_dir_empty \\\"$DB_DEFAULT_PLUGINS_DIR\\\"; then\\n    info \\\"Copying default plugins\\\"\\n    cp -nr \\\"$DB_DEFAULT_PLUGINS_DIR\\\"/* /emptydir/app-plugins-dir\\nfi\\n\\ninfo \\\"Copy operation completed\\\"\\n\"],\"command\":[\"/bin/bash\"],\"image\":\"docker.io/bitnami/opensearch:3.2.0-debian-12-r0\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"copy-default-plugins\",\"resources\":{\"limits\":{\"cpu\":\"750m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"1536Mi\"},\"requests\":{\"cpu\":\"500m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"1024Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/emptydir\",\"name\":\"empty-dir\"}]}],\"securityContext\":{\"fsGroup\":1001,\"fsGroupChangePolicy\":\"Always\",\"supplementalGroups\":[],\"sysctls\":[]},\"serviceAccountName\":\"default\",\"volumes\":[{\"emptyDir\":{},\"name\":\"empty-dir\"}]}},\"updateStrategy\":{\"type\":\"RollingUpdate\"},\"volumeClaimTemplates\":[{\"apiVersion\":\"v1\",\"kind\":\"PersistentVolumeClaim\",\"metadata\":{\"name\":\"data\"},\"spec\":{\"accessModes\":[\"ReadWriteOnce\"],\"resources\":{\"requests\":{\"storage\":\"8Gi\"}}}}]}}\n"
+      creationTimestamp: "2026-06-11T15:02:39Z"
+      generation: 1
+      labels:
+        app: "data"
+        app.kubernetes.io/component: "data"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "opensearch"
+        app.kubernetes.io/version: "3.2.0"
+        helm.sh/chart: "opensearch-2.0.10"
+      name: "opensearch-data"
+      namespace: "default"
+      resourceVersion: "599"
+      uid: "44574d22-8208-453d-b3d2-b54a1c38b8d4"
+    spec:
+      persistentVolumeClaimRetentionPolicy:
+        whenDeleted: "Retain"
+        whenScaled: "Retain"
+      podManagementPolicy: "Parallel"
+      replicas: 3
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "data"
+          app.kubernetes.io/instance: "opensearch"
+          app.kubernetes.io/name: "opensearch"
+      serviceName: "opensearch-data-hl"
+      template:
+        metadata:
+          labels:
+            app: "data"
+            app.kubernetes.io/component: "data"
+            app.kubernetes.io/instance: "opensearch"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "opensearch"
+            app.kubernetes.io/version: "3.2.0"
+            helm.sh/chart: "opensearch-2.0.10"
+        spec:
+          affinity:
+            {}
+          automountServiceAccountToken: false
+          containers:
+            -
+              env:
+                -
+                  name: "BITNAMI_DEBUG"
+                  value: "false"
+                -
+                  name: "MY_POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "OPENSEARCH_IS_DEDICATED_NODE"
+                  value: "yes"
+                -
+                  name: "OPENSEARCH_NODE_ROLES"
+                  value: "data"
+                -
+                  name: "OPENSEARCH_TRANSPORT_PORT_NUMBER"
+                  value: "9300"
+                -
+                  name: "OPENSEARCH_HTTP_PORT_NUMBER"
+                  value: "9200"
+                -
+                  name: "OPENSEARCH_CLUSTER_NAME"
+                  value: "open"
+                -
+                  name: "OPENSEARCH_CLUSTER_HOSTS"
+                  value: "opensearch-master-hl.default.svc.cluster.local,opensearch-coordinating-hl.default.svc.cluster.local,opensearch-data-hl.default.svc.cluster.local,opensearch-ingest-hl.default.svc.cluster.local,"
+                -
+                  name: "OPENSEARCH_TOTAL_NODES"
+                  value: "6"
+                -
+                  name: "OPENSEARCH_CLUSTER_MASTER_HOSTS"
+                  value: "opensearch-master-0 opensearch-master-1 opensearch-master-2"
+                -
+                  name: "OPENSEARCH_MINIMUM_MASTER_NODES"
+                  value: "2"
+                -
+                  name: "OPENSEARCH_ADVERTISED_HOSTNAME"
+                  value: "$(MY_POD_NAME).opensearch-data-hl.default.svc.cluster.local"
+                -
+                  name: "OPENSEARCH_HEAP_SIZE"
+                  value: "1024m"
+              image: "docker.io/bitnami/opensearch:3.2.0-debian-12-r0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 5
+                initialDelaySeconds: 180
+                periodSeconds: 10
+                successThreshold: 1
+                tcpSocket:
+                  port: "rest-api"
+                timeoutSeconds: 5
+              name: "opensearch"
+              ports:
+                -
+                  containerPort: 9200
+                  name: "rest-api"
+                  protocol: "TCP"
+                -
+                  containerPort: 9300
+                  name: "transport"
+                  protocol: "TCP"
+              readinessProbe:
+                exec:
+                  command:
+                    - "/opt/bitnami/scripts/opensearch/healthcheck.sh"
+                failureThreshold: 5
+                initialDelaySeconds: 90
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                limits:
+                  cpu: "750m"
+                  ephemeral-storage: "2Gi"
+                  memory: "1536Mi"
+                requests:
+                  cpu: "500m"
+                  ephemeral-storage: "50Mi"
+                  memory: "1Gi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/tmp"
+                  name: "empty-dir"
+                  subPath: "tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/opensearch/config"
+                  name: "empty-dir"
+                  subPath: "app-conf-dir"
+                -
+                  mountPath: "/opt/bitnami/opensearch/tmp"
+                  name: "empty-dir"
+                  subPath: "app-tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/opensearch/logs"
+                  name: "empty-dir"
+                  subPath: "app-logs-dir"
+                -
+                  mountPath: "/opt/bitnami/opensearch/plugins"
+                  name: "empty-dir"
+                  subPath: "app-plugins-dir"
+                -
+                  mountPath: "/bitnami/opensearch/data"
+                  name: "data"
+          dnsPolicy: "ClusterFirst"
+          initContainers:
+            -
+              command:
+                - "/bin/bash"
+                - "-ec"
+                - "CURRENT=`sysctl -n vm.max_map_count`;\nDESIRED=\"262144\";\nif [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n    sysctl -w vm.max_map_count=262144;\nfi;\nCURRENT=`sysctl -n fs.file-max`;\nDESIRED=\"65536\";\nif [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n    sysctl -w fs.file-max=65536;\nfi;\n"
+              image: "docker.io/bitnami/os-shell:12-debian-12-r51"
+              imagePullPolicy: "IfNotPresent"
+              name: "sysctl"
+              resources:
+                limits:
+                  cpu: "150m"
+                  ephemeral-storage: "2Gi"
+                  memory: "192Mi"
+                requests:
+                  cpu: "100m"
+                  ephemeral-storage: "50Mi"
+                  memory: "128Mi"
+              securityContext:
+                privileged: true
+                runAsUser: 0
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+            -
+              args:
+                - "-ec"
+                - ". /opt/bitnami/scripts/liblog.sh\n. /opt/bitnami/scripts/libfs.sh\n. /opt/bitnami/scripts/opensearch-env.sh\n\nmkdir -p /emptydir/app-conf-dir /emptydir/app-plugins-dir\ninfo \"Copying directories to empty dir\"\n\nif ! is_dir_empty \"$DB_DEFAULT_CONF_DIR\"; then\n    info \"Copying default configuration\"\n    cp -nr --preserve=mode \"$DB_DEFAULT_CONF_DIR\"/* /emptydir/app-conf-dir\nfi\nif ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n    info \"Copying default plugins\"\n    cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /emptydir/app-plugins-dir\nfi\n\ninfo \"Copy operation completed\"\n"
+              command:
+                - "/bin/bash"
+              image: "docker.io/bitnami/opensearch:3.2.0-debian-12-r0"
+              imagePullPolicy: "IfNotPresent"
+              name: "copy-default-plugins"
+              resources:
+                limits:
+                  cpu: "750m"
+                  ephemeral-storage: "2Gi"
+                  memory: "1536Mi"
+                requests:
+                  cpu: "500m"
+                  ephemeral-storage: "50Mi"
+                  memory: "1Gi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/emptydir"
+                  name: "empty-dir"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 1001
+            fsGroupChangePolicy: "Always"
+          serviceAccount: "default"
+          serviceAccountName: "default"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              emptyDir:
+                {}
+              name: "empty-dir"
+      updateStrategy:
+        type: "RollingUpdate"
+      volumeClaimTemplates:
+        -
+          apiVersion: "v1"
+          kind: "PersistentVolumeClaim"
+          metadata:
+            name: "data"
+          spec:
+            accessModes:
+              - "ReadWriteOnce"
+            resources:
+              requests:
+                storage: "8Gi"
+            volumeMode: "Filesystem"
+          status:
+            phase: "Pending"
+    status:
+      availableReplicas: 0
+      collisionCount: 0
+      currentReplicas: 3
+      currentRevision: "opensearch-data-5cbd454b47"
+      observedGeneration: 1
+      replicas: 3
+      updateRevision: "opensearch-data-5cbd454b47"
+      updatedReplicas: 3
+  -
+    apiVersion: "apps/v1"
+    kind: "StatefulSet"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"ingest\",\"app.kubernetes.io/component\":\"ingest\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opensearch\",\"app.kubernetes.io/version\":\"3.2.0\",\"helm.sh/chart\":\"opensearch-2.0.10\"},\"name\":\"opensearch-ingest\",\"namespace\":\"default\"},\"spec\":{\"podManagementPolicy\":\"Parallel\",\"replicas\":2,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"ingest\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/name\":\"opensearch\"}},\"serviceName\":\"opensearch-ingest-hl\",\"template\":{\"metadata\":{\"annotations\":null,\"labels\":{\"app\":\"ingest\",\"app.kubernetes.io/component\":\"ingest\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opensearch\",\"app.kubernetes.io/version\":\"3.2.0\",\"helm.sh/chart\":\"opensearch-2.0.10\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":null,\"podAffinity\":null,\"podAntiAffinity\":null},\"automountServiceAccountToken\":false,\"containers\":[{\"env\":[{\"name\":\"BITNAMI_DEBUG\",\"value\":\"false\"},{\"name\":\"MY_POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"OPENSEARCH_IS_DEDICATED_NODE\",\"value\":\"yes\"},{\"name\":\"OPENSEARCH_NODE_ROLES\",\"value\":\"ingest\"},{\"name\":\"OPENSEARCH_TRANSPORT_PORT_NUMBER\",\"value\":\"9300\"},{\"name\":\"OPENSEARCH_HTTP_PORT_NUMBER\",\"value\":\"9200\"},{\"name\":\"OPENSEARCH_CLUSTER_NAME\",\"value\":\"open\"},{\"name\":\"OPENSEARCH_CLUSTER_HOSTS\",\"value\":\"opensearch-master-hl.default.svc.cluster.local,opensearch-coordinating-hl.default.svc.cluster.local,opensearch-data-hl.default.svc.cluster.local,opensearch-ingest-hl.default.svc.cluster.local,\"},{\"name\":\"OPENSEARCH_TOTAL_NODES\",\"value\":\"6\"},{\"name\":\"OPENSEARCH_CLUSTER_MASTER_HOSTS\",\"value\":\"opensearch-master-0 opensearch-master-1 opensearch-master-2\"},{\"name\":\"OPENSEARCH_MINIMUM_MASTER_NODES\",\"value\":\"2\"},{\"name\":\"OPENSEARCH_ADVERTISED_HOSTNAME\",\"value\":\"$(MY_POD_NAME).opensearch-ingest-hl.default.svc.cluster.local\"},{\"name\":\"OPENSEARCH_HEAP_SIZE\",\"value\":\"512m\"}],\"image\":\"docker.io/bitnami/opensearch:3.2.0-debian-12-r0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":5,\"initialDelaySeconds\":180,\"periodSeconds\":10,\"successThreshold\":1,\"tcpSocket\":{\"port\":\"rest-api\"},\"timeoutSeconds\":5},\"name\":\"opensearch\",\"ports\":[{\"containerPort\":9200,\"name\":\"rest-api\"},{\"containerPort\":9300,\"name\":\"transport\"}],\"readinessProbe\":{\"exec\":{\"command\":[\"/opt/bitnami/scripts/opensearch/healthcheck.sh\"]},\"failureThreshold\":5,\"initialDelaySeconds\":90,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"resources\":{\"limits\":{\"cpu\":\"750m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"1536Mi\"},\"requests\":{\"cpu\":\"500m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"1024Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"empty-dir\",\"subPath\":\"tmp-dir\"},{\"mountPath\":\"/opt/bitnami/opensearch/config\",\"name\":\"empty-dir\",\"subPath\":\"app-conf-dir\"},{\"mountPath\":\"/opt/bitnami/opensearch/tmp\",\"name\":\"empty-dir\",\"subPath\":\"app-tmp-dir\"},{\"mountPath\":\"/opt/bitnami/opensearch/logs\",\"name\":\"empty-dir\",\"subPath\":\"app-logs-dir\"},{\"mountPath\":\"/opt/bitnami/opensearch/plugins\",\"name\":\"empty-dir\",\"subPath\":\"app-plugins-dir\"},{\"mountPath\":\"/bitnami/opensearch/data\",\"name\":\"data\"}]}],\"initContainers\":[{\"command\":[\"/bin/bash\",\"-ec\",\"CURRENT=`sysctl -n vm.max_map_count`;\\nDESIRED=\\\"262144\\\";\\nif [ \\\"$DESIRED\\\" -gt \\\"$CURRENT\\\" ]; then\\n    sysctl -w vm.max_map_count=262144;\\nfi;\\nCURRENT=`sysctl -n fs.file-max`;\\nDESIRED=\\\"65536\\\";\\nif [ \\\"$DESIRED\\\" -gt \\\"$CURRENT\\\" ]; then\\n    sysctl -w fs.file-max=65536;\\nfi;\\n\"],\"image\":\"docker.io/bitnami/os-shell:12-debian-12-r51\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"sysctl\",\"resources\":{\"limits\":{\"cpu\":\"150m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"192Mi\"},\"requests\":{\"cpu\":\"100m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"128Mi\"}},\"securityContext\":{\"privileged\":true,\"runAsUser\":0}},{\"args\":[\"-ec\",\". /opt/bitnami/scripts/liblog.sh\\n. /opt/bitnami/scripts/libfs.sh\\n. /opt/bitnami/scripts/opensearch-env.sh\\n\\nmkdir -p /emptydir/app-conf-dir /emptydir/app-plugins-dir\\ninfo \\\"Copying directories to empty dir\\\"\\n\\nif ! is_dir_empty \\\"$DB_DEFAULT_CONF_DIR\\\"; then\\n    info \\\"Copying default configuration\\\"\\n    cp -nr --preserve=mode \\\"$DB_DEFAULT_CONF_DIR\\\"/* /emptydir/app-conf-dir\\nfi\\nif ! is_dir_empty \\\"$DB_DEFAULT_PLUGINS_DIR\\\"; then\\n    info \\\"Copying default plugins\\\"\\n    cp -nr \\\"$DB_DEFAULT_PLUGINS_DIR\\\"/* /emptydir/app-plugins-dir\\nfi\\n\\ninfo \\\"Copy operation completed\\\"\\n\"],\"command\":[\"/bin/bash\"],\"image\":\"docker.io/bitnami/opensearch:3.2.0-debian-12-r0\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"copy-default-plugins\",\"resources\":{\"limits\":{\"cpu\":\"750m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"1536Mi\"},\"requests\":{\"cpu\":\"500m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"1024Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/emptydir\",\"name\":\"empty-dir\"}]}],\"securityContext\":{\"fsGroup\":1001,\"fsGroupChangePolicy\":\"Always\",\"supplementalGroups\":[],\"sysctls\":[]},\"serviceAccountName\":\"default\",\"volumes\":[{\"emptyDir\":{},\"name\":\"empty-dir\"},{\"emptyDir\":{},\"name\":\"data\"}]}},\"updateStrategy\":{\"type\":\"RollingUpdate\"}}}\n"
+      creationTimestamp: "2026-06-11T15:02:39Z"
+      generation: 1
+      labels:
+        app: "ingest"
+        app.kubernetes.io/component: "ingest"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "opensearch"
+        app.kubernetes.io/version: "3.2.0"
+        helm.sh/chart: "opensearch-2.0.10"
+      name: "opensearch-ingest"
+      namespace: "default"
+      resourceVersion: "554"
+      uid: "d1906364-4097-4435-8454-fd532c7f20cd"
+    spec:
+      persistentVolumeClaimRetentionPolicy:
+        whenDeleted: "Retain"
+        whenScaled: "Retain"
+      podManagementPolicy: "Parallel"
+      replicas: 2
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "ingest"
+          app.kubernetes.io/instance: "opensearch"
+          app.kubernetes.io/name: "opensearch"
+      serviceName: "opensearch-ingest-hl"
+      template:
+        metadata:
+          labels:
+            app: "ingest"
+            app.kubernetes.io/component: "ingest"
+            app.kubernetes.io/instance: "opensearch"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "opensearch"
+            app.kubernetes.io/version: "3.2.0"
+            helm.sh/chart: "opensearch-2.0.10"
+        spec:
+          affinity:
+            {}
+          automountServiceAccountToken: false
+          containers:
+            -
+              env:
+                -
+                  name: "BITNAMI_DEBUG"
+                  value: "false"
+                -
+                  name: "MY_POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "OPENSEARCH_IS_DEDICATED_NODE"
+                  value: "yes"
+                -
+                  name: "OPENSEARCH_NODE_ROLES"
+                  value: "ingest"
+                -
+                  name: "OPENSEARCH_TRANSPORT_PORT_NUMBER"
+                  value: "9300"
+                -
+                  name: "OPENSEARCH_HTTP_PORT_NUMBER"
+                  value: "9200"
+                -
+                  name: "OPENSEARCH_CLUSTER_NAME"
+                  value: "open"
+                -
+                  name: "OPENSEARCH_CLUSTER_HOSTS"
+                  value: "opensearch-master-hl.default.svc.cluster.local,opensearch-coordinating-hl.default.svc.cluster.local,opensearch-data-hl.default.svc.cluster.local,opensearch-ingest-hl.default.svc.cluster.local,"
+                -
+                  name: "OPENSEARCH_TOTAL_NODES"
+                  value: "6"
+                -
+                  name: "OPENSEARCH_CLUSTER_MASTER_HOSTS"
+                  value: "opensearch-master-0 opensearch-master-1 opensearch-master-2"
+                -
+                  name: "OPENSEARCH_MINIMUM_MASTER_NODES"
+                  value: "2"
+                -
+                  name: "OPENSEARCH_ADVERTISED_HOSTNAME"
+                  value: "$(MY_POD_NAME).opensearch-ingest-hl.default.svc.cluster.local"
+                -
+                  name: "OPENSEARCH_HEAP_SIZE"
+                  value: "512m"
+              image: "docker.io/bitnami/opensearch:3.2.0-debian-12-r0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 5
+                initialDelaySeconds: 180
+                periodSeconds: 10
+                successThreshold: 1
+                tcpSocket:
+                  port: "rest-api"
+                timeoutSeconds: 5
+              name: "opensearch"
+              ports:
+                -
+                  containerPort: 9200
+                  name: "rest-api"
+                  protocol: "TCP"
+                -
+                  containerPort: 9300
+                  name: "transport"
+                  protocol: "TCP"
+              readinessProbe:
+                exec:
+                  command:
+                    - "/opt/bitnami/scripts/opensearch/healthcheck.sh"
+                failureThreshold: 5
+                initialDelaySeconds: 90
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                limits:
+                  cpu: "750m"
+                  ephemeral-storage: "2Gi"
+                  memory: "1536Mi"
+                requests:
+                  cpu: "500m"
+                  ephemeral-storage: "50Mi"
+                  memory: "1Gi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/tmp"
+                  name: "empty-dir"
+                  subPath: "tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/opensearch/config"
+                  name: "empty-dir"
+                  subPath: "app-conf-dir"
+                -
+                  mountPath: "/opt/bitnami/opensearch/tmp"
+                  name: "empty-dir"
+                  subPath: "app-tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/opensearch/logs"
+                  name: "empty-dir"
+                  subPath: "app-logs-dir"
+                -
+                  mountPath: "/opt/bitnami/opensearch/plugins"
+                  name: "empty-dir"
+                  subPath: "app-plugins-dir"
+                -
+                  mountPath: "/bitnami/opensearch/data"
+                  name: "data"
+          dnsPolicy: "ClusterFirst"
+          initContainers:
+            -
+              command:
+                - "/bin/bash"
+                - "-ec"
+                - "CURRENT=`sysctl -n vm.max_map_count`;\nDESIRED=\"262144\";\nif [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n    sysctl -w vm.max_map_count=262144;\nfi;\nCURRENT=`sysctl -n fs.file-max`;\nDESIRED=\"65536\";\nif [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n    sysctl -w fs.file-max=65536;\nfi;\n"
+              image: "docker.io/bitnami/os-shell:12-debian-12-r51"
+              imagePullPolicy: "IfNotPresent"
+              name: "sysctl"
+              resources:
+                limits:
+                  cpu: "150m"
+                  ephemeral-storage: "2Gi"
+                  memory: "192Mi"
+                requests:
+                  cpu: "100m"
+                  ephemeral-storage: "50Mi"
+                  memory: "128Mi"
+              securityContext:
+                privileged: true
+                runAsUser: 0
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+            -
+              args:
+                - "-ec"
+                - ". /opt/bitnami/scripts/liblog.sh\n. /opt/bitnami/scripts/libfs.sh\n. /opt/bitnami/scripts/opensearch-env.sh\n\nmkdir -p /emptydir/app-conf-dir /emptydir/app-plugins-dir\ninfo \"Copying directories to empty dir\"\n\nif ! is_dir_empty \"$DB_DEFAULT_CONF_DIR\"; then\n    info \"Copying default configuration\"\n    cp -nr --preserve=mode \"$DB_DEFAULT_CONF_DIR\"/* /emptydir/app-conf-dir\nfi\nif ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n    info \"Copying default plugins\"\n    cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /emptydir/app-plugins-dir\nfi\n\ninfo \"Copy operation completed\"\n"
+              command:
+                - "/bin/bash"
+              image: "docker.io/bitnami/opensearch:3.2.0-debian-12-r0"
+              imagePullPolicy: "IfNotPresent"
+              name: "copy-default-plugins"
+              resources:
+                limits:
+                  cpu: "750m"
+                  ephemeral-storage: "2Gi"
+                  memory: "1536Mi"
+                requests:
+                  cpu: "500m"
+                  ephemeral-storage: "50Mi"
+                  memory: "1Gi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/emptydir"
+                  name: "empty-dir"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 1001
+            fsGroupChangePolicy: "Always"
+          serviceAccount: "default"
+          serviceAccountName: "default"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              emptyDir:
+                {}
+              name: "empty-dir"
+            -
+              emptyDir:
+                {}
+              name: "data"
+      updateStrategy:
+        type: "RollingUpdate"
+    status:
+      availableReplicas: 0
+      collisionCount: 0
+      currentReplicas: 2
+      currentRevision: "opensearch-ingest-5456b6b775"
+      observedGeneration: 1
+      replicas: 2
+      updateRevision: "opensearch-ingest-5456b6b775"
+      updatedReplicas: 2
+  -
+    apiVersion: "apps/v1"
+    kind: "StatefulSet"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"master\",\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opensearch\",\"app.kubernetes.io/version\":\"3.2.0\",\"helm.sh/chart\":\"opensearch-2.0.10\"},\"name\":\"opensearch-master\",\"namespace\":\"default\"},\"spec\":{\"podManagementPolicy\":\"Parallel\",\"replicas\":3,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/name\":\"opensearch\"}},\"serviceName\":\"opensearch-master-hl\",\"template\":{\"metadata\":{\"annotations\":null,\"labels\":{\"app\":\"master\",\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"opensearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"opensearch\",\"app.kubernetes.io/version\":\"3.2.0\",\"helm.sh/chart\":\"opensearch-2.0.10\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":null,\"podAffinity\":null,\"podAntiAffinity\":null},\"automountServiceAccountToken\":false,\"containers\":[{\"env\":[{\"name\":\"BITNAMI_DEBUG\",\"value\":\"false\"},{\"name\":\"MY_POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"OPENSEARCH_IS_DEDICATED_NODE\",\"value\":\"yes\"},{\"name\":\"OPENSEARCH_NODE_ROLES\",\"value\":\"master\"},{\"name\":\"OPENSEARCH_TRANSPORT_PORT_NUMBER\",\"value\":\"9300\"},{\"name\":\"OPENSEARCH_HTTP_PORT_NUMBER\",\"value\":\"9200\"},{\"name\":\"OPENSEARCH_CLUSTER_NAME\",\"value\":\"open\"},{\"name\":\"OPENSEARCH_CLUSTER_HOSTS\",\"value\":\"opensearch-master-hl.default.svc.cluster.local,opensearch-coordinating-hl.default.svc.cluster.local,opensearch-data-hl.default.svc.cluster.local,opensearch-ingest-hl.default.svc.cluster.local,\"},{\"name\":\"OPENSEARCH_TOTAL_NODES\",\"value\":\"6\"},{\"name\":\"OPENSEARCH_CLUSTER_MASTER_HOSTS\",\"value\":\"opensearch-master-0 opensearch-master-1 opensearch-master-2\"},{\"name\":\"OPENSEARCH_MINIMUM_MASTER_NODES\",\"value\":\"2\"},{\"name\":\"OPENSEARCH_ADVERTISED_HOSTNAME\",\"value\":\"$(MY_POD_NAME).opensearch-master-hl.default.svc.cluster.local\"},{\"name\":\"OPENSEARCH_HEAP_SIZE\",\"value\":\"512m\"}],\"image\":\"docker.io/bitnami/opensearch:3.2.0-debian-12-r0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":5,\"initialDelaySeconds\":180,\"periodSeconds\":10,\"successThreshold\":1,\"tcpSocket\":{\"port\":\"rest-api\"},\"timeoutSeconds\":5},\"name\":\"opensearch\",\"ports\":[{\"containerPort\":9200,\"name\":\"rest-api\"},{\"containerPort\":9300,\"name\":\"transport\"}],\"readinessProbe\":{\"exec\":{\"command\":[\"/opt/bitnami/scripts/opensearch/healthcheck.sh\"]},\"failureThreshold\":5,\"initialDelaySeconds\":90,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"resources\":{\"limits\":{\"cpu\":\"750m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"1536Mi\"},\"requests\":{\"cpu\":\"500m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"1024Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"empty-dir\",\"subPath\":\"tmp-dir\"},{\"mountPath\":\"/opt/bitnami/opensearch/config\",\"name\":\"empty-dir\",\"subPath\":\"app-conf-dir\"},{\"mountPath\":\"/opt/bitnami/opensearch/tmp\",\"name\":\"empty-dir\",\"subPath\":\"app-tmp-dir\"},{\"mountPath\":\"/opt/bitnami/opensearch/logs\",\"name\":\"empty-dir\",\"subPath\":\"app-logs-dir\"},{\"mountPath\":\"/opt/bitnami/opensearch/plugins\",\"name\":\"empty-dir\",\"subPath\":\"app-plugins-dir\"},{\"mountPath\":\"/bitnami/opensearch/data\",\"name\":\"data\"}]}],\"initContainers\":[{\"command\":[\"/bin/bash\",\"-ec\",\"CURRENT=`sysctl -n vm.max_map_count`;\\nDESIRED=\\\"262144\\\";\\nif [ \\\"$DESIRED\\\" -gt \\\"$CURRENT\\\" ]; then\\n    sysctl -w vm.max_map_count=262144;\\nfi;\\nCURRENT=`sysctl -n fs.file-max`;\\nDESIRED=\\\"65536\\\";\\nif [ \\\"$DESIRED\\\" -gt \\\"$CURRENT\\\" ]; then\\n    sysctl -w fs.file-max=65536;\\nfi;\\n\"],\"image\":\"docker.io/bitnami/os-shell:12-debian-12-r51\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"sysctl\",\"resources\":{\"limits\":{\"cpu\":\"150m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"192Mi\"},\"requests\":{\"cpu\":\"100m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"128Mi\"}},\"securityContext\":{\"privileged\":true,\"runAsUser\":0}},{\"args\":[\"-ec\",\". /opt/bitnami/scripts/liblog.sh\\n. /opt/bitnami/scripts/libfs.sh\\n. /opt/bitnami/scripts/opensearch-env.sh\\n\\nmkdir -p /emptydir/app-conf-dir /emptydir/app-plugins-dir\\ninfo \\\"Copying directories to empty dir\\\"\\n\\nif ! is_dir_empty \\\"$DB_DEFAULT_CONF_DIR\\\"; then\\n    info \\\"Copying default configuration\\\"\\n    cp -nr --preserve=mode \\\"$DB_DEFAULT_CONF_DIR\\\"/* /emptydir/app-conf-dir\\nfi\\nif ! is_dir_empty \\\"$DB_DEFAULT_PLUGINS_DIR\\\"; then\\n    info \\\"Copying default plugins\\\"\\n    cp -nr \\\"$DB_DEFAULT_PLUGINS_DIR\\\"/* /emptydir/app-plugins-dir\\nfi\\n\\ninfo \\\"Copy operation completed\\\"\\n\"],\"command\":[\"/bin/bash\"],\"image\":\"docker.io/bitnami/opensearch:3.2.0-debian-12-r0\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"copy-default-plugins\",\"resources\":{\"limits\":{\"cpu\":\"750m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"1536Mi\"},\"requests\":{\"cpu\":\"500m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"1024Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/emptydir\",\"name\":\"empty-dir\"}]}],\"securityContext\":{\"fsGroup\":1001,\"fsGroupChangePolicy\":\"Always\",\"supplementalGroups\":[],\"sysctls\":[]},\"serviceAccountName\":\"default\",\"volumes\":[{\"emptyDir\":{},\"name\":\"empty-dir\"}]}},\"updateStrategy\":{\"type\":\"RollingUpdate\"},\"volumeClaimTemplates\":[{\"apiVersion\":\"v1\",\"kind\":\"PersistentVolumeClaim\",\"metadata\":{\"name\":\"data\"},\"spec\":{\"accessModes\":[\"ReadWriteOnce\"],\"resources\":{\"requests\":{\"storage\":\"8Gi\"}}}}]}}\n"
+      creationTimestamp: "2026-06-11T15:02:39Z"
+      generation: 1
+      labels:
+        app: "master"
+        app.kubernetes.io/component: "master"
+        app.kubernetes.io/instance: "opensearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "opensearch"
+        app.kubernetes.io/version: "3.2.0"
+        helm.sh/chart: "opensearch-2.0.10"
+      name: "opensearch-master"
+      namespace: "default"
+      resourceVersion: "612"
+      uid: "81354f19-f392-41b1-b0f9-51282346582c"
+    spec:
+      persistentVolumeClaimRetentionPolicy:
+        whenDeleted: "Retain"
+        whenScaled: "Retain"
+      podManagementPolicy: "Parallel"
+      replicas: 3
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "master"
+          app.kubernetes.io/instance: "opensearch"
+          app.kubernetes.io/name: "opensearch"
+      serviceName: "opensearch-master-hl"
+      template:
+        metadata:
+          labels:
+            app: "master"
+            app.kubernetes.io/component: "master"
+            app.kubernetes.io/instance: "opensearch"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "opensearch"
+            app.kubernetes.io/version: "3.2.0"
+            helm.sh/chart: "opensearch-2.0.10"
+        spec:
+          affinity:
+            {}
+          automountServiceAccountToken: false
+          containers:
+            -
+              env:
+                -
+                  name: "BITNAMI_DEBUG"
+                  value: "false"
+                -
+                  name: "MY_POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "OPENSEARCH_IS_DEDICATED_NODE"
+                  value: "yes"
+                -
+                  name: "OPENSEARCH_NODE_ROLES"
+                  value: "master"
+                -
+                  name: "OPENSEARCH_TRANSPORT_PORT_NUMBER"
+                  value: "9300"
+                -
+                  name: "OPENSEARCH_HTTP_PORT_NUMBER"
+                  value: "9200"
+                -
+                  name: "OPENSEARCH_CLUSTER_NAME"
+                  value: "open"
+                -
+                  name: "OPENSEARCH_CLUSTER_HOSTS"
+                  value: "opensearch-master-hl.default.svc.cluster.local,opensearch-coordinating-hl.default.svc.cluster.local,opensearch-data-hl.default.svc.cluster.local,opensearch-ingest-hl.default.svc.cluster.local,"
+                -
+                  name: "OPENSEARCH_TOTAL_NODES"
+                  value: "6"
+                -
+                  name: "OPENSEARCH_CLUSTER_MASTER_HOSTS"
+                  value: "opensearch-master-0 opensearch-master-1 opensearch-master-2"
+                -
+                  name: "OPENSEARCH_MINIMUM_MASTER_NODES"
+                  value: "2"
+                -
+                  name: "OPENSEARCH_ADVERTISED_HOSTNAME"
+                  value: "$(MY_POD_NAME).opensearch-master-hl.default.svc.cluster.local"
+                -
+                  name: "OPENSEARCH_HEAP_SIZE"
+                  value: "512m"
+              image: "docker.io/bitnami/opensearch:3.2.0-debian-12-r0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 5
+                initialDelaySeconds: 180
+                periodSeconds: 10
+                successThreshold: 1
+                tcpSocket:
+                  port: "rest-api"
+                timeoutSeconds: 5
+              name: "opensearch"
+              ports:
+                -
+                  containerPort: 9200
+                  name: "rest-api"
+                  protocol: "TCP"
+                -
+                  containerPort: 9300
+                  name: "transport"
+                  protocol: "TCP"
+              readinessProbe:
+                exec:
+                  command:
+                    - "/opt/bitnami/scripts/opensearch/healthcheck.sh"
+                failureThreshold: 5
+                initialDelaySeconds: 90
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                limits:
+                  cpu: "750m"
+                  ephemeral-storage: "2Gi"
+                  memory: "1536Mi"
+                requests:
+                  cpu: "500m"
+                  ephemeral-storage: "50Mi"
+                  memory: "1Gi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/tmp"
+                  name: "empty-dir"
+                  subPath: "tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/opensearch/config"
+                  name: "empty-dir"
+                  subPath: "app-conf-dir"
+                -
+                  mountPath: "/opt/bitnami/opensearch/tmp"
+                  name: "empty-dir"
+                  subPath: "app-tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/opensearch/logs"
+                  name: "empty-dir"
+                  subPath: "app-logs-dir"
+                -
+                  mountPath: "/opt/bitnami/opensearch/plugins"
+                  name: "empty-dir"
+                  subPath: "app-plugins-dir"
+                -
+                  mountPath: "/bitnami/opensearch/data"
+                  name: "data"
+          dnsPolicy: "ClusterFirst"
+          initContainers:
+            -
+              command:
+                - "/bin/bash"
+                - "-ec"
+                - "CURRENT=`sysctl -n vm.max_map_count`;\nDESIRED=\"262144\";\nif [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n    sysctl -w vm.max_map_count=262144;\nfi;\nCURRENT=`sysctl -n fs.file-max`;\nDESIRED=\"65536\";\nif [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n    sysctl -w fs.file-max=65536;\nfi;\n"
+              image: "docker.io/bitnami/os-shell:12-debian-12-r51"
+              imagePullPolicy: "IfNotPresent"
+              name: "sysctl"
+              resources:
+                limits:
+                  cpu: "150m"
+                  ephemeral-storage: "2Gi"
+                  memory: "192Mi"
+                requests:
+                  cpu: "100m"
+                  ephemeral-storage: "50Mi"
+                  memory: "128Mi"
+              securityContext:
+                privileged: true
+                runAsUser: 0
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+            -
+              args:
+                - "-ec"
+                - ". /opt/bitnami/scripts/liblog.sh\n. /opt/bitnami/scripts/libfs.sh\n. /opt/bitnami/scripts/opensearch-env.sh\n\nmkdir -p /emptydir/app-conf-dir /emptydir/app-plugins-dir\ninfo \"Copying directories to empty dir\"\n\nif ! is_dir_empty \"$DB_DEFAULT_CONF_DIR\"; then\n    info \"Copying default configuration\"\n    cp -nr --preserve=mode \"$DB_DEFAULT_CONF_DIR\"/* /emptydir/app-conf-dir\nfi\nif ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n    info \"Copying default plugins\"\n    cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /emptydir/app-plugins-dir\nfi\n\ninfo \"Copy operation completed\"\n"
+              command:
+                - "/bin/bash"
+              image: "docker.io/bitnami/opensearch:3.2.0-debian-12-r0"
+              imagePullPolicy: "IfNotPresent"
+              name: "copy-default-plugins"
+              resources:
+                limits:
+                  cpu: "750m"
+                  ephemeral-storage: "2Gi"
+                  memory: "1536Mi"
+                requests:
+                  cpu: "500m"
+                  ephemeral-storage: "50Mi"
+                  memory: "1Gi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/emptydir"
+                  name: "empty-dir"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 1001
+            fsGroupChangePolicy: "Always"
+          serviceAccount: "default"
+          serviceAccountName: "default"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              emptyDir:
+                {}
+              name: "empty-dir"
+      updateStrategy:
+        type: "RollingUpdate"
+      volumeClaimTemplates:
+        -
+          apiVersion: "v1"
+          kind: "PersistentVolumeClaim"
+          metadata:
+            name: "data"
+          spec:
+            accessModes:
+              - "ReadWriteOnce"
+            resources:
+              requests:
+                storage: "8Gi"
+            volumeMode: "Filesystem"
+          status:
+            phase: "Pending"
+    status:
+      availableReplicas: 0
+      collisionCount: 0
+      currentReplicas: 3
+      currentRevision: "opensearch-master-74864bd7c8"
+      observedGeneration: 1
+      replicas: 3
+      updateRevision: "opensearch-master-74864bd7c8"
+      updatedReplicas: 3
+kind: "List"
+metadata:
+  resourceVersion: ""
