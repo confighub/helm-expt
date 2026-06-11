@@ -19,6 +19,7 @@ whole repo. For the single serial order through `docs/user/*.md`, start with
 | [user/README.md](./user/README.md) | Serial reading order for the manual user docs. |
 | [offering.md](./user/offering.md) | Public offering overview: why visible Helm stages matter, what is free to try, and where managed ConfigHub workflows begin. |
 | [try-now.md](./user/try-now.md) | Short Redis and kube-prometheus-stack paths for first public use. |
+| [serious-chart-proof.md](./user/serious-chart-proof.md) | Concise kube-prometheus-stack proof path for the serious chart example. |
 | [what-you-get.md](./user/what-you-get.md) | Compact product model: what ConfigHub adds around Helm output, what is proven, and what remains product work. |
 | [choosing-commands.md](./user/choosing-commands.md) | Short guide for choosing `cub helm template`, `cub helm install`, `cub installer`, `cub variant create`, or repo verifiers. |
 | [outcomes-and-tests.md](./user/outcomes-and-tests.md) | User-facing outcome and test map, with links to the front-door CSVs. |
