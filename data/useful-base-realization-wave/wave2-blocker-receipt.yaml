@@ -1,0 +1,40 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: UsefulBaseWaveBlockerReceipt
+metadata:
+  name: useful-base-wave2-alias-path-exhausted
+spec:
+  reviewedAt: "2026-06-11"
+  goal: realize the next 20 useful bases from the design queue
+  result: blocked-for-alias-realization; executable work order produced instead
+  finding: |
+    Wave 1 realized all 10 alias-compatible bases (realization strategy
+    alias-of-default-render). Verified against the committed queue: 0 of the
+    36 remaining rows have empty render_time_choices. Every remaining useful
+    base changes Helm render inputs (DaemonSet/Deployment shape, existing
+    Secret references, Service/Ingress/TLS shape, StorageClass and
+    persistence, RBAC scope, executor modes), so the wave-1 alias harness
+    cannot realize any of them without making a false render claim.
+  policyApplied: |
+    The realization contract requires render/equivalence receipts and package
+    verification for any base that changes Helm inputs. Copying the default
+    render under a new name for these rows would violate that contract, and a
+    half-realized revision would fail the repository gate that the active
+    refresh lane depends on.
+  preconditionsForWave2:
+    - per-base values profile design from the named render-time knobs
+      (recorded per chart in wave2-selection.csv)
+    - a re-render lane for next-80 charts with modified values profiles
+      (the lane that produced the default revisions, parameterized by base)
+    - helm-equivalence receipts for each new values profile
+    - package base verification per realized base
+    - realization-wave generator support for a values-profile-rerender
+      strategy alongside alias-of-default-render
+  workOrder: data/useful-base-realization-wave/wave2-selection.csv
+  notClaimed:
+    - that any of the 20 selected bases is realized, rendered, or supported
+    - that the selection order is the only valid one; it follows queue priority
+  evidence:
+    - path: data/useful-base-design-queue/queue.csv
+      claim: the 46-row design queue with per-row render-time choices
+    - path: data/useful-base-realization-wave/wave.csv
+      claim: wave 1 realized exactly the 10 alias-compatible rows
