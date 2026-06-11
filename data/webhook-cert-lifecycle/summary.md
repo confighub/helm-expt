@@ -8,9 +8,9 @@ generated facts. They do not claim production certificate management.
 ## Snapshot
 
 ~~~text
-staged certificate routes: 5
-passing observations:     5
-routes with staged CRDs:  2
+staged certificate routes: 6
+passing observations:     6
+routes with staged CRDs:  3
 ~~~
 
 ## Rows
@@ -19,6 +19,7 @@ routes with staged CRDs:  2
 | --- | --- | --- | --- | ---: | --- | --- |
 | `ingress-nginx/ingress-nginx@4.15.1` | default | `generated-fact-staged-secret` | `ingress-nginx/ingress-nginx-admission` | 0 | [observation](../../runs/next80-local-kind/ingress-nginx-ingress-nginx-4.15.1-default/observation-receipt.yaml) | [staging receipt](./receipts/ingress-nginx-ingress-nginx-4.15.1-default.yaml) |
 | `fairwinds-stable/vpa@4.11.0` | default | `generated-fact-staged-secret` | `default/vpa-tls-secret` | 0 | [observation](../../runs/next80-local-kind/fairwinds-stable-vpa-4.11.0-default/observation-receipt.yaml) | [staging receipt](./receipts/fairwinds-stable-vpa-4.11.0-default.yaml) |
+| `fairwinds-stable/vpa@4.11.0` | no-crds | `target-facts-staged-crds-and-secret` | `default/vpa-tls-secret` | 2 | [observation](../../runs/next80-local-kind/fairwinds-stable-vpa-4.11.0-no-crds/observation-receipt.yaml) | [staging receipt](./receipts/fairwinds-stable-vpa-4.11.0-no-crds.yaml) |
 | `prometheus-community/kube-prometheus-stack@86.1.0` | default | `generated-fact-staged-secret` | `monitoring/kube-prometheus-stack-admission` | 0 | [observation](../../runs/next80-local-kind/prometheus-community-kube-prometheus-stack-86.1.0-default/observation-receipt.yaml) | [staging receipt](./receipts/prometheus-community-kube-prometheus-stack-86.1.0-default.yaml) |
 | `prometheus-community/kube-prometheus-stack@86.1.0` | no-crds | `target-facts-staged-crds-and-secret` | `monitoring/kube-prometheus-stack-admission` | 10 | [observation](../../runs/next80-local-kind/prometheus-community-kube-prometheus-stack-86.1.0-no-crds/observation-receipt.yaml) | [staging receipt](./receipts/prometheus-community-kube-prometheus-stack-86.1.0-no-crds.yaml) |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | no-crds | `target-facts-staged-crds-and-secret` | `monitoring/kube-prometheus-stack-admission` | 10 | [observation](../../runs/next80-local-kind/prometheus-community-kube-prometheus-stack-85.3.3-no-crds/observation-receipt.yaml) | [staging receipt](./receipts/prometheus-community-kube-prometheus-stack-85.3.3-no-crds.yaml) |

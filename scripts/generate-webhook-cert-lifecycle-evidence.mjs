@@ -42,6 +42,23 @@ const cases = [
     productionBoundary: "Does not claim production CA trust, admission policy safety, certificate rotation, or long-term serving certificate management.",
   },
   {
+    id: "fairwinds-stable-vpa-4.11.0-no-crds",
+    chart: "fairwinds-stable/vpa",
+    version: "4.11.0",
+    base: "no-crds",
+    route: "target-facts-staged-crds-and-secret",
+    stagedSecret: {
+      namespace: "default",
+      name: "vpa-tls-secret",
+      keys: ["ca", "cert", "key"],
+    },
+    stagedCrdsFrom: "recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/release-objects.yaml",
+    expectedCrdCount: 2,
+    generationMethod: "local-self-signed-certificate",
+    pairedObservation: "runs/next80-local-kind/fairwinds-stable-vpa-4.11.0-no-crds/observation-receipt.yaml",
+    productionBoundary: "Does not claim production CA trust, admission policy safety, certificate rotation, long-term serving certificate management, or CRD upgrade safety.",
+  },
+  {
     id: "prometheus-community-kube-prometheus-stack-86.1.0-default",
     chart: "prometheus-community/kube-prometheus-stack",
     version: "86.1.0",

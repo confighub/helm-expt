@@ -10,9 +10,9 @@ clear without turning every non-pass row into a product defect.
 ~~~text
 chart/base rows:          189
 local live observed rows: 189
-local live pass rows:     132
-local live non-pass rows: 57
-classified non-pass rows: 57
+local live pass rows:     133
+local live non-pass rows: 56
+classified non-pass rows: 56
 needs manual inspection:  0
 ~~~
 
@@ -22,7 +22,7 @@ needs manual inspection:  0
 | --- | ---: | --- | --- |
 | `runtime-readiness` | 25 | The objects applied, but a controller or workload did not become healthy in the observation budget. | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | `target-prerequisite` | 9 | The workload reached Kubernetes but one or more pods were waiting for target-provided config, mounts, certificates, or setup. | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
-| `webhook-cert-lifecycle` | 9 | A webhook or admission controller needs certificate material or a cert-generation lifecycle step before the workload can become ready. | Model the serving certificate as a generated fact, target fact, cert-manager dependency, preflight, or explicit lifecycle action, then rerun. |
+| `webhook-cert-lifecycle` | 8 | A webhook or admission controller needs certificate material or a cert-generation lifecycle step before the workload can become ready. | Model the serving certificate as a generated fact, target fact, cert-manager dependency, preflight, or explicit lifecycle action, then rerun. |
 | `image-dependency` | 6 | The target could not pull at least one rendered image, so the row is testing image availability rather than ConfigHub parity. | Pin, mirror, override, or document the image dependency, then rerun against a target that can pull it. |
 | `admission-or-rbac` | 3 | Kubernetes rejected an object because of permissions, admission, immutability, or API validation. | Decide whether the base needs a permission/admission preflight, a different target scope, or a rejected support boundary. |
 | `api-version-unsupported` | 2 | The rendered objects use a Kubernetes API version that the tested target no longer serves. | Use a supported chart version, compatibility base, or target Kubernetes profile before rerun. |

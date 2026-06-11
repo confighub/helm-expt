@@ -51,8 +51,8 @@ Which detailed CSV should I open next?
 | top500 | version-drift review rows | 21/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | proof lanes | render parity rows | 189/189 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | in-ConfigHub proof rows | 20/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | local live rows | 132/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | local live non-pass rows classified | 57/57 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
+| proof lanes | local live rows | 133/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | local live non-pass rows classified | 56/56 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
 | proof lanes | GitOps/OCI live pass rows | 23/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | live Helm-vs-ConfigHub parity pass rows | 20/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | two-cluster kind parity pass rows | 54/59 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
@@ -206,7 +206,7 @@ classified here so they become next actions rather than vague failures.
 | --- | ---: | --- |
 | `runtime-readiness` | 25 | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
 | `target-prerequisite` | 9 | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
-| `webhook-cert-lifecycle` | 9 | Model the serving certificate as a generated fact, target fact, cert-manager dependency, preflight, or explicit lifecycle action, then rerun. |
+| `webhook-cert-lifecycle` | 8 | Model the serving certificate as a generated fact, target fact, cert-manager dependency, preflight, or explicit lifecycle action, then rerun. |
 | `image-dependency` | 6 | Pin, mirror, override, or document the image dependency, then rerun against a target that can pull it. |
 | `admission-or-rbac` | 3 | Decide whether the base needs a permission/admission preflight, a different target scope, or a rejected support boundary. |
 | `api-version-unsupported` | 2 | Use a supported chart version, compatibility base, or target Kubernetes profile before rerun. |
@@ -351,7 +351,7 @@ first.
 | Lane | Pass | Non-pass | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
 | in-ConfigHub | 20 | 0 | 169 | 189 |
-| local live | 132 | 57 | 0 | 189 |
+| local live | 133 | 56 | 0 | 189 |
 | GitOps/OCI live | 23 | 6 | 160 | 189 |
 | live Helm-vs-ConfigHub parity | 20 | 2 | 167 | 189 |
 | two-cluster kind parity | 54 | 5 | 0 | 59 |

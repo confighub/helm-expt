@@ -7,7 +7,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"vpa\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vpa\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vpa-4.11.0\"},\"name\":\"vpa-admission-controller\",\"namespace\":\"default\"}}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       labels:
         app.kubernetes.io/component: "admission-controller"
         app.kubernetes.io/instance: "vpa"
@@ -17,8 +17,8 @@ items:
         helm.sh/chart: "vpa-4.11.0"
       name: "vpa-admission-controller"
       namespace: "default"
-      resourceVersion: "479"
-      uid: "4da62a29-cf93-40d4-a7c3-8bafd2e09b5a"
+      resourceVersion: "532"
+      uid: "27f289e8-758b-4f3c-877c-a3dc95364112"
   -
     apiVersion: "v1"
     automountServiceAccountToken: true
@@ -26,7 +26,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"recommender\",\"app.kubernetes.io/instance\":\"vpa\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vpa\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vpa-4.11.0\"},\"name\":\"vpa-recommender\",\"namespace\":\"default\"}}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       labels:
         app.kubernetes.io/component: "recommender"
         app.kubernetes.io/instance: "vpa"
@@ -36,8 +36,8 @@ items:
         helm.sh/chart: "vpa-4.11.0"
       name: "vpa-recommender"
       namespace: "default"
-      resourceVersion: "480"
-      uid: "8b325b27-2e23-4999-b81d-bfd70258e377"
+      resourceVersion: "533"
+      uid: "5b39288e-77aa-4efd-aba1-da7a82b21aed"
   -
     apiVersion: "v1"
     automountServiceAccountToken: true
@@ -45,7 +45,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"updater\",\"app.kubernetes.io/instance\":\"vpa\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vpa\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vpa-4.11.0\"},\"name\":\"vpa-updater\",\"namespace\":\"default\"}}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       labels:
         app.kubernetes.io/component: "updater"
         app.kubernetes.io/instance: "vpa"
@@ -55,23 +55,23 @@ items:
         helm.sh/chart: "vpa-4.11.0"
       name: "vpa-updater"
       namespace: "default"
-      resourceVersion: "481"
-      uid: "e17828f3-5aa5-47ce-8e33-c1a682625e8b"
+      resourceVersion: "534"
+      uid: "950e7e3a-e0c1-4acd-8c9d-c221e675813c"
   -
     apiVersion: "v1"
     kind: "Service"
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"vpa-webhook\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"port\":443,\"targetPort\":8000}],\"selector\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"vpa\",\"app.kubernetes.io/name\":\"vpa\"}}}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       name: "vpa-webhook"
       namespace: "default"
-      resourceVersion: "483"
-      uid: "68991c9b-1c98-4d70-8c47-40a4633d4ccd"
+      resourceVersion: "536"
+      uid: "d55ca1b3-5fc5-4751-bd49-1f19d30c3bbf"
     spec:
-      clusterIP: "10.96.143.37"
+      clusterIP: "10.96.148.135"
       clusterIPs:
-        - "10.96.143.37"
+        - "10.96.148.135"
       internalTrafficPolicy: "Cluster"
       ipFamilies:
         - "IPv4"
@@ -97,7 +97,7 @@ items:
       annotations:
         deployment.kubernetes.io/revision: "1"
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"vpa\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vpa\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vpa-4.11.0\"},\"name\":\"vpa-admission-controller\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"vpa\",\"app.kubernetes.io/name\":\"vpa\"}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"vpa\",\"app.kubernetes.io/name\":\"vpa\"}},\"spec\":{\"containers\":[{\"args\":[\"--register-webhook=false\",\"--webhook-service=vpa-webhook\",\"--client-ca-file=/etc/tls-certs/ca\",\"--tls-cert-file=/etc/tls-certs/cert\",\"--tls-private-key=/etc/tls-certs/key\"],\"env\":[{\"name\":\"NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}}],\"image\":\"registry.k8s.io/autoscaling/vpa-admission-controller:1.6.0\",\"imagePullPolicy\":\"Always\",\"livenessProbe\":{\"failureThreshold\":6,\"httpGet\":{\"path\":\"/health-check\",\"port\":\"metrics\",\"scheme\":\"HTTP\"},\"periodSeconds\":5,\"successThreshold\":1,\"timeoutSeconds\":3},\"name\":\"vpa\",\"ports\":[{\"containerPort\":8000,\"name\":\"http\",\"protocol\":\"TCP\"},{\"containerPort\":8944,\"name\":\"metrics\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":120,\"httpGet\":{\"path\":\"/health-check\",\"port\":\"metrics\",\"scheme\":\"HTTP\"},\"periodSeconds\":5,\"successThreshold\":1,\"timeoutSeconds\":3},\"resources\":{\"limits\":{},\"requests\":{\"cpu\":\"50m\",\"memory\":\"200Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/etc/tls-certs\",\"name\":\"tls-certs\",\"readOnly\":true}]}],\"hostNetwork\":false,\"securityContext\":{\"runAsNonRoot\":true,\"runAsUser\":65534,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"serviceAccountName\":\"vpa-admission-controller\",\"volumes\":[{\"name\":\"tls-certs\",\"secret\":{\"secretName\":\"vpa-tls-secret\"}}]}}}}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       generation: 1
       labels:
         app.kubernetes.io/component: "admission-controller"
@@ -108,8 +108,8 @@ items:
         helm.sh/chart: "vpa-4.11.0"
       name: "vpa-admission-controller"
       namespace: "default"
-      resourceVersion: "519"
-      uid: "67995d50-f638-4e1d-9090-fbfc2126b727"
+      resourceVersion: "615"
+      uid: "96c7516f-8eeb-4720-b55a-9264d21ef8e2"
     spec:
       progressDeadlineSeconds: 600
       replicas: 1
@@ -211,25 +211,26 @@ items:
                 defaultMode: 420
                 secretName: "vpa-tls-secret"
     status:
+      availableReplicas: 1
       conditions:
         -
-          lastTransitionTime: "2026-06-11T14:21:18Z"
-          lastUpdateTime: "2026-06-11T14:21:18Z"
-          message: "Deployment does not have minimum availability."
-          reason: "MinimumReplicasUnavailable"
-          status: "False"
+          lastTransitionTime: "2026-06-11T18:28:11Z"
+          lastUpdateTime: "2026-06-11T18:28:11Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
           type: "Available"
         -
-          lastTransitionTime: "2026-06-11T14:21:18Z"
-          lastUpdateTime: "2026-06-11T14:21:18Z"
-          message: "ReplicaSet \"vpa-admission-controller-5894d5d68b\" is progressing."
-          reason: "ReplicaSetUpdated"
+          lastTransitionTime: "2026-06-11T18:28:07Z"
+          lastUpdateTime: "2026-06-11T18:28:11Z"
+          message: "ReplicaSet \"vpa-admission-controller-5894d5d68b\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
           status: "True"
           type: "Progressing"
       observedGeneration: 1
+      readyReplicas: 1
       replicas: 1
       terminatingReplicas: 0
-      unavailableReplicas: 1
       updatedReplicas: 1
   -
     apiVersion: "apps/v1"
@@ -238,7 +239,7 @@ items:
       annotations:
         deployment.kubernetes.io/revision: "1"
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"recommender\",\"app.kubernetes.io/instance\":\"vpa\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vpa\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vpa-4.11.0\"},\"name\":\"vpa-recommender\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"recommender\",\"app.kubernetes.io/instance\":\"vpa\",\"app.kubernetes.io/name\":\"vpa\"}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"recommender\",\"app.kubernetes.io/instance\":\"vpa\",\"app.kubernetes.io/name\":\"vpa\"}},\"spec\":{\"containers\":[{\"args\":[\"--pod-recommendation-min-cpu-millicores=15\",\"--pod-recommendation-min-memory-mb=100\",\"--v=4\"],\"image\":\"registry.k8s.io/autoscaling/vpa-recommender:1.6.0\",\"imagePullPolicy\":\"Always\",\"livenessProbe\":{\"failureThreshold\":6,\"httpGet\":{\"path\":\"/health-check\",\"port\":\"metrics\",\"scheme\":\"HTTP\"},\"periodSeconds\":5,\"successThreshold\":1,\"timeoutSeconds\":3},\"name\":\"vpa\",\"ports\":[{\"containerPort\":8942,\"name\":\"metrics\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":120,\"httpGet\":{\"path\":\"/health-check\",\"port\":\"metrics\",\"scheme\":\"HTTP\"},\"periodSeconds\":5,\"successThreshold\":1,\"timeoutSeconds\":3},\"resources\":{\"limits\":{},\"requests\":{\"cpu\":\"50m\",\"memory\":\"500Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true}}],\"securityContext\":{\"runAsNonRoot\":true,\"runAsUser\":65534,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"serviceAccountName\":\"vpa-recommender\"}}}}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       generation: 1
       labels:
         app.kubernetes.io/component: "recommender"
@@ -249,8 +250,8 @@ items:
         helm.sh/chart: "vpa-4.11.0"
       name: "vpa-recommender"
       namespace: "default"
-      resourceVersion: "587"
-      uid: "64e2a249-df9e-434c-9ca1-0ad108f4bb88"
+      resourceVersion: "624"
+      uid: "062a98b2-70a9-4757-9d4d-ebde30a8ef6e"
     spec:
       progressDeadlineSeconds: 600
       replicas: 1
@@ -331,15 +332,15 @@ items:
       availableReplicas: 1
       conditions:
         -
-          lastTransitionTime: "2026-06-11T14:21:22Z"
-          lastUpdateTime: "2026-06-11T14:21:22Z"
+          lastTransitionTime: "2026-06-11T18:28:13Z"
+          lastUpdateTime: "2026-06-11T18:28:13Z"
           message: "Deployment has minimum availability."
           reason: "MinimumReplicasAvailable"
           status: "True"
           type: "Available"
         -
-          lastTransitionTime: "2026-06-11T14:21:18Z"
-          lastUpdateTime: "2026-06-11T14:21:22Z"
+          lastTransitionTime: "2026-06-11T18:28:07Z"
+          lastUpdateTime: "2026-06-11T18:28:13Z"
           message: "ReplicaSet \"vpa-recommender-6f8f7c9979\" has successfully progressed."
           reason: "NewReplicaSetAvailable"
           status: "True"
@@ -356,7 +357,7 @@ items:
       annotations:
         deployment.kubernetes.io/revision: "1"
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"updater\",\"app.kubernetes.io/instance\":\"vpa\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vpa\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vpa-4.11.0\"},\"name\":\"vpa-updater\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"updater\",\"app.kubernetes.io/instance\":\"vpa\",\"app.kubernetes.io/name\":\"vpa\"}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"updater\",\"app.kubernetes.io/instance\":\"vpa\",\"app.kubernetes.io/name\":\"vpa\"}},\"spec\":{\"containers\":[{\"env\":[{\"name\":\"NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}}],\"image\":\"registry.k8s.io/autoscaling/vpa-updater:1.6.0\",\"imagePullPolicy\":\"Always\",\"livenessProbe\":{\"failureThreshold\":6,\"httpGet\":{\"path\":\"/health-check\",\"port\":\"metrics\",\"scheme\":\"HTTP\"},\"periodSeconds\":5,\"successThreshold\":1,\"timeoutSeconds\":3},\"name\":\"vpa\",\"ports\":[{\"containerPort\":8943,\"name\":\"metrics\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":120,\"httpGet\":{\"path\":\"/health-check\",\"port\":\"metrics\",\"scheme\":\"HTTP\"},\"periodSeconds\":5,\"successThreshold\":1,\"timeoutSeconds\":3},\"resources\":{\"limits\":{},\"requests\":{\"cpu\":\"50m\",\"memory\":\"500Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true}}],\"securityContext\":{\"runAsNonRoot\":true,\"runAsUser\":65534,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"serviceAccountName\":\"vpa-updater\"}}}}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       generation: 1
       labels:
         app.kubernetes.io/component: "updater"
@@ -367,8 +368,8 @@ items:
         helm.sh/chart: "vpa-4.11.0"
       name: "vpa-updater"
       namespace: "default"
-      resourceVersion: "596"
-      uid: "10e4235a-a232-40f6-a979-f04fe64279e6"
+      resourceVersion: "635"
+      uid: "1417e8c3-fd55-42b5-821f-77ce48da4456"
     spec:
       progressDeadlineSeconds: 600
       replicas: 1
@@ -452,15 +453,15 @@ items:
       availableReplicas: 1
       conditions:
         -
-          lastTransitionTime: "2026-06-11T14:21:24Z"
-          lastUpdateTime: "2026-06-11T14:21:24Z"
+          lastTransitionTime: "2026-06-11T18:28:16Z"
+          lastUpdateTime: "2026-06-11T18:28:16Z"
           message: "Deployment has minimum availability."
           reason: "MinimumReplicasAvailable"
           status: "True"
           type: "Available"
         -
-          lastTransitionTime: "2026-06-11T14:21:18Z"
-          lastUpdateTime: "2026-06-11T14:21:24Z"
+          lastTransitionTime: "2026-06-11T18:28:07Z"
+          lastUpdateTime: "2026-06-11T18:28:16Z"
           message: "ReplicaSet \"vpa-updater-5478968bdf\" has successfully progressed."
           reason: "NewReplicaSetAvailable"
           status: "True"
@@ -482,10 +483,10 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"name\":\"vpa-admission-controller\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"pods\",\"configmaps\",\"nodes\",\"limitranges\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"admissionregistration.k8s.io\"],\"resources\":[\"mutatingwebhookconfigurations\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\"]},{\"apiGroups\":[\"poc.autoscaling.k8s.io\"],\"resources\":[\"verticalpodautoscalers\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"autoscaling.k8s.io\"],\"resources\":[\"verticalpodautoscalers\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"create\",\"update\",\"get\",\"list\",\"watch\"]}]}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       name: "vpa-admission-controller"
-      resourceVersion: "527"
-      uid: "49de21d2-c367-4ed2-8cb1-9363cc3466cc"
+      resourceVersion: "578"
+      uid: "7d9d2f16-03c4-46e9-a9c7-f1447647187f"
     rules:
       -
         apiGroups:
@@ -544,10 +545,10 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"name\":\"vpa-metrics-reader\"},\"rules\":[{\"apiGroups\":[\"metrics.k8s.io\"],\"resources\":[\"pods\"],\"verbs\":[\"get\",\"list\"]}]}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       name: "vpa-metrics-reader"
-      resourceVersion: "528"
-      uid: "00dfe341-c699-44a9-b960-bfe0cf0031d0"
+      resourceVersion: "579"
+      uid: "64613ca1-4fa0-4440-84df-8d1c4b5d11ad"
     rules:
       -
         apiGroups:
@@ -563,10 +564,10 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"name\":\"vpa-actor\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"pods\",\"nodes\",\"limitranges\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\"]},{\"apiGroups\":[\"poc.autoscaling.k8s.io\"],\"resources\":[\"verticalpodautoscalers\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"autoscaling.k8s.io\"],\"resources\":[\"verticalpodautoscalers\"],\"verbs\":[\"get\",\"list\",\"watch\",\"patch\"]}]}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       name: "vpa-actor"
-      resourceVersion: "529"
-      uid: "948425f9-4a0e-4b8d-ba7d-8977ac27c8d2"
+      resourceVersion: "580"
+      uid: "85278d7d-a1f0-45fd-bfa2-6c57b1db9cc8"
     rules:
       -
         apiGroups:
@@ -614,10 +615,10 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"name\":\"vpa-status-actor\"},\"rules\":[{\"apiGroups\":[\"autoscaling.k8s.io\"],\"resources\":[\"verticalpodautoscalers/status\"],\"verbs\":[\"get\",\"patch\"]}]}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       name: "vpa-status-actor"
-      resourceVersion: "530"
-      uid: "8ca6a438-d451-4006-bf80-ac8e4a37baa7"
+      resourceVersion: "581"
+      uid: "ce65a669-58b6-48b4-bfcf-10113481f148"
     rules:
       -
         apiGroups:
@@ -633,10 +634,10 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"name\":\"vpa-checkpoint-actor\"},\"rules\":[{\"apiGroups\":[\"poc.autoscaling.k8s.io\"],\"resources\":[\"verticalpodautoscalercheckpoints\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"patch\",\"delete\"]},{\"apiGroups\":[\"autoscaling.k8s.io\"],\"resources\":[\"verticalpodautoscalercheckpoints\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"patch\",\"delete\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces\"],\"verbs\":[\"get\",\"list\"]}]}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       name: "vpa-checkpoint-actor"
-      resourceVersion: "532"
-      uid: "685635c4-c1c1-4dff-85b5-055057676a48"
+      resourceVersion: "582"
+      uid: "283e0cca-b32f-4c5d-a6c8-9af4abef438d"
     rules:
       -
         apiGroups:
@@ -676,10 +677,10 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"name\":\"vpa-evictioner\"},\"rules\":[{\"apiGroups\":[\"apps\",\"extensions\"],\"resources\":[\"replicasets\"],\"verbs\":[\"get\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods/eviction\"],\"verbs\":[\"create\"]}]}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       name: "vpa-evictioner"
-      resourceVersion: "533"
-      uid: "ffadcd66-e3b2-430c-a64b-8c7b7cf33439"
+      resourceVersion: "583"
+      uid: "82267388-7c84-4bf6-a42c-09eb915271f9"
     rules:
       -
         apiGroups:
@@ -702,10 +703,10 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"name\":\"vpa-target-reader\"},\"rules\":[{\"apiGroups\":[\"*\"],\"resources\":[\"*/scale\"],\"verbs\":[\"get\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"replicationcontrollers\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"daemonsets\",\"deployments\",\"replicasets\",\"statefulsets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"jobs\",\"cronjobs\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       name: "vpa-target-reader"
-      resourceVersion: "534"
-      uid: "d71263c4-e264-48ce-8df8-d7f748386e24"
+      resourceVersion: "584"
+      uid: "b6d576fc-68a2-4ddd-ad02-cc0c4949f073"
     rules:
       -
         apiGroups:
@@ -752,10 +753,10 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"name\":\"vpa-status-reader\"},\"rules\":[{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       name: "vpa-status-reader"
-      resourceVersion: "535"
-      uid: "2272d61c-d03b-4c48-aca8-42809b97a9a6"
+      resourceVersion: "585"
+      uid: "19a7f166-f475-45d5-9ab8-333471d31c84"
     rules:
       -
         apiGroups:
@@ -772,10 +773,10 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"name\":\"vpa-updater-in-place\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"pods/resize\",\"pods\"],\"verbs\":[\"patch\"]}]}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       name: "vpa-updater-in-place"
-      resourceVersion: "536"
-      uid: "e21e7ea4-bcbf-4a54-9d53-acd8f7a1d066"
+      resourceVersion: "586"
+      uid: "a7fe2b4a-3d35-4ed5-9908-515e9f56fdf8"
     rules:
       -
         apiGroups:
@@ -791,10 +792,10 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"name\":\"vpa-admission-controller\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"vpa-admission-controller\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vpa-admission-controller\",\"namespace\":\"default\"}]}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       name: "vpa-admission-controller"
-      resourceVersion: "537"
-      uid: "026ce086-8575-48c4-9a81-30dcdbb2acaf"
+      resourceVersion: "587"
+      uid: "1daccf13-5617-4da4-8d22-80cbdad84dee"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "ClusterRole"
@@ -810,10 +811,10 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"name\":\"vpa-metrics-reader\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"vpa-metrics-reader\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vpa-recommender\",\"namespace\":\"default\"}]}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       name: "vpa-metrics-reader"
-      resourceVersion: "538"
-      uid: "99ba5361-a4ac-494e-9e32-33459c6059fc"
+      resourceVersion: "588"
+      uid: "40f5e04f-19e4-4084-87ea-f9e7a53faa46"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "ClusterRole"
@@ -829,10 +830,10 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"name\":\"vpa-checkpoint-actor\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"vpa-checkpoint-actor\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vpa-recommender\",\"namespace\":\"default\"}]}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       name: "vpa-checkpoint-actor"
-      resourceVersion: "539"
-      uid: "ae82cb71-f129-4f22-85ec-93762bc35352"
+      resourceVersion: "589"
+      uid: "11e205c2-70d2-448f-b77e-b3aa9f384aa3"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "ClusterRole"
@@ -848,10 +849,10 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"name\":\"vpa-status-actor\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"vpa-status-actor\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vpa-recommender\",\"namespace\":\"default\"}]}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       name: "vpa-status-actor"
-      resourceVersion: "540"
-      uid: "fe33a659-1dae-4005-87dc-0e02dfa46918"
+      resourceVersion: "590"
+      uid: "43b034ac-d66c-4f0d-9c23-446acbd81696"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "ClusterRole"
@@ -867,10 +868,10 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"name\":\"vpa-evictionter-binding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"vpa-evictioner\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vpa-updater\",\"namespace\":\"default\"}]}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       name: "vpa-evictionter-binding"
-      resourceVersion: "541"
-      uid: "54421859-2bfd-4065-81e3-4f850eac86ac"
+      resourceVersion: "592"
+      uid: "62e3dff4-7a59-4105-aeac-e17bbabbfd6c"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "ClusterRole"
@@ -886,10 +887,10 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"name\":\"vpa-status-reader-binding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"vpa-status-reader\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vpa-updater\",\"namespace\":\"default\"}]}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       name: "vpa-status-reader-binding"
-      resourceVersion: "542"
-      uid: "a2cc0c85-6de0-4b7f-b598-9138c6500aa8"
+      resourceVersion: "594"
+      uid: "78cb193e-058f-430d-818e-9e38ccb141cc"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "ClusterRole"
@@ -905,10 +906,10 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"name\":\"vpa-updater-in-place-binding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"vpa-updater-in-place\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vpa-updater\",\"namespace\":\"default\"}]}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       name: "vpa-updater-in-place-binding"
-      resourceVersion: "543"
-      uid: "76a28984-6854-49f1-aeec-b04dc50604e8"
+      resourceVersion: "595"
+      uid: "ed927b52-3cfa-4a01-88b8-53c55d1bded9"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "ClusterRole"
@@ -924,10 +925,10 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"name\":\"vpa-actor\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"vpa-actor\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vpa-recommender\",\"namespace\":\"default\"},{\"kind\":\"ServiceAccount\",\"name\":\"vpa-updater\",\"namespace\":\"default\"}]}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       name: "vpa-actor"
-      resourceVersion: "544"
-      uid: "7858b3ee-2802-46eb-a298-3b02655ba2fc"
+      resourceVersion: "596"
+      uid: "c0912f39-ce3e-4da8-90eb-773fef1989d0"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "ClusterRole"
@@ -947,10 +948,10 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"name\":\"vpa-target-reader-binding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"vpa-target-reader\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vpa-recommender\",\"namespace\":\"default\"},{\"kind\":\"ServiceAccount\",\"name\":\"vpa-admission-controller\",\"namespace\":\"default\"},{\"kind\":\"ServiceAccount\",\"name\":\"vpa-updater\",\"namespace\":\"default\"}]}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       name: "vpa-target-reader-binding"
-      resourceVersion: "545"
-      uid: "4256becc-08bb-4044-b352-511ec28564bc"
+      resourceVersion: "597"
+      uid: "1a2eb217-40c3-4ff5-9570-d1e33ca247a1"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "ClusterRole"
@@ -974,7 +975,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"MutatingWebhookConfiguration\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"vpa\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vpa\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vpa-4.11.0\"},\"name\":\"vpa-webhook-config\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"vpa-webhook\",\"namespace\":\"default\",\"port\":443}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Equivalent\",\"name\":\"vpa.k8s.io\",\"namespaceSelector\":{},\"objectSelector\":{},\"reinvocationPolicy\":\"Never\",\"rules\":[{\"apiGroups\":[\"\"],\"apiVersions\":[\"v1\"],\"operations\":[\"CREATE\"],\"resources\":[\"pods\"],\"scope\":\"*\"},{\"apiGroups\":[\"autoscaling.k8s.io\"],\"apiVersions\":[\"*\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"verticalpodautoscalers\"],\"scope\":\"*\"}],\"sideEffects\":\"None\",\"timeoutSeconds\":5}]}\n"
-      creationTimestamp: "2026-06-11T14:21:18Z"
+      creationTimestamp: "2026-06-11T18:28:07Z"
       generation: 1
       labels:
         app.kubernetes.io/component: "admission-controller"
@@ -984,8 +985,8 @@ items:
         app.kubernetes.io/version: "1.6.0"
         helm.sh/chart: "vpa-4.11.0"
       name: "vpa-webhook-config"
-      resourceVersion: "546"
-      uid: "9f07784a-04d2-47d5-b614-a408ceea3db2"
+      resourceVersion: "598"
+      uid: "9109db4d-1960-4568-baf4-2a857927e071"
     webhooks:
       -
         admissionReviewVersions:

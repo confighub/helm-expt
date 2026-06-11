@@ -81,22 +81,22 @@ or a limitation decision before they should be treated as catalog offers.
 
 | Chart | Answer | Evidence | First action |
 | --- | --- | --- | --- |
-| `traefik/traefik@40.2.0` | `decision-needed-first` | `render-parity` | Decide whether to support, disclose, defer, or block the hard gap before promotion. |
+| `traefik/traefik@40.2.0` | `decision-needed-first` | `local-kubernetes-live` | Decide whether to support, disclose, defer, or block the hard gap before promotion. |
 | `external-dns/external-dns@1.21.1` | `not-yet-public-catalog-proof-ready` | `two-cluster-kind-parity` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
 | `gitlab/gitlab-runner@0.89.0` | `not-yet-user-ready` | `render-parity` | Design at least one useful base variant before catalog promotion. |
-| `kyverno/kyverno@3.8.1` | `decision-needed-first` | `render-parity` | Decide whether to support, disclose, defer, or block the hard gap before promotion. |
+| `kyverno/kyverno@3.8.1` | `decision-needed-first` | `local-kubernetes-live` | Decide whether to support, disclose, defer, or block the hard gap before promotion. |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | `not-yet-public-catalog-proof-ready` | `two-cluster-kind-parity` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
-| `fluent/fluent-bit@0.57.6` | `not-yet-user-ready` | `render-parity` | Design at least one useful base variant before catalog promotion. |
-| `runix/pgadmin4@1.62.0` | `not-yet-user-ready` | `render-parity` | Design at least one useful base variant before catalog promotion. |
+| `fluent/fluent-bit@0.57.6` | `not-yet-user-ready` | `local-kubernetes-live` | Design at least one useful base variant before catalog promotion. |
+| `runix/pgadmin4@1.62.0` | `not-yet-user-ready` | `local-kubernetes-live` | Design at least one useful base variant before catalog promotion. |
 | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | `not-yet-user-ready` | `render-parity` | Design at least one useful base variant before catalog promotion. |
 | `kedacore/keda@2.19.0` | `not-yet-public-catalog-proof-ready` | `two-cluster-kind-parity` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
-| `prometheus-community/kube-state-metrics@7.4.0` | `not-yet-user-ready` | `render-parity` | Design at least one useful base variant before catalog promotion. |
+| `prometheus-community/kube-state-metrics@7.4.0` | `not-yet-user-ready` | `local-kubernetes-live` | Design at least one useful base variant before catalog promotion. |
 | `elastic/eck-operator@3.4.0` | `not-yet-public-catalog-proof-ready` | `two-cluster-kind-parity` | Run catalog promotion review and add selected live lanes for the base a user would actually try. |
 | `elastic/kibana@8.5.1` | `not-yet-user-ready` | `render-parity` | Design at least one useful base variant before catalog promotion. |
-| `descheduler/descheduler@0.36.0` | `not-yet-user-ready` | `render-parity` | Design at least one useful base variant before catalog promotion. |
-| `prometheus-community/prometheus-blackbox-exporter@11.10.0` | `not-yet-user-ready` | `render-parity` | Design at least one useful base variant before catalog promotion. |
+| `descheduler/descheduler@0.36.0` | `not-yet-user-ready` | `local-kubernetes-live` | Design at least one useful base variant before catalog promotion. |
+| `prometheus-community/prometheus-blackbox-exporter@11.10.0` | `not-yet-user-ready` | `local-kubernetes-live` | Design at least one useful base variant before catalog promotion. |
 | `bitnami/elasticsearch@22.1.6` | `decision-needed-first` | `render-parity` | Decide whether to support, disclose, defer, or block the hard gap before promotion. |
-| `stakater/reloader@2.2.12` | `not-yet-user-ready` | `render-parity` | Design at least one useful base variant before catalog promotion. |
+| `stakater/reloader@2.2.12` | `not-yet-user-ready` | `local-kubernetes-live` | Design at least one useful base variant before catalog promotion. |
 
 ## Boundaries
 

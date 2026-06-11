@@ -35,7 +35,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 189 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ | 438 / 7 / 40 / 626 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ | 439 / 7 / 39 / 626 |
 | Variants with the complete core lane set | 20 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -146,7 +146,7 @@ them for width.
 |  | no-crds | top20 | — | — | ✅ | ⬜ | fail | ❌ | ⬜ | ✅ | render-parity | ⬜ |
 | `fairwinds-stable/goldilocks@10.3.0` | default | next80 | `lookup;generated-facts;tpl;capabilities;crds;cluster-rbac;webhooks` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `fairwinds-stable/vpa@4.11.0` | default | next80 | `lookup;tpl;capabilities;crds;cluster-rbac;webhooks` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
-|  | no-crds | next80 | `lookup;tpl;capabilities;crds;cluster-rbac;webhooks` | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+|  | no-crds | next80 | `lookup;tpl;capabilities;crds;cluster-rbac;webhooks` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `falcosecurity/falco@9.0.0` | default | next80 | `lookup;tpl;capabilities;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `falcosecurity/falcosidekick@0.13.1` | default | next80 | `capabilities;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `fluent/fluent-bit@0.57.6` | default | next80 | `tpl;capabilities;hooks;cluster-rbac` | 1 observed ✅ | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
