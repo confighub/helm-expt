@@ -19,6 +19,8 @@ aggregated API availability observed
 
 ~~~text
 source top-100 APIService rows:          5
+maintained APIService recipe rows:       5
+maintained rows outside source top-100:  3
 catalog-supported APIService rows:       1
 rows with API aggregation observation:   2
 rows with object/workload observation:   2
@@ -48,6 +50,29 @@ evidence exists for Metrics Server and KEDA.
 | 43 | `datadog/datadog` | 3.214.0 | `source-detected-needs-recipe` | no | no | no | no | create recipe/import candidate, then model APIService readiness and aggregation observation before catalog claims |
 | 53 | `kedacore/keda` | 2.19.0 | `api-aggregation-observed` | yes | yes | no | yes | decide whether KEDA enters a catalog promotion wave using the two-cluster parity and ConfigHub OCI APIService receipts |
 | 71 | `bitnami/metrics-server` | 7.4.12 | `source-detected-needs-recipe` | no | no | no | no | create recipe/import candidate, then model APIService readiness and aggregation observation before catalog claims |
+
+## Maintained APIService Rows
+
+This appendix includes maintained recipe/package rows with APIService source
+signals even when the source chart sits outside the source top-100 slice. It
+keeps target compatibility blockers visible without changing the source-top-100
+counts above.
+
+| Rank | Chart | Source version | Status | ConfigHub proof | Target block | Next action |
+| ---: | --- | --- | --- | --- | --- | --- |
+| 11 | `metrics-server/metrics-server` | 3.13.0 | `api-aggregation-observed` | yes | - | keep the runtime/GitOps APIService receipt fresh; use this pattern for the next APIService chart |
+| 53 | `kedacore/keda` | 2.19.0 | `api-aggregation-observed` | yes | - | decide whether KEDA enters a catalog promotion wave using the two-cluster parity and ConfigHub OCI APIService receipts |
+| 118 | `prometheus-community/prometheus-adapter` | 5.3.0 | `target-api-version-blocked` | yes | `api-version-unsupported` | choose a supported chart version, compatibility base, or target Kubernetes profile before rerunning live APIService observation |
+| 130 | `fairwinds-stable/goldilocks` | 10.3.0 | `modeled-needs-runtime-observation` | no | - | add runtime APIService observation route and aggregated API availability receipt for the selected base |
+| 148 | `fairwinds-stable/vpa` | 4.11.0 | `modeled-needs-runtime-observation` | no | - | add runtime APIService observation route and aggregated API availability receipt for the selected base |
+
+Maintained status counts:
+
+| Status | Rows |
+| --- | ---: |
+| `api-aggregation-observed` | 2 |
+| `modeled-needs-runtime-observation` | 2 |
+| `target-api-version-blocked` | 1 |
 
 ## Runtime Contract
 
@@ -91,6 +116,7 @@ Current contract rows:
 | File | Purpose |
 | --- | --- |
 | `top100-apiservice-coverage.csv` | One row per source top-100 chart that renders APIService objects. |
+| `maintained-apiservice-coverage.csv` | Maintained recipe/package rows with APIService source signals, including rows outside the source top-100 slice. |
 | `work-orders.md` | Human next-proof queue for APIService charts. |
 | `work-orders.csv` | Spreadsheet-ready next-proof queue for assignment and reruns. |
 | `data/quirk-work-queue/top100-queue.csv` | Source quirk queue that currently carries the APIService hard gap. |
