@@ -70,7 +70,7 @@ spreadsheet.
 | `prometheus-community/kube-state-metrics@7.4.0` | `default` | `local-kubernetes-live` | - | add at least one user-shaped variant before catalog promotion |
 | `elastic/kibana@8.5.1` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
 | `descheduler/descheduler@0.36.0` | `default` | `local-kubernetes-live` | - | add at least one user-shaped variant before catalog promotion |
-| `prometheus-community/prometheus-blackbox-exporter@11.10.0` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
+| `prometheus-community/prometheus-blackbox-exporter@11.10.0` | `default` | `local-kubernetes-live` | - | add at least one user-shaped variant before catalog promotion |
 
 ## How This Relates To Top100
 

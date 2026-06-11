@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "projectcalico-tigera-operator-v3.32.0-default-local-kind"
+spec:
+  variantRevision: "recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "9ce56a65a1b0ca63aec202cb662a5389fe6a6a55e6d4b9db9920febcc5b2b350"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-tigera"
+    context: "kind-claude-helm-expt-codex-tigera"
+    namespace: "default"
+  observedAt: "2026-06-11T11:57:57.116Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "084165a10187e2846afa92dfc9ccc1b3aa6bf2e19d5083bdc38f2728bc46111f"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "blocked"
+      object: "10 object(s) from recipes/projectcalico/tigera-operator/v3.32.0/revisions/default/r001/rendered/release-objects.yaml"
+      reason: "apply-blocked: resource mapping not found for name: \"default\" namespace: \"\" from \"STDIN\": no matches for kind \"APIServer\" in version \"operator.tigera.io/v1\" ensure CRDs are installed first resource mapping not found"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|tigera-operator"
+  blockedReasons:
+    - "apply: resource mapping not found for name: \"default\" namespace: \"\" from \"STDIN\": no matches for kind \"APIServer\" in version \"operator.tigera.io/v1\" ensure CRDs are installed first resource mapping not found"

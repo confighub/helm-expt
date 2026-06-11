@@ -1,0 +1,207 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"prometheus-blackbox-exporter\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"prometheus-blackbox-exporter\",\"app.kubernetes.io/version\":\"v0.28.0\",\"helm.sh/chart\":\"prometheus-blackbox-exporter-11.10.0\"},\"name\":\"prometheus-blackbox-exporter\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T11:44:34Z"
+      labels:
+        app.kubernetes.io/instance: "prometheus-blackbox-exporter"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "prometheus-blackbox-exporter"
+        app.kubernetes.io/version: "v0.28.0"
+        helm.sh/chart: "prometheus-blackbox-exporter-11.10.0"
+      name: "prometheus-blackbox-exporter"
+      namespace: "default"
+      resourceVersion: "437"
+      uid: "76acb492-3eb0-49f6-99f8-a3ea715d99c6"
+  -
+    apiVersion: "v1"
+    data:
+      blackbox.yaml: "modules:\n  http_2xx:\n    http:\n      follow_redirects: true\n      preferred_ip_protocol: ip4\n      valid_http_versions:\n      - HTTP/1.1\n      - HTTP/2.0\n    prober: http\n    timeout: 5s\n"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"blackbox.yaml\":\"modules:\\n  http_2xx:\\n    http:\\n      follow_redirects: true\\n      preferred_ip_protocol: ip4\\n      valid_http_versions:\\n      - HTTP/1.1\\n      - HTTP/2.0\\n    prober: http\\n    timeout: 5s\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"prometheus-blackbox-exporter\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"prometheus-blackbox-exporter\",\"app.kubernetes.io/version\":\"v0.28.0\",\"helm.sh/chart\":\"prometheus-blackbox-exporter-11.10.0\"},\"name\":\"prometheus-blackbox-exporter\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T11:44:34Z"
+      labels:
+        app.kubernetes.io/instance: "prometheus-blackbox-exporter"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "prometheus-blackbox-exporter"
+        app.kubernetes.io/version: "v0.28.0"
+        helm.sh/chart: "prometheus-blackbox-exporter-11.10.0"
+      name: "prometheus-blackbox-exporter"
+      namespace: "default"
+      resourceVersion: "438"
+      uid: "dce0c4cb-6083-4ce2-99d3-6335d4f13dd3"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"prometheus-blackbox-exporter\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"prometheus-blackbox-exporter\",\"app.kubernetes.io/version\":\"v0.28.0\",\"helm.sh/chart\":\"prometheus-blackbox-exporter-11.10.0\"},\"name\":\"prometheus-blackbox-exporter\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":9115,\"protocol\":\"TCP\",\"targetPort\":\"http\"}],\"selector\":{\"app.kubernetes.io/instance\":\"prometheus-blackbox-exporter\",\"app.kubernetes.io/name\":\"prometheus-blackbox-exporter\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T11:44:34Z"
+      labels:
+        app.kubernetes.io/instance: "prometheus-blackbox-exporter"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "prometheus-blackbox-exporter"
+        app.kubernetes.io/version: "v0.28.0"
+        helm.sh/chart: "prometheus-blackbox-exporter-11.10.0"
+      name: "prometheus-blackbox-exporter"
+      namespace: "default"
+      resourceVersion: "440"
+      uid: "4acdf35a-5a49-4192-94f1-d4c6a4b74c4c"
+    spec:
+      clusterIP: "10.96.64.163"
+      clusterIPs:
+        - "10.96.64.163"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http"
+          port: 9115
+          protocol: "TCP"
+          targetPort: "http"
+      selector:
+        app.kubernetes.io/instance: "prometheus-blackbox-exporter"
+        app.kubernetes.io/name: "prometheus-blackbox-exporter"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"prometheus-blackbox-exporter\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"prometheus-blackbox-exporter\",\"app.kubernetes.io/version\":\"v0.28.0\",\"helm.sh/chart\":\"prometheus-blackbox-exporter-11.10.0\"},\"name\":\"prometheus-blackbox-exporter\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"prometheus-blackbox-exporter\",\"app.kubernetes.io/name\":\"prometheus-blackbox-exporter\"}},\"strategy\":{\"rollingUpdate\":{\"maxSurge\":1,\"maxUnavailable\":0},\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"annotations\":{\"checksum/config\":\"f43e733459690a84886aec93596a01748c2f936776a534eeaeb9f084e62ebb91\"},\"labels\":{\"app.kubernetes.io/instance\":\"prometheus-blackbox-exporter\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"prometheus-blackbox-exporter\",\"app.kubernetes.io/version\":\"v0.28.0\",\"helm.sh/chart\":\"prometheus-blackbox-exporter-11.10.0\"}},\"spec\":{\"automountServiceAccountToken\":false,\"containers\":[{\"args\":[\"--config.file=/config/blackbox.yaml\"],\"image\":\"quay.io/prometheus/blackbox-exporter:v0.28.0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/-/healthy\",\"port\":\"http\"}},\"name\":\"blackbox-exporter\",\"ports\":[{\"containerPort\":9115,\"name\":\"http\"}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/-/healthy\",\"port\":\"http\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsGroup\":1000,\"runAsNonRoot\":true,\"runAsUser\":1000},\"volumeMounts\":[{\"mountPath\":\"/config\",\"name\":\"config\"}]}],\"hostNetwork\":false,\"restartPolicy\":\"Always\",\"serviceAccountName\":\"prometheus-blackbox-exporter\",\"volumes\":[{\"configMap\":{\"name\":\"prometheus-blackbox-exporter\"},\"name\":\"config\"}]}}}}\n"
+      creationTimestamp: "2026-06-11T11:44:34Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "prometheus-blackbox-exporter"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "prometheus-blackbox-exporter"
+        app.kubernetes.io/version: "v0.28.0"
+        helm.sh/chart: "prometheus-blackbox-exporter-11.10.0"
+      name: "prometheus-blackbox-exporter"
+      namespace: "default"
+      resourceVersion: "500"
+      uid: "faa46a34-e7ee-420b-ba3c-48b57a55a1bb"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "prometheus-blackbox-exporter"
+          app.kubernetes.io/name: "prometheus-blackbox-exporter"
+      strategy:
+        rollingUpdate:
+          maxSurge: 1
+          maxUnavailable: 0
+        type: "RollingUpdate"
+      template:
+        metadata:
+          annotations:
+            checksum/config: "f43e733459690a84886aec93596a01748c2f936776a534eeaeb9f084e62ebb91"
+          labels:
+            app.kubernetes.io/instance: "prometheus-blackbox-exporter"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "prometheus-blackbox-exporter"
+            app.kubernetes.io/version: "v0.28.0"
+            helm.sh/chart: "prometheus-blackbox-exporter-11.10.0"
+        spec:
+          automountServiceAccountToken: false
+          containers:
+            -
+              args:
+                - "--config.file=/config/blackbox.yaml"
+              image: "quay.io/prometheus/blackbox-exporter:v0.28.0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/-/healthy"
+                  port: "http"
+                  scheme: "HTTP"
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              name: "blackbox-exporter"
+              ports:
+                -
+                  containerPort: 9115
+                  name: "http"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/-/healthy"
+                  port: "http"
+                  scheme: "HTTP"
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+                runAsGroup: 1000
+                runAsNonRoot: true
+                runAsUser: 1000
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/config"
+                  name: "config"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "prometheus-blackbox-exporter"
+          serviceAccountName: "prometheus-blackbox-exporter"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              configMap:
+                defaultMode: 420
+                name: "prometheus-blackbox-exporter"
+              name: "config"
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T11:44:38Z"
+          lastUpdateTime: "2026-06-11T11:44:38Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T11:44:34Z"
+          lastUpdateTime: "2026-06-11T11:44:38Z"
+          message: "ReplicaSet \"prometheus-blackbox-exporter-79775bd59c\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
