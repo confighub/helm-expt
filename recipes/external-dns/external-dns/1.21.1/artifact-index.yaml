@@ -58,7 +58,7 @@ spec:
     proofLanes:
       renderParity: "3/3"
       inConfigHub: "0/3"
-      localLive: "0/3"
+      localLive: "3/3"
       gitopsLive: "0/3"
       liveParity: "0/3"
     featureSummary: "crds;required-values;values-schema;extension-slots"

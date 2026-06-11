@@ -58,7 +58,7 @@ spec:
     proofLanes:
       renderParity: "2/2"
       inConfigHub: "1/2"
-      localLive: "1/2"
+      localLive: "2/2"
       gitopsLive: "1/2"
       liveParity: "1/2"
     featureSummary: "generated-secrets;crds;webhooks;required-values;values-schema;extension-slots;remote-dependencies"
