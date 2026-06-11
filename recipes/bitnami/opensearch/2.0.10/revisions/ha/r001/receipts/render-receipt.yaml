@@ -8,6 +8,9 @@ metadata:
     confighub.io/variant: "ha"
 spec:
   renderer: "helm"
+  inputs:
+    sourceLockSHA256: "6a0ace6dbdcadd31d7edc118a2c8e036de497271da22050241adaff0e4704b43"
+    dependencyLockSHA256: "8ad4afdcb12183a4cdbad13bc53fad04312dfdfd9618fc64129c816daff874ed"
   outputs:
     renderedObjectSetSHA256: "c419606d1875905b2e84126b7b1d5d33c18f7cf34c0dd8048ba6e9221db36564"
     objectCount: 18

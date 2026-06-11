@@ -133,18 +133,14 @@ function verifyRevision(recipeRoot, revisionRoot) {
     render.spec?.outputs?.renderedObjectSetSHA256 === releaseSHA,
     `${relativeRepo(revisionRoot)} render receipt digest mismatch`,
   );
-  if (render.spec?.inputs?.sourceLockSHA256) {
-    check(
-      render.spec.inputs.sourceLockSHA256 === sourceLockSHA,
-      `${relativeRepo(revisionRoot)} render receipt source-lock digest mismatch`,
-    );
-  }
-  if (render.spec?.inputs?.dependencyLockSHA256) {
-    check(
-      render.spec.inputs.dependencyLockSHA256 === dependencyLockSHA,
-      `${relativeRepo(revisionRoot)} render receipt dependency-lock digest mismatch`,
-    );
-  }
+  check(
+    render.spec?.inputs?.sourceLockSHA256 === sourceLockSHA,
+    `${relativeRepo(revisionRoot)} render receipt source-lock digest mismatch`,
+  );
+  check(
+    render.spec?.inputs?.dependencyLockSHA256 === dependencyLockSHA,
+    `${relativeRepo(revisionRoot)} render receipt dependency-lock digest mismatch`,
+  );
   check(
     render.spec?.outputs?.deterministicAcrossTwoLocalRenders !== false,
     `${relativeRepo(revisionRoot)} render receipt marks render as non-deterministic`,
