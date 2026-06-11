@@ -46,8 +46,8 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: "needs-useful-variant"
-    userStatus: "proof-grade-needs-user-shaped-variant"
+    adoptionBucket: "promote-after-review"
+    userStatus: "proof-grade-ready-for-promotion-review"
     strongestEvidence: "render-parity"
     proofLanes:
       renderParity: "2/2"
@@ -57,7 +57,7 @@ spec:
       liveParity: "0/2"
     featureSummary: "none-recorded"
     hardGap: "-"
-    nextAction: "add at least one user-shaped variant before catalog promotion"
+    nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/istio/gateway/1.30.0"
     installer: "packages/istio/gateway/1.30.0/installer.yaml"

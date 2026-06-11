@@ -16,7 +16,7 @@ in-ConfigHub proof rows:             21/189
 local live rows:                     133/189
 GitOps/OCI live pass rows:           24/189
 GitOps/OCI non-pass receipts:        5
-live Helm-vs-ConfigHub pass rows:    21/189
+live Helm-vs-ConfigHub pass rows:    22/189
 live Helm-vs-ConfigHub non-pass receipts: 2
 lifecycle observation rows:          10/10
 selected live parity receipts:       20 pass, 0 watch, 0 blocked

@@ -55,7 +55,7 @@ Which detailed CSV should I open next?
 | proof lanes | explicit lifecycle observation rows | 10/10 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live non-pass rows classified | 56/56 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
 | proof lanes | GitOps/OCI live pass rows | 24/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | live Helm-vs-ConfigHub parity pass rows | 21/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | live Helm-vs-ConfigHub parity pass rows | 22/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | two-cluster kind parity pass rows | 54/59 | partial | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | two-cluster semantic parity pass rows | 58/59 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
 | proof lanes | complete core lane rows | 21/189 | gap | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
@@ -267,8 +267,8 @@ top-100 chart and the next command or file to open.
 
 | Adoption bucket | Charts |
 | --- | ---: |
-| needs-useful-variant | 46 |
-| promote-after-review | 27 |
+| promote-after-review | 37 |
+| needs-useful-variant | 36 |
 | try-from-public-catalog | 20 |
 | limitation-decision-first | 7 |
 
@@ -276,8 +276,8 @@ top-100 chart and the next command or file to open.
 | --- | ---: |
 | local-kubernetes-live | 42 |
 | render-parity | 27 |
-| live-helm-vs-confighub-parity | 20 |
-| two-cluster-kind-parity | 11 |
+| live-helm-vs-confighub-parity | 21 |
+| two-cluster-kind-parity | 10 |
 
 The top100 is model-supported, but not uniformly live-proven. Use
 [top100-readiness/readiness.csv](../top100-readiness/readiness.csv) for one row
@@ -354,7 +354,7 @@ first.
 | in-ConfigHub | 21 | 0 | 168 | 189 |
 | local live | 133 | 56 | 0 | 189 |
 | GitOps/OCI live | 24 | 5 | 160 | 189 |
-| live Helm-vs-ConfigHub parity | 21 | 2 | 166 | 189 |
+| live Helm-vs-ConfigHub parity | 22 | 2 | 165 | 189 |
 | two-cluster kind parity | 54 | 5 | 0 | 59 |
 
 Non-pass live receipts are useful evidence. They usually identify a target
