@@ -40,6 +40,7 @@ const knownReceipts = {
     kindParity: [
       "runs/live-kind-parity/kedacore-keda-default/receipt.yaml",
     ],
+    runtimeGitOps: "data/runtime-gitops/receipts/kedacore-keda/default/latest.yaml",
   },
 };
 
@@ -80,8 +81,8 @@ function buildReport() {
   const rows = sourceRows.map((source) => rowFor(source, reviewByChart.get(source.chart), quirkByRef.get(`${source.chart}@${source.version}`)));
   const aggregationRows = rows.filter((row) => row.api_aggregation_observed === "yes");
 
-  check(rows.some((row) => row.coverage_status === "api-aggregation-observed"), "expected Metrics Server API aggregation observation row");
-  check(rows.some((row) => row.coverage_status === "two-cluster-api-aggregation-observed"), "expected KEDA two-cluster API aggregation observation row");
+  check(rows.some((row) => row.chart === "metrics-server/metrics-server" && row.coverage_status === "api-aggregation-observed"), "expected Metrics Server API aggregation observation row");
+  check(rows.some((row) => row.chart === "kedacore/keda" && row.coverage_status === "api-aggregation-observed"), "expected KEDA ConfigHub OCI/API aggregation observation row");
   check(aggregationRows.length === 2, `expected exactly two API aggregation availability rows; found ${aggregationRows.length}`);
 
   const workOrders = workOrdersFor(rows);
@@ -110,6 +111,7 @@ function rowFor(source, review, quirk) {
   const liveParity = receiptExists(receipts.liveParity);
   const kindParity = (receipts.kindParity ?? []).filter(receiptExists);
   const runtimeGitOpsAggregation = runtimeGitOpsHasAPIAggregation(receipts.runtimeGitOps);
+  const runtimeGitOpsWorkload = runtimeGitOpsHasWorkload(receipts.runtimeGitOps);
   const kindParityAggregation = kindParity.some((path) => kindParityHasAPIAggregation(path));
   const apiAggregation = runtimeGitOpsAggregation || kindParityAggregation;
   const hasRecipe = Boolean(review?.recipe_path);
@@ -123,8 +125,8 @@ function rowFor(source, review, quirk) {
     proof_surface: review?.proof_surface ?? "",
     modeled_version: review?.version ?? "",
     coverage_status: coverageStatus,
-    api_object_observed: objectSet || local ? "yes" : "no",
-    workload_observed: workload ? "yes" : "no",
+    api_object_observed: objectSet || local || runtimeGitOpsAggregation ? "yes" : "no",
+    workload_observed: workload || runtimeGitOpsWorkload ? "yes" : "no",
     live_parity_observed: liveParity ? "yes" : "no",
     two_cluster_parity_observed: kindParity.length > 0 ? "yes" : "no",
     api_aggregation_observed: apiAggregation ? "yes" : "no",
@@ -136,7 +138,7 @@ function rowFor(source, review, quirk) {
 }
 
 function coverageStatusFor({ hasRecipe, local, objectSet, workload, liveParity, kindParity, runtimeGitOpsAggregation, kindParityAggregation }) {
-  if (runtimeGitOpsAggregation && local && objectSet && workload && liveParity && kindParity.length > 0) return "api-aggregation-observed";
+  if (runtimeGitOpsAggregation && hasRecipe && kindParity.length > 0) return "api-aggregation-observed";
   if (kindParityAggregation && hasRecipe && kindParity.length > 0) return "two-cluster-api-aggregation-observed";
   if (local && objectSet && workload && liveParity && kindParity.length > 0) return "object-and-workload-observed";
   if (hasRecipe && kindParity.length > 0) return "two-cluster-parity-only";
@@ -147,6 +149,9 @@ function coverageStatusFor({ hasRecipe, local, objectSet, workload, liveParity, 
 function nextActionFor({ ref, hasRecipe, coverageStatus }) {
   if (ref === "metrics-server/metrics-server@3.13.0") {
     return "keep the runtime/GitOps APIService receipt fresh; use this pattern for the next APIService chart";
+  }
+  if (ref === "kedacore/keda@2.19.0" && coverageStatus === "api-aggregation-observed") {
+    return "decide whether KEDA enters a catalog promotion wave using the two-cluster parity and ConfigHub OCI APIService receipts";
   }
   if (coverageStatus === "two-cluster-parity-only") {
     return "add local/APIService observation and aggregated API availability receipt before catalog promotion or stronger runtime claims";
@@ -189,11 +194,11 @@ function workOrderFor(row) {
       chart: row.chart,
       version: row.source_version,
       current_state: row.coverage_status,
-      work_type: "promotion-scope-decision",
+      work_type: "catalog-promotion-decision",
       owner_hint: "catalog-review",
-      first_task: "review the new two-cluster API aggregation receipt and decide whether KEDA enters a catalog promotion wave",
-      receipts_to_add: "runtime/GitOps receipt if promoted; production disposition if selected as catalog-supported",
-      done_when: "KEDA has either a promotion work order with runtime/GitOps scope or a named reason to stay proof-grade",
+      first_task: "decide whether KEDA enters a catalog promotion wave using the two-cluster parity and ConfigHub OCI APIService receipts",
+      receipts_to_add: "production disposition and support decision if selected as catalog-supported",
+      done_when: "KEDA has either a target-scoped production/support decision or a named reason to stay proof-grade",
       evidence: row.evidence,
     };
   }
@@ -293,7 +298,7 @@ active proof/import work orders:          ${activeWorkOrders.length}
 
 Only rows with both an \`Available=True\` APIService condition and a successful
 aggregated API query receipt claim aggregated API availability. Today that
-evidence exists for Metrics Server.
+evidence exists for Metrics Server and KEDA.
 
 ## Coverage Status
 
@@ -331,6 +336,7 @@ ${rows.map((row) => `| ${row.rank} | \`${row.chart}\` | ${row.source_version} | 
 | \`data/quirk-work-queue/top100-queue.csv\` | Source quirk queue that currently carries the APIService hard gap. |
 | \`runs/top20-local-kind/metrics-server-default/observation-receipt.json\` | Metrics Server object/workload observation evidence. |
 | \`data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml\` | Metrics Server APIService Available=True and \`kubectl top nodes\` evidence. |
+| \`data/runtime-gitops/receipts/kedacore-keda/default/latest.yaml\` | KEDA ConfigHub OCI/Argo runtime evidence: workloads ready, APIService Available=True, and aggregated API query pass. |
 | \`runs/live-kind-parity/*/receipt.yaml\` | Two-cluster Helm-vs-\`cub installer\` parity evidence. |
 
 Regenerate:
@@ -368,12 +374,11 @@ aggregated API query or target-specific equivalent observed
 freshness timestamp recorded
 ~~~
 
-KEDA is the first proof-wave target because it already has a maintained
-recipe row and two-cluster parity. Its current row records two-cluster API
-aggregation evidence; the next KEDA question is whether it should move into a
-catalog promotion or runtime/GitOps wave. Kubernetes Dashboard, Datadog, and
-Bitnami Metrics Server need import/catalog decisions before a runtime
-aggregation receipt can close the gap.
+KEDA now has both two-cluster parity and ConfigHub OCI/Argo API aggregation
+evidence. Its next question is product scope: whether to promote it to a
+catalog-supported entry for a named target profile, or keep it proof-grade.
+Kubernetes Dashboard, Datadog, and Bitnami Metrics Server need import/catalog
+decisions before a runtime aggregation receipt can close the gap.
 
 ## Files
 
@@ -382,6 +387,7 @@ aggregation receipt can close the gap.
 | \`top100-apiservice-coverage.csv\` | Current APIService state per top-100 source row. |
 | \`work-orders.csv\` | Same queue in spreadsheet form. |
 | \`data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml\` | Existing Metrics Server pattern receipt. |
+| \`data/runtime-gitops/receipts/kedacore-keda/default/latest.yaml\` | KEDA ConfigHub OCI/Argo APIService receipt. |
 
 Regenerate:
 
@@ -421,7 +427,18 @@ function runtimeGitOpsHasAPIAggregation(path) {
   const receipt = readYaml(join(repoRoot, path));
   const apiServiceAvailable = receipt.spec?.runtime?.apiService?.available === true;
   const metricsApiPass = (receipt.spec?.checks ?? []).some((checkItem) => checkItem.name === "metrics-api" && checkItem.result === "pass");
-  return apiServiceAvailable && metricsApiPass;
+  const aggregatedApiPass = receipt.spec?.runtime?.aggregatedApiQuery?.result === "pass" ||
+    (receipt.spec?.checks ?? []).some((checkItem) => checkItem.name === "aggregated-api-query" && checkItem.result === "pass");
+  return apiServiceAvailable && (metricsApiPass || aggregatedApiPass);
+}
+
+function runtimeGitOpsHasWorkload(path) {
+  if (!receiptExists(path)) return false;
+  const receipt = readYaml(join(repoRoot, path));
+  if (receipt.spec?.runtime?.deployment?.ready) return true;
+  return (receipt.spec?.runtime?.deployments ?? []).some((deployment) =>
+    Number(deployment.readyReplicas ?? 0) > 0 && Number(deployment.replicas ?? 0) > 0
+  );
 }
 
 function kindParityHasAPIAggregation(path) {

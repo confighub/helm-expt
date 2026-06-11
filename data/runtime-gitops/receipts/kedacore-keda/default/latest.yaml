@@ -1,0 +1,130 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RuntimeGitOpsReceipt"
+metadata:
+  name: "kedacore-keda-default-apiservice-argo-oci-codex-keda-api-984hur"
+spec:
+  base: "default"
+  chart: "kedacore/keda"
+  checks:
+    -
+      detail: "cub lk rig codex-keda-api-984hur created"
+      name: "rig-up"
+      result: "pass"
+    -
+      detail: "rendered 30 object(s); namespaces=default,kube-system; apiServices=v1beta1.external.metrics.k8s.io"
+      name: "render"
+      result: "pass"
+    -
+      detail: "uploaded KEDA units to codex-keda-api-984hur-keda-apiservice"
+      name: "confighub-upload"
+      result: "pass"
+    -
+      detail: "applied 30 workload unit(s)"
+      name: "confighub-apply-units"
+      result: "pass"
+    -
+      detail: "created and applied Argo Application unit keda-apiservice-app"
+      name: "argo-application"
+      result: "pass"
+    -
+      detail: "app keda-apiservice: sync=Synced health=Healthy revision=sha256:d5a4049b943189552716c4e0e32c9841e2c657199c3262477878da0e2ec6455f"
+      name: "argo-sync"
+      result: "pass"
+    -
+      detail: "keda-admission-webhooks 1/1; keda-operator 1/1; keda-operator-metrics-apiserver 1/1"
+      name: "runtime-workloads"
+      result: "pass"
+    -
+      detail: "v1beta1.external.metrics.k8s.io Available=True"
+      name: "apiservice-available"
+      result: "pass"
+    -
+      detail: "/apis/external.metrics.k8s.io/v1beta1 returned APIResourceList with 1 resource(s)"
+      name: "aggregated-api-query"
+      result: "pass"
+  confighub:
+    workloadSpace: "codex-keda-api-984hur-keda-apiservice"
+    workloadUnitsApplied: 30
+  controller: "Argo CD OCI"
+  gitops:
+    applications:
+      -
+        health: "Healthy"
+        name: "keda-apiservice"
+        namespace: "argocd"
+        revision: "sha256:d5a4049b943189552716c4e0e32c9841e2c657199c3262477878da0e2ec6455f"
+        sync: "Synced"
+  notClaimed:
+    - "catalog production support for KEDA"
+    - "provider ScaledObject behavior beyond the aggregated external metrics API discovery endpoint"
+    - "non-vanilla Kubernetes distributions"
+  observedAt: "2026-06-11T08:16:33Z"
+  oci:
+    path: "./codex-keda-api-984hur-keda-apiservice"
+    repoURL: "oci://oci.hub.confighub.com:443/target/codex-keda-api-984hur-cluster/oci"
+    revision: "sha256:d5a4049b943189552716c4e0e32c9841e2c657199c3262477878da0e2ec6455f"
+    targetRevision: "latest"
+  packagePath: "packages/kedacore/keda/2.19.0"
+  recipePath: "recipes/kedacore/keda/2.19.0"
+  render:
+    apiServices:
+      - "v1beta1.external.metrics.k8s.io"
+    manifestDirectory: "/var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-keda-api-984hur/out/manifests"
+    namespaces:
+      - "default"
+      - "kube-system"
+    objectCount: 30
+    durableRenderedObjectSet: "recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml"
+  result: "pass"
+  run:
+    appName: "keda-apiservice"
+    clusterSpace: "codex-keda-api-984hur-cluster"
+    kubeContext: "kind-codex-keda-api-984hur"
+    kubeconfig: "/Users/alexis/.confighub/lk/codex-keda-api-984hur.kubeconfig"
+    mode: "cub-lk-argo-oci-apiservice-witness"
+    namespace: "default"
+    postTeardownKindClusters: ""
+    rig: "codex-keda-api-984hur"
+    target: "codex-keda-api-984hur-cluster/oci"
+    teardown:
+      detail: "Deleting kind cluster \"codex-keda-api-984hur\"...\nDeleting cluster \"codex-keda-api-984hur\" ...\nDeleted nodes: [\"codex-keda-api-984hur-control-plane\"]\nDeleting Space \"codex-keda-api-984hur-cluster\" (recursive: cascades to Unit, Target, Worker)...\n\nDone."
+      result: "pass"
+    workdir: "/var/folders/4l/8wvwwzxs3xl78749bmmqzzbw0000gp/T/helm-expt-keda-api-984hur"
+    workloadSpace: "codex-keda-api-984hur-keda-apiservice"
+  runtime:
+    aggregatedApiQuery:
+      groupVersion: "external.metrics.k8s.io/v1beta1"
+      kind: "APIResourceList"
+      path: "/apis/external.metrics.k8s.io/v1beta1"
+      resourceCount: 1
+      responseSHA256: "10fe82394242e95ea983216f13c8ca320ed8cbd8aea88ee24d60fff4235353a8"
+      result: "pass"
+    apiService:
+      available: true
+      conditionMessage: "all checks passed"
+      conditionReason: "Passed"
+      conditionStatus: "True"
+      name: "v1beta1.external.metrics.k8s.io"
+    deployments:
+      -
+        availableReplicas: 1
+        image: "ghcr.io/kedacore/keda-admission-webhooks:2.19.0"
+        name: "keda-admission-webhooks"
+        readyReplicas: 1
+        replicas: 1
+      -
+        availableReplicas: 1
+        image: "ghcr.io/kedacore/keda:2.19.0"
+        name: "keda-operator"
+        readyReplicas: 1
+        replicas: 1
+      -
+        availableReplicas: 1
+        image: "ghcr.io/kedacore/keda-metrics-apiserver:2.19.0"
+        name: "keda-operator-metrics-apiserver"
+        readyReplicas: 1
+        replicas: 1
+  sourceEvidence:
+    renderedObjectSet: "recipes/kedacore/keda/2.19.0/revisions/default/r001/rendered/release-objects.yaml"
+    twoClusterKindParity: "runs/live-kind-parity/kedacore-keda-default/receipt.yaml"
+  version: "2.19.0"
