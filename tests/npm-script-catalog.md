@@ -10,7 +10,7 @@ generator, a live test, or a user-side tutorial check.
 ## Summary
 
 ```text
-scripts: 380
+scripts: 383
 ```
 
 ## By Category
@@ -24,7 +24,7 @@ scripts: 380
 | `evidence-workdown` | 19 |
 | `live-parity-gitops` | 19 |
 | `latest-version-refresh` | 18 |
-| `other` | 13 |
+| `other` | 16 |
 | `repo-integrity` | 13 |
 | `derived-variants` | 8 |
 | `local-live-evidence` | 8 |
@@ -38,9 +38,9 @@ scripts: 380
 
 | Mode | Scripts |
 | --- | ---: |
-| `verify` | 189 |
-| `generate-or-run` | 149 |
-| `run` | 32 |
+| `verify` | 190 |
+| `generate-or-run` | 150 |
+| `run` | 33 |
 | `summary` | 7 |
 | `self-test` | 2 |
 | `full-corpus-verify` | 1 |
@@ -49,7 +49,7 @@ scripts: 380
 
 | External state | Scripts |
 | --- | ---: |
-| `none-for-verify` | 346 |
+| `none-for-verify` | 349 |
 | `confighub-or-live-cluster` | 11 |
 | `local-kubernetes` | 11 |
 | `network-or-helm-repo` | 7 |
