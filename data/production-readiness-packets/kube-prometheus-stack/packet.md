@@ -34,6 +34,7 @@ Lane summary: local:1/2 gitops:1/2 live-parity:1/2 two-cluster:2/2. Authoritativ
 - Live CRD upgrade rehearsal 85.3.3 -> 86.1.0 (API-server apply of the new CRDs over the old) ([evidence](../../../data/serious-chart-reviews/kube-prometheus-stack.csv))
 - Render-level CRD upgrade delta (6/10 CRDs change; all additive) ([evidence](../../../data/serious-chart-reviews/kps-crd-upgrade-delta-85.3.3-to-86.1.0.yaml))
 - Regular Helm workload upgrade rehearsal 85.3.3 -> 86.1.0 (install, workloads Ready, upgrade, workloads Ready) ([evidence](../../../runs/serious-chart-reviews/kube-prometheus-stack/workload-upgrade-live/latest/receipt.yaml))
+- No-CRDs two-cluster live parity with explicit CRD and admission Secret target facts staged ([evidence](../../../runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml))
 
 ## What is only watch, per-target, or manual?
 
@@ -56,4 +57,4 @@ Current work item: supported-scope-evidence - [work items](../../../data/product
 
 ## The exact next test
 
-a ConfigHub-managed upgrade or a no-crds support receipt with compatible external CRDs and the admission Secret staged.
+a ConfigHub-managed upgrade or target-scoped no-crds GitOps/OCI evidence showing how compatible external CRDs and the admission Secret are supplied.
