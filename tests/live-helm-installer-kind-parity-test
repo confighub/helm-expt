@@ -854,6 +854,68 @@ def wait_ready_many(kubeconfig: Path, context: str, namespaces: list[str], timeo
     }
 
 
+def api_service_refs(manifest: str) -> list[dict]:
+    refs = []
+    for doc in yaml_docs(manifest):
+        if doc.get("kind") != "APIService":
+            continue
+        metadata = doc.get("metadata") or {}
+        spec = doc.get("spec") or {}
+        name = metadata.get("name")
+        group = spec.get("group")
+        version = spec.get("version")
+        if name and group and version:
+            refs.append({"name": name, "group": group, "version": version, "queryPath": f"/apis/{group}/{version}"})
+    return refs
+
+
+def api_service_observation(kubeconfig: Path, context: str, ref: dict) -> dict:
+    rc, out, err = kubectl(["get", "apiservice", ref["name"], "-o", "json"], kubeconfig, context, timeout=60)
+    condition = {}
+    if rc == 0:
+        try:
+            payload = json.loads(out)
+        except json.JSONDecodeError:
+            payload = {}
+        for item in ((payload.get("status") or {}).get("conditions") or []):
+            if item.get("type") == "Available":
+                condition = item
+                break
+    query_rc, query_out, query_err = kubectl(["get", "--raw", ref["queryPath"]], kubeconfig, context, timeout=60)
+    available = condition.get("status") == "True"
+    query_pass = query_rc == 0 and bool(query_out.strip())
+    return {
+        "name": ref["name"],
+        "group": ref["group"],
+        "version": ref["version"],
+        "queryPath": ref["queryPath"],
+        "result": "pass" if available and query_pass else "watch",
+        "available": available,
+        "conditionStatus": condition.get("status") or "",
+        "conditionReason": condition.get("reason") or "",
+        "conditionMessage": (condition.get("message") or "")[:1000],
+        "queryResult": "pass" if query_pass else "watch",
+        "querySHA256": sha256_text(query_out) if query_rc == 0 else "",
+        "queryError": "" if query_rc == 0 else (query_err or query_out)[:1000],
+    }
+
+
+def wait_api_services(kubeconfig: Path, context: str, refs: list[dict], timeout_seconds: int = 300) -> dict:
+    if not refs:
+        return {"result": "pass", "items": []}
+    deadline = time.monotonic() + timeout_seconds
+    observations = []
+    while time.monotonic() < deadline:
+        observations = [api_service_observation(kubeconfig, context, ref) for ref in refs]
+        if observations and all(item.get("result") == "pass" for item in observations):
+            break
+        time.sleep(10)
+    return {
+        "result": "pass" if observations and all(item.get("result") == "pass" for item in observations) else "watch",
+        "items": observations,
+    }
+
+
 def wait_for_pod_running(kubeconfig: Path, context: str, namespace: str, pod: str, timeout_seconds: int = 300) -> dict:
     deadline = time.monotonic() + timeout_seconds
     last = {"phase": "", "detail": ""}
@@ -1361,7 +1423,9 @@ def main() -> int:
         check_item("regular-helm-operating-policy", helm_operations["result"], helm_operations.get("operation", "none"))
         helm_runtime_names = workload_namespaces(canonical_helm_manifest, args.namespace)
         helm_runtime = wait_ready_many(helm_kubeconfig, helm_context, helm_runtime_names, timeout_seconds=wait_seconds)
-        helm_result = "pass" if rc == 0 and get_rc == 0 and helm_operations["result"] == "pass" and helm_runtime["result"] == "pass" else "blocked"
+        helm_api_services = wait_api_services(helm_kubeconfig, helm_context, api_service_refs(canonical_helm_manifest), timeout_seconds=wait_seconds)
+        helm_runtime["apiServices"] = helm_api_services
+        helm_result = "pass" if rc == 0 and get_rc == 0 and helm_operations["result"] == "pass" and helm_runtime["result"] == "pass" and helm_api_services["result"] == "pass" else "blocked"
         leg("regularHelm",
             result=helm_result,
             command=" ".join(helm_cmd),
@@ -1376,6 +1440,12 @@ def main() -> int:
             getManifestError=get_err[:1000] if get_rc != 0 else "",
         )
         check_item("regular-helm-live", helm_result, helm_err or helm_out or helm_runtime.get("workloads", ""))
+        if helm_api_services.get("items"):
+            check_item(
+                "regular-helm-apiservice-aggregation",
+                helm_api_services["result"],
+                "; ".join(f"{item['name']} available={item['available']} query={item['queryResult']}" for item in helm_api_services["items"]),
+            )
 
         mark_stage("installer-render")
         setup_cmd = [
@@ -1406,7 +1476,9 @@ def main() -> int:
         receipt["spec"].setdefault("operatingPolicy", {})["cubInstallerApply"] = installer_operations
         check_item("cub-installer-operating-policy", installer_operations["result"], installer_operations.get("operation", "none"))
         installer_runtime = wait_ready_many(installer_kubeconfig, installer_context, apply_info["runtimeNamespaces"], timeout_seconds=wait_seconds)
-        installer_result = "pass" if installer_operations["result"] == "pass" and installer_runtime["result"] == "pass" else "watch"
+        installer_api_services = wait_api_services(installer_kubeconfig, installer_context, api_service_refs(installer_manifest), timeout_seconds=wait_seconds)
+        installer_runtime["apiServices"] = installer_api_services
+        installer_result = "pass" if installer_operations["result"] == "pass" and installer_runtime["result"] == "pass" and installer_api_services["result"] == "pass" else "watch"
         leg("cubInstallerApply",
             result=installer_result,
             renderCommand=" ".join(setup_cmd),
@@ -1419,6 +1491,12 @@ def main() -> int:
             runtime=installer_runtime,
         )
         check_item("cub-installer-apply-live", installer_result, installer_runtime.get("workloads", ""))
+        if installer_api_services.get("items"):
+            check_item(
+                "cub-installer-apiservice-aggregation",
+                installer_api_services["result"],
+                "; ".join(f"{item['name']} available={item['available']} query={item['queryResult']}" for item in installer_api_services["items"]),
+            )
 
         helm_compare_manifest = helm_live_manifest if helm_required_values and helm_live_manifest else canonical_helm_manifest
         if helm_required_values and helm_live_manifest:

@@ -81,7 +81,8 @@ function buildReport() {
   const aggregationRows = rows.filter((row) => row.api_aggregation_observed === "yes");
 
   check(rows.some((row) => row.coverage_status === "api-aggregation-observed"), "expected Metrics Server API aggregation observation row");
-  check(aggregationRows.length === 1, `expected exactly one API aggregation availability row; found ${aggregationRows.length}`);
+  check(rows.some((row) => row.coverage_status === "two-cluster-api-aggregation-observed"), "expected KEDA two-cluster API aggregation observation row");
+  check(aggregationRows.length === 2, `expected exactly two API aggregation availability rows; found ${aggregationRows.length}`);
 
   const workOrders = workOrdersFor(rows);
 
@@ -108,9 +109,11 @@ function rowFor(source, review, quirk) {
   const workload = receiptExists(receipts.workload) && receiptVerdict(receipts.workload) === "PASS";
   const liveParity = receiptExists(receipts.liveParity);
   const kindParity = (receipts.kindParity ?? []).filter(receiptExists);
-  const apiAggregation = runtimeGitOpsHasAPIAggregation(receipts.runtimeGitOps);
+  const runtimeGitOpsAggregation = runtimeGitOpsHasAPIAggregation(receipts.runtimeGitOps);
+  const kindParityAggregation = kindParity.some((path) => kindParityHasAPIAggregation(path));
+  const apiAggregation = runtimeGitOpsAggregation || kindParityAggregation;
   const hasRecipe = Boolean(review?.recipe_path);
-  const coverageStatus = coverageStatusFor({ hasRecipe, local, objectSet, workload, liveParity, kindParity, apiAggregation });
+  const coverageStatus = coverageStatusFor({ hasRecipe, local, objectSet, workload, liveParity, kindParity, runtimeGitOpsAggregation, kindParityAggregation });
   return {
     rank: source.rank,
     chart: source.chart,
@@ -125,14 +128,16 @@ function rowFor(source, review, quirk) {
     live_parity_observed: liveParity ? "yes" : "no",
     two_cluster_parity_observed: kindParity.length > 0 ? "yes" : "no",
     api_aggregation_observed: apiAggregation ? "yes" : "no",
+    api_aggregation_evidence: runtimeGitOpsAggregation ? "runtime-gitops" : kindParityAggregation ? "two-cluster-kind" : "",
     evidence: evidenceFor({ review, quirk, receipts, kindParity }),
     next_action: nextActionFor({ ref, hasRecipe, coverageStatus }),
     limitation: "APIService object evidence is not the same as Kubernetes API aggregation availability. Close this with an explicit Available=True or aggregated API query receipt.",
   };
 }
 
-function coverageStatusFor({ hasRecipe, local, objectSet, workload, liveParity, kindParity, apiAggregation }) {
-  if (apiAggregation && local && objectSet && workload && liveParity && kindParity.length > 0) return "api-aggregation-observed";
+function coverageStatusFor({ hasRecipe, local, objectSet, workload, liveParity, kindParity, runtimeGitOpsAggregation, kindParityAggregation }) {
+  if (runtimeGitOpsAggregation && local && objectSet && workload && liveParity && kindParity.length > 0) return "api-aggregation-observed";
+  if (kindParityAggregation && hasRecipe && kindParity.length > 0) return "two-cluster-api-aggregation-observed";
   if (local && objectSet && workload && liveParity && kindParity.length > 0) return "object-and-workload-observed";
   if (hasRecipe && kindParity.length > 0) return "two-cluster-parity-only";
   if (hasRecipe) return "modeled-needs-runtime-observation";
@@ -145,6 +150,9 @@ function nextActionFor({ ref, hasRecipe, coverageStatus }) {
   }
   if (coverageStatus === "two-cluster-parity-only") {
     return "add local/APIService observation and aggregated API availability receipt before catalog promotion or stronger runtime claims";
+  }
+  if (coverageStatus === "two-cluster-api-aggregation-observed") {
+    return "use the two-cluster API aggregation receipt to decide promotion scope, then add ConfigHub OCI/GitOps evidence if promoting";
   }
   if (hasRecipe) {
     return "add runtime APIService observation route and aggregated API availability receipt for the selected base";
@@ -181,11 +189,11 @@ function workOrderFor(row) {
       chart: row.chart,
       version: row.source_version,
       current_state: row.coverage_status,
-      work_type: "runtime-aggregation-proof",
-      owner_hint: "proof-lane",
-      first_task: "run an APIService observation lane for the existing keda/default recipe base",
-      receipts_to_add: "object-set APIService receipt; workload convergence receipt; APIService Available=True receipt; aggregated API query receipt",
-      done_when: "keda row becomes api-aggregation-observed, or records a named target prerequisite/refusal",
+      work_type: "promotion-scope-decision",
+      owner_hint: "catalog-review",
+      first_task: "review the new two-cluster API aggregation receipt and decide whether KEDA enters a catalog promotion wave",
+      receipts_to_add: "runtime/GitOps receipt if promoted; production disposition if selected as catalog-supported",
+      done_when: "KEDA has either a promotion work order with runtime/GitOps scope or a named reason to stay proof-grade",
       evidence: row.evidence,
     };
   }
@@ -361,9 +369,11 @@ freshness timestamp recorded
 ~~~
 
 KEDA is the first proof-wave target because it already has a maintained
-recipe row and two-cluster parity. Kubernetes Dashboard, Datadog, and Bitnami
-Metrics Server need import/catalog decisions before a runtime aggregation
-receipt can close the gap.
+recipe row and two-cluster parity. Its current row records two-cluster API
+aggregation evidence; the next KEDA question is whether it should move into a
+catalog promotion or runtime/GitOps wave. Kubernetes Dashboard, Datadog, and
+Bitnami Metrics Server need import/catalog decisions before a runtime
+aggregation receipt can close the gap.
 
 ## Files
 
@@ -412,6 +422,16 @@ function runtimeGitOpsHasAPIAggregation(path) {
   const apiServiceAvailable = receipt.spec?.runtime?.apiService?.available === true;
   const metricsApiPass = (receipt.spec?.checks ?? []).some((checkItem) => checkItem.name === "metrics-api" && checkItem.result === "pass");
   return apiServiceAvailable && metricsApiPass;
+}
+
+function kindParityHasAPIAggregation(path) {
+  if (!receiptExists(path)) return false;
+  const receipt = readYaml(join(repoRoot, path));
+  const helmItems = receipt.spec?.legs?.regularHelm?.runtime?.apiServices?.items ?? [];
+  const installerItems = receipt.spec?.legs?.cubInstallerApply?.runtime?.apiServices?.items ?? [];
+  return [helmItems, installerItems].every((items) =>
+    items.length > 0 && items.every((item) => item.available === true && item.queryResult === "pass")
+  );
 }
 
 function parseCsvFile(path) {

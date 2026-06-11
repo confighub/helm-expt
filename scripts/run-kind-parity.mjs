@@ -362,9 +362,32 @@ function verifyReceipt(path) {
     check(receipt.spec?.legs?.regularHelm, `${context}: missing regularHelm leg`);
     check(receipt.spec?.legs?.cubInstallerApply, `${context}: missing cubInstallerApply leg`);
     check(receipt.spec?.semanticComparison?.helmVsCubInstallerApply, `${context}: missing semantic comparison`);
+    verifyAPIServiceObservation(receipt.spec.legs.regularHelm, `${context}: regularHelm`);
+    verifyAPIServiceObservation(receipt.spec.legs.cubInstallerApply, `${context}: cubInstallerApply`);
   }
   if (receipt.spec?.run?.cleanup?.result !== "retained") {
     check(receipt.spec?.run?.cleanup?.result === "pass", `${context}: cleanup must pass for non-retained parity clusters`);
+  }
+}
+
+function verifyAPIServiceObservation(leg, context) {
+  const apiServices = leg?.runtime?.apiServices;
+  if (!apiServices) return;
+  check(["pass", "watch"].includes(apiServices.result), `${context}: APIService observation result must be pass or watch`);
+  check(Array.isArray(apiServices.items), `${context}: APIService observation items must be an array`);
+  for (const item of apiServices.items) {
+    check(Boolean(item.name), `${context}: APIService observation missing name`);
+    check(Boolean(item.group), `${context}: APIService observation missing group`);
+    check(Boolean(item.version), `${context}: APIService observation missing version`);
+    check(String(item.queryPath ?? "").startsWith(`/apis/${item.group}/${item.version}`), `${context}: APIService query path mismatch for ${item.name}`);
+    check(["pass", "watch"].includes(item.result), `${context}: APIService ${item.name} result must be pass or watch`);
+    check(["pass", "watch"].includes(item.queryResult), `${context}: APIService ${item.name} queryResult must be pass or watch`);
+    if (item.result === "pass") {
+      check(item.available === true, `${context}: APIService ${item.name} pass requires available=true`);
+      check(item.conditionStatus === "True", `${context}: APIService ${item.name} pass requires conditionStatus=True`);
+      check(item.queryResult === "pass", `${context}: APIService ${item.name} pass requires queryResult=pass`);
+      check(/^[a-f0-9]{64}$/.test(item.querySHA256 ?? ""), `${context}: APIService ${item.name} pass requires querySHA256`);
+    }
   }
 }
 

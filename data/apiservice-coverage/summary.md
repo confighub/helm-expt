@@ -20,11 +20,11 @@ aggregated API availability observed
 ~~~text
 source top-100 APIService rows:          5
 catalog-supported APIService rows:       1
-rows with API aggregation observation:   1
+rows with API aggregation observation:   2
 rows with object/workload observation:   1
-rows with two-cluster parity only:       1
+rows with two-cluster parity only:       0
 rows still source-detected only:         3
-aggregated API availability receipts:    1
+aggregated API availability receipts:    2
 active proof/import work orders:          4
 ~~~
 
@@ -38,7 +38,7 @@ evidence exists for Metrics Server.
 | --- | ---: |
 | `api-aggregation-observed` | 1 |
 | `source-detected-needs-recipe` | 3 |
-| `two-cluster-parity-only` | 1 |
+| `two-cluster-api-aggregation-observed` | 1 |
 
 ## Source Top-100 Rows
 
@@ -47,7 +47,7 @@ evidence exists for Metrics Server.
 | 9 | `k8s-dashboard/kubernetes-dashboard` | 7.14.0 | `source-detected-needs-recipe` | no | no | no | no | create recipe/import candidate, then model APIService readiness and aggregation observation before catalog claims |
 | 11 | `metrics-server/metrics-server` | 3.13.0 | `api-aggregation-observed` | yes | yes | yes | yes | keep the runtime/GitOps APIService receipt fresh; use this pattern for the next APIService chart |
 | 43 | `datadog/datadog` | 3.214.0 | `source-detected-needs-recipe` | no | no | no | no | create recipe/import candidate, then model APIService readiness and aggregation observation before catalog claims |
-| 53 | `kedacore/keda` | 2.19.0 | `two-cluster-parity-only` | no | no | no | no | add local/APIService observation and aggregated API availability receipt before catalog promotion or stronger runtime claims |
+| 53 | `kedacore/keda` | 2.19.0 | `two-cluster-api-aggregation-observed` | no | no | no | yes | use the two-cluster API aggregation receipt to decide promotion scope, then add ConfigHub OCI/GitOps evidence if promoting |
 | 71 | `bitnami/metrics-server` | 7.4.12 | `source-detected-needs-recipe` | no | no | no | no | create recipe/import candidate, then model APIService readiness and aggregation observation before catalog claims |
 
 ## How To Use This
