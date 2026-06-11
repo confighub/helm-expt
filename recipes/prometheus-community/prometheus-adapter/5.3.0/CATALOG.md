@@ -28,13 +28,13 @@ for exact base-variant evidence.
 
 | Field | Value |
 | --- | --- |
-| Adoption bucket | promote-after-review |
-| User status | proof-grade-ready-for-promotion-review |
+| Adoption bucket | limitation-decision-first |
+| User status | proof-grade-with-named-limitation |
 | Strongest evidence | in-confighub-proof |
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 0/2; GitOps live 0/2; live parity 0/2 |
 | Feature summary | extension-slots |
 | Hard gap | - |
-| Next action | run catalog promotion review |
+| Next action | Keep prometheus-community/prometheus-adapter@5.3.0 proof-grade for this target profile. Promote only after an upstream chart version or explicit compatibility base renders a target-supported APIService object and passes the APIService runtime contract. |
 
 ## Artifact Chain
 

@@ -198,6 +198,17 @@ export const CONFIGHUB_PROMOTION_PROOF_CHARTS = [
     skipDemoDocs: true,
   },
   {
+    slug: "external-dns",
+    displayName: "ExternalDNS",
+    component: "ExternalDNS",
+    packagePath: "packages/external-dns/external-dns/1.21.1",
+    chart: "external-dns/external-dns",
+    chartVersion: "1.21.1",
+    namespace: "external-dns",
+    defaultBase: "dry-run-txt-registry",
+    skipDemoDocs: true,
+  },
+  {
     slug: "prometheus-adapter",
     displayName: "Prometheus Adapter",
     component: "PrometheusAdapter",

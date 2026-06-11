@@ -50,8 +50,8 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: "promote-after-review"
-    userStatus: "proof-grade-ready-for-promotion-review"
+    adoptionBucket: "limitation-decision-first"
+    userStatus: "proof-grade-with-named-limitation"
     strongestEvidence: "in-confighub-proof"
     proofLanes:
       renderParity: "2/2"
@@ -61,7 +61,7 @@ spec:
       liveParity: "0/2"
     featureSummary: "extension-slots"
     hardGap: "-"
-    nextAction: "run catalog promotion review"
+    nextAction: "Keep prometheus-community/prometheus-adapter@5.3.0 proof-grade for this target profile. Promote only after an upstream chart version or explicit compatibility base renders a target-supported APIService object and passes the APIService runtime contract."
   installerPackage:
     path: "packages/prometheus-community/prometheus-adapter/5.3.0"
     installer: "packages/prometheus-community/prometheus-adapter/5.3.0/installer.yaml"
