@@ -1,0 +1,41 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-postgresql-18.7.0-existing-secret-local-kind"
+spec:
+  variantRevision: "recipes/bitnami/postgresql/18.7.0/revisions/existing-secret/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "bdcfa750a9553ede16f5718d0189d3616820e3ba1422eb82a8217f54c3c70dd2"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-pg187-existing"
+    context: "kind-claude-helm-expt-codex-pg187-existing"
+    namespace: "postgresql"
+  observedAt: "2026-06-11T14:04:44.049Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "created-by-test"
+  variant: "existing-secret"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "445e90c9e059c1bc10fb19c5c43af281dbd48fe2727b9a0ff78981d22df0a9d8"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||postgresql"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "6 object(s) from recipes/bitnami/postgresql/18.7.0/revisions/existing-secret/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "StatefulSet|postgresql|postgresql"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): postgresql-0[ContainerCreating ready=false restarts=0;]"
+  blockedReasons:
+    - "statefulset/postgresql: prerequisite-blocked (stuck creating: missing mount/secret/config) (postgresql-0[ContainerCreating ready=false restarts=0;])"

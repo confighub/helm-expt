@@ -1,0 +1,41 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-mysql-14.0.3-existing-secret-local-kind"
+spec:
+  variantRevision: "recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "024c04f020fbe5cc7af518d743a68e055f999e88a6633b278adccc769c1b7fa8"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-mysql-existing"
+    context: "kind-claude-helm-expt-codex-mysql-existing"
+    namespace: "mysql"
+  observedAt: "2026-06-11T14:09:09.156Z"
+  freshnessTTL: "1h"
+  result: "fail"
+  clusterStatus: "created-by-test"
+  variant: "existing-secret"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "b38556da585b3ce00a8ec4c3ef1c22deabfa2ea24976ce86332092266f023079"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||mysql"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "7 object(s) from recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "StatefulSet|mysql|mysql"
+      reason: "not-ready: mysql-0[PodInitializing ready=false restarts=0;]"
+  blockedReasons:
+    - "statefulset/mysql: not-ready (mysql-0[PodInitializing ready=false restarts=0;])"
