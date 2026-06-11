@@ -17,6 +17,7 @@ smallest generated surface that answers it.
 
 | Question | Start with |
 | --- | --- |
+| I want the compact catalog data routing index. | [catalog-index/summary.md](./catalog-index/summary.md) |
 | I want the current headline status. | [status-dashboard/summary.md](./status-dashboard/summary.md) |
 | I want to know if I can use a specific chart. | [chart-use-guide/summary.md](./chart-use-guide/summary.md)<br>[chart-use-guide/chart-use-guide.csv](./chart-use-guide/chart-use-guide.csv) |
 | I want to know what outcomes are actually promised and proven. | [outcome-evidence-contract/summary.md](./outcome-evidence-contract/summary.md)<br>[outcome-evidence-contract/outcomes.csv](./outcome-evidence-contract/outcomes.csv) |
@@ -47,6 +48,7 @@ smallest generated surface that answers it.
 
 | File | Use it for |
 | --- | --- |
+| [catalog-index/summary.md](./catalog-index/summary.md) | Compact question-to-source router for top100/top500 catalog status, prerequisites, base gaps, blockers, and evidence. |
 | [status-dashboard/summary.md](./status-dashboard/summary.md) | Start here for a one-page status dashboard: top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity. |
 | [chart-use-guide/summary.md](./chart-use-guide/summary.md) | Chart-use guide: one short answer per top-100 chart for whether to use it now, promote it, design a better base, or decide a limitation first. |
 | [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv) | Machine-readable next work queues for top100 catalog work, top20 production support, live parity, and hook/lifecycle work. |
@@ -247,7 +249,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `top100-coverage` | [top100-coverage/summary.md](./top100-coverage/summary.md) | front-door top-100 coverage contract and work queue |
 | `top100-promotion-wave` | [top100-promotion-wave/summary.md](./top100-promotion-wave/summary.md) | first strict top-100 promotion-review wave |
 | `top100-readiness` | [top100-readiness/summary.md](./top100-readiness/summary.md) | front-door top-100 user readiness and evidence summary |
-| `top100-user-readiness` | [top100-user-readiness/summary.md](./top100-user-readiness/summary.md) | supporting generated evidence |
+| `top100-user-readiness` | [top100-user-readiness/summary.md](./top100-user-readiness/summary.md) | front-door top-100 user-language readiness, prerequisites, first base, and next action |
 | `top20-base-readiness` | [top20-base-readiness/summary.md](./top20-base-readiness/summary.md) | top-20 base-variant readiness and first-path guidance |
 | `top500-catalog-analysis` | [top500-catalog-analysis/summary.md](./top500-catalog-analysis/summary.md) | top-500 catalog planning analysis |
 | `useful-base-design-queue` | [useful-base-design-queue/summary.md](./useful-base-design-queue/summary.md) | front-door proposed useful-base queue for default-shaped top-100 charts |
