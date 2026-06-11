@@ -224,7 +224,6 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `hook-lifecycle-review` | [hook-lifecycle-review/summary.md](./hook-lifecycle-review/summary.md) | supporting generated evidence |
 | `hook-route-candidates` | [hook-route-candidates/summary.md](./hook-route-candidates/summary.md) | candidate hook route plans before maintained lifecycle queue admission |
 | `image-digest-workdown` | [image-digest-workdown/summary.md](./image-digest-workdown/summary.md) | image pinning and mutable tag review |
-| `lane-test-matrix` | [lane-test-matrix/summary.md](./lane-test-matrix/summary.md) | exact chart/base proof lane status |
 | `latest-top20-refresh` | [latest-top20-refresh/summary.md](./latest-top20-refresh/summary.md) | latest upstream chart-version refresh candidates |
 | `legacy-patch-review` | [legacy-patch-review/summary.md](./legacy-patch-review/summary.md) | older chart-version patch support review |
 | `lifecycle-boundary` | [lifecycle-boundary/summary.md](./lifecycle-boundary/summary.md) | hook queue and hook-like lifecycle observation boundary |
@@ -275,7 +274,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 118 CSV files. Each row records the path, audience,
+It includes 117 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

@@ -24,7 +24,7 @@ Hook disposition: `observed` (post-install, post-upgrade, pre-install, pre-upgra
 
 ## What is at render parity?
 
-Lane summary: local:1/2 gitops:1/2 live-parity:1/2 two-cluster:2/2. Authoritative per-lane rows: [lane test matrix](../../../data/lane-test-matrix/summary.md).
+Lane summary: local:1/2 gitops:1/2 live-parity:1/2 two-cluster:2/2. Authoritative per-lane rows: [lane test matrix](../../../data/outcome-coverage/summary.md).
 
 ## What is at live parity?
 

@@ -5,7 +5,7 @@ when all 6 support criteria pass — every Helm quirk modeled or explicitly disc
 / `blocked` are honest dispositions, not gaps).
 
 This is a model-support report, not the whole live outcome. Full chart-choice support still needs the
-lane-test matrix: Helm-equivalence, ConfigHub proof, local live observation, ConfigHub OCI/Argo or Flux,
+outcome coverage: Helm-equivalence, ConfigHub proof, local live observation, ConfigHub OCI/Argo or Flux,
 and live Helm-vs-ConfigHub parity for each supported default or declared main choice.
 
 **Variant richness is a separate enhancement metric** until a choice is declared supported. Once declared
@@ -17,7 +17,7 @@ supported, that choice must be tracked as its own chart-recipe-variant row in `d
 charts: 110
 supported (Level 2, all 6): 108
 not yet supported: 2
-variant-rich (enhancement, >1 variant): 64
+variant-rich (enhancement, >1 variant): 74
 ```
 
 ## Per-criterion coverage (the 6 support criteria)
@@ -28,7 +28,7 @@ variant-rich (enhancement, >1 variant): 64
 - `usable`: 110/110
 - `verifiable`: 110/110
 - `honestly_scoped`: 110/110
-- _enhancement_ `variant_complete`: 64/110  (not a support criterion)
+- _enhancement_ `variant_complete`: 74/110  (not a support criterion)
 
 ## Gap by criterion (how many charts each one blocks)
 

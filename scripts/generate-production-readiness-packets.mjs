@@ -184,7 +184,7 @@ function buildPacket(target, sources) {
   lines.push("");
   lines.push("## What is at render parity?");
   lines.push("");
-  lines.push(`Lane summary: ${packetRow.live_summary}. Authoritative per-lane rows: [lane test matrix](../../../data/lane-test-matrix/summary.md).`);
+  lines.push(`Lane summary: ${packetRow.live_summary}. Authoritative per-lane rows: [outcome coverage](../../../data/outcome-coverage/summary.md).`);
   lines.push("");
   lines.push("## What is at live parity?");
   lines.push("");

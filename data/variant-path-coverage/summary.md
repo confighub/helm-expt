@@ -24,11 +24,11 @@ ConfigHub variant, or an upgrade/customization path.
 ## Rows By Live Status
 
 - blocked: 4
-- missing: 161
+- missing: 160
 - not-attempted: 10
 - not-tested: 4
 - not-tested-by-diff: 2
-- pass: 22
+- pass: 23
 - watch: 2
 
 ## Live Status Meanings

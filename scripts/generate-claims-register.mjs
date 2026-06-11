@@ -22,7 +22,6 @@ const claims = [
       "data/outcome-coverage/base-outcomes.csv",
       "data/live-kind-parity/summary.md",
       "data/live-helm-confighub-compare/summary.md",
-      "data/lane-test-matrix/summary.md",
     ],
     verify: "npm run outcomes:verify; npm run kind-parity:verify; npm run live-parity:verify",
     limit: "The claim is per chart, version, base, values profile, and target profile. It is not a claim over the whole Helm values space.",

@@ -7,7 +7,7 @@ whole Helm-to-ConfigHub lifecycle.
 
 The generated lane matrix is the numeric source of truth:
 
-[Lane Test Matrix](../../data/lane-test-matrix/summary.md)
+[Outcome Coverage](../../data/outcome-coverage/summary.md)
 
 For a chart/base/derived-variant/feature spreadsheet view, start with:
 

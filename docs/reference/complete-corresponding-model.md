@@ -66,7 +66,7 @@ The current measured state is in `data/model-completeness/summary.md`.
 
 This report is a model-support view, not the whole live outcome. Level 2 means
 the chart has a complete, honest, reproducible model for its declared scope.
-The full catalog outcome still needs the lane-test matrix:
+The full catalog outcome still needs the outcome coverage:
 
 ```text
 default and declared main choices
