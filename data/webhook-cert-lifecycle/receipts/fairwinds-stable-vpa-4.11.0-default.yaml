@@ -1,0 +1,29 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "WebhookCertLifecycleStagingReceipt"
+metadata:
+  name: "fairwinds-stable-vpa-4.11.0-default-webhook-cert-staging"
+spec:
+  chart: "fairwinds-stable/vpa"
+  version: "4.11.0"
+  base: "default"
+  result: "pass"
+  observedAt: "2026-06-11T17:59:31.787Z"
+  route: "generated-fact-staged-secret"
+  stagedSecret:
+    namespace: "default"
+    name: "vpa-tls-secret"
+    keys:
+      - "ca"
+      - "cert"
+      - "key"
+  generation:
+    method: "local-self-signed-certificate"
+    secretMaterialCommitted: false
+  pairedObservation:
+    receipt: "runs/next80-local-kind/fairwinds-stable-vpa-4.11.0-default/observation-receipt.yaml"
+    result: "pass"
+    target: "claude-helm-expt-codex-cert-vpa"
+    namespace: "default"
+  proofBoundary:
+    - "Proves an explicit staged serving certificate Secret can replace a hidden chart lifecycle side effect for this local kind target."
+    - "Does not claim production CA trust, admission policy safety, certificate rotation, or long-term serving certificate management."

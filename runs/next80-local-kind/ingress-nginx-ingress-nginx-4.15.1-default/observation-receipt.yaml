@@ -11,31 +11,24 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-codex-ingress-default"
-    context: "kind-claude-helm-expt-codex-ingress-default"
+    name: "claude-helm-expt-codex-cert-ingress"
+    context: "kind-claude-helm-expt-codex-cert-ingress"
     namespace: "ingress-nginx"
-  observedAt: "2026-06-11T13:50:39.704Z"
+  observedAt: "2026-06-11T17:59:51.029Z"
   freshnessTTL: "1h"
-  result: "blocked"
-  clusterStatus: "created-by-test"
+  result: "pass"
+  clusterStatus: "existing"
   variant: "default"
   workloads: 1
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "5c7fe82bdf5f9cdebd0ac65a2ef411ba319ec50886b84dcac115972ad8355930"
+    sha256: "99008c8b2e337a0e672977783ecc618da494ffd568ac8cb8413f690cd1bb148c"
   checks:
-    -
-      name: "namespace-created"
-      result: "pass"
-      object: "v1|Namespace||ingress-nginx"
     -
       name: "rendered-objects-applied"
       result: "pass"
       object: "11 object(s) from recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/default/r001/rendered/release-objects.yaml"
     -
       name: "workload-converged"
-      result: "blocked"
+      result: "pass"
       object: "Deployment|ingress-nginx|ingress-nginx-controller"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): ingress-nginx-controller-6c7cd85885-clbsb[ContainerCreating ready=false restarts=0;]"
-  blockedReasons:
-    - "deployment/ingress-nginx-controller: prerequisite-blocked (stuck creating: missing mount/secret/config) (ingress-nginx-controller-6c7cd85885-clbsb[ContainerCreating ready=false restarts=0;])"

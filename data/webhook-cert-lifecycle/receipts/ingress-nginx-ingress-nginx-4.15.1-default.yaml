@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "WebhookCertLifecycleStagingReceipt"
+metadata:
+  name: "ingress-nginx-ingress-nginx-4.15.1-default-webhook-cert-staging"
+spec:
+  chart: "ingress-nginx/ingress-nginx"
+  version: "4.15.1"
+  base: "default"
+  result: "pass"
+  observedAt: "2026-06-11T17:59:51.029Z"
+  route: "generated-fact-staged-secret"
+  stagedSecret:
+    namespace: "ingress-nginx"
+    name: "ingress-nginx-admission"
+    keys:
+      - "cert"
+      - "key"
+  generation:
+    method: "local-self-signed-certificate"
+    secretMaterialCommitted: false
+  pairedObservation:
+    receipt: "runs/next80-local-kind/ingress-nginx-ingress-nginx-4.15.1-default/observation-receipt.yaml"
+    result: "pass"
+    target: "claude-helm-expt-codex-cert-ingress"
+    namespace: "ingress-nginx"
+  proofBoundary:
+    - "Proves an explicit staged serving certificate Secret can replace a hidden chart lifecycle side effect for this local kind target."
+    - "Does not claim production CA trust, admission policy safety, certificate rotation, or long-term serving certificate management."

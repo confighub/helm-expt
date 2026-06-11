@@ -23,6 +23,8 @@
     "top20:verify-local-e2e": "node scripts/run-top20-local-e2e.mjs --verify",
     "local-live:triage": "node scripts/generate-local-live-triage.mjs --generate",
     "local-live:triage:verify": "node scripts/generate-local-live-triage.mjs --verify",
+    "webhook-cert:lifecycle": "node scripts/generate-webhook-cert-lifecycle-evidence.mjs --generate",
+    "webhook-cert:lifecycle:verify": "node scripts/generate-webhook-cert-lifecycle-evidence.mjs --verify",
     "top20:latest-refresh": "node scripts/generate-top20-latest-refresh.mjs --generate",
     "top20:latest-refresh:verify": "node scripts/generate-top20-latest-refresh.mjs --verify",
     "top20:latest-candidates": "node scripts/run-latest-top20-candidates.mjs --generate",

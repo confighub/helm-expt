@@ -10,7 +10,7 @@ works now, what works with help, and what still needs product or operator work.
 charts: 100
 top-20 catalog-supported: 20
 next-80 proof-grade: 80
-charts with live evidence on at least one variant: 72
+charts with live evidence on at least one variant: 73
 charts with named hard gaps: 25
 source top-100 charts with Helm hooks: 11
 maintained hook lifecycle rows: 5
@@ -44,7 +44,7 @@ source-reviewed hook routes not yet maintained: 8
 | Promote proof-grade charts | 27 | Run catalog review on the closest proof-grade rows. | A chart has reviewed variants, live evidence for selected bases, and an updated catalog status. | `external-dns/external-dns@1.21.1`<br>`cloudnative-pg/cloudnative-pg@0.28.2`<br>`kedacore/keda@2.19.0`<br>`elastic/eck-operator@3.4.0`<br>`grafana/alloy@1.8.2` |
 | Design user-shaped variants | 46 | Add one realistic base variant that a Helm user would actually pick. | The chart stops being default-only and moves into promotion review or limitation review. | `gitlab/gitlab-runner@0.89.0`<br>`fluent/fluent-bit@0.57.6`<br>`runix/pgadmin4@1.62.0`<br>`nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18`<br>`prometheus-community/kube-state-metrics@7.4.0` |
 | Resolve named limitations | 7 | Decide whether to support, disclose, or defer the named gap. | The catalog page and hard-gap row agree on the supported path. | `traefik/traefik@40.2.0`<br>`kyverno/kyverno@3.8.1`<br>`bitnami/elasticsearch@22.1.6`<br>`bitnami/spark@10.0.3`<br>`bitnami/zookeeper@13.8.7` |
-| Expand live evidence | 28 | Select rows that only have render parity and add local, GitOps, or live Helm-vs-ConfigHub evidence. | The strongest evidence moves beyond render parity for the selected chart/base. | `gitlab/gitlab-runner@0.89.0`<br>`nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18`<br>`elastic/kibana@8.5.1`<br>`bitnami/elasticsearch@22.1.6`<br>`dex/dex@0.24.0` |
+| Expand live evidence | 27 | Select rows that only have render parity and add local, GitOps, or live Helm-vs-ConfigHub evidence. | The strongest evidence moves beyond render parity for the selected chart/base. | `gitlab/gitlab-runner@0.89.0`<br>`nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18`<br>`elastic/kibana@8.5.1`<br>`bitnami/elasticsearch@22.1.6`<br>`dex/dex@0.24.0` |
 | Promote reviewed hook routes | 8 | Open `data/hook-route-candidates/summary.md` and choose one candidate route. | The route has a maintained lifecycle receipt, runtime observation path, or explicit blocker. | `k8s-dashboard/kubernetes-dashboard@7.14.0`<br>`gitlab/gitlab@10.0.0`<br>`bitnami/kafka@32.4.3`<br>`bitnami/minio@17.0.21`<br>`datadog/datadog@3.214.0` |
 
 ## Hook And Lifecycle Work
@@ -116,8 +116,8 @@ decision before catalog promotion.
 | Evidence | Count | Meaning |
 | --- | ---: | --- |
 | `live-helm-vs-confighub-parity` | 20 | Plain Helm and ConfigHub delivery reached equivalent live outcomes for at least one variant. |
-| `local-kubernetes-live` | 41 | Rendered objects were applied to Kubernetes and observed for at least one variant. |
-| `render-parity` | 28 | Regular Helm and cub installer setup render-equivalent objects. |
+| `local-kubernetes-live` | 42 | Rendered objects were applied to Kubernetes and observed for at least one variant. |
+| `render-parity` | 27 | Regular Helm and cub installer setup render-equivalent objects. |
 | `two-cluster-kind-parity` | 11 | Plain Helm and cub installer output reached equivalent live outcomes in separate vanilla kind clusters. |
 
 ## How To Read This
