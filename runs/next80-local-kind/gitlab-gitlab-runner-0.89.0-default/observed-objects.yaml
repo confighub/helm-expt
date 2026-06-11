@@ -1,0 +1,185 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    data:
+      check-live: "#!/bin/bash\nset -eou pipefail\n\n# default timeout is 3 seconds, can be overriden\nVERIFY_TIMEOUT=${1:-${VERIFY_TIMEOUT:-3}}\n\nif ! /usr/bin/pgrep -f \".*register-the-runner\"  > /dev/null && ! /usr/bin/pgrep -f \"gitlab.*runner\"  > /dev/null ; then\n  exit 1\nfi\n\nstatus=0\n# empty --url= helps `gitlab-runner verify` select all configured runners (otherwise filters for $CI_SERVER_URL)\nverify_output=$(timeout \"${VERIFY_TIMEOUT}\" gitlab-runner verify --url= 2>&1) || status=$?\n\n# timeout exit code is 143 with busybox, and 124 with coreutils\nif (( status == 143 )) || (( status == 124 )) ; then\n  echo \"'gitlab-runner verify' terminated by timeout, not a conclusive failure\" >&2\n  exit 0\nelif (( status > 0 )) ; then\n  exit ${status}\nfi\n\ngrep -qE \"is (alive|valid)\" <<<\"${verify_output}\"\n"
+      config.template.toml: "[[runners]]\n  [runners.kubernetes]\n    namespace = \"default\"\n    image = \"alpine\"\n"
+      config.toml: "shutdown_timeout = 0\nconcurrent = 10\ncheck_interval = 3\nlog_level = \"info\"\n"
+      entrypoint: "#!/bin/bash\nset -e\n\nexport CONFIG_PATH_FOR_INIT=\"/home/gitlab-runner/.gitlab-runner/\"\nmkdir -p ${CONFIG_PATH_FOR_INIT}\ncp /configmaps/config.toml ${CONFIG_PATH_FOR_INIT}\n# Set up environment variables for cache\nif [[ -f /secrets/accesskey && -f /secrets/secretkey ]]; then\n  export CACHE_S3_ACCESS_KEY=$(cat /secrets/accesskey)\n  export CACHE_S3_SECRET_KEY=$(cat /secrets/secretkey)\nfi\n\nif [[ -f /secrets/gcs-applicaton-credentials-file ]]; then\n  export GOOGLE_APPLICATION_CREDENTIALS=\"/secrets/gcs-applicaton-credentials-file\"\nelif [[ -f /secrets/gcs-application-credentials-file ]]; then\n  export GOOGLE_APPLICATION_CREDENTIALS=\"/secrets/gcs-application-credentials-file\"\nelse\n  if [[ -f /secrets/gcs-access-id && -f /secrets/gcs-private-key ]]; then\n    export CACHE_GCS_ACCESS_ID=$(cat /secrets/gcs-access-id)\n    # echo -e used to make private key multiline (in google json auth key private key is oneline with \\n)\n    export CACHE_GCS_PRIVATE_KEY=$(echo -e $(cat /secrets/gcs-private-key))\n  fi\nfi\n\nif [[ -f /secrets/azure-account-name && -f /secrets/azure-account-key ]]; then\n  export CACHE_AZURE_ACCOUNT_NAME=$(cat /secrets/azure-account-name)\n  export CACHE_AZURE_ACCOUNT_KEY=$(cat /secrets/azure-account-key)\nfi\n\nif [[ -f /secrets/runner-registration-token ]]; then\n  export REGISTRATION_TOKEN=$(cat /secrets/runner-registration-token)\nfi\n\nif [[ -f /secrets/runner-token ]]; then\n  export CI_SERVER_TOKEN=$(cat /secrets/runner-token)\nfi\nif ! sh /configmaps/register-the-runner; then\n  exit 1\nfi\n\n# Run pre-entrypoint-script\nif ! bash /configmaps/pre-entrypoint-script; then\n  exit 1\nfi\n\n# Start the runner\nexec /entrypoint run \\\n  --working-directory=/home/gitlab-runner\n"
+      pre-entrypoint-script: ""
+      register-the-runner: "#!/bin/sh\nsignal_handler() {\n  if [ ! -d \"/proc/$register_pid\" ]; then\n    wait $register_pid\n  fi\n  exit\n}\ntrap 'signal_handler' QUIT INT\n\nMAX_REGISTER_ATTEMPTS=30\n\n# Reset/unset the not needed flags when an authentication token\nRUN_UNTAGGED=\"\"\nACCESS_LEVEL=\"\"\n\nif [ -n \"$CI_SERVER_TOKEN\" ] && [ \"${CI_SERVER_TOKEN#glrt-}\" != \"$CI_SERVER_TOKEN\" ]; then\n  RUN_UNTAGGED=\"\"\n  ACCESS_LEVEL=\"\"\n  unset REGISTER_LOCKED\n  unset RUNNER_TAG_LIST\nfi\n\nfor i in $(seq 1 \"${MAX_REGISTER_ATTEMPTS}\"); do\n  echo \"Registration attempt ${i} of ${MAX_REGISTER_ATTEMPTS}\"\n  /entrypoint register \\\n    ${RUN_UNTAGGED} \\\n    ${ACCESS_LEVEL} \\\n    --template-config /configmaps/config.template.toml \\\n    --non-interactive &\n\n  register_pid=$!\n  wait $register_pid\n  retval=$?\n\n  if [ ${retval} = 0 ]; then\n    break\n  elif [ ${i} = ${MAX_REGISTER_ATTEMPTS} ]; then\n    exit 1\n  fi\n\n  sleep 5\ndone\n"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"check-live\":\"#!/bin/bash\\nset -eou pipefail\\n\\n# default timeout is 3 seconds, can be overriden\\nVERIFY_TIMEOUT=${1:-${VERIFY_TIMEOUT:-3}}\\n\\nif ! /usr/bin/pgrep -f \\\".*register-the-runner\\\"  \\u003e /dev/null \\u0026\\u0026 ! /usr/bin/pgrep -f \\\"gitlab.*runner\\\"  \\u003e /dev/null ; then\\n  exit 1\\nfi\\n\\nstatus=0\\n# empty --url= helps `gitlab-runner verify` select all configured runners (otherwise filters for $CI_SERVER_URL)\\nverify_output=$(timeout \\\"${VERIFY_TIMEOUT}\\\" gitlab-runner verify --url= 2\\u003e\\u00261) || status=$?\\n\\n# timeout exit code is 143 with busybox, and 124 with coreutils\\nif (( status == 143 )) || (( status == 124 )) ; then\\n  echo \\\"'gitlab-runner verify' terminated by timeout, not a conclusive failure\\\" \\u003e\\u00262\\n  exit 0\\nelif (( status \\u003e 0 )) ; then\\n  exit ${status}\\nfi\\n\\ngrep -qE \\\"is (alive|valid)\\\" \\u003c\\u003c\\u003c\\\"${verify_output}\\\"\\n\",\"config.template.toml\":\"[[runners]]\\n  [runners.kubernetes]\\n    namespace = \\\"default\\\"\\n    image = \\\"alpine\\\"\\n\",\"config.toml\":\"shutdown_timeout = 0\\nconcurrent = 10\\ncheck_interval = 3\\nlog_level = \\\"info\\\"\\n\",\"entrypoint\":\"#!/bin/bash\\nset -e\\n\\nexport CONFIG_PATH_FOR_INIT=\\\"/home/gitlab-runner/.gitlab-runner/\\\"\\nmkdir -p ${CONFIG_PATH_FOR_INIT}\\ncp /configmaps/config.toml ${CONFIG_PATH_FOR_INIT}\\n# Set up environment variables for cache\\nif [[ -f /secrets/accesskey \\u0026\\u0026 -f /secrets/secretkey ]]; then\\n  export CACHE_S3_ACCESS_KEY=$(cat /secrets/accesskey)\\n  export CACHE_S3_SECRET_KEY=$(cat /secrets/secretkey)\\nfi\\n\\nif [[ -f /secrets/gcs-applicaton-credentials-file ]]; then\\n  export GOOGLE_APPLICATION_CREDENTIALS=\\\"/secrets/gcs-applicaton-credentials-file\\\"\\nelif [[ -f /secrets/gcs-application-credentials-file ]]; then\\n  export GOOGLE_APPLICATION_CREDENTIALS=\\\"/secrets/gcs-application-credentials-file\\\"\\nelse\\n  if [[ -f /secrets/gcs-access-id \\u0026\\u0026 -f /secrets/gcs-private-key ]]; then\\n    export CACHE_GCS_ACCESS_ID=$(cat /secrets/gcs-access-id)\\n    # echo -e used to make private key multiline (in google json auth key private key is oneline with \\\\n)\\n    export CACHE_GCS_PRIVATE_KEY=$(echo -e $(cat /secrets/gcs-private-key))\\n  fi\\nfi\\n\\nif [[ -f /secrets/azure-account-name \\u0026\\u0026 -f /secrets/azure-account-key ]]; then\\n  export CACHE_AZURE_ACCOUNT_NAME=$(cat /secrets/azure-account-name)\\n  export CACHE_AZURE_ACCOUNT_KEY=$(cat /secrets/azure-account-key)\\nfi\\n\\nif [[ -f /secrets/runner-registration-token ]]; then\\n  export REGISTRATION_TOKEN=$(cat /secrets/runner-registration-token)\\nfi\\n\\nif [[ -f /secrets/runner-token ]]; then\\n  export CI_SERVER_TOKEN=$(cat /secrets/runner-token)\\nfi\\nif ! sh /configmaps/register-the-runner; then\\n  exit 1\\nfi\\n\\n# Run pre-entrypoint-script\\nif ! bash /configmaps/pre-entrypoint-script; then\\n  exit 1\\nfi\\n\\n# Start the runner\\nexec /entrypoint run \\\\\\n  --working-directory=/home/gitlab-runner\\n\",\"pre-entrypoint-script\":\"\",\"register-the-runner\":\"#!/bin/sh\\nsignal_handler() {\\n  if [ ! -d \\\"/proc/$register_pid\\\" ]; then\\n    wait $register_pid\\n  fi\\n  exit\\n}\\ntrap 'signal_handler' QUIT INT\\n\\nMAX_REGISTER_ATTEMPTS=30\\n\\n# Reset/unset the not needed flags when an authentication token\\nRUN_UNTAGGED=\\\"\\\"\\nACCESS_LEVEL=\\\"\\\"\\n\\nif [ -n \\\"$CI_SERVER_TOKEN\\\" ] \\u0026\\u0026 [ \\\"${CI_SERVER_TOKEN#glrt-}\\\" != \\\"$CI_SERVER_TOKEN\\\" ]; then\\n  RUN_UNTAGGED=\\\"\\\"\\n  ACCESS_LEVEL=\\\"\\\"\\n  unset REGISTER_LOCKED\\n  unset RUNNER_TAG_LIST\\nfi\\n\\nfor i in $(seq 1 \\\"${MAX_REGISTER_ATTEMPTS}\\\"); do\\n  echo \\\"Registration attempt ${i} of ${MAX_REGISTER_ATTEMPTS}\\\"\\n  /entrypoint register \\\\\\n    ${RUN_UNTAGGED} \\\\\\n    ${ACCESS_LEVEL} \\\\\\n    --template-config /configmaps/config.template.toml \\\\\\n    --non-interactive \\u0026\\n\\n  register_pid=$!\\n  wait $register_pid\\n  retval=$?\\n\\n  if [ ${retval} = 0 ]; then\\n    break\\n  elif [ ${i} = ${MAX_REGISTER_ATTEMPTS} ]; then\\n    exit 1\\n  fi\\n\\n  sleep 5\\ndone\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"gitlab-runner\",\"chart\":\"gitlab-runner-0.89.0\",\"heritage\":\"Helm\",\"release\":\"gitlab-runner\"},\"name\":\"gitlab-runner\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T11:13:43Z"
+      labels:
+        app: "gitlab-runner"
+        chart: "gitlab-runner-0.89.0"
+        heritage: "Helm"
+        release: "gitlab-runner"
+      name: "gitlab-runner"
+      namespace: "default"
+      resourceVersion: "429"
+      uid: "a9a13460-e7d8-47b2-8742-4849f646cd58"
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"gitlab-runner\",\"chart\":\"gitlab-runner-0.89.0\",\"heritage\":\"Helm\",\"release\":\"gitlab-runner\"},\"name\":\"gitlab-runner\",\"namespace\":\"default\"},\"spec\":{\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app\":\"gitlab-runner\"}},\"template\":{\"metadata\":{\"annotations\":{\"checksum/configmap\":\"aebf1756519e297bbada83cad525e174e897c8b5ab0d6cee75f1db59f4a1ea10\"},\"labels\":{\"app\":\"gitlab-runner\",\"chart\":\"gitlab-runner-0.89.0\",\"heritage\":\"Helm\",\"release\":\"gitlab-runner\"}},\"spec\":{\"containers\":[{\"command\":[\"/usr/bin/dumb-init\",\"--\",\"/bin/bash\",\"/configmaps/entrypoint\"],\"env\":[{\"name\":\"CI_SERVER_URL\",\"value\":null},{\"name\":\"RUNNER_EXECUTOR\",\"value\":\"kubernetes\"},{\"name\":\"REGISTER_LOCKED\",\"value\":\"true\"},{\"name\":\"RUNNER_TAG_LIST\",\"value\":\"\"},{\"name\":\"SESSION_SERVER_ADDRESS\",\"value\":null}],\"image\":\"registry.gitlab.com/gitlab-org/gitlab-runner:alpine-v19.0.0\",\"imagePullPolicy\":\"IfNotPresent\",\"lifecycle\":{\"preStop\":{\"exec\":{\"command\":[\"/entrypoint\",\"unregister\",\"--all-runners\"]}}},\"livenessProbe\":{\"exec\":{\"command\":[\"/bin/bash\",\"/configmaps/check-live\",\"3\"]},\"failureThreshold\":3,\"initialDelaySeconds\":60,\"periodSeconds\":60,\"successThreshold\":1,\"timeoutSeconds\":4},\"name\":\"gitlab-runner\",\"ports\":[{\"containerPort\":9252,\"name\":\"metrics\"}],\"readinessProbe\":{\"exec\":{\"command\":[\"/usr/bin/pgrep\",\"gitlab.*runner\"]},\"failureThreshold\":3,\"initialDelaySeconds\":60,\"periodSeconds\":60,\"successThreshold\":1,\"timeoutSeconds\":4},\"resources\":{},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":false,\"runAsNonRoot\":true},\"volumeMounts\":[{\"mountPath\":\"/home/gitlab-runner/.gitlab-runner\",\"name\":\"etc-gitlab-runner\"},{\"mountPath\":\"/configmaps\",\"name\":\"configmaps\"}]}],\"securityContext\":{\"fsGroup\":65533,\"runAsUser\":100},\"serviceAccountName\":\"\",\"terminationGracePeriodSeconds\":3600,\"volumes\":[{\"emptyDir\":{\"medium\":\"Memory\"},\"name\":\"runner-secrets\"},{\"emptyDir\":{\"medium\":\"Memory\"},\"name\":\"etc-gitlab-runner\"},{\"configMap\":{\"name\":\"gitlab-runner\"},\"name\":\"configmaps\"}]}}}}\n"
+      creationTimestamp: "2026-06-11T11:13:43Z"
+      generation: 1
+      labels:
+        app: "gitlab-runner"
+        chart: "gitlab-runner-0.89.0"
+        heritage: "Helm"
+        release: "gitlab-runner"
+      name: "gitlab-runner"
+      namespace: "default"
+      resourceVersion: "442"
+      uid: "024c68e7-65fc-48c7-90f8-9f247105247f"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app: "gitlab-runner"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          annotations:
+            checksum/configmap: "aebf1756519e297bbada83cad525e174e897c8b5ab0d6cee75f1db59f4a1ea10"
+          labels:
+            app: "gitlab-runner"
+            chart: "gitlab-runner-0.89.0"
+            heritage: "Helm"
+            release: "gitlab-runner"
+        spec:
+          containers:
+            -
+              command:
+                - "/usr/bin/dumb-init"
+                - "--"
+                - "/bin/bash"
+                - "/configmaps/entrypoint"
+              env:
+                -
+                  name: "CI_SERVER_URL"
+                -
+                  name: "RUNNER_EXECUTOR"
+                  value: "kubernetes"
+                -
+                  name: "REGISTER_LOCKED"
+                  value: "true"
+                -
+                  name: "RUNNER_TAG_LIST"
+                -
+                  name: "SESSION_SERVER_ADDRESS"
+              image: "registry.gitlab.com/gitlab-org/gitlab-runner:alpine-v19.0.0"
+              imagePullPolicy: "IfNotPresent"
+              lifecycle:
+                preStop:
+                  exec:
+                    command:
+                      - "/entrypoint"
+                      - "unregister"
+                      - "--all-runners"
+              livenessProbe:
+                exec:
+                  command:
+                    - "/bin/bash"
+                    - "/configmaps/check-live"
+                    - "3"
+                failureThreshold: 3
+                initialDelaySeconds: 60
+                periodSeconds: 60
+                successThreshold: 1
+                timeoutSeconds: 4
+              name: "gitlab-runner"
+              ports:
+                -
+                  containerPort: 9252
+                  name: "metrics"
+                  protocol: "TCP"
+              readinessProbe:
+                exec:
+                  command:
+                    - "/usr/bin/pgrep"
+                    - "gitlab.*runner"
+                failureThreshold: 3
+                initialDelaySeconds: 60
+                periodSeconds: 60
+                successThreshold: 1
+                timeoutSeconds: 4
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: false
+                runAsNonRoot: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/home/gitlab-runner/.gitlab-runner"
+                  name: "etc-gitlab-runner"
+                -
+                  mountPath: "/configmaps"
+                  name: "configmaps"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 65533
+            runAsUser: 100
+          terminationGracePeriodSeconds: 3600
+          volumes:
+            -
+              emptyDir:
+                medium: "Memory"
+              name: "runner-secrets"
+            -
+              emptyDir:
+                medium: "Memory"
+              name: "etc-gitlab-runner"
+            -
+              configMap:
+                defaultMode: 420
+                name: "gitlab-runner"
+              name: "configmaps"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T11:13:43Z"
+          lastUpdateTime: "2026-06-11T11:13:43Z"
+          message: "Deployment does not have minimum availability."
+          reason: "MinimumReplicasUnavailable"
+          status: "False"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T11:13:43Z"
+          lastUpdateTime: "2026-06-11T11:13:43Z"
+          message: "ReplicaSet \"gitlab-runner-844d54c8cc\" is progressing."
+          reason: "ReplicaSetUpdated"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      replicas: 1
+      terminatingReplicas: 0
+      unavailableReplicas: 1
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""

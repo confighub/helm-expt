@@ -1,0 +1,47 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "jetstack-trust-manager-v0.22.1-default-local-kind"
+spec:
+  variantRevision: "recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "50eb2239a5db07734497711c4e812eb111d231852c2f614e5b0a1faec7bab683"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T11:23:35.484Z"
+  freshnessTTL: "1h"
+  result: "fail"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "544b7d68089b39a4e8ded39463d4e5f529205f55f4f775aa97957ed4babe4548"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||cert-manager"
+    -
+      name: "crds-applied-and-established"
+      result: "pass"
+      object: "1 CustomResourceDefinition(s)"
+    -
+      name: "rendered-objects-applied"
+      result: "blocked"
+      object: "14 object(s) from recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/release-objects.yaml"
+      reason: "apply-blocked: resource mapping not found for name: \"trust-manager\" namespace: \"default\" from \"STDIN\": no matches for kind \"Certificate\" in version \"cert-manager.io/v1\" ensure CRDs are installed first resource mappi"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "Deployment|default|trust-manager"
+      reason: "not-ready: trust-manager-6db9f66446-hxp8w[PodInitializing ready=false restarts=0;]"
+  blockedReasons:
+    - "apply: resource mapping not found for name: \"trust-manager\" namespace: \"default\" from \"STDIN\": no matches for kind \"Certificate\" in version \"cert-manager.io/v1\" ensure CRDs are installed first resource mappi"
+    - "deployment/trust-manager: not-ready (trust-manager-6db9f66446-hxp8w[PodInitializing ready=false restarts=0;])"

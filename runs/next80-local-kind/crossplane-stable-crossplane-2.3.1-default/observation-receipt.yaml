@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "crossplane-stable-crossplane-2.3.1-default-local-kind"
+spec:
+  variantRevision: "recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "917b3dc2a52c16f26cefebe2b580889944e23461d95d1fbe912e0c7a451fd996"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T11:10:56.715Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 2
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "e3a0dda1118d750a6c78a096dfe06913932d73862e526dabc6e8e16e469fc19f"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "23 object(s) from recipes/crossplane-stable/crossplane/2.3.1/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|crossplane"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|crossplane-rbac-manager"

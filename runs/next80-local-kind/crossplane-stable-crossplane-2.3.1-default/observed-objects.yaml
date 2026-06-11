@@ -1,0 +1,1660 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"crossplane\",\"app.kubernetes.io/component\":\"cloud-infrastructure-controller\",\"app.kubernetes.io/instance\":\"crossplane\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"crossplane\",\"app.kubernetes.io/part-of\":\"crossplane\",\"app.kubernetes.io/version\":\"2.3.1\",\"helm.sh/chart\":\"crossplane-2.3.1\"},\"name\":\"rbac-manager\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      labels:
+        app: "crossplane"
+        app.kubernetes.io/component: "cloud-infrastructure-controller"
+        app.kubernetes.io/instance: "crossplane"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "crossplane"
+        app.kubernetes.io/part-of: "crossplane"
+        app.kubernetes.io/version: "2.3.1"
+        helm.sh/chart: "crossplane-2.3.1"
+      name: "rbac-manager"
+      namespace: "default"
+      resourceVersion: "435"
+      uid: "76608bd9-c20d-4401-b6a9-479e8ca7e723"
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"crossplane\",\"app.kubernetes.io/component\":\"cloud-infrastructure-controller\",\"app.kubernetes.io/instance\":\"crossplane\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"crossplane\",\"app.kubernetes.io/part-of\":\"crossplane\",\"app.kubernetes.io/version\":\"2.3.1\",\"helm.sh/chart\":\"crossplane-2.3.1\"},\"name\":\"crossplane\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      labels:
+        app: "crossplane"
+        app.kubernetes.io/component: "cloud-infrastructure-controller"
+        app.kubernetes.io/instance: "crossplane"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "crossplane"
+        app.kubernetes.io/part-of: "crossplane"
+        app.kubernetes.io/version: "2.3.1"
+        helm.sh/chart: "crossplane-2.3.1"
+      name: "crossplane"
+      namespace: "default"
+      resourceVersion: "436"
+      uid: "5baefa43-045a-4d72-a431-0bd4b68e7b57"
+  -
+    apiVersion: "v1"
+    data:
+      redacted: "live Secret data is not committed"
+    kind: "Secret"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "redacted: live Secret last-applied-configuration is not committed"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      name: "crossplane-root-ca"
+      namespace: "default"
+      resourceVersion: "529"
+      uid: "45c60a06-5c8f-4365-b471-cf9203e9a53f"
+    type: "Opaque"
+  -
+    apiVersion: "v1"
+    data:
+      redacted: "live Secret data is not committed"
+    kind: "Secret"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "redacted: live Secret last-applied-configuration is not committed"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      name: "crossplane-tls-server"
+      namespace: "default"
+      resourceVersion: "530"
+      uid: "ed173986-53fc-46ea-936a-b9e488e26076"
+    type: "Opaque"
+  -
+    apiVersion: "v1"
+    data:
+      redacted: "live Secret data is not committed"
+    kind: "Secret"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "redacted: live Secret last-applied-configuration is not committed"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      name: "crossplane-tls-client"
+      namespace: "default"
+      resourceVersion: "531"
+      uid: "af40a0fd-66a9-4223-a635-a0050f851e4e"
+    type: "Opaque"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"crossplane\",\"app.kubernetes.io/component\":\"cloud-infrastructure-controller\",\"app.kubernetes.io/instance\":\"crossplane\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"crossplane\",\"app.kubernetes.io/part-of\":\"crossplane\",\"app.kubernetes.io/version\":\"2.3.1\",\"helm.sh/chart\":\"crossplane-2.3.1\",\"release\":\"crossplane\"},\"name\":\"crossplane-webhooks\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"port\":9443,\"protocol\":\"TCP\",\"targetPort\":9443}],\"selector\":{\"app\":\"crossplane\",\"release\":\"crossplane\"}}}\n"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      labels:
+        app: "crossplane"
+        app.kubernetes.io/component: "cloud-infrastructure-controller"
+        app.kubernetes.io/instance: "crossplane"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "crossplane"
+        app.kubernetes.io/part-of: "crossplane"
+        app.kubernetes.io/version: "2.3.1"
+        helm.sh/chart: "crossplane-2.3.1"
+        release: "crossplane"
+      name: "crossplane-webhooks"
+      namespace: "default"
+      resourceVersion: "441"
+      uid: "7be15f4a-52ac-479e-bd4d-4f6b52ed22fe"
+    spec:
+      clusterIP: "10.96.53.27"
+      clusterIPs:
+        - "10.96.53.27"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          port: 9443
+          protocol: "TCP"
+          targetPort: 9443
+      selector:
+        app: "crossplane"
+        release: "crossplane"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"crossplane\",\"app.kubernetes.io/component\":\"cloud-infrastructure-controller\",\"app.kubernetes.io/instance\":\"crossplane\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"crossplane\",\"app.kubernetes.io/part-of\":\"crossplane\",\"app.kubernetes.io/version\":\"2.3.1\",\"helm.sh/chart\":\"crossplane-2.3.1\",\"release\":\"crossplane\"},\"name\":\"crossplane\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app\":\"crossplane\",\"release\":\"crossplane\"}},\"strategy\":{\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"labels\":{\"app\":\"crossplane\",\"app.kubernetes.io/component\":\"cloud-infrastructure-controller\",\"app.kubernetes.io/instance\":\"crossplane\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"crossplane\",\"app.kubernetes.io/part-of\":\"crossplane\",\"app.kubernetes.io/version\":\"2.3.1\",\"helm.sh/chart\":\"crossplane-2.3.1\",\"release\":\"crossplane\"}},\"spec\":{\"containers\":[{\"args\":[\"core\",\"start\"],\"env\":[{\"name\":\"GOMAXPROCS\",\"valueFrom\":{\"resourceFieldRef\":{\"containerName\":\"crossplane\",\"divisor\":\"1\",\"resource\":\"limits.cpu\"}}},{\"name\":\"GOMEMLIMIT\",\"valueFrom\":{\"resourceFieldRef\":{\"containerName\":\"crossplane\",\"divisor\":\"1\",\"resource\":\"limits.memory\"}}},{\"name\":\"POD_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"POD_SERVICE_ACCOUNT\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.serviceAccountName\"}}},{\"name\":\"LEADER_ELECTION\",\"value\":\"true\"},{\"name\":\"TLS_SERVER_SECRET_NAME\",\"value\":\"crossplane-tls-server\"},{\"name\":\"TLS_SERVER_CERTS_DIR\",\"value\":\"/tls/server\"},{\"name\":\"TLS_CLIENT_SECRET_NAME\",\"value\":\"crossplane-tls-client\"},{\"name\":\"TLS_CLIENT_CERTS_DIR\",\"value\":\"/tls/client\"}],\"image\":\"xpkg.crossplane.io/crossplane/crossplane:v2.3.1\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"crossplane\",\"ports\":[{\"containerPort\":8081,\"name\":\"readyz\"},{\"containerPort\":9443,\"name\":\"webhooks\"}],\"resources\":{\"limits\":{\"cpu\":\"500m\",\"memory\":\"1024Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"256Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":65532,\"runAsUser\":65532},\"startupProbe\":{\"failureThreshold\":30,\"periodSeconds\":2,\"tcpSocket\":{\"port\":\"readyz\"}},\"volumeMounts\":[{\"mountPath\":\"/cache/xpkg\",\"name\":\"package-cache\"},{\"mountPath\":\"/cache/xfn\",\"name\":\"function-cache\"},{\"mountPath\":\"/tls/server\",\"name\":\"tls-server-certs\"},{\"mountPath\":\"/tls/client\",\"name\":\"tls-client-certs\"}]}],\"hostNetwork\":false,\"initContainers\":[{\"args\":[\"core\",\"init\",\"--activation\",\"*\"],\"env\":[{\"name\":\"GOMAXPROCS\",\"valueFrom\":{\"resourceFieldRef\":{\"containerName\":\"crossplane-init\",\"divisor\":\"1\",\"resource\":\"limits.cpu\"}}},{\"name\":\"GOMEMLIMIT\",\"valueFrom\":{\"resourceFieldRef\":{\"containerName\":\"crossplane-init\",\"divisor\":\"1\",\"resource\":\"limits.memory\"}}},{\"name\":\"POD_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"POD_SERVICE_ACCOUNT\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.serviceAccountName\"}}},{\"name\":\"WEBHOOK_SERVICE_NAME\",\"value\":\"crossplane-webhooks\"},{\"name\":\"WEBHOOK_SERVICE_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"WEBHOOK_SERVICE_PORT\",\"value\":\"9443\"},{\"name\":\"TLS_CA_SECRET_NAME\",\"value\":\"crossplane-root-ca\"},{\"name\":\"TLS_SERVER_SECRET_NAME\",\"value\":\"crossplane-tls-server\"},{\"name\":\"TLS_CLIENT_SECRET_NAME\",\"value\":\"crossplane-tls-client\"}],\"image\":\"xpkg.crossplane.io/crossplane/crossplane:v2.3.1\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"crossplane-init\",\"resources\":{\"limits\":{\"cpu\":\"500m\",\"memory\":\"1024Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"256Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":65532,\"runAsUser\":65532}}],\"serviceAccountName\":\"crossplane\",\"volumes\":[{\"emptyDir\":{\"medium\":null,\"sizeLimit\":\"20Mi\"},\"name\":\"package-cache\"},{\"emptyDir\":{\"medium\":null,\"sizeLimit\":\"512Mi\"},\"name\":\"function-cache\"},{\"name\":\"tls-server-certs\",\"secret\":{\"secretName\":\"crossplane-tls-server\"}},{\"name\":\"tls-client-certs\",\"secret\":{\"secretName\":\"crossplane-tls-client\"}}]}}}}\n"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      generation: 1
+      labels:
+        app: "crossplane"
+        app.kubernetes.io/component: "cloud-infrastructure-controller"
+        app.kubernetes.io/instance: "crossplane"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "crossplane"
+        app.kubernetes.io/part-of: "crossplane"
+        app.kubernetes.io/version: "2.3.1"
+        helm.sh/chart: "crossplane-2.3.1"
+        release: "crossplane"
+      name: "crossplane"
+      namespace: "default"
+      resourceVersion: "656"
+      uid: "426c2540-6575-4cc8-8aa4-220e69773f8e"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app: "crossplane"
+          release: "crossplane"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app: "crossplane"
+            app.kubernetes.io/component: "cloud-infrastructure-controller"
+            app.kubernetes.io/instance: "crossplane"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "crossplane"
+            app.kubernetes.io/part-of: "crossplane"
+            app.kubernetes.io/version: "2.3.1"
+            helm.sh/chart: "crossplane-2.3.1"
+            release: "crossplane"
+        spec:
+          containers:
+            -
+              args:
+                - "core"
+                - "start"
+              env:
+                -
+                  name: "GOMAXPROCS"
+                  valueFrom:
+                    resourceFieldRef:
+                      containerName: "crossplane"
+                      divisor: "1"
+                      resource: "limits.cpu"
+                -
+                  name: "GOMEMLIMIT"
+                  valueFrom:
+                    resourceFieldRef:
+                      containerName: "crossplane"
+                      divisor: "1"
+                      resource: "limits.memory"
+                -
+                  name: "POD_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "POD_SERVICE_ACCOUNT"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "spec.serviceAccountName"
+                -
+                  name: "LEADER_ELECTION"
+                  value: "true"
+                -
+                  name: "TLS_SERVER_SECRET_NAME"
+                  value: "crossplane-tls-server"
+                -
+                  name: "TLS_SERVER_CERTS_DIR"
+                  value: "/tls/server"
+                -
+                  name: "TLS_CLIENT_SECRET_NAME"
+                  value: "crossplane-tls-client"
+                -
+                  name: "TLS_CLIENT_CERTS_DIR"
+                  value: "/tls/client"
+              image: "xpkg.crossplane.io/crossplane/crossplane:v2.3.1"
+              imagePullPolicy: "IfNotPresent"
+              name: "crossplane"
+              ports:
+                -
+                  containerPort: 8081
+                  name: "readyz"
+                  protocol: "TCP"
+                -
+                  containerPort: 9443
+                  name: "webhooks"
+                  protocol: "TCP"
+              resources:
+                limits:
+                  cpu: "500m"
+                  memory: "1Gi"
+                requests:
+                  cpu: "100m"
+                  memory: "256Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 65532
+                runAsUser: 65532
+              startupProbe:
+                failureThreshold: 30
+                periodSeconds: 2
+                successThreshold: 1
+                tcpSocket:
+                  port: "readyz"
+                timeoutSeconds: 1
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/cache/xpkg"
+                  name: "package-cache"
+                -
+                  mountPath: "/cache/xfn"
+                  name: "function-cache"
+                -
+                  mountPath: "/tls/server"
+                  name: "tls-server-certs"
+                -
+                  mountPath: "/tls/client"
+                  name: "tls-client-certs"
+          dnsPolicy: "ClusterFirst"
+          initContainers:
+            -
+              args:
+                - "core"
+                - "init"
+                - "--activation"
+                - "*"
+              env:
+                -
+                  name: "GOMAXPROCS"
+                  valueFrom:
+                    resourceFieldRef:
+                      containerName: "crossplane-init"
+                      divisor: "1"
+                      resource: "limits.cpu"
+                -
+                  name: "GOMEMLIMIT"
+                  valueFrom:
+                    resourceFieldRef:
+                      containerName: "crossplane-init"
+                      divisor: "1"
+                      resource: "limits.memory"
+                -
+                  name: "POD_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "POD_SERVICE_ACCOUNT"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "spec.serviceAccountName"
+                -
+                  name: "WEBHOOK_SERVICE_NAME"
+                  value: "crossplane-webhooks"
+                -
+                  name: "WEBHOOK_SERVICE_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "WEBHOOK_SERVICE_PORT"
+                  value: "9443"
+                -
+                  name: "TLS_CA_SECRET_NAME"
+                  value: "crossplane-root-ca"
+                -
+                  name: "TLS_SERVER_SECRET_NAME"
+                  value: "crossplane-tls-server"
+                -
+                  name: "TLS_CLIENT_SECRET_NAME"
+                  value: "crossplane-tls-client"
+              image: "xpkg.crossplane.io/crossplane/crossplane:v2.3.1"
+              imagePullPolicy: "IfNotPresent"
+              name: "crossplane-init"
+              resources:
+                limits:
+                  cpu: "500m"
+                  memory: "1Gi"
+                requests:
+                  cpu: "100m"
+                  memory: "256Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 65532
+                runAsUser: 65532
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "crossplane"
+          serviceAccountName: "crossplane"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              emptyDir:
+                sizeLimit: "20Mi"
+              name: "package-cache"
+            -
+              emptyDir:
+                sizeLimit: "512Mi"
+              name: "function-cache"
+            -
+              name: "tls-server-certs"
+              secret:
+                defaultMode: 420
+                secretName: "crossplane-tls-server"
+            -
+              name: "tls-client-certs"
+              secret:
+                defaultMode: 420
+                secretName: "crossplane-tls-client"
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T11:10:56Z"
+          lastUpdateTime: "2026-06-11T11:10:56Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T11:10:41Z"
+          lastUpdateTime: "2026-06-11T11:10:56Z"
+          message: "ReplicaSet \"crossplane-5f4c664688\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"crossplane-rbac-manager\",\"app.kubernetes.io/component\":\"cloud-infrastructure-controller\",\"app.kubernetes.io/instance\":\"crossplane\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"crossplane\",\"app.kubernetes.io/part-of\":\"crossplane\",\"app.kubernetes.io/version\":\"2.3.1\",\"helm.sh/chart\":\"crossplane-2.3.1\",\"release\":\"crossplane\"},\"name\":\"crossplane-rbac-manager\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app\":\"crossplane-rbac-manager\",\"release\":\"crossplane\"}},\"strategy\":{\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"labels\":{\"app\":\"crossplane-rbac-manager\",\"app.kubernetes.io/component\":\"cloud-infrastructure-controller\",\"app.kubernetes.io/instance\":\"crossplane\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"crossplane\",\"app.kubernetes.io/part-of\":\"crossplane\",\"app.kubernetes.io/version\":\"2.3.1\",\"helm.sh/chart\":\"crossplane-2.3.1\",\"release\":\"crossplane\"}},\"spec\":{\"containers\":[{\"args\":[\"rbac\",\"start\",\"--provider-clusterrole=crossplane:allowed-provider-permissions\"],\"env\":[{\"name\":\"GOMAXPROCS\",\"valueFrom\":{\"resourceFieldRef\":{\"containerName\":\"crossplane\",\"divisor\":\"1\",\"resource\":\"limits.cpu\"}}},{\"name\":\"GOMEMLIMIT\",\"valueFrom\":{\"resourceFieldRef\":{\"containerName\":\"crossplane\",\"divisor\":\"1\",\"resource\":\"limits.memory\"}}},{\"name\":\"LEADER_ELECTION\",\"value\":\"true\"}],\"image\":\"xpkg.crossplane.io/crossplane/crossplane:v2.3.1\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"crossplane\",\"resources\":{\"limits\":{\"cpu\":\"100m\",\"memory\":\"512Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"256Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":65532,\"runAsUser\":65532}}],\"initContainers\":[{\"args\":[\"rbac\",\"init\"],\"env\":[{\"name\":\"GOMAXPROCS\",\"valueFrom\":{\"resourceFieldRef\":{\"containerName\":\"crossplane-init\",\"divisor\":\"1\",\"resource\":\"limits.cpu\"}}},{\"name\":\"GOMEMLIMIT\",\"valueFrom\":{\"resourceFieldRef\":{\"containerName\":\"crossplane-init\",\"divisor\":\"1\",\"resource\":\"limits.memory\"}}}],\"image\":\"xpkg.crossplane.io/crossplane/crossplane:v2.3.1\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"crossplane-init\",\"resources\":{\"limits\":{\"cpu\":\"100m\",\"memory\":\"512Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"256Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":65532,\"runAsUser\":65532}}],\"serviceAccountName\":\"rbac-manager\"}}}}\n"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      generation: 1
+      labels:
+        app: "crossplane-rbac-manager"
+        app.kubernetes.io/component: "cloud-infrastructure-controller"
+        app.kubernetes.io/instance: "crossplane"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "crossplane"
+        app.kubernetes.io/part-of: "crossplane"
+        app.kubernetes.io/version: "2.3.1"
+        helm.sh/chart: "crossplane-2.3.1"
+        release: "crossplane"
+      name: "crossplane-rbac-manager"
+      namespace: "default"
+      resourceVersion: "629"
+      uid: "92b3bfbf-8c25-4402-926d-458d198187fa"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app: "crossplane-rbac-manager"
+          release: "crossplane"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app: "crossplane-rbac-manager"
+            app.kubernetes.io/component: "cloud-infrastructure-controller"
+            app.kubernetes.io/instance: "crossplane"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "crossplane"
+            app.kubernetes.io/part-of: "crossplane"
+            app.kubernetes.io/version: "2.3.1"
+            helm.sh/chart: "crossplane-2.3.1"
+            release: "crossplane"
+        spec:
+          containers:
+            -
+              args:
+                - "rbac"
+                - "start"
+                - "--provider-clusterrole=crossplane:allowed-provider-permissions"
+              env:
+                -
+                  name: "GOMAXPROCS"
+                  valueFrom:
+                    resourceFieldRef:
+                      containerName: "crossplane"
+                      divisor: "1"
+                      resource: "limits.cpu"
+                -
+                  name: "GOMEMLIMIT"
+                  valueFrom:
+                    resourceFieldRef:
+                      containerName: "crossplane"
+                      divisor: "1"
+                      resource: "limits.memory"
+                -
+                  name: "LEADER_ELECTION"
+                  value: "true"
+              image: "xpkg.crossplane.io/crossplane/crossplane:v2.3.1"
+              imagePullPolicy: "IfNotPresent"
+              name: "crossplane"
+              resources:
+                limits:
+                  cpu: "100m"
+                  memory: "512Mi"
+                requests:
+                  cpu: "100m"
+                  memory: "256Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 65532
+                runAsUser: 65532
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          dnsPolicy: "ClusterFirst"
+          initContainers:
+            -
+              args:
+                - "rbac"
+                - "init"
+              env:
+                -
+                  name: "GOMAXPROCS"
+                  valueFrom:
+                    resourceFieldRef:
+                      containerName: "crossplane-init"
+                      divisor: "1"
+                      resource: "limits.cpu"
+                -
+                  name: "GOMEMLIMIT"
+                  valueFrom:
+                    resourceFieldRef:
+                      containerName: "crossplane-init"
+                      divisor: "1"
+                      resource: "limits.memory"
+              image: "xpkg.crossplane.io/crossplane/crossplane:v2.3.1"
+              imagePullPolicy: "IfNotPresent"
+              name: "crossplane-init"
+              resources:
+                limits:
+                  cpu: "100m"
+                  memory: "512Mi"
+                requests:
+                  cpu: "100m"
+                  memory: "256Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 65532
+                runAsUser: 65532
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "rbac-manager"
+          serviceAccountName: "rbac-manager"
+          terminationGracePeriodSeconds: 30
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T11:10:51Z"
+          lastUpdateTime: "2026-06-11T11:10:51Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T11:10:41Z"
+          lastUpdateTime: "2026-06-11T11:10:51Z"
+          message: "ReplicaSet \"crossplane-rbac-manager-759c79fbb9\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    aggregationRule:
+      clusterRoleSelectors:
+        -
+          matchLabels:
+            rbac.crossplane.io/aggregate-to-crossplane: "true"
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"aggregationRule\":{\"clusterRoleSelectors\":[{\"matchLabels\":{\"rbac.crossplane.io/aggregate-to-crossplane\":\"true\"}}]},\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"crossplane\",\"app.kubernetes.io/component\":\"cloud-infrastructure-controller\",\"app.kubernetes.io/instance\":\"crossplane\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"crossplane\",\"app.kubernetes.io/part-of\":\"crossplane\",\"app.kubernetes.io/version\":\"2.3.1\",\"helm.sh/chart\":\"crossplane-2.3.1\"},\"name\":\"crossplane\"}}\n"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      labels:
+        app: "crossplane"
+        app.kubernetes.io/component: "cloud-infrastructure-controller"
+        app.kubernetes.io/instance: "crossplane"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "crossplane"
+        app.kubernetes.io/part-of: "crossplane"
+        app.kubernetes.io/version: "2.3.1"
+        helm.sh/chart: "crossplane-2.3.1"
+      name: "crossplane"
+      resourceVersion: "473"
+      uid: "9f354508-ceac-40fb-94d2-8ef3d53814ac"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "apiextensions.k8s.io"
+        resources:
+          - "customresourcedefinitions"
+          - "customresourcedefinitions/status"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "serviceaccounts"
+          - "services"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "apiextensions.crossplane.io"
+          - "ops.crossplane.io"
+          - "pkg.crossplane.io"
+          - "protection.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "extensions"
+          - "apps"
+        resources:
+          - "deployments"
+        verbs:
+          - "get"
+          - "list"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+          - "coordination.k8s.io"
+        resources:
+          - "configmaps"
+          - "leases"
+        verbs:
+          - "get"
+          - "list"
+          - "create"
+          - "update"
+          - "patch"
+          - "watch"
+          - "delete"
+      -
+        apiGroups:
+          - "admissionregistration.k8s.io"
+        resources:
+          - "validatingwebhookconfigurations"
+          - "mutatingwebhookconfigurations"
+        verbs:
+          - "get"
+          - "list"
+          - "create"
+          - "update"
+          - "patch"
+          - "watch"
+          - "delete"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"crossplane\",\"app.kubernetes.io/component\":\"cloud-infrastructure-controller\",\"app.kubernetes.io/instance\":\"crossplane\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"crossplane\",\"app.kubernetes.io/part-of\":\"crossplane\",\"app.kubernetes.io/version\":\"2.3.1\",\"crossplane.io/scope\":\"system\",\"helm.sh/chart\":\"crossplane-2.3.1\",\"rbac.crossplane.io/aggregate-to-crossplane\":\"true\"},\"name\":\"crossplane:system:aggregate-to-crossplane\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"apiextensions.k8s.io\"],\"resources\":[\"customresourcedefinitions\",\"customresourcedefinitions/status\"],\"verbs\":[\"*\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"\"],\"resources\":[\"serviceaccounts\",\"services\"],\"verbs\":[\"*\"]},{\"apiGroups\":[\"apiextensions.crossplane.io\",\"ops.crossplane.io\",\"pkg.crossplane.io\",\"protection.crossplane.io\"],\"resources\":[\"*\"],\"verbs\":[\"*\"]},{\"apiGroups\":[\"extensions\",\"apps\"],\"resources\":[\"deployments\"],\"verbs\":[\"get\",\"list\",\"create\",\"update\",\"patch\",\"delete\",\"watch\"]},{\"apiGroups\":[\"\",\"coordination.k8s.io\"],\"resources\":[\"configmaps\",\"leases\"],\"verbs\":[\"get\",\"list\",\"create\",\"update\",\"patch\",\"watch\",\"delete\"]},{\"apiGroups\":[\"admissionregistration.k8s.io\"],\"resources\":[\"validatingwebhookconfigurations\",\"mutatingwebhookconfigurations\"],\"verbs\":[\"get\",\"list\",\"create\",\"update\",\"patch\",\"watch\",\"delete\"]}]}\n"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      labels:
+        app: "crossplane"
+        app.kubernetes.io/component: "cloud-infrastructure-controller"
+        app.kubernetes.io/instance: "crossplane"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "crossplane"
+        app.kubernetes.io/part-of: "crossplane"
+        app.kubernetes.io/version: "2.3.1"
+        crossplane.io/scope: "system"
+        helm.sh/chart: "crossplane-2.3.1"
+        rbac.crossplane.io/aggregate-to-crossplane: "true"
+      name: "crossplane:system:aggregate-to-crossplane"
+      resourceVersion: "472"
+      uid: "837b330c-7105-406b-9f50-bf8926e0184a"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "apiextensions.k8s.io"
+        resources:
+          - "customresourcedefinitions"
+          - "customresourcedefinitions/status"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "serviceaccounts"
+          - "services"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "apiextensions.crossplane.io"
+          - "ops.crossplane.io"
+          - "pkg.crossplane.io"
+          - "protection.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "extensions"
+          - "apps"
+        resources:
+          - "deployments"
+        verbs:
+          - "get"
+          - "list"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+          - "coordination.k8s.io"
+        resources:
+          - "configmaps"
+          - "leases"
+        verbs:
+          - "get"
+          - "list"
+          - "create"
+          - "update"
+          - "patch"
+          - "watch"
+          - "delete"
+      -
+        apiGroups:
+          - "admissionregistration.k8s.io"
+        resources:
+          - "validatingwebhookconfigurations"
+          - "mutatingwebhookconfigurations"
+        verbs:
+          - "get"
+          - "list"
+          - "create"
+          - "update"
+          - "patch"
+          - "watch"
+          - "delete"
+  -
+    aggregationRule:
+      clusterRoleSelectors:
+        -
+          matchLabels:
+            rbac.crossplane.io/aggregate-to-allowed-provider-permissions: "true"
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"aggregationRule\":{\"clusterRoleSelectors\":[{\"matchLabels\":{\"rbac.crossplane.io/aggregate-to-allowed-provider-permissions\":\"true\"}}]},\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"crossplane\",\"app.kubernetes.io/component\":\"cloud-infrastructure-controller\",\"app.kubernetes.io/instance\":\"crossplane\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"crossplane\",\"app.kubernetes.io/part-of\":\"crossplane\",\"app.kubernetes.io/version\":\"2.3.1\",\"helm.sh/chart\":\"crossplane-2.3.1\"},\"name\":\"crossplane:allowed-provider-permissions\"}}\n"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      labels:
+        app: "crossplane"
+        app.kubernetes.io/component: "cloud-infrastructure-controller"
+        app.kubernetes.io/instance: "crossplane"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "crossplane"
+        app.kubernetes.io/part-of: "crossplane"
+        app.kubernetes.io/version: "2.3.1"
+        helm.sh/chart: "crossplane-2.3.1"
+      name: "crossplane:allowed-provider-permissions"
+      resourceVersion: "474"
+      uid: "2c7dd591-2bf1-4563-98e9-42e083ab5443"
+    rules: null
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"crossplane\",\"app.kubernetes.io/component\":\"cloud-infrastructure-controller\",\"app.kubernetes.io/instance\":\"crossplane\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"crossplane\",\"app.kubernetes.io/part-of\":\"crossplane\",\"app.kubernetes.io/version\":\"2.3.1\",\"helm.sh/chart\":\"crossplane-2.3.1\"},\"name\":\"crossplane-rbac-manager\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"deployments\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces/finalizers\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"apiextensions.crossplane.io\"],\"resources\":[\"compositeresourcedefinitions\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"apiextensions.crossplane.io\"],\"resources\":[\"compositeresourcedefinitions/finalizers\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"pkg.crossplane.io\"],\"resources\":[\"providerrevisions\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"pkg.crossplane.io\"],\"resources\":[\"providerrevisions/finalizers\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"apiextensions.k8s.io\"],\"resources\":[\"customresourcedefinitions\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"rbac.authorization.k8s.io\"],\"resources\":[\"clusterroles\",\"roles\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"escalate\"]},{\"apiGroups\":[\"rbac.authorization.k8s.io\"],\"resources\":[\"clusterroles\"],\"verbs\":[\"bind\"]},{\"apiGroups\":[\"rbac.authorization.k8s.io\"],\"resources\":[\"clusterrolebindings\"],\"verbs\":[\"*\"]},{\"apiGroups\":[\"\",\"coordination.k8s.io\"],\"resources\":[\"configmaps\",\"leases\"],\"verbs\":[\"get\",\"list\",\"create\",\"update\",\"patch\",\"watch\",\"delete\"]}]}\n"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      labels:
+        app: "crossplane"
+        app.kubernetes.io/component: "cloud-infrastructure-controller"
+        app.kubernetes.io/instance: "crossplane"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "crossplane"
+        app.kubernetes.io/part-of: "crossplane"
+        app.kubernetes.io/version: "2.3.1"
+        helm.sh/chart: "crossplane-2.3.1"
+      name: "crossplane-rbac-manager"
+      resourceVersion: "475"
+      uid: "97185f0d-4ece-401d-8d20-d4d475e635f5"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "namespaces"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "deployments"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "namespaces/finalizers"
+        verbs:
+          - "update"
+      -
+        apiGroups:
+          - "apiextensions.crossplane.io"
+        resources:
+          - "compositeresourcedefinitions"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apiextensions.crossplane.io"
+        resources:
+          - "compositeresourcedefinitions/finalizers"
+        verbs:
+          - "update"
+      -
+        apiGroups:
+          - "pkg.crossplane.io"
+        resources:
+          - "providerrevisions"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "pkg.crossplane.io"
+        resources:
+          - "providerrevisions/finalizers"
+        verbs:
+          - "update"
+      -
+        apiGroups:
+          - "apiextensions.k8s.io"
+        resources:
+          - "customresourcedefinitions"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "rbac.authorization.k8s.io"
+        resources:
+          - "clusterroles"
+          - "roles"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "escalate"
+      -
+        apiGroups:
+          - "rbac.authorization.k8s.io"
+        resources:
+          - "clusterroles"
+        verbs:
+          - "bind"
+      -
+        apiGroups:
+          - "rbac.authorization.k8s.io"
+        resources:
+          - "clusterrolebindings"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - ""
+          - "coordination.k8s.io"
+        resources:
+          - "configmaps"
+          - "leases"
+        verbs:
+          - "get"
+          - "list"
+          - "create"
+          - "update"
+          - "patch"
+          - "watch"
+          - "delete"
+  -
+    aggregationRule:
+      clusterRoleSelectors:
+        -
+          matchLabels:
+            rbac.crossplane.io/aggregate-to-admin: "true"
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"aggregationRule\":{\"clusterRoleSelectors\":[{\"matchLabels\":{\"rbac.crossplane.io/aggregate-to-admin\":\"true\"}}]},\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"crossplane\",\"app.kubernetes.io/component\":\"cloud-infrastructure-controller\",\"app.kubernetes.io/instance\":\"crossplane\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"crossplane\",\"app.kubernetes.io/part-of\":\"crossplane\",\"app.kubernetes.io/version\":\"2.3.1\",\"helm.sh/chart\":\"crossplane-2.3.1\"},\"name\":\"crossplane-admin\"}}\n"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      labels:
+        app: "crossplane"
+        app.kubernetes.io/component: "cloud-infrastructure-controller"
+        app.kubernetes.io/instance: "crossplane"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "crossplane"
+        app.kubernetes.io/part-of: "crossplane"
+        app.kubernetes.io/version: "2.3.1"
+        helm.sh/chart: "crossplane-2.3.1"
+      name: "crossplane-admin"
+      resourceVersion: "481"
+      uid: "901210ef-1da2-4f86-99f4-b28ab4e48c78"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+          - "namespaces"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "rbac.authorization.k8s.io"
+        resources:
+          - "clusterroles"
+          - "roles"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "rbac.authorization.k8s.io"
+        resources:
+          - "clusterrolebindings"
+          - "rolebindings"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "apiextensions.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "pkg.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "secrets.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "apiextensions.k8s.io"
+        resources:
+          - "customresourcedefinitions"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "protection.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "ops.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+  -
+    aggregationRule:
+      clusterRoleSelectors:
+        -
+          matchLabels:
+            rbac.crossplane.io/aggregate-to-edit: "true"
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"aggregationRule\":{\"clusterRoleSelectors\":[{\"matchLabels\":{\"rbac.crossplane.io/aggregate-to-edit\":\"true\"}}]},\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"crossplane\",\"app.kubernetes.io/component\":\"cloud-infrastructure-controller\",\"app.kubernetes.io/instance\":\"crossplane\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"crossplane\",\"app.kubernetes.io/part-of\":\"crossplane\",\"app.kubernetes.io/version\":\"2.3.1\",\"helm.sh/chart\":\"crossplane-2.3.1\"},\"name\":\"crossplane-edit\"}}\n"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      labels:
+        app: "crossplane"
+        app.kubernetes.io/component: "cloud-infrastructure-controller"
+        app.kubernetes.io/instance: "crossplane"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "crossplane"
+        app.kubernetes.io/part-of: "crossplane"
+        app.kubernetes.io/version: "2.3.1"
+        helm.sh/chart: "crossplane-2.3.1"
+      name: "crossplane-edit"
+      resourceVersion: "483"
+      uid: "659ed7aa-0426-444b-9f84-3bf17b4bac3c"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "namespaces"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apiextensions.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "pkg.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "secrets.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "protection.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "ops.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+  -
+    aggregationRule:
+      clusterRoleSelectors:
+        -
+          matchLabels:
+            rbac.crossplane.io/aggregate-to-view: "true"
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"aggregationRule\":{\"clusterRoleSelectors\":[{\"matchLabels\":{\"rbac.crossplane.io/aggregate-to-view\":\"true\"}}]},\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"crossplane\",\"app.kubernetes.io/component\":\"cloud-infrastructure-controller\",\"app.kubernetes.io/instance\":\"crossplane\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"crossplane\",\"app.kubernetes.io/part-of\":\"crossplane\",\"app.kubernetes.io/version\":\"2.3.1\",\"helm.sh/chart\":\"crossplane-2.3.1\"},\"name\":\"crossplane-view\"}}\n"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      labels:
+        app: "crossplane"
+        app.kubernetes.io/component: "cloud-infrastructure-controller"
+        app.kubernetes.io/instance: "crossplane"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "crossplane"
+        app.kubernetes.io/part-of: "crossplane"
+        app.kubernetes.io/version: "2.3.1"
+        helm.sh/chart: "crossplane-2.3.1"
+      name: "crossplane-view"
+      resourceVersion: "485"
+      uid: "8954e444-a920-4e45-9f39-ad2f909adf2c"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "namespaces"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apiextensions.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "pkg.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "secrets.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "protection.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "ops.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    aggregationRule:
+      clusterRoleSelectors:
+        -
+          matchLabels:
+            rbac.crossplane.io/aggregate-to-browse: "true"
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"aggregationRule\":{\"clusterRoleSelectors\":[{\"matchLabels\":{\"rbac.crossplane.io/aggregate-to-browse\":\"true\"}}]},\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"crossplane\",\"app.kubernetes.io/component\":\"cloud-infrastructure-controller\",\"app.kubernetes.io/instance\":\"crossplane\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"crossplane\",\"app.kubernetes.io/part-of\":\"crossplane\",\"app.kubernetes.io/version\":\"2.3.1\",\"helm.sh/chart\":\"crossplane-2.3.1\"},\"name\":\"crossplane-browse\"}}\n"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      labels:
+        app: "crossplane"
+        app.kubernetes.io/component: "cloud-infrastructure-controller"
+        app.kubernetes.io/instance: "crossplane"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "crossplane"
+        app.kubernetes.io/part-of: "crossplane"
+        app.kubernetes.io/version: "2.3.1"
+        helm.sh/chart: "crossplane-2.3.1"
+      name: "crossplane-browse"
+      resourceVersion: "487"
+      uid: "ab0bdb58-f28e-428f-a04e-f52dcf945257"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apiextensions.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"crossplane\",\"app.kubernetes.io/component\":\"cloud-infrastructure-controller\",\"app.kubernetes.io/instance\":\"crossplane\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"crossplane\",\"app.kubernetes.io/part-of\":\"crossplane\",\"app.kubernetes.io/version\":\"2.3.1\",\"helm.sh/chart\":\"crossplane-2.3.1\",\"rbac.crossplane.io/aggregate-to-admin\":\"true\"},\"name\":\"crossplane:aggregate-to-admin\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\",\"namespaces\"],\"verbs\":[\"*\"]},{\"apiGroups\":[\"rbac.authorization.k8s.io\"],\"resources\":[\"clusterroles\",\"roles\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"rbac.authorization.k8s.io\"],\"resources\":[\"clusterrolebindings\",\"rolebindings\"],\"verbs\":[\"*\"]},{\"apiGroups\":[\"apiextensions.crossplane.io\"],\"resources\":[\"*\"],\"verbs\":[\"*\"]},{\"apiGroups\":[\"pkg.crossplane.io\"],\"resources\":[\"*\"],\"verbs\":[\"*\"]},{\"apiGroups\":[\"secrets.crossplane.io\"],\"resources\":[\"*\"],\"verbs\":[\"*\"]},{\"apiGroups\":[\"apiextensions.k8s.io\"],\"resources\":[\"customresourcedefinitions\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"protection.crossplane.io\"],\"resources\":[\"*\"],\"verbs\":[\"*\"]},{\"apiGroups\":[\"ops.crossplane.io\"],\"resources\":[\"*\"],\"verbs\":[\"*\"]}]}\n"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      labels:
+        app: "crossplane"
+        app.kubernetes.io/component: "cloud-infrastructure-controller"
+        app.kubernetes.io/instance: "crossplane"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "crossplane"
+        app.kubernetes.io/part-of: "crossplane"
+        app.kubernetes.io/version: "2.3.1"
+        helm.sh/chart: "crossplane-2.3.1"
+        rbac.crossplane.io/aggregate-to-admin: "true"
+      name: "crossplane:aggregate-to-admin"
+      resourceVersion: "480"
+      uid: "e90015e0-e6b1-4db3-94c3-c81d458bf44b"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+          - "namespaces"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "rbac.authorization.k8s.io"
+        resources:
+          - "clusterroles"
+          - "roles"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "rbac.authorization.k8s.io"
+        resources:
+          - "clusterrolebindings"
+          - "rolebindings"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "apiextensions.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "pkg.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "secrets.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "apiextensions.k8s.io"
+        resources:
+          - "customresourcedefinitions"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "protection.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "ops.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"crossplane\",\"app.kubernetes.io/component\":\"cloud-infrastructure-controller\",\"app.kubernetes.io/instance\":\"crossplane\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"crossplane\",\"app.kubernetes.io/part-of\":\"crossplane\",\"app.kubernetes.io/version\":\"2.3.1\",\"helm.sh/chart\":\"crossplane-2.3.1\",\"rbac.crossplane.io/aggregate-to-edit\":\"true\"},\"name\":\"crossplane:aggregate-to-edit\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"*\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"apiextensions.crossplane.io\"],\"resources\":[\"*\"],\"verbs\":[\"*\"]},{\"apiGroups\":[\"pkg.crossplane.io\"],\"resources\":[\"*\"],\"verbs\":[\"*\"]},{\"apiGroups\":[\"secrets.crossplane.io\"],\"resources\":[\"*\"],\"verbs\":[\"*\"]},{\"apiGroups\":[\"protection.crossplane.io\"],\"resources\":[\"*\"],\"verbs\":[\"*\"]},{\"apiGroups\":[\"ops.crossplane.io\"],\"resources\":[\"*\"],\"verbs\":[\"*\"]}]}\n"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      labels:
+        app: "crossplane"
+        app.kubernetes.io/component: "cloud-infrastructure-controller"
+        app.kubernetes.io/instance: "crossplane"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "crossplane"
+        app.kubernetes.io/part-of: "crossplane"
+        app.kubernetes.io/version: "2.3.1"
+        helm.sh/chart: "crossplane-2.3.1"
+        rbac.crossplane.io/aggregate-to-edit: "true"
+      name: "crossplane:aggregate-to-edit"
+      resourceVersion: "482"
+      uid: "969d10ed-d971-444f-ba62-158ce48ae3d3"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "namespaces"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apiextensions.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "pkg.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "secrets.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "protection.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+      -
+        apiGroups:
+          - "ops.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"crossplane\",\"app.kubernetes.io/component\":\"cloud-infrastructure-controller\",\"app.kubernetes.io/instance\":\"crossplane\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"crossplane\",\"app.kubernetes.io/part-of\":\"crossplane\",\"app.kubernetes.io/version\":\"2.3.1\",\"helm.sh/chart\":\"crossplane-2.3.1\",\"rbac.crossplane.io/aggregate-to-view\":\"true\"},\"name\":\"crossplane:aggregate-to-view\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"apiextensions.crossplane.io\"],\"resources\":[\"*\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"pkg.crossplane.io\"],\"resources\":[\"*\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"secrets.crossplane.io\"],\"resources\":[\"*\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"protection.crossplane.io\"],\"resources\":[\"*\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"ops.crossplane.io\"],\"resources\":[\"*\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      labels:
+        app: "crossplane"
+        app.kubernetes.io/component: "cloud-infrastructure-controller"
+        app.kubernetes.io/instance: "crossplane"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "crossplane"
+        app.kubernetes.io/part-of: "crossplane"
+        app.kubernetes.io/version: "2.3.1"
+        helm.sh/chart: "crossplane-2.3.1"
+        rbac.crossplane.io/aggregate-to-view: "true"
+      name: "crossplane:aggregate-to-view"
+      resourceVersion: "484"
+      uid: "d3c6d666-dd1e-48d4-9aa6-ced8bb274fd1"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "namespaces"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apiextensions.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "pkg.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "secrets.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "protection.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "ops.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"crossplane\",\"app.kubernetes.io/component\":\"cloud-infrastructure-controller\",\"app.kubernetes.io/instance\":\"crossplane\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"crossplane\",\"app.kubernetes.io/part-of\":\"crossplane\",\"app.kubernetes.io/version\":\"2.3.1\",\"helm.sh/chart\":\"crossplane-2.3.1\",\"rbac.crossplane.io/aggregate-to-browse\":\"true\"},\"name\":\"crossplane:aggregate-to-browse\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"apiextensions.crossplane.io\"],\"resources\":[\"*\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      labels:
+        app: "crossplane"
+        app.kubernetes.io/component: "cloud-infrastructure-controller"
+        app.kubernetes.io/instance: "crossplane"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "crossplane"
+        app.kubernetes.io/part-of: "crossplane"
+        app.kubernetes.io/version: "2.3.1"
+        helm.sh/chart: "crossplane-2.3.1"
+        rbac.crossplane.io/aggregate-to-browse: "true"
+      name: "crossplane:aggregate-to-browse"
+      resourceVersion: "486"
+      uid: "74c12edc-c1fe-4b0d-8d77-c26a9e90ea35"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apiextensions.crossplane.io"
+        resources:
+          - "*"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"crossplane\",\"app.kubernetes.io/component\":\"cloud-infrastructure-controller\",\"app.kubernetes.io/instance\":\"crossplane\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"crossplane\",\"app.kubernetes.io/part-of\":\"crossplane\",\"app.kubernetes.io/version\":\"2.3.1\",\"helm.sh/chart\":\"crossplane-2.3.1\"},\"name\":\"crossplane\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"crossplane\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"crossplane\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      labels:
+        app: "crossplane"
+        app.kubernetes.io/component: "cloud-infrastructure-controller"
+        app.kubernetes.io/instance: "crossplane"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "crossplane"
+        app.kubernetes.io/part-of: "crossplane"
+        app.kubernetes.io/version: "2.3.1"
+        helm.sh/chart: "crossplane-2.3.1"
+      name: "crossplane"
+      resourceVersion: "488"
+      uid: "8a0bd939-fb5e-4007-ba65-e9152668642d"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "crossplane"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "crossplane"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"crossplane\",\"app.kubernetes.io/component\":\"cloud-infrastructure-controller\",\"app.kubernetes.io/instance\":\"crossplane\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"crossplane\",\"app.kubernetes.io/part-of\":\"crossplane\",\"app.kubernetes.io/version\":\"2.3.1\",\"helm.sh/chart\":\"crossplane-2.3.1\"},\"name\":\"crossplane-rbac-manager\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"crossplane-rbac-manager\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"rbac-manager\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      labels:
+        app: "crossplane"
+        app.kubernetes.io/component: "cloud-infrastructure-controller"
+        app.kubernetes.io/instance: "crossplane"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "crossplane"
+        app.kubernetes.io/part-of: "crossplane"
+        app.kubernetes.io/version: "2.3.1"
+        helm.sh/chart: "crossplane-2.3.1"
+      name: "crossplane-rbac-manager"
+      resourceVersion: "489"
+      uid: "5514a5bc-6b85-4db8-b446-9df74b13700a"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "crossplane-rbac-manager"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "rbac-manager"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"crossplane\",\"app.kubernetes.io/component\":\"cloud-infrastructure-controller\",\"app.kubernetes.io/instance\":\"crossplane\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"crossplane\",\"app.kubernetes.io/part-of\":\"crossplane\",\"app.kubernetes.io/version\":\"2.3.1\",\"helm.sh/chart\":\"crossplane-2.3.1\"},\"name\":\"crossplane-admin\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"crossplane-admin\"},\"subjects\":[{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Group\",\"name\":\"crossplane:masters\"}]}\n"
+      creationTimestamp: "2026-06-11T11:10:41Z"
+      labels:
+        app: "crossplane"
+        app.kubernetes.io/component: "cloud-infrastructure-controller"
+        app.kubernetes.io/instance: "crossplane"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "crossplane"
+        app.kubernetes.io/part-of: "crossplane"
+        app.kubernetes.io/version: "2.3.1"
+        helm.sh/chart: "crossplane-2.3.1"
+      name: "crossplane-admin"
+      resourceVersion: "490"
+      uid: "499fc408-8269-4e6d-9f7c-0abe40b77793"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "crossplane-admin"
+    subjects:
+      -
+        apiGroup: "rbac.authorization.k8s.io"
+        kind: "Group"
+        name: "crossplane:masters"
+kind: "List"
+metadata:
+  resourceVersion: ""

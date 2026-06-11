@@ -23,13 +23,13 @@ ConfigHub variant, or an upgrade/customization path.
 
 ## Rows By Live Status
 
-- blocked: 8
-- fail: 5
-- missing: 125
+- blocked: 9
+- fail: 7
+- missing: 117
 - not-attempted: 10
 - not-tested: 4
 - not-tested-by-diff: 2
-- pass: 49
+- pass: 54
 - watch: 2
 
 ## Live Status Meanings
