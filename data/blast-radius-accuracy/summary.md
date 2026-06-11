@@ -9,10 +9,10 @@ that the predicted affected objects match the actual affected objects.
 
 | Metric | Count |
 | --- | ---: |
-| Measured cases | 9 |
+| Measured cases | 13 |
 | Passing measured cases | 9 |
-| Failing measured cases | 0 |
-| Unmeasured value-source rows | 4 |
+| Failing measured cases | 4 |
+| Unmeasured value-source rows | 0 |
 | Total rows | 13 |
 
 Measured cases come from two measurement types:
@@ -26,12 +26,19 @@ Measured cases come from two measurement types:
   overridden. The receipt carries the rendered diff and its render context;
   this verifier rescores the diff against the committed value-source-map, so
   a later map edit invalidates a stale receipt instead of keeping its score.
+- `whole-release-rename-diff`: a recorded case receipt for the
+  whole-release identity paths (`namespace`, `releaseName`). The renamed
+  render's objects are mapped back to base identities (rename-aware pairing),
+  then paired objects are content-diffed; the receipt records which fields
+  changed per object.
 
-The unmeasured backlog is dominated by whole-release identity paths
-(`namespace`, `releaseName`): renaming changes every object identity, so
-scoring them fairly needs rename-aware diff semantics rather than the
-identity-keyed diff used here. They stay listed as backlog instead of being
-scored with the wrong ruler.
+A failing measured case is published, not suppressed: it records that the
+value-source-map under-predicts that path (typically a whole-release path
+where the release name or namespace reaches every object through labels,
+selectors, and embedded DNS names). The route for a failing row is to make
+the source map honest about whole-release scope — exhaustive enumeration or
+a declared whole-release impact marker — and then re-record the case. The
+benchmark catching our own maps first is the point.
 
 This is useful evidence, not a general guarantee. The broader blast-radius
 claim stays partial until more value paths are measured across more charts.
@@ -46,8 +53,12 @@ claim stays partial until more value paths are measured across more charts.
 | `bitnami/nginx@24.0.2` | `ingress.enabled + tls.existingSecret` | `http-clusterip` -> `existing-tls-ingress` | 2 | 2 | 0 | 0 | `pass` |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | `grafana.adminPassword` | `default` -> `default + grafana.adminPassword=blast-radius-probe` | 2 | 2 | 0 | 0 | `pass` |
 | `bitnami/redis@25.5.3` | `image.digest` | `default` -> `default + image.digest=sha256:1111111111111111111111111111111111111111111111111111111111111111` | 2 | 2 | 0 | 0 | `pass` |
+| `bitnami/redis@25.5.3` | `namespace` | `default` -> `default renamed namespace: redis -> brcprobens` | 4 | 14 | 10 | 0 | `fail` |
+| `bitnami/redis@25.5.3` | `releaseName` | `default` -> `default renamed releaseName: redis -> redisprobe` | 3 | 14 | 11 | 0 | `fail` |
 | `bitnami/redis@25.5.3` | `replica.replicaCount` | `default` -> `default + replica.replicaCount=4` | 1 | 1 | 0 | 0 | `pass` |
 | `bitnami/redis@27.0.0` | `image.digest` | `default` -> `default + image.digest=sha256:1111111111111111111111111111111111111111111111111111111111111111` | 2 | 2 | 0 | 0 | `pass` |
+| `bitnami/redis@27.0.0` | `namespace` | `default` -> `default renamed namespace: redis -> brcprobens` | 4 | 14 | 10 | 0 | `fail` |
+| `bitnami/redis@27.0.0` | `releaseName` | `default` -> `default renamed releaseName: redis -> redisprobe` | 3 | 14 | 11 | 0 | `fail` |
 | `bitnami/redis@27.0.0` | `replica.replicaCount` | `default` -> `default + replica.replicaCount=4` | 1 | 1 | 0 | 0 | `pass` |
 
 ## Unmeasured Value-Source Rows
@@ -57,10 +68,7 @@ yet.
 
 | Chart | Value path | Predicted objects | Evidence |
 | --- | --- | ---: | --- |
-| `bitnami/redis@25.5.3` | `releaseName` | 3 | [value-source-map](../../recipes/bitnami/redis/25.5.3/value-source-map.yaml) |
-| `bitnami/redis@25.5.3` | `namespace` | 4 | [value-source-map](../../recipes/bitnami/redis/25.5.3/value-source-map.yaml) |
-| `bitnami/redis@27.0.0` | `releaseName` | 3 | [value-source-map](../../recipes/bitnami/redis/27.0.0/value-source-map.yaml) |
-| `bitnami/redis@27.0.0` | `namespace` | 4 | [value-source-map](../../recipes/bitnami/redis/27.0.0/value-source-map.yaml) |
+
 
 ## Regenerate
 

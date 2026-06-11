@@ -1,0 +1,152 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "BlastRadiusCaseReceipt"
+metadata:
+  name: "redis-25.5.3-namespace-rename"
+spec:
+  chart: "bitnami/redis"
+  version: "25.5.3"
+  recipe: "recipes/bitnami/redis/25.5.3"
+  valuePath: "namespace"
+  valueSourceEntryId: "namespace"
+  measurementType: "whole-release-rename-diff"
+  rename:
+    kind: "namespace"
+    from: "redis"
+    to: "brcprobens"
+  renderContext:
+    helmVersion: "v4.1.4"
+    flags:
+      - "--kube-version"
+      - "1.30.0"
+      - "--include-crds"
+      - "--skip-tests"
+      - "--no-hooks"
+    namespace: "redis"
+    releaseName: "redis"
+    valuesProfile: "recipes/bitnami/redis/25.5.3/effective-values.yaml"
+    valuesProfileSHA256: "1cdcf2a5ccb24b63b1852a446350ca10dea5aad3b76d58ce1ec7da43f6bf44a2"
+  baseRender:
+    objectCount: 14
+    sha256: "17d5c0c393666054beab10a7e599abb711c258b7c85a75c12499cd238e7afb4b"
+    matchesCommittedRevision: "byte-identical"
+  overrideRender:
+    objectCount: 14
+    sha256: "66e3cffdcf71b5737614b13ad7cbc3f1e11dfc18ff36122c45655b97cc63ddcb"
+  predictedObjects:
+    - "apps/v1|StatefulSet|redis|redis-master"
+    - "apps/v1|StatefulSet|redis|redis-replicas"
+    - "v1|Secret|redis|redis"
+    - "v1|Service|redis|redis-headless"
+  actual:
+    removed:
+      []
+    added:
+      []
+    changed:
+      - "apps/v1|StatefulSet|redis|redis-master"
+      - "apps/v1|StatefulSet|redis|redis-replicas"
+      - "networking.k8s.io/v1|NetworkPolicy|redis|redis"
+      - "policy/v1|PodDisruptionBudget|redis|redis-master"
+      - "policy/v1|PodDisruptionBudget|redis|redis-replicas"
+      - "v1|ConfigMap|redis|redis-configuration"
+      - "v1|ConfigMap|redis|redis-health"
+      - "v1|ConfigMap|redis|redis-scripts"
+      - "v1|Secret|redis|redis"
+      - "v1|ServiceAccount|redis|redis-master"
+      - "v1|ServiceAccount|redis|redis-replica"
+      - "v1|Service|redis|redis-headless"
+      - "v1|Service|redis|redis-master"
+      - "v1|Service|redis|redis-replicas"
+  changedDetails:
+    -
+      object: "apps/v1|StatefulSet|redis|redis-master"
+      changedPathCount: 2
+      samplePaths:
+        - "metadata.namespace"
+        - "spec.template.metadata.annotations.checksum/scripts"
+    -
+      object: "apps/v1|StatefulSet|redis|redis-replicas"
+      changedPathCount: 3
+      samplePaths:
+        - "metadata.namespace"
+        - "spec.template.metadata.annotations.checksum/scripts"
+        - "spec.template.spec.containers[0].env[2].value"
+    -
+      object: "networking.k8s.io/v1|NetworkPolicy|redis|redis"
+      changedPathCount: 1
+      samplePaths:
+        - "metadata.namespace"
+    -
+      object: "policy/v1|PodDisruptionBudget|redis|redis-master"
+      changedPathCount: 1
+      samplePaths:
+        - "metadata.namespace"
+    -
+      object: "policy/v1|PodDisruptionBudget|redis|redis-replicas"
+      changedPathCount: 1
+      samplePaths:
+        - "metadata.namespace"
+    -
+      object: "v1|ConfigMap|redis|redis-configuration"
+      changedPathCount: 1
+      samplePaths:
+        - "metadata.namespace"
+    -
+      object: "v1|ConfigMap|redis|redis-health"
+      changedPathCount: 1
+      samplePaths:
+        - "metadata.namespace"
+    -
+      object: "v1|ConfigMap|redis|redis-scripts"
+      changedPathCount: 2
+      samplePaths:
+        - "data.start-replica.sh"
+        - "metadata.namespace"
+    -
+      object: "v1|Secret|redis|redis"
+      changedPathCount: 1
+      samplePaths:
+        - "metadata.namespace"
+    -
+      object: "v1|ServiceAccount|redis|redis-master"
+      changedPathCount: 1
+      samplePaths:
+        - "metadata.namespace"
+    -
+      object: "v1|ServiceAccount|redis|redis-replica"
+      changedPathCount: 1
+      samplePaths:
+        - "metadata.namespace"
+    -
+      object: "v1|Service|redis|redis-headless"
+      changedPathCount: 1
+      samplePaths:
+        - "metadata.namespace"
+    -
+      object: "v1|Service|redis|redis-master"
+      changedPathCount: 1
+      samplePaths:
+        - "metadata.namespace"
+    -
+      object: "v1|Service|redis|redis-replicas"
+      changedPathCount: 1
+      samplePaths:
+        - "metadata.namespace"
+  score:
+    falseNegatives:
+      - "networking.k8s.io/v1|NetworkPolicy|redis|redis"
+      - "policy/v1|PodDisruptionBudget|redis|redis-master"
+      - "policy/v1|PodDisruptionBudget|redis|redis-replicas"
+      - "v1|ConfigMap|redis|redis-configuration"
+      - "v1|ConfigMap|redis|redis-health"
+      - "v1|ConfigMap|redis|redis-scripts"
+      - "v1|ServiceAccount|redis|redis-master"
+      - "v1|ServiceAccount|redis|redis-replica"
+      - "v1|Service|redis|redis-master"
+      - "v1|Service|redis|redis-replicas"
+    falsePositives:
+      []
+    truePositives: 4
+    precision: 1
+    recall: 0.286
+    result: "fail"
