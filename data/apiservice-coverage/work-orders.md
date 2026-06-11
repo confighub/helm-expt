@@ -10,9 +10,12 @@ regular Helm while Kubernetes API aggregation still fails after apply.
 | ---: | --- | --- | --- | --- | --- | --- |
 | 1 | `kedacore/keda` | 2.19.0 | `api-aggregation-observed` | `catalog-promotion-decision` | decide whether KEDA enters a catalog promotion wave using the two-cluster parity and ConfigHub OCI APIService receipts | KEDA has either a target-scoped production/support decision or a named reason to stay proof-grade |
 | 2 | `k8s-dashboard/kubernetes-dashboard` | 7.14.0 | `source-detected-needs-recipe` | `recipe-import-plus-runtime-proof` | create the recipe/import candidate, then add APIService readiness and runtime aggregation checks | the chart has a maintained recipe row plus a pass/watch/refused aggregation receipt |
-| 3 | `datadog/datadog` | 3.214.0 | `source-detected-needs-recipe` | `recipe-import-plus-runtime-proof` | create the recipe/import candidate, then add APIService readiness and runtime aggregation checks | the chart has a maintained recipe row plus a pass/watch/refused aggregation receipt |
-| 4 | `bitnami/metrics-server` | 7.4.12 | `source-detected-needs-recipe` | `duplicate-chart-decision` | decide whether Bitnami Metrics Server should be imported separately or routed to the existing upstream Metrics Server catalog entry | the row is either modeled with APIService readiness or intentionally refused as a duplicate package route |
-| 5 | `metrics-server/metrics-server` | 3.13.0 | `api-aggregation-observed` | `keep-fresh-pattern` | keep the Metrics Server runtime/GitOps aggregation receipt fresh and reuse its checks as the next chart pattern | existing api-aggregation-observed row remains fresh and reproducible |
+| 3 | `prometheus-community/prometheus-adapter` | 5.3.0 | `target-api-version-blocked` | `target-compatibility-decision` | choose a supported chart version, compatibility base, or target Kubernetes profile before rerunning live APIService observation | the chart has either a compatible live APIService observation or a named unsupported-target decision |
+| 4 | `datadog/datadog` | 3.214.0 | `source-detected-needs-recipe` | `recipe-import-plus-runtime-proof` | create the recipe/import candidate, then add APIService readiness and runtime aggregation checks | the chart has a maintained recipe row plus a pass/watch/refused aggregation receipt |
+| 5 | `bitnami/metrics-server` | 7.4.12 | `source-detected-needs-recipe` | `duplicate-chart-decision` | decide whether Bitnami Metrics Server should be imported separately or routed to the existing upstream Metrics Server catalog entry | the row is either modeled with APIService readiness or intentionally refused as a duplicate package route |
+| 6 | `fairwinds-stable/goldilocks` | 10.3.0 | `source-signal-not-rendered-in-maintained-bases` | `render-path-analysis` | record which values or subcharts would render APIService objects before requiring runtime aggregation evidence | the source APIService signal is either tied to a supported base with runtime evidence, or recorded as not rendered for maintained bases |
+| 6 | `fairwinds-stable/vpa` | 4.11.0 | `source-signal-not-rendered-in-maintained-bases` | `render-path-analysis` | record which values or subcharts would render APIService objects before requiring runtime aggregation evidence | the source APIService signal is either tied to a supported base with runtime evidence, or recorded as not rendered for maintained bases |
+| 8 | `metrics-server/metrics-server` | 3.13.0 | `api-aggregation-observed` | `keep-fresh-pattern` | keep the Metrics Server runtime/GitOps aggregation receipt fresh and reuse its checks as the next chart pattern | existing api-aggregation-observed row remains fresh and reproducible |
 
 ## Receipt Contract
 
@@ -31,7 +34,11 @@ KEDA now has both two-cluster parity and ConfigHub OCI/Argo API aggregation
 evidence. Its next question is product scope: whether to promote it to a
 catalog-supported entry for a named target profile, or keep it proof-grade.
 Kubernetes Dashboard, Datadog, and Bitnami Metrics Server need import/catalog
-decisions before a runtime aggregation receipt can close the gap.
+decisions before a runtime aggregation receipt can close the gap. Prometheus
+Adapter has a maintained recipe and ConfigHub proof, but the tested target does
+not serve the rendered APIService version. Goldilocks and VPA have source
+APIService signals, but the maintained bases do not render APIService objects;
+those rows need render-path analysis before a runtime aggregation test is owed.
 
 ## Files
 
