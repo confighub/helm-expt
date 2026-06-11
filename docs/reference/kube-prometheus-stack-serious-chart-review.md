@@ -105,9 +105,10 @@ target evidence.
 
 - "Production-supported for every target" — the supported decision is
   target-scoped to one declared kind/namespace/OCI/Argo path.
-- "Upgrades are proven" — the committed CRD upgrade receipt is a
-  desired-state delta between two renders. No live upgrade has been run; the
-  runtime claim stays unmade.
+- "Upgrades are proven" — the repo has a render-level CRD delta and a live
+  API-server CRD upgrade rehearsal, but no full workload upgrade with the
+  chart's controllers and workloads running before and after. That runtime
+  claim stays unmade.
 - "Hooks are solved" — this chart's hooks are observed on one base and
   profile; the claim is per-chart, per-profile, freshness-bounded.
 - "Works on any Kubernetes" — every live claim is bounded to the 1.30

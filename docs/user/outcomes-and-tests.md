@@ -65,6 +65,7 @@ For the shortest chart-by-chart top-100 answer, start with:
 | [extension slot coverage](../../data/extension-slots/summary.md) | One row per chart with NGINX-like raw manifests, tpl snippets, config blocks, sidecars, or add-on slots. |
 | [hook and lifecycle boundary](../../data/lifecycle-boundary/summary.md) | Separates hook lifecycle queue rows from hook-like controller lifecycle observations. |
 | [cert-manager and External Secrets lifecycle observations](../../data/lifecycle-observations/cert-manager-eso/summary.md) | Concrete post-apply checks for CRD policy, API readiness, webhook CA injection, and controller-populated Secret data. |
+| [webhook certificate lifecycle evidence](../../data/webhook-cert-lifecycle/summary.md) | Staged generated certificate material and staged CRDs for bases where render parity alone cannot prove the install contract. |
 | [edges.csv](../../data/edge-recovery/edges.csv) | Recovered graph fragments for catalog-supported charts: inheritance, overrides, generated facts, target facts, and field reachability where known. |
 
 Every CSV under `data/` is indexed here:
@@ -86,7 +87,7 @@ The machine-readable index is:
 | ConfigHub OCI can be reconciled by GitOps for tested rows. | Argo or Flux OCI receipts plus runtime observation. | `npm run runtime-gitops:wave:verify` |
 | Plain Helm and ConfigHub delivery reach equivalent live outcomes for tested rows. | Live Helm-vs-ConfigHub comparison receipts and two-cluster parity receipts. | `npm run live-parity:verify && npm run kind-parity:verify` |
 | Derived ConfigHub variants preserve reviewed bases and expose post-render changes. | Derived variant execution receipts and target-bound receipts. | `npm run derived-variants:verify && npm run derived-variants:target-bound:verify` |
-| Hooks and hook-like lifecycle behavior are visible rather than hidden. | Hook lifecycle queue, lifecycle boundary, and lifecycle observation receipts. | `npm run hooks:lifecycle:verify && npm run lifecycle:boundary:verify && npm run lifecycle:cert-manager-eso:verify` |
+| Hooks and hook-like lifecycle behavior are visible rather than hidden. | Hook lifecycle queue, lifecycle boundary, webhook certificate lifecycle evidence, and lifecycle observation receipts. | `npm run hooks:lifecycle:verify && npm run lifecycle:boundary:verify && npm run webhook-cert:lifecycle:verify && npm run lifecycle:cert-manager-eso:verify` |
 | A chart is ready for production-support review. | Production disposition table plus accepted receipts for scan/gate, lifecycle, RBAC, storage, target facts, extension slots, and operation policy. | `npm run production:disposition:verify` |
 | A chart can be called production-supported. | A final target-scoped support decision names the supported base, target scope, image policy, required live checks, lifecycle policy, and observation freshness. | No single repo-wide verifier yet; check production disposition, image digest workdown, live lanes, and the recorded support decision. |
 | Scan warnings have been routed to the right kind of production work. | External scan lane plus scan disposition workdown. | `npm run external-scan:verify && npm run scan-disposition:workdown:verify` |
@@ -148,7 +149,8 @@ render, recipe, package, or `npm run verify` path.
 19. Check [coverage-matrix.csv](../../data/variant-path-coverage/coverage-matrix.csv) when the question is about one base, diff, operation, or derived variant path.
 20. Check [derived-variant-outcomes.csv](../../data/outcome-coverage/derived-variant-outcomes.csv) when the question is about post-render ConfigHub variants.
 21. Check [cert-manager and External Secrets lifecycle observations](../../data/lifecycle-observations/cert-manager-eso/summary.md) when the question is about controller-owned fields or post-apply readiness.
-22. Run the scoped verifier for the table you opened, or `npm run verify` only when you need the full corpus gate.
+22. Check [webhook certificate lifecycle evidence](../../data/webhook-cert-lifecycle/summary.md) when the question is about staged webhook certificate material, staged CRDs, or target/generated facts that must exist before a config-only install can be trusted.
+23. Run the scoped verifier for the table you opened, or `npm run verify` only when you need the full corpus gate.
 
 ## Narrow Claim Rule
 

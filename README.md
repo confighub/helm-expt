@@ -333,9 +333,12 @@ The broader two-cluster kind parity corpus has 50 committed receipts:
 5 maintained hook queue rows have hook route receipts.
 5/5 maintained hook queue rows have lifecycle observation receipts.
 0/5 maintained hook queue rows remain partial or route-only.
+10/10 explicit lifecycle observation rows are recorded in the outcome spine.
 Separately, cert-manager has 2/2 `startupapicheck` Helm hook lifecycle
 observations. External Secrets has lifecycle-observation receipts for
 CRD/webhook/controller-owned runtime behavior, but no Helm hook in the tested
+bases. Webhook certificate lifecycle receipts cover staged generated Secrets
+and staged CRDs for selected ingress-nginx, VPA, and kube-prometheus-stack
 bases. These receipts demonstrate the observation pattern, not universal hook
 support.
 Top-500 source/catalog analysis exists as catalog-planning data for future
