@@ -502,7 +502,7 @@ Receipts: [per-chart receipts](recipes/prometheus-community/kube-prometheus-stac
 ##### no-crds
 
 When to use: kube-prometheus-stack CRDs disabled variant rendered from prometheus-community/kube-prometheus-stack@85.3.3
-Readiness: try-with-proof
+Readiness: start-here
 Namespace: monitoring
 Target facts: required Secret monitoring/kube-prometheus-stack-admission keys cert,key; required CRD alertmanagerconfigs.monitoring.coreos.com; required CRD alertmanagers.monitoring.coreos.com; required CRD podmonitors.monitoring.coreos.com; required CRD probes.monitoring.coreos.com; required CRD prometheusagents.monitoring.coreos.com; required CRD prometheuses.monitoring.coreos.com; required CRD prometheusrules.monitoring.coreos.com; required CRD scrapeconfigs.monitoring.coreos.com; required CRD servicemonitors.monitoring.coreos.com; required CRD thanosrulers.monitoring.coreos.com
 Package base: [packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/no-crds](packages/prometheus-community/kube-prometheus-stack/85.3.3/bases/no-crds)
