@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "percona-pg-operator-3.0.0-default-local-kind"
+spec:
+  variantRevision: "recipes/percona/pg-operator/3.0.0/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "bf309d7e26c9351501282530b3707719d97e87593333150163c468461725a8ff"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T11:28:31.913Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "eb79287850d4734aab7d433c634f245c15730759551a4f8368539ba3f59ac66f"
+  checks:
+    -
+      name: "crds-applied-and-established"
+      result: "pass"
+      object: "8 CustomResourceDefinition(s)"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "12 object(s) from recipes/percona/pg-operator/3.0.0/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|pg-operator"

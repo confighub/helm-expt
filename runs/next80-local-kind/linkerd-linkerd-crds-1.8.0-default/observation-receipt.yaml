@@ -1,0 +1,34 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "linkerd-linkerd-crds-1.8.0-default-local-kind"
+spec:
+  variantRevision: "recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "af01ee9087a17f0ffabc7b8c0d6969a8fddde7dde977264ee92e6b12cd8ea01b"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T11:27:16.764Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 0
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "429a02d9d2e78918a76591609196b63242d3cf6d357b534e7cce168482af40fd"
+  checks:
+    -
+      name: "crds-applied-and-established"
+      result: "pass"
+      object: "8 CustomResourceDefinition(s)"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "8 object(s) from recipes/linkerd/linkerd-crds/1.8.0/revisions/default/r001/rendered/release-objects.yaml"

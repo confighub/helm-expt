@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "opencost-opencost-2.5.21-default-local-kind"
+spec:
+  variantRevision: "recipes/opencost/opencost/2.5.21/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "3cf0267ce7b5173e0c514fad903e559129d63d2f9a6bb83da681dcff1f7977dc"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T11:33:24.818Z"
+  freshnessTTL: "1h"
+  result: "fail"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "4f49e988717c69b7f1aa78bafbcdb8eb9c2199d22e5584822e817d60989112e4"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "6 object(s) from recipes/opencost/opencost/2.5.21/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "Deployment|default|opencost"
+      reason: "not-ready: opencost-6545848947-wcs2m[CrashLoopBackOff ready=false restarts=4; ready=true restarts=0;]"
+  blockedReasons:
+    - "deployment/opencost: not-ready (opencost-6545848947-wcs2m[CrashLoopBackOff ready=false restarts=4; ready=true restarts=0;])"
