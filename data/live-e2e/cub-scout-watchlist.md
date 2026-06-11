@@ -16,6 +16,12 @@ The first rows are strict witness findings on kind Kubernetes 1.30:
   `rules: []` arrays that the live RBAC objects do not preserve with the same
   shape after apply.
 
+A follow-up capability witness proves the same rendered cert-manager and
+External Secrets CRDs preserve `selectableFields` on `kind-kubernetes-1.35`:
+[selectableFields witness](../capability-profile-witnesses/selectablefields/summary.md).
+The Kubernetes 1.30 rows remain on this watchlist because support claims stay
+profile-bound.
+
 These are not Helm-vs-installer semantic parity defects. They are rendered/live
 target findings: the rendered objects include authored fields that the live API
 does not preserve with the same shape on this target profile. The route is to

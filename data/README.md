@@ -201,6 +201,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `apiservice-coverage` | [apiservice-coverage/summary.md](./apiservice-coverage/summary.md) | top-100 APIService coverage joined across source scan, modeled recipe rows, parity evidence, and runtime observations |
 | `attack-plan-workdown` | [attack-plan-workdown/summary.md](./attack-plan-workdown/summary.md) | execution workdown across gaps and proof lanes |
 | `blast-radius-accuracy` | [blast-radius-accuracy/summary.md](./blast-radius-accuracy/summary.md) | front-door measured blast-radius accuracy seed and backlog |
+| `capability-profile-witnesses` | - | supporting generated evidence |
 | `catalog-promotion-review` | [catalog-promotion-review/summary.md](./catalog-promotion-review/summary.md) | catalog promotion worksheet for the 100-chart corpus |
 | `catalog-promotion-wave2` | [catalog-promotion-wave2/summary.md](./catalog-promotion-wave2/summary.md) | older user-shaped variant work-order worksheet |
 | `chart-evidence-router` | [chart-evidence-router/summary.md](./chart-evidence-router/summary.md) | front-door per-chart evidence router across bases, receipts, hooks, quirks, and decisions |
@@ -270,7 +271,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 112 CSV files. Each row records the path, audience,
+It includes 113 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
