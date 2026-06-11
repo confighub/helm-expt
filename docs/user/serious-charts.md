@@ -22,8 +22,8 @@ must not make yet, and the exact next test.
   receipt. No receipt, no claim.
 - **Watch and blocked rows are routed findings, not failures.** cert-manager
   and external-secrets carry a deliberate refusal: their rendered CRDs author
-  a field Kubernetes 1.30 drops, so strict parity is not claimed for that
-  profile until the capability decision is made.
+  a field Kubernetes 1.30 drops, while the same rendered CRDs preserve that
+  field on the recorded Kubernetes 1.35 capability witness.
 - **"Claims we must not make yet" is the most load-bearing section.** If a
   claim you need is on that list, the packet's "exact next test" says what
   would move it.

@@ -54,7 +54,10 @@ Honest status, with the evidence trail:
   pinned Kubernetes capability profile, currently 1.30. The strict witness
   caught real consequences: cert-manager and External Secrets CRDs author
   `selectableFields`, which the 1.30 API drops — routed as watchlist rows, and
-  parity for that profile is *not* claimed. See
+  parity for that profile is *not* claimed. A follow-up live witness proves the
+  same rendered CRDs preserve `selectableFields` on the
+  `kind-kubernetes-1.35` profile, so the route is capability-profile-specific
+  evidence rather than silent normalization. See
   [What We Refuse To Claim](../user/what-we-refuse-to-claim.md).
 - **Generated secrets never hide in the artifact.** They are rendered for
   parity, separated out of the publishable set, recorded as expected external

@@ -1,0 +1,166 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "CapabilityProfileWitnessReceipt"
+metadata:
+  name: "jetstack-cert-manager-crds-enabled-selectablefields-kind-v1-35"
+spec:
+  chart: "jetstack/cert-manager"
+  version: "v1.20.2"
+  base: "crds-enabled"
+  observedAt: "2026-06-11T07:51:09Z"
+  result: "pass"
+  capabilityProfile:
+    name: "kind-kubernetes-1.35"
+    kindNodeImage: "kindest/node:v1.35.0"
+    serverVersion: "v1.35.0"
+  olderWatchlistProfile: "kind-kubernetes-1.30"
+  olderWatchlistIssue: "Kubernetes 1.30 omitted spec.versions[0].selectableFields on four rendered cert-manager CRDs after apply."
+  renderedObjectSet:
+    path: "recipes/jetstack/cert-manager/v1.20.2/revisions/crds-enabled/r001/rendered/release-objects.yaml"
+    sha256: "e288b2413bd1919173bee6afcd823be61399f101cfe2cf61f8e0df56740fefe0"
+  run:
+    mode: "single-kind-cluster-crd-server-apply-witness"
+    cluster: "hx-select-jetstack-cer-77ud3"
+    kubeContext: "kind-hx-select-jetstack-cer-77ud3"
+    cleanup:
+      result: "pass"
+      detail: "Deleting cluster \"hx-select-jetstack-cer-77ud3\" ...\nDeleted nodes: [\"hx-select-jetstack-cer-77ud3-control-plane\"]"
+  renderedSelectableFields:
+    -
+      name: "challenges.acme.cert-manager.io"
+      versions:
+        -
+          name: "v1"
+          selectableFields:
+            - ".spec.issuerRef.group"
+            - ".spec.issuerRef.kind"
+            - ".spec.issuerRef.name"
+    -
+      name: "orders.acme.cert-manager.io"
+      versions:
+        -
+          name: "v1"
+          selectableFields:
+            - ".spec.issuerRef.group"
+            - ".spec.issuerRef.kind"
+            - ".spec.issuerRef.name"
+    -
+      name: "certificaterequests.cert-manager.io"
+      versions:
+        -
+          name: "v1"
+          selectableFields:
+            - ".spec.issuerRef.group"
+            - ".spec.issuerRef.kind"
+            - ".spec.issuerRef.name"
+    -
+      name: "certificates.cert-manager.io"
+      versions:
+        -
+          name: "v1"
+          selectableFields:
+            - ".spec.issuerRef.group"
+            - ".spec.issuerRef.kind"
+            - ".spec.issuerRef.name"
+  liveSelectableFields:
+    -
+      name: "challenges.acme.cert-manager.io"
+      versions:
+        -
+          name: "v1"
+          selectableFields:
+            - ".spec.issuerRef.group"
+            - ".spec.issuerRef.kind"
+            - ".spec.issuerRef.name"
+    -
+      name: "orders.acme.cert-manager.io"
+      versions:
+        -
+          name: "v1"
+          selectableFields:
+            - ".spec.issuerRef.group"
+            - ".spec.issuerRef.kind"
+            - ".spec.issuerRef.name"
+    -
+      name: "certificaterequests.cert-manager.io"
+      versions:
+        -
+          name: "v1"
+          selectableFields:
+            - ".spec.issuerRef.group"
+            - ".spec.issuerRef.kind"
+            - ".spec.issuerRef.name"
+    -
+      name: "certificates.cert-manager.io"
+      versions:
+        -
+          name: "v1"
+          selectableFields:
+            - ".spec.issuerRef.group"
+            - ".spec.issuerRef.kind"
+            - ".spec.issuerRef.name"
+  comparison:
+    -
+      crd: "challenges.acme.cert-manager.io"
+      version: "v1"
+      result: "pass"
+      renderedSelectableFields:
+        - ".spec.issuerRef.group"
+        - ".spec.issuerRef.kind"
+        - ".spec.issuerRef.name"
+      liveSelectableFields:
+        - ".spec.issuerRef.group"
+        - ".spec.issuerRef.kind"
+        - ".spec.issuerRef.name"
+    -
+      crd: "orders.acme.cert-manager.io"
+      version: "v1"
+      result: "pass"
+      renderedSelectableFields:
+        - ".spec.issuerRef.group"
+        - ".spec.issuerRef.kind"
+        - ".spec.issuerRef.name"
+      liveSelectableFields:
+        - ".spec.issuerRef.group"
+        - ".spec.issuerRef.kind"
+        - ".spec.issuerRef.name"
+    -
+      crd: "certificaterequests.cert-manager.io"
+      version: "v1"
+      result: "pass"
+      renderedSelectableFields:
+        - ".spec.issuerRef.group"
+        - ".spec.issuerRef.kind"
+        - ".spec.issuerRef.name"
+      liveSelectableFields:
+        - ".spec.issuerRef.group"
+        - ".spec.issuerRef.kind"
+        - ".spec.issuerRef.name"
+    -
+      crd: "certificates.cert-manager.io"
+      version: "v1"
+      result: "pass"
+      renderedSelectableFields:
+        - ".spec.issuerRef.group"
+        - ".spec.issuerRef.kind"
+        - ".spec.issuerRef.name"
+      liveSelectableFields:
+        - ".spec.issuerRef.group"
+        - ".spec.issuerRef.kind"
+        - ".spec.issuerRef.name"
+  checks:
+    -
+      name: "kind-create"
+      result: "pass"
+      detail: "created hx-select-jetstack-cer-77ud3 with v1.35.0"
+    -
+      name: "apply-selectablefields-crds"
+      result: "pass"
+      detail: "applied and established 4 selectableFields CRD(s)"
+    -
+      name: "compare-live-selectablefields"
+      result: "pass"
+      detail: "4 CRD version selectableFields comparison(s) passed"
+  notClaimed:
+    - "strict rendered/live parity on Kubernetes 1.30"
+    - "all Kubernetes distributions preserve selectableFields"
+    - "workload runtime health; this witness only checks the CRD capability/profile behavior"

@@ -1,12 +1,13 @@
 apiVersion: helm-expt.confighub.com/v1alpha1
 kind: ProductionSupportDecision
 metadata:
-  name: "external-secrets-external-secrets-default-public-oci-draft"
+  name: "external-secrets-external-secrets-default-public-oci-supported"
 spec:
   chart: "external-secrets/external-secrets"
   version: "2.5.0"
-  decision: draft
+  decision: supported
   decisionDate: "2026-06-11"
+  supportedSince: "2026-06-11T07:51:39Z"
   supportedBase: "default"
   targetScope:
     clusterClass: cub-lk-kind-vanilla
@@ -16,6 +17,7 @@ spec:
     lastEvidenceAt: "2026-06-11T07:34:49Z"
     lastEvidenceTarget: codex-es-provider-082730-cluster/oci
     lastEvidenceKubeContext: kind-codex-es-provider-082730
+    capabilityProfileEvidence: "kind-kubernetes-1.35 selectableFields witness"
     liveEvidenceTTL: 30d
     storageAssumptions:
       - "Use the chart's recorded storage behavior for the supported scope unless a narrower scope is separately reviewed."
@@ -32,11 +34,13 @@ spec:
       - recorded resource-policy acceptance for the declared public controller support scope
       - controller-owned webhook lifecycle observation for the declared public controller support scope
       - disposable fake-provider SecretStore and ExternalSecret round-trip evidence for the declared public controller support scope
+      - Kubernetes 1.35 selectableFields capability-profile witness for the rendered ExternalSecret CRD
     excludes:
       - "workload-only OCI delivery that omits the rendered external-secrets-webhook Secret"
       - "private values overlays, wrapper charts, and populated extension slots unless separately reviewed"
       - "production SecretStore, ClusterSecretStore, ExternalSecret, PushSecret, provider credentials, and provider-specific workloads unless separately reviewed"
       - "digest-pinned, resource-hardened, or provider-specific production bases unless separately reviewed"
+      - "Kubernetes targets that drop selectableFields unless a profile-specific base or separate route is reviewed"
       - "non-vanilla Kubernetes distributions unless separately reviewed"
       - "other delivery controllers or target scopes unless separately reviewed"
   decisions:
@@ -53,8 +57,8 @@ spec:
       state: "explicit-separated-secret-prerequisite-rehearsed-for-target-scope"
       detail: "the rendered external-secrets-webhook Secret is separated by installer under out/secrets; a fresh 2026-06-11 run pre-staged that Secret before Argo sync and the workload became healthy"
     liveEvidenceDecision:
-      state: "fresh-target-evidence-passed-with-prestaged-secret-prerequisite"
-      detail: "a fresh 2026-06-11 default-base ConfigHub OCI rehearsal synced through Argo and all controller Deployments became ready after the rendered external-secrets-webhook Secret was pre-staged from installer out/secrets"
+      state: "fresh-target-evidence-passed"
+      detail: "fresh 2026-06-11 evidence passed for the declared scope: Argo synced the ConfigHub OCI artifact, all controller Deployments became ready after the rendered external-secrets-webhook Secret was pre-staged from installer out/secrets, the fake-provider round trip passed, and the rendered ExternalSecret CRD preserved selectableFields on the kind-kubernetes-1.35 capability profile"
     providerRoundTripDecision:
       state: "disposable-fake-provider-roundtrip-passed"
       detail: "a fresh 2026-06-11 default-base ConfigHub OCI rehearsal created a fake-provider SecretStore and ExternalSecret; ExternalSecret reached Ready=True and produced a controller-owned Kubernetes Secret without storing secret data in the receipt"
@@ -75,6 +79,8 @@ spec:
       claim: "Fresh default-base ConfigHub OCI rehearsal passed through Argo and runtime readiness after the rendered webhook Secret was pre-staged as an explicit target prerequisite."
     - path: "data/runtime-gitops/receipts/external-secrets-external-secrets/default-fake-provider-roundtrip/latest.yaml"
       claim: "Fresh default-base ConfigHub OCI rehearsal passed a disposable fake-provider SecretStore and ExternalSecret round-trip, producing a controller-owned Kubernetes Secret without recording secret data."
+    - path: "data/capability-profile-witnesses/selectablefields/receipts/external-secrets-external-secrets-default-kind-1.35.yaml"
+      claim: "The rendered ExternalSecret CRD preserved selectableFields after server-side apply on the kind-kubernetes-1.35 capability profile."
     - path: "data/image-digest-workdown/receipts/external-secrets-external-secrets/default/image-digest-resolution.yaml"
       claim: "The rendered mutable image references for the candidate base have registry digest-resolution evidence."
     - path: "data/production-support-decisions/external-secrets-external-secrets/image-policy-decision.yaml"
@@ -95,6 +101,5 @@ spec:
       claim: "The target fact preflight receipt exists for this chart."
     - path: "data/production-disposition/receipts/external-secrets-external-secrets/webhook-readiness-and-failure-policy.yaml"
       claim: "The webhook readiness and failure policy receipt exists for this chart."
-  requiredBeforeFinal:
-    - "Run a Kubernetes 1.31+ capability-profile witness, or create a profile-specific base, before claiming selectableFields compatibility."
-  nextAction: "Run a Kubernetes 1.31+ capability-profile witness, or create a profile-specific base, before final production support."
+  requiredBeforeFinal: []
+  nextAction: "Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate provider-specific, credential, resource-hardened, or profile-specific bases for real customer External Secrets workloads."

@@ -55,12 +55,16 @@ const CHARTS = [
         "CRD/webhook/controller runtime lifecycle observations",
         "data/lifecycle-observations/cert-manager-eso/summary.md",
       ],
+      [
+        "SelectableFields capability-profile witness on kind Kubernetes 1.35",
+        "data/capability-profile-witnesses/selectablefields/receipts/jetstack-cert-manager-crds-enabled-kind-1.35.yaml",
+      ],
     ],
     mustNot: [
       "\"strict rendered-object/live parity holds on Kubernetes 1.30\" - the strict witness BLOCKs: rendered CRDs author selectableFields, which the 1.30 API drops; routed on the watchlist, parity for that profile is deliberately not claimed",
     ],
     nextTest:
-      "re-run the strict witness on a Kubernetes 1.31+ capability profile where selectableFields is served, or commit a profile-specific base that does not author it",
+      "keep the target-scoped evidence fresh; create separate issuer, certificate, provider, or hardened resource bases before claiming real customer certificate workflows",
   },
   {
     slug: "external-secrets",
@@ -85,6 +89,10 @@ const CHARTS = [
         "ConfigHub OCI default-base rehearsal with fake-provider SecretStore and ExternalSecret round trip",
         "data/runtime-gitops/receipts/external-secrets-external-secrets/default-fake-provider-roundtrip/latest.yaml",
       ],
+      [
+        "SelectableFields capability-profile witness on kind Kubernetes 1.35",
+        "data/capability-profile-witnesses/selectablefields/receipts/external-secrets-external-secrets-default-kind-1.35.yaml",
+      ],
     ],
     mustNot: [
       "\"strict rendered-object/live parity holds on Kubernetes 1.30\" - same selectableFields watchlist row as cert-manager; not claimed for that profile",
@@ -92,7 +100,7 @@ const CHARTS = [
       "\"production providers are proven\" - the provider round-trip receipt uses the disposable fake provider; AWS, Vault, Kubernetes, GCP, Azure, and provider credential behavior still need separate evidence",
     ],
     nextTest:
-      "run the 1.31+ capability-profile witness, or commit a profile-specific base that does not claim selectableFields compatibility on targets that drop it",
+      "keep the target-scoped evidence fresh; create separate provider-specific, credential, resource-hardened, or profile-specific bases for real customer External Secrets workloads",
   },
 ];
 
@@ -205,7 +213,7 @@ function buildPacket(target, sources) {
     lines.push(`- no final production support is claimed yet: the draft scope is \`${targetScope}\` and must be closed before support is claimed`);
   }
   lines.push("");
-  lines.push("## What production decision is still open, and why?");
+  lines.push("## What production support work remains?");
   lines.push("");
   if (supportDecision && supportDecision.decision !== "supported") {
     lines.push(`The support decision is \`${supportDecision.decision}\`; live evidence is \`${supportDecision.live_evidence_decision || "-"}\`.`);
@@ -220,7 +228,7 @@ function buildPacket(target, sources) {
     lines.push("");
     lines.push(`Next action: ${supportDecision.next_action}`);
   } else {
-    lines.push(`${packetRow.broader_support_work || "See the packet's remaining-work section."}`);
+    lines.push(`The target-scoped support decision is \`${decision}\`. ${packetRow.broader_support_work || "Keep evidence fresh before using this support scope."}`);
   }
   if (workItem) {
     lines.push("");

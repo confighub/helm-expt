@@ -10,9 +10,9 @@ CRDs plus webhooks plus an external-system dependency by design: the chart's who
 
 ## What should a serious user try first?
 
-Base `default` - support decision `draft`, disposition `production-review-ready`, bounded to target scope: cub-lk-kind-vanilla; namespace=external-secrets; delivery=confighub-oci; controller=argo.
+Base `default` - support decision `supported`, disposition `production-review-ready`, bounded to target scope: cub-lk-kind-vanilla; namespace=external-secrets; delivery=confighub-oci; controller=argo.
 
-Support decision evidence: `fresh-target-evidence-passed-with-prestaged-secret-prerequisite` ([decision](../../../data/production-support-decisions/external-secrets-external-secrets/support-decision.yaml)).
+Support decision evidence: `fresh-target-evidence-passed` ([decision](../../../data/production-support-decisions/external-secrets-external-secrets/support-decision.yaml)).
 
 ## Quirks
 
@@ -33,21 +33,18 @@ Lane summary: local:1/2 gitops:1/2 live-parity:1/2 two-cluster:2/2. Authoritativ
 - ConfigHub OCI default-base rehearsal: Argo synced, runtime blocked on separated webhook Secret delivery ([evidence](../../../data/runtime-gitops/receipts/external-secrets-external-secrets/default/latest.yaml))
 - ConfigHub OCI default-base rehearsal with separated webhook Secret pre-staged: Argo synced and runtime became healthy ([evidence](../../../data/runtime-gitops/receipts/external-secrets-external-secrets/default-prestaged-secret/latest.yaml))
 - ConfigHub OCI default-base rehearsal with fake-provider SecretStore and ExternalSecret round trip ([evidence](../../../data/runtime-gitops/receipts/external-secrets-external-secrets/default-fake-provider-roundtrip/latest.yaml))
+- SelectableFields capability-profile witness on kind Kubernetes 1.35 ([evidence](../../../data/capability-profile-witnesses/selectablefields/receipts/external-secrets-external-secrets-default-kind-1.35.yaml))
 
 ## What is only watch, per-target, or manual?
 
 - WATCH/BLOCK (routed): Rendered ExternalSecret CRD contains selectableFields but the live Kubernetes 1.30 API omitted the field after apply - route: capability-profile plus CRD lifecycle review ([watchlist](../../../data/live-e2e/cub-scout-watchlist.md))
-- no final production support is claimed yet: the draft scope is `cub-lk-kind-vanilla; namespace=external-secrets; delivery=confighub-oci; controller=argo` and must be closed before support is claimed
+- every supported claim is per-target: the decision above covers `cub-lk-kind-vanilla; namespace=external-secrets; delivery=confighub-oci; controller=argo` and nothing broader
 
-## What production decision is still open, and why?
+## What production support work remains?
 
-The support decision is `draft`; live evidence is `fresh-target-evidence-passed-with-prestaged-secret-prerequisite`.
+The target-scoped support decision is `supported`. Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate provider-specific, credential, resource-hardened, or profile-specific bases for real customer External Secrets workloads.
 
-Required before final support:
-
-- Run a Kubernetes 1.31+ capability-profile witness, or create a profile-specific base, before claiming selectableFields compatibility.
-
-Next action: Run a Kubernetes 1.31+ capability-profile witness, or create a profile-specific base, before final production support.
+Current work item: supported-scope-evidence - [work items](../../../data/production-support-decisions/work-items.csv).
 
 ## Claims we must not make yet
 
@@ -59,4 +56,4 @@ Next action: Run a Kubernetes 1.31+ capability-profile witness, or create a prof
 
 ## The exact next test
 
-run the 1.31+ capability-profile witness, or commit a profile-specific base that does not claim selectableFields compatibility on targets that drop it.
+keep the target-scoped evidence fresh; create separate provider-specific, credential, resource-hardened, or profile-specific bases for real customer External Secrets workloads.

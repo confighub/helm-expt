@@ -11,22 +11,25 @@ support decision. It does not replace the source decision artifact:
 | --- | --- |
 | Chart | `external-secrets/external-secrets@2.5.0` |
 | Candidate base | `default` |
-| Decision state | `draft` |
+| Decision state | `supported` |
 | Target scope | cub-lk-kind-vanilla; namespace=external-secrets; delivery=confighub-oci; controller=argo |
 | Delivery path | `confighub-oci` |
 
 ## Open Work
 
-- No open generated work item for this decision.
+| Work | Action |
+| --- | --- |
+| Keep fresh | Keep target-scoped evidence fresh before using this supported scope as an example. |
 
 
 ## Closeout Sequence
 
-1. Choose the final target scope, GitOps controller, namespace, and artifact digest.
+1. Keep the target-scoped evidence fresh for the declared support boundary.
 
 ## Required Before Final Support
 
-- Run a Kubernetes 1.31+ capability-profile witness, or create a profile-specific base, before claiming selectableFields compatibility.
+- None.
+
 
 ## Support Boundary
 
@@ -39,6 +42,7 @@ Included:
 - recorded resource-policy acceptance for the declared public controller support scope
 - controller-owned webhook lifecycle observation for the declared public controller support scope
 - disposable fake-provider SecretStore and ExternalSecret round-trip evidence for the declared public controller support scope
+- Kubernetes 1.35 selectableFields capability-profile witness for the rendered ExternalSecret CRD
 
 Excluded:
 
@@ -46,6 +50,7 @@ Excluded:
 - private values overlays, wrapper charts, and populated extension slots unless separately reviewed
 - production SecretStore, ClusterSecretStore, ExternalSecret, PushSecret, provider credentials, and provider-specific workloads unless separately reviewed
 - digest-pinned, resource-hardened, or provider-specific production bases unless separately reviewed
+- Kubernetes targets that drop selectableFields unless a profile-specific base or separate route is reviewed
 - non-vanilla Kubernetes distributions unless separately reviewed
 - other delivery controllers or target scopes unless separately reviewed
 
@@ -59,6 +64,7 @@ Excluded:
 - [data/runtime-gitops/receipts/external-secrets-external-secrets/default/latest.yaml](../../../data/runtime-gitops/receipts/external-secrets-external-secrets/default/latest.yaml) - Fresh default-base ConfigHub OCI rehearsal synced through Argo but blocked at runtime because the rendered webhook Secret was not delivered through workload OCI.
 - [data/runtime-gitops/receipts/external-secrets-external-secrets/default-prestaged-secret/latest.yaml](../../../data/runtime-gitops/receipts/external-secrets-external-secrets/default-prestaged-secret/latest.yaml) - Fresh default-base ConfigHub OCI rehearsal passed through Argo and runtime readiness after the rendered webhook Secret was pre-staged as an explicit target prerequisite.
 - [data/runtime-gitops/receipts/external-secrets-external-secrets/default-fake-provider-roundtrip/latest.yaml](../../../data/runtime-gitops/receipts/external-secrets-external-secrets/default-fake-provider-roundtrip/latest.yaml) - Fresh default-base ConfigHub OCI rehearsal passed a disposable fake-provider SecretStore and ExternalSecret round-trip, producing a controller-owned Kubernetes Secret without recording secret data.
+- [data/capability-profile-witnesses/selectablefields/receipts/external-secrets-external-secrets-default-kind-1.35.yaml](../../../data/capability-profile-witnesses/selectablefields/receipts/external-secrets-external-secrets-default-kind-1.35.yaml) - The rendered ExternalSecret CRD preserved selectableFields after server-side apply on the kind-kubernetes-1.35 capability profile.
 - [data/image-digest-workdown/receipts/external-secrets-external-secrets/default/image-digest-resolution.yaml](../../../data/image-digest-workdown/receipts/external-secrets-external-secrets/default/image-digest-resolution.yaml) - The rendered mutable image references for the candidate base have registry digest-resolution evidence.
 - [data/production-support-decisions/external-secrets-external-secrets/image-policy-decision.yaml](../../../data/production-support-decisions/external-secrets-external-secrets/image-policy-decision.yaml) - The target-scoped image policy decision accepts mutable rendered tags for this public controller support scope with explicit limits.
 - [data/production-support-decisions/external-secrets-external-secrets/security-decision.yaml](../../../data/production-support-decisions/external-secrets-external-secrets/security-decision.yaml) - The target-scoped security decision accepts missing resource requests/limits only for this public cub-lk proof scope.
@@ -72,7 +78,7 @@ Excluded:
 
 ## Next Action
 
-Run a Kubernetes 1.31+ capability-profile witness, or create a profile-specific base, before final production support.
+Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate provider-specific, credential, resource-hardened, or profile-specific bases for real customer External Secrets workloads.
 
 Regenerate:
 

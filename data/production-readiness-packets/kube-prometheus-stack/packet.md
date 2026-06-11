@@ -39,9 +39,9 @@ Lane summary: local:1/2 gitops:1/2 live-parity:1/2 two-cluster:2/2. Authoritativ
 - no routed watchlist rows for this chart today ([watchlist](../../../data/live-e2e/cub-scout-watchlist.md))
 - every supported claim is per-target: the decision above covers `cub-lk-kind-vanilla; namespace=monitoring; delivery=confighub-oci; controller=argo` and nothing broader
 
-## What production decision is still open, and why?
+## What production support work remains?
 
-Keep the target-scoped evidence fresh before using this supported scope as a production-support example.
+The target-scoped support decision is `supported`. Keep the target-scoped evidence fresh before using this supported scope as a production-support example.
 
 Current work item: supported-scope-evidence - [work items](../../../data/production-support-decisions/work-items.csv).
 

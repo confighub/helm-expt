@@ -17,6 +17,7 @@ spec:
     lastEvidenceAt: "2026-06-05T16:29:56Z"
     lastEvidenceTarget: helm-expt-parity-certmanager-mq153vzp-1pbp-cluster/oci
     lastEvidenceKubeContext: kind-helm-expt-parity-certmanager-mq153vzp-1pbp
+    capabilityProfileEvidence: "kind-kubernetes-1.35 selectableFields witness"
     liveEvidenceTTL: 30d
     storageAssumptions:
       - "Use the chart's recorded storage behavior for the supported scope unless a narrower scope is separately reviewed."
@@ -31,11 +32,13 @@ spec:
       - recorded startup API check lifecycle route using post-apply server dry-run and observation, not direct Helm hook execution
       - recorded mutable-image exception for the declared public controller support scope
       - recorded resource-policy acceptance for the declared public controller support scope
+      - Kubernetes 1.35 selectableFields capability-profile witness for the rendered cert-manager CRDs
     excludes:
       - "private values overlays, wrapper charts, and populated extension slots unless separately reviewed"
       - "the default no-CRD target-prerequisite posture unless separately reviewed for a specific target"
       - "Issuer, ClusterIssuer, Certificate, CertificateRequest, ACME account, ingress-shim, Gateway API, and provider credential workflows"
       - "digest-pinned, resource-hardened, or provider-specific production bases unless separately reviewed"
+      - "Kubernetes targets that drop selectableFields unless a profile-specific base or separate route is reviewed"
       - "non-vanilla Kubernetes distributions unless separately reviewed"
       - "other delivery controllers or target scopes unless separately reviewed"
   decisions:
@@ -47,7 +50,7 @@ spec:
       detail: "missing CPU and memory requests/limits are accepted for the declared public cub-lk controller proof scope; stricter scopes should create a resource-policy base or overlay"
     lifecycleDecision:
       state: "lifecycle-observed-for-proof-scope"
-      detail: "the startup API check is represented by post-apply server dry-run and lifecycle observation; crds-enabled evidence proves CRDs Established, controller Deployments ready, webhook caBundle populated, and ConfigHub OCI/Argo runtime health"
+      detail: "the startup API check is represented by post-apply server dry-run and lifecycle observation; crds-enabled evidence proves CRDs Established, controller Deployments ready, webhook caBundle populated, ConfigHub OCI/Argo runtime health, and selectableFields preservation on the kind-kubernetes-1.35 capability profile"
     targetFactDecision:
       state: "no-unresolved-target-prerequisite-in-candidate-base"
       detail: "the crds-enabled base renders cert-manager CRDs and has no unresolved target prerequisite in the supported scope"
@@ -65,6 +68,8 @@ spec:
       claim: "The selected live Helm-vs-ConfigHub comparison receipt exists for the supported base."
     - path: "data/production-support-decisions/jetstack-cert-manager/fresh-target-evidence-2026-06-05.yaml"
       claim: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope."
+    - path: "data/capability-profile-witnesses/selectablefields/receipts/jetstack-cert-manager-crds-enabled-kind-1.35.yaml"
+      claim: "The rendered cert-manager CRDs preserved selectableFields after server-side apply on the kind-kubernetes-1.35 capability profile."
     - path: "data/image-digest-workdown/receipts/jetstack-cert-manager/crds-enabled/image-digest-resolution.yaml"
       claim: "The rendered mutable image references for the supported base have registry digest-resolution evidence."
     - path: "data/production-support-decisions/jetstack-cert-manager/image-policy-decision.yaml"

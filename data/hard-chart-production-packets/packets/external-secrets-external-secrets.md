@@ -8,11 +8,11 @@ is a navigation surface over existing evidence, not a new support decision.
 | Field | Value |
 | --- | --- |
 | Supported base | `default` |
-| Support decision | `draft` |
+| Support decision | `supported` |
 | Production disposition | `production-review-ready` |
 | Target scope | cub-lk-kind-vanilla; namespace=external-secrets; delivery=confighub-oci; controller=argo |
 | Delivery path | `confighub-oci` |
-| Evidence count | 18 |
+| Evidence count | 19 |
 | Strongest user-facing evidence | live-helm-vs-confighub-parity |
 | Live summary | local:1/2 gitops:1/2 live-parity:1/2 two-cluster:2/2 |
 
@@ -26,7 +26,7 @@ Use default for the controller install with the recorded separated-Secret prereq
 
 ## What Remains Before Broader Production Use
 
-Run a Kubernetes 1.31+ capability-profile witness, or create a profile-specific base, before final production support.
+Keep the target-scoped evidence fresh before using this supported scope as a production-support example; create separate provider-specific, credential, resource-hardened, or profile-specific bases for real customer External Secrets workloads.
 
 ## Bases
 
@@ -52,7 +52,7 @@ Run a Kubernetes 1.31+ capability-profile witness, or create a profile-specific 
 | Scan policy | `resource-policy-accepted-for-target-scope` |
 | Lifecycle policy | `lifecycle-observed-for-proof-scope` |
 | Target facts | `explicit-separated-secret-prerequisite-rehearsed-for-target-scope` |
-| Live evidence | `fresh-target-evidence-passed-with-prestaged-secret-prerequisite` |
+| Live evidence | `fresh-target-evidence-passed` |
 
 ## Evidence Links
 
