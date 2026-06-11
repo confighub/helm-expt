@@ -1,0 +1,26 @@
+[
+  {
+    "name": "kyverno-admission-controller",
+    "replicas": 0,
+    "readyReplicas": 0,
+    "availableReplicas": 0
+  },
+  {
+    "name": "kyverno-background-controller",
+    "replicas": 0,
+    "readyReplicas": 0,
+    "availableReplicas": 0
+  },
+  {
+    "name": "kyverno-cleanup-controller",
+    "replicas": 0,
+    "readyReplicas": 0,
+    "availableReplicas": 0
+  },
+  {
+    "name": "kyverno-reports-controller",
+    "replicas": 0,
+    "readyReplicas": 0,
+    "availableReplicas": 0
+  }
+]

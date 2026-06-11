@@ -1,0 +1,1 @@
+no Kyverno webhook configurations to delete

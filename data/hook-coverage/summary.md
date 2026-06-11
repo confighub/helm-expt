@@ -31,8 +31,7 @@ maintained rows outside source top100 hooks: 2
 | Status | Rows |
 | --- | ---: |
 | `candidate-route-plan` | 8 |
-| `maintained-observed` | 2 |
-| `maintained-partial` | 1 |
+| `maintained-observed` | 3 |
 
 ## Source Top-100 Rows
 
@@ -43,7 +42,7 @@ maintained rows outside source top100 hooks: 2
 | 13 | `gitlab/gitlab` | 10.0.0 | `candidate-route-plan` | data/hook-route-candidates/candidates.csv;data/hook-route-candidates/gitlab-gitlab.yaml | treat as a serious-chart review; choose a supported base; confirm whether the vendored hook renders; then write maintained route receipt or hook-inert fact |
 | 23 | `bitnami/kafka` | 32.4.3 | `candidate-route-plan` | data/hook-route-candidates/candidates.csv;data/hook-route-candidates/bitnami-kafka.yaml | create recipe with provisioning-off default and provisioning-enabled base; route Job as managed action with receipt; share route shape across the bitnami pattern |
 | 32 | `bitnami/minio` | 17.0.21 | `candidate-route-plan` | data/hook-route-candidates/candidates.csv;data/hook-route-candidates/bitnami-minio.yaml | create recipe with provisioning-off default and provisioning-enabled base; reuse the shared route receipt shape; then admit |
-| 38 | `kyverno/kyverno` | 3.8.1 | `maintained-partial` | data/hook-lifecycle/maintained-hook-queue.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml | run remaining lifecycle route and commit additional observation or execution receipt |
+| 38 | `kyverno/kyverno` | 3.8.1 | `maintained-observed` | data/hook-lifecycle/maintained-hook-queue.csv;data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml | keep receipt fresh when chart, base, or cluster version changes |
 | 42 | `fluent/fluent-bit` | 0.57.6 | `maintained-observed` | data/hook-lifecycle/maintained-hook-queue.csv;data/hook-lifecycle/receipts/fluent-fluent-bit/default/latest.yaml | keep receipt fresh when chart, base, or cluster version changes |
 | 43 | `datadog/datadog` | 3.214.0 | `candidate-route-plan` | data/hook-route-candidates/candidates.csv;data/hook-route-candidates/datadog-datadog.yaml | split normal and GKE Autopilot target scopes; route allowlist hooks as preflight and migration Job as lifecycle action with receipt |
 | 44 | `bitnami/thanos` | 17.3.1 | `candidate-route-plan` | data/hook-route-candidates/candidates.csv;data/hook-route-candidates/bitnami-thanos.yaml | create Thanos recipe; distinguish provisioning-off and provisioning-enabled bases; reuse MinIO provisioning receipt shape when the hook renders |

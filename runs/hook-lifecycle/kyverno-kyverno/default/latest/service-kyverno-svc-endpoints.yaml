@@ -2,8 +2,8 @@ apiVersion: v1
 kind: Endpoints
 metadata:
   annotations:
-    endpoints.kubernetes.io/last-change-trigger-time: "2026-06-10T21:08:43Z"
-  creationTimestamp: "2026-06-10T21:08:00Z"
+    endpoints.kubernetes.io/last-change-trigger-time: "2026-06-11T04:25:44Z"
+  creationTimestamp: "2026-06-11T04:25:02Z"
   labels:
     app.kubernetes.io/component: admission-controller
     app.kubernetes.io/instance: kyverno
@@ -15,17 +15,17 @@ metadata:
     helm.sh/chart: kyverno-3.8.1
   name: kyverno-svc
   namespace: default
-  resourceVersion: "870"
-  uid: 2fc00f2e-71e7-4a6e-a479-11310b2d08b8
+  resourceVersion: "872"
+  uid: 54fdbfc0-c3cc-4fbc-8a4f-2fc563ff73b0
 subsets:
 - addresses:
-  - ip: 10.244.0.6
-    nodeName: hx-hook-kyverno-8k81ll-control-plane
+  - ip: 10.244.0.7
+    nodeName: hx-hook-kyverno-8zu40j-control-plane
     targetRef:
       kind: Pod
-      name: kyverno-admission-controller-798db6b999-8tnsn
+      name: kyverno-admission-controller-798db6b999-5cgfm
       namespace: default
-      uid: 782676e7-4059-4359-8b96-391d96aec1c7
+      uid: 91feda41-6128-4b02-b66a-dc2ca0b631bd
   ports:
   - appProtocol: https
     name: https

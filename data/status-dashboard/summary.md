@@ -101,11 +101,11 @@ Which detailed CSV should I open next?
 | hooks | hook-like candidate rows outside source inventory | 1/9 | partial | [data/hook-route-candidates/candidates.csv](../../data/hook-route-candidates/candidates.csv) |
 | hooks | hook candidate route work orders | 66/66 | partial | [data/hook-route-candidates/work-orders.csv](../../data/hook-route-candidates/work-orders.csv) |
 | hooks | hook route receipts present | 5/5 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
-| hooks | hook lifecycle observations present | 4/5 | gap | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
-| hooks | hook partial lifecycle observations present | 1/5 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
+| hooks | hook lifecycle observations present | 5/5 | good | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
+| hooks | hook partial lifecycle observations present | 0/5 | good | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
 | hooks | hook/lifecycle boundary rows | 9/9 | partial | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
 | hooks | hook queue rows still needing route receipts | 0/5 | good | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
-| hooks | hook routes still needing execution or observation | 1/5 | gap | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
+| hooks | hook routes still needing execution or observation | 0/5 | good | [data/lifecycle-boundary/lifecycle-boundary.csv](../../data/lifecycle-boundary/lifecycle-boundary.csv) |
 | hooks | related lifecycle observation receipts passing | 4/4 | good | [data/lifecycle-observations/cert-manager-eso/summary.csv](../../data/lifecycle-observations/cert-manager-eso/summary.csv) |
 | apiservice | top100 source APIService charts | 5/100 | partial | [data/apiservice-coverage/top100-apiservice-coverage.csv](../../data/apiservice-coverage/top100-apiservice-coverage.csv) |
 | apiservice | APIService rows with object/workload observation | 1/5 | partial | [data/apiservice-coverage/top100-apiservice-coverage.csv](../../data/apiservice-coverage/top100-apiservice-coverage.csv) |
@@ -199,8 +199,8 @@ lifecycle route, target fit, or operating policy.
 | Hook candidate work orders | 66 | Assign base rendering, dependency closure, target preflight, GitOps mapping, receipt, and observation tasks from the generated work-order list. |
 | Hook candidates not yet maintained | 8 | Promote each candidate into a maintained lifecycle receipt, runtime observation path, or explicit blocker before support claims. |
 | Hook route selected, observation pending | 0 | Run the selected lifecycle path and commit execution or observation receipts. |
-| Hook install lifecycle observed, remaining phase pending | 1 | Run the remaining lifecycle phase, such as upgrade, and commit the execution or observation receipt. |
-| Hook-bearing rows observed | 4 | Keep receipt freshness current when the supported target changes. |
+| Hook install lifecycle observed, remaining phase pending | 0 | Run the remaining lifecycle phase, such as upgrade, and commit the execution or observation receipt. |
+| Hook-bearing rows observed | 5 | Keep receipt freshness current when the supported target changes. |
 | Related CRD/webhook/controller observations | 4 | Use these as examples for hook-like lifecycle proof, not as universal hook support. |
 
 Spreadsheet forms: [next-work-queues.csv](next-work-queues.csv) and
@@ -479,7 +479,7 @@ NGINX-style extension-slot report.
 | Hook chart | Selected base | Current disposition | Next action |
 | --- | --- | --- | --- |
 | prometheus-community/kube-prometheus-stack@85.3.3 | default | lifecycle-observed | keep receipt fresh when chart, base, or cluster version changes |
-| kyverno/kyverno@3.8.1 | default | install-lifecycle-observed-upgrade-pending | run remaining lifecycle route and commit additional observation or execution receipt |
+| kyverno/kyverno@3.8.1 | default | lifecycle-observed | keep receipt fresh when chart, base, or cluster version changes |
 | fluent/fluent-bit@0.57.6 | default | lifecycle-observed | keep receipt fresh when chart, base, or cluster version changes |
 | projectcalico/tigera-operator@v3.32.0 | default | lifecycle-observed | keep receipt fresh when chart, base, or cluster version changes |
 | gatekeeper/gatekeeper@3.22.2 | default | lifecycle-observed | keep receipt fresh when chart, base, or cluster version changes |

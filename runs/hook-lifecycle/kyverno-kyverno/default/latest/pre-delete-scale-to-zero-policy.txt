@@ -1,0 +1,4 @@
+deployment.apps/kyverno-admission-controller scaled
+deployment.apps/kyverno-background-controller scaled
+deployment.apps/kyverno-cleanup-controller scaled
+deployment.apps/kyverno-reports-controller scaled

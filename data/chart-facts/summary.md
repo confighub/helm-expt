@@ -21,8 +21,8 @@ charts with remote dependency risk surfaced: 18
 non-exact dependency rows frozen to lock:    9
 remote-risk rows missing dependency provenance: 0
 current recipe rows with Helm hooks:         5
-hook rows observed:                          3
-hook rows partially observed:                2
+hook rows observed:                          5
+hook rows partially observed:                0
 hook rows route-selected only:               0
 hook rows source-reviewed but not maintained:0
 hook-like reviewed rows without hook annotation: 0

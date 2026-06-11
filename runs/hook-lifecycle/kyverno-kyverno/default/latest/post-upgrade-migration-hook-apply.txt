@@ -1,0 +1,4 @@
+serviceaccount/kyverno-migrate-resources created
+clusterrole.rbac.authorization.k8s.io/kyverno:migrate-resources created
+clusterrolebinding.rbac.authorization.k8s.io/kyverno:migrate-resources created
+job.batch/kyverno-migrate-resources created

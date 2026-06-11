@@ -496,9 +496,9 @@
     "not_yet_enabled": "— (no open gap: recommended capabilities built or n/a; quirks modeled — Level 2)",
     "buildable_not_yet_run": "existing-secret (buildable — not yet run)",
     "dependency_lock": "empty closure; no dependency provenance",
-    "hook_status": "partially observed: install-lifecycle-observed-upgrade-pending",
+    "hook_status": "observed: lifecycle-observed",
     "hook_route_evidence": "data/hook-lifecycle/receipts/gatekeeper-gatekeeper/default/latest.yaml",
-    "hook_route_next_action": "run remaining lifecycle route and commit additional observation or execution receipt",
+    "hook_route_next_action": "keep receipt fresh when chart, base, or cluster version changes",
     "remote_dependency_risk": "—",
     "dependency_range_policy": "not-needed",
     "dependency_refresh_survival": "—"
@@ -772,9 +772,9 @@
     "not_yet_enabled": "existing-secret (chart ships no Secret toggle)",
     "buildable_not_yet_run": "—",
     "dependency_lock": "locked 5 deps; Chart.lock digest",
-    "hook_status": "partially observed: install-lifecycle-observed-upgrade-pending",
+    "hook_status": "observed: lifecycle-observed",
     "hook_route_evidence": "data/hook-lifecycle/receipts/kyverno-kyverno/default/latest.yaml",
-    "hook_route_next_action": "run remaining lifecycle route and commit additional observation or execution receipt",
+    "hook_route_next_action": "keep receipt fresh when chart, base, or cluster version changes",
     "remote_dependency_risk": "5 remote repos; 1 non-exact constraints; vendored subcharts",
     "dependency_range_policy": "freeze-to-chart-lock",
     "dependency_refresh_survival": "not-in-refresh-survival-surface"
