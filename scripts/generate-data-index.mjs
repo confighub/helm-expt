@@ -52,6 +52,7 @@ function readme(rows) {
   const quickRoutes = [
     ["I want the current headline status.", "data/status-dashboard/summary.md"],
     ["I want to know if I can use a specific chart.", "data/chart-use-guide/summary.md; data/chart-use-guide/chart-use-guide.csv"],
+    ["I want to know what outcomes are actually promised and proven.", "data/outcome-evidence-contract/summary.md; data/outcome-evidence-contract/outcomes.csv"],
     ["I want the next work queues.", "data/status-dashboard/next-work-queues.csv; data/status-dashboard/active-proof-queue.csv"],
     ["I want to know which catalog base to try first.", "data/top20-base-readiness/start-here.md"],
     ["I want to know whether any top-20 chart/base is easy, partial, blocked, or watch.", "data/top20-base-readiness/summary.md"],
@@ -281,6 +282,7 @@ function audienceFor(path) {
   if (path === "data/csv-index.csv") return "user/front-door";
   if (path.startsWith("data/chart-use-guide/")) return "user/front-door";
   if (path.startsWith("data/status-dashboard/")) return "user/front-door";
+  if (path.startsWith("data/outcome-evidence-contract/")) return "user/front-door";
   if (path.startsWith("data/top20-base-readiness/")) return "user/front-door";
   if (path.startsWith("data/outcome-coverage/")) return "user/front-door";
   if (path.startsWith("data/claims-register/")) return "user/front-door";
@@ -316,6 +318,7 @@ function roleFor(path) {
   if (path === "data/status-dashboard/next-work-queues.csv") return "machine-readable next work queues: section, item, count, action, source table, and detail";
   if (path === "data/status-dashboard/active-proof-queue.csv") return "current non-pass live parity rows with their next step, support artifact, receipt, and rerun command";
   if (path === "data/status-dashboard/top20-status.csv") return "one row per top-20 catalog chart: recommended base, setup command, base-readiness mix, evidence strength, proof lanes, feature summary, gaps, next action";
+  if (path === "data/outcome-evidence-contract/outcomes.csv") return "one row per user-visible outcome: question, status, evidence, verifier command, scope, and next action";
   if (path === "data/live-e2e/cub-scout-watchlist.csv") return "strict cub-scout live witness gaps where ordinary live checks pass but rendered/live parity needs a target capability or lifecycle decision";
   if (path === "data/top20-base-readiness/base-readiness.csv") return "one row per top-20 base variant: user readiness, proof status, target facts, command, and next action";
   if (path === "data/outcome-coverage/chart-outcomes.csv") return "one row per chart: model support, lane counts, gaps";

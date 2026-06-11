@@ -21,6 +21,7 @@ const imageDigestSubjectsPath = join(repoRoot, "data", "image-digest-workdown", 
 const nextTenGapsPath = join(repoRoot, "data", "next-ten-waves", "gap-review-wave.csv");
 const statusDashboardPath = join(repoRoot, "data", "status-dashboard", "status.csv");
 const activeProofQueuePath = join(repoRoot, "data", "status-dashboard", "active-proof-queue.csv");
+const outcomeEvidenceContractPath = join(repoRoot, "data", "outcome-evidence-contract", "summary.md");
 const baseReadinessPath = join(repoRoot, "data", "top20-base-readiness", "base-readiness.csv");
 const extensionSlotsPath = join(repoRoot, "data", "extension-slots", "extension-slots.csv");
 const chartUseGuidePath = join(repoRoot, "data", "chart-use-guide", "chart-use-guide.csv");
@@ -90,6 +91,7 @@ function buildSite() {
   const nextTenGaps = parseCsv(readFileSync(nextTenGapsPath, "utf8"));
   const statusMetrics = parseCsv(readFileSync(statusDashboardPath, "utf8"));
   const activeProofQueue = parseCsv(readFileSync(activeProofQueuePath, "utf8"));
+  check(existsSync(outcomeEvidenceContractPath), "data/outcome-evidence-contract/summary.md is missing; run npm run outcomes:contract");
   const baseReadiness = parseCsv(readFileSync(baseReadinessPath, "utf8"));
   const extensionSlots = parseCsv(readFileSync(extensionSlotsPath, "utf8"));
   const chartUseGuide = parseCsv(readFileSync(chartUseGuidePath, "utf8"));
@@ -163,6 +165,7 @@ function buildSite() {
       nextTenGaps: "data/next-ten-waves/gap-review-wave.csv",
       statusDashboard: "data/status-dashboard/status.csv",
       activeProofQueue: "data/status-dashboard/active-proof-queue.csv",
+      outcomeEvidenceContract: "data/outcome-evidence-contract/summary.md",
       baseReadiness: "data/top20-base-readiness/base-readiness.csv",
       extensionSlots: "data/extension-slots/extension-slots.csv",
       chartUseGuide: "data/chart-use-guide/chart-use-guide.csv",
@@ -527,6 +530,7 @@ function html(catalog) {
       <h2 id="trust-surfaces">Trust Surfaces</h2>
       <p>The catalog is designed to show non-pass evidence instead of hiding it. A strict live witness block must be routed through the watchlist or a named normalization rule before anyone claims parity for that row.</p>
       <div class="grid">
+        <div class="card"><h3>Outcome evidence</h3><p><a href="../data/outcome-evidence-contract/summary.md">Open the outcome contract</a>.</p></div>
         <div class="card"><h3>What we refuse to claim</h3><p><a href="../docs/user/what-we-refuse-to-claim.md">Read the claim boundary</a>.</p></div>
         <div class="card"><h3>Why Synced is not working</h3><p><a href="../docs/user/why-synced-is-not-working.md">Read the false-green example</a>.</p></div>
         <div class="card"><h3>Why this does not collapse</h3><p><a href="../docs/user/why-this-does-not-collapse.md">Read the hook, quirk, and config-volume answer</a>.</p></div>
@@ -723,6 +727,7 @@ function html(catalog) {
         <li><a href="../data/runtime-gitops/summary.md">Runtime/GitOps first wave</a></li>
         <li><a href="../data/image-digest-workdown/summary.md">Image digest workdown</a></li>
         <li><a href="../data/scan-disposition-workdown/summary.md">Scan disposition workdown</a></li>
+        <li><a href="../data/outcome-evidence-contract/summary.md">Outcome evidence contract</a></li>
         <li><a href="../data/hard-chart-production-packets/summary.md">Hard-chart production packets</a></li>
         <li><a href="../data/next-ten-waves/summary.md">Next-ten execution waves</a></li>
         <li><a href="../data/chart-use-guide/summary.md">Chart use guide</a></li>
@@ -1645,6 +1650,7 @@ Data source:
 - \`data/next-ten-waves/gap-review-wave.csv\`
 - \`data/status-dashboard/status.csv\`
 - \`data/status-dashboard/active-proof-queue.csv\`
+- \`data/outcome-evidence-contract/summary.md\`
 - \`data/top20-base-readiness/base-readiness.csv\`
 - \`data/extension-slots/extension-slots.csv\`
 - \`data/top100-readiness/readiness.csv\`
