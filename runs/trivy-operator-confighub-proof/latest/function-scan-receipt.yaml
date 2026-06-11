@@ -1,0 +1,175 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "trivy-operator-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-trivy-operator-confighub-proof"
+    selector: "Labels.Proof = 'trivy-operator-confighub-proof'"
+  subject:
+    chart: "aqua/trivy-operator"
+    chartVersion: "0.32.1"
+    packagePath: "packages/aqua/trivy-operator/0.32.1"
+    variant: "default"
+    configHubUnitCount: 32
+  unitRevisionBindings:
+    -
+      slug: "clustercompliancereport-k8s-cis-1-23"
+      headRevisionNum: 2
+      dataHash: "a86e3832261c289257b5ca6c7425553c9562035983bb6925a4905daa338289be"
+    -
+      slug: "clustercompliancereport-k8s-nsa-1-0"
+      headRevisionNum: 2
+      dataHash: "eb5de08eee433a80e790c45c29e8bc21ceaa80183b8e2a4462d7d36a5c149bee"
+    -
+      slug: "clustercompliancereport-k8s-pss-baseline-0-1"
+      headRevisionNum: 2
+      dataHash: "2c1f99c230da9e8231a26aa6cee82df774d2aea49bf785b926af2f88030b5f8c"
+    -
+      slug: "clustercompliancereport-k8s-pss-restricted-0-1"
+      headRevisionNum: 2
+      dataHash: "d04f45a888a2171d3c16042e36ec9ccc423a201c21c1ea3e4767c692ec689e3d"
+    -
+      slug: "clusterrole-aggregate-exposed-secret-reports-view"
+      headRevisionNum: 2
+      dataHash: "ba5d59a64489dda1e2f26abad7243b8a65019414edaf3e1b8e9e39ff5cf3648c"
+    -
+      slug: "configmap-default-trivy-operator-trivy-config"
+      headRevisionNum: 1
+      dataHash: "99765728a658c4df2e2202bada870f45aa6858103188419c85ff4137bf0eee50"
+    -
+      slug: "customresourcedefinition-clustercompliancereports-aquasecurity-github-io"
+      headRevisionNum: 2
+      dataHash: "bc4eb1ca59c8f696773f8fb9b6861f7ccfd989e03692e9c21f75239ee4ff793f"
+    -
+      slug: "customresourcedefinition-clusterconfigauditreports-aquasecurity-github-io"
+      headRevisionNum: 2
+      dataHash: "e84e3f9a5776f1fdcc83e2451ab44cf64905b4084cb90f662cad3102c4a49d50"
+    -
+      slug: "customresourcedefinition-clusterinfraassessmentreports-aquasecurity-github-io"
+      headRevisionNum: 2
+      dataHash: "20af7cad9c975731e116ceba45baf72d5f8d098de8d438edfe0a60c8b07b63b5"
+    -
+      slug: "customresourcedefinition-clusterrbacassessmentreports-aquasecurity-github-io"
+      headRevisionNum: 2
+      dataHash: "768a40ae8a1dbbfbe78d980e4b3fdb5ff739f72d1a414b1ae9b22237cffa36b2"
+    -
+      slug: "customresourcedefinition-clustervulnerabilityreports-aquasecurity-github-io"
+      headRevisionNum: 2
+      dataHash: "fe26b6372bcf5b2e55e0c9e86cbe63743bc0bb64733e8d8e8ce671c332538319"
+    -
+      slug: "customresourcedefinition-configauditreports-aquasecurity-github-io"
+      headRevisionNum: 2
+      dataHash: "89238d4bb5bc11e85ec12a342be676542a74eff5545ef908f723983861266e6f"
+    -
+      slug: "customresourcedefinition-exposedsecretreports-aquasecurity-github-io"
+      headRevisionNum: 2
+      dataHash: "7fa4f2d795c51793ce31902254ad6d6324c4b7774918c5f8aaa1d54901c59b26"
+    -
+      slug: "customresourcedefinition-infraassessmentreports-aquasecurity-github-io"
+      headRevisionNum: 2
+      dataHash: "9d57b29d91a7ff677e2bcdb1bf05c446196f469012959c63d0fc1dcdb586da74"
+    -
+      slug: "customresourcedefinition-rbacassessmentreports-aquasecurity-github-io"
+      headRevisionNum: 2
+      dataHash: "705e222f50214f8abb515769a67381b480f81c59d15a37fa39400153090dd30a"
+    -
+      slug: "customresourcedefinition-sbomreports-aquasecurity-github-io"
+      headRevisionNum: 2
+      dataHash: "931533fc431c48df8695c415663a023d187480fc2a5aa578d4deb1d77e334ba4"
+    -
+      slug: "customresourcedefinition-vulnerabilityreports-aquasecurity-github-io"
+      headRevisionNum: 2
+      dataHash: "8af1e0d6753f0ddfa3bca0763887683686ef1936c4eec2e8ff7d66ea75426f9b"
+    -
+      slug: "deployment-default-trivy-operator"
+      headRevisionNum: 2
+      dataHash: "3b13a353a545780cd8d0b68f01b4814bc24595dc9681b547ee156bd924eca634"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "clusterrole-aggregate-config-audit-reports-view"
+      headRevisionNum: 2
+      dataHash: "1255189b51ab772cd39a3bf3c7c025da67f2208bd26a9da765e5d6d97eba061a"
+    -
+      slug: "clusterrole-aggregate-vulnerability-reports-view"
+      headRevisionNum: 2
+      dataHash: "12b010cfb07cabc65600e30876a9f0898805797d86169b1b69364caa24fedcd4"
+    -
+      slug: "clusterrole-trivy-operator"
+      headRevisionNum: 2
+      dataHash: "ed7b758ef94c9f09dda28e0a1ac34a9defd2d245845ec6fc2a5cdaf100847724"
+    -
+      slug: "customresourcedefinition-clustersbomreports-aquasecurity-github-io"
+      headRevisionNum: 2
+      dataHash: "d3c37ccca06b5df90601c8b675cac2db9718aa8881139d1896c0ab269f055ec1"
+    -
+      slug: "role-default-trivy-operator"
+      headRevisionNum: 2
+      dataHash: "a85a0b95c8750d749da6fb41307ded9229344b8cd4c91b16d02f1199a0a3bf5a"
+    -
+      slug: "role-default-trivy-operator-leader-election"
+      headRevisionNum: 2
+      dataHash: "582d0290109d647846b2ab6e482547b5ea265c72ba3f2b670e589ad5ea21ecb3"
+    -
+      slug: "clusterrolebinding-trivy-operator"
+      headRevisionNum: 2
+      dataHash: "60d4c5d753f79e94c2ba7e0a8d4e597988b5882a31f8df5946f300f61583983f"
+    -
+      slug: "configmap-default-trivy-operator"
+      headRevisionNum: 1
+      dataHash: "84ea5faa6eaa0005b93009a71b4c784dcbd2f11b6abe1395c8289813dc1d7bda"
+    -
+      slug: "configmap-default-trivy-operator-config"
+      headRevisionNum: 1
+      dataHash: "791523fb9cf05caf7acb98a1cb5bdabc26bb6e83e9e7f0edca45749b21d209b0"
+    -
+      slug: "rolebinding-default-trivy-operator"
+      headRevisionNum: 2
+      dataHash: "d4c440e1dd4d5226edfa7ab133329a40baf8e41ed9dfb9dce5b55a670b3880d4"
+    -
+      slug: "rolebinding-default-trivy-operator-leader-election"
+      headRevisionNum: 2
+      dataHash: "47a0493fe39dbe9b98e462a652bc6f97551db7711c849bf33829e361efb51d0d"
+    -
+      slug: "service-default-trivy-operator"
+      headRevisionNum: 2
+      dataHash: "0ee542c6e3c485362f4a598762cc9ccf33f78888d268ef64c102d4bbf0a52b13"
+    -
+      slug: "serviceaccount-default-trivy-operator"
+      headRevisionNum: 1
+      dataHash: "f32a7fae3d6abb649ebf56e4c2f51bb3446aa19786a3912446595f94aa8115c5"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 32
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 32
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 32
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."

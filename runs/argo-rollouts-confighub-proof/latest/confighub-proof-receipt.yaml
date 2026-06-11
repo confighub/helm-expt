@@ -1,0 +1,83 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubProofReceipt"
+metadata:
+  name: "argo-rollouts-confighub-proof-20260527"
+spec:
+  run:
+    date: "2026-05-27"
+    context:
+      organization: "Kubara"
+      server: "https://hub.confighub.com"
+      cubClientVersion: "Version:    dev"
+      cubServerVersion: "v0.1.79"
+  package:
+    path: "packages/argo-cd/argo-rollouts/2.40.9"
+    name: "argo-cd-argo-rollouts"
+    chart: "argo-cd/argo-rollouts"
+    chartVersion: "2.40.9"
+    bases:
+      - "default"
+      - "no-crds"
+    selectedBase: "default"
+    docVerified: true
+    targetFactRequirements:
+      []
+  render:
+    command: "cub installer setup --pull packages/argo-cd/argo-rollouts/2.40.9 --base default --work-dir .tmp/confighub-proof/argo-rollouts-default --non-interactive --namespace default"
+    result: "pass"
+    manifestCount: 15
+    separatedSecretCount: 0
+    facts:
+      {}
+  rerender:
+    command: "cub installer render --work-dir .tmp/confighub-proof/argo-rollouts-default"
+    result: "pass"
+    manifestCount: 15
+    separatedSecretCount: 0
+  deterministicPackage:
+    command: "cub installer package packages/argo-cd/argo-rollouts/2.40.9 -o .tmp/confighub-proof/argo-rollouts-archives/argo-rollouts-a.tgz"
+    sha256: "ad3399a8f53042aae44ace370e703813511b22602a78a8987ca33d7c0c460d39"
+    byteIdenticalAcrossTwoLocalBundles: true
+  vet:
+    command: "cub installer vet --work-dir .tmp/confighub-proof/argo-rollouts-default"
+    result: "pass"
+    note: "Package declares no validators (spec.validators is empty)."
+  upload:
+    command: "cub installer upload --work-dir .tmp/confighub-proof/argo-rollouts-default --space helm-argo-rollouts-confighub-proof --component ArgoRollouts --layer App --environment Demo --owner ConfigHubHelm --variant default --unit-label Component=ArgoRollouts --unit-label HelmChart=argo-cd-argo-rollouts --unit-label HelmChartVersion=2.40.9 --unit-label Variant=default --unit-label Proof=argo-rollouts-confighub-proof --retry"
+    result: "pass"
+    workaround: "CUB_CONFIG=/Users/alexis/.confighub/config.yaml"
+    space: "helm-argo-rollouts-confighub-proof"
+    unitCount: 16
+    kubernetesUnitCount: 15
+    installerRecordUnitCount: 1
+    separatedSecretsNotUploaded:
+      []
+  plan:
+    preUpload:
+      command: "cub installer plan --work-dir .tmp/confighub-proof/argo-rollouts-default"
+      result: "expected-missing-upload-state"
+    command: "cub installer plan --work-dir .tmp/confighub-proof/argo-rollouts-default"
+    result: "pass"
+    summary: "No changes.\nImages in helm-argo-rollouts-confighub-proof (post-render):\n      Deployment/argo-rollouts [argo-rollouts] quay.io/argoproj/argo-rollouts:v1.9.0"
+  serverSideVariant:
+    command: "cub variant create staging helm-argo-rollouts-confighub-proof --environment Staging --region local --space-name-pattern template:{{.Labels.Component}}-{{.Labels.Variant}} --allow-exists --wait --timeout 10m"
+    result: "pass"
+    upstreamSpace: "helm-argo-rollouts-confighub-proof"
+    downstreamSpace: "ArgoRollouts-staging"
+    clonedUnitCount: 16
+  review:
+    unitList: "pass"
+    unitData: "pass"
+    revisionList: "pass"
+    revisionDiff: "pass"
+    representativeUnit: "deployment-default-argo-rollouts"
+  retention:
+    liveSpacesDeletedAfterProof: true
+    reason: "Kubara demo org has a finite Link quota; receipts and command logs preserve the proof after the live spaces are removed."
+    spaces:
+      - "helm-argo-rollouts-confighub-proof"
+      - "ArgoRollouts-staging"
+  observedFriction:
+    - "cub installer upload needs explicit CUB_CONFIG in this local setup (/Users/alexis/.confighub/config.yaml)."
+    - "pre-upload cub installer plan is expected to fail until upload state exists."
+    - "dry-run apply is blocked until a target is attached, which is the correct safe boundary."

@@ -1,0 +1,107 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "argo-rollouts-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-argo-rollouts-confighub-proof"
+    selector: "Labels.Proof = 'argo-rollouts-confighub-proof'"
+  subject:
+    chart: "argo-cd/argo-rollouts"
+    chartVersion: "2.40.9"
+    packagePath: "packages/argo-cd/argo-rollouts/2.40.9"
+    variant: "default"
+    configHubUnitCount: 15
+  unitRevisionBindings:
+    -
+      slug: "clusterrole-argo-rollouts"
+      headRevisionNum: 2
+      dataHash: "4c2e817a45ed4c7aa528175354f449a06f3a84b0cfb97573202e928b63252b83"
+    -
+      slug: "clusterrole-argo-rollouts-aggregate-to-admin"
+      headRevisionNum: 2
+      dataHash: "add9c1ba8dd9ca79d700270dab9285d9a072ba51a977973521926e028396ac31"
+    -
+      slug: "clusterrole-argo-rollouts-aggregate-to-edit"
+      headRevisionNum: 2
+      dataHash: "47d35a2ad59d695652c53dad05b290012e6ef6e8037dc300eafda418bcac3070"
+    -
+      slug: "clusterrole-argo-rollouts-aggregate-to-view"
+      headRevisionNum: 2
+      dataHash: "5e6e7592c505b4d0b49d1a1d5f67da3f5a913b452dd1a55e2fbffff9064175c5"
+    -
+      slug: "clusterrolebinding-argo-rollouts"
+      headRevisionNum: 2
+      dataHash: "51413f50e0078cfd47e4a5dc3418a20ba19e0f03d0b630c87839addfa7d7d53e"
+    -
+      slug: "configmap-default-argo-rollouts-config"
+      headRevisionNum: 1
+      dataHash: "220fed864a81ad9b4d528b607f67e33a69b29a74bd1f9e3c734ddb698140b140"
+    -
+      slug: "configmap-default-argo-rollouts-notification-configmap"
+      headRevisionNum: 1
+      dataHash: "843d73075556e89da2b08d195ff92265f7a2e2d51961c74fd1a5a5e4215242f1"
+    -
+      slug: "customresourcedefinition-analysisruns-argoproj-io"
+      headRevisionNum: 2
+      dataHash: "38333bc0e6c7619da6d5ccfb82f260875dd5ab5811363a1183d0a9150c987289"
+    -
+      slug: "customresourcedefinition-analysistemplates-argoproj-io"
+      headRevisionNum: 2
+      dataHash: "5593c6230d3881f2ecf5ba0b1385f94547bd95577366035b984165ba3fa16550"
+    -
+      slug: "customresourcedefinition-clusteranalysistemplates-argoproj-io"
+      headRevisionNum: 2
+      dataHash: "4cc9cf001bcb335e6cf5ca7df563d8d032ffddaf5d02db1500777c609557d542"
+    -
+      slug: "customresourcedefinition-experiments-argoproj-io"
+      headRevisionNum: 2
+      dataHash: "d67cba24cc1e7065c9195d2c2ac7d5f2bb51ddb732a635aa865fb6b297e40c88"
+    -
+      slug: "customresourcedefinition-rollouts-argoproj-io"
+      headRevisionNum: 2
+      dataHash: "afd4c903aad062367eea3165d4577bdde015554c873aeb03d78fd486f7469408"
+    -
+      slug: "deployment-default-argo-rollouts"
+      headRevisionNum: 2
+      dataHash: "b86b5f0838abf24aa81ad0c2818a89b3dadb4a49e886ac5facd6f3be4a96583a"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "serviceaccount-default-argo-rollouts"
+      headRevisionNum: 1
+      dataHash: "c91c7759747dfef0a2726369509f5bd0d5fcf54f28c92d9cb5ecd4a55e06e846"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 15
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 15
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 15
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."
