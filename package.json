@@ -21,6 +21,8 @@
     "top20:local-e2e:charts-3-20": "node scripts/run-top20-local-e2e.mjs --run --from-rank 3 --to-rank 20 --continue-on-fail",
     "top20:local-e2e:summary": "node scripts/run-top20-local-e2e.mjs --summary",
     "top20:verify-local-e2e": "node scripts/run-top20-local-e2e.mjs --verify",
+    "local-live:triage": "node scripts/generate-local-live-triage.mjs --generate",
+    "local-live:triage:verify": "node scripts/generate-local-live-triage.mjs --verify",
     "top20:latest-refresh": "node scripts/generate-top20-latest-refresh.mjs --generate",
     "top20:latest-refresh:verify": "node scripts/generate-top20-latest-refresh.mjs --verify",
     "top20:latest-candidates": "node scripts/run-latest-top20-candidates.mjs --generate",
