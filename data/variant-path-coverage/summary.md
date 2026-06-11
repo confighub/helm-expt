@@ -23,9 +23,9 @@ ConfigHub variant, or an upgrade/customization path.
 
 ## Rows By Live Status
 
-- blocked: 28
-- fail: 15
-- missing: 59
+- blocked: 30
+- fail: 17
+- missing: 55
 - not-attempted: 10
 - not-tested: 4
 - not-tested-by-diff: 2
@@ -59,7 +59,7 @@ ConfigHub variant, or an upgrade/customization path.
 | `bitnami/apache@11.4.29` | `default` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `bitnami/contour@21.1.4` | `default` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `bitnami/elasticsearch@22.1.6` | `default` | base-variant | fail | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
-| `bitnami/nginx@24.0.2` | `customer-acme-prod` | derived-confighub-variant | not-attempted | target/live evidence may be separate |
+| `bitnami/mysql@14.0.3` | `existing-secret` | base-variant | fail | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 
 ## How To Use This Matrix
 

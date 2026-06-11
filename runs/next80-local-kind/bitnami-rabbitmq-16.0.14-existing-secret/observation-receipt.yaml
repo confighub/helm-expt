@@ -1,0 +1,41 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-rabbitmq-16.0.14-existing-secret-local-kind"
+spec:
+  variantRevision: "recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "cdff3262264844b099e7f4421f1bbd5027360c2d23ba34667506d85255c4b6f2"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-rabbit-existing"
+    context: "kind-claude-helm-expt-codex-rabbit-existing"
+    namespace: "rabbitmq"
+  observedAt: "2026-06-11T14:13:34.066Z"
+  freshnessTTL: "1h"
+  result: "fail"
+  clusterStatus: "created-by-test"
+  variant: "existing-secret"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "8983faa52aa8f0d23df91231ea7b851c3e8ad37e0dfad76e00f66a9c27e9de90"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||rabbitmq"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "9 object(s) from recipes/bitnami/rabbitmq/16.0.14/revisions/existing-secret/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "StatefulSet|rabbitmq|rabbitmq"
+      reason: "not-ready: rabbitmq-0[PodInitializing ready=false restarts=0;]"
+  blockedReasons:
+    - "statefulset/rabbitmq: not-ready (rabbitmq-0[PodInitializing ready=false restarts=0;])"
