@@ -29,8 +29,10 @@ earn their keep.
   (`data/live-e2e/top20-local-kind.csv`; the per-check detail lives in the
   run's observation receipt).
 - **Base readiness**: `default` is `start-here` (all core lanes plus
-  two-cluster parity pass); `no-crds` is `try-with-proof` with named missing
-  lanes (`data/top20-base-readiness/base-readiness.csv`).
+  two-cluster parity pass); `no-crds` is `try-with-proof` because it still
+  lacks the ConfigHub upload/scan/safe-ops proof lane for this base, even
+  though its live target-fact lanes now pass
+  (`data/top20-base-readiness/base-readiness.csv`).
 - **Blast radius, measured not assumed**: the `crds.enabled` base pair
   (`default` → `no-crds`) has a committed re-render diff — 10 predicted, 10
   observed object changes, accuracy 1.000
@@ -40,8 +42,8 @@ earn their keep.
 ## What Live Parity Proves
 
 Both lanes pass for this chart: the selected live Helm-vs-ConfigHub
-comparison (`default`) and the two-cluster kind parity lane (`default` and
-`no-crds`) — regular Helm in one kind cluster against the
+comparison (`default` and `no-crds`) and the two-cluster kind parity lane
+(`default` and `no-crds`) — regular Helm in one kind cluster against the
 `cub installer` path in another, compared semantically
 (`data/live-kind-parity/summary.csv`,
 `data/live-helm-confighub-compare/`). Scope: the pinned chart version, the
@@ -53,8 +55,12 @@ equivalence: both clusters staged the same compatible Prometheus Operator CRDs,
 the installer lane also staged the `monitoring/kube-prometheus-stack-admission`
 Secret as an explicit target fact, and both sides reached Ready workloads with
 no semantic object diff other than the allowed installer-created Namespace. The
-fresh 2026-06-11 receipt is
+fresh 2026-06-11 two-cluster receipt is
 [`runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml`](../../runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml).
+The stricter ConfigHub OCI/Argo receipt for the same target-fact contract is
+[`runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml`](../../runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml):
+regular Helm, ConfigHub direct apply, and ConfigHub OCI/Argo all reached Ready
+with no semantic diffs beyond the intentionally created Namespace.
 
 ## Hook Lifecycle Proof
 
@@ -112,12 +118,13 @@ acceptance, lifecycle decision, target-fact decision, and fresh ConfigHub
 OCI/Argo evidence for the declared scope. Stricter environments may still need
 a hardened or digest-pinned base.
 
-The `no-crds` base remains a separate support decision. Its GitOps/OCI runtime
+The `no-crds` base remains a separate support decision. Its older runtime
 receipt is valuable because it blocks when target CRDs are missing; the fresh
-two-cluster kind receipt is valuable because it proves the positive path when
-compatible external CRDs and the admission Secret are staged. Support for that
-base still needs a target-scoped production decision and GitOps/OCI evidence
-showing how those prerequisites are supplied for the chosen target.
+two-cluster and ConfigHub OCI/Argo receipts are valuable because they prove the
+positive path when compatible external CRDs and the admission Secret are
+staged. Support for that base still needs a target-scoped production decision,
+freshness policy, and production target review for how those prerequisites are
+supplied on the chosen target.
 
 ## Claims That Must Not Be Made Yet
 
@@ -140,9 +147,9 @@ showing how those prerequisites are supplied for the chosen target.
 ## Suggested Next Receipts
 
 In value order: (1) a ConfigHub-managed upgrade receipt for a reviewed
-upgrade path; (2) a target-scoped `no-crds` production-support decision with
-GitOps/OCI evidence for supplying compatible external CRDs and the admission
-Secret; (3) runtime webhook lifecycle observation for this chart's own
+upgrade path; (2) a target-scoped `no-crds` production-support decision that
+uses the proven target-fact OCI path on the chosen production target; (3)
+runtime webhook lifecycle observation for this chart's own
 operator, reusing the cert-manager/External Secrets pattern; (4) a hardened or
 digest-pinned base for stricter environments that should not reuse the public
 proof scope's mutable-image and scan exceptions.

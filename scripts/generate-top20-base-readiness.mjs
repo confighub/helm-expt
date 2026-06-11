@@ -259,10 +259,13 @@ function readinessFor(row, lifecycle, supportArtifact = "") {
     };
   }
   if (row.two_cluster_kind_parity === "pass") {
+    const missing = missingLaneText(row.missing_or_non_pass_lanes);
     return {
       status: "try-with-proof",
       why: "render parity and two-cluster live parity pass, but one or more broader lanes are missing",
-      nextAction: "run or commit the missing ConfigHub, local live, GitOps, or selected live parity lanes before broader claims",
+      nextAction: missing
+        ? `complete the missing lane(s): ${missing}`
+        : "complete the missing proof lane before broader claims",
     };
   }
   const reason = row.two_cluster_kind_parity_reason || "";
@@ -342,6 +345,15 @@ function readinessFor(row, lifecycle, supportArtifact = "") {
     why: "no passing render parity row found",
     nextAction: "inspect the recipe and proof receipts before presenting this base",
   };
+}
+
+function missingLaneText(value) {
+  if (!value) return "";
+  return value
+    .split(";")
+    .filter(Boolean)
+    .map((lane) => lane.replaceAll("_", " "))
+    .join(", ");
 }
 
 function supportArtifactFor(recipePath, reason) {

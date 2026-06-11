@@ -1,0 +1,382 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: prometheus-community-kube-prometheus-stack-85.3.3-no-crds-live-parity-20260611
+spec:
+  chart: prometheus-community/kube-prometheus-stack
+  version: 85.3.3
+  base: no-crds
+  result: pass
+  observedAt: '2026-06-11T19:39:09Z'
+  package:
+    path: packages/prometheus-community/kube-prometheus-stack/85.3.3
+  recipe:
+    path: recipes/prometheus-community/kube-prometheus-stack/85.3.3
+  variantRevision: recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/variant-revision.yaml
+  run:
+    rig: helm-expt-parity-kpsnocrds-codex-0611
+    kubeContext: kind-helm-expt-parity-kpsnocrds-codex-0611
+    namespace: monitoring
+    legNamespaces:
+      regularHelm: monitoring-helm
+      configHubKubectlApply: monitoring-apply
+      configHubOciArgo: monitoring-oci
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-kpsnocrds-codex-0611 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-kpsnocrds-codex-0611"...
+
+        Deleting cluster "helm-expt-parity-kpsnocrds-codex-0611" ...
+
+        Deleted nodes: ["helm-expt-parity-kpsnocrds-codex-0611-control-plane"]
+
+        Deleting Space "helm-expt-parity-kpsnocrds-codex-0611-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install kube-prometheus-stack kube-prometheus-stack
+        --repo https://prometheus-community.github.io/helm-charts --version 85.3.3
+        --namespace monitoring-helm --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 3f6049fc2b7a40bbfb009b347880e3f319a87c9b60a6fd274220287a10167fc2
+      objectCount: 114
+      liveHelmManifestSHA256: 8a9159bfcc727741d3637bbc8a715e627a44e4385ad66ff3a89c04c66e51f2b3
+      liveHelmManifestObjectCount: 114
+      namespace: monitoring-helm
+      runtime:
+        result: pass
+        workloads: 'deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     89s
+
+          deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     89s
+
+          deployment.apps/kube-prometheus-stack-operator             1/1   1     1     89s
+
+          statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1   78s
+
+          statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1   78s
+
+          daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   89s'
+        pods: 'alertmanager-kube-prometheus-stack-alertmanager-0           2/2   Running   0     78s
+
+          kube-prometheus-stack-grafana-689f864759-x6bz5              3/3   Running   0     89s
+
+          kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-l4c6d   1/1   Running   0     89s
+
+          kube-prometheus-stack-operator-6d54798576-fxzhn             1/1   Running   0     89s
+
+          kube-prometheus-stack-prometheus-node-exporter-mvzlc        1/1   Running   0     89s
+
+          prometheus-kube-prometheus-stack-prometheus-0               2/2   Running   0     78s'
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/prometheus-community/kube-prometheus-stack/85.3.3
+        --base no-crds --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-kpsnocrds-codex-0611-kube-prometheus-stack
+        --non-interactive --namespace monitoring-apply
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: ea02a1af57a31f23db5cab8661a5fd3326d0df28207223ee29b5ab60e21f929c
+      objectCount: 115
+      namespace: monitoring-apply
+      manifestNamespaces:
+      - kube-system
+      - monitoring
+      - monitoring-apply
+      runtimeNamespaces: &id001
+      - monitoring
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# monitoring
+
+          deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     21s
+
+          deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     21s
+
+          deployment.apps/kube-prometheus-stack-operator             1/1   1     1     21s
+
+          statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1   20s
+
+          statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1   20s
+
+          daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   21s'
+        pods: '# monitoring
+
+          alertmanager-kube-prometheus-stack-alertmanager-0           2/2   Running   0     20s
+
+          kube-prometheus-stack-grafana-689f864759-hqbdz              3/3   Running   0     20s
+
+          kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-jgt4h   1/1   Running   0     20s
+
+          kube-prometheus-stack-operator-6d54798576-5d7zb             1/1   Running   0     20s
+
+          kube-prometheus-stack-prometheus-node-exporter-kkjx6        1/1   Running   0     20s
+
+          prometheus-kube-prometheus-stack-prometheus-0               2/2   Running   0     20s'
+        notReady: []
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-kpsnocrds-codex-0611-kube-prometheus-stack
+      controller: Argo CD OCI
+      app: kube-prometheus-stack-parity
+      manifestSHA256: c035bda6ec4f1a0744a987146b81c3730f5b7cafca5742ed3043cdca2fb3bf20
+      objectCount: 115
+      namespace: monitoring-oci
+      manifestNamespaces:
+      - kube-system
+      - monitoring
+      - monitoring-oci
+      runtimeNamespaces: &id002
+      - monitoring
+      ociRevision: sha256:b7eba3d6962655de9899515219fd882c9a366722a4fb5b477ea4f381f9a5eaf2
+      sync: Synced
+      health: Healthy
+      separatedSecrets:
+      - secret-monitoring-alertmanager-kube-prometheus-stack-alertmanager.yaml
+      - secret-monitoring-kube-prometheus-stack-grafana.yaml
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# monitoring
+
+          deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     5m21s
+
+          deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     5m21s
+
+          deployment.apps/kube-prometheus-stack-operator             1/1   1     1     5m21s
+
+          statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1   5m20s
+
+          statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1   5m20s
+
+          daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   5m21s'
+        pods: '# monitoring
+
+          alertmanager-kube-prometheus-stack-alertmanager-0           2/2   Running   0     5m21s
+
+          kube-prometheus-stack-grafana-689f864759-hqbdz              3/3   Running   0     5m21s
+
+          kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-jgt4h   1/1   Running   0     5m21s
+
+          kube-prometheus-stack-operator-6d54798576-5d7zb             1/1   Running   0     5m21s
+
+          kube-prometheus-stack-prometheus-node-exporter-kkjx6        1/1   Running   0     5m21s
+
+          prometheus-kube-prometheus-stack-prometheus-0               2/2   Running   0     5m21s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||monitoring
+    semanticNormalizations: &id003
+    - prune-null-fields
+    - prune-empty-metadata-maps
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 114
+      configHubObjectCount: 115
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||monitoring
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 4472b0dababd206e1f005dd3d9f8e63cebe5cfea6a72b65bc9dfe6e66f822921
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 114
+      configHubObjectCount: 115
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||monitoring
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: 4472b0dababd206e1f005dd3d9f8e63cebe5cfea6a72b65bc9dfe6e66f822921
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-kpsnocrds-codex-0611\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-kpsnocrds-codex-0611.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-kpsnocrds-codex-0611\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-kpsnocrds-codex-0611\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-kpsnocrds-codex-0611\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-kpsnocrds-codex-0611.kubeconfig\n\
+      \nHave a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community\
+      \ \U0001F642\nInstalling Argo CD...\nCreating namespace "
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=10
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"kube-prometheus-stack\" does not exist. Installing it now.\n\
+      NAME: kube-prometheus-stack\nLAST DEPLOYED: Thu Jun 11 20:40:54 2026\nNAMESPACE:\
+      \ monitoring-helm\nSTATUS: deployed\nREVISION: 1\nDESCRIPTION: Install complete\n\
+      TEST SUITE: None\nNOTES:\nkube-prometheus-stack has been installed. Check its\
+      \ status by running:\n  kubectl --namespace monitoring-helm get pods -l \"release=kube-prometheus-stack\"\
+      \n\nGet Grafana 'admin' user password by running:\n\n  kubectl --namespace monitoring-helm\
+      \ get secrets kube-prometheus-stack-grafana -o jsonpath=\"{.data.admin-password}\"\
+      \ | base64 -d ; echo\n\nAccess Grafana local instance:\n\n  export POD_NAME=$(kubectl\
+      \ --namespace monitoring-helm get pod -l \"app.kubernetes.io/name=grafana,app.kubernetes.io/instance=kube-prometheus-stack\"\
+      \ -oname)\n  kubectl --namespace monitoring-helm port-forward $POD_NAME 3000\n\
+      \nGet your grafana admin user password by running:\n\n  kubectl get secret --namespace\
+      \ monitoring-helm -l app.kubernetes.io/component=admin-secret -o jsonpath=\"\
+      {.ite"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=1 crds=10
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# monitoring
+
+      deployment.apps/kube-prometheus-stack-grafana              1/1   1     1     21s
+
+      deployment.apps/kube-prometheus-stack-kube-state-metrics   1/1   1     1     21s
+
+      deployment.apps/kube-prometheus-stack-operator             1/1   1     1     21s
+
+      statefulset.apps/alertmanager-kube-prometheus-stack-alertmanager   1/1   20s
+
+      statefulset.apps/prometheus-kube-prometheus-stack-prometheus       1/1   20s
+
+      daemonset.apps/kube-prometheus-stack-prometheus-node-exporter   1     1     1     1     1     kubernetes.io/os=linux   21s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=1 crds=10
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 20s
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||monitoring'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs:
+      - name: alertmanagerconfigs.monitoring.coreos.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: alertmanagers.monitoring.coreos.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: podmonitors.monitoring.coreos.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: probes.monitoring.coreos.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: prometheusagents.monitoring.coreos.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: prometheuses.monitoring.coreos.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: prometheusrules.monitoring.coreos.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: scrapeconfigs.monitoring.coreos.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: servicemonitors.monitoring.coreos.com
+        sourceVariant: default
+        lane: regularHelm
+      - name: thanosrulers.monitoring.coreos.com
+        sourceVariant: default
+        lane: regularHelm
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/target-facts-regular-helm.yaml
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets:
+      - namespace: monitoring
+        name: kube-prometheus-stack-admission
+        keys:
+        - cert
+        - key
+        lane: configHubKubectlApply
+      stagedCRDs:
+      - name: alertmanagerconfigs.monitoring.coreos.com
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: alertmanagers.monitoring.coreos.com
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: podmonitors.monitoring.coreos.com
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: probes.monitoring.coreos.com
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: prometheusagents.monitoring.coreos.com
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: prometheuses.monitoring.coreos.com
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: prometheusrules.monitoring.coreos.com
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: scrapeconfigs.monitoring.coreos.com
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: servicemonitors.monitoring.coreos.com
+        sourceVariant: default
+        lane: configHubKubectlApply
+      - name: thanosrulers.monitoring.coreos.com
+        sourceVariant: default
+        lane: configHubKubectlApply
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/target-facts-confighub-apply.yaml
+    configHubOciArgo:
+      result: pass
+      stagedSecrets:
+      - namespace: monitoring
+        name: kube-prometheus-stack-admission
+        keys:
+        - cert
+        - key
+        lane: configHubOciArgo
+      stagedCRDs:
+      - name: alertmanagerconfigs.monitoring.coreos.com
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: alertmanagers.monitoring.coreos.com
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: podmonitors.monitoring.coreos.com
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: probes.monitoring.coreos.com
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: prometheusagents.monitoring.coreos.com
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: prometheuses.monitoring.coreos.com
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: prometheusrules.monitoring.coreos.com
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: scrapeconfigs.monitoring.coreos.com
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: servicemonitors.monitoring.coreos.com
+        sourceVariant: default
+        lane: configHubOciArgo
+      - name: thanosrulers.monitoring.coreos.com
+        sourceVariant: default
+        lane: configHubOciArgo
+      path: /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/target-facts-confighub-oci.yaml

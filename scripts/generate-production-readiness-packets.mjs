@@ -44,14 +44,19 @@ const CHARTS = [
         "No-CRDs two-cluster live parity with explicit CRD and admission Secret target facts staged",
         "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml",
       ],
+      [
+        "No-CRDs ConfigHub OCI/Argo live parity with the same target facts staged",
+        "runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml",
+      ],
     ],
     mustNot: [
       "\"ConfigHub upgrades are proven\" - the workload-upgrade receipt exercises regular Helm on one kind profile, not ConfigHub upgrade orchestration",
       "\"all upgrades are proven\" - no rollback, soak, private overlay, no-crds, or production target upgrade has been receipted",
       "\"webhook runtime lifecycle is proven for this chart\" - the observed pattern lives on cert-manager/external-secrets; this chart's own operator webhook lifecycle has no receipt",
+      "\"no-crds is production-supported\" - it has live target-fact proof, but still needs a target-scoped production support decision",
     ],
     nextTest:
-      "a ConfigHub-managed upgrade or target-scoped no-crds GitOps/OCI evidence showing how compatible external CRDs and the admission Secret are supplied",
+      "a ConfigHub-managed upgrade or a target-scoped no-crds production-support decision that applies the proven target-fact OCI path to the chosen production target",
   },
   {
     slug: "cert-manager",

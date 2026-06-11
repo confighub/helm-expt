@@ -92,18 +92,21 @@ Read:
 | --- | --- |
 | [KPS catalog](../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/CATALOG.md) | The two bases, receipts, gates, and package links. |
 | [value source map](../../recipes/prometheus-community/kube-prometheus-stack/85.3.3/value-source-map.yaml) | Which checked inputs currently map to rendered fields. |
-| [high-fanout summary](../../data/high-fanout-demo/summary.md) | Object counts, removed CRDs, proof-chain status, and the current GitOps/OCI prerequisite result. |
+| [high-fanout summary](../../data/high-fanout-demo/summary.md) | Object counts, removed CRDs, proof-chain status, the blocked prerequisite receipt, and the passing staged-prerequisite GitOps/OCI receipt. |
 | [operation preview](../../data/high-fanout-demo/operation-preview.md) | Pre-ship routing, blast-radius, guardrail, and next-proof view for mapped high-fanout inputs. |
 | [prometheus-kps.csv](../../data/high-fanout-demo/prometheus-kps.csv) | Spreadsheet rows for the two bases, proof lanes, next hard work, and the base-to-base delta. |
 
 ## What The Current Evidence Says
 
-`default` has render parity and local live evidence. `no-crds` has render parity
-and a GitOps/OCI receipt that blocked because the target cluster did not have the
-required CRDs.
+`default` has render parity, local live evidence, and strict ConfigHub
+OCI/Argo evidence. `no-crds` has render parity, two-cluster parity, and strict
+ConfigHub OCI/Argo evidence when the target CRDs and admission Secret are
+staged.
 
-That is useful evidence. It means the model caught the prerequisite before
-pretending the workload was healthy.
+The older blocked GitOps/OCI receipt is still useful. It shows the same base
+blocks when the target cluster does not have the required CRDs. Together, the
+blocked and passing receipts prove the real contract: `no-crds` is valid only
+when those prerequisites are supplied and observed.
 
 Today this page proves the routing model and the high-fanout base difference.
 The `default` base also has a target-scoped support decision for the recorded
@@ -124,7 +127,7 @@ target-scoped decision, not a blanket chart label.
 | Webhook freshness | Observe webhook, operator, and caBundle readiness after apply. | Observe the same checks after CRDs are established. |
 | RBAC and scrape scope | Approve the rendered cluster RBAC and monitoring blast radius. | Same RBAC family; external CRDs do not narrow scrape scope. |
 | Scan and image posture | Accept findings for this infrastructure scope or create a hardened base. | Same, plus prerequisite evidence for external CRDs. |
-| Final live evidence | Refresh target-scoped live parity, GitOps/OCI, and observation receipts. | Rerun GitOps/OCI after prerequisites are staged. |
+| Final live evidence | Refresh target-scoped live parity, GitOps/OCI, and observation receipts. | Use the passing staged-prerequisite GitOps/OCI receipt as proof input, then record a target-scoped support decision for the chosen target. |
 
 Use `default` when the catalog package should own the CRDs. Use `no-crds` only
 when CRDs have their own owner, version, and fresh observation.
@@ -162,10 +165,11 @@ To widen or refresh the `default` support scope, the remaining work is:
 4. Record a replacement support decision before calling the wider scope
    supported.
 
-The `no-crds` base is a separate support decision. Its GitOps receipt is
-currently useful because it blocked on missing CRDs; production support for
-that base must first stage or prove compatible Prometheus Operator CRDs and the
-admission Secret in the target.
+The `no-crds` base is a separate support decision. It now has both sides of the
+prerequisite story: one receipt blocks when required CRDs are absent, and one
+strict ConfigHub OCI/Argo receipt passes when compatible Prometheus Operator
+CRDs and the admission Secret are staged. Production support for that base
+still needs a target-scoped decision for the chosen target.
 
 ## Why This Matters
 
