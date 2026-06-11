@@ -13,7 +13,7 @@ chart/base rows:                     189
 complete core lane rows:             20/189
 render parity rows:                  189/189
 in-ConfigHub proof rows:             20/189
-local live rows:                     106/189
+local live rows:                     112/189
 GitOps/OCI live pass rows:           23/189
 GitOps/OCI non-pass receipts:        6
 live Helm-vs-ConfigHub pass rows:    20/189
@@ -61,13 +61,13 @@ related lifecycle observations:      4/4
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
 | `argo-cd/argo-cd@9.5.15` | default;no-crds | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/mongodb@19.0.7` | generated-passwords;existing-secret-replicaset | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | - |
-| `bitnami/mysql@14.0.3` | generated-passwords;existing-secret | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| `bitnami/mysql@14.0.3` | generated-passwords;existing-secret | yes | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/nginx@24.0.2` | http-clusterip;existing-tls-ingress | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
 | `bitnami/postgresql@18.6.7` | generated-passwords;existing-secret | yes | 1/2 | 1/2 | 2/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
-| `bitnami/rabbitmq@16.0.14` | generated-passwords;existing-secret | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| `bitnami/rabbitmq@16.0.14` | generated-passwords;existing-secret | yes | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `bitnami/redis@25.5.3` | default;reuse-existing-secret | yes | 1/2 | 2/2 | 2/2 | 1/2 | 2/2 | - |
 | `external-secrets/external-secrets@2.5.0` | default;no-crds | no | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | - |
-| `grafana/grafana@10.5.15` | generated-passwords;existing-secret-ingress | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | - |
+| `grafana/grafana@10.5.15` | generated-passwords;existing-secret-ingress | yes | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | - |
 | `grafana/loki@7.0.0` | single-binary-filesystem;simple-scalable-minio | yes | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | - |
 | `grafana/tempo@1.24.4` | local-persistent;s3-query-observability | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
 | `hashicorp/consul@2.0.0` | default-control-plane;secure-mesh-existing-secrets | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |

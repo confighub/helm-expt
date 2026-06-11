@@ -11,31 +11,24 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-codex-mysql-existing"
-    context: "kind-claude-helm-expt-codex-mysql-existing"
+    name: "claude-helm-expt-codex-targetfacts"
+    context: "kind-claude-helm-expt-codex-targetfacts"
     namespace: "mysql"
-  observedAt: "2026-06-11T14:09:09.156Z"
+  observedAt: "2026-06-11T15:42:09.478Z"
   freshnessTTL: "1h"
-  result: "fail"
-  clusterStatus: "created-by-test"
+  result: "pass"
+  clusterStatus: "existing"
   variant: "existing-secret"
   workloads: 1
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "b38556da585b3ce00a8ec4c3ef1c22deabfa2ea24976ce86332092266f023079"
+    sha256: "0121d21dadbbc853cb1c6b2aecbcb7fe6df2b0e62c045b32ebad2b68170e8650"
   checks:
-    -
-      name: "namespace-created"
-      result: "pass"
-      object: "v1|Namespace||mysql"
     -
       name: "rendered-objects-applied"
       result: "pass"
       object: "7 object(s) from recipes/bitnami/mysql/14.0.3/revisions/existing-secret/r001/rendered/release-objects.yaml"
     -
       name: "workload-converged"
-      result: "fail"
+      result: "pass"
       object: "StatefulSet|mysql|mysql"
-      reason: "not-ready: mysql-0[PodInitializing ready=false restarts=0;]"
-  blockedReasons:
-    - "statefulset/mysql: not-ready (mysql-0[PodInitializing ready=false restarts=0;])"
