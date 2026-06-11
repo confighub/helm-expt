@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 2/2; ConfigHub 0/2; local live 2/2; GitOps live 0/2; live parity 0/2 |
 | Feature summary | crds;webhooks;extension-slots |
 | Hard gap | - |
-| Next action | run catalog promotion review |
+| Next action | review APIService render-path notes: current maintained bases do not render APIService objects; create a separate APIService-enabled base only if product chooses that path |
 
 ## Artifact Chain
 

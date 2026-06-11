@@ -34,7 +34,7 @@ for exact base-variant evidence.
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 2/2; GitOps live 1/2; live parity 1/2 |
 | Feature summary | crds;webhooks;extension-slots |
 | Hard gap | - |
-| Next action | run catalog promotion review |
+| Next action | run APIService promotion review: choose supported base, target scope, CRD ownership path, and evidence refresh rule using the committed aggregation receipt |
 
 ## Artifact Chain
 

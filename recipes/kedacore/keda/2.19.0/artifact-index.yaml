@@ -64,7 +64,7 @@ spec:
       liveParity: "1/2"
     featureSummary: "crds;webhooks;extension-slots"
     hardGap: "-"
-    nextAction: "run catalog promotion review"
+    nextAction: "run APIService promotion review: choose supported base, target scope, CRD ownership path, and evidence refresh rule using the committed aggregation receipt"
   installerPackage:
     path: "packages/kedacore/keda/2.19.0"
     installer: "packages/kedacore/keda/2.19.0/installer.yaml"

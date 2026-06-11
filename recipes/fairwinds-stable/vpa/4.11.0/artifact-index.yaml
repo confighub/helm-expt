@@ -63,7 +63,7 @@ spec:
       liveParity: "0/2"
     featureSummary: "crds;webhooks;extension-slots"
     hardGap: "-"
-    nextAction: "run catalog promotion review"
+    nextAction: "review APIService render-path notes: current maintained bases do not render APIService objects; create a separate APIService-enabled base only if product chooses that path"
   installerPackage:
     path: "packages/fairwinds-stable/vpa/4.11.0"
     installer: "packages/fairwinds-stable/vpa/4.11.0/installer.yaml"
