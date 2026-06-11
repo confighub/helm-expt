@@ -1,0 +1,2 @@
+chart,version,packet,selected_base_candidate,candidate_bases,decision_state,catalog_support_claim_allowed,api_condition,aggregated_query,gitops_receipt,next_action
+kedacore/keda,2.19.0,data/apiservice-coverage/promotion-reviews/kedacore-keda-2.19.0.yaml,default,default;no-crds,review-input-only,false,yes,yes,data/runtime-gitops/receipts/kedacore-keda/default/latest.yaml,"choose catalog scope, CRD ownership, webhook readiness policy, scan disposition, and evidence refresh rule before changing catalog status"

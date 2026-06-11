@@ -1,0 +1,63 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: APIServicePromotionReview
+metadata:
+  name: kedacore-keda-2.19.0-default-apiservice-promotion-review
+spec:
+  chart: "kedacore/keda"
+  version: "2.19.0"
+  selectedBaseCandidate: "default"
+  candidateBases:
+    - default
+    - no-crds
+  decisionState: review-input-only
+  catalogSupportClaimAllowed: false
+  targetScopeUnderReview:
+    clusterClass: cub-lk-kind-vanilla
+    namespace: default
+    deliveryPath: confighub-oci
+    gitopsController: argo
+    apiService: v1beta1.external.metrics.k8s.io
+  whyThisIsHighValue:
+    - KEDA exercises CRDs, webhooks, cluster RBAC, and Kubernetes API aggregation.
+    - Render parity is not enough for this chart; the aggregated API must be observed after apply.
+    - The committed receipt shows ConfigHub OCI and Argo reaching a healthy KEDA APIService.
+  currentEvidence:
+    catalog: "recipes/kedacore/keda/2.19.0/CATALOG.md"
+    helmPainReport: "recipes/kedacore/keda/2.19.0/helm-pain-report.yaml"
+    controlPoints: "recipes/kedacore/keda/2.19.0/control-points.yaml"
+    defaultHelmEquivalence: "recipes/kedacore/keda/2.19.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    defaultScan: "recipes/kedacore/keda/2.19.0/revisions/default/r001/receipts/scan-receipt.yaml"
+    defaultInstallGate: "recipes/kedacore/keda/2.19.0/revisions/default/r001/receipts/install-gate.yaml"
+    noCrdsHelmEquivalence: "recipes/kedacore/keda/2.19.0/revisions/no-crds/r001/receipts/helm-equivalence-receipt.yaml"
+    configHubProof: "runs/keda-confighub-proof/latest/confighub-proof-receipt.yaml"
+    twoClusterKindParity: "runs/live-kind-parity/kedacore-keda-default/receipt.yaml"
+    liveHelmVsConfigHubParity: "runs/live-helm-confighub-compare/kedacore-keda-default/receipt.yaml"
+    runtimeGitOpsApiService: "data/runtime-gitops/receipts/kedacore-keda/default/latest.yaml"
+  provenForSelectedScope:
+    - cub installer render is Helm-equivalent for the selected base.
+    - ConfigHub proof lane exists for the selected base.
+    - two-cluster Helm-vs-cub-installer parity exists for the selected base.
+    - live Helm-vs-ConfigHub parity exists for the selected base.
+    - ConfigHub OCI through Argo reached Synced and Healthy.
+    - APIService Available=True was observed.
+    - the aggregated external.metrics.k8s.io API query passed.
+  decisionsNeeded:
+    - decision: selected-catalog-base
+      reason: Decide whether default is the catalog path, whether no-crds is also supported, and which target owns CRDs.
+    - decision: crd-lifecycle-policy
+      reason: CRD install, ownership, upgrade, and uninstall behavior must be explicit before catalog support.
+    - decision: webhook-readiness-policy
+      reason: KEDA includes admission webhooks, so readiness and certificate behavior need a target-scoped lifecycle boundary.
+    - decision: cluster-rbac-review
+      reason: Rendered cluster-scoped RBAC must be accepted, narrowed, or routed to a hardened base.
+    - decision: scan-gate-disposition
+      reason: The selected base has warn-level scan and install-gate output that must be accepted, patched, or deferred.
+    - decision: evidence-refresh-rule
+      reason: APIService availability is live evidence and must have a freshness policy before stronger support claims.
+  claimsNotMade:
+    - catalog-supported KEDA
+    - production support for private target profiles
+    - provider ScaledObject behavior beyond the aggregated external metrics API discovery endpoint
+    - CRD upgrade safety
+    - non-vanilla Kubernetes support
+  nextAction: "choose catalog scope, CRD ownership, webhook readiness policy, scan disposition, and evidence refresh rule before changing catalog status"
