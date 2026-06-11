@@ -1,0 +1,115 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "KubePrometheusStackWorkloadLiveUpgradeReceipt"
+metadata:
+  name: "kps-workload-live-upgrade-85.3.3-to-86.1.0"
+spec:
+  chart: "prometheus-community/kube-prometheus-stack"
+  base: "default"
+  fromVersion: "85.3.3"
+  toVersion: "86.1.0"
+  result: "pass"
+  observedAt: "2026-06-11T19:21:24Z"
+  run:
+    mode: "single-kind-cluster-regular-helm-workload-upgrade-rehearsal"
+    cluster: "helm-expt-kps-workload-upgrade-9vvhzr"
+    namespace: "monitoring"
+    cleanup:
+      result: "pass"
+      detail: "deleted kind cluster"
+      evidencePath: "kind-delete.txt"
+      evidenceSHA256: "38078ce0948be8b455566fbbd1d4711641c15170a4ecd61aeb86831fc006cf44"
+  basis:
+    crdLiveUpgradeReceipt: "runs/serious-chart-reviews/kube-prometheus-stack/crd-upgrade-live/latest/receipt.yaml"
+    fromValues: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/effective-values.yaml"
+    fromRender: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml"
+    toRender: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/rendered/release-objects.yaml"
+  claim: "Regular Helm can install kube-prometheus-stack 85.3.3 with the committed default values, converge the workloads, upgrade the same release to 86.1.0, and converge the workloads again on the tested kind profile."
+  notClaimed:
+    - "ConfigHub upgrade orchestration"
+    - "private overlays or other values profiles"
+    - "production support for other target scopes"
+    - "stored-object migration beyond the default workload objects exercised by this run"
+    - "long-running soak, rollback, or certificate rotation behavior"
+  checks:
+    -
+      name: "helm-values-input"
+      result: "pass"
+      path: "values.yaml"
+      source: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/effective-values.yaml"
+      sourceSHA256: "24b147d51be789e5996648efeaff7362292b5d282285e80e8e7ffd435656615b"
+      detail: "plain Helm values extracted from the committed EffectiveValues artifact"
+      evidencePath: "values.yaml"
+      evidenceSHA256: "92ebd6560d65fb30d90f3201b702cc7043b69a1e45790dcab0176eecb644395d"
+    -
+      name: "kind-create"
+      result: "pass"
+      detail: "fresh kind cluster created for kube-prometheus-stack workload upgrade rehearsal"
+      evidencePath: "kind-create.txt"
+      evidenceSHA256: "0e94fc38f8c6c66c1b60834027f75af39c164f6b6f1ed6c23376480e8d455df7"
+    -
+      name: "namespace-create"
+      result: "pass"
+      detail: "created monitoring namespace"
+      evidencePath: "namespace-create.txt"
+      evidenceSHA256: "bd3b803add365cf4d0e35bca07d705d79ee7d51a81773d7ae64db9e144f0d561"
+    -
+      name: "helm-install-from-version"
+      result: "pass"
+      detail: "85.3.3 Helm install completed with --wait"
+      evidencePath: "helm-install-85.3.3.txt"
+      evidenceSHA256: "1d0d08a76e1854e2a1a69cf42192f3d5c8f995f9c04b26324d23988e897d1907"
+    -
+      name: "workloads-ready-after-install"
+      result: "pass"
+      podCount: 6
+      workloadCount: 6
+      evidence:
+        -
+          detail: "85.3.3 pods listed after install"
+          evidencePath: "pods-after-install.txt"
+          evidenceSHA256: "1f8de8088b6e0fdce8c4ccf76eed1fd33825257fc28195beb2855e96d2e5a3c5"
+        -
+          detail: "85.3.3 pods reached Ready"
+          evidencePath: "pods-ready-after-install.txt"
+          evidenceSHA256: "54f266c50181abdf12207e043c08ffbe51e365da491fac16a9c1ed703c2ce791"
+        -
+          detail: "85.3.3 workload snapshot after install"
+          evidencePath: "workloads-after-install.txt"
+          evidenceSHA256: "9641d94864ff484203e26e39c97e1fe9a81ba20593674f8d177cbe17a0d2057e"
+    -
+      name: "helm-upgrade-to-version"
+      result: "pass"
+      detail: "86.1.0 Helm upgrade completed with --wait"
+      evidencePath: "helm-upgrade-86.1.0.txt"
+      evidenceSHA256: "00f8b771c0600f01b210aa409194fc0874c2ed5022373ea2ae6c5e07ea8945fa"
+    -
+      name: "workloads-ready-after-upgrade"
+      result: "pass"
+      podCount: 6
+      workloadCount: 6
+      evidence:
+        -
+          detail: "86.1.0 pods listed after upgrade"
+          evidencePath: "pods-after-upgrade.txt"
+          evidenceSHA256: "a275fb891ca0a9b68ab2aaf184e0e5d02b6fc139bb9995a63d16d1e9859a3300"
+        -
+          detail: "86.1.0 pods reached Ready"
+          evidencePath: "pods-ready-after-upgrade.txt"
+          evidenceSHA256: "fd0ccc1193182814532888b0b649cc1464ee109e5162a5358f9ebc782f72a8e5"
+        -
+          detail: "86.1.0 workload snapshot after upgrade"
+          evidencePath: "workloads-after-upgrade.txt"
+          evidenceSHA256: "24f6b6be0a47006373b56dd2ef7dd15efb3ffe29030a476c0e8c75ef28b29758"
+    -
+      name: "helm-history"
+      result: "pass"
+      detail: "Helm release history recorded after upgrade"
+      evidencePath: "helm-history.txt"
+      evidenceSHA256: "9245d30ae295569136c0bc8a0fc39e6dc6cca937f3c2001fc7158bf7d6270f01"
+    -
+      name: "crds-after-upgrade"
+      result: "pass"
+      monitoringCrdCount: 10
+      detail: "monitoring.coreos.com CRDs present after workload upgrade"
+      evidencePath: "monitoring-crds-after-upgrade.txt"
+      evidenceSHA256: "25a06ebe80ce156d1adbd1e4abd63ba61eeb1dd0905e00906b84d61583337912"

@@ -79,8 +79,16 @@ version changes." It does not generalize to other charts' hooks.
   regenerable via `npm run kps:crd-upgrade-live`) applies the 85.3.3 CRDs to a
   fresh kind API server, applies the 86.1.0 CRDs over them, waits for
   Established, and confirms a `ServiceMonitor` server-side dry-run before and
-  after the upgrade. That is still not a full workload upgrade: controller
-  compatibility and stored-object migration remain unclaimed.
+  after the upgrade.
+- Workload **upgrade** now has a bounded live receipt
+  ([`receipt.yaml`](../../runs/serious-chart-reviews/kube-prometheus-stack/workload-upgrade-live/latest/receipt.yaml),
+  regenerable via `npm run kps:workload-upgrade-live`). It installs
+  kube-prometheus-stack 85.3.3 with the committed default values, waits for
+  workloads to become Ready, upgrades the same Helm release to 86.1.0, waits
+  again, records Helm history, and deletes the kind cluster. That proves the
+  regular Helm upgrade path for the tested values and kind profile. It does
+  not prove ConfigHub upgrade orchestration, rollback, soak, private overlays,
+  or production target upgrades.
 
 ## Production Support State
 
@@ -105,10 +113,11 @@ target evidence.
 
 - "Production-supported for every target" — the supported decision is
   target-scoped to one declared kind/namespace/OCI/Argo path.
-- "Upgrades are proven" — the repo has a render-level CRD delta and a live
-  API-server CRD upgrade rehearsal, but no full workload upgrade with the
-  chart's controllers and workloads running before and after. That runtime
-  claim stays unmade.
+- "ConfigHub upgrades are proven" — the repo has render-level CRD evidence, a
+  live API-server CRD rehearsal, and a live regular-Helm workload upgrade
+  receipt. It does not yet have a ConfigHub-managed upgrade receipt, rollback
+  receipt, soak receipt, private overlay receipt, or production target upgrade
+  receipt.
 - "Hooks are solved" — this chart's hooks are observed on one base and
   profile; the claim is per-chart, per-profile, freshness-bounded.
 - "Works on any Kubernetes" — every live claim is bounded to the 1.30
@@ -120,10 +129,9 @@ target evidence.
 
 ## Suggested Next Receipts
 
-In value order: (1) a full workload upgrade receipt 85.3.3 → 86.1.0 on kind,
-using the CRD live rehearsal as the first step; (2) a `no-crds` support receipt
-with compatible external CRDs and the admission Secret staged; (3) runtime
-webhook lifecycle observation for this chart's own operator, reusing the
-cert-manager/External Secrets pattern; (4) a hardened or digest-pinned base for
-stricter environments that should not reuse the public proof scope's
-mutable-image and scan exceptions.
+In value order: (1) a ConfigHub-managed upgrade receipt for a reviewed
+upgrade path; (2) a `no-crds` support receipt with compatible external CRDs
+and the admission Secret staged; (3) runtime webhook lifecycle observation for
+this chart's own operator, reusing the cert-manager/External Secrets pattern;
+(4) a hardened or digest-pinned base for stricter environments that should not
+reuse the public proof scope's mutable-image and scan exceptions.

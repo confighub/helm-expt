@@ -85,6 +85,7 @@ function classifyMode(name, command) {
 function classifyExternalState(name, command, mode) {
   if (name.includes("verify-install:cluster") || name.includes("verify-install:confighub") || name.startsWith("verify-bulk-ops:")) return "user-supplied-cluster-or-confighub";
   if (mode === "verify" || mode === "self-test" || mode === "full-corpus-verify") return "none-for-verify";
+  if (name.includes("crd-upgrade-live") || name.includes("workload-upgrade-live")) return "local-kubernetes";
   if (name.includes("local-e2e") || name.startsWith("kind-parity") || command.includes("kubectl") || command.includes("kind")) return "local-kubernetes";
   if (name.includes("confighub-proof") || name.startsWith("runtime-gitops") || name.startsWith("live-parity") || name.startsWith("derived-variants:target-bound") || name.startsWith("external-scan") || name.startsWith("pilot:")) return "confighub-or-live-cluster";
   if (name.startsWith("top20:latest") || command.includes("helm pull") || command.includes("helm template")) return "network-or-helm-repo";
@@ -95,6 +96,7 @@ function classifyWritesFiles(name, command, mode) {
   if (mode === "verify" || mode === "self-test" || mode === "full-corpus-verify") return "no";
   if (name.includes("verify-install") || name.startsWith("verify-bulk-ops:")) return ".tmp-receipts";
   if (mode === "summary") return "generated-summary";
+  if (name.includes("crd-upgrade-live") || name.includes("workload-upgrade-live")) return "receipts-or-runs";
   if (name.includes("local-e2e") || name.startsWith("runtime-gitops") || name.startsWith("live-parity") || name.startsWith("kind-parity") || name.startsWith("lifecycle:") || name.startsWith("external-scan") || name.includes("confighub-proof")) return "receipts-or-runs";
   if (mode === "generate-or-run") return "generated-artifacts";
   return "maybe";

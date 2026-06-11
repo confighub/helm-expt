@@ -22,7 +22,7 @@ You provide: nothing beyond a cluster and namespace. Absorbed for you: exact ren
 
 ## What is at render parity?
 
-Lane summary: local:1/2 gitops:1/2 live-parity:1/2 two-cluster:1/2. Authoritative per-lane rows: [lane test matrix](../../../data/outcome-coverage/summary.md).
+Lane summary: local:1/2 gitops:1/2 live-parity:1/2 two-cluster:1/2. Authoritative per-lane rows: [outcome coverage](../../../data/outcome-coverage/summary.md).
 
 ## What is at live parity?
 
