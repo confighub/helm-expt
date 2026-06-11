@@ -48,5 +48,6 @@ required next proof: ConfigHub/live lanes plus storage and rollback policy
 | [fast-track.csv](./fast-track.csv) | Spreadsheet row per fast-track candidate. |
 | [fast-track-reviews/README.md](./fast-track-reviews/README.md) | Review packet index for the fast-track candidates. |
 | [fast-track-reviews/review-packets.csv](./fast-track-reviews/review-packets.csv) | Spreadsheet form of the review packet status. |
+| [fast-track-reviews/storage-rollback/README.md](./fast-track-reviews/storage-rollback/README.md) | Storage and rollback review inputs for each fast-track candidate. |
 | [wave.csv](./wave.csv) | Full first promotion wave. |
 | [work-orders.md](./work-orders.md) | Full work-order list for the first promotion wave. |
