@@ -58,12 +58,12 @@ produced a byte-identical matrix.csv, confirming the derived view is
 faithful.
 
 **Proposal:** make `outcome-coverage/base-outcomes.csv` the single
-*published* variant-lane truth. Status: the master matrix no longer reads
-`variant-lanes.csv` (done; byte-identical output). Remaining (loop lane):
-re-point `generate-variant-path-coverage.mjs`, then either fold
-lane-test-matrix's receipt-reading logic into outcome-coverage or keep
-variant-lanes as an unpublished intermediate (drop its summary/doc surface
-and data-index row). One published lane view afterwards.
+*published* variant-lane truth. Status: the master matrix and variant-path
+coverage now read `base-outcomes.csv`; `data/lane-test-matrix/summary.md` and
+the data-index row for `variant-lanes.csv` have been removed. The remaining
+implementation choice is whether to fold lane-test-matrix's receipt-reading
+logic into outcome-coverage or keep `variant-lanes.csv` as an unpublished
+intermediate.
 
 ### R2. The hook family is six directories
 

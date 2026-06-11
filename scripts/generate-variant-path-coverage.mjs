@@ -31,21 +31,21 @@ if (mode === "--generate") {
 }
 
 function buildReport() {
-  const laneRows = parseCsvFile("data/lane-test-matrix/variant-lanes.csv");
-  const baseRows = laneRows.map((row) => ({
-    chart: `${row.chart}@${row.version}`,
-    base_variant: row.variant,
-    variant_path: row.variant,
+  const outcomeRows = parseCsvFile("data/outcome-coverage/base-outcomes.csv");
+  const baseRows = outcomeRows.map((row) => ({
+    chart: row.chart,
+    base_variant: row.base,
+    variant_path: row.base,
     path_type: "base-variant",
     quirk_origin: "chart-or-base",
-    render_proof_status: row.helm_template_vs_installer_setup,
-    installer_proof_status: row.confighub_upload_variant_scan_safe_ops,
+    render_proof_status: row.render_parity,
+    installer_proof_status: row.in_confighub,
     scan_status: scanStatus(row),
-    gitops_status: row.confighub_oci_argo_live,
+    gitops_status: row.gitops_oci_live,
     live_status: liveStatus(row),
-    remaining_gap: row.missing_core_lanes,
+    remaining_gap: row.missing_or_non_pass_lanes,
     evidence_path: row.variant_revision,
-    notes: row.lane_notes,
+    notes: row.evidence_notes,
   }));
 
   const diffRows = listFiles(join(repoRoot, "recipes"))
@@ -133,13 +133,13 @@ function buildReport() {
 }
 
 function scanStatus(row) {
-  if (row.confighub_upload_variant_scan_safe_ops === "pass") return "pass";
-  if (row.confighub_upload_variant_scan_safe_ops === "missing") return "missing";
-  return row.confighub_upload_variant_scan_safe_ops;
+  if (row.in_confighub === "pass") return "pass";
+  if (row.in_confighub === "missing") return "missing";
+  return row.in_confighub;
 }
 
 function liveStatus(row) {
-  const statuses = [row.local_kind_kubectl_apply, row.confighub_oci_argo_live, row.live_helm_vs_confighub_dual_compare];
+  const statuses = [row.local_live, row.gitops_oci_live, row.live_helm_vs_confighub_parity];
   if (statuses.includes("fail")) return "fail";
   if (statuses.includes("blocked")) return "blocked";
   if (statuses.includes("watch")) return "watch";

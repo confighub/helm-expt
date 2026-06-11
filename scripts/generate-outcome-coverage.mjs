@@ -355,7 +355,7 @@ related lifecycle observations:      ${aggregate.relatedLifecycleObservationPass
 | Outcome users care about | Test / evidence | Command |
 | --- | --- | --- |
 | The chart model is understandable and honestly scoped. | model-completeness report, chart facts, pain reports, weirdness notes | \`npm run completeness:verify\` |
-| A base variant renders the same object set as Helm under recorded inputs. | \`helm_template_vs_installer_setup\` lane | \`npm run lane-tests:verify\` |
+| A base variant renders the same object set as Helm under recorded inputs. | \`render_parity\` in [base-outcomes.csv](./base-outcomes.csv) | \`npm run outcomes:verify\` |
 | The rendered objects can be uploaded and operated in ConfigHub. | \`confighub_upload_variant_scan_safe_ops\` lane | \`npm run top20:verify-confighub-proof\` |
 | The rendered objects work in Kubernetes for tested rows. | \`local_kind_kubectl_apply\` lane | \`npm run top20:verify-local-e2e\` |
 | ConfigHub OCI can be reconciled by GitOps for tested rows. | \`confighub_oci_argo_live\` lane | \`npm run runtime-gitops:wave:verify\` |

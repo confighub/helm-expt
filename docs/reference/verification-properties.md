@@ -24,7 +24,7 @@ For a catalog chart that passes a full test run, you can expect:
    be published or applied through OCI, and can be reconciled by an in-cluster
    Argo or Flux controller into a running workload.
    *Verified by:* ConfigHub proof receipts, local-kind e2e receipts, runtime
-   GitOps receipts, and the live parity lanes recorded in the lane-test matrix.
+   GitOps receipts, and the live parity lanes recorded in the outcome coverage.
 
 3. **Deterministic, pinned, pull-based delivery.** The OCI artifact is
    content-addressed (digest); the controller pulls and reconciles it, so drift
@@ -119,5 +119,5 @@ each backed by a receipt. A chart "passes" only when every applicable row holds.
 
 - Per-chart proof: `npm run <chart>:verify-proof`, `npm run <chart>:verify-package`,
   and where supported `npm run <chart>:compare`.
-- Corpus lane matrix: `data/lane-test-matrix/summary.md`.
+- Corpus lane matrix: `data/outcome-coverage/summary.md`.
 - Lane doctrine: `docs/reference/lane-test-doctrine.md`.

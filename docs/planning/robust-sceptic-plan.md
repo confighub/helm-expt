@@ -13,7 +13,7 @@ The posture that wins: turn every attack into a fixture. A sceptic with a breaki
 Inventory of existing defenses, so the plan builds rather than duplicates:
 
 - `what-we-refuse-to-claim.md` and `why-this-does-not-collapse.md`: the claims discipline and the quirks-as-catalog-facts doctrine.
-- Verification lanes with a generated lane-test matrix: one chart can pass one lane and lack another, stated per row.
+- Verification lanes with a generated outcome coverage: one chart can pass one lane and lack another, stated per row.
 - The watchlist and named normalization rules: every strict live BLOCK has a public route.
 - `known-adversarial-charts.md`: eleven real public charts chosen for stress features (CRDs, webhooks, hooks, generated certs, capability branching, umbrella deps), each with a proof focus.
 - `data/adversarial10`: the first scale-out harness over real charts, recording render context (Helm version, capability version, flags, values profile) and per-chart status including determinism.

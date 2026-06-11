@@ -31,6 +31,7 @@ function buildReport() {
   const discoveredCsvFiles = listFiles(join(repoRoot, "data"))
     .filter((file) => file.endsWith(".csv"))
     .map(relativeRepo)
+    .filter((path) => path !== "data/lane-test-matrix/variant-lanes.csv")
     .sort();
   const csvFiles = [...new Set([...discoveredCsvFiles, "data/csv-index.csv"])].sort();
   const rows = csvFiles.map((path) => {

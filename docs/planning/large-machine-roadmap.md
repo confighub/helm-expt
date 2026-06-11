@@ -61,7 +61,7 @@ Tasks:
 - Add a "blocked receipt" pattern for live attempts that fail due to cluster,
   target, controller, chart, or ConfigHub behavior.
 - Require every future handover to include exact lane counts from
-  `data/lane-test-matrix/summary.md`.
+  `data/outcome-coverage/summary.md`.
 
 Done when:
 
