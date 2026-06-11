@@ -291,6 +291,8 @@ npm run verify
 
 function audienceFor(path) {
   if (path === "data/csv-index.csv") return "user/front-door";
+  if (path.startsWith("data/master-catalog-matrix/")) return "user/front-door";
+  if (path.startsWith("data/environment-matrix/")) return "user/front-door";
   if (path.startsWith("data/chart-use-guide/")) return "user/front-door";
   if (path.startsWith("data/chart-evidence-router/")) return "user/front-door";
   if (path.startsWith("data/status-dashboard/")) return "user/front-door";
@@ -328,6 +330,9 @@ function audienceFor(path) {
 
 function roleFor(path) {
   if (path === "data/csv-index.csv") return "machine-readable index of every CSV under data";
+  if (path.startsWith("data/master-catalog-matrix/")) return "front-door master view: one row per catalog variant with lanes, hooks, quirks, decisions";
+  if (path.startsWith("data/environment-matrix/")) return "recorded environment-determinism cells (TZ/locale/flag profiles)";
+  if (path.startsWith("data/doc-freshness/")) return "authored-doc freshness snapshot and review acknowledgments";
   if (path === "data/chart-use-guide/chart-use-guide.csv") return "one row per top-100 chart: whether to use now, promote, design a better base, or decide a limitation first";
   if (path === "data/chart-evidence-router/router.csv") return "one row per top-100 chart: catalog path, base rows, variant revisions, receipts, hook route, quirk route, production decisions, and next action";
   if (path === "data/status-dashboard/status.csv") return "front-door status dashboard across top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity";
@@ -506,6 +511,9 @@ function commandMap() {
     "chart-evidence-router": { generate: "npm run chart:evidence-router", verify: "npm run chart:evidence-router:verify" },
     "claims-register": { generate: "npm run claims:register", verify: "npm run claims:register:verify" },
     "blast-radius-accuracy": { generate: "npm run blast-radius:accuracy", verify: "npm run blast-radius:accuracy:verify" },
+    "master-catalog-matrix": { generate: "npm run master-matrix", verify: "npm run master-matrix:verify" },
+    "environment-matrix": { generate: "npm run environment-matrix", verify: "npm run environment-matrix:verify" },
+    "doc-freshness": { generate: "npm run doc-freshness", verify: "npm run doc-freshness:verify" },
     "status-dashboard": { generate: "npm run status:dashboard", verify: "npm run status:dashboard:verify" },
     "top20-base-readiness": { generate: "npm run top20:base-readiness", verify: "npm run top20:base-readiness:verify" },
     "pain-point-coverage": { generate: "npm run pain-points:generate", verify: "npm run pain-points:verify" },

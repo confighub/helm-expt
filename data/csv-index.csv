@@ -21,10 +21,10 @@ data/chart-use-guide/chart-use-guide.csv,chart-use-guide,user/front-door,"one ro
 data/claims-register/claims.csv,claims-register,user/front-door,"one row per public claim: status, evidence paths, scoped verifier, and limit",data/claims-register/summary.md,npm run claims:register,npm run claims:register:verify
 data/csv-index.csv,data-index,user/front-door,machine-readable index of every CSV under data,,npm run data:index,npm run data:index:verify
 data/derived-variant-target-bound/summary.csv,derived-variant-target-bound,verification,machine-readable summary,data/derived-variant-target-bound/summary.md,npm run derived-variants:target-bound:summary,npm run derived-variants:target-bound:summary:verify
-data/doc-freshness/freshness.csv,doc-freshness,supporting,supporting generated CSV,data/doc-freshness/summary.md,,
-data/doc-freshness/reviewed.csv,doc-freshness,supporting,supporting generated CSV,data/doc-freshness/summary.md,,
+data/doc-freshness/freshness.csv,doc-freshness,supporting,authored-doc freshness snapshot and review acknowledgments,data/doc-freshness/summary.md,npm run doc-freshness,npm run doc-freshness:verify
+data/doc-freshness/reviewed.csv,doc-freshness,supporting,authored-doc freshness snapshot and review acknowledgments,data/doc-freshness/summary.md,npm run doc-freshness,npm run doc-freshness:verify
 data/edge-recovery/edges.csv,edge-recovery,corpus,recovered desired-state graph fragments from recipe artifacts,data/edge-recovery/summary.md,npm run edges:generate,npm run edges:verify
-data/environment-matrix/matrix.csv,environment-matrix,supporting,supporting generated CSV,data/environment-matrix/summary.md,,
+data/environment-matrix/matrix.csv,environment-matrix,user/front-door,recorded environment-determinism cells (TZ/locale/flag profiles),data/environment-matrix/summary.md,npm run environment-matrix,npm run environment-matrix:verify
 data/extension-slots/extension-slots.csv,extension-slots,user/front-door,one row per chart with NGINX-like extension slots and the route for populated slots,data/extension-slots/summary.md,npm run extension-slots,npm run extension-slots:verify
 data/external-scan-lane/chart-workdown.csv,external-scan-lane,user/front-door,one row per chart: external scan findings grouped into priority and next production action,data/external-scan-lane/summary.md,npm run external-scan,npm run external-scan:verify
 data/external-scan-lane/review.csv,external-scan-lane,supporting,review or promotion worksheet,data/external-scan-lane/summary.md,npm run external-scan,npm run external-scan:verify
@@ -61,7 +61,7 @@ data/live-e2e/top20-local-kind.csv,live-e2e,verification,supporting generated CS
 data/live-helm-confighub-compare/summary.csv,live-helm-confighub-compare,verification,machine-readable summary,data/live-helm-confighub-compare/summary.md,npm run live-parity:top20:summary,npm run live-parity:top20:verify-slots
 data/live-kind-parity/summary.csv,live-kind-parity,verification,machine-readable summary,data/live-kind-parity/summary.md,npm run kind-parity:summary,npm run kind-parity:verify
 data/live-parity-rerun-plan/rerun-plan.csv,live-parity-rerun-plan,verification,supporting generated CSV,data/live-parity-rerun-plan/summary.md,npm run live-parity:rerun-plan,npm run live-parity:rerun-plan:verify
-data/master-catalog-matrix/matrix.csv,master-catalog-matrix,planning,supporting generated CSV,data/master-catalog-matrix/summary.md,,
+data/master-catalog-matrix/matrix.csv,master-catalog-matrix,user/front-door,"front-door master view: one row per catalog variant with lanes, hooks, quirks, decisions",data/master-catalog-matrix/summary.md,npm run master-matrix,npm run master-matrix:verify
 data/model-completeness/report.csv,model-completeness,supporting,model completeness report,data/model-completeness/summary.md,npm run completeness:generate,npm run completeness:verify
 data/next-ten-waves/gap-review-wave.csv,next-ten-waves,planning,supporting generated CSV,data/next-ten-waves/summary.md,npm run next-ten:waves,npm run next-ten:waves:verify
 data/next-ten-waves/import-prototype-wave.csv,next-ten-waves,planning,supporting generated CSV,data/next-ten-waves/summary.md,npm run next-ten:waves,npm run next-ten:waves:verify
