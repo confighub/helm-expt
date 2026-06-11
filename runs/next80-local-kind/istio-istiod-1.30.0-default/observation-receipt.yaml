@@ -1,0 +1,41 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "istio-istiod-1.30.0-default-local-kind"
+spec:
+  variantRevision: "recipes/istio/istiod/1.30.0/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "53385181293dd9a8228f37a370148dde3cc77acecf5a3a8539fa1b8eb0f9afdf"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-istiod"
+    context: "kind-claude-helm-expt-codex-istiod"
+    namespace: "default"
+  observedAt: "2026-06-11T12:46:54.966Z"
+  freshnessTTL: "1h"
+  result: "fail"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "469565642e4ef77ddf0e3e12bb2204013d38ea8c489b278dbf06a3d2048f17b3"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||istio-system"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "17 object(s) from recipes/istio/istiod/1.30.0/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "Deployment|default|istiod"
+      reason: "not-ready: did not converge within the budget"
+  blockedReasons:
+    - "deployment/istiod: not-ready ()"

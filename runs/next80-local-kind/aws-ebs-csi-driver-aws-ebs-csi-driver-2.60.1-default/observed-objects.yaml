@@ -1,0 +1,1534 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "policy/v1"
+    kind: "PodDisruptionBudget"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"policy/v1\",\"kind\":\"PodDisruptionBudget\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"csi-driver\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/version\":\"1.60.1\",\"helm.sh/chart\":\"aws-ebs-csi-driver-2.60.1\"},\"name\":\"ebs-csi-controller\",\"namespace\":\"default\"},\"spec\":{\"maxUnavailable\":1,\"selector\":{\"matchLabels\":{\"app\":\"ebs-csi-controller\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\"}}}}\n"
+      creationTimestamp: "2026-06-11T12:30:17Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "csi-driver"
+        app.kubernetes.io/instance: "aws-ebs-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "aws-ebs-csi-driver"
+        app.kubernetes.io/version: "1.60.1"
+        helm.sh/chart: "aws-ebs-csi-driver-2.60.1"
+      name: "ebs-csi-controller"
+      namespace: "default"
+      resourceVersion: "492"
+      uid: "fdb5e66d-8074-4d59-a2f4-8362594fab51"
+    spec:
+      maxUnavailable: 1
+      selector:
+        matchLabels:
+          app: "ebs-csi-controller"
+          app.kubernetes.io/instance: "aws-ebs-csi-driver"
+          app.kubernetes.io/name: "aws-ebs-csi-driver"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T12:30:17Z"
+          message: ""
+          observedGeneration: 1
+          reason: "InsufficientPods"
+          status: "False"
+          type: "DisruptionAllowed"
+      currentHealthy: 0
+      desiredHealthy: 1
+      disruptionsAllowed: 0
+      expectedPods: 2
+      observedGeneration: 1
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"csi-driver\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/version\":\"1.60.1\",\"helm.sh/chart\":\"aws-ebs-csi-driver-2.60.1\"},\"name\":\"ebs-csi-controller-sa\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T12:30:17Z"
+      labels:
+        app.kubernetes.io/component: "csi-driver"
+        app.kubernetes.io/instance: "aws-ebs-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "aws-ebs-csi-driver"
+        app.kubernetes.io/version: "1.60.1"
+        helm.sh/chart: "aws-ebs-csi-driver-2.60.1"
+      name: "ebs-csi-controller-sa"
+      namespace: "default"
+      resourceVersion: "471"
+      uid: "588ed4fd-d922-44c2-a893-d9e9d76c9f5e"
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"csi-driver\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/version\":\"1.60.1\",\"helm.sh/chart\":\"aws-ebs-csi-driver-2.60.1\"},\"name\":\"ebs-csi-node-sa\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T12:30:17Z"
+      labels:
+        app.kubernetes.io/component: "csi-driver"
+        app.kubernetes.io/instance: "aws-ebs-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "aws-ebs-csi-driver"
+        app.kubernetes.io/version: "1.60.1"
+        helm.sh/chart: "aws-ebs-csi-driver-2.60.1"
+      name: "ebs-csi-node-sa"
+      namespace: "default"
+      resourceVersion: "472"
+      uid: "317c3aea-ae7f-42f1-9591-041ec27b12ca"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"csi-driver\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/version\":\"1.60.1\",\"helm.sh/chart\":\"aws-ebs-csi-driver-2.60.1\"},\"name\":\"ebs-csi-leases-role\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"get\",\"watch\",\"list\",\"delete\",\"update\",\"create\"]}]}\n"
+      creationTimestamp: "2026-06-11T12:30:17Z"
+      labels:
+        app.kubernetes.io/component: "csi-driver"
+        app.kubernetes.io/instance: "aws-ebs-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "aws-ebs-csi-driver"
+        app.kubernetes.io/version: "1.60.1"
+        helm.sh/chart: "aws-ebs-csi-driver-2.60.1"
+      name: "ebs-csi-leases-role"
+      namespace: "default"
+      resourceVersion: "475"
+      uid: "475ab944-af06-45ca-abb5-f2062b3c94da"
+    rules:
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "get"
+          - "watch"
+          - "list"
+          - "delete"
+          - "update"
+          - "create"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"csi-driver\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/version\":\"1.60.1\",\"helm.sh/chart\":\"aws-ebs-csi-driver-2.60.1\"},\"name\":\"ebs-csi-leases-rolebinding\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"ebs-csi-leases-role\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"ebs-csi-controller-sa\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T12:30:17Z"
+      labels:
+        app.kubernetes.io/component: "csi-driver"
+        app.kubernetes.io/instance: "aws-ebs-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "aws-ebs-csi-driver"
+        app.kubernetes.io/version: "1.60.1"
+        helm.sh/chart: "aws-ebs-csi-driver-2.60.1"
+      name: "ebs-csi-leases-rolebinding"
+      namespace: "default"
+      resourceVersion: "477"
+      uid: "d8ace3f4-fc61-4959-bdce-13a7fb547762"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "ebs-csi-leases-role"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "ebs-csi-controller-sa"
+        namespace: "default"
+  -
+    apiVersion: "apps/v1"
+    kind: "DaemonSet"
+    metadata:
+      annotations:
+        deprecated.daemonset.template.generation: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"DaemonSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"csi-driver\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/version\":\"1.60.1\",\"helm.sh/chart\":\"aws-ebs-csi-driver-2.60.1\"},\"name\":\"ebs-csi-node-windows\",\"namespace\":\"default\"},\"spec\":{\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app\":\"ebs-csi-node\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"ebs-csi-node\",\"app.kubernetes.io/component\":\"csi-driver\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/version\":\"1.60.1\",\"helm.sh/chart\":\"aws-ebs-csi-driver-2.60.1\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":{\"requiredDuringSchedulingIgnoredDuringExecution\":{\"nodeSelectorTerms\":[{\"matchExpressions\":[{\"key\":\"eks.amazonaws.com/compute-type\",\"operator\":\"NotIn\",\"values\":[\"fargate\",\"auto\",\"hybrid\"]}]}]}}},\"containers\":[{\"args\":[\"node\",\"--endpoint=$(CSI_ENDPOINT)\",\"--logging-format=text\",\"--v=2\"],\"env\":[{\"name\":\"CSI_ENDPOINT\",\"value\":\"unix:/csi/csi.sock\"},{\"name\":\"CSI_NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}}],\"image\":\"public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1\",\"imagePullPolicy\":\"IfNotPresent\",\"lifecycle\":{\"preStop\":{\"exec\":{\"command\":[\"/bin/aws-ebs-csi-driver\",\"pre-stop-hook\"]}}},\"livenessProbe\":{\"failureThreshold\":5,\"httpGet\":{\"path\":\"/healthz\",\"port\":\"healthz\"},\"initialDelaySeconds\":10,\"periodSeconds\":10,\"timeoutSeconds\":3},\"name\":\"ebs-plugin\",\"ports\":[{\"containerPort\":9808,\"name\":\"healthz\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/healthz\",\"port\":\"healthz\"},\"periodSeconds\":5,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"memory\":\"256Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"40Mi\"}},\"securityContext\":{\"windowsOptions\":{\"runAsUserName\":\"ContainerAdministrator\"}},\"terminationMessagePolicy\":\"FallbackToLogsOnError\",\"volumeMounts\":[{\"mountPath\":\"C:\\\\var\\\\lib\\\\kubelet\",\"mountPropagation\":\"None\",\"name\":\"kubelet-dir\"},{\"mountPath\":\"C:\\\\csi\",\"name\":\"plugin-dir\"},{\"mountPath\":\"\\\\\\\\.\\\\pipe\\\\csi-proxy-disk-v1\",\"name\":\"csi-proxy-disk-pipe\"},{\"mountPath\":\"\\\\\\\\.\\\\pipe\\\\csi-proxy-volume-v1\",\"name\":\"csi-proxy-volume-pipe\"},{\"mountPath\":\"\\\\\\\\.\\\\pipe\\\\csi-proxy-filesystem-v1\",\"name\":\"csi-proxy-filesystem-pipe\"}]},{\"args\":[\"--csi-address=$(ADDRESS)\",\"--kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)\",\"--http-endpoint=0.0.0.0:9809\",\"--v=2\"],\"env\":[{\"name\":\"ADDRESS\",\"value\":\"unix:/csi/csi.sock\"},{\"name\":\"DRIVER_REG_SOCK_PATH\",\"value\":\"C:\\\\var\\\\lib\\\\kubelet\\\\plugins\\\\ebs.csi.aws.com\\\\csi.sock\"}],\"image\":\"public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"httpGet\":{\"path\":\"/healthz\",\"port\":\"healthz-ndr\"},\"initialDelaySeconds\":30,\"periodSeconds\":90,\"timeoutSeconds\":15},\"name\":\"node-driver-registrar\",\"ports\":[{\"containerPort\":9809,\"name\":\"healthz-ndr\"}],\"resources\":{\"limits\":{\"memory\":\"150Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"150Mi\"}},\"terminationMessagePolicy\":\"FallbackToLogsOnError\",\"volumeMounts\":[{\"mountPath\":\"C:\\\\csi\",\"name\":\"plugin-dir\"},{\"mountPath\":\"C:\\\\registration\",\"name\":\"registration-dir\"},{\"mountPath\":\"C:\\\\var\\\\lib\\\\kubelet\\\\plugins\\\\ebs.csi.aws.com\",\"name\":\"probe-dir\"}]},{\"args\":[\"--csi-address=unix:/csi/csi.sock\"],\"image\":\"public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"liveness-probe\",\"resources\":{\"limits\":{\"memory\":\"150Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"150Mi\"}},\"terminationMessagePolicy\":\"FallbackToLogsOnError\",\"volumeMounts\":[{\"mountPath\":\"C:\\\\csi\",\"name\":\"plugin-dir\"}]}],\"nodeSelector\":{\"kubernetes.io/os\":\"windows\"},\"priorityClassName\":\"system-node-critical\",\"serviceAccountName\":\"ebs-csi-node-sa\",\"terminationGracePeriodSeconds\":30,\"tolerations\":[{\"operator\":\"Exists\"}],\"volumes\":[{\"hostPath\":{\"path\":\"C:\\\\var\\\\lib\\\\kubelet\",\"type\":\"Directory\"},\"name\":\"kubelet-dir\"},{\"hostPath\":{\"path\":\"C:\\\\var\\\\lib\\\\kubelet\\\\plugins\\\\ebs.csi.aws.com\",\"type\":\"DirectoryOrCreate\"},\"name\":\"plugin-dir\"},{\"hostPath\":{\"path\":\"C:\\\\var\\\\lib\\\\kubelet\\\\plugins_registry\",\"type\":\"Directory\"},\"name\":\"registration-dir\"},{\"hostPath\":{\"path\":\"\\\\\\\\.\\\\pipe\\\\csi-proxy-disk-v1\",\"type\":\"\"},\"name\":\"csi-proxy-disk-pipe\"},{\"hostPath\":{\"path\":\"\\\\\\\\.\\\\pipe\\\\csi-proxy-volume-v1\",\"type\":\"\"},\"name\":\"csi-proxy-volume-pipe\"},{\"hostPath\":{\"path\":\"\\\\\\\\.\\\\pipe\\\\csi-proxy-filesystem-v1\",\"type\":\"\"},\"name\":\"csi-proxy-filesystem-pipe\"},{\"emptyDir\":{},\"name\":\"probe-dir\"}]}},\"updateStrategy\":{\"rollingUpdate\":{\"maxUnavailable\":\"10%\"},\"type\":\"RollingUpdate\"}}}\n"
+      creationTimestamp: "2026-06-11T12:30:17Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "csi-driver"
+        app.kubernetes.io/instance: "aws-ebs-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "aws-ebs-csi-driver"
+        app.kubernetes.io/version: "1.60.1"
+        helm.sh/chart: "aws-ebs-csi-driver-2.60.1"
+      name: "ebs-csi-node-windows"
+      namespace: "default"
+      resourceVersion: "481"
+      uid: "f6193dd3-fe62-4a17-9a49-13cde16f35a3"
+    spec:
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app: "ebs-csi-node"
+          app.kubernetes.io/instance: "aws-ebs-csi-driver"
+          app.kubernetes.io/name: "aws-ebs-csi-driver"
+      template:
+        metadata:
+          labels:
+            app: "ebs-csi-node"
+            app.kubernetes.io/component: "csi-driver"
+            app.kubernetes.io/instance: "aws-ebs-csi-driver"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "aws-ebs-csi-driver"
+            app.kubernetes.io/version: "1.60.1"
+            helm.sh/chart: "aws-ebs-csi-driver-2.60.1"
+        spec:
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  -
+                    matchExpressions:
+                      -
+                        key: "eks.amazonaws.com/compute-type"
+                        operator: "NotIn"
+                        values:
+                          - "fargate"
+                          - "auto"
+                          - "hybrid"
+          containers:
+            -
+              args:
+                - "node"
+                - "--endpoint=$(CSI_ENDPOINT)"
+                - "--logging-format=text"
+                - "--v=2"
+              env:
+                -
+                  name: "CSI_ENDPOINT"
+                  value: "unix:/csi/csi.sock"
+                -
+                  name: "CSI_NODE_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "spec.nodeName"
+              image: "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1"
+              imagePullPolicy: "IfNotPresent"
+              lifecycle:
+                preStop:
+                  exec:
+                    command:
+                      - "/bin/aws-ebs-csi-driver"
+                      - "pre-stop-hook"
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: "/healthz"
+                  port: "healthz"
+                  scheme: "HTTP"
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 3
+              name: "ebs-plugin"
+              ports:
+                -
+                  containerPort: 9808
+                  name: "healthz"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: "healthz"
+                  scheme: "HTTP"
+                periodSeconds: 5
+                successThreshold: 1
+                timeoutSeconds: 3
+              resources:
+                limits:
+                  memory: "256Mi"
+                requests:
+                  cpu: "10m"
+                  memory: "40Mi"
+              securityContext:
+                windowsOptions:
+                  runAsUserName: "ContainerAdministrator"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "FallbackToLogsOnError"
+              volumeMounts:
+                -
+                  mountPath: "C:\\var\\lib\\kubelet"
+                  mountPropagation: "None"
+                  name: "kubelet-dir"
+                -
+                  mountPath: "C:\\csi"
+                  name: "plugin-dir"
+                -
+                  mountPath: "\\\\.\\pipe\\csi-proxy-disk-v1"
+                  name: "csi-proxy-disk-pipe"
+                -
+                  mountPath: "\\\\.\\pipe\\csi-proxy-volume-v1"
+                  name: "csi-proxy-volume-pipe"
+                -
+                  mountPath: "\\\\.\\pipe\\csi-proxy-filesystem-v1"
+                  name: "csi-proxy-filesystem-pipe"
+            -
+              args:
+                - "--csi-address=$(ADDRESS)"
+                - "--kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)"
+                - "--http-endpoint=0.0.0.0:9809"
+                - "--v=2"
+              env:
+                -
+                  name: "ADDRESS"
+                  value: "unix:/csi/csi.sock"
+                -
+                  name: "DRIVER_REG_SOCK_PATH"
+                  value: "C:\\var\\lib\\kubelet\\plugins\\ebs.csi.aws.com\\csi.sock"
+              image: "public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: "healthz-ndr"
+                  scheme: "HTTP"
+                initialDelaySeconds: 30
+                periodSeconds: 90
+                successThreshold: 1
+                timeoutSeconds: 15
+              name: "node-driver-registrar"
+              ports:
+                -
+                  containerPort: 9809
+                  name: "healthz-ndr"
+                  protocol: "TCP"
+              resources:
+                limits:
+                  memory: "150Mi"
+                requests:
+                  cpu: "10m"
+                  memory: "150Mi"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "FallbackToLogsOnError"
+              volumeMounts:
+                -
+                  mountPath: "C:\\csi"
+                  name: "plugin-dir"
+                -
+                  mountPath: "C:\\registration"
+                  name: "registration-dir"
+                -
+                  mountPath: "C:\\var\\lib\\kubelet\\plugins\\ebs.csi.aws.com"
+                  name: "probe-dir"
+            -
+              args:
+                - "--csi-address=unix:/csi/csi.sock"
+              image: "public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6"
+              imagePullPolicy: "IfNotPresent"
+              name: "liveness-probe"
+              resources:
+                limits:
+                  memory: "150Mi"
+                requests:
+                  cpu: "10m"
+                  memory: "150Mi"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "FallbackToLogsOnError"
+              volumeMounts:
+                -
+                  mountPath: "C:\\csi"
+                  name: "plugin-dir"
+          dnsPolicy: "ClusterFirst"
+          nodeSelector:
+            kubernetes.io/os: "windows"
+          priorityClassName: "system-node-critical"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "ebs-csi-node-sa"
+          serviceAccountName: "ebs-csi-node-sa"
+          terminationGracePeriodSeconds: 30
+          tolerations:
+            -
+              operator: "Exists"
+          volumes:
+            -
+              hostPath:
+                path: "C:\\var\\lib\\kubelet"
+                type: "Directory"
+              name: "kubelet-dir"
+            -
+              hostPath:
+                path: "C:\\var\\lib\\kubelet\\plugins\\ebs.csi.aws.com"
+                type: "DirectoryOrCreate"
+              name: "plugin-dir"
+            -
+              hostPath:
+                path: "C:\\var\\lib\\kubelet\\plugins_registry"
+                type: "Directory"
+              name: "registration-dir"
+            -
+              hostPath:
+                path: "\\\\.\\pipe\\csi-proxy-disk-v1"
+                type: ""
+              name: "csi-proxy-disk-pipe"
+            -
+              hostPath:
+                path: "\\\\.\\pipe\\csi-proxy-volume-v1"
+                type: ""
+              name: "csi-proxy-volume-pipe"
+            -
+              hostPath:
+                path: "\\\\.\\pipe\\csi-proxy-filesystem-v1"
+                type: ""
+              name: "csi-proxy-filesystem-pipe"
+            -
+              emptyDir:
+                {}
+              name: "probe-dir"
+      updateStrategy:
+        rollingUpdate:
+          maxSurge: 0
+          maxUnavailable: "10%"
+        type: "RollingUpdate"
+    status:
+      currentNumberScheduled: 0
+      desiredNumberScheduled: 0
+      numberMisscheduled: 0
+      numberReady: 0
+      observedGeneration: 1
+  -
+    apiVersion: "apps/v1"
+    kind: "DaemonSet"
+    metadata:
+      annotations:
+        deprecated.daemonset.template.generation: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"DaemonSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"csi-driver\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/version\":\"1.60.1\",\"helm.sh/chart\":\"aws-ebs-csi-driver-2.60.1\"},\"name\":\"ebs-csi-node\",\"namespace\":\"default\"},\"spec\":{\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app\":\"ebs-csi-node\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"ebs-csi-node\",\"app.kubernetes.io/component\":\"csi-driver\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/version\":\"1.60.1\",\"helm.sh/chart\":\"aws-ebs-csi-driver-2.60.1\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":{\"requiredDuringSchedulingIgnoredDuringExecution\":{\"nodeSelectorTerms\":[{\"matchExpressions\":[{\"key\":\"eks.amazonaws.com/compute-type\",\"operator\":\"NotIn\",\"values\":[\"fargate\",\"auto\",\"hybrid\"]}]}]}}},\"containers\":[{\"args\":[\"node\",\"--endpoint=$(CSI_ENDPOINT)\",\"--csi-mount-point-prefix=/var/lib/kubelet/plugins/kubernetes.io/csi/ebs.csi.aws.com/\",\"--logging-format=text\",\"--v=2\"],\"env\":[{\"name\":\"CSI_ENDPOINT\",\"value\":\"unix:/csi/csi.sock\"},{\"name\":\"CSI_NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}}],\"image\":\"public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1\",\"imagePullPolicy\":\"IfNotPresent\",\"lifecycle\":{\"preStop\":{\"exec\":{\"command\":[\"/bin/aws-ebs-csi-driver\",\"pre-stop-hook\"]}}},\"livenessProbe\":{\"failureThreshold\":5,\"httpGet\":{\"path\":\"/healthz\",\"port\":\"healthz\"},\"initialDelaySeconds\":10,\"periodSeconds\":10,\"timeoutSeconds\":3},\"name\":\"ebs-plugin\",\"ports\":[{\"containerPort\":9808,\"name\":\"healthz\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/healthz\",\"port\":\"healthz\"},\"periodSeconds\":5,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"memory\":\"256Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"40Mi\"}},\"securityContext\":{\"privileged\":true,\"readOnlyRootFilesystem\":true},\"terminationMessagePolicy\":\"FallbackToLogsOnError\",\"volumeMounts\":[{\"mountPath\":\"/var/lib/kubelet\",\"mountPropagation\":\"Bidirectional\",\"name\":\"kubelet-dir\"},{\"mountPath\":\"/csi\",\"name\":\"plugin-dir\"},{\"mountPath\":\"/dev\",\"name\":\"device-dir\"}]},{\"args\":[\"--csi-address=$(ADDRESS)\",\"--kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)\",\"--http-endpoint=0.0.0.0:9809\",\"--v=2\"],\"env\":[{\"name\":\"ADDRESS\",\"value\":\"/csi/csi.sock\"},{\"name\":\"DRIVER_REG_SOCK_PATH\",\"value\":\"/var/lib/kubelet/plugins/ebs.csi.aws.com/csi.sock\"}],\"image\":\"public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"httpGet\":{\"path\":\"/healthz\",\"port\":\"healthz-ndr\"},\"initialDelaySeconds\":30,\"periodSeconds\":90,\"timeoutSeconds\":15},\"name\":\"node-driver-registrar\",\"ports\":[{\"containerPort\":9809,\"name\":\"healthz-ndr\"}],\"resources\":{\"limits\":{\"memory\":\"32Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"32Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"readOnlyRootFilesystem\":true},\"terminationMessagePolicy\":\"FallbackToLogsOnError\",\"volumeMounts\":[{\"mountPath\":\"/csi\",\"name\":\"plugin-dir\"},{\"mountPath\":\"/registration\",\"name\":\"registration-dir\"},{\"mountPath\":\"/var/lib/kubelet/plugins/ebs.csi.aws.com/\",\"name\":\"probe-dir\"}]},{\"args\":[\"--csi-address=/csi/csi.sock\"],\"image\":\"public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"liveness-probe\",\"resources\":{\"limits\":{\"memory\":\"32Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"32Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"readOnlyRootFilesystem\":true},\"terminationMessagePolicy\":\"FallbackToLogsOnError\",\"volumeMounts\":[{\"mountPath\":\"/csi\",\"name\":\"plugin-dir\"}]}],\"hostNetwork\":false,\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"priorityClassName\":\"system-node-critical\",\"securityContext\":{\"fsGroup\":0,\"runAsGroup\":0,\"runAsNonRoot\":false,\"runAsUser\":0},\"serviceAccountName\":\"ebs-csi-node-sa\",\"terminationGracePeriodSeconds\":30,\"tolerations\":[{\"operator\":\"Exists\"}],\"volumes\":[{\"hostPath\":{\"path\":\"/var/lib/kubelet\",\"type\":\"Directory\"},\"name\":\"kubelet-dir\"},{\"hostPath\":{\"path\":\"/var/lib/kubelet/plugins/ebs.csi.aws.com/\",\"type\":\"DirectoryOrCreate\"},\"name\":\"plugin-dir\"},{\"hostPath\":{\"path\":\"/var/lib/kubelet/plugins_registry/\",\"type\":\"Directory\"},\"name\":\"registration-dir\"},{\"hostPath\":{\"path\":\"/dev\",\"type\":\"Directory\"},\"name\":\"device-dir\"},{\"emptyDir\":{},\"name\":\"probe-dir\"}]}},\"updateStrategy\":{\"rollingUpdate\":{\"maxUnavailable\":\"10%\"},\"type\":\"RollingUpdate\"}}}\n"
+      creationTimestamp: "2026-06-11T12:30:17Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "csi-driver"
+        app.kubernetes.io/instance: "aws-ebs-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "aws-ebs-csi-driver"
+        app.kubernetes.io/version: "1.60.1"
+        helm.sh/chart: "aws-ebs-csi-driver-2.60.1"
+      name: "ebs-csi-node"
+      namespace: "default"
+      resourceVersion: "497"
+      uid: "1d2a026f-0aad-47fb-afb7-eb2d1f13bc01"
+    spec:
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app: "ebs-csi-node"
+          app.kubernetes.io/instance: "aws-ebs-csi-driver"
+          app.kubernetes.io/name: "aws-ebs-csi-driver"
+      template:
+        metadata:
+          labels:
+            app: "ebs-csi-node"
+            app.kubernetes.io/component: "csi-driver"
+            app.kubernetes.io/instance: "aws-ebs-csi-driver"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "aws-ebs-csi-driver"
+            app.kubernetes.io/version: "1.60.1"
+            helm.sh/chart: "aws-ebs-csi-driver-2.60.1"
+        spec:
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  -
+                    matchExpressions:
+                      -
+                        key: "eks.amazonaws.com/compute-type"
+                        operator: "NotIn"
+                        values:
+                          - "fargate"
+                          - "auto"
+                          - "hybrid"
+          containers:
+            -
+              args:
+                - "node"
+                - "--endpoint=$(CSI_ENDPOINT)"
+                - "--csi-mount-point-prefix=/var/lib/kubelet/plugins/kubernetes.io/csi/ebs.csi.aws.com/"
+                - "--logging-format=text"
+                - "--v=2"
+              env:
+                -
+                  name: "CSI_ENDPOINT"
+                  value: "unix:/csi/csi.sock"
+                -
+                  name: "CSI_NODE_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "spec.nodeName"
+              image: "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1"
+              imagePullPolicy: "IfNotPresent"
+              lifecycle:
+                preStop:
+                  exec:
+                    command:
+                      - "/bin/aws-ebs-csi-driver"
+                      - "pre-stop-hook"
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: "/healthz"
+                  port: "healthz"
+                  scheme: "HTTP"
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 3
+              name: "ebs-plugin"
+              ports:
+                -
+                  containerPort: 9808
+                  name: "healthz"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: "healthz"
+                  scheme: "HTTP"
+                periodSeconds: 5
+                successThreshold: 1
+                timeoutSeconds: 3
+              resources:
+                limits:
+                  memory: "256Mi"
+                requests:
+                  cpu: "10m"
+                  memory: "40Mi"
+              securityContext:
+                privileged: true
+                readOnlyRootFilesystem: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "FallbackToLogsOnError"
+              volumeMounts:
+                -
+                  mountPath: "/var/lib/kubelet"
+                  mountPropagation: "Bidirectional"
+                  name: "kubelet-dir"
+                -
+                  mountPath: "/csi"
+                  name: "plugin-dir"
+                -
+                  mountPath: "/dev"
+                  name: "device-dir"
+            -
+              args:
+                - "--csi-address=$(ADDRESS)"
+                - "--kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)"
+                - "--http-endpoint=0.0.0.0:9809"
+                - "--v=2"
+              env:
+                -
+                  name: "ADDRESS"
+                  value: "/csi/csi.sock"
+                -
+                  name: "DRIVER_REG_SOCK_PATH"
+                  value: "/var/lib/kubelet/plugins/ebs.csi.aws.com/csi.sock"
+              image: "public.ecr.aws/csi-components/csi-node-driver-registrar:v2.16.0-eksbuild.6"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: "healthz-ndr"
+                  scheme: "HTTP"
+                initialDelaySeconds: 30
+                periodSeconds: 90
+                successThreshold: 1
+                timeoutSeconds: 15
+              name: "node-driver-registrar"
+              ports:
+                -
+                  containerPort: 9809
+                  name: "healthz-ndr"
+                  protocol: "TCP"
+              resources:
+                limits:
+                  memory: "32Mi"
+                requests:
+                  cpu: "10m"
+                  memory: "32Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "FallbackToLogsOnError"
+              volumeMounts:
+                -
+                  mountPath: "/csi"
+                  name: "plugin-dir"
+                -
+                  mountPath: "/registration"
+                  name: "registration-dir"
+                -
+                  mountPath: "/var/lib/kubelet/plugins/ebs.csi.aws.com/"
+                  name: "probe-dir"
+            -
+              args:
+                - "--csi-address=/csi/csi.sock"
+              image: "public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6"
+              imagePullPolicy: "IfNotPresent"
+              name: "liveness-probe"
+              resources:
+                limits:
+                  memory: "32Mi"
+                requests:
+                  cpu: "10m"
+                  memory: "32Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "FallbackToLogsOnError"
+              volumeMounts:
+                -
+                  mountPath: "/csi"
+                  name: "plugin-dir"
+          dnsPolicy: "ClusterFirst"
+          nodeSelector:
+            kubernetes.io/os: "linux"
+          priorityClassName: "system-node-critical"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 0
+            runAsGroup: 0
+            runAsNonRoot: false
+            runAsUser: 0
+          serviceAccount: "ebs-csi-node-sa"
+          serviceAccountName: "ebs-csi-node-sa"
+          terminationGracePeriodSeconds: 30
+          tolerations:
+            -
+              operator: "Exists"
+          volumes:
+            -
+              hostPath:
+                path: "/var/lib/kubelet"
+                type: "Directory"
+              name: "kubelet-dir"
+            -
+              hostPath:
+                path: "/var/lib/kubelet/plugins/ebs.csi.aws.com/"
+                type: "DirectoryOrCreate"
+              name: "plugin-dir"
+            -
+              hostPath:
+                path: "/var/lib/kubelet/plugins_registry/"
+                type: "Directory"
+              name: "registration-dir"
+            -
+              hostPath:
+                path: "/dev"
+                type: "Directory"
+              name: "device-dir"
+            -
+              emptyDir:
+                {}
+              name: "probe-dir"
+      updateStrategy:
+        rollingUpdate:
+          maxSurge: 0
+          maxUnavailable: "10%"
+        type: "RollingUpdate"
+    status:
+      currentNumberScheduled: 1
+      desiredNumberScheduled: 1
+      numberMisscheduled: 0
+      numberReady: 0
+      numberUnavailable: 1
+      observedGeneration: 1
+      updatedNumberScheduled: 1
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"csi-driver\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/version\":\"1.60.1\",\"helm.sh/chart\":\"aws-ebs-csi-driver-2.60.1\"},\"name\":\"ebs-csi-controller\",\"namespace\":\"default\"},\"spec\":{\"replicas\":2,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app\":\"ebs-csi-controller\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\"}},\"strategy\":{\"rollingUpdate\":{\"maxUnavailable\":1},\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"labels\":{\"app\":\"ebs-csi-controller\",\"app.kubernetes.io/component\":\"csi-driver\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/version\":\"1.60.1\",\"helm.sh/chart\":\"aws-ebs-csi-driver-2.60.1\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":{\"preferredDuringSchedulingIgnoredDuringExecution\":[{\"preference\":{\"matchExpressions\":[{\"key\":\"eks.amazonaws.com/compute-type\",\"operator\":\"NotIn\",\"values\":[\"fargate\",\"auto\",\"hybrid\"]}]},\"weight\":1}]},\"podAntiAffinity\":{\"preferredDuringSchedulingIgnoredDuringExecution\":[{\"podAffinityTerm\":{\"labelSelector\":{\"matchExpressions\":[{\"key\":\"app\",\"operator\":\"In\",\"values\":[\"ebs-csi-controller\"]}]},\"topologyKey\":\"kubernetes.io/hostname\"},\"weight\":100}]}},\"containers\":[{\"args\":[\"controller\",\"--endpoint=$(CSI_ENDPOINT)\",\"--batching=true\",\"--logging-format=text\",\"--user-agent-extra=helm\",\"--v=2\"],\"env\":[{\"name\":\"CSI_ENDPOINT\",\"value\":\"unix:///var/lib/csi/sockets/pluginproxy/csi.sock\"},{\"name\":\"CSI_NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"AWS_ACCESS_KEY_ID\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"key_id\",\"name\":\"aws-secret\",\"optional\":true}}},{\"name\":\"AWS_SECRET_ACCESS_KEY\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"access_key\",\"name\":\"aws-secret\",\"optional\":true}}},{\"name\":\"AWS_EC2_ENDPOINT\",\"valueFrom\":{\"configMapKeyRef\":{\"key\":\"endpoint\",\"name\":\"aws-meta\",\"optional\":true}}},{\"name\":\"AWS_SAGEMAKER_ENDPOINT\",\"valueFrom\":{\"configMapKeyRef\":{\"key\":\"sagemaker_endpoint\",\"name\":\"aws-meta\",\"optional\":true}}}],\"image\":\"public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":10,\"httpGet\":{\"path\":\"/healthz\",\"port\":\"healthz\"},\"initialDelaySeconds\":10,\"periodSeconds\":10,\"timeoutSeconds\":60},\"name\":\"ebs-plugin\",\"ports\":[{\"containerPort\":9808,\"name\":\"healthz\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":5,\"httpGet\":{\"path\":\"/healthz\",\"port\":\"healthz\"},\"initialDelaySeconds\":10,\"periodSeconds\":10,\"timeoutSeconds\":60},\"resources\":{\"limits\":{\"memory\":\"256Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"40Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"readOnlyRootFilesystem\":true,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"terminationMessagePolicy\":\"FallbackToLogsOnError\",\"volumeMounts\":[{\"mountPath\":\"/var/lib/csi/sockets/pluginproxy/\",\"name\":\"socket-dir\"}]},{\"args\":[\"--timeout=60s\",\"--csi-address=$(ADDRESS)\",\"--v=2\",\"--feature-gates=Topology=true\",\"--extra-create-metadata\",\"--leader-election=true\",\"--default-fstype=ext4\",\"--kube-api-qps=20\",\"--kube-api-burst=100\",\"--worker-threads=100\",\"--retry-interval-max=30m\",\"--feature-gates=VolumeAttributesClass=false\"],\"env\":[{\"name\":\"ADDRESS\",\"value\":\"/var/lib/csi/sockets/pluginproxy/csi.sock\"},{\"name\":\"ENABLE_VAC_FALLBACK\",\"value\":\"true\"}],\"image\":\"public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"csi-provisioner\",\"resources\":{\"limits\":{\"memory\":\"256Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"40Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"readOnlyRootFilesystem\":true,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"terminationMessagePolicy\":\"FallbackToLogsOnError\",\"volumeMounts\":[{\"mountPath\":\"/var/lib/csi/sockets/pluginproxy/\",\"name\":\"socket-dir\"}]},{\"args\":[\"--timeout=6m\",\"--csi-address=$(ADDRESS)\",\"--v=2\",\"--leader-election=true\",\"--kube-api-qps=20\",\"--kube-api-burst=100\",\"--worker-threads=100\",\"--retry-interval-max=5m\"],\"env\":[{\"name\":\"ADDRESS\",\"value\":\"/var/lib/csi/sockets/pluginproxy/csi.sock\"}],\"image\":\"public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.6\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"csi-attacher\",\"resources\":{\"limits\":{\"memory\":\"256Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"40Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"readOnlyRootFilesystem\":true,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"terminationMessagePolicy\":\"FallbackToLogsOnError\",\"volumeMounts\":[{\"mountPath\":\"/var/lib/csi/sockets/pluginproxy/\",\"name\":\"socket-dir\"}]},{\"args\":[\"--timeout=60s\",\"--extra-modify-metadata\",\"--csi-address=$(ADDRESS)\",\"--v=2\",\"--handle-volume-inuse-error=false\",\"--leader-election=true\",\"--kube-api-qps=20\",\"--kube-api-burst=100\",\"--workers=100\",\"--retry-interval-max=30m\",\"--feature-gates=VolumeAttributesClass=false\"],\"env\":[{\"name\":\"ADDRESS\",\"value\":\"/var/lib/csi/sockets/pluginproxy/csi.sock\"},{\"name\":\"ENABLE_VAC_FALLBACK\",\"value\":\"true\"}],\"image\":\"public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.6\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"csi-resizer\",\"resources\":{\"limits\":{\"memory\":\"256Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"40Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"readOnlyRootFilesystem\":true,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"terminationMessagePolicy\":\"FallbackToLogsOnError\",\"volumeMounts\":[{\"mountPath\":\"/var/lib/csi/sockets/pluginproxy/\",\"name\":\"socket-dir\"}]},{\"args\":[\"--csi-address=/csi/csi.sock\",\"--probe-timeout=60s\"],\"image\":\"public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"liveness-probe\",\"resources\":{\"limits\":{\"memory\":\"32Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"32Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"readOnlyRootFilesystem\":true},\"terminationMessagePolicy\":\"FallbackToLogsOnError\",\"volumeMounts\":[{\"mountPath\":\"/csi\",\"name\":\"socket-dir\"}]}],\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"priorityClassName\":\"system-cluster-critical\",\"securityContext\":{\"fsGroup\":1000,\"runAsGroup\":1000,\"runAsNonRoot\":true,\"runAsUser\":1000},\"serviceAccountName\":\"ebs-csi-controller-sa\",\"tolerations\":[{\"key\":\"CriticalAddonsOnly\",\"operator\":\"Exists\"},{\"effect\":\"NoExecute\",\"operator\":\"Exists\",\"tolerationSeconds\":300}],\"volumes\":[{\"emptyDir\":{},\"name\":\"socket-dir\"}]}}}}\n"
+      creationTimestamp: "2026-06-11T12:30:17Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "csi-driver"
+        app.kubernetes.io/instance: "aws-ebs-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "aws-ebs-csi-driver"
+        app.kubernetes.io/version: "1.60.1"
+        helm.sh/chart: "aws-ebs-csi-driver-2.60.1"
+      name: "ebs-csi-controller"
+      namespace: "default"
+      resourceVersion: "507"
+      uid: "9f038d84-6e50-45a0-b6b3-52fe0cf443d8"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 2
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app: "ebs-csi-controller"
+          app.kubernetes.io/instance: "aws-ebs-csi-driver"
+          app.kubernetes.io/name: "aws-ebs-csi-driver"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: 1
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app: "ebs-csi-controller"
+            app.kubernetes.io/component: "csi-driver"
+            app.kubernetes.io/instance: "aws-ebs-csi-driver"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "aws-ebs-csi-driver"
+            app.kubernetes.io/version: "1.60.1"
+            helm.sh/chart: "aws-ebs-csi-driver-2.60.1"
+        spec:
+          affinity:
+            nodeAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                -
+                  preference:
+                    matchExpressions:
+                      -
+                        key: "eks.amazonaws.com/compute-type"
+                        operator: "NotIn"
+                        values:
+                          - "fargate"
+                          - "auto"
+                          - "hybrid"
+                  weight: 1
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                -
+                  podAffinityTerm:
+                    labelSelector:
+                      matchExpressions:
+                        -
+                          key: "app"
+                          operator: "In"
+                          values:
+                            - "ebs-csi-controller"
+                    topologyKey: "kubernetes.io/hostname"
+                  weight: 100
+          containers:
+            -
+              args:
+                - "controller"
+                - "--endpoint=$(CSI_ENDPOINT)"
+                - "--batching=true"
+                - "--logging-format=text"
+                - "--user-agent-extra=helm"
+                - "--v=2"
+              env:
+                -
+                  name: "CSI_ENDPOINT"
+                  value: "unix:///var/lib/csi/sockets/pluginproxy/csi.sock"
+                -
+                  name: "CSI_NODE_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "spec.nodeName"
+                -
+                  name: "AWS_ACCESS_KEY_ID"
+                  valueFrom:
+                    secretKeyRef:
+                      key: "key_id"
+                      name: "aws-secret"
+                      optional: true
+                -
+                  name: "AWS_SECRET_ACCESS_KEY"
+                  valueFrom:
+                    secretKeyRef:
+                      key: "access_key"
+                      name: "aws-secret"
+                      optional: true
+                -
+                  name: "AWS_EC2_ENDPOINT"
+                  valueFrom:
+                    configMapKeyRef:
+                      key: "endpoint"
+                      name: "aws-meta"
+                      optional: true
+                -
+                  name: "AWS_SAGEMAKER_ENDPOINT"
+                  valueFrom:
+                    configMapKeyRef:
+                      key: "sagemaker_endpoint"
+                      name: "aws-meta"
+                      optional: true
+              image: "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver:v1.60.1"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 10
+                httpGet:
+                  path: "/healthz"
+                  port: "healthz"
+                  scheme: "HTTP"
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 60
+              name: "ebs-plugin"
+              ports:
+                -
+                  containerPort: 9808
+                  name: "healthz"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: "/healthz"
+                  port: "healthz"
+                  scheme: "HTTP"
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 60
+              resources:
+                limits:
+                  memory: "256Mi"
+                requests:
+                  cpu: "10m"
+                  memory: "40Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "FallbackToLogsOnError"
+              volumeMounts:
+                -
+                  mountPath: "/var/lib/csi/sockets/pluginproxy/"
+                  name: "socket-dir"
+            -
+              args:
+                - "--timeout=60s"
+                - "--csi-address=$(ADDRESS)"
+                - "--v=2"
+                - "--feature-gates=Topology=true"
+                - "--extra-create-metadata"
+                - "--leader-election=true"
+                - "--default-fstype=ext4"
+                - "--kube-api-qps=20"
+                - "--kube-api-burst=100"
+                - "--worker-threads=100"
+                - "--retry-interval-max=30m"
+                - "--feature-gates=VolumeAttributesClass=false"
+              env:
+                -
+                  name: "ADDRESS"
+                  value: "/var/lib/csi/sockets/pluginproxy/csi.sock"
+                -
+                  name: "ENABLE_VAC_FALLBACK"
+                  value: "true"
+              image: "public.ecr.aws/csi-components/csi-provisioner:v6.2.0-eksbuild.5"
+              imagePullPolicy: "IfNotPresent"
+              name: "csi-provisioner"
+              resources:
+                limits:
+                  memory: "256Mi"
+                requests:
+                  cpu: "10m"
+                  memory: "40Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "FallbackToLogsOnError"
+              volumeMounts:
+                -
+                  mountPath: "/var/lib/csi/sockets/pluginproxy/"
+                  name: "socket-dir"
+            -
+              args:
+                - "--timeout=6m"
+                - "--csi-address=$(ADDRESS)"
+                - "--v=2"
+                - "--leader-election=true"
+                - "--kube-api-qps=20"
+                - "--kube-api-burst=100"
+                - "--worker-threads=100"
+                - "--retry-interval-max=5m"
+              env:
+                -
+                  name: "ADDRESS"
+                  value: "/var/lib/csi/sockets/pluginproxy/csi.sock"
+              image: "public.ecr.aws/csi-components/csi-attacher:v4.11.0-eksbuild.6"
+              imagePullPolicy: "IfNotPresent"
+              name: "csi-attacher"
+              resources:
+                limits:
+                  memory: "256Mi"
+                requests:
+                  cpu: "10m"
+                  memory: "40Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "FallbackToLogsOnError"
+              volumeMounts:
+                -
+                  mountPath: "/var/lib/csi/sockets/pluginproxy/"
+                  name: "socket-dir"
+            -
+              args:
+                - "--timeout=60s"
+                - "--extra-modify-metadata"
+                - "--csi-address=$(ADDRESS)"
+                - "--v=2"
+                - "--handle-volume-inuse-error=false"
+                - "--leader-election=true"
+                - "--kube-api-qps=20"
+                - "--kube-api-burst=100"
+                - "--workers=100"
+                - "--retry-interval-max=30m"
+                - "--feature-gates=VolumeAttributesClass=false"
+              env:
+                -
+                  name: "ADDRESS"
+                  value: "/var/lib/csi/sockets/pluginproxy/csi.sock"
+                -
+                  name: "ENABLE_VAC_FALLBACK"
+                  value: "true"
+              image: "public.ecr.aws/csi-components/csi-resizer:v2.1.0-eksbuild.6"
+              imagePullPolicy: "IfNotPresent"
+              name: "csi-resizer"
+              resources:
+                limits:
+                  memory: "256Mi"
+                requests:
+                  cpu: "10m"
+                  memory: "40Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "FallbackToLogsOnError"
+              volumeMounts:
+                -
+                  mountPath: "/var/lib/csi/sockets/pluginproxy/"
+                  name: "socket-dir"
+            -
+              args:
+                - "--csi-address=/csi/csi.sock"
+                - "--probe-timeout=60s"
+              image: "public.ecr.aws/csi-components/livenessprobe:v2.18.0-eksbuild.6"
+              imagePullPolicy: "IfNotPresent"
+              name: "liveness-probe"
+              resources:
+                limits:
+                  memory: "32Mi"
+                requests:
+                  cpu: "10m"
+                  memory: "32Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "FallbackToLogsOnError"
+              volumeMounts:
+                -
+                  mountPath: "/csi"
+                  name: "socket-dir"
+          dnsPolicy: "ClusterFirst"
+          nodeSelector:
+            kubernetes.io/os: "linux"
+          priorityClassName: "system-cluster-critical"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          serviceAccount: "ebs-csi-controller-sa"
+          serviceAccountName: "ebs-csi-controller-sa"
+          terminationGracePeriodSeconds: 30
+          tolerations:
+            -
+              key: "CriticalAddonsOnly"
+              operator: "Exists"
+            -
+              effect: "NoExecute"
+              operator: "Exists"
+              tolerationSeconds: 300
+          volumes:
+            -
+              emptyDir:
+                {}
+              name: "socket-dir"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T12:30:17Z"
+          lastUpdateTime: "2026-06-11T12:30:17Z"
+          message: "Deployment does not have minimum availability."
+          reason: "MinimumReplicasUnavailable"
+          status: "False"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T12:30:17Z"
+          lastUpdateTime: "2026-06-11T12:30:17Z"
+          message: "ReplicaSet \"ebs-csi-controller-8d8878fb7\" is progressing."
+          reason: "ReplicaSetUpdated"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      replicas: 2
+      terminatingReplicas: 0
+      unavailableReplicas: 2
+      updatedReplicas: 2
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"csi-driver\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/version\":\"1.60.1\",\"helm.sh/chart\":\"aws-ebs-csi-driver-2.60.1\"},\"name\":\"ebs-external-attacher-role\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"persistentvolumes\"],\"verbs\":[\"get\",\"list\",\"watch\",\"patch\"]},{\"apiGroups\":[\"storage.k8s.io\"],\"resources\":[\"csinodes\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"storage.k8s.io\"],\"resources\":[\"volumeattachments\"],\"verbs\":[\"get\",\"list\",\"watch\",\"patch\"]},{\"apiGroups\":[\"storage.k8s.io\"],\"resources\":[\"volumeattachments/status\"],\"verbs\":[\"patch\"]}]}\n"
+      creationTimestamp: "2026-06-11T12:30:17Z"
+      labels:
+        app.kubernetes.io/component: "csi-driver"
+        app.kubernetes.io/instance: "aws-ebs-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "aws-ebs-csi-driver"
+        app.kubernetes.io/version: "1.60.1"
+        helm.sh/chart: "aws-ebs-csi-driver-2.60.1"
+      name: "ebs-external-attacher-role"
+      resourceVersion: "510"
+      uid: "9466361b-48f6-4c53-b2fb-e898df480278"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "persistentvolumes"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "patch"
+      -
+        apiGroups:
+          - "storage.k8s.io"
+        resources:
+          - "csinodes"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "storage.k8s.io"
+        resources:
+          - "volumeattachments"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "patch"
+      -
+        apiGroups:
+          - "storage.k8s.io"
+        resources:
+          - "volumeattachments/status"
+        verbs:
+          - "patch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"csi-driver\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/version\":\"1.60.1\",\"helm.sh/chart\":\"aws-ebs-csi-driver-2.60.1\"},\"name\":\"ebs-csi-node-role\"},\"rules\":[{\"apiGroups\":[\"storage.k8s.io\"],\"resources\":[\"volumeattachments\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"nodes\"],\"verbs\":[\"get\"]},{\"apiGroups\":[\"\"],\"resources\":[\"nodes\"],\"verbs\":[\"patch\",\"list\",\"watch\"]},{\"apiGroups\":[\"storage.k8s.io\"],\"resources\":[\"csinodes\"],\"verbs\":[\"get\"]}]}\n"
+      creationTimestamp: "2026-06-11T12:30:17Z"
+      labels:
+        app.kubernetes.io/component: "csi-driver"
+        app.kubernetes.io/instance: "aws-ebs-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "aws-ebs-csi-driver"
+        app.kubernetes.io/version: "1.60.1"
+        helm.sh/chart: "aws-ebs-csi-driver-2.60.1"
+      name: "ebs-csi-node-role"
+      resourceVersion: "511"
+      uid: "b1d67b7b-7945-40e5-a395-6a12c519898c"
+    rules:
+      -
+        apiGroups:
+          - "storage.k8s.io"
+        resources:
+          - "volumeattachments"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "nodes"
+        verbs:
+          - "get"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "nodes"
+        verbs:
+          - "patch"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "storage.k8s.io"
+        resources:
+          - "csinodes"
+        verbs:
+          - "get"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"csi-driver\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/version\":\"1.60.1\",\"helm.sh/chart\":\"aws-ebs-csi-driver-2.60.1\"},\"name\":\"ebs-external-provisioner-role\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"persistentvolumes\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"patch\",\"delete\"]},{\"apiGroups\":[\"\"],\"resources\":[\"persistentvolumeclaims\"],\"verbs\":[\"get\",\"list\",\"watch\",\"update\"]},{\"apiGroups\":[\"storage.k8s.io\"],\"resources\":[\"storageclasses\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"list\",\"watch\",\"create\",\"update\",\"patch\"]},{\"apiGroups\":[\"snapshot.storage.k8s.io\"],\"resources\":[\"volumesnapshots\"],\"verbs\":[\"get\",\"list\",\"watch\",\"update\"]},{\"apiGroups\":[\"snapshot.storage.k8s.io\"],\"resources\":[\"volumesnapshotcontents\"],\"verbs\":[\"get\",\"list\"]},{\"apiGroups\":[\"storage.k8s.io\"],\"resources\":[\"csinodes\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"nodes\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"storage.k8s.io\"],\"resources\":[\"volumeattachments\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"storage.k8s.io\"],\"resources\":[\"volumeattributesclasses\"],\"verbs\":[\"get\"]}]}\n"
+      creationTimestamp: "2026-06-11T12:30:17Z"
+      labels:
+        app.kubernetes.io/component: "csi-driver"
+        app.kubernetes.io/instance: "aws-ebs-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "aws-ebs-csi-driver"
+        app.kubernetes.io/version: "1.60.1"
+        helm.sh/chart: "aws-ebs-csi-driver-2.60.1"
+      name: "ebs-external-provisioner-role"
+      resourceVersion: "512"
+      uid: "03f27e70-f574-4e39-b700-a128d2b82bdb"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "persistentvolumes"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "persistentvolumeclaims"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "update"
+      -
+        apiGroups:
+          - "storage.k8s.io"
+        resources:
+          - "storageclasses"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "snapshot.storage.k8s.io"
+        resources:
+          - "volumesnapshots"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "update"
+      -
+        apiGroups:
+          - "snapshot.storage.k8s.io"
+        resources:
+          - "volumesnapshotcontents"
+        verbs:
+          - "get"
+          - "list"
+      -
+        apiGroups:
+          - "storage.k8s.io"
+        resources:
+          - "csinodes"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "nodes"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "storage.k8s.io"
+        resources:
+          - "volumeattachments"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "storage.k8s.io"
+        resources:
+          - "volumeattributesclasses"
+        verbs:
+          - "get"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"csi-driver\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/version\":\"1.60.1\",\"helm.sh/chart\":\"aws-ebs-csi-driver-2.60.1\"},\"name\":\"ebs-external-resizer-role\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"persistentvolumes\"],\"verbs\":[\"get\",\"list\",\"watch\",\"patch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"persistentvolumeclaims\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"persistentvolumeclaims/status\"],\"verbs\":[\"patch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"list\",\"watch\",\"create\",\"update\",\"patch\"]},{\"apiGroups\":[\"storage.k8s.io\"],\"resources\":[\"volumeattributesclasses\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T12:30:17Z"
+      labels:
+        app.kubernetes.io/component: "csi-driver"
+        app.kubernetes.io/instance: "aws-ebs-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "aws-ebs-csi-driver"
+        app.kubernetes.io/version: "1.60.1"
+        helm.sh/chart: "aws-ebs-csi-driver-2.60.1"
+      name: "ebs-external-resizer-role"
+      resourceVersion: "513"
+      uid: "519cd50f-82c1-401a-bc05-a380ed8c9ce5"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "persistentvolumes"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "patch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "persistentvolumeclaims"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "persistentvolumeclaims/status"
+        verbs:
+          - "patch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "storage.k8s.io"
+        resources:
+          - "volumeattributesclasses"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"csi-driver\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/version\":\"1.60.1\",\"helm.sh/chart\":\"aws-ebs-csi-driver-2.60.1\"},\"name\":\"ebs-external-snapshotter-role\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"list\",\"watch\",\"create\",\"update\",\"patch\"]},{\"apiGroups\":[\"snapshot.storage.k8s.io\"],\"resources\":[\"volumesnapshotclasses\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"snapshot.storage.k8s.io\"],\"resources\":[\"volumesnapshotcontents\"],\"verbs\":[\"get\",\"list\",\"watch\",\"update\",\"patch\"]},{\"apiGroups\":[\"snapshot.storage.k8s.io\"],\"resources\":[\"volumesnapshotcontents/status\"],\"verbs\":[\"update\",\"patch\"]},{\"apiGroups\":[\"groupsnapshot.storage.k8s.io\"],\"resources\":[\"volumegroupsnapshotclasses\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"groupsnapshot.storage.k8s.io\"],\"resources\":[\"volumegroupsnapshotcontents\"],\"verbs\":[\"get\",\"list\",\"watch\",\"update\",\"patch\"]},{\"apiGroups\":[\"groupsnapshot.storage.k8s.io\"],\"resources\":[\"volumegroupsnapshotcontents/status\"],\"verbs\":[\"update\",\"patch\"]}]}\n"
+      creationTimestamp: "2026-06-11T12:30:17Z"
+      labels:
+        app.kubernetes.io/component: "csi-driver"
+        app.kubernetes.io/instance: "aws-ebs-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "aws-ebs-csi-driver"
+        app.kubernetes.io/version: "1.60.1"
+        helm.sh/chart: "aws-ebs-csi-driver-2.60.1"
+      name: "ebs-external-snapshotter-role"
+      resourceVersion: "514"
+      uid: "32eb25bb-6094-4769-a5c9-132ddbaaa642"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "snapshot.storage.k8s.io"
+        resources:
+          - "volumesnapshotclasses"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "snapshot.storage.k8s.io"
+        resources:
+          - "volumesnapshotcontents"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "snapshot.storage.k8s.io"
+        resources:
+          - "volumesnapshotcontents/status"
+        verbs:
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "groupsnapshot.storage.k8s.io"
+        resources:
+          - "volumegroupsnapshotclasses"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "groupsnapshot.storage.k8s.io"
+        resources:
+          - "volumegroupsnapshotcontents"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "groupsnapshot.storage.k8s.io"
+        resources:
+          - "volumegroupsnapshotcontents/status"
+        verbs:
+          - "update"
+          - "patch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"csi-driver\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/version\":\"1.60.1\",\"helm.sh/chart\":\"aws-ebs-csi-driver-2.60.1\"},\"name\":\"ebs-csi-attacher-binding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"ebs-external-attacher-role\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"ebs-csi-controller-sa\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T12:30:17Z"
+      labels:
+        app.kubernetes.io/component: "csi-driver"
+        app.kubernetes.io/instance: "aws-ebs-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "aws-ebs-csi-driver"
+        app.kubernetes.io/version: "1.60.1"
+        helm.sh/chart: "aws-ebs-csi-driver-2.60.1"
+      name: "ebs-csi-attacher-binding"
+      resourceVersion: "515"
+      uid: "57c605da-2118-42a7-9cdd-f8a17b1cc090"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "ebs-external-attacher-role"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "ebs-csi-controller-sa"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"csi-driver\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/version\":\"1.60.1\",\"helm.sh/chart\":\"aws-ebs-csi-driver-2.60.1\"},\"name\":\"ebs-csi-node-getter-binding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"ebs-csi-node-role\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"ebs-csi-node-sa\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T12:30:17Z"
+      labels:
+        app.kubernetes.io/component: "csi-driver"
+        app.kubernetes.io/instance: "aws-ebs-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "aws-ebs-csi-driver"
+        app.kubernetes.io/version: "1.60.1"
+        helm.sh/chart: "aws-ebs-csi-driver-2.60.1"
+      name: "ebs-csi-node-getter-binding"
+      resourceVersion: "516"
+      uid: "b54b0cf2-e13b-48bf-9a1d-88cb6a380a96"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "ebs-csi-node-role"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "ebs-csi-node-sa"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"csi-driver\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/version\":\"1.60.1\",\"helm.sh/chart\":\"aws-ebs-csi-driver-2.60.1\"},\"name\":\"ebs-csi-provisioner-binding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"ebs-external-provisioner-role\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"ebs-csi-controller-sa\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T12:30:17Z"
+      labels:
+        app.kubernetes.io/component: "csi-driver"
+        app.kubernetes.io/instance: "aws-ebs-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "aws-ebs-csi-driver"
+        app.kubernetes.io/version: "1.60.1"
+        helm.sh/chart: "aws-ebs-csi-driver-2.60.1"
+      name: "ebs-csi-provisioner-binding"
+      resourceVersion: "517"
+      uid: "0dcf128f-d425-4de5-a94a-87de69462742"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "ebs-external-provisioner-role"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "ebs-csi-controller-sa"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"csi-driver\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/version\":\"1.60.1\",\"helm.sh/chart\":\"aws-ebs-csi-driver-2.60.1\"},\"name\":\"ebs-csi-resizer-binding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"ebs-external-resizer-role\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"ebs-csi-controller-sa\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T12:30:17Z"
+      labels:
+        app.kubernetes.io/component: "csi-driver"
+        app.kubernetes.io/instance: "aws-ebs-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "aws-ebs-csi-driver"
+        app.kubernetes.io/version: "1.60.1"
+        helm.sh/chart: "aws-ebs-csi-driver-2.60.1"
+      name: "ebs-csi-resizer-binding"
+      resourceVersion: "518"
+      uid: "cec7ba2d-11b5-422c-adc2-bc399c339ef3"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "ebs-external-resizer-role"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "ebs-csi-controller-sa"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"csi-driver\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/version\":\"1.60.1\",\"helm.sh/chart\":\"aws-ebs-csi-driver-2.60.1\"},\"name\":\"ebs-csi-snapshotter-binding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"ebs-external-snapshotter-role\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"ebs-csi-controller-sa\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T12:30:17Z"
+      labels:
+        app.kubernetes.io/component: "csi-driver"
+        app.kubernetes.io/instance: "aws-ebs-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "aws-ebs-csi-driver"
+        app.kubernetes.io/version: "1.60.1"
+        helm.sh/chart: "aws-ebs-csi-driver-2.60.1"
+      name: "ebs-csi-snapshotter-binding"
+      resourceVersion: "519"
+      uid: "f633bc9f-5565-4fec-8911-cf3a3d716470"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "ebs-external-snapshotter-role"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "ebs-csi-controller-sa"
+        namespace: "default"
+  -
+    apiVersion: "storage.k8s.io/v1"
+    kind: "CSIDriver"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"storage.k8s.io/v1\",\"kind\":\"CSIDriver\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"csi-driver\",\"app.kubernetes.io/instance\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"aws-ebs-csi-driver\",\"app.kubernetes.io/version\":\"1.60.1\",\"helm.sh/chart\":\"aws-ebs-csi-driver-2.60.1\"},\"name\":\"ebs.csi.aws.com\"},\"spec\":{\"attachRequired\":true,\"fsGroupPolicy\":\"File\",\"podInfoOnMount\":false}}\n"
+      creationTimestamp: "2026-06-11T12:30:17Z"
+      labels:
+        app.kubernetes.io/component: "csi-driver"
+        app.kubernetes.io/instance: "aws-ebs-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "aws-ebs-csi-driver"
+        app.kubernetes.io/version: "1.60.1"
+        helm.sh/chart: "aws-ebs-csi-driver-2.60.1"
+      name: "ebs.csi.aws.com"
+      resourceVersion: "520"
+      uid: "7ea87d8c-f74f-4530-b8fa-e26a6f7d04fc"
+    spec:
+      attachRequired: true
+      fsGroupPolicy: "File"
+      podInfoOnMount: false
+      requiresRepublish: false
+      seLinuxMount: false
+      storageCapacity: false
+      volumeLifecycleModes:
+        - "Persistent"
+kind: "List"
+metadata:
+  resourceVersion: ""

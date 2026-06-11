@@ -1,0 +1,42 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "rook-release-rook-ceph-v1.19.5-default-local-kind"
+spec:
+  variantRevision: "recipes/rook-release/rook-ceph/v1.19.5/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "26789923789aab27d01638f52680ee6de6d982268eee3740cabc733142f67ba8"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-rook"
+    context: "kind-claude-helm-expt-codex-rook"
+    namespace: "default"
+  observedAt: "2026-06-11T12:48:50.184Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 2
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "b0e212d441c6cecff8906b2f7c8fd3fef826ddfefea56afb0d1dd9b685caeee8"
+  checks:
+    -
+      name: "crds-applied-and-established"
+      result: "pass"
+      object: "25 CustomResourceDefinition(s)"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "133 object(s) from recipes/rook-release/rook-ceph/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|ceph-csi-controller-manager"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|rook-ceph-operator"
