@@ -48,6 +48,8 @@ function buildReport() {
   const top100Rows = readCsv("data/top100-readiness/readiness.csv");
   const top100CoverageRows = readCsv("data/top100-coverage/coverage.csv");
   const top100CoverageWorkRows = readCsv("data/top100-coverage/work-queue.csv");
+  const usefulBaseRows = readCsv("data/useful-base-design-queue/queue.csv");
+  const usefulBaseFamilyRows = readCsv("data/useful-base-design-queue/families.csv");
   const top100PromotionWaveRows = readCsv("data/top100-promotion-wave/wave.csv");
   const top100PromotionFastTrackRows = readCsv("data/top100-promotion-wave/fast-track.csv");
   const top100PromotionFastTrackReviewRows = readCsv("data/top100-promotion-wave/fast-track-reviews/review-packets.csv");
@@ -105,6 +107,9 @@ function buildReport() {
   rows.push(metric("top100", "fast-track promotion review packets", top100PromotionFastTrackReviewRows.length, top100PromotionFastTrackRows.length, "partial", "data/top100-promotion-wave/fast-track-reviews/review-packets.csv", "Review-input packets for low-residue candidates. These are not support decisions."));
   rows.push(metric("top100", "fast-track storage rollback reviews", top100PromotionFastTrackStorageRows.length, top100PromotionFastTrackRows.length, "partial", "data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv", "Rendered storage-shape and rollback-boundary review inputs for low-residue candidates. These are not backup, restore, or support decisions."));
   rows.push(metric("top100", "top100 user-shaped variant queue", count(top100CoverageWorkRows, "queue", "user-shaped-variant"), top100CoverageWorkRows.length, "partial", "data/top100-coverage/work-queue.csv", "Partial top100 rows whose proof exists but whose current base is not yet a useful catalog offer."));
+  rows.push(metric("top100", "useful-base proposal rows", usefulBaseRows.length, count(top100CoverageWorkRows, "queue", "user-shaped-variant"), "partial", "data/useful-base-design-queue/queue.csv", "Proposed base shapes for default-shaped proof-grade charts. These are not supported bases until rendered and proved."));
+  rows.push(metric("top100", "useful-base proposal families", usefulBaseFamilyRows.length, usefulBaseFamilyRows.length, "partial", "data/useful-base-design-queue/families.csv", "Grouped proposal families used to assign related base-design work."));
+  rows.push(metric("top100", "useful-base proposals not yet built", count(usefulBaseRows, "proposal_status", "proposal-not-built"), usefulBaseRows.length, "gap", "data/useful-base-design-queue/queue.csv", "Rows where the proposed base shape still needs recipe/package artifacts and proof before catalog promotion."));
   rows.push(metric("top100", "top100 limitation-decision queue", count(top100CoverageWorkRows, "queue", "limitation-decision"), top100CoverageWorkRows.length, "partial", "data/top100-coverage/work-queue.csv", "Partial top100 rows needing a support, disclosure, defer, or block decision before promotion."));
   rows.push(metric("refresh", "top20 proofs still current", count(refreshSurvivalRows, "refresh_state", "current-proof-still-current"), refreshSurvivalRows.length, "partial", "data/refresh-survival/refreshes.csv", "Supported top-20 chart versions that still match the latest upstream Helm version in the retained refresh snapshot."));
   rows.push(metric("refresh", "top20 upstream update candidates", count(refreshSurvivalRows, "refresh_state", "upstream-update-candidate"), refreshSurvivalRows.length, "partial", "data/refresh-survival/refreshes.csv", "Supported top-20 charts with newer upstream Helm versions that must not be promoted until the full lane reruns."));
@@ -201,7 +206,7 @@ function buildReport() {
 
   const chartByName = new Map(chartRows.map((row) => [row.chart, row]));
   const top20Rows = top20StatusRows(top100Rows, chartByName, top20BaseReadinessRows, productionSupportDecisionRows);
-  const nextWorkQueues = nextWorkQueueRows({ top100Rows, top100CoverageWorkRows, top100PromotionFastTrackRows, top100PromotionFastTrackReviewRows, hardProofGapRows, remoteDependencyRows, hookRows, hookReviewRows, hookCandidateRows, hookCandidateWorkOrderRows, lifecycleObservationRows, liveParityRerunRows, productionSupportDecisionRows, latestRefreshActionRows });
+  const nextWorkQueues = nextWorkQueueRows({ top100Rows, top100CoverageWorkRows, usefulBaseRows, top100PromotionFastTrackRows, top100PromotionFastTrackReviewRows, hardProofGapRows, remoteDependencyRows, hookRows, hookReviewRows, hookCandidateRows, hookCandidateWorkOrderRows, lifecycleObservationRows, liveParityRerunRows, productionSupportDecisionRows, latestRefreshActionRows });
   const activeProofQueue = activeProofQueueRows(liveParityRerunRows);
   return {
     rows,
@@ -212,7 +217,7 @@ function buildReport() {
     nextWorkQueuesCsv: nextWorkQueuesToCsv(nextWorkQueues),
     activeProofQueue,
     activeProofQueueCsv: activeProofQueueToCsv(activeProofQueue),
-    summary: summary(rows, { chartRows, baseRows, chartUseRows, top100Rows, top100CoverageWorkRows, top100PromotionFastTrackRows, top100PromotionFastTrackReviewRows, top100PromotionFastTrackStorageRows, top500Rows, top20Rows, quirkRows, hardProofGapRows, extensionRows, hookRows, hookReviewRows, hookCandidateRows, hookCandidateWorkOrderRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, productionSupportDecisionRows, scanDispositionRows, latestRefreshActionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues, activeProofQueue }),
+    summary: summary(rows, { chartRows, baseRows, chartUseRows, top100Rows, top100CoverageWorkRows, usefulBaseRows, top100PromotionFastTrackRows, top100PromotionFastTrackReviewRows, top100PromotionFastTrackStorageRows, top500Rows, top20Rows, quirkRows, hardProofGapRows, extensionRows, hookRows, hookReviewRows, hookCandidateRows, hookCandidateWorkOrderRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, productionSupportDecisionRows, scanDispositionRows, latestRefreshActionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues, activeProofQueue }),
   };
 }
 
@@ -807,7 +812,7 @@ function liveParityNextStepRows(counts) {
 function nextWorkQueueRows(context) {
   const liveParityRerunReadiness = groupCount(context.liveParityRerunRows, "rerun_readiness");
   return [
-    ...top100WorkQueueObjects(context.top100Rows, context.top100CoverageWorkRows, context.top100PromotionFastTrackRows ?? []),
+    ...top100WorkQueueObjects(context.top100Rows, context.top100CoverageWorkRows, context.usefulBaseRows ?? [], context.top100PromotionFastTrackRows ?? []),
     ...hardProofGapWorkObjects(context.hardProofGapRows ?? []),
     ...remoteDependencyWorkstreamObjects(context.remoteDependencyRows ?? []),
     ...supportDecisionWorkstreamObjects(context.productionSupportDecisionRows),
@@ -980,7 +985,7 @@ function previewLatestRefreshRows(rows) {
   return values.join("; ");
 }
 
-function top100WorkQueueObjects(top100Rows, workRows, fastTrackRows) {
+function top100WorkQueueObjects(top100Rows, workRows, usefulBaseRows, fastTrackRows) {
   const queueCounts = groupCount(workRows, "queue");
   const publicCatalogCount = top100Rows.filter((row) => row.adoption_bucket === "try-from-public-catalog").length;
   return [
@@ -1015,10 +1020,10 @@ function top100WorkQueueObjects(top100Rows, workRows, fastTrackRows) {
       section: "top100-catalog-work",
       item_type: "queue",
       item: "Design useful base variants",
-      count: queueCounts.get("user-shaped-variant") ?? 0,
-      next_action: "Create the first user-shaped base before treating the chart as a catalog offer.",
-      source: "data/top100-coverage/work-queue.csv",
-      detail: previewChartRefs(workRows.filter((row) => row.queue === "user-shaped-variant")),
+      count: usefulBaseRows.length || (queueCounts.get("user-shaped-variant") ?? 0),
+      next_action: "Build the proposed recipe/package bases, then rerun render parity and promotion review before treating them as catalog offers.",
+      source: usefulBaseRows.length ? "data/useful-base-design-queue/queue.csv" : "data/top100-coverage/work-queue.csv",
+      detail: usefulBaseRows.length ? previewUsefulBaseRows(usefulBaseRows) : previewChartRefs(workRows.filter((row) => row.queue === "user-shaped-variant")),
     },
     {
       section: "top100-catalog-work",
@@ -1243,6 +1248,13 @@ function previewCharts(rows) {
 
 function previewChartRefs(rows) {
   const values = rows.slice(0, 5).map((row) => row.chart_ref);
+  const remaining = rows.length - values.length;
+  if (remaining > 0) values.push(`and ${remaining} more`);
+  return values.join("; ");
+}
+
+function previewUsefulBaseRows(rows) {
+  const values = rows.slice(0, 5).map((row) => `${row.chart}@${row.version} -> ${row.proposed_base}`);
   const remaining = rows.length - values.length;
   if (remaining > 0) values.push(`and ${remaining} more`);
   return values.join("; ");
