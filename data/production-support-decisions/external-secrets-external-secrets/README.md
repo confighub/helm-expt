@@ -27,7 +27,6 @@ support decision. It does not replace the source decision artifact:
 ## Required Before Final Support
 
 - Run a Kubernetes 1.31+ capability-profile witness, or create a profile-specific base, before claiming selectableFields compatibility.
-- Run a provider round-trip rehearsal against a disposable secrets backend before claiming provider behavior.
 
 ## Support Boundary
 
@@ -39,12 +38,13 @@ Included:
 - recorded mutable-image exception for the declared public controller support scope
 - recorded resource-policy acceptance for the declared public controller support scope
 - controller-owned webhook lifecycle observation for the declared public controller support scope
+- disposable fake-provider SecretStore and ExternalSecret round-trip evidence for the declared public controller support scope
 
 Excluded:
 
 - workload-only OCI delivery that omits the rendered external-secrets-webhook Secret
 - private values overlays, wrapper charts, and populated extension slots unless separately reviewed
-- SecretStore, ClusterSecretStore, ExternalSecret, PushSecret, provider credentials, and provider-specific workloads
+- production SecretStore, ClusterSecretStore, ExternalSecret, PushSecret, provider credentials, and provider-specific workloads unless separately reviewed
 - digest-pinned, resource-hardened, or provider-specific production bases unless separately reviewed
 - non-vanilla Kubernetes distributions unless separately reviewed
 - other delivery controllers or target scopes unless separately reviewed
@@ -58,6 +58,7 @@ Excluded:
 - [data/production-support-decisions/external-secrets-external-secrets/fresh-target-evidence-2026-06-08.yaml](../../../data/production-support-decisions/external-secrets-external-secrets/fresh-target-evidence-2026-06-08.yaml) - Earlier target-scoped ConfigHub OCI and Argo evidence passed for the declared cub-lk vanilla kind support scope before the separated Secret delivery gap was isolated.
 - [data/runtime-gitops/receipts/external-secrets-external-secrets/default/latest.yaml](../../../data/runtime-gitops/receipts/external-secrets-external-secrets/default/latest.yaml) - Fresh default-base ConfigHub OCI rehearsal synced through Argo but blocked at runtime because the rendered webhook Secret was not delivered through workload OCI.
 - [data/runtime-gitops/receipts/external-secrets-external-secrets/default-prestaged-secret/latest.yaml](../../../data/runtime-gitops/receipts/external-secrets-external-secrets/default-prestaged-secret/latest.yaml) - Fresh default-base ConfigHub OCI rehearsal passed through Argo and runtime readiness after the rendered webhook Secret was pre-staged as an explicit target prerequisite.
+- [data/runtime-gitops/receipts/external-secrets-external-secrets/default-fake-provider-roundtrip/latest.yaml](../../../data/runtime-gitops/receipts/external-secrets-external-secrets/default-fake-provider-roundtrip/latest.yaml) - Fresh default-base ConfigHub OCI rehearsal passed a disposable fake-provider SecretStore and ExternalSecret round-trip, producing a controller-owned Kubernetes Secret without recording secret data.
 - [data/image-digest-workdown/receipts/external-secrets-external-secrets/default/image-digest-resolution.yaml](../../../data/image-digest-workdown/receipts/external-secrets-external-secrets/default/image-digest-resolution.yaml) - The rendered mutable image references for the candidate base have registry digest-resolution evidence.
 - [data/production-support-decisions/external-secrets-external-secrets/image-policy-decision.yaml](../../../data/production-support-decisions/external-secrets-external-secrets/image-policy-decision.yaml) - The target-scoped image policy decision accepts mutable rendered tags for this public controller support scope with explicit limits.
 - [data/production-support-decisions/external-secrets-external-secrets/security-decision.yaml](../../../data/production-support-decisions/external-secrets-external-secrets/security-decision.yaml) - The target-scoped security decision accepts missing resource requests/limits only for this public cub-lk proof scope.
@@ -71,7 +72,7 @@ Excluded:
 
 ## Next Action
 
-Run a provider round-trip rehearsal against a disposable secrets backend and a Kubernetes 1.31+ capability-profile witness before final production support.
+Run a Kubernetes 1.31+ capability-profile witness, or create a profile-specific base, before final production support.
 
 Regenerate:
 

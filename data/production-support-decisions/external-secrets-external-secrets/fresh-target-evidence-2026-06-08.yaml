@@ -44,6 +44,7 @@ spec:
     installerRuntime: "pass"
   source:
     liveReceiptPath: "runs/live-helm-confighub-compare/external-secrets-external-secrets-default/receipt.yaml"
+    providerRoundTripReceiptPath: "data/runtime-gitops/receipts/external-secrets-external-secrets/default-fake-provider-roundtrip/latest.yaml"
     cleanupPolicy: "cub-lk rig and ConfigHub cluster space removed after evidence capture"
   checks:
     -
@@ -67,5 +68,5 @@ spec:
     detail: "Fresh target-scoped ConfigHub OCI and Argo evidence passed for the declared External Secrets default support scope."
   limits:
     - "This supports the recorded cub-lk vanilla kind Argo OCI scope, not every Kubernetes cluster."
-    - "SecretStore provider configuration and provider credentials are outside this base support claim."
+    - "The provider round-trip evidence uses the disposable fake provider; production providers and credentials need separate review."
     - "Evidence freshness is 30 days for public demo/support examples unless refreshed earlier."

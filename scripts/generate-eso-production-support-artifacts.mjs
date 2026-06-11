@@ -19,6 +19,7 @@ const scanWorkdownPath = join(repoRoot, "data", "scan-disposition-workdown", "wo
 const liveReceiptPath = join(repoRoot, "runs", "live-helm-confighub-compare", `${chartSlug}-${supportedBase}`, "receipt.yaml");
 const kindParityPath = join(repoRoot, "runs", "live-kind-parity", `${chartSlug}-${supportedBase}`, "receipt.yaml");
 const lifecyclePath = join(repoRoot, "runs", "lifecycle-observations", "cert-manager-eso", `${chartSlug}-${supportedBase}`, "receipt.yaml");
+const providerRoundTripPath = join(repoRoot, "data", "runtime-gitops", "receipts", chartSlug, "default-fake-provider-roundtrip", "latest.yaml");
 const outputRoot = join(repoRoot, "data", "production-support-decisions", chartSlug);
 const resolvedImages = new Map();
 
@@ -241,7 +242,7 @@ function buildLifecycleDecision() {
       decision: "lifecycle-observed-for-proof-scope",
       decidedAt: "2026-06-09",
       claim:
-        "External Secrets has no Helm hooks in the supported base. The controller-owned lifecycle fields have proof-scope observation evidence: CRDs are Established, controller Deployments are ready, webhook caBundle fields are populated, webhook Secret data is populated, and a SecretStore server dry-run is accepted.",
+        "External Secrets has no Helm hooks in the supported base. The controller-owned lifecycle fields have proof-scope observation evidence: CRDs are Established, controller Deployments are ready, webhook caBundle fields are populated, webhook Secret data is populated, a SecretStore server dry-run is accepted, and a disposable fake-provider ExternalSecret round trip has live evidence.",
       lifecycleModel: lifecycle.spec.lifecycleModel,
       observedLifecycleSignals: {
         result: lifecycle.spec.result,
@@ -252,7 +253,7 @@ function buildLifecycleDecision() {
       },
       limits: [
         "This decision records controller-owned post-apply behavior; it does not claim universal Helm hook emulation.",
-        "SecretStore and provider configuration objects are user workloads outside this base chart.",
+        "Production SecretStore and provider configuration objects are user workloads outside this base chart unless separately reviewed.",
         "The no-crds path remains target-prerequisite driven and needs compatible CRDs staged before apply.",
         "Upgrade lifecycle and future chart versions need fresh receipts before support expansion.",
       ],
@@ -269,6 +270,10 @@ function buildLifecycleDecision() {
         {
           path: `data/production-disposition/receipts/${chartSlug}/crd-lifecycle-and-upgrade-policy.yaml`,
           claim: "CRD ownership policy is accepted as production-review input.",
+        },
+        {
+          path: relativeRepo(providerRoundTripPath),
+          claim: "Disposable fake-provider SecretStore and ExternalSecret round-trip live evidence for the default base.",
         },
       ],
       remainingSupportBlockers: [
@@ -326,6 +331,7 @@ function buildFreshEvidenceReceipt() {
       },
       source: {
         liveReceiptPath: relativeRepo(liveReceiptPath),
+        providerRoundTripReceiptPath: relativeRepo(providerRoundTripPath),
         cleanupPolicy: "cub-lk rig and ConfigHub cluster space removed after evidence capture",
       },
       checks: [
@@ -340,7 +346,7 @@ function buildFreshEvidenceReceipt() {
       },
       limits: [
         "This supports the recorded cub-lk vanilla kind Argo OCI scope, not every Kubernetes cluster.",
-        "SecretStore provider configuration and provider credentials are outside this base support claim.",
+        "The provider round-trip evidence uses the disposable fake provider; production providers and credentials need separate review.",
         "Evidence freshness is 30 days for public demo/support examples unless refreshed earlier.",
       ],
     },
@@ -375,6 +381,9 @@ function verifyLifecycleDecision() {
   const decision = decisionFile("lifecycle-decision.yaml", "ProductionLifecycleDecision");
   check(decision.spec.decision === "lifecycle-observed-for-proof-scope", "ESO lifecycle decision mismatch");
   check(decision.spec.observedLifecycleSignals.checks["server-dry-run-api-object"] === "pass", "ESO lifecycle server dry-run missing");
+  const provider = providerRoundTripReceipt();
+  check(provider.spec.providerRoundTrip.externalSecret.ready === true, "ESO provider round-trip ExternalSecret is not ready");
+  check(provider.spec.providerRoundTrip.outputSecret.dataValuesStored === false, "ESO provider round-trip receipt must not store secret values");
 }
 
 function verifyFreshEvidenceReceipt() {
@@ -385,6 +394,22 @@ function verifyFreshEvidenceReceipt() {
   check(receipt.spec.oci.revision === live.spec.legs.configHubOciArgo.ociRevision, "ESO fresh evidence OCI revision mismatch");
   check(receipt.spec.oci.sync === "Synced", "ESO Argo sync mismatch");
   check(receipt.spec.oci.health === "Healthy", "ESO Argo health mismatch");
+  const provider = providerRoundTripReceipt();
+  check(receipt.spec.source.providerRoundTripReceiptPath === provider.path, "ESO fresh evidence provider receipt path mismatch");
+}
+
+function providerRoundTripReceipt() {
+  check(existsSync(providerRoundTripPath), `missing ${relativeRepo(providerRoundTripPath)}`);
+  const receipt = readYaml(providerRoundTripPath);
+  check(receipt.kind === "RuntimeGitOpsReceipt", `${relativeRepo(providerRoundTripPath)} kind mismatch`);
+  check(receipt.spec?.chart === chart, `${relativeRepo(providerRoundTripPath)} chart mismatch`);
+  check(receipt.spec?.version === version, `${relativeRepo(providerRoundTripPath)} version mismatch`);
+  check(receipt.spec?.base === supportedBase, `${relativeRepo(providerRoundTripPath)} base mismatch`);
+  check(receipt.spec?.result === "pass", `${relativeRepo(providerRoundTripPath)} result must pass`);
+  check(receipt.spec?.providerRoundTrip?.provider === "fake", `${relativeRepo(providerRoundTripPath)} provider must be fake`);
+  check(receipt.spec?.providerRoundTrip?.externalSecret?.status === "SecretSynced", `${relativeRepo(providerRoundTripPath)} ExternalSecret did not sync`);
+  check(receipt.spec?.providerRoundTrip?.outputSecret?.dataValuesStored === false, `${relativeRepo(providerRoundTripPath)} must not store secret values`);
+  return { path: relativeRepo(providerRoundTripPath), ...receipt };
 }
 
 function imageSubjectRows(variant) {

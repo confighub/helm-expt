@@ -1,0 +1,170 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: RuntimeGitOpsReceipt
+metadata:
+  name: external-secrets-default-fake-provider-roundtrip-argo-oci-codex-es-provider-082730
+spec:
+  chart: external-secrets/external-secrets
+  version: 2.5.0
+  base: default
+  packagePath: packages/external-secrets/external-secrets/2.5.0
+  recipePath: recipes/external-secrets/external-secrets/2.5.0
+  controller: Argo CD OCI
+  observedAt: "2026-06-11T07:34:49Z"
+  result: pass
+  run:
+    rig: codex-es-provider-082730
+    clusterSpace: codex-es-provider-082730-cluster
+    workloadSpace: codex-es-provider-082730-external-secrets-provider-roundtrip
+    target: codex-es-provider-082730-cluster/oci
+    namespace: external-secrets
+    kubeContext: kind-codex-es-provider-082730
+    kubeconfig: /Users/alexis/.confighub/lk/codex-es-provider-082730.kubeconfig
+    keptForInspection: false
+  commands:
+    setupRig: CONFIGHUB_AGENT=1 cub lk up --name codex-es-provider-082730
+    renderForSecretPrerequisite: cub installer setup --pull packages/external-secrets/external-secrets/2.5.0 --base default --work-dir /tmp/helm-expt-es-provider.ot0A1c --non-interactive --namespace external-secrets
+    stageNamespace: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-es-provider-082730.kubeconfig --context kind-codex-es-provider-082730 create namespace external-secrets --dry-run=client -o yaml | kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-es-provider-082730.kubeconfig --context kind-codex-es-provider-082730 apply -f -
+    stageSeparatedSecret: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-es-provider-082730.kubeconfig --context kind-codex-es-provider-082730 apply -f /tmp/helm-expt-es-provider.ot0A1c/out/secrets
+    workload: CONFIGHUB_AGENT=1 tests/chart-install-test --package packages/external-secrets/external-secrets/2.5.0 --slug external-secrets-provider-roundtrip --namespace external-secrets --rig codex-es-provider-082730 --base default --helm-expt /Users/alexis/code/helm-expt --wait 600 --keep --json
+    createProviderObjects: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-es-provider-082730.kubeconfig --context kind-codex-es-provider-082730 apply -f <fake-provider-roundtrip-yaml>
+    patchProviderVersion: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-es-provider-082730.kubeconfig --context kind-codex-es-provider-082730 -n external-secrets patch externalsecret fake-provider-roundtrip --type merge -p '{"spec":{"data":[{"secretKey":"proof","remoteRef":{"key":"/helm-expt/roundtrip","version":"v1"}}]}}'
+    inspectApplications: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-es-provider-082730.kubeconfig --context kind-codex-es-provider-082730 get applications -n argocd -o custom-columns='NAME:.metadata.name,SYNC:.status.sync.status,HEALTH:.status.health.status,REV:.status.sync.revision'
+    inspectRuntime: kubectl --kubeconfig /Users/alexis/.confighub/lk/codex-es-provider-082730.kubeconfig --context kind-codex-es-provider-082730 -n external-secrets get deploy,pods,secretstore,externalsecret,secret -o wide
+    teardown: CONFIGHUB_AGENT=1 cub lk down --name codex-es-provider-082730 --force
+    postTeardownClusters: kind get clusters
+  oci:
+    repoURL: oci://oci.hub.confighub.com:443/target/codex-es-provider-082730-cluster/oci
+    path: ./codex-es-provider-082730-external-secrets-provider-roundtrip
+    targetRevision: latest
+    revision: sha256:86d1f8b69c373de425b57763e1269554f06f904ba54f4c4e617128e60e1e0b64
+  targetPrerequisites:
+    separatedSecrets:
+      - identity: v1|Secret|external-secrets|external-secrets-webhook
+        source: out/secrets/secret-external-secrets-external-secrets-webhook.yaml
+        sourceSHA256: 794fdefd10caef98118a63bd8b3a82c8c37d3ac6fdb9cd8434f6a66d93ff8bca
+        delivery: pre-staged before GitOps controller sync
+        secretMaterialStoredInReceipt: false
+  providerRoundTrip:
+    provider: fake
+    purpose: disposable provider behavior witness with no real external credentials
+    warning: "The fake provider is not a production provider recommendation."
+    store:
+      apiVersion: external-secrets.io/v1
+      kind: SecretStore
+      namespace: external-secrets
+      name: fake-provider-roundtrip
+      status: Valid
+      capabilities: ReadWrite
+      ready: true
+    externalSecret:
+      apiVersion: external-secrets.io/v1
+      kind: ExternalSecret
+      namespace: external-secrets
+      name: fake-provider-roundtrip
+      status: SecretSynced
+      ready: true
+      refreshInterval: 5s
+      binding: fake-provider-roundtrip-output
+      refreshTime: "2026-06-11T07:34:49Z"
+      syncedResourceVersion: 2-00105b02ade188c19b86c747d97369774312594467c6bcf140c43abe
+      initialAttempt:
+        result: blocked
+        reason: "The first ExternalSecret omitted remoteRef.version while the fake provider entry was versioned; the controller reported that the provider secret did not exist."
+        correction: "Patch remoteRef.version to v1."
+    outputSecret:
+      apiVersion: v1
+      kind: Secret
+      namespace: external-secrets
+      name: fake-provider-roundtrip-output
+      type: Opaque
+      dataKeys:
+        - proof
+      dataValueSHA256:
+        proof: e63e947dfc6fd0b3c0caa104bfbebf2e74121d42c971e3a80596adfdfeca77cc
+      dataValuesStored: false
+      owner: ExternalSecret/fake-provider-roundtrip
+      managedLabel: "true"
+      controllerDataHash: c06e47798b8efe9dd7c0a161a63dbff70076e9496a4cde95294932d5
+  notes:
+    harnessStatus: PASS
+    finding: "Argo CD pulled and synced the ConfigHub OCI artifact for external-secrets/default, the controller Deployments became ready after the separated webhook Secret was pre-staged, and a fake-provider SecretStore plus ExternalSecret produced a controller-owned Kubernetes Secret."
+    closes: "This proves the disposable provider round-trip route for the declared cub-lk kind target scope."
+    notClaimed:
+      - workload-only OCI delivery without staging the separated webhook Secret
+      - AWS, Vault, Kubernetes, GCP, Azure, or other production provider credentials
+      - provider-specific authentication, rotation, rate limits, or network behavior
+      - Kubernetes 1.31+ selectableFields compatibility
+      - production support outside the named target scope
+  checks:
+    - name: render
+      result: pass
+      detail: "cub installer setup rendered 42 manifests and 1 separated Secret for external-secrets/default."
+    - name: separated-secret-prerequisite
+      result: pass
+      detail: "Secret external-secrets/external-secrets-webhook was pre-staged from out/secrets before ConfigHub OCI and Argo reconciliation."
+    - name: confighub-upload
+      result: pass
+      detail: "units uploaded to codex-es-provider-082730-external-secrets-provider-roundtrip."
+    - name: argo-root-sync
+      result: pass
+      detail: "root app codex-es-provider-082730-cluster: sync=Synced health=Healthy revision=sha256:86d1f8b69c373de425b57763e1269554f06f904ba54f4c4e617128e60e1e0b64."
+    - name: argo-sync
+      result: pass
+      detail: "app external-secrets-provider-roundtrip: sync=Synced health=Healthy after 60s revision=sha256:86d1f8b69c373de425b57763e1269554f06f904ba54f4c4e617128e60e1e0b64."
+    - name: runtime
+      result: pass
+      detail: "deployments external-secrets, external-secrets-cert-controller, and external-secrets-webhook were all 1/1 ready."
+    - name: fake-secretstore-ready
+      result: pass
+      detail: "SecretStore external-secrets/fake-provider-roundtrip was Valid, ReadWrite, Ready."
+    - name: fake-externalsecret-ready
+      result: pass
+      detail: "ExternalSecret external-secrets/fake-provider-roundtrip reached Ready=True with reason SecretSynced."
+    - name: output-secret-created
+      result: pass
+      detail: "Secret external-secrets/fake-provider-roundtrip-output existed as Opaque with one data key and an ExternalSecret ownerReference; secret value was not stored in this receipt."
+    - name: teardown
+      result: pass
+      detail: "cub lk down --name codex-es-provider-082730 --force deleted the named kind cluster and recursive ConfigHub cluster space; post-teardown kind get clusters returned none."
+  gitops:
+    applications:
+      - name: codex-es-provider-082730-cluster
+        namespace: argocd
+        sync: Synced
+        health: Healthy
+        revision: sha256:86d1f8b69c373de425b57763e1269554f06f904ba54f4c4e617128e60e1e0b64
+      - name: external-secrets-provider-roundtrip
+        namespace: argocd
+        sync: Synced
+        health: Healthy
+        revision: sha256:86d1f8b69c373de425b57763e1269554f06f904ba54f4c4e617128e60e1e0b64
+        source:
+          repoURL: oci://oci.hub.confighub.com:443/target/codex-es-provider-082730-cluster/oci
+          path: ./codex-es-provider-082730-external-secrets-provider-roundtrip
+          targetRevision: latest
+  runtime:
+    namespace: external-secrets
+    deployments:
+      - name: external-secrets
+        ready: "1/1"
+        updated: 1
+        available: 1
+        image: ghcr.io/external-secrets/external-secrets:v2.5.0
+      - name: external-secrets-cert-controller
+        ready: "1/1"
+        updated: 1
+        available: 1
+        image: ghcr.io/external-secrets/external-secrets:v2.5.0
+      - name: external-secrets-webhook
+        ready: "1/1"
+        updated: 1
+        available: 1
+        image: ghcr.io/external-secrets/external-secrets:v2.5.0
+    generatedSecret:
+      name: fake-provider-roundtrip-output
+      type: Opaque
+      dataKeys: 1
+      dataValuesStored: false
+  confighub:
+    workloadSpace: codex-es-provider-082730-external-secrets-provider-roundtrip
+    installerRecordStatus: NotLive
