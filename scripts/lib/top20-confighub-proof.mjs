@@ -197,6 +197,17 @@ export const CONFIGHUB_PROMOTION_PROOF_CHARTS = [
     defaultBase: "default",
     skipDemoDocs: true,
   },
+  {
+    slug: "prometheus-adapter",
+    displayName: "Prometheus Adapter",
+    component: "PrometheusAdapter",
+    packagePath: "packages/prometheus-community/prometheus-adapter/5.3.0",
+    chart: "prometheus-community/prometheus-adapter",
+    chartVersion: "5.3.0",
+    namespace: "default",
+    defaultBase: "default",
+    skipDemoDocs: true,
+  },
 ];
 
 export function chartBySlug(slug) {
