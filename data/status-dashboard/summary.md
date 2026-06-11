@@ -50,7 +50,7 @@ Which detailed CSV should I open next?
 | top500 | rows with no current recipe proof | 409/500 | gap | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | top500 | version-drift review rows | 21/500 | partial | [data/top500-catalog-analysis/review.csv](../../data/top500-catalog-analysis/review.csv) |
 | proof lanes | render parity rows | 189/189 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
-| proof lanes | in-ConfigHub proof rows | 22/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
+| proof lanes | in-ConfigHub proof rows | 23/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live rows | 133/189 | partial | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | explicit lifecycle observation rows | 10/10 | good | [data/outcome-coverage/base-outcomes.csv](../../data/outcome-coverage/base-outcomes.csv) |
 | proof lanes | local live non-pass rows classified | 56/56 | good | [data/local-live-triage/triage.csv](../../data/local-live-triage/triage.csv) |
@@ -275,9 +275,10 @@ top-100 chart and the next command or file to open.
 | Strongest evidence | Charts |
 | --- | ---: |
 | local-kubernetes-live | 42 |
-| render-parity | 27 |
+| render-parity | 26 |
 | live-helm-vs-confighub-parity | 21 |
 | two-cluster-kind-parity | 10 |
+| in-confighub-proof | 1 |
 
 The top100 is model-supported, but not uniformly live-proven. Use
 [top100-readiness/readiness.csv](../top100-readiness/readiness.csv) for one row
@@ -351,7 +352,7 @@ first.
 
 | Lane | Pass | Non-pass | Missing | Total |
 | --- | ---: | ---: | ---: | ---: |
-| in-ConfigHub | 22 | 0 | 167 | 189 |
+| in-ConfigHub | 23 | 0 | 166 | 189 |
 | local live | 133 | 56 | 0 | 189 |
 | GitOps/OCI live | 24 | 5 | 160 | 189 |
 | live Helm-vs-ConfigHub parity | 22 | 2 | 165 | 189 |
