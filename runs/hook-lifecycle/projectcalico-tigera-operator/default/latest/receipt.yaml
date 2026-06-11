@@ -7,7 +7,7 @@ spec:
   version: "v3.32.0"
   base: "default"
   result: "pass"
-  observedAt: "2026-06-10T21:23:36Z"
+  observedAt: "2026-06-11T17:49:13Z"
   package:
     path: "packages/projectcalico/tigera-operator/v3.32.0"
   recipe:
@@ -20,7 +20,7 @@ spec:
     claim: "The Helm pre-delete hook is treated as an explicit delete cleanup action. The run observes operator bootstrap, operator-managed CRD establishment, rendered custom resource acceptance, execution of the upstream pre-delete cleanup Job, and package object deletion in a fresh kind target. This does not claim production uninstall safety for every target state."
   run:
     mode: "single-kind-cluster-cub-installer-projectcalico-delete-lifecycle-observation"
-    cluster: "hx-hook-calico-8ksslk"
+    cluster: "hx-hook-calico-9skyqa"
     namespace: "default"
     cleanup:
       result: "pass"
@@ -35,7 +35,7 @@ spec:
       result: "pass"
       detail: "rendered Project Calico cub installer package output"
       evidencePath: "cub-installer-setup.txt"
-      evidenceSHA256: "d011f6171d20050909bb8f02e5e9283117d3bb9fbd6ba5bf324d06898c174bc7"
+      evidenceSHA256: "3516e6c5fe4294b0cc2846c056dc946680f4403aa08a643514a9f896abf17dde"
     -
       name: "kubectl-apply-operator-prerequisites"
       result: "pass"
@@ -68,7 +68,7 @@ spec:
       result: "pass"
       detail: "rendered operator custom resources were accepted by the live API server"
       evidencePath: "custom-resources-accepted.yaml"
-      evidenceSHA256: "a6803cc037adbb815db1ccc6c5469fc16d1f417dbfc4df91c6fb5c63b17db284"
+      evidenceSHA256: "b0535b0916f3b61ec9eebabfa801e11640754e6b5fb938672121879ef547da46"
     -
       name: "render-pre-delete-hook-job"
       result: "pass"

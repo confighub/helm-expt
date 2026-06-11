@@ -6,11 +6,11 @@ items:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
         {"apiVersion":"operator.tigera.io/v1","kind":"APIServer","metadata":{"annotations":{},"name":"default"},"spec":{}}
-    creationTimestamp: "2026-06-10T21:24:10Z"
+    creationTimestamp: "2026-06-11T17:49:50Z"
     generation: 1
     name: default
-    resourceVersion: "650"
-    uid: 537e2dda-6bad-4ad1-b1f9-17f9aec043f7
+    resourceVersion: "653"
+    uid: 23e8809c-62e7-4413-98ec-b74ef62fa021
   spec: {}
 - apiVersion: operator.tigera.io/v1
   kind: Goldmane
@@ -18,11 +18,11 @@ items:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
         {"apiVersion":"operator.tigera.io/v1","kind":"Goldmane","metadata":{"annotations":{},"name":"default"},"spec":{}}
-    creationTimestamp: "2026-06-10T21:24:10Z"
+    creationTimestamp: "2026-06-11T17:49:50Z"
     generation: 1
     name: default
-    resourceVersion: "651"
-    uid: 0138651b-66f1-4fb9-8c90-b4038c8eaebc
+    resourceVersion: "654"
+    uid: 2784a562-d97f-4388-8d59-c70783d0b671
   spec: {}
 - apiVersion: operator.tigera.io/v1
   kind: Installation
@@ -30,11 +30,11 @@ items:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
         {"apiVersion":"operator.tigera.io/v1","kind":"Installation","metadata":{"annotations":{},"name":"default"},"spec":{"controlPlaneNodeSelector":{},"controlPlaneReplicas":2,"controlPlaneTolerations":[],"imagePullSecrets":[],"kubeletVolumePluginPath":"None","kubernetesProvider":"","nonPrivileged":"Disabled"}}
-    creationTimestamp: "2026-06-10T21:24:10Z"
+    creationTimestamp: "2026-06-11T17:49:50Z"
     generation: 1
     name: default
-    resourceVersion: "652"
-    uid: 85053faa-4284-406f-96fd-74dad733b181
+    resourceVersion: "655"
+    uid: 85fe84fe-b607-4341-be0b-e974f37118c1
   spec:
     controlPlaneNodeSelector: {}
     controlPlaneReplicas: 2
@@ -49,11 +49,11 @@ items:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
         {"apiVersion":"operator.tigera.io/v1","kind":"Whisker","metadata":{"annotations":{},"name":"default"},"spec":{}}
-    creationTimestamp: "2026-06-10T21:24:10Z"
+    creationTimestamp: "2026-06-11T17:49:50Z"
     generation: 1
     name: default
-    resourceVersion: "653"
-    uid: dcd353ac-9a85-40e1-8cf5-965d52b390e5
+    resourceVersion: "656"
+    uid: 3d6bd424-84dd-4e00-bdc5-2f11c29fd1d8
   spec: {}
 kind: List
 metadata:

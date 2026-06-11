@@ -114,6 +114,12 @@ function classify(text, row) {
   if (includesAny(text, ["being terminate", "is being terminate", "currently being deleted", "unable to create new content in namespace"])) {
     return route("test-environment-cleanup", "high");
   }
+  if (includesAny(text, ["apiregistration.k8s.io/v1beta1", "api version is not supported", "api version removed"])) {
+    return route("api-version-unsupported", "high");
+  }
+  if (chart === "projectcalico/tigera-operator@v3.32.0" && includesAny(text, ["operator.tigera.io/v1", "kind \"apiserver\""])) {
+    return route("lifecycle-ordering", "high");
+  }
   if (includesAny(text, ["no matches for kind", "resource mapping not found", "could not find the requested resource", "ensure crds are installed", "post cluster"])) {
     return route("missing-crds", "high");
   }
@@ -158,6 +164,8 @@ function route(routeClass, confidence) {
 function classMeaning(routeClass) {
   const meanings = {
     "missing-crds": "The rendered objects refer to custom resource types that were not present on the target.",
+    "api-version-unsupported": "The rendered objects use a Kubernetes API version that the tested target no longer serves.",
+    "lifecycle-ordering": "The rendered objects are valid, but the target needs a staged lifecycle sequence instead of one bulk apply.",
     "target-secret": "The base deliberately expects a Secret or TLS material that was not staged on the target.",
     "target-prerequisite": "The workload reached Kubernetes but one or more pods were waiting for target-provided config, mounts, certificates, or setup.",
     "image-dependency": "The target could not pull at least one rendered image, so the row is testing image availability rather than ConfigHub parity.",
@@ -174,6 +182,8 @@ function classMeaning(routeClass) {
 function classNextAction(routeClass) {
   const actions = {
     "missing-crds": "Use a CRD-owning base, preinstall the CRDs, or record an explicit no-CRDs support boundary before rerun.",
+    "api-version-unsupported": "Use a supported chart version, compatibility base, or target Kubernetes profile before rerun.",
+    "lifecycle-ordering": "Use the lifecycle route for this chart, then observe the staged apply or cleanup sequence with a receipt.",
     "target-secret": "Stage the declared Secret or TLS material as a target fact, then rerun the local live and parity lanes.",
     "target-prerequisite": "Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant.",
     "image-dependency": "Pin, mirror, override, or document the image dependency, then rerun against a target that can pull it.",
@@ -190,6 +200,8 @@ function classNextAction(routeClass) {
 function classBoundary(routeClass) {
   const boundaries = {
     "missing-crds": "Render parity still stands; live success is scoped to targets with the required CRDs or a CRD-owning base.",
+    "api-version-unsupported": "Render parity still stands; live support is scoped to targets that serve the rendered API versions.",
+    "lifecycle-ordering": "The row is not a bulk-apply success claim; support depends on the documented lifecycle route.",
     "target-secret": "The model is working when it refuses to invent secret material; live success requires the target fact.",
     "target-prerequisite": "The row is not production-supported until the prerequisite is modeled and observed.",
     "image-dependency": "The row does not prove a ConfigHub semantic defect; it proves an image supply-chain dependency.",
