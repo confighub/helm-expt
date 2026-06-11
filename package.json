@@ -246,6 +246,8 @@
     "hooks:route-work-orders": "node scripts/generate-hook-route-work-orders.mjs --generate",
     "hooks:route-work-orders:verify": "node scripts/generate-hook-route-work-orders.mjs --verify",
     "hooks:route-rehearsals:verify": "node scripts/verify-hook-route-rehearsals.mjs",
+    "hooks:disposition": "node scripts/generate-hook-dispositions.mjs --generate",
+    "hooks:disposition:verify": "node scripts/generate-hook-dispositions.mjs --verify",
     "hooks:coverage": "node scripts/generate-hook-coverage.mjs --generate",
     "hooks:coverage:verify": "node scripts/generate-hook-coverage.mjs --verify",
     "apiservice:coverage": "node scripts/generate-apiservice-coverage.mjs --generate",

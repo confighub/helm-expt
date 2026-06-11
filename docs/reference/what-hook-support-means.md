@@ -32,12 +32,12 @@ by a verifier that fails when a hook-bearing chart has none.
    render shows when the hooks actually materialize — kubernetes-dashboard's
    hooks do not render at all under default values, and airflow's migrations
    default to a plain Deployment.
-3. **A blocked rehearsal is evidence, not failure.** The kafka rehearsal ran
-   on a fresh cluster and blocked because the pinned chart's default image
-   tag no longer exists upstream. That receipt — with the exact pull error —
-   is a stronger trust artifact than an untested green row, and it routes the
-   real precondition (an image-override or digest-pinned base) into the
-   next action.
+3. **A blocked rehearsal is evidence, not failure.** The kafka and minio
+   rehearsals reached real target preconditions and blocked because pinned
+   upstream image tags no longer resolved. Those receipts — with the exact
+   pull errors or preconditions — are stronger trust artifacts than untested
+   green rows, and they route the real precondition (an image-override,
+   digest-pinned base, or newer chart version) into the next action.
 
 ## Where The Evidence Lives
 

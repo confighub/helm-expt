@@ -42,6 +42,17 @@ const WORKED = {
     nextAction:
       "create an image-override or digest-pinned base, then re-run the provisioning-Job route rehearsal",
   },
+  "bitnami/minio": {
+    evidence: [
+      "data/hook-route-candidates/rehearsals/bitnami-minio-provisioning/rehearsal-receipt.yaml",
+      "data/hook-route-candidates/rehearsals/bitnami-minio-provisioning/render-summary.json",
+      "data/hook-route-candidates/rehearsals/bitnami-minio-provisioning/hook-job.yaml",
+    ],
+    evidenceStatus: "render-proven (values-conditional) + live desired-state apply attempted",
+    liveStatus: "blocked: pinned MinIO image tags no longer resolve upstream (see rehearsal receipt)",
+    nextAction:
+      "choose a supported image override or newer chart version, then re-run the provisioning-Job managed-action rehearsal",
+  },
   "kong/kong": {
     evidence: [
       "data/hook-disposition/evidence/kong-kong/evidence.yaml",
@@ -267,7 +278,7 @@ function summaryMarkdown(rows) {
   lines.push("");
   lines.push("- Dependency-provided hooks are first-class: the dependency_source column names the vendored subchart that ships the hook.");
   lines.push("- The maintained queue also observes charts outside the source top-100 (tigera-operator, gatekeeper); they are tracked in data/hook-lifecycle/, not here.");
-  lines.push("- bitnami/minio's worked evidence is owned by the active rehearsal lane and is deliberately not duplicated here.");
+  lines.push("- bitnami/minio reuses the shared provisioning-Job route shape; its live rehearsal is blocked on stale upstream image tags, not on hook classification.");
   lines.push("");
   return lines.join("\n");
 }
