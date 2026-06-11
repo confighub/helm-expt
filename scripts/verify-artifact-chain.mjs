@@ -115,6 +115,8 @@ function verifyRevision(recipeRoot, revisionRoot) {
   }
 
   const releaseSHA = sha256File(paths.release);
+  const sourceLockSHA = sha256File(join(recipeRoot, "source-lock.yaml"));
+  const dependencyLockSHA = sha256File(join(recipeRoot, "dependency-lock.yaml"));
   const revision = readYaml(paths.revision);
   const inventory = readYaml(paths.inventory);
   const equivalence = readYaml(paths.equivalence);
@@ -131,6 +133,18 @@ function verifyRevision(recipeRoot, revisionRoot) {
     render.spec?.outputs?.renderedObjectSetSHA256 === releaseSHA,
     `${relativeRepo(revisionRoot)} render receipt digest mismatch`,
   );
+  if (render.spec?.inputs?.sourceLockSHA256) {
+    check(
+      render.spec.inputs.sourceLockSHA256 === sourceLockSHA,
+      `${relativeRepo(revisionRoot)} render receipt source-lock digest mismatch`,
+    );
+  }
+  if (render.spec?.inputs?.dependencyLockSHA256) {
+    check(
+      render.spec.inputs.dependencyLockSHA256 === dependencyLockSHA,
+      `${relativeRepo(revisionRoot)} render receipt dependency-lock digest mismatch`,
+    );
+  }
   check(
     render.spec?.outputs?.deterministicAcrossTwoLocalRenders !== false,
     `${relativeRepo(revisionRoot)} render receipt marks render as non-deterministic`,

@@ -8,7 +8,8 @@ spec:
   dependencies:
     -
       name: "cluster"
-      version: "0.0"
+      version: "0.0.5"
       repository: "https://cloudnative-pg.github.io/grafana-dashboards"
       condition: "monitoring.grafanaDashboard.create"
       alias: "monitoring"
+  chartLockDigest: "sha256:92acaa7742cad61339d69da604eda609e3d5e02f05efa224f5a58f2b845cd2b4"

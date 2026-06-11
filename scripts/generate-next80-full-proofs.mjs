@@ -179,6 +179,9 @@ function pullSource(chart) {
     const chartRoot = dirname(chartYamlPath);
     const valuesPath = join(chartRoot, "values.yaml");
     const chartYaml = readYaml(chartYamlPath);
+    const chartLockPath = join(chartRoot, "Chart.lock");
+    const chartLock = existsSync(chartLockPath) ? readYaml(chartLockPath) : null;
+    const dependencies = chartLock?.dependencies ?? chartYaml.dependencies ?? [];
     return {
       chartRoot,
       chartYaml,
@@ -187,7 +190,14 @@ function pullSource(chart) {
       packageBytes: readFileSync(packagePath).length,
       defaultValuesSHA256: existsSync(valuesPath) ? sha256File(valuesPath) : null,
       defaultValuesText: existsSync(valuesPath) ? readFileSync(valuesPath, "utf8") : "",
-      dependencies: chartYaml.dependencies ?? [],
+      chartLockDigest: chartLock?.digest ?? null,
+      chartLockProvenance: chartLock || dependencies.length === 0 ? null : {
+        status: "source-derived-from-packaged-chart-yaml",
+        packageSHA256: sha256File(packagePath),
+        packageContainsChartLock: false,
+        dependencySource: "Chart.yaml dependencies from the chart package recorded in source-lock.yaml",
+      },
+      dependencies,
       tempRoot,
     };
   } catch (error) {
@@ -257,6 +267,8 @@ function writeSourceArtifacts(chart, source, features, objectFeatures, paths) {
         tags: dependency.tags,
         alias: dependency.alias,
       })),
+      ...(source.chartLockDigest ? { chartLockDigest: source.chartLockDigest } : {}),
+      ...(source.chartLockProvenance ? { chartLockProvenance: source.chartLockProvenance } : {}),
     },
   });
   writeYaml(join(paths.proofRoot, "value-model.yaml"), {

@@ -10,3 +10,9 @@ spec:
       version: "2.39.0"
       repository: oci://registry-1.docker.io/bitnamicharts
       type: library
+  chartLockDigest: null
+  chartLockProvenance:
+    status: source-derived-from-packaged-chart-yaml
+    packageSHA256: "aa5360967bc1adadf69f0ce91d762f0bb4d80ca36758b37d7d8f1ef981257baf"
+    packageContainsChartLock: false
+    dependencySource: Chart.yaml dependencies from the chart package recorded in source-lock.yaml

@@ -31,3 +31,4 @@ spec:
       version: "0.1.6"
       repository: "https://kyverno.github.io/reports-server/"
       condition: "reportsServer.enabled"
+  chartLockDigest: "sha256:f09c63f775fb3728813f5301ba3469e931623ab6f924e54066e8d665d2d68e5a"

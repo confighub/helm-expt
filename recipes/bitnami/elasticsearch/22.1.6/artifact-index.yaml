@@ -61,7 +61,7 @@ spec:
       localLive: "0/2"
       gitopsLive: "0/2"
       liveParity: "0/2"
-    featureSummary: "generated-secrets;required-values;install-vs-upgrade;extension-slots;remote-dependencies"
+    featureSummary: "generated-secrets;required-values;install-vs-upgrade;extension-slots;remote-dependencies;dependency-range-frozen"
     hardGap: "existing-secret (chart ships no Secret toggle)"
     nextAction: "review limitation before promotion: existing-secret (chart ships no Secret toggle)"
   installerPackage:

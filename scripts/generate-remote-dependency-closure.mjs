@@ -74,6 +74,7 @@ function rowFor(source, match, locks, quirk, refresh) {
   const dependencyRangePolicy = dependencyRangePolicyFor({ source, lock });
   const refreshSurvivalStatus = refreshSurvivalStatusFor(refresh);
   const workstream = workstreamFor({ source, lock, closureStatus, topQuirk, dependencyRangePolicy, refreshSurvivalStatus });
+  const dependencyProvenance = dependencyProvenanceStatus(lock);
   return {
     priority: priorityFor(source, closureStatus, quirk),
     workstream,
@@ -101,6 +102,7 @@ function rowFor(source, match, locks, quirk, refresh) {
     lock_remote_repo_count: String(remoteRepos.length),
     lock_library_dependency_count: String(libraryDeps.length),
     lock_has_chart_lock_digest: String(Boolean(lock?.chartLockDigest)),
+    lock_dependency_provenance: dependencyProvenance,
     dependency_names: deps.map((dep) => dep.name).filter(Boolean).join(";"),
     dependency_repositories: remoteRepos.join(";"),
     next_action: nextActionFor({ workstream }),
@@ -151,7 +153,7 @@ function statusFor({ source, modeled, lock, sourceVersion, modeledVersion }) {
 function dependencyRangePolicyFor({ source, lock }) {
   if (number(source.nonExactDependencyConstraints) === 0) return "not-needed";
   if (!lock) return "unrecorded-no-maintained-lock";
-  if (!lock.chartLockDigest) return "blocked-until-chart-lock-digest";
+  if (!hasDependencyProvenance(lock)) return "blocked-until-dependency-provenance";
   return "freeze-to-chart-lock";
 }
 
@@ -163,10 +165,21 @@ function refreshSurvivalStatusFor(refresh) {
   return refresh.refresh_state || "refresh-row-present";
 }
 
+function hasDependencyProvenance(lock) {
+  return Boolean(lock?.chartLockDigest || lock?.chartLockProvenance?.status);
+}
+
+function dependencyProvenanceStatus(lock) {
+  if (!lock) return "missing";
+  if (lock.chartLockDigest) return "chart-lock-digest";
+  if (lock.chartLockProvenance?.status) return lock.chartLockProvenance.status;
+  return "missing";
+}
+
 function workstreamFor({ source, lock, closureStatus, topQuirk, dependencyRangePolicy, refreshSurvivalStatus }) {
   if (closureStatus === "source-only-no-maintained-recipe") return "create-recipe-import-candidate";
   if (closureStatus === "modeled-without-dependency-lock") return "add-dependency-lock";
-  if (!lock?.chartLockDigest && lock?.dependencies?.length > 0) return "chart-lock-digest";
+  if (!hasDependencyProvenance(lock) && lock?.dependencies?.length > 0) return "chart-lock-digest";
   if (dependencyRangePolicy !== "not-needed" && dependencyRangePolicy !== "freeze-to-chart-lock") return "dependency-range-policy";
   if (dependencyRangePolicy === "freeze-to-chart-lock" && refreshSurvivalStatus === "not-in-refresh-survival-surface") return "dependency-range-policy";
   if (topQuirk === "remote-dependencies") return "keep-current";
@@ -178,7 +191,7 @@ function nextActionFor({ workstream }) {
     "create-recipe-import-candidate": "create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer",
     "add-dependency-lock": "add dependency-lock.yaml or mark the dependency closure explicitly empty",
     "dependency-range-policy": "record dependency range policy and refresh-survival check for non-exact dependency constraints",
-    "chart-lock-digest": "record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived",
+    "chart-lock-digest": "record Chart.lock digest or source-derived dependency provenance",
     "promote-closure-facts": "promote dependency closure facts into chart facts and keep refresh-survival evidence current",
     "keep-current": "keep dependency lock evidence current with the supported recipe version",
   }[workstream] ?? "review dependency closure row";
@@ -189,7 +202,7 @@ function doneWhenFor(workstream) {
     "create-recipe-import-candidate": "recipe candidate exists with source lock, dependency lock, first base variant, render parity, and an explicit catalog decision",
     "add-dependency-lock": "dependency-lock.yaml exists or the recipe records that the dependency closure is intentionally empty",
     "dependency-range-policy": "non-exact dependency constraints have a recorded policy plus refresh-survival evidence for the supported version",
-    "chart-lock-digest": "dependency lock records a Chart.lock digest or explains the source of the locked dependency list",
+    "chart-lock-digest": "dependency lock records a Chart.lock digest or source-derived dependency provenance",
     "promote-closure-facts": "chart facts and status surfaces expose dependency closure, remote repositories, and refresh-survival expectation",
     "keep-current": "dependency evidence is still current for the supported recipe version",
   }[workstream] ?? "row has an explicit closure decision";
@@ -223,6 +236,7 @@ function dependencyLocksByChart() {
       version: String(spec.version ?? ""),
       dependencies,
       chartLockDigest: String(spec.chartLockDigest ?? ""),
+      chartLockProvenance: spec.chartLockProvenance ?? null,
     };
     if (!result.has(chart)) result.set(chart, []);
     result.get(chart).push(row);
@@ -236,7 +250,9 @@ function toSummary(rows) {
   const priorityCounts = countBy(rows, "priority");
   const withLocks = rows.filter((row) => row.lock_path).length;
   const sourceOnly = rows.filter((row) => row.lock_status === "source-only-no-maintained-recipe").length;
-  const noChartLockDigest = rows.filter((row) => row.lock_path && row.lock_dependency_count !== "0" && row.lock_has_chart_lock_digest !== "true").length;
+  const missingDependencyProvenance = rows.filter((row) =>
+    row.lock_path && row.lock_dependency_count !== "0" && row.lock_dependency_provenance === "missing",
+  ).length;
   const frozenRangePolicies = rows.filter((row) => row.dependency_range_policy === "freeze-to-chart-lock").length;
   const frozenRangePoliciesWithRefresh = rows.filter((row) =>
     row.dependency_range_policy === "freeze-to-chart-lock"
@@ -279,7 +295,7 @@ files.
 source top-100 rows with remote, vendored, or non-exact dependencies: ${rows.length}
 rows with a maintained dependency lock:                         ${withLocks}/${rows.length}
 source-only rows without a maintained recipe:                   ${sourceOnly}/${rows.length}
-locked rows with dependencies but no Chart.lock digest:          ${noChartLockDigest}/${rows.length}
+locked rows with dependencies but no dependency provenance:      ${missingDependencyProvenance}/${rows.length}
 non-exact dependency rows frozen to Chart.lock:                  ${frozenRangePolicies}/${rows.length}
 frozen range rows with refresh-survival evidence:                ${frozenRangePoliciesWithRefresh}/${frozenRangePolicies}
 P0 source rows:                                                  ${p0SourceRows}
@@ -325,9 +341,9 @@ ${repoTable}
   Keep that alias visible when presenting catalog coverage.
 - If the row is \`source-only-no-maintained-recipe\`, create a recipe/import
   candidate before making catalog claims.
-- If dependencies are locked but no \`chartLockDigest\` is present, decide
-  whether to backfill a Chart.lock digest or explicitly document the source of
-  the dependency list.
+- If dependencies are locked but \`lock_dependency_provenance\` is \`missing\`,
+  backfill a Chart.lock digest or explicitly document the source of the
+  dependency list.
 - If \`dependency_range_policy\` is \`freeze-to-chart-lock\`, the maintained
   path does not resolve dependency ranges during install. It uses the committed
   dependency lock, and any re-resolution must happen through a refresh candidate
@@ -462,6 +478,7 @@ function toCsv(rows) {
     "lock_remote_repo_count",
     "lock_library_dependency_count",
     "lock_has_chart_lock_digest",
+    "lock_dependency_provenance",
     "dependency_names",
     "dependency_repositories",
     "next_action",
