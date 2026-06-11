@@ -61,6 +61,7 @@ function readme(rows) {
     ["I want the top-100 coverage contract.", "data/top100-coverage/summary.md; data/top100-coverage/coverage.csv"],
     ["I want the strict top-100 work queue.", "data/top100-coverage/work-queue.md; data/top100-coverage/work-queue.csv; data/top100-coverage/decisions-needed.md"],
     ["I want the source-scan quirk work queue.", "data/quirk-work-queue/summary.md; data/quirk-work-queue/top100-queue.csv"],
+    ["I want the hardest top-100 proof gaps to assign next.", "data/hard-proof-gaps/summary.md; data/hard-proof-gaps/shortlist.csv"],
     ["I want remote dependency closure status.", "data/remote-dependency-closure/summary.md; data/remote-dependency-closure/top100.csv"],
     ["I want the first strict top-100 promotion wave.", "data/top100-promotion-wave/summary.md; data/top100-promotion-wave/wave.csv; data/top100-promotion-wave/fast-track.md; data/top100-promotion-wave/fast-track-reviews/README.md; data/top100-promotion-wave/fast-track-reviews/storage-rollback/README.md; data/top100-promotion-wave/work-orders.md"],
     ["I want to know how upstream chart updates are handled.", "data/refresh-survival/summary.md; data/latest-top20-refresh/action-queue/summary.md; data/latest-top20-refresh/replacement-decisions/summary.md"],
@@ -141,6 +142,7 @@ function readme(rows) {
     ["data/variant-path-coverage/summary.md", "Per chart/base/path matrix for base variants, diffs, operations, and derived ConfigHub variants."],
     ["data/quirk-coverage/summary.md", "Coverage audit for Helm quirks: tracked, partly tracked, source-scanned only, or not scanned."],
     ["data/quirk-work-queue/summary.md", "Chart-level work queue for converting public top-100 source-scan quirks into modeled, reviewable, and eventually provable catalog facts."],
+    ["data/hard-proof-gaps/summary.md", "Short assignment surface for the top-100 source-quirk rows most likely to damage trust if overclaimed."],
     ["data/remote-dependency-closure/summary.md", "Top-100 remote dependency closure map: source-scan dependency risk joined to maintained recipe dependency locks."],
     ["data/high-fanout-demo/summary.md", "Prometheus/kube-prometheus-stack example showing how one base choice changes many objects and prerequisites."],
     ["data/high-fanout-demo/operation-preview.md", "Pre-ship operation preview for kube-prometheus-stack high-fanout inputs: route, reach, guardrail, and next proof."],
@@ -334,6 +336,7 @@ function roleFor(path) {
   if (path === "data/variant-path-coverage/coverage-matrix.csv") return "one row per chart/base/path proof status";
   if (path === "data/quirk-coverage/coverage.csv") return "one row per Helm quirk axis: coverage tier, evidence, remaining gap, next action";
   if (path === "data/quirk-work-queue/top100-queue.csv") return "one row per affected public top-100 source chart: open quirk set, priority, first action, and next artifact";
+  if (path === "data/hard-proof-gaps/shortlist.csv") return "shortlist of top-100 quirk, hook, and dependency gaps most likely to undermine trust if overclaimed";
   if (path === "data/remote-dependency-closure/top100.csv") return "one row per top-100 chart with remote, vendored, or non-exact dependency risk joined to maintained dependency-lock evidence";
   if (path === "data/extension-slots/extension-slots.csv") return "one row per chart with NGINX-like extension slots and the route for populated slots";
   if (path === "data/nginx-config-checks/checks.csv") return "NGINX supported-base checks for config extension slots and rendered object shape";
@@ -385,6 +388,7 @@ function familyRole(family) {
     "variant-path-coverage": "chart/base/path proof status matrix",
     "quirk-coverage": "Helm quirk-axis coverage audit",
     "quirk-work-queue": "source-scan quirk work queue for top-100 charts",
+    "hard-proof-gaps": "hard top-100 proof gaps joined across quirk, hook, and dependency queues",
     "remote-dependency-closure": "remote dependency closure map for top-100 charts",
     "extension-slots": "NGINX-like extension-slot coverage and routing",
     "nginx-config-checks": "NGINX supported-base config extension checks",
@@ -474,6 +478,7 @@ function commandMap() {
     "variant-path-coverage": { generate: "npm run variant-paths:generate", verify: "npm run variant-paths:verify" },
     "quirk-coverage": { generate: "npm run quirk-coverage", verify: "npm run quirk-coverage:verify" },
     "quirk-work-queue": { generate: "npm run quirk-work-queue", verify: "npm run quirk-work-queue:verify" },
+    "hard-proof-gaps": { generate: "npm run top100:hard-gaps", verify: "npm run top100:hard-gaps:verify" },
     "remote-dependency-closure": { generate: "npm run remote-deps:closure", verify: "npm run remote-deps:closure:verify" },
     "extension-slots": { generate: "npm run extension-slots", verify: "npm run extension-slots:verify" },
     "nginx-config-checks": { generate: "npm run nginx:config-checks", verify: "npm run nginx:config-checks:verify" },

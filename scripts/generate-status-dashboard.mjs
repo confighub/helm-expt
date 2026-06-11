@@ -57,6 +57,7 @@ function buildReport() {
   const top500Rows = readCsv("data/top500-catalog-analysis/review.csv");
   const quirkRows = readCsv("data/quirk-coverage/coverage.csv");
   const quirkWorkQueueRows = readCsv("data/quirk-work-queue/top100-queue.csv");
+  const hardProofGapRows = readCsv("data/hard-proof-gaps/shortlist.csv");
   const remoteDependencyRows = readCsv("data/remote-dependency-closure/top100.csv");
   const extensionRows = readCsv("data/extension-slots/extension-slots.csv");
   const sourceTop100HookRows = readCsv("data/hook-lifecycle/source-top100-hooks.csv");
@@ -161,6 +162,7 @@ function buildReport() {
   rows.push(metric("quirks", "source-scanned but not surfaced axes", quirkTierCounts.get("source-scanned-not-surfaced") ?? 0, quirkRows.length, "gap", "data/quirk-coverage/coverage.csv", "Detected in source scan but not promoted to front-door chart facts."));
   rows.push(metric("quirks", "not-scanned axes", quirkTierCounts.get("not-scanned") ?? 0, quirkRows.length, "gap", "data/quirk-coverage/coverage.csv", "Known blind spots in the scanner/data model."));
   rows.push(metric("quirks", "P0 source quirk work queue rows", quirkWorkQueueRows.filter((row) => row.priority === "P0").length, quirkWorkQueueRows.length, "gap", "data/quirk-work-queue/top100-queue.csv", "Chart-level work items that convert source-scan quirk findings into modeled, reviewable, or provable catalog facts."));
+  rows.push(metric("quirks", "hard proof gap shortlist rows", hardProofGapRows.length, quirkWorkQueueRows.filter((row) => row.priority === "P0").length, "gap", "data/hard-proof-gaps/shortlist.csv", "Joined shortlist of the P0 source-quirk rows most likely to damage trust if overclaimed."));
   rows.push(metric("remote dependencies", "top100 dependency-risk rows with maintained locks", remoteDependencyRows.filter((row) => row.lock_path).length, remoteDependencyRows.length, "partial", "data/remote-dependency-closure/top100.csv", "Top-100 source rows with remote, vendored, or non-exact dependency risk joined to maintained recipe dependency locks."));
   rows.push(metric("remote dependencies", "P0 dependency closure work rows", remoteDependencyRows.filter((row) => row.priority === "P0").length, remoteDependencyRows.length, "gap", "data/remote-dependency-closure/top100.csv", "Highest-priority dependency closure rows needing import, lock, digest, or refresh-survival work."));
   rows.push(metric("extension slots", "top20 charts with extension slots", extensionRows.filter((row) => row.catalog_scope === "top20-catalog").length, 20, "partial", "data/extension-slots/extension-slots.csv", "Top-20 catalog charts that expose raw manifests, tpl snippets, config blocks, sidecars, or add-on slots."));
@@ -183,7 +185,7 @@ function buildReport() {
 
   const chartByName = new Map(chartRows.map((row) => [row.chart, row]));
   const top20Rows = top20StatusRows(top100Rows, chartByName, top20BaseReadinessRows, productionSupportDecisionRows);
-  const nextWorkQueues = nextWorkQueueRows({ top100Rows, top100CoverageWorkRows, top100PromotionFastTrackRows, top100PromotionFastTrackReviewRows, remoteDependencyRows, hookRows, hookReviewRows, hookCandidateRows, hookCandidateWorkOrderRows, lifecycleObservationRows, liveParityRerunRows, productionSupportDecisionRows, latestRefreshActionRows });
+  const nextWorkQueues = nextWorkQueueRows({ top100Rows, top100CoverageWorkRows, top100PromotionFastTrackRows, top100PromotionFastTrackReviewRows, hardProofGapRows, remoteDependencyRows, hookRows, hookReviewRows, hookCandidateRows, hookCandidateWorkOrderRows, lifecycleObservationRows, liveParityRerunRows, productionSupportDecisionRows, latestRefreshActionRows });
   const activeProofQueue = activeProofQueueRows(liveParityRerunRows);
   return {
     rows,
@@ -194,7 +196,7 @@ function buildReport() {
     nextWorkQueuesCsv: nextWorkQueuesToCsv(nextWorkQueues),
     activeProofQueue,
     activeProofQueueCsv: activeProofQueueToCsv(activeProofQueue),
-    summary: summary(rows, { chartRows, baseRows, chartUseRows, top100Rows, top100CoverageWorkRows, top100PromotionFastTrackRows, top100PromotionFastTrackReviewRows, top100PromotionFastTrackStorageRows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, hookReviewRows, hookCandidateRows, hookCandidateWorkOrderRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, productionSupportDecisionRows, scanDispositionRows, latestRefreshActionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues, activeProofQueue }),
+    summary: summary(rows, { chartRows, baseRows, chartUseRows, top100Rows, top100CoverageWorkRows, top100PromotionFastTrackRows, top100PromotionFastTrackReviewRows, top100PromotionFastTrackStorageRows, top500Rows, top20Rows, quirkRows, hardProofGapRows, extensionRows, hookRows, hookReviewRows, hookCandidateRows, hookCandidateWorkOrderRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, productionSupportDecisionRows, scanDispositionRows, latestRefreshActionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues, activeProofQueue }),
   };
 }
 
@@ -220,6 +222,7 @@ function summary(rows, context) {
   const highScanRows = context.scanDispositionRows.filter((row) => row.scanPriority === "high");
   const productionWorkstreams = nextWorkQueueMarkdown(context.nextWorkQueues, "top20-production-support", "workstream");
   const top100WorkQueues = nextWorkQueueMarkdown(context.nextWorkQueues, "top100-catalog-work", "queue");
+  const hardProofGapQueues = nextWorkQueueMarkdown(context.nextWorkQueues, "hard-proof-gap-work", "queue");
   const liveParityWorkQueues = nextWorkQueueMarkdown(context.nextWorkQueues, "live-parity-work", "queue");
   const hookWorkQueueRows = nextWorkQueueMarkdown(context.nextWorkQueues, "hook-and-lifecycle-work", "queue");
   const latestRefreshWorkQueues = nextWorkQueueMarkdown(context.nextWorkQueues, "latest-refresh-work", "action");
@@ -258,6 +261,15 @@ evidence work before it becomes production-supported for a target scope.
 | Queue | Charts | Next action |
 | --- | ---: | --- |
 ${top100WorkQueues}
+
+### Hard Proof Gap Work
+
+These rows are the top assignment queue for public charts where source-scan
+quirks, dependency closure, or hook routing could damage trust if overclaimed.
+
+| Queue | Rows | Next action |
+| --- | ---: | --- |
+${hardProofGapQueues}
 
 ### Remote Dependency Closure Work
 
@@ -777,11 +789,66 @@ function nextWorkQueueRows(context) {
   const liveParityRerunReadiness = groupCount(context.liveParityRerunRows, "rerun_readiness");
   return [
     ...top100WorkQueueObjects(context.top100Rows, context.top100CoverageWorkRows, context.top100PromotionFastTrackRows ?? []),
+    ...hardProofGapWorkObjects(context.hardProofGapRows ?? []),
     ...remoteDependencyWorkstreamObjects(context.remoteDependencyRows ?? []),
     ...supportDecisionWorkstreamObjects(context.productionSupportDecisionRows),
     ...latestRefreshWorkQueueObjects(context.latestRefreshActionRows ?? []),
     ...liveParityRerunReadinessObjects(liveParityRerunReadiness),
     ...hookWorkQueueObjects(context.hookRows, context.hookReviewRows ?? [], context.hookCandidateRows ?? [], context.hookCandidateWorkOrderRows ?? [], context.lifecycleObservationRows),
+  ];
+}
+
+function hardProofGapWorkObjects(rows) {
+  const catalogRows = rows.filter((row) => row.catalog_status === "catalog-supported");
+  const hookRows = rows.filter((row) => row.hook_route_candidate);
+  const remoteRows = rows.filter((row) => row.remote_dependency_workstream);
+  const apiServiceRows = rows.filter((row) => row.primary_gap === "apiservice");
+  return [
+    {
+      section: "hard-proof-gap-work",
+      item_type: "queue",
+      item: "Shortlist",
+      count: rows.length,
+      next_action: "Assign the first rows to modeled facts, route receipts, runtime observations, better bases, or explicit blockers.",
+      source: "data/hard-proof-gaps/shortlist.csv",
+      detail: previewChartRefs(rows),
+    },
+    {
+      section: "hard-proof-gap-work",
+      item_type: "queue",
+      item: "Catalog-visible hard gaps",
+      count: catalogRows.length,
+      next_action: "Handle visible catalog rows first so public claims stay narrow and backed.",
+      source: "data/hard-proof-gaps/shortlist.csv",
+      detail: previewChartRefs(catalogRows),
+    },
+    {
+      section: "hard-proof-gap-work",
+      item_type: "queue",
+      item: "Hook-route hard gaps",
+      count: hookRows.length,
+      next_action: "Promote candidate routes into maintained receipts, runtime observations, or explicit blockers.",
+      source: "data/hard-proof-gaps/shortlist.csv",
+      detail: previewChartRefs(hookRows),
+    },
+    {
+      section: "hard-proof-gap-work",
+      item_type: "queue",
+      item: "Remote dependency hard gaps",
+      count: remoteRows.length,
+      next_action: "Close dependency provenance and refresh-survival facts before stronger catalog claims.",
+      source: "data/hard-proof-gaps/shortlist.csv",
+      detail: previewChartRefs(remoteRows),
+    },
+    {
+      section: "hard-proof-gap-work",
+      item_type: "queue",
+      item: "APIService hard gaps",
+      count: apiServiceRows.length,
+      next_action: "Add APIService readiness modeling and runtime observation routes.",
+      source: "data/hard-proof-gaps/shortlist.csv",
+      detail: previewChartRefs(apiServiceRows),
+    },
   ];
 }
 
