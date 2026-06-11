@@ -587,6 +587,7 @@ lifecycle observation.
 | Which top-20 base variant should I start with? | [top20-base-readiness/summary.md](../top20-base-readiness/summary.md) |
 | Which hooks, APIService, CRDs, generated facts, or target facts matter? | [outcome-coverage/feature-outcomes.csv](../outcome-coverage/feature-outcomes.csv) |
 | Which APIService charts have object, workload, parity, or aggregation evidence? | [apiservice-coverage/summary.md](../apiservice-coverage/summary.md) |
+| Which APIService proof row should move next? | [apiservice-coverage/work-orders.md](../apiservice-coverage/work-orders.md) |
 | Which charts have NGINX-like extension slots? | [extension-slots/summary.md](../extension-slots/summary.md) |
 | Which Helm quirk axes are still blind spots? | [quirk-coverage/coverage.csv](../quirk-coverage/coverage.csv) |
 | Which source-scan quirk gaps should move first? | [quirk-work-queue/summary.md](../quirk-work-queue/summary.md) |
