@@ -1,0 +1,34 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "prometheus-community-kube-state-metrics-7.4.0-cluster-metrics-readonly-local-kind"
+spec:
+  variantRevision: "recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/cluster-metrics-readonly/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-ksm-readonly"
+    context: "kind-claude-helm-expt-codex-ksm-readonly"
+    namespace: "default"
+  observedAt: "2026-06-11T14:36:10.138Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "cluster-metrics-readonly"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "87a003e8a8cf19e319668b5d2c4cbc3628a3dc8f1489e46b9a67208ca5b476ec"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "5 object(s) from recipes/prometheus-community/kube-state-metrics/7.4.0/revisions/cluster-metrics-readonly/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|kube-state-metrics"

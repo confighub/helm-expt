@@ -1,0 +1,328 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"filebeat-filebeat\",\"chart\":\"filebeat-8.5.1\",\"heritage\":\"Helm\",\"release\":\"filebeat\"},\"name\":\"filebeat-filebeat\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T14:38:07Z"
+      labels:
+        app: "filebeat-filebeat"
+        chart: "filebeat-8.5.1"
+        heritage: "Helm"
+        release: "filebeat"
+      name: "filebeat-filebeat"
+      namespace: "default"
+      resourceVersion: "472"
+      uid: "b4fe02a2-317e-408a-8875-c56a7f1b0f86"
+  -
+    apiVersion: "v1"
+    data:
+      filebeat.yml: "filebeat.inputs:\n- type: container\n  paths:\n    - /var/log/containers/*.log\n  processors:\n  - add_kubernetes_metadata:\n      host: ${NODE_NAME}\n      matchers:\n      - logs_path:\n          logs_path: \"/var/log/containers/\"\n\noutput.elasticsearch:\n  host: '${NODE_NAME}'\n  hosts: '[\"https://${ELASTICSEARCH_HOSTS:elasticsearch-master:9200}\"]'\n  username: '${ELASTICSEARCH_USERNAME}'\n  password: '${ELASTICSEARCH_PASSWORD}'\n  protocol: https\n  ssl.certificate_authorities: [\"/usr/share/filebeat/certs/ca.crt\"]\n"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"filebeat.yml\":\"filebeat.inputs:\\n- type: container\\n  paths:\\n    - /var/log/containers/*.log\\n  processors:\\n  - add_kubernetes_metadata:\\n      host: ${NODE_NAME}\\n      matchers:\\n      - logs_path:\\n          logs_path: \\\"/var/log/containers/\\\"\\n\\noutput.elasticsearch:\\n  host: '${NODE_NAME}'\\n  hosts: '[\\\"https://${ELASTICSEARCH_HOSTS:elasticsearch-master:9200}\\\"]'\\n  username: '${ELASTICSEARCH_USERNAME}'\\n  password: '${ELASTICSEARCH_PASSWORD}'\\n  protocol: https\\n  ssl.certificate_authorities: [\\\"/usr/share/filebeat/certs/ca.crt\\\"]\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"filebeat-filebeat\",\"chart\":\"filebeat-8.5.1\",\"heritage\":\"Helm\",\"release\":\"filebeat\"},\"name\":\"filebeat-filebeat-daemonset-config\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T14:38:07Z"
+      labels:
+        app: "filebeat-filebeat"
+        chart: "filebeat-8.5.1"
+        heritage: "Helm"
+        release: "filebeat"
+      name: "filebeat-filebeat-daemonset-config"
+      namespace: "default"
+      resourceVersion: "473"
+      uid: "3cd7fad2-fac5-450b-ad75-3eea2132302a"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"filebeat-filebeat\",\"chart\":\"filebeat-8.5.1\",\"heritage\":\"Helm\",\"release\":\"filebeat\"},\"name\":\"filebeat-filebeat-cluster-role\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"namespaces\",\"nodes\",\"pods\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"replicasets\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T14:38:07Z"
+      labels:
+        app: "filebeat-filebeat"
+        chart: "filebeat-8.5.1"
+        heritage: "Helm"
+        release: "filebeat"
+      name: "filebeat-filebeat-cluster-role"
+      resourceVersion: "474"
+      uid: "c90cf6d7-58b1-40b8-b4ac-f73f8e05de76"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "namespaces"
+          - "nodes"
+          - "pods"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "replicasets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"filebeat-filebeat\",\"chart\":\"filebeat-8.5.1\",\"heritage\":\"Helm\",\"release\":\"filebeat\"},\"name\":\"filebeat-filebeat-cluster-role-binding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"filebeat-filebeat-cluster-role\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"filebeat-filebeat\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T14:38:07Z"
+      labels:
+        app: "filebeat-filebeat"
+        chart: "filebeat-8.5.1"
+        heritage: "Helm"
+        release: "filebeat"
+      name: "filebeat-filebeat-cluster-role-binding"
+      resourceVersion: "475"
+      uid: "1648ad5c-89d4-497f-87c5-b156931d8119"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "filebeat-filebeat-cluster-role"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "filebeat-filebeat"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"filebeat-filebeat\"},\"name\":\"filebeat-filebeat-role\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"get\",\"create\",\"update\"]}]}\n"
+      creationTimestamp: "2026-06-11T14:38:07Z"
+      labels:
+        app: "filebeat-filebeat"
+      name: "filebeat-filebeat-role"
+      namespace: "default"
+      resourceVersion: "476"
+      uid: "7ab7d920-8f89-4df2-8abf-099470bb3f25"
+    rules:
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "get"
+          - "create"
+          - "update"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"filebeat-filebeat\",\"chart\":\"filebeat-8.5.1\",\"heritage\":\"Helm\",\"release\":\"filebeat\"},\"name\":\"filebeat-filebeat-role-binding\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"filebeat-filebeat-role\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"filebeat-filebeat\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T14:38:07Z"
+      labels:
+        app: "filebeat-filebeat"
+        chart: "filebeat-8.5.1"
+        heritage: "Helm"
+        release: "filebeat"
+      name: "filebeat-filebeat-role-binding"
+      namespace: "default"
+      resourceVersion: "477"
+      uid: "30549ffb-c637-4339-ad0b-0a2be9548b5e"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "filebeat-filebeat-role"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "filebeat-filebeat"
+        namespace: "default"
+  -
+    apiVersion: "apps/v1"
+    kind: "DaemonSet"
+    metadata:
+      annotations:
+        deprecated.daemonset.template.generation: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"DaemonSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"filebeat-filebeat\",\"chart\":\"filebeat-8.5.1\",\"heritage\":\"Helm\",\"release\":\"filebeat\"},\"name\":\"filebeat-filebeat\",\"namespace\":\"default\"},\"spec\":{\"selector\":{\"matchLabels\":{\"app\":\"filebeat-filebeat\",\"release\":\"filebeat\"}},\"template\":{\"metadata\":{\"annotations\":{\"configChecksum\":\"c88755a4c60c24e519a9ead083dd5eeadf884b224f64126bb9aae2ca30cd7ed\"},\"labels\":{\"app\":\"filebeat-filebeat\",\"chart\":\"filebeat-8.5.1\",\"heritage\":\"Helm\",\"release\":\"filebeat\"},\"name\":\"filebeat-filebeat\"},\"spec\":{\"affinity\":{},\"containers\":[{\"args\":[\"-e\",\"-E\",\"http.enabled=true\"],\"env\":[{\"name\":\"POD_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"ELASTICSEARCH_USERNAME\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"username\",\"name\":\"elasticsearch-master-credentials\"}}},{\"name\":\"ELASTICSEARCH_PASSWORD\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"password\",\"name\":\"elasticsearch-master-credentials\"}}}],\"envFrom\":[],\"image\":\"docker.elastic.co/beats/filebeat:8.5.1\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"exec\":{\"command\":[\"sh\",\"-c\",\"#!/usr/bin/env bash -e\\ncurl --fail 127.0.0.1:5066\\n\"]},\"failureThreshold\":3,\"initialDelaySeconds\":10,\"periodSeconds\":10,\"timeoutSeconds\":5},\"name\":\"filebeat\",\"readinessProbe\":{\"exec\":{\"command\":[\"sh\",\"-c\",\"#!/usr/bin/env bash -e\\nfilebeat test output\\n\"]},\"failureThreshold\":3,\"initialDelaySeconds\":10,\"periodSeconds\":10,\"timeoutSeconds\":5},\"resources\":{\"limits\":{\"cpu\":\"1000m\",\"memory\":\"200Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"100Mi\"}},\"securityContext\":{\"privileged\":false,\"runAsUser\":0},\"volumeMounts\":[{\"mountPath\":\"/usr/share/filebeat/certs/\",\"name\":\"elasticsearch-master-certs\"},{\"mountPath\":\"/usr/share/filebeat/filebeat.yml\",\"name\":\"filebeat-config\",\"readOnly\":true,\"subPath\":\"filebeat.yml\"},{\"mountPath\":\"/usr/share/filebeat/data\",\"name\":\"data\"},{\"mountPath\":\"/var/lib/docker/containers\",\"name\":\"varlibdockercontainers\",\"readOnly\":true},{\"mountPath\":\"/var/log\",\"name\":\"varlog\",\"readOnly\":true},{\"mountPath\":\"/var/run/docker.sock\",\"name\":\"varrundockersock\",\"readOnly\":true}]}],\"nodeSelector\":{},\"serviceAccountName\":\"filebeat-filebeat\",\"terminationGracePeriodSeconds\":30,\"tolerations\":[],\"volumes\":[{\"name\":\"elasticsearch-master-certs\",\"secret\":{\"secretName\":\"elasticsearch-master-certs\"}},{\"configMap\":{\"defaultMode\":384,\"name\":\"filebeat-filebeat-daemonset-config\"},\"name\":\"filebeat-config\"},{\"hostPath\":{\"path\":\"/var/lib/filebeat-filebeat-default-data\",\"type\":\"DirectoryOrCreate\"},\"name\":\"data\"},{\"hostPath\":{\"path\":\"/var/lib/docker/containers\"},\"name\":\"varlibdockercontainers\"},{\"hostPath\":{\"path\":\"/var/log\"},\"name\":\"varlog\"},{\"hostPath\":{\"path\":\"/var/run/docker.sock\"},\"name\":\"varrundockersock\"}]}},\"updateStrategy\":{\"rollingUpdate\":{\"maxUnavailable\":1},\"type\":\"RollingUpdate\"}}}\n"
+      creationTimestamp: "2026-06-11T14:38:07Z"
+      generation: 1
+      labels:
+        app: "filebeat-filebeat"
+        chart: "filebeat-8.5.1"
+        heritage: "Helm"
+        release: "filebeat"
+      name: "filebeat-filebeat"
+      namespace: "default"
+      resourceVersion: "482"
+      uid: "122230c0-614a-4b02-831b-efd99e442bbf"
+    spec:
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app: "filebeat-filebeat"
+          release: "filebeat"
+      template:
+        metadata:
+          annotations:
+            configChecksum: "c88755a4c60c24e519a9ead083dd5eeadf884b224f64126bb9aae2ca30cd7ed"
+          labels:
+            app: "filebeat-filebeat"
+            chart: "filebeat-8.5.1"
+            heritage: "Helm"
+            release: "filebeat"
+          name: "filebeat-filebeat"
+        spec:
+          affinity:
+            {}
+          containers:
+            -
+              args:
+                - "-e"
+                - "-E"
+                - "http.enabled=true"
+              env:
+                -
+                  name: "POD_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "NODE_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "spec.nodeName"
+                -
+                  name: "ELASTICSEARCH_USERNAME"
+                  valueFrom:
+                    secretKeyRef:
+                      key: "username"
+                      name: "elasticsearch-master-credentials"
+                -
+                  name: "ELASTICSEARCH_PASSWORD"
+                  valueFrom:
+                    secretKeyRef:
+                      key: "password"
+                      name: "elasticsearch-master-credentials"
+              image: "docker.elastic.co/beats/filebeat:8.5.1"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                exec:
+                  command:
+                    - "sh"
+                    - "-c"
+                    - "#!/usr/bin/env bash -e\ncurl --fail 127.0.0.1:5066\n"
+                failureThreshold: 3
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: "filebeat"
+              readinessProbe:
+                exec:
+                  command:
+                    - "sh"
+                    - "-c"
+                    - "#!/usr/bin/env bash -e\nfilebeat test output\n"
+                failureThreshold: 3
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                limits:
+                  cpu: "1"
+                  memory: "200Mi"
+                requests:
+                  cpu: "100m"
+                  memory: "100Mi"
+              securityContext:
+                privileged: false
+                runAsUser: 0
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/usr/share/filebeat/certs/"
+                  name: "elasticsearch-master-certs"
+                -
+                  mountPath: "/usr/share/filebeat/filebeat.yml"
+                  name: "filebeat-config"
+                  readOnly: true
+                  subPath: "filebeat.yml"
+                -
+                  mountPath: "/usr/share/filebeat/data"
+                  name: "data"
+                -
+                  mountPath: "/var/lib/docker/containers"
+                  name: "varlibdockercontainers"
+                  readOnly: true
+                -
+                  mountPath: "/var/log"
+                  name: "varlog"
+                  readOnly: true
+                -
+                  mountPath: "/var/run/docker.sock"
+                  name: "varrundockersock"
+                  readOnly: true
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "filebeat-filebeat"
+          serviceAccountName: "filebeat-filebeat"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              name: "elasticsearch-master-certs"
+              secret:
+                defaultMode: 420
+                secretName: "elasticsearch-master-certs"
+            -
+              configMap:
+                defaultMode: 384
+                name: "filebeat-filebeat-daemonset-config"
+              name: "filebeat-config"
+            -
+              hostPath:
+                path: "/var/lib/filebeat-filebeat-default-data"
+                type: "DirectoryOrCreate"
+              name: "data"
+            -
+              hostPath:
+                path: "/var/lib/docker/containers"
+                type: ""
+              name: "varlibdockercontainers"
+            -
+              hostPath:
+                path: "/var/log"
+                type: ""
+              name: "varlog"
+            -
+              hostPath:
+                path: "/var/run/docker.sock"
+                type: ""
+              name: "varrundockersock"
+      updateStrategy:
+        rollingUpdate:
+          maxSurge: 0
+          maxUnavailable: 1
+        type: "RollingUpdate"
+    status:
+      currentNumberScheduled: 1
+      desiredNumberScheduled: 1
+      numberMisscheduled: 0
+      numberReady: 0
+      numberUnavailable: 1
+      observedGeneration: 1
+      updatedNumberScheduled: 1
+kind: "List"
+metadata:
+  resourceVersion: ""

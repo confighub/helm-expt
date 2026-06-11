@@ -1,0 +1,266 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"metrics\",\"app.kubernetes.io/instance\":\"prometheus-adapter\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"prometheus-adapter\",\"app.kubernetes.io/part-of\":\"prometheus-adapter\",\"app.kubernetes.io/version\":\"v0.12.0\",\"helm.sh/chart\":\"prometheus-adapter-5.3.0\"},\"name\":\"prometheus-adapter\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T14:36:34Z"
+      labels:
+        app.kubernetes.io/component: "metrics"
+        app.kubernetes.io/instance: "prometheus-adapter"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "prometheus-adapter"
+        app.kubernetes.io/part-of: "prometheus-adapter"
+        app.kubernetes.io/version: "v0.12.0"
+        helm.sh/chart: "prometheus-adapter-5.3.0"
+      name: "prometheus-adapter"
+      namespace: "default"
+      resourceVersion: "433"
+      uid: "2df056d2-2e48-4362-9a5b-276cd0a027db"
+  -
+    apiVersion: "v1"
+    data:
+      config.yaml: "rules:\n- seriesQuery: '{__name__=~\"^container_.*\",container!=\"POD\",namespace!=\"\",pod!=\"\"}'\n  seriesFilters: []\n  resources:\n    overrides:\n      namespace:\n        resource: namespace\n      pod:\n        resource: pod\n  name:\n    matches: ^container_(.*)_seconds_total$\n    as: \"\"\n  metricsQuery: sum(rate(<<.Series>>{<<.LabelMatchers>>,container!=\"POD\"}[5m]))\n    by (<<.GroupBy>>)\n- seriesQuery: '{__name__=~\"^container_.*\",container!=\"POD\",namespace!=\"\",pod!=\"\"}'\n  seriesFilters:\n  - isNot: ^container_.*_seconds_total$\n  resources:\n    overrides:\n      namespace:\n        resource: namespace\n      pod:\n        resource: pod\n  name:\n    matches: ^container_(.*)_total$\n    as: \"\"\n  metricsQuery: sum(rate(<<.Series>>{<<.LabelMatchers>>,container!=\"POD\"}[5m]))\n    by (<<.GroupBy>>)\n- seriesQuery: '{__name__=~\"^container_.*\",container!=\"POD\",namespace!=\"\",pod!=\"\"}'\n  seriesFilters:\n  - isNot: ^container_.*_total$\n  resources:\n    overrides:\n      namespace:\n        resource: namespace\n      pod:\n        resource: pod\n  name:\n    matches: ^container_(.*)$\n    as: \"\"\n  metricsQuery: sum(<<.Series>>{<<.LabelMatchers>>,container!=\"POD\"}) by (<<.GroupBy>>)\n- seriesQuery: '{namespace!=\"\",__name__!~\"^container_.*\"}'\n  seriesFilters:\n  - isNot: .*_total$\n  resources:\n    template: <<.Resource>>\n  name:\n    matches: \"\"\n    as: \"\"\n  metricsQuery: sum(<<.Series>>{<<.LabelMatchers>>}) by (<<.GroupBy>>)\n- seriesQuery: '{namespace!=\"\",__name__!~\"^container_.*\"}'\n  seriesFilters:\n  - isNot: .*_seconds_total\n  resources:\n    template: <<.Resource>>\n  name:\n    matches: ^(.*)_total$\n    as: \"\"\n  metricsQuery: sum(rate(<<.Series>>{<<.LabelMatchers>>}[5m])) by (<<.GroupBy>>)\n- seriesQuery: '{namespace!=\"\",__name__!~\"^container_.*\"}'\n  seriesFilters: []\n  resources:\n    template: <<.Resource>>\n  name:\n    matches: ^(.*)_seconds_total$\n    as: \"\"\n  metricsQuery: sum(rate(<<.Series>>{<<.LabelMatchers>>}[5m])) by (<<.GroupBy>>)\n"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"config.yaml\":\"rules:\\n- seriesQuery: '{__name__=~\\\"^container_.*\\\",container!=\\\"POD\\\",namespace!=\\\"\\\",pod!=\\\"\\\"}'\\n  seriesFilters: []\\n  resources:\\n    overrides:\\n      namespace:\\n        resource: namespace\\n      pod:\\n        resource: pod\\n  name:\\n    matches: ^container_(.*)_seconds_total$\\n    as: \\\"\\\"\\n  metricsQuery: sum(rate(\\u003c\\u003c.Series\\u003e\\u003e{\\u003c\\u003c.LabelMatchers\\u003e\\u003e,container!=\\\"POD\\\"}[5m]))\\n    by (\\u003c\\u003c.GroupBy\\u003e\\u003e)\\n- seriesQuery: '{__name__=~\\\"^container_.*\\\",container!=\\\"POD\\\",namespace!=\\\"\\\",pod!=\\\"\\\"}'\\n  seriesFilters:\\n  - isNot: ^container_.*_seconds_total$\\n  resources:\\n    overrides:\\n      namespace:\\n        resource: namespace\\n      pod:\\n        resource: pod\\n  name:\\n    matches: ^container_(.*)_total$\\n    as: \\\"\\\"\\n  metricsQuery: sum(rate(\\u003c\\u003c.Series\\u003e\\u003e{\\u003c\\u003c.LabelMatchers\\u003e\\u003e,container!=\\\"POD\\\"}[5m]))\\n    by (\\u003c\\u003c.GroupBy\\u003e\\u003e)\\n- seriesQuery: '{__name__=~\\\"^container_.*\\\",container!=\\\"POD\\\",namespace!=\\\"\\\",pod!=\\\"\\\"}'\\n  seriesFilters:\\n  - isNot: ^container_.*_total$\\n  resources:\\n    overrides:\\n      namespace:\\n        resource: namespace\\n      pod:\\n        resource: pod\\n  name:\\n    matches: ^container_(.*)$\\n    as: \\\"\\\"\\n  metricsQuery: sum(\\u003c\\u003c.Series\\u003e\\u003e{\\u003c\\u003c.LabelMatchers\\u003e\\u003e,container!=\\\"POD\\\"}) by (\\u003c\\u003c.GroupBy\\u003e\\u003e)\\n- seriesQuery: '{namespace!=\\\"\\\",__name__!~\\\"^container_.*\\\"}'\\n  seriesFilters:\\n  - isNot: .*_total$\\n  resources:\\n    template: \\u003c\\u003c.Resource\\u003e\\u003e\\n  name:\\n    matches: \\\"\\\"\\n    as: \\\"\\\"\\n  metricsQuery: sum(\\u003c\\u003c.Series\\u003e\\u003e{\\u003c\\u003c.LabelMatchers\\u003e\\u003e}) by (\\u003c\\u003c.GroupBy\\u003e\\u003e)\\n- seriesQuery: '{namespace!=\\\"\\\",__name__!~\\\"^container_.*\\\"}'\\n  seriesFilters:\\n  - isNot: .*_seconds_total\\n  resources:\\n    template: \\u003c\\u003c.Resource\\u003e\\u003e\\n  name:\\n    matches: ^(.*)_total$\\n    as: \\\"\\\"\\n  metricsQuery: sum(rate(\\u003c\\u003c.Series\\u003e\\u003e{\\u003c\\u003c.LabelMatchers\\u003e\\u003e}[5m])) by (\\u003c\\u003c.GroupBy\\u003e\\u003e)\\n- seriesQuery: '{namespace!=\\\"\\\",__name__!~\\\"^container_.*\\\"}'\\n  seriesFilters: []\\n  resources:\\n    template: \\u003c\\u003c.Resource\\u003e\\u003e\\n  name:\\n    matches: ^(.*)_seconds_total$\\n    as: \\\"\\\"\\n  metricsQuery: sum(rate(\\u003c\\u003c.Series\\u003e\\u003e{\\u003c\\u003c.LabelMatchers\\u003e\\u003e}[5m])) by (\\u003c\\u003c.GroupBy\\u003e\\u003e)\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"metrics\",\"app.kubernetes.io/instance\":\"prometheus-adapter\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"prometheus-adapter\",\"app.kubernetes.io/part-of\":\"prometheus-adapter\",\"app.kubernetes.io/version\":\"v0.12.0\",\"helm.sh/chart\":\"prometheus-adapter-5.3.0\"},\"name\":\"prometheus-adapter\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T14:36:34Z"
+      labels:
+        app.kubernetes.io/component: "metrics"
+        app.kubernetes.io/instance: "prometheus-adapter"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "prometheus-adapter"
+        app.kubernetes.io/part-of: "prometheus-adapter"
+        app.kubernetes.io/version: "v0.12.0"
+        helm.sh/chart: "prometheus-adapter-5.3.0"
+      name: "prometheus-adapter"
+      namespace: "default"
+      resourceVersion: "434"
+      uid: "860ddb41-76d3-46ea-9e92-75cdfe6949f2"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"metrics\",\"app.kubernetes.io/instance\":\"prometheus-adapter\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"prometheus-adapter\",\"app.kubernetes.io/part-of\":\"prometheus-adapter\",\"app.kubernetes.io/version\":\"v0.12.0\",\"helm.sh/chart\":\"prometheus-adapter-5.3.0\"},\"name\":\"prometheus-adapter-auth-reader\",\"namespace\":\"kube-system\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"extension-apiserver-authentication-reader\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"prometheus-adapter\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T14:36:34Z"
+      labels:
+        app.kubernetes.io/component: "metrics"
+        app.kubernetes.io/instance: "prometheus-adapter"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "prometheus-adapter"
+        app.kubernetes.io/part-of: "prometheus-adapter"
+        app.kubernetes.io/version: "v0.12.0"
+        helm.sh/chart: "prometheus-adapter-5.3.0"
+      name: "prometheus-adapter-auth-reader"
+      namespace: "kube-system"
+      resourceVersion: "435"
+      uid: "bff7d4c8-8460-45ad-9291-c654eb642ede"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "extension-apiserver-authentication-reader"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "prometheus-adapter"
+        namespace: "default"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"metrics\",\"app.kubernetes.io/instance\":\"prometheus-adapter\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"prometheus-adapter\",\"app.kubernetes.io/part-of\":\"prometheus-adapter\",\"app.kubernetes.io/version\":\"v0.12.0\",\"helm.sh/chart\":\"prometheus-adapter-5.3.0\"},\"name\":\"prometheus-adapter\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"https\",\"port\":443,\"protocol\":\"TCP\",\"targetPort\":\"https\"}],\"selector\":{\"app.kubernetes.io/instance\":\"prometheus-adapter\",\"app.kubernetes.io/name\":\"prometheus-adapter\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T14:36:34Z"
+      labels:
+        app.kubernetes.io/component: "metrics"
+        app.kubernetes.io/instance: "prometheus-adapter"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "prometheus-adapter"
+        app.kubernetes.io/part-of: "prometheus-adapter"
+        app.kubernetes.io/version: "v0.12.0"
+        helm.sh/chart: "prometheus-adapter-5.3.0"
+      name: "prometheus-adapter"
+      namespace: "default"
+      resourceVersion: "437"
+      uid: "acec0a2d-9448-480f-83da-0c6a68ef8920"
+    spec:
+      clusterIP: "10.96.64.71"
+      clusterIPs:
+        - "10.96.64.71"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "https"
+          port: 443
+          protocol: "TCP"
+          targetPort: "https"
+      selector:
+        app.kubernetes.io/instance: "prometheus-adapter"
+        app.kubernetes.io/name: "prometheus-adapter"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"metrics\",\"app.kubernetes.io/instance\":\"prometheus-adapter\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"prometheus-adapter\",\"app.kubernetes.io/part-of\":\"prometheus-adapter\",\"app.kubernetes.io/version\":\"v0.12.0\",\"helm.sh/chart\":\"prometheus-adapter-5.3.0\"},\"name\":\"prometheus-adapter\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"prometheus-adapter\",\"app.kubernetes.io/name\":\"prometheus-adapter\"}},\"strategy\":{\"rollingUpdate\":{\"maxSurge\":\"25%\",\"maxUnavailable\":\"25%\"},\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"annotations\":{\"checksum/config\":\"d6b19876b46f3a16864ddb9554f131953d074cf435739f8a22e007fa9b7bd5c9\"},\"labels\":{\"app.kubernetes.io/component\":\"metrics\",\"app.kubernetes.io/instance\":\"prometheus-adapter\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"prometheus-adapter\",\"app.kubernetes.io/part-of\":\"prometheus-adapter\",\"app.kubernetes.io/version\":\"v0.12.0\",\"helm.sh/chart\":\"prometheus-adapter-5.3.0\"},\"name\":\"prometheus-adapter\"},\"spec\":{\"affinity\":{},\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"/adapter\",\"--secure-port=6443\",\"--cert-dir=/tmp/cert\",\"--prometheus-url=http://prometheus.default.svc:9090\",\"--metrics-relist-interval=1m\",\"--v=4\",\"--config=/etc/adapter/config.yaml\"],\"image\":\"registry.k8s.io/prometheus-adapter/prometheus-adapter:v0.12.0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"httpGet\":{\"path\":\"/healthz\",\"port\":\"https\",\"scheme\":\"HTTPS\"},\"initialDelaySeconds\":30,\"timeoutSeconds\":5},\"name\":\"prometheus-adapter\",\"ports\":[{\"containerPort\":6443,\"name\":\"https\"}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/healthz\",\"port\":\"https\",\"scheme\":\"HTTPS\"},\"initialDelaySeconds\":30,\"timeoutSeconds\":5},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":true,\"runAsUser\":10001,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/etc/adapter/\",\"name\":\"config\",\"readOnly\":true},{\"mountPath\":\"/tmp\",\"name\":\"tmp\"}]}],\"nodeSelector\":{},\"securityContext\":{\"fsGroup\":10001},\"serviceAccountName\":\"prometheus-adapter\",\"tolerations\":[],\"topologySpreadConstraints\":[],\"volumes\":[{\"configMap\":{\"name\":\"prometheus-adapter\"},\"name\":\"config\"},{\"emptyDir\":{},\"name\":\"tmp\"}]}}}}\n"
+      creationTimestamp: "2026-06-11T14:36:34Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "metrics"
+        app.kubernetes.io/instance: "prometheus-adapter"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "prometheus-adapter"
+        app.kubernetes.io/part-of: "prometheus-adapter"
+        app.kubernetes.io/version: "v0.12.0"
+        helm.sh/chart: "prometheus-adapter-5.3.0"
+      name: "prometheus-adapter"
+      namespace: "default"
+      resourceVersion: "546"
+      uid: "ee13e49a-ccae-4ad2-87be-957fc10560a5"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "prometheus-adapter"
+          app.kubernetes.io/name: "prometheus-adapter"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          annotations:
+            checksum/config: "d6b19876b46f3a16864ddb9554f131953d074cf435739f8a22e007fa9b7bd5c9"
+          labels:
+            app.kubernetes.io/component: "metrics"
+            app.kubernetes.io/instance: "prometheus-adapter"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "prometheus-adapter"
+            app.kubernetes.io/part-of: "prometheus-adapter"
+            app.kubernetes.io/version: "v0.12.0"
+            helm.sh/chart: "prometheus-adapter-5.3.0"
+          name: "prometheus-adapter"
+        spec:
+          affinity:
+            {}
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "/adapter"
+                - "--secure-port=6443"
+                - "--cert-dir=/tmp/cert"
+                - "--prometheus-url=http://prometheus.default.svc:9090"
+                - "--metrics-relist-interval=1m"
+                - "--v=4"
+                - "--config=/etc/adapter/config.yaml"
+              image: "registry.k8s.io/prometheus-adapter/prometheus-adapter:v0.12.0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: "https"
+                  scheme: "HTTPS"
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: "prometheus-adapter"
+              ports:
+                -
+                  containerPort: 6443
+                  name: "https"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: "https"
+                  scheme: "HTTPS"
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+                runAsUser: 10001
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/etc/adapter/"
+                  name: "config"
+                  readOnly: true
+                -
+                  mountPath: "/tmp"
+                  name: "tmp"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 10001
+          serviceAccount: "prometheus-adapter"
+          serviceAccountName: "prometheus-adapter"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              configMap:
+                defaultMode: 420
+                name: "prometheus-adapter"
+              name: "config"
+            -
+              emptyDir:
+                {}
+              name: "tmp"
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T14:37:11Z"
+          lastUpdateTime: "2026-06-11T14:37:11Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T14:36:34Z"
+          lastUpdateTime: "2026-06-11T14:37:11Z"
+          message: "ReplicaSet \"prometheus-adapter-5fb6dd6776\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
