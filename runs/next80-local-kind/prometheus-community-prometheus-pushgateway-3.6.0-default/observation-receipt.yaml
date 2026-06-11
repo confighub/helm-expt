@@ -1,0 +1,34 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "prometheus-community-prometheus-pushgateway-3.6.0-default-local-kind"
+spec:
+  variantRevision: "recipes/prometheus-community/prometheus-pushgateway/3.6.0/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "80cb018f0b277814e17ca7208be55ef10ed74288a258a6519e7bbcf088a9f450"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T11:07:09.517Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "85843829919a5c02cf8befc93bd2d5550a7474a0d1db23159d535837dfde0a27"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "3 object(s) from recipes/prometheus-community/prometheus-pushgateway/3.6.0/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|prometheus-pushgateway"

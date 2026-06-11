@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "external-dns-external-dns-1.21.1-default-local-kind"
+spec:
+  variantRevision: "recipes/external-dns/external-dns/1.21.1/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "764caa006e0e36ed1ad27659090d71a9ca5ff4d671962684b49500971c57ee74"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T10:57:19.027Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "existing"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "a30d86e04d0b9ddf31b2560c0dc1a52d3bfd4f7d0c061b8f53bb6cb1168a49e2"
+  checks:
+    -
+      name: "crds-applied-and-established"
+      result: "pass"
+      object: "1 CustomResourceDefinition(s)"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "6 object(s) from recipes/external-dns/external-dns/1.21.1/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|external-dns"

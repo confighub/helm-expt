@@ -1,0 +1,309 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"cert-manager-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager-csi-driver\",\"app.kubernetes.io/version\":\"v0.14.0\",\"helm.sh/chart\":\"cert-manager-csi-driver-v0.14.0\"},\"name\":\"cert-manager-csi-driver\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T11:05:45Z"
+      labels:
+        app.kubernetes.io/instance: "cert-manager-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager-csi-driver"
+        app.kubernetes.io/version: "v0.14.0"
+        helm.sh/chart: "cert-manager-csi-driver-v0.14.0"
+      name: "cert-manager-csi-driver"
+      namespace: "default"
+      resourceVersion: "441"
+      uid: "ba4237f0-1d6d-4686-9c83-0ae695c9d08c"
+  -
+    apiVersion: "apps/v1"
+    kind: "DaemonSet"
+    metadata:
+      annotations:
+        deprecated.daemonset.template.generation: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"DaemonSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"cert-manager-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager-csi-driver\",\"app.kubernetes.io/version\":\"v0.14.0\",\"helm.sh/chart\":\"cert-manager-csi-driver-v0.14.0\"},\"name\":\"cert-manager-csi-driver\",\"namespace\":\"default\"},\"spec\":{\"selector\":{\"matchLabels\":{\"app\":\"cert-manager-csi-driver\"}},\"template\":{\"metadata\":{\"annotations\":{\"kubectl.kubernetes.io/default-container\":\"cert-manager-csi-driver\"},\"labels\":{\"app\":\"cert-manager-csi-driver\",\"app.kubernetes.io/instance\":\"cert-manager-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager-csi-driver\",\"app.kubernetes.io/version\":\"v0.14.0\",\"helm.sh/chart\":\"cert-manager-csi-driver-v0.14.0\"}},\"spec\":{\"containers\":[{\"args\":[\"-v=1\",\"--csi-address=/plugin/csi.sock\",\"--kubelet-registration-path=/var/lib/kubelet/plugins/cert-manager-csi-driver/csi.sock\"],\"env\":[{\"name\":\"KUBE_NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}}],\"image\":\"quay.io/jetstack/csi-node-driver-registrar:v2.16.0\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"node-driver-registrar\",\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsUser\":0},\"volumeMounts\":[{\"mountPath\":\"/plugin\",\"name\":\"plugin-dir\"},{\"mountPath\":\"/registration\",\"name\":\"registration-dir\"}]},{\"args\":[\"--csi-address=/plugin/csi.sock\",\"--probe-timeout=3s\",\"--health-port=9809\",\"-v=1\"],\"image\":\"quay.io/jetstack/livenessprobe:v2.18.0\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"liveness-probe\",\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsUser\":0},\"volumeMounts\":[{\"mountPath\":\"/plugin\",\"name\":\"plugin-dir\"}]},{\"args\":[\"--log-level=1\",\"--driver-name=csi.cert-manager.io\",\"--node-id=$(NODE_ID)\",\"--endpoint=$(CSI_ENDPOINT)\",\"--data-root=csi-data-dir\",\"--use-token-request=false\",\"--continue-on-not-ready=false\",\"--metrics-bind-address=:9402\"],\"env\":[{\"name\":\"NODE_ID\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"CSI_ENDPOINT\",\"value\":\"unix://plugin/csi.sock\"}],\"image\":\"quay.io/jetstack/cert-manager-csi-driver:v0.14.0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"httpGet\":{\"path\":\"/healthz\",\"port\":\"healthz\"},\"initialDelaySeconds\":5,\"timeoutSeconds\":5},\"name\":\"cert-manager-csi-driver\",\"ports\":[{\"containerPort\":9809,\"name\":\"healthz\"},{\"containerPort\":9402,\"name\":\"http-metrics\"}],\"securityContext\":{\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":true,\"readOnlyRootFilesystem\":true,\"runAsUser\":0},\"volumeMounts\":[{\"mountPath\":\"/plugin\",\"name\":\"plugin-dir\"},{\"mountPath\":\"/var/lib/kubelet/pods\",\"mountPropagation\":\"Bidirectional\",\"name\":\"pods-mount-dir\"},{\"mountPath\":\"/csi-data-dir\",\"mountPropagation\":\"Bidirectional\",\"name\":\"csi-data-dir\"}]}],\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"securityContext\":{\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"serviceAccountName\":\"cert-manager-csi-driver\",\"volumes\":[{\"hostPath\":{\"path\":\"/var/lib/kubelet/plugins/cert-manager-csi-driver\",\"type\":\"DirectoryOrCreate\"},\"name\":\"plugin-dir\"},{\"hostPath\":{\"path\":\"/var/lib/kubelet/pods\",\"type\":\"Directory\"},\"name\":\"pods-mount-dir\"},{\"hostPath\":{\"path\":\"/var/lib/kubelet/plugins_registry\",\"type\":\"Directory\"},\"name\":\"registration-dir\"},{\"hostPath\":{\"path\":\"/tmp/cert-manager-csi-driver\",\"type\":\"DirectoryOrCreate\"},\"name\":\"csi-data-dir\"}]}}}}\n"
+      creationTimestamp: "2026-06-11T11:05:45Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "cert-manager-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager-csi-driver"
+        app.kubernetes.io/version: "v0.14.0"
+        helm.sh/chart: "cert-manager-csi-driver-v0.14.0"
+      name: "cert-manager-csi-driver"
+      namespace: "default"
+      resourceVersion: "510"
+      uid: "3e7fb544-205c-4403-929e-7087c866b023"
+    spec:
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app: "cert-manager-csi-driver"
+      template:
+        metadata:
+          annotations:
+            kubectl.kubernetes.io/default-container: "cert-manager-csi-driver"
+          labels:
+            app: "cert-manager-csi-driver"
+            app.kubernetes.io/instance: "cert-manager-csi-driver"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "cert-manager-csi-driver"
+            app.kubernetes.io/version: "v0.14.0"
+            helm.sh/chart: "cert-manager-csi-driver-v0.14.0"
+        spec:
+          containers:
+            -
+              args:
+                - "-v=1"
+                - "--csi-address=/plugin/csi.sock"
+                - "--kubelet-registration-path=/var/lib/kubelet/plugins/cert-manager-csi-driver/csi.sock"
+              env:
+                -
+                  name: "KUBE_NODE_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "spec.nodeName"
+              image: "quay.io/jetstack/csi-node-driver-registrar:v2.16.0"
+              imagePullPolicy: "IfNotPresent"
+              name: "node-driver-registrar"
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+                runAsUser: 0
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/plugin"
+                  name: "plugin-dir"
+                -
+                  mountPath: "/registration"
+                  name: "registration-dir"
+            -
+              args:
+                - "--csi-address=/plugin/csi.sock"
+                - "--probe-timeout=3s"
+                - "--health-port=9809"
+                - "-v=1"
+              image: "quay.io/jetstack/livenessprobe:v2.18.0"
+              imagePullPolicy: "IfNotPresent"
+              name: "liveness-probe"
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+                runAsUser: 0
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/plugin"
+                  name: "plugin-dir"
+            -
+              args:
+                - "--log-level=1"
+                - "--driver-name=csi.cert-manager.io"
+                - "--node-id=$(NODE_ID)"
+                - "--endpoint=$(CSI_ENDPOINT)"
+                - "--data-root=csi-data-dir"
+                - "--use-token-request=false"
+                - "--continue-on-not-ready=false"
+                - "--metrics-bind-address=:9402"
+              env:
+                -
+                  name: "NODE_ID"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "spec.nodeName"
+                -
+                  name: "CSI_ENDPOINT"
+                  value: "unix://plugin/csi.sock"
+              image: "quay.io/jetstack/cert-manager-csi-driver:v0.14.0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: "healthz"
+                  scheme: "HTTP"
+                initialDelaySeconds: 5
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: "cert-manager-csi-driver"
+              ports:
+                -
+                  containerPort: 9809
+                  name: "healthz"
+                  protocol: "TCP"
+                -
+                  containerPort: 9402
+                  name: "http-metrics"
+                  protocol: "TCP"
+              resources:
+                {}
+              securityContext:
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: true
+                readOnlyRootFilesystem: true
+                runAsUser: 0
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/plugin"
+                  name: "plugin-dir"
+                -
+                  mountPath: "/var/lib/kubelet/pods"
+                  mountPropagation: "Bidirectional"
+                  name: "pods-mount-dir"
+                -
+                  mountPath: "/csi-data-dir"
+                  mountPropagation: "Bidirectional"
+                  name: "csi-data-dir"
+          dnsPolicy: "ClusterFirst"
+          nodeSelector:
+            kubernetes.io/os: "linux"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            seccompProfile:
+              type: "RuntimeDefault"
+          serviceAccount: "cert-manager-csi-driver"
+          serviceAccountName: "cert-manager-csi-driver"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              hostPath:
+                path: "/var/lib/kubelet/plugins/cert-manager-csi-driver"
+                type: "DirectoryOrCreate"
+              name: "plugin-dir"
+            -
+              hostPath:
+                path: "/var/lib/kubelet/pods"
+                type: "Directory"
+              name: "pods-mount-dir"
+            -
+              hostPath:
+                path: "/var/lib/kubelet/plugins_registry"
+                type: "Directory"
+              name: "registration-dir"
+            -
+              hostPath:
+                path: "/tmp/cert-manager-csi-driver"
+                type: "DirectoryOrCreate"
+              name: "csi-data-dir"
+      updateStrategy:
+        rollingUpdate:
+          maxSurge: 0
+          maxUnavailable: 1
+        type: "RollingUpdate"
+    status:
+      currentNumberScheduled: 1
+      desiredNumberScheduled: 1
+      numberAvailable: 1
+      numberMisscheduled: 0
+      numberReady: 1
+      observedGeneration: 1
+      updatedNumberScheduled: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"cert-manager-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager-csi-driver\",\"app.kubernetes.io/version\":\"v0.14.0\",\"helm.sh/chart\":\"cert-manager-csi-driver-v0.14.0\"},\"name\":\"cert-manager-csi-driver\"},\"rules\":[{\"apiGroups\":[\"cert-manager.io\"],\"resources\":[\"certificaterequests\"],\"verbs\":[\"watch\",\"create\",\"delete\",\"list\"]}]}\n"
+      creationTimestamp: "2026-06-11T11:05:45Z"
+      labels:
+        app.kubernetes.io/instance: "cert-manager-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager-csi-driver"
+        app.kubernetes.io/version: "v0.14.0"
+        helm.sh/chart: "cert-manager-csi-driver-v0.14.0"
+      name: "cert-manager-csi-driver"
+      resourceVersion: "450"
+      uid: "f38923b5-3080-404c-994d-a279c07be916"
+    rules:
+      -
+        apiGroups:
+          - "cert-manager.io"
+        resources:
+          - "certificaterequests"
+        verbs:
+          - "watch"
+          - "create"
+          - "delete"
+          - "list"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"cert-manager-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager-csi-driver\",\"app.kubernetes.io/version\":\"v0.14.0\",\"helm.sh/chart\":\"cert-manager-csi-driver-v0.14.0\"},\"name\":\"cert-manager-csi-driver\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"cert-manager-csi-driver\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"cert-manager-csi-driver\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T11:05:45Z"
+      labels:
+        app.kubernetes.io/instance: "cert-manager-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager-csi-driver"
+        app.kubernetes.io/version: "v0.14.0"
+        helm.sh/chart: "cert-manager-csi-driver-v0.14.0"
+      name: "cert-manager-csi-driver"
+      resourceVersion: "451"
+      uid: "56461a5e-46b1-4a9e-832d-53d8a79b43ac"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "cert-manager-csi-driver"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "cert-manager-csi-driver"
+        namespace: "default"
+  -
+    apiVersion: "storage.k8s.io/v1"
+    kind: "CSIDriver"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"storage.k8s.io/v1\",\"kind\":\"CSIDriver\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"cert-manager-csi-driver\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"cert-manager-csi-driver\",\"app.kubernetes.io/version\":\"v0.14.0\",\"helm.sh/chart\":\"cert-manager-csi-driver-v0.14.0\"},\"name\":\"csi.cert-manager.io\"},\"spec\":{\"podInfoOnMount\":true,\"volumeLifecycleModes\":[\"Ephemeral\"]}}\n"
+      creationTimestamp: "2026-06-11T11:05:45Z"
+      labels:
+        app.kubernetes.io/instance: "cert-manager-csi-driver"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "cert-manager-csi-driver"
+        app.kubernetes.io/version: "v0.14.0"
+        helm.sh/chart: "cert-manager-csi-driver-v0.14.0"
+      name: "csi.cert-manager.io"
+      resourceVersion: "452"
+      uid: "f9fe1529-1d8c-433f-b4a4-d9be9c2ed5e1"
+    spec:
+      attachRequired: true
+      fsGroupPolicy: "ReadWriteOnceWithFSType"
+      podInfoOnMount: true
+      requiresRepublish: false
+      seLinuxMount: false
+      storageCapacity: false
+      volumeLifecycleModes:
+        - "Ephemeral"
+kind: "List"
+metadata:
+  resourceVersion: ""

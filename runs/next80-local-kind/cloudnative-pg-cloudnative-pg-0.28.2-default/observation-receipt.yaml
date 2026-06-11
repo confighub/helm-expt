@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "cloudnative-pg-cloudnative-pg-0.28.2-default-local-kind"
+spec:
+  variantRevision: "recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "67190a176fe9539df56c63c033cfffb1538a06bc47d8624532a0a980fe50bd46"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T10:56:47.508Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "existing"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "de197f1aa1206c042f2ad99bafef0afcfa931d7b4c41a2edceb7c29e27c06d9e"
+  checks:
+    -
+      name: "crds-applied-and-established"
+      result: "pass"
+      object: "10 CustomResourceDefinition(s)"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "21 object(s) from recipes/cloudnative-pg/cloudnative-pg/0.28.2/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|cloudnative-pg"

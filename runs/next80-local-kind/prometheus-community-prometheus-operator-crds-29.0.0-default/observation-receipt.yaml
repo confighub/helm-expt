@@ -1,0 +1,34 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "prometheus-community-prometheus-operator-crds-29.0.0-default-local-kind"
+spec:
+  variantRevision: "recipes/prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "32cfda19c8684a1ad319476b44d9056af7824df3c06622b04a7e28d6bdfd5ab4"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T11:07:38.788Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 0
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "7400ba977c69e37804e9cb23de5e38c092d0eb4309ff2a8593c5650a386f9d54"
+  checks:
+    -
+      name: "crds-applied-and-established"
+      result: "pass"
+      object: "10 CustomResourceDefinition(s)"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "10 object(s) from recipes/prometheus-community/prometheus-operator-crds/29.0.0/revisions/default/r001/rendered/release-objects.yaml"
