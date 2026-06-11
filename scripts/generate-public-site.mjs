@@ -349,6 +349,13 @@ function html(catalog) {
       .map((row) => row.chart)
       .join(", "),
   ]);
+  const firstTimeRows = [
+    ["Browse first", "Open the catalog, chart pages, proof status, and known gaps before trusting an install path.", "Free"],
+    ["Inspect a render", "Use cub helm template when you only need to see the Kubernetes objects a chart produces.", "Free"],
+    ["Try a public package", "Use cub installer setup for a maintained public base with rendered objects, receipts, scans, and local verification.", "Free or low-friction"],
+    ["Upload when state matters", "Use cub installer upload when the reviewed objects should become ConfigHub Units for teams, approvals, or variants.", "Managed"],
+    ["Operate after upload", "Use variants, diffs, scans, gates, promotions, GitOps/OCI handoff, observations, upgrades, rollbacks, and receipts.", "Managed or paid"],
+  ];
   const rerunCounts = countBy(catalog.liveParityRerunPlan, "lane");
   const rerunRows = catalog.activeProofQueue
     .slice(0, 10)
@@ -469,6 +476,16 @@ function html(catalog) {
   --namespace redis</pre>
   </header>
   <main>
+    <section aria-labelledby="first-time">
+      <h2 id="first-time">First-Time Helm User Path</h2>
+      <p>Start with the smallest step that answers your question. Direct Helm paths are for quick inspection. The public catalog is for maintained bases and proof. ConfigHub-managed workflows are for private inputs, teams, policies, approvals, variants, promotions, GitOps/OCI operations, full stacks, patch and upgrade services, and production support.</p>
+      ${markdownLikeTable([
+        ["Step", "What to do", "Boundary"],
+        ...firstTimeRows,
+      ])}
+      <p>The extra value starts after rendering: reviewed objects can become Units, then day-1 variants, then day-2 operations with diffs, scans, gates, promotions, observations, and receipts.</p>
+    </section>
+
     <section aria-labelledby="proof-counters">
       <h2 id="proof-counters">Proof Counters</h2>
       <div class="grid">
@@ -772,15 +789,18 @@ function offeringHtml(catalog) {
   ];
   const freeRows = [
     ["Browse public catalog", "See chart versions, base variants, proof status, pain reports, and known gaps."],
+    ["Inspect and template", "Use cub helm template and rendered-object views before committing to ConfigHub state."],
     ["Use public packages", "Run cub installer setup --pull <package> --base <base> for supported public bases."],
-    ["Verify locally", "Run the repo verifiers or a chart-specific live recipe on your own kind cluster."],
+    ["Pull public artifacts", "Use public package or OCI artifacts where available without uploading private repo or production state."],
+    ["Verify locally", "Check available signatures, digests, rendered objects, receipts, or chart-specific verifiers on your own machine."],
     ["Inspect proof", "Read receipts, rendered objects, Helm pain reports, and current status without trusting a screenshot."],
   ];
   const paidRows = [
-    ["Private charts and overlays", "Import wrapper charts, private values, customer overlays, and private OCI sources."],
-    ["Managed variants", "Create environment, region, customer, and target variants with approvals, links, target facts, and receipts."],
-    ["Fleet operations", "Bulk scan, patch, promote, observe, and audit across many spaces or clusters."],
-    ["Production support", "Target-scoped support decisions, patch SLAs, old-version support, policies, and approvals."],
+    ["Private and custom catalogs", "Import wrapper charts, private values, customer overlays, private OCI sources, and team-specific catalogs."],
+    ["Managed variants and teams", "Create environment, region, customer, and target variants with teams, approvals, policies, links, target facts, and receipts."],
+    ["Fleet operations", "Bulk scan, patch, approve, promote, observe, and audit across many spaces or clusters."],
+    ["GitOps and OCI operations", "Manage delivery handoffs, controller credentials, artifact access, observations, rollback evidence, and audit history."],
+    ["Full-stack support", "Target-scoped production decisions, patch services, upgrade services, old-version support, SLAs, policies, and approvals."],
   ];
   const personaRows = [
     ["Platform engineer", "Wants a safer path from public Helm chart to approved cluster config."],
@@ -838,8 +858,8 @@ function offeringHtml(catalog) {
 
     <section aria-labelledby="offer">
       <h2 id="offer">What The Offering Is</h2>
-      <p>A public catalog of maintained Helm-derived packages, plus a path into ConfigHub for teams that need private variants, approvals, scans, GitOps delivery, fleet operations, and production receipts.</p>
-      <p>The free public lane helps users inspect and install supported public chart bases. The paid lane is for custom values, private charts, GitOps estates, operational services, full stacks, upgrades, patches, approvals, and fleet work.</p>
+      <p>A public catalog of maintained Helm-derived packages, plus a path into ConfigHub for teams that need private variants, approvals, policies, scans, GitOps/OCI delivery, fleet operations, and production receipts.</p>
+      <p>The free public lane helps users browse, inspect, template, install supported public chart bases, pull public artifacts, and verify available signatures, digests, and receipts. The paid lane is for private charts, custom catalogs, teams, policies, approvals, bulk operations, promotions, GitOps/OCI operations, full stacks, patch services, upgrade services, and production support.</p>
       <div class="route">
         <div>1. Pick chart</div>
         <div>2. Pick base variant</div>
