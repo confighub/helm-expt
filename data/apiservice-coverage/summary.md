@@ -27,7 +27,7 @@ rows with object/workload observation:   2
 rows with two-cluster parity only:       0
 rows still source-detected only:         3
 aggregated API availability receipts:    2
-active proof/import work orders:          7
+active proof/import work orders:          5
 ~~~
 
 Only rows with both an `Available=True` APIService condition and a successful
@@ -63,8 +63,8 @@ counts above.
 | 11 | `metrics-server/metrics-server` | 3.13.0 | 2 | `api-aggregation-observed` | yes | - | keep the runtime/GitOps APIService receipt fresh; use this pattern for the next APIService chart |
 | 53 | `kedacore/keda` | 2.19.0 | 2 | `api-aggregation-observed` | yes | - | decide whether KEDA enters a catalog promotion wave using the two-cluster parity and ConfigHub OCI APIService receipts |
 | 118 | `prometheus-community/prometheus-adapter` | 5.3.0 | 2 | `target-api-version-blocked` | yes | `api-version-unsupported` | choose a supported chart version, compatibility base, or target Kubernetes profile before rerunning live APIService observation |
-| 130 | `fairwinds-stable/goldilocks` | 10.3.0 | 0 | `source-signal-not-rendered-in-maintained-bases` | no | - | record which values or subcharts would render APIService objects before requiring runtime aggregation evidence |
-| 148 | `fairwinds-stable/vpa` | 4.11.0 | 0 | `source-signal-not-rendered-in-maintained-bases` | no | - | record which values or subcharts would render APIService objects before requiring runtime aggregation evidence |
+| 130 | `fairwinds-stable/goldilocks` | 10.3.0 | 0 | `source-signal-not-rendered-in-maintained-bases` | no | - | render path recorded: current maintained bases do not render APIService objects; require runtime aggregation evidence only for a future APIService-enabled base |
+| 148 | `fairwinds-stable/vpa` | 4.11.0 | 0 | `source-signal-not-rendered-in-maintained-bases` | no | - | render path recorded: current maintained bases do not render APIService objects; require runtime aggregation evidence only for a future APIService-enabled base |
 
 Maintained status counts:
 
@@ -121,6 +121,8 @@ Current contract rows:
 | --- | --- |
 | `top100-apiservice-coverage.csv` | One row per source top-100 chart that renders APIService objects. |
 | `maintained-apiservice-coverage.csv` | Maintained recipe/package rows with APIService source signals, including rows outside the source top-100 slice. |
+| `render-path-notes.md` | Maintained rows where APIService source signals are conditional or vendored but not rendered by current bases. |
+| `render-path-notes.csv` | Spreadsheet-ready render-path decisions. |
 | `work-orders.md` | Human next-proof queue for APIService charts. |
 | `work-orders.csv` | Spreadsheet-ready next-proof queue for assignment and reruns. |
 | `data/quirk-work-queue/top100-queue.csv` | Source quirk queue that currently carries the APIService hard gap. |
