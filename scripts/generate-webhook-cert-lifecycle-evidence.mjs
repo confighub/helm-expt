@@ -3,7 +3,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, readYaml, relativeRepo, repoRoot, toYaml, write, writeYaml } from "./lib/proof-common.mjs";
+import { check, parseDocs, readYaml, relativeRepo, repoRoot, toYaml, write, writeYaml } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const outDir = join(repoRoot, "data", "webhook-cert-lifecycle");
@@ -41,6 +41,55 @@ const cases = [
     pairedObservation: "runs/next80-local-kind/fairwinds-stable-vpa-4.11.0-default/observation-receipt.yaml",
     productionBoundary: "Does not claim production CA trust, admission policy safety, certificate rotation, or long-term serving certificate management.",
   },
+  {
+    id: "prometheus-community-kube-prometheus-stack-86.1.0-default",
+    chart: "prometheus-community/kube-prometheus-stack",
+    version: "86.1.0",
+    base: "default",
+    route: "generated-fact-staged-secret",
+    stagedSecret: {
+      namespace: "monitoring",
+      name: "kube-prometheus-stack-admission",
+      keys: ["cert", "key"],
+    },
+    generationMethod: "local-self-signed-certificate",
+    pairedObservation: "runs/next80-local-kind/prometheus-community-kube-prometheus-stack-86.1.0-default/observation-receipt.yaml",
+    productionBoundary: "Does not claim production CA trust, admission policy safety, certificate rotation, or long-term serving certificate management.",
+  },
+  {
+    id: "prometheus-community-kube-prometheus-stack-86.1.0-no-crds",
+    chart: "prometheus-community/kube-prometheus-stack",
+    version: "86.1.0",
+    base: "no-crds",
+    route: "target-facts-staged-crds-and-secret",
+    stagedSecret: {
+      namespace: "monitoring",
+      name: "kube-prometheus-stack-admission",
+      keys: ["cert", "key"],
+    },
+    stagedCrdsFrom: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/rendered/release-objects.yaml",
+    expectedCrdCount: 10,
+    generationMethod: "local-self-signed-certificate",
+    pairedObservation: "runs/next80-local-kind/prometheus-community-kube-prometheus-stack-86.1.0-no-crds/observation-receipt.yaml",
+    productionBoundary: "Does not claim production CA trust, admission policy safety, certificate rotation, long-term serving certificate management, or CRD upgrade safety.",
+  },
+  {
+    id: "prometheus-community-kube-prometheus-stack-85.3.3-no-crds",
+    chart: "prometheus-community/kube-prometheus-stack",
+    version: "85.3.3",
+    base: "no-crds",
+    route: "target-facts-staged-crds-and-secret",
+    stagedSecret: {
+      namespace: "monitoring",
+      name: "kube-prometheus-stack-admission",
+      keys: ["cert", "key"],
+    },
+    stagedCrdsFrom: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/default/r001/rendered/release-objects.yaml",
+    expectedCrdCount: 10,
+    generationMethod: "local-self-signed-certificate",
+    pairedObservation: "runs/next80-local-kind/prometheus-community-kube-prometheus-stack-85.3.3-no-crds/observation-receipt.yaml",
+    productionBoundary: "Does not claim production CA trust, admission policy safety, certificate rotation, long-term serving certificate management, or CRD upgrade safety.",
+  },
 ];
 
 if (mode === "--generate") {
@@ -74,9 +123,11 @@ function buildReport() {
     const observation = readYaml(observationPath);
     check(observation.kind === "ObservationReceipt", `${item.pairedObservation} must be an ObservationReceipt`);
     check(observation.spec?.result === "pass", `${item.pairedObservation} must be a passing observation receipt`);
+    const stagedCrds = stagedCrdsFor(item);
     const receipt = stagingReceipt(item, observation);
     return {
       ...item,
+      stagedCrds,
       observedAt: observation.spec.observedAt,
       observer: observation.spec.observer?.name ?? "",
       target: observation.spec.target?.name ?? "",
@@ -93,6 +144,7 @@ function buildReport() {
 }
 
 function stagingReceipt(item, observation) {
+  const stagedCrds = stagedCrdsFor(item);
   return {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "WebhookCertLifecycleStagingReceipt",
@@ -111,6 +163,15 @@ function stagingReceipt(item, observation) {
         method: item.generationMethod,
         secretMaterialCommitted: false,
       },
+      ...(stagedCrds.length
+        ? {
+            stagedCrds: {
+              source: item.stagedCrdsFrom,
+              count: stagedCrds.length,
+              names: stagedCrds,
+            },
+          }
+        : {}),
       pairedObservation: {
         receipt: item.pairedObservation,
         result: observation.spec.result,
@@ -118,7 +179,9 @@ function stagingReceipt(item, observation) {
         namespace: observation.spec.target?.namespace ?? "",
       },
       proofBoundary: [
-        "Proves an explicit staged serving certificate Secret can replace a hidden chart lifecycle side effect for this local kind target.",
+        stagedCrds.length
+          ? "Proves explicit CRD and serving certificate prerequisites can make this no-CRDs base converge on this local kind target."
+          : "Proves an explicit staged serving certificate Secret can replace a hidden chart lifecycle side effect for this local kind target.",
         item.productionBoundary,
       ],
     },
@@ -126,6 +189,7 @@ function stagingReceipt(item, observation) {
 }
 
 function csvRow(item) {
+  const stagedCrds = item.stagedCrds ?? [];
   return {
     chart: `${item.chart}@${item.version}`,
     base: item.base,
@@ -133,6 +197,9 @@ function csvRow(item) {
     route: item.route,
     staged_secret: `${item.stagedSecret.namespace}/${item.stagedSecret.name}`,
     staged_secret_keys: item.stagedSecret.keys.join(";"),
+    staged_crds: stagedCrds.join(";"),
+    staged_crd_count: stagedCrds.length,
+    staged_crd_source: item.stagedCrdsFrom ?? "",
     generation_method: item.generationMethod,
     paired_observation: item.pairedObservation,
     staging_receipt: item.receiptPath,
@@ -154,26 +221,29 @@ generated facts. They do not claim production certificate management.
 ~~~text
 staged certificate routes: ${items.length}
 passing observations:     ${items.filter((item) => item.result === "pass").length}
+routes with staged CRDs:  ${items.filter((item) => item.stagedCrds?.length).length}
 ~~~
 
 ## Rows
 
-| Chart | Base | Route | Staged Secret | Observation | Receipt |
-| --- | --- | --- | --- | --- | --- |
-${items.map((item) => `| \`${item.chart}@${item.version}\` | ${item.base} | \`${item.route}\` | \`${item.stagedSecret.namespace}/${item.stagedSecret.name}\` | [observation](../../${item.pairedObservation}) | [staging receipt](./receipts/${item.id}.yaml) |`).join("\n")}
+| Chart | Base | Route | Staged Secret | Staged CRDs | Observation | Receipt |
+| --- | --- | --- | --- | ---: | --- | --- |
+${items.map((item) => `| \`${item.chart}@${item.version}\` | ${item.base} | \`${item.route}\` | \`${item.stagedSecret.namespace}/${item.stagedSecret.name}\` | ${item.stagedCrds?.length ?? 0} | [observation](../../${item.pairedObservation}) | [staging receipt](./receipts/${item.id}.yaml) |`).join("\n")}
 
 ## What This Proves
 
 The live Kubernetes workload can converge when the webhook serving certificate
 is represented as explicit prerequisite material instead of an implicit Helm
-hook or controller side effect.
+hook or controller side effect. For no-CRDs bases, the route also proves the
+declared CRDs can be staged before applying the config-only rendered objects.
 
 ## What This Does Not Prove
 
 These receipts do not prove production CA trust, admission policy safety,
 certificate rotation, or long-term serving certificate management. Production
 support still needs a target-scoped decision for how the Secret is created,
-owned, rotated, and audited.
+owned, rotated, and audited. No-CRDs rows also need a target-scoped CRD
+ownership and upgrade policy.
 
 Machine-readable files:
 
@@ -199,4 +269,17 @@ function toCsv(rows) {
 function csvEscape(value) {
   const text = String(value ?? "");
   return /[",\n]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
+}
+
+function stagedCrdsFor(item) {
+  if (!item.stagedCrdsFrom) return [];
+  const sourcePath = join(repoRoot, item.stagedCrdsFrom);
+  check(existsSync(sourcePath), `${item.stagedCrdsFrom} is missing`);
+  const crds = parseDocs(readFileSync(sourcePath, "utf8"))
+    .filter((doc) => doc.kind === "CustomResourceDefinition")
+    .map((doc) => doc.metadata?.name)
+    .filter(Boolean)
+    .sort();
+  check(crds.length === item.expectedCrdCount, `${item.id} expected ${item.expectedCrdCount} staged CRDs, found ${crds.length}`);
+  return crds;
 }

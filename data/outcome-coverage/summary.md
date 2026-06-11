@@ -13,7 +13,7 @@ chart/base rows:                     189
 complete core lane rows:             20/189
 render parity rows:                  189/189
 in-ConfigHub proof rows:             20/189
-local live rows:                     129/189
+local live rows:                     132/189
 GitOps/OCI live pass rows:           23/189
 GitOps/OCI non-pass receipts:        6
 live Helm-vs-ConfigHub pass rows:    20/189
@@ -76,7 +76,7 @@ related lifecycle observations:      4/4
 | `jetstack/cert-manager@v1.20.2` | default;crds-enabled | no | 1/2 | 2/2 | 1/2 | 1/2 | 1/2 | - |
 | `longhorn/longhorn@1.11.2` | default;ui-ingress | yes | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | - |
 | `metrics-server/metrics-server@3.13.0` | default;external-tls-ca | yes | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | default;no-crds | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | default;no-crds | yes | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
 | `prometheus-community/prometheus@29.8.0` | default;server-only-ephemeral | yes | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default;sync-secret-rotation | yes | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | - |
 
