@@ -6,30 +6,30 @@ exactly what must be closed before production support can be claimed.
 The lifecycle columns separate retained source-hook evidence from recipe-level
 lifecycle policy and related CRD/webhook/controller observations.
 
-Accepted disposition receipts recorded: 104
+Accepted disposition receipts recorded: 105
 
 | Chart | Local-test variants | Production state | Accepted | Open | Source hooks | Lifecycle basis | Live/e2e receipts |
 | --- | --- | --- | ---: | ---: | ---: | --- | --- |
-| `argo-cd/argo-cd@9.5.15` | default, no-crds | production-review-ready | 7 | 0 | 0 | recipe-hook-policy:no-hooks | 2 |
-| `bitnami/mongodb@19.0.7` | generated-passwords, existing-secret-replicaset | production-review-ready | 6 | 0 | 0 | recipe-hook-policy:no-hooks | 3 |
-| `bitnami/mysql@14.0.3` | generated-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
-| `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | production-review-ready | 4 | 0 | 0 | none | 3 |
-| `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 3 |
-| `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
-| `bitnami/redis@25.5.3` | default, reuse-existing-secret | production-review-ready | 4 | 0 | 0 | recipe-hook-policy:no-hooks | 3 |
-| `external-secrets/external-secrets@2.5.0` | default, no-crds | production-review-ready | 6 | 0 | 0 | lifecycle-observations:2/2 | 1 |
-| `grafana/grafana@10.5.15` | generated-passwords, existing-secret-ingress | production-review-ready | 5 | 0 | 0 | none | 1 |
-| `grafana/loki@7.0.0` | single-binary-filesystem, simple-scalable-minio | production-review-ready | 5 | 0 | 0 | recipe-lifecycle-policy | 1 |
-| `grafana/tempo@1.24.4` | local-persistent, s3-query-observability | production-review-ready | 4 | 0 | 0 | none | 1 |
-| `hashicorp/consul@2.0.0` | default-control-plane, secure-mesh-existing-secrets | production-review-ready | 8 | 0 | 0 | recipe-lifecycle-policy | 1 |
-| `hashicorp/vault@0.32.0` | dev-mode, default, ha-raft-ui | production-blocked | 5 | 1 | 0 | none | 2 |
-| `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled, internal-clusterip | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 2 |
-| `jetstack/cert-manager@v1.20.2` | default, crds-enabled | production-review-ready | 6 | 0 | 0 | recipe-hook-policy:no-hooks; lifecycle-observations:2/2 | 1 |
-| `longhorn/longhorn@1.11.2` | default, ui-ingress | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
-| `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 1 |
-| `prometheus-community/kube-prometheus-stack@85.3.3` | default, no-crds | production-review-ready | 7 | 0 | 2 | source-hooks:2 | 2 |
-| `prometheus-community/prometheus@29.8.0` | default, server-only-ephemeral | production-review-ready | 3 | 0 | 0 | none | 2 |
-| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default, sync-secret-rotation | production-review-ready | 4 | 0 | 0 | none | 1 |
+| `argo-cd/argo-cd@9.5.15` | default, no-crds | production-review-ready | 7 | 0 | 0 | recipe-hook-policy:no-hooks | 5 |
+| `bitnami/mongodb@19.0.7` | generated-passwords, existing-secret-replicaset | production-review-ready | 6 | 0 | 0 | recipe-hook-policy:no-hooks | 8 |
+| `bitnami/mysql@14.0.3` | generated-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 2 |
+| `bitnami/nginx@24.0.2` | http-clusterip, existing-tls-ingress | production-review-ready | 4 | 0 | 0 | none | 8 |
+| `bitnami/postgresql@18.6.7` | generated-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 8 |
+| `bitnami/rabbitmq@16.0.14` | generated-passwords, existing-secret | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 2 |
+| `bitnami/redis@25.5.3` | default, reuse-existing-secret | production-review-ready | 4 | 0 | 0 | recipe-hook-policy:no-hooks | 5 |
+| `external-secrets/external-secrets@2.5.0` | default, no-crds | production-review-ready | 6 | 0 | 0 | lifecycle-observations:2/2 | 2 |
+| `grafana/grafana@10.5.15` | generated-passwords, existing-secret-ingress | production-review-ready | 5 | 0 | 0 | none | 2 |
+| `grafana/loki@7.0.0` | single-binary-filesystem, simple-scalable-minio | production-review-ready | 5 | 0 | 0 | recipe-lifecycle-policy | 2 |
+| `grafana/tempo@1.24.4` | local-persistent, s3-query-observability | production-review-ready | 4 | 0 | 0 | none | 2 |
+| `hashicorp/consul@2.0.0` | default-control-plane, secure-mesh-existing-secrets | production-review-ready | 8 | 0 | 0 | recipe-lifecycle-policy | 2 |
+| `hashicorp/vault@0.32.0` | dev-mode, default, ha-raft-ui | production-review-ready | 6 | 0 | 0 | none | 3 |
+| `ingress-nginx/ingress-nginx@4.15.1` | default, admission-disabled, internal-clusterip | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 3 |
+| `jetstack/cert-manager@v1.20.2` | default, crds-enabled | production-review-ready | 6 | 0 | 0 | recipe-hook-policy:no-hooks; lifecycle-observations:2/2 | 2 |
+| `longhorn/longhorn@1.11.2` | default, ui-ingress | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 2 |
+| `metrics-server/metrics-server@3.13.0` | default, external-tls-ca | production-review-ready | 5 | 0 | 0 | recipe-hook-policy:no-hooks | 2 |
+| `prometheus-community/kube-prometheus-stack@85.3.3` | default, no-crds | production-review-ready | 7 | 0 | 2 | source-hooks:2 | 5 |
+| `prometheus-community/prometheus@29.8.0` | default, server-only-ephemeral | production-review-ready | 3 | 0 | 0 | none | 5 |
+| `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default, sync-secret-rotation | production-review-ready | 4 | 0 | 0 | none | 2 |
 
 ## Closest Rows
 
@@ -44,6 +44,7 @@ The same queue is available as `next-actions.csv`.
 | `prometheus-community/kube-prometheus-stack@85.3.3` | 7 | 0 |  | - | default: warn, 27 finding(s) (dangling-service:7;unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:3;sensitive-host-mounts:3); no-crds: warn, 27 finding(s) (dangling-service:7;unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:3;sensitive-host-mounts:3) |
 | `bitnami/mongodb@19.0.7` | 6 | 0 |  | - | existing-secret-replicaset: warn, 2 finding(s) (pdb-unhealthy-pod-eviction-policy:2); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `external-secrets/external-secrets@2.5.0` | 6 | 0 |  | - | default: warn, 6 finding(s) (unset-cpu-requirements:3;unset-memory-requirements:3); no-crds: warn, 6 finding(s) (unset-cpu-requirements:3;unset-memory-requirements:3) |
+| `hashicorp/vault@0.32.0` | 6 | 0 |  | - | default: warn, 9 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2;liveness-port:1;readiness-port:1); dev-mode: warn, 9 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2;liveness-port:1;readiness-port:1); ha-raft-ui: warn, 12 finding(s) (dangling-service:2;no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2;liveness-port:1) |
 | `jetstack/cert-manager@v1.20.2` | 6 | 0 |  | - | crds-enabled: warn, 6 finding(s) (unset-cpu-requirements:3;unset-memory-requirements:3); default: warn, 6 finding(s) (unset-cpu-requirements:3;unset-memory-requirements:3) |
 | `bitnami/mysql@14.0.3` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
 | `bitnami/postgresql@18.6.7` | 5 | 0 |  | - | existing-secret: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1); generated-passwords: warn, 1 finding(s) (pdb-unhealthy-pod-eviction-policy:1) |
@@ -58,7 +59,6 @@ The same queue is available as `next-actions.csv`.
 | `grafana/tempo@1.24.4` | 4 | 0 |  | - | local-persistent: warn, 3 finding(s) (no-read-only-root-fs:1;unset-cpu-requirements:1;unset-memory-requirements:1); s3-query-observability: warn, 6 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2) |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | 4 | 0 |  | - | default: warn, 8 finding(s) (no-read-only-root-fs:3;run-as-non-root:3;privilege-escalation-container:1;privileged-container:1); sync-secret-rotation: warn, 8 finding(s) (no-read-only-root-fs:3;run-as-non-root:3;privilege-escalation-container:1;privileged-container:1) |
 | `prometheus-community/prometheus@29.8.0` | 3 | 0 |  | - | default: warn, 21 finding(s) (unset-cpu-requirements:6;unset-memory-requirements:6;no-read-only-root-fs:4;sensitive-host-mounts:3;host-network:1); server-only-ephemeral: warn, 6 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2) |
-| `hashicorp/vault@0.32.0` | 5 | 1 | target fact preflight | data/production-disposition/receipts/hashicorp-vault/target-fact-preflight.yaml | default: warn, 9 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2;liveness-port:1;readiness-port:1); dev-mode: warn, 9 finding(s) (no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2;liveness-port:1;readiness-port:1); ha-raft-ui: warn, 12 finding(s) (dangling-service:2;no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2;liveness-port:1) |
 
 ## Production Decision Queue
 
@@ -81,7 +81,7 @@ runtime fit, and final support scope.
 | `grafana/loki@7.0.0` | single-binary-filesystem | start-here | image-digest-resolution | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | `grafana/tempo@1.24.4` | local-persistent | start-here | image-digest-resolution | 2 | resolve image digests for each affected variant before production OCI support |
 | `hashicorp/consul@2.0.0` | default-control-plane | start-here | image-digest-resolution | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
-| `hashicorp/vault@0.32.0` | dev-mode | start-here | missing-disposition | 3 | write or fix the receipt for target fact preflight |
+| `hashicorp/vault@0.32.0` | dev-mode | start-here | image-digest-resolution | 3 | resolve image digests for each affected variant before production OCI support |
 | `ingress-nginx/ingress-nginx@4.15.1` | internal-clusterip | start-here | lifecycle-support-scope | 0 | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
 | `jetstack/cert-manager@v1.20.2` | crds-enabled | start-here | image-digest-resolution | 2 | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | `longhorn/longhorn@1.11.2` | default | start-here | security-acceptance-or-hardened-base | 2 | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |

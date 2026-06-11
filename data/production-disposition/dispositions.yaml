@@ -34,6 +34,9 @@ spec:
             renderedPath: "recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/latest-top20-refresh/argo-cd-9.5.17/local-kind/observation-receipt.json"
+          - "runs/next80-local-kind/argo-cd-argo-cd-9.5.15-no-crds/observation-receipt.yaml"
+          - "runs/next80-local-kind/argo-cd-argo-cd-9.5.17-default/observation-receipt.yaml"
+          - "runs/next80-local-kind/argo-cd-argo-cd-9.5.17-no-crds/observation-receipt.yaml"
           - "runs/top20-local-kind/argo-cd-default/observation-receipt.json"
         sourceHookCount: 0
         lifecyclePolicyBasis:
@@ -153,6 +156,11 @@ spec:
         liveE2EReceipts:
           - "runs/latest-top20-refresh/mongodb-19.0.9/local-kind/observation-receipt.json"
           - "runs/latest-top20-refresh/mongodb-19.1.0/local-kind/observation-receipt.json"
+          - "runs/next80-local-kind/bitnami-mongodb-19.0.7-existing-secret-replicaset/observation-receipt.yaml"
+          - "runs/next80-local-kind/bitnami-mongodb-19.0.9-existing-secret-replicaset/observation-receipt.yaml"
+          - "runs/next80-local-kind/bitnami-mongodb-19.0.9-generated-passwords/observation-receipt.yaml"
+          - "runs/next80-local-kind/bitnami-mongodb-19.1.0-existing-secret-replicaset/observation-receipt.yaml"
+          - "runs/next80-local-kind/bitnami-mongodb-19.1.0-generated-passwords/observation-receipt.yaml"
           - "runs/top20-local-kind/mongodb-generated-passwords/observation-receipt.json"
         sourceHookCount: 0
         lifecyclePolicyBasis:
@@ -259,6 +267,7 @@ spec:
             topChecks: "pdb-unhealthy-pod-eviction-policy:1"
             renderedPath: "recipes/bitnami/mysql/14.0.3/revisions/generated-passwords/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
+          - "runs/next80-local-kind/bitnami-mysql-14.0.3-existing-secret/observation-receipt.yaml"
           - "runs/top20-local-kind/mysql-generated-passwords/observation-receipt.json"
         sourceHookCount: 0
         lifecyclePolicyBasis:
@@ -356,6 +365,11 @@ spec:
         liveE2EReceipts:
           - "runs/latest-top20-refresh/nginx-24.0.4/local-kind/observation-receipt.json"
           - "runs/latest-top20-refresh/nginx-25.0.0/local-kind/observation-receipt.json"
+          - "runs/next80-local-kind/bitnami-nginx-24.0.2-existing-tls-ingress/observation-receipt.yaml"
+          - "runs/next80-local-kind/bitnami-nginx-24.0.4-existing-tls-ingress/observation-receipt.yaml"
+          - "runs/next80-local-kind/bitnami-nginx-24.0.4-http-clusterip/observation-receipt.yaml"
+          - "runs/next80-local-kind/bitnami-nginx-25.0.0-existing-tls-ingress/observation-receipt.yaml"
+          - "runs/next80-local-kind/bitnami-nginx-25.0.0-http-clusterip/observation-receipt.yaml"
           - "runs/top20-local-kind/nginx-http-clusterip/observation-receipt.json"
         sourceHookCount: 0
         lifecyclePolicyBasis:
@@ -442,6 +456,11 @@ spec:
         liveE2EReceipts:
           - "runs/latest-top20-refresh/postgresql-18.6.10/local-kind/observation-receipt.json"
           - "runs/latest-top20-refresh/postgresql-18.7.0/local-kind/observation-receipt.json"
+          - "runs/next80-local-kind/bitnami-postgresql-18.6.10-existing-secret/observation-receipt.yaml"
+          - "runs/next80-local-kind/bitnami-postgresql-18.6.10-generated-passwords/observation-receipt.yaml"
+          - "runs/next80-local-kind/bitnami-postgresql-18.6.7-existing-secret/observation-receipt.yaml"
+          - "runs/next80-local-kind/bitnami-postgresql-18.7.0-existing-secret/observation-receipt.yaml"
+          - "runs/next80-local-kind/bitnami-postgresql-18.7.0-generated-passwords/observation-receipt.yaml"
           - "runs/top20-local-kind/postgresql-generated-passwords/observation-receipt.json"
         sourceHookCount: 0
         lifecyclePolicyBasis:
@@ -537,6 +556,7 @@ spec:
             topChecks: "pdb-unhealthy-pod-eviction-policy:1"
             renderedPath: "recipes/bitnami/rabbitmq/16.0.14/revisions/generated-passwords/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
+          - "runs/next80-local-kind/bitnami-rabbitmq-16.0.14-existing-secret/observation-receipt.yaml"
           - "runs/top20-local-kind/rabbitmq-generated-passwords/observation-receipt.json"
         sourceHookCount: 0
         lifecyclePolicyBasis:
@@ -633,6 +653,8 @@ spec:
             renderedPath: "recipes/bitnami/redis/25.5.3/revisions/reuse-existing-secret/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/latest-top20-refresh/redis-27.0.0/local-kind/observation-receipt.json"
+          - "runs/next80-local-kind/bitnami-redis-27.0.0-default/observation-receipt.yaml"
+          - "runs/next80-local-kind/bitnami-redis-27.0.0-reuse-existing-secret/observation-receipt.yaml"
           - "runs/redis-local-kind/latest/observation-receipt.yaml"
           - "runs/redis-local-kind/reuse-existing-secret-latest/observation-receipt.yaml"
         sourceHookCount: 0
@@ -718,6 +740,7 @@ spec:
             topChecks: "unset-cpu-requirements:3;unset-memory-requirements:3"
             renderedPath: "recipes/external-secrets/external-secrets/2.5.0/revisions/no-crds/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
+          - "runs/next80-local-kind/external-secrets-external-secrets-2.5.0-no-crds/observation-receipt.yaml"
           - "runs/top20-local-kind/external-secrets-default/observation-receipt.json"
         sourceHookCount: 0
         lifecyclePolicyBasis:
@@ -825,6 +848,7 @@ spec:
             topChecks: "no-read-only-root-fs:1;unset-cpu-requirements:1;unset-memory-requirements:1"
             renderedPath: "recipes/grafana/grafana/10.5.15/revisions/generated-passwords/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
+          - "runs/next80-local-kind/grafana-grafana-10.5.15-existing-secret-ingress/observation-receipt.yaml"
           - "runs/top20-local-kind/grafana-generated-passwords/observation-receipt.json"
         sourceHookCount: 0
         lifecyclePolicyBasis:
@@ -920,6 +944,7 @@ spec:
             topChecks: "unset-cpu-requirements:6;unset-memory-requirements:6"
             renderedPath: "recipes/grafana/loki/7.0.0/revisions/single-binary-filesystem/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
+          - "runs/next80-local-kind/grafana-loki-7.0.0-simple-scalable-minio/observation-receipt.yaml"
           - "runs/top20-local-kind/loki-single-binary-filesystem/observation-receipt.json"
         sourceHookCount: 0
         lifecyclePolicyBasis:
@@ -1015,6 +1040,7 @@ spec:
             topChecks: "no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2"
             renderedPath: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
+          - "runs/next80-local-kind/grafana-tempo-1.24.4-s3-query-observability/observation-receipt.yaml"
           - "runs/top20-local-kind/tempo-local-persistent/observation-receipt.json"
         sourceHookCount: 0
         lifecyclePolicyBasis:
@@ -1099,6 +1125,7 @@ spec:
             topChecks: "job-ttl-seconds-after-finished:1;liveness-port:1;readiness-port:1;startup-port:1;unset-cpu-requirements:1"
             renderedPath: "recipes/hashicorp/consul/2.0.0/revisions/secure-mesh-existing-secrets/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
+          - "runs/next80-local-kind/hashicorp-consul-2.0.0-secure-mesh-existing-secrets/observation-receipt.yaml"
           - "runs/top20-local-kind/consul-default-control-plane/observation-receipt.json"
         sourceHookCount: 0
         lifecyclePolicyBasis:
@@ -1203,7 +1230,7 @@ spec:
     -
       chart: "hashicorp/vault"
       version: "0.32.0"
-      status: "production-blocked"
+      status: "production-review-ready"
       supportedLocalTestVariants:
         - "dev-mode"
         - "default"
@@ -1235,6 +1262,7 @@ spec:
             topChecks: "dangling-service:2;no-read-only-root-fs:2;unset-cpu-requirements:2;unset-memory-requirements:2;liveness-port:1"
             renderedPath: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
+          - "runs/next80-local-kind/hashicorp-vault-0.32.0-ha-raft-ui/observation-receipt.yaml"
           - "runs/top20-local-kind/vault-default/observation-receipt.json"
           - "runs/top20-local-kind/vault-dev-mode/observation-receipt.json"
         sourceHookCount: 0
@@ -1247,6 +1275,7 @@ spec:
           - "data/production-disposition/receipts/hashicorp-vault/extension-slot-provenance-and-scan-policy.yaml"
           - "data/production-disposition/receipts/hashicorp-vault/scan-gate-warning-disposition.yaml"
           - "data/production-disposition/receipts/hashicorp-vault/storage-backup-restore-and-rollback-policy.yaml"
+          - "data/production-disposition/receipts/hashicorp-vault/target-fact-preflight.yaml"
           - "data/production-disposition/receipts/hashicorp-vault/webhook-readiness-and-failure-policy.yaml"
       dispositions:
         -
@@ -1291,7 +1320,8 @@ spec:
           unblockRule: "supported only when stateful rollback is not hand-waved"
         -
           name: "target fact preflight"
-          state: "required"
+          state: "accepted"
+          receipt: "data/production-disposition/receipts/hashicorp-vault/target-fact-preflight.yaml"
           owner: "installer-review"
           requiredEvidence:
             - "installer externalRequires/facts"
@@ -1348,6 +1378,7 @@ spec:
             topChecks: "liveness-port:1;no-read-only-root-fs:1;readiness-port:1;unset-memory-requirements:1"
             renderedPath: "recipes/ingress-nginx/ingress-nginx/4.15.1/revisions/internal-clusterip/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
+          - "runs/next80-local-kind/ingress-nginx-ingress-nginx-4.15.1-default/observation-receipt.yaml"
           - "runs/top20-local-kind/ingress-nginx-admission-disabled/observation-receipt.json"
           - "runs/top20-local-kind/ingress-nginx-internal-clusterip/observation-receipt.json"
         sourceHookCount: 0
@@ -1444,6 +1475,7 @@ spec:
             topChecks: "unset-cpu-requirements:3;unset-memory-requirements:3"
             renderedPath: "recipes/jetstack/cert-manager/v1.20.2/revisions/default/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
+          - "runs/next80-local-kind/jetstack-cert-manager-v1.20.2-default/observation-receipt.yaml"
           - "runs/top20-local-kind/cert-manager-crds-enabled/observation-receipt.json"
         sourceHookCount: 0
         lifecyclePolicyBasis:
@@ -1552,6 +1584,7 @@ spec:
             topChecks: "no-read-only-root-fs:5;run-as-non-root:5;unset-cpu-requirements:5;unset-memory-requirements:5;dangling-service:2"
             renderedPath: "recipes/longhorn/longhorn/1.11.2/revisions/ui-ingress/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
+          - "runs/next80-local-kind/longhorn-longhorn-1.11.2-ui-ingress/observation-receipt.yaml"
           - "runs/top20-local-kind/longhorn-default/observation-receipt.json"
         sourceHookCount: 0
         lifecyclePolicyBasis:
@@ -1647,6 +1680,7 @@ spec:
             topChecks: "unset-memory-requirements:1"
             renderedPath: "recipes/metrics-server/metrics-server/3.13.0/revisions/external-tls-ca/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
+          - "runs/next80-local-kind/metrics-server-metrics-server-3.13.0-external-tls-ca/observation-receipt.yaml"
           - "runs/top20-local-kind/metrics-server-default/observation-receipt.json"
         sourceHookCount: 0
         lifecyclePolicyBasis:
@@ -1743,6 +1777,9 @@ spec:
             renderedPath: "recipes/prometheus-community/kube-prometheus-stack/85.3.3/revisions/no-crds/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/latest-top20-refresh/kube-prometheus-stack-86.1.0/local-kind/observation-receipt.json"
+          - "runs/next80-local-kind/prometheus-community-kube-prometheus-stack-85.3.3-no-crds/observation-receipt.yaml"
+          - "runs/next80-local-kind/prometheus-community-kube-prometheus-stack-86.1.0-default/observation-receipt.yaml"
+          - "runs/next80-local-kind/prometheus-community-kube-prometheus-stack-86.1.0-no-crds/observation-receipt.yaml"
           - "runs/top20-local-kind/kube-prometheus-stack-default/observation-receipt.json"
         sourceHookCount: 2
         lifecyclePolicyBasis:
@@ -1861,6 +1898,9 @@ spec:
             renderedPath: "recipes/prometheus-community/prometheus/29.8.0/revisions/server-only-ephemeral/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
           - "runs/latest-top20-refresh/prometheus-29.9.0/local-kind/observation-receipt.json"
+          - "runs/next80-local-kind/prometheus-community-prometheus-29.8.0-default/observation-receipt.yaml"
+          - "runs/next80-local-kind/prometheus-community-prometheus-29.9.0-default/observation-receipt.yaml"
+          - "runs/next80-local-kind/prometheus-community-prometheus-29.9.0-server-only-ephemeral/observation-receipt.yaml"
           - "runs/top20-local-kind/prometheus-server-only-ephemeral/observation-receipt.json"
         sourceHookCount: 0
         lifecyclePolicyBasis:
@@ -1934,6 +1974,7 @@ spec:
             topChecks: "no-read-only-root-fs:3;run-as-non-root:3;privilege-escalation-container:1;privileged-container:1"
             renderedPath: "recipes/secrets-store-csi-driver/secrets-store-csi-driver/1.6.0/revisions/sync-secret-rotation/r001/rendered/release-objects.yaml"
         liveE2EReceipts:
+          - "runs/next80-local-kind/secrets-store-csi-driver-secrets-store-csi-driver-1.6.0-sync-secret-rotation/observation-receipt.yaml"
           - "runs/top20-local-kind/secrets-store-csi-driver-default/observation-receipt.json"
         sourceHookCount: 0
         lifecyclePolicyBasis:
