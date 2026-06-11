@@ -1,0 +1,259 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"descheduler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"descheduler\",\"app.kubernetes.io/version\":\"0.36.0\",\"helm.sh/chart\":\"descheduler-0.36.0\"},\"name\":\"descheduler\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T10:01:51Z"
+      labels:
+        app.kubernetes.io/instance: "descheduler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "descheduler"
+        app.kubernetes.io/version: "0.36.0"
+        helm.sh/chart: "descheduler-0.36.0"
+      name: "descheduler"
+      namespace: "default"
+      resourceVersion: "7230"
+      uid: "e99251fc-3e3c-451f-8802-0d1b68da509f"
+  -
+    apiVersion: "v1"
+    data:
+      policy.yaml: "apiVersion: \"descheduler/v1alpha2\"\nkind: \"DeschedulerPolicy\"\nprofiles:\n- name: default\n  pluginConfig:\n  - args:\n      podProtections:\n        defaultDisabled:\n        - PodsWithLocalStorage\n        extraEnabled:\n        - PodsWithPVC\n    name: DefaultEvictor\n  - name: RemoveDuplicates\n  - args:\n      includingInitContainers: true\n      podRestartThreshold: 100\n    name: RemovePodsHavingTooManyRestarts\n  - args:\n      nodeAffinityType:\n      - requiredDuringSchedulingIgnoredDuringExecution\n    name: RemovePodsViolatingNodeAffinity\n  - name: RemovePodsViolatingNodeTaints\n  - name: RemovePodsViolatingInterPodAntiAffinity\n  - name: RemovePodsViolatingTopologySpreadConstraint\n  - args:\n      targetThresholds:\n        cpu: 50\n        memory: 50\n        pods: 50\n      thresholds:\n        cpu: 20\n        memory: 20\n        pods: 20\n    name: LowNodeUtilization\n  plugins:\n    balance:\n      enabled:\n      - RemoveDuplicates\n      - RemovePodsViolatingTopologySpreadConstraint\n      - LowNodeUtilization\n    deschedule:\n      enabled:\n      - RemovePodsHavingTooManyRestarts\n      - RemovePodsViolatingNodeTaints\n      - RemovePodsViolatingNodeAffinity\n      - RemovePodsViolatingInterPodAntiAffinity\n"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"policy.yaml\":\"apiVersion: \\\"descheduler/v1alpha2\\\"\\nkind: \\\"DeschedulerPolicy\\\"\\nprofiles:\\n- name: default\\n  pluginConfig:\\n  - args:\\n      podProtections:\\n        defaultDisabled:\\n        - PodsWithLocalStorage\\n        extraEnabled:\\n        - PodsWithPVC\\n    name: DefaultEvictor\\n  - name: RemoveDuplicates\\n  - args:\\n      includingInitContainers: true\\n      podRestartThreshold: 100\\n    name: RemovePodsHavingTooManyRestarts\\n  - args:\\n      nodeAffinityType:\\n      - requiredDuringSchedulingIgnoredDuringExecution\\n    name: RemovePodsViolatingNodeAffinity\\n  - name: RemovePodsViolatingNodeTaints\\n  - name: RemovePodsViolatingInterPodAntiAffinity\\n  - name: RemovePodsViolatingTopologySpreadConstraint\\n  - args:\\n      targetThresholds:\\n        cpu: 50\\n        memory: 50\\n        pods: 50\\n      thresholds:\\n        cpu: 20\\n        memory: 20\\n        pods: 20\\n    name: LowNodeUtilization\\n  plugins:\\n    balance:\\n      enabled:\\n      - RemoveDuplicates\\n      - RemovePodsViolatingTopologySpreadConstraint\\n      - LowNodeUtilization\\n    deschedule:\\n      enabled:\\n      - RemovePodsHavingTooManyRestarts\\n      - RemovePodsViolatingNodeTaints\\n      - RemovePodsViolatingNodeAffinity\\n      - RemovePodsViolatingInterPodAntiAffinity\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"descheduler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"descheduler\",\"app.kubernetes.io/version\":\"0.36.0\",\"helm.sh/chart\":\"descheduler-0.36.0\"},\"name\":\"descheduler\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T10:01:51Z"
+      labels:
+        app.kubernetes.io/instance: "descheduler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "descheduler"
+        app.kubernetes.io/version: "0.36.0"
+        helm.sh/chart: "descheduler-0.36.0"
+      name: "descheduler"
+      namespace: "default"
+      resourceVersion: "7231"
+      uid: "6daa3f62-6ea9-4f67-99e3-244ea178a978"
+  -
+    apiVersion: "batch/v1"
+    kind: "CronJob"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"batch/v1\",\"kind\":\"CronJob\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"descheduler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"descheduler\",\"app.kubernetes.io/version\":\"0.36.0\",\"helm.sh/chart\":\"descheduler-0.36.0\"},\"name\":\"descheduler\",\"namespace\":\"default\"},\"spec\":{\"concurrencyPolicy\":\"Forbid\",\"jobTemplate\":{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"checksum/config\":\"6063093b6ccb73c58faa98bfed3903152d062706969785efdeafb09a00887a83\"},\"labels\":{\"app.kubernetes.io/instance\":\"descheduler\",\"app.kubernetes.io/name\":\"descheduler\"},\"name\":\"descheduler\"},\"spec\":{\"containers\":[{\"args\":[\"--policy-config-file=/policy-dir/policy.yaml\",\"--v=3\"],\"command\":[\"/bin/descheduler\"],\"image\":\"registry.k8s.io/descheduler/descheduler:v0.36.0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/healthz\",\"port\":10258,\"scheme\":\"HTTPS\"},\"initialDelaySeconds\":5,\"periodSeconds\":20,\"timeoutSeconds\":5},\"name\":\"descheduler\",\"ports\":[{\"containerPort\":10258,\"protocol\":\"TCP\"}],\"resources\":{\"limits\":{\"cpu\":\"500m\",\"memory\":\"256Mi\"},\"requests\":{\"cpu\":\"500m\",\"memory\":\"256Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":true,\"runAsUser\":1000},\"volumeMounts\":[{\"mountPath\":\"/policy-dir\",\"name\":\"policy-volume\"}]}],\"priorityClassName\":\"system-cluster-critical\",\"restartPolicy\":\"Never\",\"serviceAccountName\":\"descheduler\",\"volumes\":[{\"configMap\":{\"name\":\"descheduler\"},\"name\":\"policy-volume\"}]}}}},\"schedule\":\"*/2 * * * *\"}}\n"
+      creationTimestamp: "2026-06-11T10:01:51Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "descheduler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "descheduler"
+        app.kubernetes.io/version: "0.36.0"
+        helm.sh/chart: "descheduler-0.36.0"
+      name: "descheduler"
+      namespace: "default"
+      resourceVersion: "7232"
+      uid: "e73ebd81-d298-4fa9-b8bd-30a49e341933"
+    spec:
+      concurrencyPolicy: "Forbid"
+      failedJobsHistoryLimit: 1
+      jobTemplate:
+        metadata:
+          {}
+        spec:
+          template:
+            metadata:
+              annotations:
+                checksum/config: "6063093b6ccb73c58faa98bfed3903152d062706969785efdeafb09a00887a83"
+              labels:
+                app.kubernetes.io/instance: "descheduler"
+                app.kubernetes.io/name: "descheduler"
+              name: "descheduler"
+            spec:
+              containers:
+                -
+                  args:
+                    - "--policy-config-file=/policy-dir/policy.yaml"
+                    - "--v=3"
+                  command:
+                    - "/bin/descheduler"
+                  image: "registry.k8s.io/descheduler/descheduler:v0.36.0"
+                  imagePullPolicy: "IfNotPresent"
+                  livenessProbe:
+                    failureThreshold: 3
+                    httpGet:
+                      path: "/healthz"
+                      port: 10258
+                      scheme: "HTTPS"
+                    initialDelaySeconds: 5
+                    periodSeconds: 20
+                    successThreshold: 1
+                    timeoutSeconds: 5
+                  name: "descheduler"
+                  ports:
+                    -
+                      containerPort: 10258
+                      protocol: "TCP"
+                  resources:
+                    limits:
+                      cpu: "500m"
+                      memory: "256Mi"
+                    requests:
+                      cpu: "500m"
+                      memory: "256Mi"
+                  securityContext:
+                    allowPrivilegeEscalation: false
+                    capabilities:
+                      drop:
+                        - "ALL"
+                    privileged: false
+                    readOnlyRootFilesystem: true
+                    runAsNonRoot: true
+                    runAsUser: 1000
+                  terminationMessagePath: "/dev/termination-log"
+                  terminationMessagePolicy: "File"
+                  volumeMounts:
+                    -
+                      mountPath: "/policy-dir"
+                      name: "policy-volume"
+              dnsPolicy: "ClusterFirst"
+              priorityClassName: "system-cluster-critical"
+              restartPolicy: "Never"
+              schedulerName: "default-scheduler"
+              securityContext:
+                {}
+              serviceAccount: "descheduler"
+              serviceAccountName: "descheduler"
+              terminationGracePeriodSeconds: 30
+              volumes:
+                -
+                  configMap:
+                    defaultMode: 420
+                    name: "descheduler"
+                  name: "policy-volume"
+      schedule: "*/2 * * * *"
+      successfulJobsHistoryLimit: 3
+      suspend: false
+    status:
+      {}
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"descheduler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"descheduler\",\"app.kubernetes.io/version\":\"0.36.0\",\"helm.sh/chart\":\"descheduler-0.36.0\"},\"name\":\"descheduler\"},\"rules\":[{\"apiGroups\":[\"events.k8s.io\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"update\"]},{\"apiGroups\":[\"\"],\"resources\":[\"nodes\"],\"verbs\":[\"get\",\"watch\",\"list\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces\"],\"verbs\":[\"get\",\"watch\",\"list\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods\"],\"verbs\":[\"get\",\"watch\",\"list\",\"delete\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods/eviction\"],\"verbs\":[\"create\"]},{\"apiGroups\":[\"scheduling.k8s.io\"],\"resources\":[\"priorityclasses\"],\"verbs\":[\"get\",\"watch\",\"list\"]},{\"apiGroups\":[\"policy\"],\"resources\":[\"poddisruptionbudgets\"],\"verbs\":[\"get\",\"watch\",\"list\"]},{\"apiGroups\":[\"\"],\"resources\":[\"persistentvolumeclaims\"],\"verbs\":[\"get\",\"watch\",\"list\"]}]}\n"
+      creationTimestamp: "2026-06-11T10:01:51Z"
+      labels:
+        app.kubernetes.io/instance: "descheduler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "descheduler"
+        app.kubernetes.io/version: "0.36.0"
+        helm.sh/chart: "descheduler-0.36.0"
+      name: "descheduler"
+      resourceVersion: "7233"
+      uid: "85a6a978-131c-41a7-8442-d974abac2aaa"
+    rules:
+      -
+        apiGroups:
+          - "events.k8s.io"
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "update"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "nodes"
+        verbs:
+          - "get"
+          - "watch"
+          - "list"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "namespaces"
+        verbs:
+          - "get"
+          - "watch"
+          - "list"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+        verbs:
+          - "get"
+          - "watch"
+          - "list"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods/eviction"
+        verbs:
+          - "create"
+      -
+        apiGroups:
+          - "scheduling.k8s.io"
+        resources:
+          - "priorityclasses"
+        verbs:
+          - "get"
+          - "watch"
+          - "list"
+      -
+        apiGroups:
+          - "policy"
+        resources:
+          - "poddisruptionbudgets"
+        verbs:
+          - "get"
+          - "watch"
+          - "list"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "persistentvolumeclaims"
+        verbs:
+          - "get"
+          - "watch"
+          - "list"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"descheduler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"descheduler\",\"app.kubernetes.io/version\":\"0.36.0\",\"helm.sh/chart\":\"descheduler-0.36.0\"},\"name\":\"descheduler\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"descheduler\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"descheduler\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T10:01:51Z"
+      labels:
+        app.kubernetes.io/instance: "descheduler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "descheduler"
+        app.kubernetes.io/version: "0.36.0"
+        helm.sh/chart: "descheduler-0.36.0"
+      name: "descheduler"
+      resourceVersion: "7234"
+      uid: "e4f2d1d9-ebdb-43ef-98d3-bf70ea0c957c"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "descheduler"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "descheduler"
+        namespace: "default"
+kind: "List"
+metadata:
+  resourceVersion: ""

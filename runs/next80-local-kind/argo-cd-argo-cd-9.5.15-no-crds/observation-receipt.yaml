@@ -1,0 +1,75 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "argo-cd-argo-cd-9.5.15-no-crds-local-kind"
+spec:
+  blockedReasons:
+    - "deployment/argo-cd-argocd-applicationset-controller: prerequisite-blocked (stuck creating: missing mount/secret/config) (argo-cd-argocd-application-controller-0[CreateContainerConfigError ready=false restarts=0;] argo-cd-argocd-applicationset-controller-d7b84547c-rgxw9[Error ready)"
+    - "deployment/argo-cd-argocd-repo-server: prerequisite-blocked (stuck creating: missing mount/secret/config) (argo-cd-argocd-application-controller-0[CreateContainerConfigError ready=false restarts=0;] argo-cd-argocd-applicationset-controller-d7b84547c-rgxw9[CrashLoopBa)"
+    - "deployment/argo-cd-argocd-server: prerequisite-blocked (stuck creating: missing mount/secret/config) (argo-cd-argocd-application-controller-0[CreateContainerConfigError ready=false restarts=0;] argo-cd-argocd-applicationset-controller-d7b84547c-rgxw9[Error ready)"
+    - "deployment/argo-cd-argocd-dex-server: prerequisite-blocked (stuck creating: missing mount/secret/config) (argo-cd-argocd-application-controller-0[CreateContainerConfigError ready=false restarts=0;] argo-cd-argocd-applicationset-controller-d7b84547c-rgxw9[Error ready)"
+    - "deployment/argo-cd-argocd-redis: prerequisite-blocked (stuck creating: missing mount/secret/config) (argo-cd-argocd-application-controller-0[CreateContainerConfigError ready=false restarts=0;] argo-cd-argocd-applicationset-controller-d7b84547c-rgxw9[Error ready)"
+    - "statefulset/argo-cd-argocd-application-controller: prerequisite-blocked (stuck creating: missing mount/secret/config) (argo-cd-argocd-application-controller-0[CreateContainerConfigError ready=false restarts=0;] argo-cd-argocd-applicationset-controller-d7b84547c-rgxw9[Error ready)"
+  checks:
+    -
+      name: "namespace-created"
+      object: "v1|Namespace||argocd"
+      result: "pass"
+    -
+      name: "rendered-objects-applied"
+      object: "46 object(s) from recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/rendered/release-objects.yaml"
+      result: "pass"
+    -
+      name: "workload-converged"
+      object: "Deployment|argocd|argo-cd-argocd-applicationset-controller"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): argo-cd-argocd-application-controller-0[CreateContainerConfigError ready=false restarts=0;] argo-cd-argocd-applicationset-controller-d7b84547c-rgxw9[Error ready=false restarts=4;] argo-cd-argocd-dex-server-676f75f567-9z2cr[Error ready=false restarts=4;] argo-cd-argocd-notifications-controller-c6fb5b"
+      result: "blocked"
+    -
+      name: "workload-converged"
+      object: "Deployment|argocd|argo-cd-argocd-notifications-controller"
+      result: "pass"
+    -
+      name: "workload-converged"
+      object: "Deployment|argocd|argo-cd-argocd-repo-server"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): argo-cd-argocd-application-controller-0[CreateContainerConfigError ready=false restarts=0;] argo-cd-argocd-applicationset-controller-d7b84547c-rgxw9[CrashLoopBackOff ready=false restarts=4;] argo-cd-argocd-dex-server-676f75f567-9z2cr[Error ready=false restarts=4;] argo-cd-argocd-notifications-contro"
+      result: "blocked"
+    -
+      name: "workload-converged"
+      object: "Deployment|argocd|argo-cd-argocd-server"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): argo-cd-argocd-application-controller-0[CreateContainerConfigError ready=false restarts=0;] argo-cd-argocd-applicationset-controller-d7b84547c-rgxw9[Error ready=false restarts=5;] argo-cd-argocd-dex-server-676f75f567-9z2cr[Error ready=false restarts=4;] argo-cd-argocd-notifications-controller-c6fb5b"
+      result: "blocked"
+    -
+      name: "workload-converged"
+      object: "Deployment|argocd|argo-cd-argocd-dex-server"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): argo-cd-argocd-application-controller-0[CreateContainerConfigError ready=false restarts=0;] argo-cd-argocd-applicationset-controller-d7b84547c-rgxw9[Error ready=false restarts=5;] argo-cd-argocd-dex-server-676f75f567-9z2cr[Error ready=false restarts=4;] argo-cd-argocd-notifications-controller-c6fb5b"
+      result: "blocked"
+    -
+      name: "workload-converged"
+      object: "Deployment|argocd|argo-cd-argocd-redis"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): argo-cd-argocd-application-controller-0[CreateContainerConfigError ready=false restarts=0;] argo-cd-argocd-applicationset-controller-d7b84547c-rgxw9[Error ready=false restarts=5;] argo-cd-argocd-dex-server-676f75f567-9z2cr[CrashLoopBackOff ready=false restarts=4;] argo-cd-argocd-notifications-contro"
+      result: "blocked"
+    -
+      name: "workload-converged"
+      object: "StatefulSet|argocd|argo-cd-argocd-application-controller"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): argo-cd-argocd-application-controller-0[CreateContainerConfigError ready=false restarts=0;] argo-cd-argocd-applicationset-controller-d7b84547c-rgxw9[Error ready=false restarts=5;] argo-cd-argocd-dex-server-676f75f567-9z2cr[Error ready=false restarts=5;] argo-cd-argocd-notifications-controller-c6fb5b"
+      result: "blocked"
+  clusterStatus: "existing"
+  freshnessTTL: "1h"
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "cb40859dda813a666328519e24036f4787f3f252ce7c34f74568257308a50fce"
+  observedAt: "2026-06-11T10:18:23.758Z"
+  observer:
+    method: "kubectl-kind"
+    name: "next80-local-live"
+    version: "0.1.0"
+  renderedObjectSetSHA256: "23a51fb8ea2215b08a853bbb26698d80f58a5514b68d4f49cdcd870a8371fc71"
+  result: "blocked"
+  target:
+    context: "kind-claude-helm-expt-next80"
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    namespace: "argocd"
+  variant: "no-crds"
+  variantRevision: "recipes/argo-cd/argo-cd/9.5.15/revisions/no-crds/r001/variant-revision.yaml"
+  workloads: 7

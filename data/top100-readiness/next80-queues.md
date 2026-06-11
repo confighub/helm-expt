@@ -52,7 +52,7 @@ spreadsheet.
 | Chart | Candidate bases | Evidence | Gap | Next action |
 | --- | --- | --- | --- | --- |
 | `traefik/traefik@40.2.0` | `default`<br>`no-crds` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
-| `kyverno/kyverno@3.8.1` | `default`<br>`no-crds` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+| `kyverno/kyverno@3.8.1` | `default`<br>`no-crds` | `local-kubernetes-live` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 | `bitnami/elasticsearch@22.1.6` | `default`<br>`ha` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 | `bitnami/spark@10.0.3` | `default`<br>`ha` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 | `bitnami/zookeeper@13.8.7` | `default`<br>`ha` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
@@ -64,18 +64,18 @@ spreadsheet.
 | Chart | Candidate bases | Evidence | Gap | Next action |
 | --- | --- | --- | --- | --- |
 | `gitlab/gitlab-runner@0.89.0` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
-| `fluent/fluent-bit@0.57.6` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
+| `fluent/fluent-bit@0.57.6` | `default` | `local-kubernetes-live` | - | add at least one user-shaped variant before catalog promotion |
 | `runix/pgadmin4@1.62.0` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
 | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
 | `prometheus-community/kube-state-metrics@7.4.0` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
 | `elastic/kibana@8.5.1` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
-| `descheduler/descheduler@0.36.0` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
+| `descheduler/descheduler@0.36.0` | `default` | `local-kubernetes-live` | - | add at least one user-shaped variant before catalog promotion |
 | `prometheus-community/prometheus-blackbox-exporter@11.10.0` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
 
 ## How This Relates To Top100
 
 - Every row here already has a maintained recipe/package proof path.
-- Most rows still have render parity as their strongest evidence. 8 row(s)
+- Most rows still have render parity as their strongest evidence. 11 row(s)
   now have two-cluster kind parity, meaning regular Helm and `cub installer`
   reached equivalent live outcomes in separate vanilla kind clusters.
 - Promotion needs useful variants, selected live evidence, and any target facts,

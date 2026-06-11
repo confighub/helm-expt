@@ -1,0 +1,266 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"fluent-bit\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"fluent-bit\",\"app.kubernetes.io/version\":\"5.0.6\",\"helm.sh/chart\":\"fluent-bit-0.57.6\"},\"name\":\"fluent-bit\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T10:01:52Z"
+      labels:
+        app.kubernetes.io/instance: "fluent-bit"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "fluent-bit"
+        app.kubernetes.io/version: "5.0.6"
+        helm.sh/chart: "fluent-bit-0.57.6"
+      name: "fluent-bit"
+      namespace: "default"
+      resourceVersion: "7240"
+      uid: "31c0b3e2-a9de-4ab4-b65f-3d65cd66a7fc"
+  -
+    apiVersion: "v1"
+    data:
+      custom_parsers.conf: "[PARSER]\n    Name docker_no_time\n    Format json\n    Time_Keep Off\n    Time_Key time\n    Time_Format %Y-%m-%dT%H:%M:%S.%L\n"
+      fluent-bit.conf: "[SERVICE]\n    Daemon Off\n    Flush 1\n    Log_Level info\n    Parsers_File /fluent-bit/etc/parsers.conf\n    Parsers_File /fluent-bit/etc/conf/custom_parsers.conf\n    HTTP_Server On\n    HTTP_Listen 0.0.0.0\n    HTTP_Port 2020\n    Health_Check On\n\n[INPUT]\n    Name tail\n    Path /var/log/containers/*.log\n    multiline.parser docker, cri\n    Tag kube.*\n    Mem_Buf_Limit 5MB\n    Skip_Long_Lines On\n\n[INPUT]\n    Name systemd\n    Tag host.*\n    Systemd_Filter _SYSTEMD_UNIT=kubelet.service\n    Read_From_Tail On\n\n[FILTER]\n    Name kubernetes\n    Match kube.*\n    Merge_Log On\n    Keep_Log Off\n    K8S-Logging.Parser On\n    K8S-Logging.Exclude On\n\n[OUTPUT]\n    Name es\n    Match kube.*\n    Host elasticsearch-master\n    Logstash_Format On\n    Retry_Limit False\n\n[OUTPUT]\n    Name es\n    Match host.*\n    Host elasticsearch-master\n    Logstash_Format On\n    Logstash_Prefix node\n    Retry_Limit False\n"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"custom_parsers.conf\":\"[PARSER]\\n    Name docker_no_time\\n    Format json\\n    Time_Keep Off\\n    Time_Key time\\n    Time_Format %Y-%m-%dT%H:%M:%S.%L\\n\",\"fluent-bit.conf\":\"[SERVICE]\\n    Daemon Off\\n    Flush 1\\n    Log_Level info\\n    Parsers_File /fluent-bit/etc/parsers.conf\\n    Parsers_File /fluent-bit/etc/conf/custom_parsers.conf\\n    HTTP_Server On\\n    HTTP_Listen 0.0.0.0\\n    HTTP_Port 2020\\n    Health_Check On\\n\\n[INPUT]\\n    Name tail\\n    Path /var/log/containers/*.log\\n    multiline.parser docker, cri\\n    Tag kube.*\\n    Mem_Buf_Limit 5MB\\n    Skip_Long_Lines On\\n\\n[INPUT]\\n    Name systemd\\n    Tag host.*\\n    Systemd_Filter _SYSTEMD_UNIT=kubelet.service\\n    Read_From_Tail On\\n\\n[FILTER]\\n    Name kubernetes\\n    Match kube.*\\n    Merge_Log On\\n    Keep_Log Off\\n    K8S-Logging.Parser On\\n    K8S-Logging.Exclude On\\n\\n[OUTPUT]\\n    Name es\\n    Match kube.*\\n    Host elasticsearch-master\\n    Logstash_Format On\\n    Retry_Limit False\\n\\n[OUTPUT]\\n    Name es\\n    Match host.*\\n    Host elasticsearch-master\\n    Logstash_Format On\\n    Logstash_Prefix node\\n    Retry_Limit False\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"fluent-bit\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"fluent-bit\",\"app.kubernetes.io/version\":\"5.0.6\",\"helm.sh/chart\":\"fluent-bit-0.57.6\"},\"name\":\"fluent-bit\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T10:01:52Z"
+      labels:
+        app.kubernetes.io/instance: "fluent-bit"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "fluent-bit"
+        app.kubernetes.io/version: "5.0.6"
+        helm.sh/chart: "fluent-bit-0.57.6"
+      name: "fluent-bit"
+      namespace: "default"
+      resourceVersion: "7241"
+      uid: "9b9ec3a9-2abd-437a-a123-21b6251f655f"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"fluent-bit\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"fluent-bit\",\"app.kubernetes.io/version\":\"5.0.6\",\"helm.sh/chart\":\"fluent-bit-0.57.6\"},\"name\":\"fluent-bit\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":2020,\"protocol\":\"TCP\",\"targetPort\":\"http\"}],\"selector\":{\"app.kubernetes.io/instance\":\"fluent-bit\",\"app.kubernetes.io/name\":\"fluent-bit\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T10:01:52Z"
+      labels:
+        app.kubernetes.io/instance: "fluent-bit"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "fluent-bit"
+        app.kubernetes.io/version: "5.0.6"
+        helm.sh/chart: "fluent-bit-0.57.6"
+      name: "fluent-bit"
+      namespace: "default"
+      resourceVersion: "7243"
+      uid: "2072a64d-bed9-4d04-a0fa-a1b11896d4ce"
+    spec:
+      clusterIP: "10.96.44.141"
+      clusterIPs:
+        - "10.96.44.141"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http"
+          port: 2020
+          protocol: "TCP"
+          targetPort: "http"
+      selector:
+        app.kubernetes.io/instance: "fluent-bit"
+        app.kubernetes.io/name: "fluent-bit"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "DaemonSet"
+    metadata:
+      annotations:
+        deprecated.daemonset.template.generation: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"DaemonSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"fluent-bit\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"fluent-bit\",\"app.kubernetes.io/version\":\"5.0.6\",\"helm.sh/chart\":\"fluent-bit-0.57.6\"},\"name\":\"fluent-bit\",\"namespace\":\"default\"},\"spec\":{\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"fluent-bit\",\"app.kubernetes.io/name\":\"fluent-bit\"}},\"template\":{\"metadata\":{\"annotations\":{\"checksum/config\":\"9d398934a1783608247000a30ea054da07c9065fdb154ee958712c78abc7b888\"},\"labels\":{\"app.kubernetes.io/instance\":\"fluent-bit\",\"app.kubernetes.io/name\":\"fluent-bit\"}},\"spec\":{\"containers\":[{\"args\":[\"--workdir=/fluent-bit/etc\",\"--config=/fluent-bit/etc/conf/fluent-bit.conf\"],\"command\":[\"/fluent-bit/bin/fluent-bit\"],\"image\":\"cr.fluentbit.io/fluent/fluent-bit:5.0.6\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"httpGet\":{\"path\":\"/\",\"port\":\"http\"}},\"name\":\"fluent-bit\",\"ports\":[{\"containerPort\":2020,\"name\":\"http\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/api/v2/health\",\"port\":\"http\"}},\"volumeMounts\":[{\"mountPath\":\"/fluent-bit/etc/conf\",\"name\":\"config\"},{\"mountPath\":\"/var/log\",\"name\":\"varlog\"},{\"mountPath\":\"/var/lib/docker/containers\",\"name\":\"varlibdockercontainers\",\"readOnly\":true},{\"mountPath\":\"/etc/machine-id\",\"name\":\"etcmachineid\",\"readOnly\":true}]}],\"dnsPolicy\":\"ClusterFirst\",\"hostNetwork\":false,\"serviceAccountName\":\"fluent-bit\",\"volumes\":[{\"configMap\":{\"name\":\"fluent-bit\"},\"name\":\"config\"},{\"hostPath\":{\"path\":\"/var/log\"},\"name\":\"varlog\"},{\"hostPath\":{\"path\":\"/var/lib/docker/containers\"},\"name\":\"varlibdockercontainers\"},{\"hostPath\":{\"path\":\"/etc/machine-id\",\"type\":\"File\"},\"name\":\"etcmachineid\"}]}}}}\n"
+      creationTimestamp: "2026-06-11T10:01:52Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "fluent-bit"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "fluent-bit"
+        app.kubernetes.io/version: "5.0.6"
+        helm.sh/chart: "fluent-bit-0.57.6"
+      name: "fluent-bit"
+      namespace: "default"
+      resourceVersion: "7266"
+      uid: "0166195d-52e6-4a76-860c-1a0660c98a4d"
+    spec:
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "fluent-bit"
+          app.kubernetes.io/name: "fluent-bit"
+      template:
+        metadata:
+          annotations:
+            checksum/config: "9d398934a1783608247000a30ea054da07c9065fdb154ee958712c78abc7b888"
+          labels:
+            app.kubernetes.io/instance: "fluent-bit"
+            app.kubernetes.io/name: "fluent-bit"
+        spec:
+          containers:
+            -
+              args:
+                - "--workdir=/fluent-bit/etc"
+                - "--config=/fluent-bit/etc/conf/fluent-bit.conf"
+              command:
+                - "/fluent-bit/bin/fluent-bit"
+              image: "cr.fluentbit.io/fluent/fluent-bit:5.0.6"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/"
+                  port: "http"
+                  scheme: "HTTP"
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              name: "fluent-bit"
+              ports:
+                -
+                  containerPort: 2020
+                  name: "http"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/api/v2/health"
+                  port: "http"
+                  scheme: "HTTP"
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                {}
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/fluent-bit/etc/conf"
+                  name: "config"
+                -
+                  mountPath: "/var/log"
+                  name: "varlog"
+                -
+                  mountPath: "/var/lib/docker/containers"
+                  name: "varlibdockercontainers"
+                  readOnly: true
+                -
+                  mountPath: "/etc/machine-id"
+                  name: "etcmachineid"
+                  readOnly: true
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "fluent-bit"
+          serviceAccountName: "fluent-bit"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              configMap:
+                defaultMode: 420
+                name: "fluent-bit"
+              name: "config"
+            -
+              hostPath:
+                path: "/var/log"
+                type: ""
+              name: "varlog"
+            -
+              hostPath:
+                path: "/var/lib/docker/containers"
+                type: ""
+              name: "varlibdockercontainers"
+            -
+              hostPath:
+                path: "/etc/machine-id"
+                type: "File"
+              name: "etcmachineid"
+      updateStrategy:
+        rollingUpdate:
+          maxSurge: 0
+          maxUnavailable: 1
+        type: "RollingUpdate"
+    status:
+      currentNumberScheduled: 1
+      desiredNumberScheduled: 1
+      numberAvailable: 1
+      numberMisscheduled: 0
+      numberReady: 1
+      observedGeneration: 1
+      updatedNumberScheduled: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"fluent-bit\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"fluent-bit\",\"app.kubernetes.io/version\":\"5.0.6\",\"helm.sh/chart\":\"fluent-bit-0.57.6\"},\"name\":\"fluent-bit\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"namespaces\",\"pods\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T10:01:52Z"
+      labels:
+        app.kubernetes.io/instance: "fluent-bit"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "fluent-bit"
+        app.kubernetes.io/version: "5.0.6"
+        helm.sh/chart: "fluent-bit-0.57.6"
+      name: "fluent-bit"
+      resourceVersion: "7254"
+      uid: "d932907b-c26d-45a6-a223-611c7451c76a"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "namespaces"
+          - "pods"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"fluent-bit\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"fluent-bit\",\"app.kubernetes.io/version\":\"5.0.6\",\"helm.sh/chart\":\"fluent-bit-0.57.6\"},\"name\":\"fluent-bit\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"fluent-bit\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"fluent-bit\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T10:01:52Z"
+      labels:
+        app.kubernetes.io/instance: "fluent-bit"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "fluent-bit"
+        app.kubernetes.io/version: "5.0.6"
+        helm.sh/chart: "fluent-bit-0.57.6"
+      name: "fluent-bit"
+      resourceVersion: "7255"
+      uid: "8c47974a-5634-4bb5-86c2-e6e0d01d30a2"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "fluent-bit"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "fluent-bit"
+        namespace: "default"
+kind: "List"
+metadata:
+  resourceVersion: ""

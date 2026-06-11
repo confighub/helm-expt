@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "argo-cd-argo-events-2.4.21-default-local-kind"
+spec:
+  checks:
+    -
+      name: "crds-applied-and-established"
+      object: "3 CustomResourceDefinition(s)"
+      result: "pass"
+    -
+      name: "rendered-objects-applied"
+      object: "9 object(s) from recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/rendered/release-objects.yaml"
+      result: "pass"
+    -
+      name: "workload-converged"
+      object: "Deployment|default|argo-events-controller-manager"
+      result: "pass"
+  clusterStatus: "existing"
+  freshnessTTL: "1h"
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "02abc3411084fa077b62e2dd01d92992d4d31875dd1296ae50a020611a9d8c7c"
+  observedAt: "2026-06-11T09:52:42.908Z"
+  observer:
+    method: "kubectl-kind"
+    name: "next80-local-live"
+    version: "0.1.0"
+  renderedObjectSetSHA256: "fe5c705f2f03410df75055542a79619c82947dafbf3f1c01c05eca2fc197503b"
+  result: "pass"
+  target:
+    context: "kind-claude-helm-expt-next80"
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    namespace: "default"
+  variant: "default"
+  variantRevision: "recipes/argo-cd/argo-events/2.4.21/revisions/default/r001/variant-revision.yaml"
+  workloads: 1

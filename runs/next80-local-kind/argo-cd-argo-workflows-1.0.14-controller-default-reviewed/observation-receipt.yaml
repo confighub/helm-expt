@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "argo-cd-argo-workflows-1.0.14-controller-default-reviewed-local-kind"
+spec:
+  blockedReasons:
+    - "deployment/argo-workflows-workflow-controller: not-ready (argo-workflows-server-68dc849dd4-bnj6t[ ready=false restarts=0;] argo-workflows-workflow-controller-5f7944bc8f-rb4lb[Error ready=false restarts=5;] node-collect)"
+    - "deployment/argo-workflows-server: not-ready (argo-workflows-server-68dc849dd4-bnj6t[ ready=false restarts=0;] argo-workflows-workflow-controller-5f7944bc8f-rb4lb[CrashLoopBackOff ready=false restarts=5;] n)"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      object: "19 object(s) from recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml"
+      result: "pass"
+    -
+      name: "workload-converged"
+      object: "Deployment|default|argo-workflows-workflow-controller"
+      reason: "not-ready: argo-workflows-server-68dc849dd4-bnj6t[ ready=false restarts=0;] argo-workflows-workflow-controller-5f7944bc8f-rb4lb[Error ready=false restarts=5;] node-collector-66b46f8d9-qnkc6[Completed ready=false restarts=0;] scan-vulnerabilityreport-56d95ff87d-dtcxq[Completed ready=false restarts=0;] scan-vuln"
+      result: "fail"
+    -
+      name: "workload-converged"
+      object: "Deployment|default|argo-workflows-server"
+      reason: "not-ready: argo-workflows-server-68dc849dd4-bnj6t[ ready=false restarts=0;] argo-workflows-workflow-controller-5f7944bc8f-rb4lb[CrashLoopBackOff ready=false restarts=5;] node-collector-66b46f8d9-qnkc6[Completed ready=false restarts=0;] scan-vulnerabilityreport-56d95ff87d-dtcxq[Completed ready=false restarts=0;"
+      result: "fail"
+  clusterStatus: "existing"
+  freshnessTTL: "1h"
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "9ba42bace407cab3bcb1570473bf0d203eccad7e0bd93abe98ad9e78c64ec54e"
+  observedAt: "2026-06-11T10:23:12.429Z"
+  observer:
+    method: "kubectl-kind"
+    name: "next80-local-live"
+    version: "0.1.0"
+  renderedObjectSetSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
+  result: "fail"
+  target:
+    context: "kind-claude-helm-expt-next80"
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    namespace: "default"
+  variant: "controller-default-reviewed"
+  variantRevision: "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/variant-revision.yaml"
+  workloads: 2

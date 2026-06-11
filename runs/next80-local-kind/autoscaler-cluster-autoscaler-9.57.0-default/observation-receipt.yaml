@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "autoscaler-cluster-autoscaler-9.57.0-default-local-kind"
+spec:
+  checks:
+    -
+      name: "rendered-objects-applied"
+      object: "7 object(s) from recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/default/r001/rendered/release-objects.yaml"
+      result: "pass"
+  clusterStatus: "existing"
+  freshnessTTL: "1h"
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "ee4b34037d6e7c1949aba15196cf27292b0cddd8e2360cd103238b74914e77c9"
+  observedAt: "2026-06-11T10:23:53.962Z"
+  observer:
+    method: "kubectl-kind"
+    name: "next80-local-live"
+    version: "0.1.0"
+  renderedObjectSetSHA256: "9e67f520b5c65ff34d72f8c85e4245c2d9d238b6da336112dfa272a060d69446"
+  result: "pass"
+  target:
+    context: "kind-claude-helm-expt-next80"
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    namespace: "default"
+  variant: "default"
+  variantRevision: "recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/default/r001/variant-revision.yaml"
+  workloads: 0

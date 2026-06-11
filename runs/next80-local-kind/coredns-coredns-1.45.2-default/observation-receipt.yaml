@@ -1,0 +1,34 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "coredns-coredns-1.45.2-default-local-kind"
+spec:
+  checks:
+    -
+      name: "rendered-objects-applied"
+      object: "5 object(s) from recipes/coredns/coredns/1.45.2/revisions/default/r001/rendered/release-objects.yaml"
+      result: "pass"
+    -
+      name: "workload-converged"
+      object: "Deployment|default|coredns"
+      result: "pass"
+  clusterStatus: "existing"
+  freshnessTTL: "1h"
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "049cf2e06530cb79234477f6080b56b8e94e97ae8bbb950813af8fc173d2b101"
+  observedAt: "2026-06-11T10:01:51.720Z"
+  observer:
+    method: "kubectl-kind"
+    name: "next80-local-live"
+    version: "0.1.0"
+  renderedObjectSetSHA256: "e9d0e20ceb7a6ec8e8189aa63d5fcba50be11360c7b734e57b84ad0556b1ca34"
+  result: "pass"
+  target:
+    context: "kind-claude-helm-expt-next80"
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    namespace: "default"
+  variant: "default"
+  variantRevision: "recipes/coredns/coredns/1.45.2/revisions/default/r001/variant-revision.yaml"
+  workloads: 1

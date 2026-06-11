@@ -1,0 +1,34 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "fluent-fluent-bit-0.57.6-default-local-kind"
+spec:
+  checks:
+    -
+      name: "rendered-objects-applied"
+      object: "6 object(s) from recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/rendered/release-objects.yaml"
+      result: "pass"
+    -
+      name: "workload-converged"
+      object: "DaemonSet|default|fluent-bit"
+      result: "pass"
+  clusterStatus: "existing"
+  freshnessTTL: "1h"
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "bda33eeb68dce48f2805ec3efe46e8f1353ec3e1e7f21bd4ea9531bf48ddc528"
+  observedAt: "2026-06-11T10:01:53.843Z"
+  observer:
+    method: "kubectl-kind"
+    name: "next80-local-live"
+    version: "0.1.0"
+  renderedObjectSetSHA256: "464d9136c0ba9e845fd81c1dbea556e717d47930d7cb58755de67ead7f8f2a2b"
+  result: "pass"
+  target:
+    context: "kind-claude-helm-expt-next80"
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    namespace: "default"
+  variant: "default"
+  variantRevision: "recipes/fluent/fluent-bit/0.57.6/revisions/default/r001/variant-revision.yaml"
+  workloads: 1

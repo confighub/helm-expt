@@ -1,0 +1,786 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trivy-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trivy-operator\",\"app.kubernetes.io/version\":\"0.30.1\",\"helm.sh/chart\":\"trivy-operator-0.32.1\"},\"name\":\"trivy-operator\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T10:12:54Z"
+      labels:
+        app.kubernetes.io/instance: "trivy-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trivy-operator"
+        app.kubernetes.io/version: "0.30.1"
+        helm.sh/chart: "trivy-operator-0.32.1"
+      name: "trivy-operator"
+      namespace: "default"
+      resourceVersion: "9434"
+      uid: "df9e6c79-3109-49d1-889e-4e16be468598"
+  -
+    apiVersion: "v1"
+    kind: "Secret"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "redacted: live Secret last-applied-configuration is not committed"
+      creationTimestamp: "2026-06-11T10:12:54Z"
+      labels:
+        app.kubernetes.io/instance: "trivy-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trivy-operator"
+        app.kubernetes.io/version: "0.30.1"
+        helm.sh/chart: "trivy-operator-0.32.1"
+      name: "trivy-operator"
+      namespace: "default"
+      resourceVersion: "9435"
+      uid: "ff8a3d2a-9afc-4b7a-93a7-74613a40dc72"
+    type: "Opaque"
+  -
+    apiVersion: "v1"
+    kind: "Secret"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "redacted: live Secret last-applied-configuration is not committed"
+      creationTimestamp: "2026-06-11T10:12:54Z"
+      labels:
+        app.kubernetes.io/instance: "trivy-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trivy-operator"
+        app.kubernetes.io/version: "0.30.1"
+        helm.sh/chart: "trivy-operator-0.32.1"
+      name: "trivy-operator-trivy-config"
+      namespace: "default"
+      resourceVersion: "9436"
+      uid: "7e20c20c-8205-485f-98a3-3dc6f1ca2f44"
+    type: "Opaque"
+  -
+    apiVersion: "v1"
+    data:
+      compliance.failEntriesLimit: "10"
+      configAuditReports.scanner: "Trivy"
+      node.collector.imageRef: "ghcr.io/aquasecurity/node-collector:0.3.1"
+      node.collector.nodeSelector: "true"
+      nodeCollector.volumeMounts: "[{\"mountPath\":\"/var/lib/etcd\",\"name\":\"var-lib-etcd\",\"readOnly\":true},{\"mountPath\":\"/var/lib/kubelet\",\"name\":\"var-lib-kubelet\",\"readOnly\":true},{\"mountPath\":\"/var/lib/kube-scheduler\",\"name\":\"var-lib-kube-scheduler\",\"readOnly\":true},{\"mountPath\":\"/var/lib/kube-controller-manager\",\"name\":\"var-lib-kube-controller-manager\",\"readOnly\":true},{\"mountPath\":\"/etc/systemd\",\"name\":\"etc-systemd\",\"readOnly\":true},{\"mountPath\":\"/lib/systemd/\",\"name\":\"lib-systemd\",\"readOnly\":true},{\"mountPath\":\"/etc/kubernetes\",\"name\":\"etc-kubernetes\",\"readOnly\":true},{\"mountPath\":\"/etc/cni/net.d/\",\"name\":\"etc-cni-netd\",\"readOnly\":true}]"
+      nodeCollector.volumes: "[{\"hostPath\":{\"path\":\"/var/lib/etcd\"},\"name\":\"var-lib-etcd\"},{\"hostPath\":{\"path\":\"/var/lib/kubelet\"},\"name\":\"var-lib-kubelet\"},{\"hostPath\":{\"path\":\"/var/lib/kube-scheduler\"},\"name\":\"var-lib-kube-scheduler\"},{\"hostPath\":{\"path\":\"/var/lib/kube-controller-manager\"},\"name\":\"var-lib-kube-controller-manager\"},{\"hostPath\":{\"path\":\"/etc/systemd\"},\"name\":\"etc-systemd\"},{\"hostPath\":{\"path\":\"/lib/systemd\"},\"name\":\"lib-systemd\"},{\"hostPath\":{\"path\":\"/etc/kubernetes\"},\"name\":\"etc-kubernetes\"},{\"hostPath\":{\"path\":\"/etc/cni/net.d/\"},\"name\":\"etc-cni-netd\"}]"
+      policies.bundle.insecure: "false"
+      policies.bundle.oci.ref: "mirror.gcr.io/aquasec/trivy-checks:1"
+      report.recordFailedChecksOnly: "true"
+      scanJob.compressLogs: "true"
+      scanJob.podTemplateContainerSecurityContext: "{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true}"
+      scanJob.useGCRServiceAccount: "true"
+      vulnerabilityReports.scanJobsInSameNamespace: "false"
+      vulnerabilityReports.scanner: "Trivy"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"compliance.failEntriesLimit\":\"10\",\"configAuditReports.scanner\":\"Trivy\",\"node.collector.imageRef\":\"ghcr.io/aquasecurity/node-collector:0.3.1\",\"node.collector.nodeSelector\":\"true\",\"nodeCollector.volumeMounts\":\"[{\\\"mountPath\\\":\\\"/var/lib/etcd\\\",\\\"name\\\":\\\"var-lib-etcd\\\",\\\"readOnly\\\":true},{\\\"mountPath\\\":\\\"/var/lib/kubelet\\\",\\\"name\\\":\\\"var-lib-kubelet\\\",\\\"readOnly\\\":true},{\\\"mountPath\\\":\\\"/var/lib/kube-scheduler\\\",\\\"name\\\":\\\"var-lib-kube-scheduler\\\",\\\"readOnly\\\":true},{\\\"mountPath\\\":\\\"/var/lib/kube-controller-manager\\\",\\\"name\\\":\\\"var-lib-kube-controller-manager\\\",\\\"readOnly\\\":true},{\\\"mountPath\\\":\\\"/etc/systemd\\\",\\\"name\\\":\\\"etc-systemd\\\",\\\"readOnly\\\":true},{\\\"mountPath\\\":\\\"/lib/systemd/\\\",\\\"name\\\":\\\"lib-systemd\\\",\\\"readOnly\\\":true},{\\\"mountPath\\\":\\\"/etc/kubernetes\\\",\\\"name\\\":\\\"etc-kubernetes\\\",\\\"readOnly\\\":true},{\\\"mountPath\\\":\\\"/etc/cni/net.d/\\\",\\\"name\\\":\\\"etc-cni-netd\\\",\\\"readOnly\\\":true}]\",\"nodeCollector.volumes\":\"[{\\\"hostPath\\\":{\\\"path\\\":\\\"/var/lib/etcd\\\"},\\\"name\\\":\\\"var-lib-etcd\\\"},{\\\"hostPath\\\":{\\\"path\\\":\\\"/var/lib/kubelet\\\"},\\\"name\\\":\\\"var-lib-kubelet\\\"},{\\\"hostPath\\\":{\\\"path\\\":\\\"/var/lib/kube-scheduler\\\"},\\\"name\\\":\\\"var-lib-kube-scheduler\\\"},{\\\"hostPath\\\":{\\\"path\\\":\\\"/var/lib/kube-controller-manager\\\"},\\\"name\\\":\\\"var-lib-kube-controller-manager\\\"},{\\\"hostPath\\\":{\\\"path\\\":\\\"/etc/systemd\\\"},\\\"name\\\":\\\"etc-systemd\\\"},{\\\"hostPath\\\":{\\\"path\\\":\\\"/lib/systemd\\\"},\\\"name\\\":\\\"lib-systemd\\\"},{\\\"hostPath\\\":{\\\"path\\\":\\\"/etc/kubernetes\\\"},\\\"name\\\":\\\"etc-kubernetes\\\"},{\\\"hostPath\\\":{\\\"path\\\":\\\"/etc/cni/net.d/\\\"},\\\"name\\\":\\\"etc-cni-netd\\\"}]\",\"policies.bundle.insecure\":\"false\",\"policies.bundle.oci.ref\":\"mirror.gcr.io/aquasec/trivy-checks:1\",\"report.recordFailedChecksOnly\":\"true\",\"scanJob.compressLogs\":\"true\",\"scanJob.podTemplateContainerSecurityContext\":\"{\\\"allowPrivilegeEscalation\\\":false,\\\"capabilities\\\":{\\\"drop\\\":[\\\"ALL\\\"]},\\\"privileged\\\":false,\\\"readOnlyRootFilesystem\\\":true}\",\"scanJob.useGCRServiceAccount\":\"true\",\"vulnerabilityReports.scanJobsInSameNamespace\":\"false\",\"vulnerabilityReports.scanner\":\"Trivy\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trivy-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trivy-operator\",\"app.kubernetes.io/version\":\"0.30.1\",\"helm.sh/chart\":\"trivy-operator-0.32.1\"},\"name\":\"trivy-operator\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T10:12:54Z"
+      labels:
+        app.kubernetes.io/instance: "trivy-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trivy-operator"
+        app.kubernetes.io/version: "0.30.1"
+        helm.sh/chart: "trivy-operator-0.32.1"
+      name: "trivy-operator"
+      namespace: "default"
+      resourceVersion: "9437"
+      uid: "bbccad0b-5716-451e-857e-cd42500d089b"
+  -
+    apiVersion: "v1"
+    data:
+      CONTROLLER_CACHE_SYNC_TIMEOUT: "5m"
+      OPERATOR_ACCESS_GLOBAL_SECRETS_SERVICE_ACCOUNTS: "true"
+      OPERATOR_BATCH_DELETE_DELAY: "10s"
+      OPERATOR_BATCH_DELETE_LIMIT: "10"
+      OPERATOR_BUILT_IN_TRIVY_SERVER: "false"
+      OPERATOR_CACHE_REPORT_TTL: "120h"
+      OPERATOR_CLUSTER_COMPLIANCE_ENABLED: "true"
+      OPERATOR_CLUSTER_SBOM_CACHE_ENABLED: "false"
+      OPERATOR_CONCURRENT_NODE_COLLECTOR_LIMIT: "1"
+      OPERATOR_CONCURRENT_SCAN_JOBS_LIMIT: "10"
+      OPERATOR_CONFIG_AUDIT_SCANNER_ENABLED: "true"
+      OPERATOR_CONFIG_AUDIT_SCANNER_SCAN_ONLY_CURRENT_REVISIONS: "true"
+      OPERATOR_EXPOSED_SECRET_SCANNER_ENABLED: "true"
+      OPERATOR_HEALTH_PROBE_BIND_ADDRESS: ":9090"
+      OPERATOR_INFRA_ASSESSMENT_SCANNER_ENABLED: "true"
+      OPERATOR_LOG_DEV_MODE: "false"
+      OPERATOR_MERGE_RBAC_FINDING_WITH_CONFIG_AUDIT: "false"
+      OPERATOR_METRICS_BIND_ADDRESS: ":8080"
+      OPERATOR_METRICS_CLUSTER_COMPLIANCE_INFO_ENABLED: "false"
+      OPERATOR_METRICS_CONFIG_AUDIT_INFO_ENABLED: "false"
+      OPERATOR_METRICS_EXPOSED_SECRET_INFO_ENABLED: "false"
+      OPERATOR_METRICS_FINDINGS_ENABLED: "true"
+      OPERATOR_METRICS_IMAGE_INFO_ENABLED: "false"
+      OPERATOR_METRICS_INFRA_ASSESSMENT_INFO_ENABLED: "false"
+      OPERATOR_METRICS_RBAC_ASSESSMENT_INFO_ENABLED: "false"
+      OPERATOR_METRICS_VULN_ID_ENABLED: "false"
+      OPERATOR_PPROF_BIND_ADDRESS: ""
+      OPERATOR_PRIVATE_REGISTRY_SCAN_SECRETS_NAMES: "{}"
+      OPERATOR_RBAC_ASSESSMENT_SCANNER_ENABLED: "true"
+      OPERATOR_SBOM_GENERATION_ENABLED: "true"
+      OPERATOR_SCANNER_REPORT_TTL: "24h"
+      OPERATOR_SCAN_JOB_RETRY_AFTER: "30s"
+      OPERATOR_SCAN_JOB_TIMEOUT: "5m"
+      OPERATOR_SCAN_JOB_TTL: ""
+      OPERATOR_SEND_DELETED_REPORTS: "false"
+      OPERATOR_VULNERABILITY_SCANNER_ENABLED: "true"
+      OPERATOR_VULNERABILITY_SCANNER_SCAN_ONLY_CURRENT_REVISIONS: "true"
+      OPERATOR_WEBHOOK_BROADCAST_CUSTOM_HEADERS: ""
+      OPERATOR_WEBHOOK_BROADCAST_TIMEOUT: "30s"
+      OPERATOR_WEBHOOK_BROADCAST_URL: ""
+      TRIVY_SERVER_HEALTH_CHECK_CACHE_EXPIRATION: "10h"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"CONTROLLER_CACHE_SYNC_TIMEOUT\":\"5m\",\"OPERATOR_ACCESS_GLOBAL_SECRETS_SERVICE_ACCOUNTS\":\"true\",\"OPERATOR_BATCH_DELETE_DELAY\":\"10s\",\"OPERATOR_BATCH_DELETE_LIMIT\":\"10\",\"OPERATOR_BUILT_IN_TRIVY_SERVER\":\"false\",\"OPERATOR_CACHE_REPORT_TTL\":\"120h\",\"OPERATOR_CLUSTER_COMPLIANCE_ENABLED\":\"true\",\"OPERATOR_CLUSTER_SBOM_CACHE_ENABLED\":\"false\",\"OPERATOR_CONCURRENT_NODE_COLLECTOR_LIMIT\":\"1\",\"OPERATOR_CONCURRENT_SCAN_JOBS_LIMIT\":\"10\",\"OPERATOR_CONFIG_AUDIT_SCANNER_ENABLED\":\"true\",\"OPERATOR_CONFIG_AUDIT_SCANNER_SCAN_ONLY_CURRENT_REVISIONS\":\"true\",\"OPERATOR_EXPOSED_SECRET_SCANNER_ENABLED\":\"true\",\"OPERATOR_HEALTH_PROBE_BIND_ADDRESS\":\":9090\",\"OPERATOR_INFRA_ASSESSMENT_SCANNER_ENABLED\":\"true\",\"OPERATOR_LOG_DEV_MODE\":\"false\",\"OPERATOR_MERGE_RBAC_FINDING_WITH_CONFIG_AUDIT\":\"false\",\"OPERATOR_METRICS_BIND_ADDRESS\":\":8080\",\"OPERATOR_METRICS_CLUSTER_COMPLIANCE_INFO_ENABLED\":\"false\",\"OPERATOR_METRICS_CONFIG_AUDIT_INFO_ENABLED\":\"false\",\"OPERATOR_METRICS_EXPOSED_SECRET_INFO_ENABLED\":\"false\",\"OPERATOR_METRICS_FINDINGS_ENABLED\":\"true\",\"OPERATOR_METRICS_IMAGE_INFO_ENABLED\":\"false\",\"OPERATOR_METRICS_INFRA_ASSESSMENT_INFO_ENABLED\":\"false\",\"OPERATOR_METRICS_RBAC_ASSESSMENT_INFO_ENABLED\":\"false\",\"OPERATOR_METRICS_VULN_ID_ENABLED\":\"false\",\"OPERATOR_PPROF_BIND_ADDRESS\":\"\",\"OPERATOR_PRIVATE_REGISTRY_SCAN_SECRETS_NAMES\":\"{}\",\"OPERATOR_RBAC_ASSESSMENT_SCANNER_ENABLED\":\"true\",\"OPERATOR_SBOM_GENERATION_ENABLED\":\"true\",\"OPERATOR_SCANNER_REPORT_TTL\":\"24h\",\"OPERATOR_SCAN_JOB_RETRY_AFTER\":\"30s\",\"OPERATOR_SCAN_JOB_TIMEOUT\":\"5m\",\"OPERATOR_SCAN_JOB_TTL\":\"\",\"OPERATOR_SEND_DELETED_REPORTS\":\"false\",\"OPERATOR_VULNERABILITY_SCANNER_ENABLED\":\"true\",\"OPERATOR_VULNERABILITY_SCANNER_SCAN_ONLY_CURRENT_REVISIONS\":\"true\",\"OPERATOR_WEBHOOK_BROADCAST_CUSTOM_HEADERS\":\"\",\"OPERATOR_WEBHOOK_BROADCAST_TIMEOUT\":\"30s\",\"OPERATOR_WEBHOOK_BROADCAST_URL\":\"\",\"TRIVY_SERVER_HEALTH_CHECK_CACHE_EXPIRATION\":\"10h\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trivy-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trivy-operator\",\"app.kubernetes.io/version\":\"0.30.1\",\"helm.sh/chart\":\"trivy-operator-0.32.1\"},\"name\":\"trivy-operator-config\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T10:12:54Z"
+      labels:
+        app.kubernetes.io/instance: "trivy-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trivy-operator"
+        app.kubernetes.io/version: "0.30.1"
+        helm.sh/chart: "trivy-operator-0.32.1"
+      name: "trivy-operator-config"
+      namespace: "default"
+      resourceVersion: "9438"
+      uid: "d1e0a537-2470-4b04-a337-0e57500dc4f8"
+  -
+    apiVersion: "v1"
+    data:
+      trivy.additionalVulnerabilityReportFields: ""
+      trivy.command: "image"
+      trivy.dbRepository: "mirror.gcr.io/aquasec/trivy-db"
+      trivy.dbRepositoryInsecure: "false"
+      trivy.filesystemScanCacheDir: "/var/trivyoperator/trivy-db"
+      trivy.imagePullPolicy: "IfNotPresent"
+      trivy.imageScanCacheDir: "/tmp/trivy/.cache"
+      trivy.includeDevDeps: "false"
+      trivy.javaDbRepository: "mirror.gcr.io/aquasec/trivy-java-db"
+      trivy.mode: "Standalone"
+      trivy.repository: "mirror.gcr.io/aquasec/trivy"
+      trivy.resources.limits.cpu: "500m"
+      trivy.resources.limits.memory: "500M"
+      trivy.resources.requests.cpu: "100m"
+      trivy.resources.requests.memory: "100M"
+      trivy.sbomSources: ""
+      trivy.severity: "UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL"
+      trivy.skipJavaDBUpdate: "false"
+      trivy.slow: "true"
+      trivy.supportedConfigAuditKinds: "Workload,Service,Role,ClusterRole,NetworkPolicy,Ingress,LimitRange,ResourceQuota"
+      trivy.tag: "0.69.3"
+      trivy.timeout: "5m0s"
+      trivy.useBuiltinRegoPolicies: "false"
+      trivy.useEmbeddedRegoPolicies: "true"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"trivy.additionalVulnerabilityReportFields\":\"\",\"trivy.command\":\"image\",\"trivy.dbRepository\":\"mirror.gcr.io/aquasec/trivy-db\",\"trivy.dbRepositoryInsecure\":\"false\",\"trivy.filesystemScanCacheDir\":\"/var/trivyoperator/trivy-db\",\"trivy.imagePullPolicy\":\"IfNotPresent\",\"trivy.imageScanCacheDir\":\"/tmp/trivy/.cache\",\"trivy.includeDevDeps\":\"false\",\"trivy.javaDbRepository\":\"mirror.gcr.io/aquasec/trivy-java-db\",\"trivy.mode\":\"Standalone\",\"trivy.repository\":\"mirror.gcr.io/aquasec/trivy\",\"trivy.resources.limits.cpu\":\"500m\",\"trivy.resources.limits.memory\":\"500M\",\"trivy.resources.requests.cpu\":\"100m\",\"trivy.resources.requests.memory\":\"100M\",\"trivy.sbomSources\":\"\",\"trivy.severity\":\"UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL\",\"trivy.skipJavaDBUpdate\":\"false\",\"trivy.slow\":\"true\",\"trivy.supportedConfigAuditKinds\":\"Workload,Service,Role,ClusterRole,NetworkPolicy,Ingress,LimitRange,ResourceQuota\",\"trivy.tag\":\"0.69.3\",\"trivy.timeout\":\"5m0s\",\"trivy.useBuiltinRegoPolicies\":\"false\",\"trivy.useEmbeddedRegoPolicies\":\"true\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trivy-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trivy-operator\",\"app.kubernetes.io/version\":\"0.30.1\",\"helm.sh/chart\":\"trivy-operator-0.32.1\"},\"name\":\"trivy-operator-trivy-config\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T10:12:54Z"
+      labels:
+        app.kubernetes.io/instance: "trivy-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trivy-operator"
+        app.kubernetes.io/version: "0.30.1"
+        helm.sh/chart: "trivy-operator-0.32.1"
+      name: "trivy-operator-trivy-config"
+      namespace: "default"
+      resourceVersion: "9439"
+      uid: "e194041e-37b1-40f8-8222-8d638c5c802d"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trivy-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trivy-operator\",\"app.kubernetes.io/version\":\"0.30.1\",\"helm.sh/chart\":\"trivy-operator-0.32.1\"},\"name\":\"trivy-operator-leader-election\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"create\",\"get\",\"update\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\"]}]}\n"
+      creationTimestamp: "2026-06-11T10:12:54Z"
+      labels:
+        app.kubernetes.io/instance: "trivy-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trivy-operator"
+        app.kubernetes.io/version: "0.30.1"
+        helm.sh/chart: "trivy-operator-0.32.1"
+      name: "trivy-operator-leader-election"
+      namespace: "default"
+      resourceVersion: "9440"
+      uid: "57d837d9-230e-49ed-b6e8-1a27889f1d85"
+    rules:
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "create"
+          - "get"
+          - "update"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "create"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trivy-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trivy-operator\",\"app.kubernetes.io/version\":\"0.30.1\",\"helm.sh/chart\":\"trivy-operator-0.32.1\"},\"name\":\"trivy-operator\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\"],\"verbs\":[\"create\",\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"create\",\"get\",\"delete\",\"update\"]}]}\n"
+      creationTimestamp: "2026-06-11T10:12:54Z"
+      labels:
+        app.kubernetes.io/instance: "trivy-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trivy-operator"
+        app.kubernetes.io/version: "0.30.1"
+        helm.sh/chart: "trivy-operator-0.32.1"
+      name: "trivy-operator"
+      namespace: "default"
+      resourceVersion: "9441"
+      uid: "a8c80f5d-7c82-4dc0-bfb3-f9ed517b11ae"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+        verbs:
+          - "create"
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "create"
+          - "get"
+          - "delete"
+          - "update"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trivy-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trivy-operator\",\"app.kubernetes.io/version\":\"0.30.1\",\"helm.sh/chart\":\"trivy-operator-0.32.1\"},\"name\":\"trivy-operator-leader-election\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"trivy-operator-leader-election\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"trivy-operator\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T10:12:54Z"
+      labels:
+        app.kubernetes.io/instance: "trivy-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trivy-operator"
+        app.kubernetes.io/version: "0.30.1"
+        helm.sh/chart: "trivy-operator-0.32.1"
+      name: "trivy-operator-leader-election"
+      namespace: "default"
+      resourceVersion: "9442"
+      uid: "37e2cd3c-50b3-42b1-bf4b-2768f904ca68"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "trivy-operator-leader-election"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "trivy-operator"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trivy-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trivy-operator\",\"app.kubernetes.io/version\":\"0.30.1\",\"helm.sh/chart\":\"trivy-operator-0.32.1\"},\"name\":\"trivy-operator\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"trivy-operator\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"trivy-operator\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T10:12:54Z"
+      labels:
+        app.kubernetes.io/instance: "trivy-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trivy-operator"
+        app.kubernetes.io/version: "0.30.1"
+        helm.sh/chart: "trivy-operator-0.32.1"
+      name: "trivy-operator"
+      namespace: "default"
+      resourceVersion: "9443"
+      uid: "1f5bf2ee-33e3-4a04-ad51-2d352120df51"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "trivy-operator"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "trivy-operator"
+        namespace: "default"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trivy-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trivy-operator\",\"app.kubernetes.io/version\":\"0.30.1\",\"helm.sh/chart\":\"trivy-operator-0.32.1\"},\"name\":\"trivy-operator\",\"namespace\":\"default\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"appProtocol\":\"TCP\",\"name\":\"metrics\",\"port\":80,\"protocol\":\"TCP\",\"targetPort\":\"metrics\"}],\"selector\":{\"app.kubernetes.io/instance\":\"trivy-operator\",\"app.kubernetes.io/name\":\"trivy-operator\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T10:12:54Z"
+      labels:
+        app.kubernetes.io/instance: "trivy-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trivy-operator"
+        app.kubernetes.io/version: "0.30.1"
+        helm.sh/chart: "trivy-operator-0.32.1"
+      name: "trivy-operator"
+      namespace: "default"
+      resourceVersion: "9444"
+      uid: "86fb70db-a89e-4f95-98f3-6a90f5363074"
+    spec:
+      clusterIP: "None"
+      clusterIPs:
+        - "None"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          appProtocol: "TCP"
+          name: "metrics"
+          port: 80
+          protocol: "TCP"
+          targetPort: "metrics"
+      selector:
+        app.kubernetes.io/instance: "trivy-operator"
+        app.kubernetes.io/name: "trivy-operator"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trivy-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trivy-operator\",\"app.kubernetes.io/version\":\"0.30.1\",\"helm.sh/chart\":\"trivy-operator-0.32.1\"},\"name\":\"trivy-operator\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"trivy-operator\",\"app.kubernetes.io/name\":\"trivy-operator\"}},\"strategy\":{\"type\":\"Recreate\"},\"template\":{\"metadata\":{\"annotations\":{\"checksum/config\":\"b25964190087584abb7febd6c8ab74697710fc5a8d2a95f1d98187d346f89c17\"},\"labels\":{\"app.kubernetes.io/instance\":\"trivy-operator\",\"app.kubernetes.io/name\":\"trivy-operator\"}},\"spec\":{\"automountServiceAccountToken\":true,\"containers\":[{\"env\":[{\"name\":\"OPERATOR_NAMESPACE\",\"value\":\"default\"},{\"name\":\"OPERATOR_TARGET_NAMESPACES\",\"value\":\"\"},{\"name\":\"OPERATOR_EXCLUDE_NAMESPACES\",\"value\":\"\"},{\"name\":\"OPERATOR_TARGET_WORKLOADS\",\"value\":\"pod,replicaset,replicationcontroller,statefulset,daemonset,cronjob,job\"},{\"name\":\"OPERATOR_SERVICE_ACCOUNT\",\"value\":\"trivy-operator\"}],\"envFrom\":[{\"configMapRef\":{\"name\":\"trivy-operator-config\"}}],\"image\":\"mirror.gcr.io/aquasec/trivy-operator:0.30.1\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":10,\"httpGet\":{\"path\":\"/healthz/\",\"port\":\"probes\"},\"initialDelaySeconds\":5,\"periodSeconds\":10,\"successThreshold\":1},\"name\":\"trivy-operator\",\"ports\":[{\"containerPort\":8080,\"name\":\"metrics\"},{\"containerPort\":9090,\"name\":\"probes\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/readyz/\",\"port\":\"probes\"},\"initialDelaySeconds\":5,\"periodSeconds\":10,\"successThreshold\":1},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"cache-policies\",\"readOnly\":false}]}],\"serviceAccountName\":\"trivy-operator\",\"volumes\":[{\"emptyDir\":{},\"name\":\"cache-policies\"}]}}}}\n"
+      creationTimestamp: "2026-06-11T10:12:54Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "trivy-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trivy-operator"
+        app.kubernetes.io/version: "0.30.1"
+        helm.sh/chart: "trivy-operator-0.32.1"
+      name: "trivy-operator"
+      namespace: "default"
+      resourceVersion: "9500"
+      uid: "5872e17c-c682-49d0-8c3b-511844568a81"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "trivy-operator"
+          app.kubernetes.io/name: "trivy-operator"
+      strategy:
+        type: "Recreate"
+      template:
+        metadata:
+          annotations:
+            checksum/config: "b25964190087584abb7febd6c8ab74697710fc5a8d2a95f1d98187d346f89c17"
+          labels:
+            app.kubernetes.io/instance: "trivy-operator"
+            app.kubernetes.io/name: "trivy-operator"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            -
+              env:
+                -
+                  name: "OPERATOR_NAMESPACE"
+                  value: "default"
+                -
+                  name: "OPERATOR_TARGET_NAMESPACES"
+                -
+                  name: "OPERATOR_EXCLUDE_NAMESPACES"
+                -
+                  name: "OPERATOR_TARGET_WORKLOADS"
+                  value: "pod,replicaset,replicationcontroller,statefulset,daemonset,cronjob,job"
+                -
+                  name: "OPERATOR_SERVICE_ACCOUNT"
+                  value: "trivy-operator"
+              envFrom:
+                -
+                  configMapRef:
+                    name: "trivy-operator-config"
+              image: "mirror.gcr.io/aquasec/trivy-operator:0.30.1"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 10
+                httpGet:
+                  path: "/healthz/"
+                  port: "probes"
+                  scheme: "HTTP"
+                initialDelaySeconds: 5
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              name: "trivy-operator"
+              ports:
+                -
+                  containerPort: 8080
+                  name: "metrics"
+                  protocol: "TCP"
+                -
+                  containerPort: 9090
+                  name: "probes"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/readyz/"
+                  port: "probes"
+                  scheme: "HTTP"
+                initialDelaySeconds: 5
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/tmp"
+                  name: "cache-policies"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "trivy-operator"
+          serviceAccountName: "trivy-operator"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              emptyDir:
+                {}
+              name: "cache-policies"
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T10:13:06Z"
+          lastUpdateTime: "2026-06-11T10:13:06Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T10:12:54Z"
+          lastUpdateTime: "2026-06-11T10:13:06Z"
+          message: "ReplicaSet \"trivy-operator-7b77959c86\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"name\":\"trivy-operator\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\",\"limitranges\",\"nodes\",\"pods\",\"replicationcontrollers\",\"resourcequotas\",\"services\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces\"],\"verbs\":[\"get\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods/log\"],\"verbs\":[\"get\",\"list\"]},{\"apiGroups\":[\"apiextensions.k8s.io\"],\"resources\":[\"customresourcedefinitions\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"daemonsets\",\"deployments\",\"replicasets\",\"statefulsets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"apps.openshift.io\"],\"resources\":[\"deploymentconfigs\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"aquasecurity.github.io\"],\"resources\":[\"clustercompliancedetailreports\",\"clustercompliancereports\",\"clusterconfigauditreports\",\"clusterinfraassessmentreports\",\"clusterrbacassessmentreports\",\"clustersbomreports\",\"clustervulnerabilityreports\",\"configauditreports\",\"exposedsecretreports\",\"infraassessmentreports\",\"rbacassessmentreports\",\"sbomreports\",\"vulnerabilityreports\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"aquasecurity.github.io\"],\"resources\":[\"clustercompliancereports/status\"],\"verbs\":[\"get\",\"patch\",\"update\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"cronjobs\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"jobs\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"networking.k8s.io\"],\"resources\":[\"ingresses\",\"networkpolicies\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"rbac.authorization.k8s.io\"],\"resources\":[\"clusterrolebindings\",\"clusterroles\",\"rolebindings\",\"roles\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"create\",\"get\",\"update\"]},{\"apiGroups\":[\"\"],\"resources\":[\"serviceaccounts\"],\"verbs\":[\"get\"]},{\"apiGroups\":[\"\"],\"resources\":[\"nodes/proxy\"],\"verbs\":[\"get\"]}]}\n"
+      creationTimestamp: "2026-06-11T10:12:54Z"
+      name: "trivy-operator"
+      resourceVersion: "9460"
+      uid: "3c1eb07a-b701-47e4-85eb-5de5b12a9cf8"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+          - "limitranges"
+          - "nodes"
+          - "pods"
+          - "replicationcontrollers"
+          - "resourcequotas"
+          - "services"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "namespaces"
+        verbs:
+          - "get"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods/log"
+        verbs:
+          - "get"
+          - "list"
+      -
+        apiGroups:
+          - "apiextensions.k8s.io"
+        resources:
+          - "customresourcedefinitions"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "daemonsets"
+          - "deployments"
+          - "replicasets"
+          - "statefulsets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apps.openshift.io"
+        resources:
+          - "deploymentconfigs"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "aquasecurity.github.io"
+        resources:
+          - "clustercompliancedetailreports"
+          - "clustercompliancereports"
+          - "clusterconfigauditreports"
+          - "clusterinfraassessmentreports"
+          - "clusterrbacassessmentreports"
+          - "clustersbomreports"
+          - "clustervulnerabilityreports"
+          - "configauditreports"
+          - "exposedsecretreports"
+          - "infraassessmentreports"
+          - "rbacassessmentreports"
+          - "sbomreports"
+          - "vulnerabilityreports"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "aquasecurity.github.io"
+        resources:
+          - "clustercompliancereports/status"
+        verbs:
+          - "get"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "batch"
+        resources:
+          - "cronjobs"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "batch"
+        resources:
+          - "jobs"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "networking.k8s.io"
+        resources:
+          - "ingresses"
+          - "networkpolicies"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "rbac.authorization.k8s.io"
+        resources:
+          - "clusterrolebindings"
+          - "clusterroles"
+          - "rolebindings"
+          - "roles"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "create"
+          - "get"
+          - "update"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "serviceaccounts"
+        verbs:
+          - "get"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "nodes/proxy"
+        verbs:
+          - "get"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trivy-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trivy-operator\",\"app.kubernetes.io/version\":\"0.30.1\",\"helm.sh/chart\":\"trivy-operator-0.32.1\",\"rbac.authorization.k8s.io/aggregate-to-admin\":\"true\",\"rbac.authorization.k8s.io/aggregate-to-cluster-reader\":\"true\",\"rbac.authorization.k8s.io/aggregate-to-edit\":\"true\",\"rbac.authorization.k8s.io/aggregate-to-view\":\"true\"},\"name\":\"aggregate-config-audit-reports-view\"},\"rules\":[{\"apiGroups\":[\"aquasecurity.github.io\"],\"resources\":[\"configauditreports\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T10:12:54Z"
+      labels:
+        app.kubernetes.io/instance: "trivy-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trivy-operator"
+        app.kubernetes.io/version: "0.30.1"
+        helm.sh/chart: "trivy-operator-0.32.1"
+        rbac.authorization.k8s.io/aggregate-to-admin: "true"
+        rbac.authorization.k8s.io/aggregate-to-cluster-reader: "true"
+        rbac.authorization.k8s.io/aggregate-to-edit: "true"
+        rbac.authorization.k8s.io/aggregate-to-view: "true"
+      name: "aggregate-config-audit-reports-view"
+      resourceVersion: "9461"
+      uid: "436d59ce-36fd-4bf9-837a-ecf6bb61c55c"
+    rules:
+      -
+        apiGroups:
+          - "aquasecurity.github.io"
+        resources:
+          - "configauditreports"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trivy-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trivy-operator\",\"app.kubernetes.io/version\":\"0.30.1\",\"helm.sh/chart\":\"trivy-operator-0.32.1\",\"rbac.authorization.k8s.io/aggregate-to-admin\":\"true\",\"rbac.authorization.k8s.io/aggregate-to-cluster-reader\":\"true\",\"rbac.authorization.k8s.io/aggregate-to-edit\":\"true\",\"rbac.authorization.k8s.io/aggregate-to-view\":\"true\"},\"name\":\"aggregate-exposed-secret-reports-view\"},\"rules\":[{\"apiGroups\":[\"aquasecurity.github.io\"],\"resources\":[\"exposedsecretreports\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T10:12:54Z"
+      labels:
+        app.kubernetes.io/instance: "trivy-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trivy-operator"
+        app.kubernetes.io/version: "0.30.1"
+        helm.sh/chart: "trivy-operator-0.32.1"
+        rbac.authorization.k8s.io/aggregate-to-admin: "true"
+        rbac.authorization.k8s.io/aggregate-to-cluster-reader: "true"
+        rbac.authorization.k8s.io/aggregate-to-edit: "true"
+        rbac.authorization.k8s.io/aggregate-to-view: "true"
+      name: "aggregate-exposed-secret-reports-view"
+      resourceVersion: "9463"
+      uid: "0d2c4954-c271-4ad7-b0fd-acfb24be90ad"
+    rules:
+      -
+        apiGroups:
+          - "aquasecurity.github.io"
+        resources:
+          - "exposedsecretreports"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trivy-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trivy-operator\",\"app.kubernetes.io/version\":\"0.30.1\",\"helm.sh/chart\":\"trivy-operator-0.32.1\",\"rbac.authorization.k8s.io/aggregate-to-admin\":\"true\",\"rbac.authorization.k8s.io/aggregate-to-cluster-reader\":\"true\",\"rbac.authorization.k8s.io/aggregate-to-edit\":\"true\",\"rbac.authorization.k8s.io/aggregate-to-view\":\"true\"},\"name\":\"aggregate-vulnerability-reports-view\"},\"rules\":[{\"apiGroups\":[\"aquasecurity.github.io\"],\"resources\":[\"vulnerabilityreports\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T10:12:54Z"
+      labels:
+        app.kubernetes.io/instance: "trivy-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trivy-operator"
+        app.kubernetes.io/version: "0.30.1"
+        helm.sh/chart: "trivy-operator-0.32.1"
+        rbac.authorization.k8s.io/aggregate-to-admin: "true"
+        rbac.authorization.k8s.io/aggregate-to-cluster-reader: "true"
+        rbac.authorization.k8s.io/aggregate-to-edit: "true"
+        rbac.authorization.k8s.io/aggregate-to-view: "true"
+      name: "aggregate-vulnerability-reports-view"
+      resourceVersion: "9467"
+      uid: "40b6e28c-1ceb-4e59-bd82-d2d20af36c19"
+    rules:
+      -
+        apiGroups:
+          - "aquasecurity.github.io"
+        resources:
+          - "vulnerabilityreports"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"trivy-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"trivy-operator\",\"app.kubernetes.io/version\":\"0.30.1\",\"helm.sh/chart\":\"trivy-operator-0.32.1\"},\"name\":\"trivy-operator\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"trivy-operator\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"trivy-operator\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T10:12:54Z"
+      labels:
+        app.kubernetes.io/instance: "trivy-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "trivy-operator"
+        app.kubernetes.io/version: "0.30.1"
+        helm.sh/chart: "trivy-operator-0.32.1"
+      name: "trivy-operator"
+      resourceVersion: "9471"
+      uid: "536a8f2d-5853-4994-9503-0c2a60978ae4"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "trivy-operator"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "trivy-operator"
+        namespace: "default"
+kind: "List"
+metadata:
+  resourceVersion: ""
