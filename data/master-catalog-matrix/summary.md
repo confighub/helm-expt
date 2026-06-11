@@ -49,8 +49,7 @@ duplicates of this one.
 
 | Source of truth | Carried into the matrix | Stays in the source |
 | --- | --- | --- |
-| [lane-test-matrix/variant-lanes.csv](../lane-test-matrix/variant-lanes.csv) | the five proof lanes, core-lane completeness, recipe path | missing_core_lanes detail, package_path, variant_revision, lane_notes |
-| [outcome-coverage/base-outcomes.csv](../outcome-coverage/base-outcomes.csv) | outcome level, two-cluster kind parity (K) | its duplicate copies of the five lanes, two_cluster_kind_parity_reason, missing_or_non_pass_lanes, evidence_notes |
+| [outcome-coverage/base-outcomes.csv](../outcome-coverage/base-outcomes.csv) | the spine: variants, the five proof lanes, two-cluster kind parity (K), outcome level, core-lane completeness, recipe path | two_cluster_kind_parity_reason, missing_or_non_pass_lanes, evidence_notes, package_path, variant_revision |
 | [top100-readiness/readiness.csv](../top100-readiness/readiness.csv) | catalog tier, adoption bucket, quirk features, hard gap, strongest evidence, next action | workability, user_status, per-chart lane ratios, proof_surface_rank, top500_rank, next_action_source/receipt, file paths |
 | [hook-disposition/top100-hook-dispositions.csv](../hook-disposition/top100-hook-dispositions.csv) | hook count, disposition, live status | hook_phases, selected_route detail, evidence_status text, next_action, evidence paths, rank |
 | [production-support-decisions/decisions.csv](../production-support-decisions/decisions.csv) | decision, target scope | delivery_path, image/scan/lifecycle/target-fact/live-evidence sub-decisions, evidence_count, remaining_final_requirements, next_action |

@@ -49,10 +49,21 @@ Both also carry `complete_core_lane_set`, `recipe_path`, `package_path`,
 `variant_revision`. `base-outcomes.csv` is the superset: it adds
 `outcome_level` and `two_cluster_kind_parity` (+reason).
 
+**Sharpened diagnosis (2026-06-11):** the relationship is source -> derived,
+not two independent truths: `generate-outcome-coverage.mjs` reads
+`variant-lanes.csv` as input and emits `base-outcomes.csv` as the superset.
+The redundancy is that the *intermediate* is also published as a
+reader-facing view. Re-spining the master matrix onto `base-outcomes.csv`
+produced a byte-identical matrix.csv, confirming the derived view is
+faithful.
+
 **Proposal:** make `outcome-coverage/base-outcomes.csv` the single
-variant-lane truth. Re-point consumers (master matrix spine, dashboards),
-then either retire `lane-test-matrix/` or regenerate it as a thin derived
-alias during a deprecation window. One generator owns lane truth afterwards.
+*published* variant-lane truth. Status: the master matrix no longer reads
+`variant-lanes.csv` (done; byte-identical output). Remaining (loop lane):
+re-point `generate-variant-path-coverage.mjs`, then either fold
+lane-test-matrix's receipt-reading logic into outcome-coverage or keep
+variant-lanes as an unpublished intermediate (drop its summary/doc surface
+and data-index row). One published lane view afterwards.
 
 ### R2. The hook family is six directories
 

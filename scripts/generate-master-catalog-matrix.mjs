@@ -36,33 +36,30 @@ const outputs = {
 };
 
 const SOURCES = {
-  lanes: "data/lane-test-matrix/variant-lanes.csv",
   outcomes: "data/outcome-coverage/base-outcomes.csv",
   readiness: "data/top100-readiness/readiness.csv",
   hooks: "data/hook-disposition/top100-hook-dispositions.csv",
   decisions: "data/production-support-decisions/decisions.csv",
 };
 
+// Spine columns come from base-outcomes (the derived lane superset).
+// lane-test-matrix/variant-lanes.csv is its upstream intermediate and is no
+// longer read here — rationalization plan R1.
 const LANE_COLUMNS = [
-  ["lane_render_parity", "helm_template_vs_installer_setup"],
-  ["lane_confighub_scan_ops", "confighub_upload_variant_scan_safe_ops"],
-  ["lane_local_kind", "local_kind_kubectl_apply"],
-  ["lane_gitops_oci_live", "confighub_oci_argo_live"],
-  ["lane_live_dual_parity", "live_helm_vs_confighub_dual_compare"],
+  ["lane_render_parity", "render_parity"],
+  ["lane_confighub_scan_ops", "in_confighub"],
+  ["lane_local_kind", "local_live"],
+  ["lane_gitops_oci_live", "gitops_oci_live"],
+  ["lane_live_dual_parity", "live_helm_vs_confighub_parity"],
 ];
 
 // What each joined source carries into this view and what stays behind —
 // rendered into the summary so the compression is documented, not silent.
 const COLUMN_PROVENANCE = [
   {
-    source: "lane-test-matrix/variant-lanes.csv",
-    carried: "the five proof lanes, core-lane completeness, recipe path",
-    dropped: "missing_core_lanes detail, package_path, variant_revision, lane_notes",
-  },
-  {
     source: "outcome-coverage/base-outcomes.csv",
-    carried: "outcome level, two-cluster kind parity (K)",
-    dropped: "its duplicate copies of the five lanes, two_cluster_kind_parity_reason, missing_or_non_pass_lanes, evidence_notes",
+    carried: "the spine: variants, the five proof lanes, two-cluster kind parity (K), outcome level, core-lane completeness, recipe path",
+    dropped: "two_cluster_kind_parity_reason, missing_or_non_pass_lanes, evidence_notes, package_path, variant_revision",
   },
   {
     source: "top100-readiness/readiness.csv",
@@ -102,24 +99,27 @@ if (mode === "--generate") {
 }
 
 function buildReport() {
-  const lanes = readCsv(SOURCES.lanes);
-  const outcomes = indexBy(readCsv(SOURCES.outcomes), (row) => `${row.chart}|${row.base}`);
+  const outcomes = readCsv(SOURCES.outcomes);
   const readiness = indexBy(readCsv(SOURCES.readiness), (row) => row.chart);
   const hooksByChart = indexBy(readCsv(SOURCES.hooks), (row) => row.chart);
   const decisions = indexBy(readCsv(SOURCES.decisions), (row) => `${row.chart}|${row.version}|${row.supported_base}`);
 
-  const rows = lanes
-    .map((lane) => {
-      const chartAtVersion = `${lane.chart}@${lane.version}`;
+  const rows = outcomes
+    .map((outcome) => {
+      const chartAtVersion = outcome.chart;
+      const at = chartAtVersion.lastIndexOf("@");
+      check(at > 0, `base-outcomes chart ${chartAtVersion} is not in name@version form`);
+      const chartName = chartAtVersion.slice(0, at);
+      const version = chartAtVersion.slice(at + 1);
+      const variant = outcome.base;
       const ready = readiness.get(chartAtVersion);
-      const hook = hooksByChart.get(lane.chart);
-      const outcome = outcomes.get(`${chartAtVersion}|${lane.variant}`);
-      const decision = decisions.get(`${lane.chart}|${lane.version}|${lane.variant}`);
+      const hook = hooksByChart.get(chartName);
+      const decision = decisions.get(`${chartName}|${version}|${variant}`);
       const hookCount = hook ? Number(hook.source_hook_count) : null;
       const row = {
-        chart: lane.chart,
-        version: lane.version,
-        variant: lane.variant,
+        chart: chartName,
+        version,
+        variant,
         catalog_tier: ready?.catalog_tier ?? "",
         adoption_bucket: ready?.adoption_bucket ?? "",
         quirk_features: ready?.source_features ?? "",
@@ -129,13 +129,13 @@ function buildReport() {
         hook_count: hook ? String(hookCount) : "",
         hook_disposition: hook ? (hookCount === 0 ? "n/a" : hook.disposition) : "",
         hook_live_status: hook && hookCount > 0 ? (hook.live_status === "observed" ? "yes" : hook.live_status === "none" ? "todo" : hook.live_status.startsWith("none (") ? "n/a" : "no") : hook ? "n/a" : "",
-        ...Object.fromEntries(LANE_COLUMNS.map(([target, source]) => [target, normalizeLane(lane[source])])),
-        lane_two_cluster_kind: outcome ? normalizeLane(outcome.two_cluster_kind_parity) : "",
-        core_lanes_complete: lane.complete_core_lane_set === "yes" ? "yes" : "no",
-        outcome_level: outcome?.outcome_level ?? "",
+        ...Object.fromEntries(LANE_COLUMNS.map(([target, source]) => [target, normalizeLane(outcome[source])])),
+        lane_two_cluster_kind: normalizeLane(outcome.two_cluster_kind_parity),
+        core_lanes_complete: outcome.complete_core_lane_set === "yes" ? "yes" : "no",
+        outcome_level: outcome.outcome_level ?? "",
         production_decision: decision ? (decision.decision === "supported" ? "yes" : decision.decision === "rejected" ? "no" : decision.decision) : "todo",
         production_target_scope: decision?.target_scope ?? "",
-        recipe_path: lane.recipe_path,
+        recipe_path: outcome.recipe_path,
       };
       return row;
     })
