@@ -913,9 +913,10 @@ Current facts:
 20 passing ConfigHub proof receipt sets
 20 live/e2e observed charts
 20 target-scoped support decision artifacts
-17 supported target-scoped decisions
+16 supported target-scoped decisions
 2 superseded deprecated-source decisions
 1 rejected production boundary
+1 draft support decision with a concrete runtime follow-up
 19 production-review-ready disposition rows
 1 production-blocked pending disposition
 ```

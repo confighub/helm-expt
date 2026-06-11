@@ -79,10 +79,10 @@ Which detailed CSV should I open next?
 | production disposition | top20 production-blocked charts | 1/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | charts with accepted production dispositions | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production support decisions | target-scoped decision artifacts | 20/20 | partial | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
-| production support decisions | supported decision artifacts | 17/20 | partial | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
+| production support decisions | supported decision artifacts | 16/20 | partial | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
 | production support decisions | superseded decision artifacts | 2/20 | partial | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
 | production support decisions | rejected decision artifacts | 1/20 | partial | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
-| production support decisions | draft decision artifacts | 0/20 | good | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
+| production support decisions | draft decision artifacts | 1/20 | partial | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
 | scan disposition | high-priority scan rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | remaining mutable-image rows | 0/20 | good | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
 | scan disposition | privileged infrastructure review rows | 4/20 | partial | [data/scan-disposition-workdown/workdown.csv](../../data/scan-disposition-workdown/workdown.csv) |
@@ -163,7 +163,8 @@ pull remote, vendored, or non-exact dependencies.
 
 | Workstream | Charts | Next action |
 | --- | ---: | --- |
-| Supported scope evidence | 17 | Keep target-scoped evidence fresh before using the supported scope as a production example. |
+| Supported scope evidence | 16 | Keep target-scoped evidence fresh before using the supported scope as a production example. |
+| Runtime or missing-lane decision | 1 | Close the runtime, missing-lane, or lifecycle-observation decision before refreshing final evidence. |
 
 ### Latest Refresh Work
 
@@ -376,10 +377,10 @@ is recorded only in the target-scoped support decision artifacts.
 | production-blocked pending disposition | 1/20 |
 | charts with accepted dispositions | 20/20 |
 | target-scoped support decision artifacts | 20/20 |
-| supported decision artifacts | 17/20 |
+| supported decision artifacts | 16/20 |
 | superseded decision artifacts | 2/20 |
 | rejected decision artifacts | 1/20 |
-| draft decision artifacts | 0/20 |
+| draft decision artifacts | 1/20 |
 | high-priority scan rows | 4/20 |
 | mutable-image rows still needing fixes | 0/20 |
 

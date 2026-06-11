@@ -137,10 +137,10 @@ The repo currently has:
 80 generated full proofs with default variants
 20 catalog-supported recipes for local-test scope
 19 production-review-ready disposition records
-17 supported target-scoped proof scopes
+16 supported target-scoped proof scopes
 2 superseded deprecated-source proof records
 1 rejected default base with a concrete production follow-up route
-0 draft target-scoped support decisions
+1 draft target-scoped support decision with a concrete runtime follow-up
 0 top-20 catalog candidates remaining
 ```
 

@@ -132,6 +132,10 @@ function buildPacket(target, sources) {
   const watch = sources.watchlist.filter((row) => target.chart.includes(row.chart.split("/")[1] ?? row.chart));
   const hook = sources.hooks.find((row) => row.chart === target.chart);
   const workItem = sources.workItems.find((row) => row.chart === target.chart);
+  const supportDecision = sources.supportDecisions.find((row) => row.chart === target.chart);
+  const supportedBase = supportDecision?.supported_base || packetRow.supported_base;
+  const decision = supportDecision?.decision || packetRow.decision;
+  const targetScope = supportDecision?.target_scope || packetRow.target_scope;
 
   const lines = [];
   lines.push(`# ${target.chart} Production-Readiness Packet`);
@@ -146,7 +150,11 @@ function buildPacket(target, sources) {
   lines.push("");
   lines.push("## What should a serious user try first?");
   lines.push("");
-  lines.push(`Base \`${packetRow.supported_base}\` - support decision \`${packetRow.decision}\`, disposition \`${packetRow.production_disposition}\`, bounded to target scope: ${packetRow.target_scope}.`);
+  lines.push(`Base \`${supportedBase}\` - support decision \`${decision}\`, disposition \`${packetRow.production_disposition}\`, bounded to target scope: ${targetScope}.`);
+  if (supportDecision) {
+    lines.push("");
+    lines.push(`Support decision evidence: \`${supportDecision.live_evidence_decision || "-"}\` ([decision](../../../${supportDecision.path})).`);
+  }
   lines.push("");
   lines.push("## Quirks");
   lines.push("");
@@ -183,11 +191,29 @@ function buildPacket(target, sources) {
   } else {
     lines.push("- no routed watchlist rows for this chart today ([watchlist](../../../data/live-e2e/cub-scout-watchlist.md))");
   }
-  lines.push(`- every supported claim is per-target: the decision above covers \`${packetRow.target_scope}\` and nothing broader`);
+  if (decision === "supported") {
+    lines.push(`- every supported claim is per-target: the decision above covers \`${targetScope}\` and nothing broader`);
+  } else {
+    lines.push(`- no final production support is claimed yet: the draft scope is \`${targetScope}\` and must be closed before support is claimed`);
+  }
   lines.push("");
   lines.push("## What production decision is still open, and why?");
   lines.push("");
-  lines.push(`${packetRow.broader_support_work || "See the packet's remaining-work section."}`);
+  if (supportDecision && supportDecision.decision !== "supported") {
+    lines.push(`The support decision is \`${supportDecision.decision}\`; live evidence is \`${supportDecision.live_evidence_decision || "-"}\`.`);
+    if (supportDecision.remaining_final_requirements) {
+      lines.push("");
+      lines.push("Required before final support:");
+      lines.push("");
+      for (const requirement of splitCsvList(supportDecision.remaining_final_requirements)) {
+        lines.push(`- ${requirement}`);
+      }
+    }
+    lines.push("");
+    lines.push(`Next action: ${supportDecision.next_action}`);
+  } else {
+    lines.push(`${packetRow.broader_support_work || "See the packet's remaining-work section."}`);
+  }
   if (workItem) {
     lines.push("");
     lines.push(`Current work item: ${workItem.work_type || workItem.kind || "keep-fresh"} - [work items](../../../data/production-support-decisions/work-items.csv).`);
@@ -213,9 +239,17 @@ function buildAll() {
     liveE2e: parseCsv(read("data/live-e2e/top20-local-kind.csv")),
     watchlist: parseCsv(read("data/live-e2e/cub-scout-watchlist.csv")),
     hooks: parseCsv(read("data/hook-disposition/top100-hook-dispositions.csv")),
+    supportDecisions: parseCsv(read("data/production-support-decisions/decisions.csv")),
     workItems: parseCsv(read("data/production-support-decisions/work-items.csv")),
   };
   return CHARTS.map((target) => ({ target, content: buildPacket(target, sources) }));
+}
+
+function splitCsvList(value) {
+  return value
+    .split(/;\s*/)
+    .map((item) => item.trim())
+    .filter(Boolean);
 }
 
 if (mode === "--generate") {
