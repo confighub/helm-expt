@@ -1,0 +1,34 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "runix-pgadmin4-1.62.0-default-local-kind"
+spec:
+  variantRevision: "recipes/runix/pgadmin4/1.62.0/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "78528d11d3b5ea8cf8c03e43834edbe87a944df1593c516867cc4e0389ba1565"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-pgadmin"
+    context: "kind-claude-helm-expt-codex-pgadmin"
+    namespace: "default"
+  observedAt: "2026-06-11T12:11:53.725Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "e4b4f158589ae5ce5cf3f7af1bdf9d8cb992b4978702bcd8469a4238b233ffcc"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "5 object(s) from recipes/runix/pgadmin4/1.62.0/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|pgadmin4"

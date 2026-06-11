@@ -1,0 +1,41 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "hashicorp-terraform-1.1.2-default-local-kind"
+spec:
+  variantRevision: "recipes/hashicorp/terraform/1.1.2/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "5cc2a190066cc639af6f8856b1ff8e28a40e61546d53cd04f19c5b14d6c37d3b"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-terraform"
+    context: "kind-claude-helm-expt-codex-terraform"
+    namespace: "default"
+  observedAt: "2026-06-11T12:09:15.704Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "1bd9c8b62f5a04c05587559a1a8cad8fc6d1ffae2d65f12d877ace6362a47dcd"
+  checks:
+    -
+      name: "crds-applied-and-established"
+      result: "pass"
+      object: "1 CustomResourceDefinition(s)"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "5 object(s) from recipes/hashicorp/terraform/1.1.2/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|default|terraform-terraform-sync-workspace"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): terraform-terraform-sync-workspace-67688dd4fd-tk52q[ContainerCreating ready=false restarts=0;]"
+  blockedReasons:
+    - "deployment/terraform-terraform-sync-workspace: prerequisite-blocked (stuck creating: missing mount/secret/config) (terraform-terraform-sync-workspace-67688dd4fd-tk52q[ContainerCreating ready=false restarts=0;])"
