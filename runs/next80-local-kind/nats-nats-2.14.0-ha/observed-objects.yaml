@@ -6,7 +6,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"policy/v1\",\"kind\":\"PodDisruptionBudget\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"nats\",\"app.kubernetes.io/instance\":\"nats\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"nats\",\"app.kubernetes.io/version\":\"2.14.0\",\"helm.sh/chart\":\"nats-2.14.0\"},\"name\":\"nats\",\"namespace\":\"default\"},\"spec\":{\"maxUnavailable\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"nats\",\"app.kubernetes.io/instance\":\"nats\",\"app.kubernetes.io/name\":\"nats\"}}}}\n"
-      creationTimestamp: "2026-06-11T14:38:07Z"
+      creationTimestamp: "2026-06-11T14:52:46Z"
       generation: 1
       labels:
         app.kubernetes.io/component: "nats"
@@ -17,8 +17,8 @@ items:
         helm.sh/chart: "nats-2.14.0"
       name: "nats"
       namespace: "default"
-      resourceVersion: "24667"
-      uid: "e58d1b23-e264-41da-9d3e-c45d30696f8f"
+      resourceVersion: "619"
+      uid: "9e2b7151-ed44-4bbe-a05f-e791eb63de7c"
     spec:
       maxUnavailable: 1
       selector:
@@ -29,7 +29,7 @@ items:
     status:
       conditions:
         -
-          lastTransitionTime: "2026-06-11T14:38:37Z"
+          lastTransitionTime: "2026-06-11T14:53:17Z"
           message: ""
           observedGeneration: 1
           reason: "SufficientPods"
@@ -48,7 +48,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "redacted: live Secret last-applied-configuration is not committed"
-      creationTimestamp: "2026-06-11T14:38:07Z"
+      creationTimestamp: "2026-06-11T14:52:46Z"
       labels:
         app.kubernetes.io/component: "nats-box"
         app.kubernetes.io/instance: "nats"
@@ -58,8 +58,8 @@ items:
         helm.sh/chart: "nats-2.14.0"
       name: "nats-box-contexts"
       namespace: "default"
-      resourceVersion: "24514"
-      uid: "55d7ecc2-e5fa-4e3d-9a0c-65a4b9c4f21c"
+      resourceVersion: "435"
+      uid: "6c68f49f-feac-40b5-8bdc-67975666b53f"
     type: "Opaque"
   -
     apiVersion: "v1"
@@ -69,7 +69,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"nats.conf\":\"{\\n  \\\"cluster\\\": {\\n    \\\"name\\\": \\\"nats\\\",\\n    \\\"no_advertise\\\": true,\\n    \\\"port\\\": 6222,\\n    \\\"routes\\\": [\\n      \\\"nats://nats-0.nats-headless:6222\\\",\\n      \\\"nats://nats-1.nats-headless:6222\\\",\\n      \\\"nats://nats-2.nats-headless:6222\\\"\\n    ]\\n  },\\n  \\\"http_port\\\": 8222,\\n  \\\"lame_duck_duration\\\": \\\"30s\\\",\\n  \\\"lame_duck_grace_period\\\": \\\"10s\\\",\\n  \\\"pid_file\\\": \\\"/var/run/nats/nats.pid\\\",\\n  \\\"port\\\": 4222,\\n  \\\"server_name\\\": $SERVER_NAME\\n}\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"nats\",\"app.kubernetes.io/instance\":\"nats\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"nats\",\"app.kubernetes.io/version\":\"2.14.0\",\"helm.sh/chart\":\"nats-2.14.0\"},\"name\":\"nats-config\",\"namespace\":\"default\"}}\n"
-      creationTimestamp: "2026-06-11T14:38:07Z"
+      creationTimestamp: "2026-06-11T14:52:46Z"
       labels:
         app.kubernetes.io/component: "nats"
         app.kubernetes.io/instance: "nats"
@@ -79,15 +79,15 @@ items:
         helm.sh/chart: "nats-2.14.0"
       name: "nats-config"
       namespace: "default"
-      resourceVersion: "24517"
-      uid: "c4eb9085-3db8-407c-b545-d50a71b222e8"
+      resourceVersion: "438"
+      uid: "f72a402a-cd98-42a0-8c08-444ff194d764"
   -
     apiVersion: "v1"
     kind: "Service"
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"nats\",\"app.kubernetes.io/instance\":\"nats\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"nats\",\"app.kubernetes.io/version\":\"2.14.0\",\"helm.sh/chart\":\"nats-2.14.0\"},\"name\":\"nats-headless\",\"namespace\":\"default\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"appProtocol\":\"tcp\",\"name\":\"nats\",\"port\":4222,\"targetPort\":\"nats\"},{\"appProtocol\":\"tcp\",\"name\":\"cluster\",\"port\":6222,\"targetPort\":\"cluster\"},{\"appProtocol\":\"http\",\"name\":\"monitor\",\"port\":8222,\"targetPort\":\"monitor\"}],\"publishNotReadyAddresses\":true,\"selector\":{\"app.kubernetes.io/component\":\"nats\",\"app.kubernetes.io/instance\":\"nats\",\"app.kubernetes.io/name\":\"nats\"}}}\n"
-      creationTimestamp: "2026-06-11T14:38:07Z"
+      creationTimestamp: "2026-06-11T14:52:46Z"
       labels:
         app.kubernetes.io/component: "nats"
         app.kubernetes.io/instance: "nats"
@@ -97,8 +97,8 @@ items:
         helm.sh/chart: "nats-2.14.0"
       name: "nats-headless"
       namespace: "default"
-      resourceVersion: "24518"
-      uid: "01f640b7-a5cc-4e2f-96af-fe03fc596aa7"
+      resourceVersion: "440"
+      uid: "36051a75-b1da-4cba-a9db-4542c35869d8"
     spec:
       clusterIP: "None"
       clusterIPs:
@@ -142,7 +142,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"nats\",\"app.kubernetes.io/instance\":\"nats\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"nats\",\"app.kubernetes.io/version\":\"2.14.0\",\"helm.sh/chart\":\"nats-2.14.0\"},\"name\":\"nats\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"appProtocol\":\"tcp\",\"name\":\"nats\",\"port\":4222,\"targetPort\":\"nats\"}],\"selector\":{\"app.kubernetes.io/component\":\"nats\",\"app.kubernetes.io/instance\":\"nats\",\"app.kubernetes.io/name\":\"nats\"}}}\n"
-      creationTimestamp: "2026-06-11T14:38:07Z"
+      creationTimestamp: "2026-06-11T14:52:46Z"
       labels:
         app.kubernetes.io/component: "nats"
         app.kubernetes.io/instance: "nats"
@@ -152,12 +152,12 @@ items:
         helm.sh/chart: "nats-2.14.0"
       name: "nats"
       namespace: "default"
-      resourceVersion: "24522"
-      uid: "c06745af-f0e7-4b85-8639-d67e5f03e864"
+      resourceVersion: "444"
+      uid: "04fb36e2-3a7a-416a-95a8-5ffd53403acf"
     spec:
-      clusterIP: "10.96.106.241"
+      clusterIP: "10.96.115.81"
       clusterIPs:
-        - "10.96.106.241"
+        - "10.96.115.81"
       internalTrafficPolicy: "Cluster"
       ipFamilies:
         - "IPv4"
@@ -185,7 +185,7 @@ items:
       annotations:
         deployment.kubernetes.io/revision: "1"
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"nats-box\",\"app.kubernetes.io/instance\":\"nats\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"nats\",\"app.kubernetes.io/version\":\"2.14.0\",\"helm.sh/chart\":\"nats-2.14.0\"},\"name\":\"nats-box\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"nats-box\",\"app.kubernetes.io/instance\":\"nats\",\"app.kubernetes.io/name\":\"nats\"}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"nats-box\",\"app.kubernetes.io/instance\":\"nats\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"nats\",\"app.kubernetes.io/version\":\"2.14.0\",\"helm.sh/chart\":\"nats-2.14.0\"}},\"spec\":{\"containers\":[{\"args\":[\"sh\",\"-ec\",\"trap true INT TERM; sleep infinity \\u0026 wait\"],\"command\":[\"sh\",\"-ec\",\"work_dir=\\\"$(pwd)\\\"\\nmkdir -p \\\"$XDG_CONFIG_HOME/nats\\\"\\ncd \\\"$XDG_CONFIG_HOME/nats\\\"\\nif ! [ -s context ]; then\\n  ln -s /etc/nats-contexts context\\nfi\\nif ! [ -f context.txt ]; then\\n  echo -n \\\"default\\\" \\u003e context.txt\\nfi\\ncd \\\"$work_dir\\\"\\nexec /entrypoint.sh \\\"$@\\\"\\n\",\"--\"],\"image\":\"natsio/nats-box:0.19.5\",\"name\":\"nats-box\",\"resources\":null,\"volumeMounts\":[{\"mountPath\":\"/etc/nats-contexts\",\"name\":\"contexts\"}]}],\"enableServiceLinks\":false,\"volumes\":[{\"name\":\"contexts\",\"secret\":{\"secretName\":\"nats-box-contexts\"}}]}}}}\n"
-      creationTimestamp: "2026-06-11T14:38:07Z"
+      creationTimestamp: "2026-06-11T14:52:46Z"
       generation: 1
       labels:
         app.kubernetes.io/component: "nats-box"
@@ -196,8 +196,8 @@ items:
         helm.sh/chart: "nats-2.14.0"
       name: "nats-box"
       namespace: "default"
-      resourceVersion: "24580"
-      uid: "531c7be4-0945-4e2f-96a8-548e44238a79"
+      resourceVersion: "535"
+      uid: "d607a16c-aea3-460f-9b20-bdd0e9ee41f7"
     spec:
       progressDeadlineSeconds: 600
       replicas: 1
@@ -261,15 +261,15 @@ items:
       availableReplicas: 1
       conditions:
         -
-          lastTransitionTime: "2026-06-11T14:38:14Z"
-          lastUpdateTime: "2026-06-11T14:38:14Z"
+          lastTransitionTime: "2026-06-11T14:52:55Z"
+          lastUpdateTime: "2026-06-11T14:52:55Z"
           message: "Deployment has minimum availability."
           reason: "MinimumReplicasAvailable"
           status: "True"
           type: "Available"
         -
-          lastTransitionTime: "2026-06-11T14:38:07Z"
-          lastUpdateTime: "2026-06-11T14:38:14Z"
+          lastTransitionTime: "2026-06-11T14:52:46Z"
+          lastUpdateTime: "2026-06-11T14:52:55Z"
           message: "ReplicaSet \"nats-box-9bdbc696f\" has successfully progressed."
           reason: "NewReplicaSetAvailable"
           status: "True"
@@ -285,7 +285,7 @@ items:
     metadata:
       annotations:
         kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"nats\",\"app.kubernetes.io/instance\":\"nats\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"nats\",\"app.kubernetes.io/version\":\"2.14.0\",\"helm.sh/chart\":\"nats-2.14.0\"},\"name\":\"nats\",\"namespace\":\"default\"},\"spec\":{\"podManagementPolicy\":\"Parallel\",\"replicas\":3,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"nats\",\"app.kubernetes.io/instance\":\"nats\",\"app.kubernetes.io/name\":\"nats\"}},\"serviceName\":\"nats-headless\",\"template\":{\"metadata\":{\"annotations\":null,\"labels\":{\"app.kubernetes.io/component\":\"nats\",\"app.kubernetes.io/instance\":\"nats\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"nats\",\"app.kubernetes.io/version\":\"2.14.0\",\"helm.sh/chart\":\"nats-2.14.0\"}},\"spec\":{\"containers\":[{\"args\":[\"--config\",\"/etc/nats-config/nats.conf\"],\"env\":[{\"name\":\"POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"SERVER_NAME\",\"value\":\"$(POD_NAME)\"}],\"image\":\"nats:2.14.0-alpine\",\"lifecycle\":{\"preStop\":{\"exec\":{\"command\":[\"nats-server\",\"-sl=ldm=/var/run/nats/nats.pid\"]}}},\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/healthz?js-enabled-only=true\",\"port\":\"monitor\"},\"initialDelaySeconds\":10,\"periodSeconds\":30,\"successThreshold\":1,\"timeoutSeconds\":5},\"name\":\"nats\",\"ports\":[{\"containerPort\":4222,\"name\":\"nats\"},{\"containerPort\":6222,\"name\":\"cluster\"},{\"containerPort\":8222,\"name\":\"monitor\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/healthz?js-server-only=true\",\"port\":\"monitor\"},\"initialDelaySeconds\":10,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"resources\":{},\"startupProbe\":{\"failureThreshold\":90,\"httpGet\":{\"path\":\"/healthz\",\"port\":\"monitor\"},\"initialDelaySeconds\":10,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"volumeMounts\":[{\"mountPath\":\"/etc/nats-config\",\"name\":\"config\"},{\"mountPath\":\"/var/run/nats\",\"name\":\"pid\"}]},{\"args\":[\"-pid\",\"/var/run/nats/nats.pid\",\"-config\",\"/etc/nats-config/nats.conf\"],\"image\":\"natsio/nats-server-config-reloader:0.23.0\",\"name\":\"reloader\",\"volumeMounts\":[{\"mountPath\":\"/var/run/nats\",\"name\":\"pid\"},{\"mountPath\":\"/etc/nats-config\",\"name\":\"config\"}]}],\"enableServiceLinks\":false,\"shareProcessNamespace\":true,\"terminationGracePeriodSeconds\":60,\"volumes\":[{\"configMap\":{\"name\":\"nats-config\"},\"name\":\"config\"},{\"emptyDir\":{},\"name\":\"pid\"}]}},\"volumeClaimTemplates\":null}}\n"
-      creationTimestamp: "2026-06-11T14:38:07Z"
+      creationTimestamp: "2026-06-11T14:52:46Z"
       generation: 1
       labels:
         app.kubernetes.io/component: "nats"
@@ -296,8 +296,8 @@ items:
         helm.sh/chart: "nats-2.14.0"
       name: "nats"
       namespace: "default"
-      resourceVersion: "24671"
-      uid: "bc3f68fc-9f3f-488f-b294-80181c8b752d"
+      resourceVersion: "620"
+      uid: "55b9fda9-a6a2-4cad-bd36-2122492ae267"
     spec:
       persistentVolumeClaimRetentionPolicy:
         whenDeleted: "Retain"

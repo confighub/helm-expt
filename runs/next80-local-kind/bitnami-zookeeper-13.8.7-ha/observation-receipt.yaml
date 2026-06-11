@@ -11,18 +11,18 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-next80"
-    context: "kind-claude-helm-expt-next80"
+    name: "claude-helm-expt-codex-zookeeper-ha"
+    context: "kind-claude-helm-expt-codex-zookeeper-ha"
     namespace: "default"
-  observedAt: "2026-06-11T13:12:04.716Z"
+  observedAt: "2026-06-11T14:47:58.098Z"
   freshnessTTL: "1h"
   result: "blocked"
-  clusterStatus: "existing"
+  clusterStatus: "created-by-test"
   variant: "ha"
   workloads: 1
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "e212a2661904e7694ca34e207aea4f4610dbb81ec36cd90b6fbfc70212da4ec8"
+    sha256: "b6a441d8b5ae13c7de7a5ed89e74603dea89cfdeb215211968dca99f47d17440"
   checks:
     -
       name: "rendered-objects-applied"
@@ -32,6 +32,6 @@ spec:
       name: "workload-converged"
       result: "blocked"
       object: "StatefulSet|default|zookeeper"
-      reason: "image-pull-blocked: rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;] surveyor-c4759d87-p4692[CrashLoopBackOff ready=false restarts=23;] zookeeper-0[ImagePullBackOff ready=false restarts=0;] zookeeper-1[ErrImagePull ready=false restarts=0;] zookeeper-2[ErrImagePull ready=false restarts=0;]"
+      reason: "image-pull-blocked: zookeeper-0[ImagePullBackOff ready=false restarts=0;] zookeeper-1[ImagePullBackOff ready=false restarts=0;] zookeeper-2[ImagePullBackOff ready=false restarts=0;]"
   blockedReasons:
-    - "statefulset/zookeeper: image-pull-blocked (rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;] surveyor-c4759d87-p4692[CrashLoopBackOff ready=false restarts=23;] zookeeper-0[ImagePullBackOff read)"
+    - "statefulset/zookeeper: image-pull-blocked (zookeeper-0[ImagePullBackOff ready=false restarts=0;] zookeeper-1[ImagePullBackOff ready=false restarts=0;] zookeeper-2[ImagePullBackOff ready=false restarts=0;)"

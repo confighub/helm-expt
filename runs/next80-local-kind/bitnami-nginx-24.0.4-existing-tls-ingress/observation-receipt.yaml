@@ -3,36 +3,39 @@ kind: "ObservationReceipt"
 metadata:
   name: "bitnami-nginx-24.0.4-existing-tls-ingress-local-kind"
 spec:
-  blockedReasons:
-    - "apply: Error from server (Forbidden): error when creating \"STDIN\": networkpolicies.networking.k8s.io \"nginx\" is forbidden: unable to create new content in namespace nginx because it is being terminated Error"
-    - "deployment/nginx: not-ready (nginx-5c568bf554-7php2[PodInitializing ready=false restarts=0;])"
-  checks:
-    -
-      name: "rendered-objects-applied"
-      object: "6 object(s) from recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml"
-      reason: "apply-blocked: Error from server (Forbidden): error when creating \"STDIN\": networkpolicies.networking.k8s.io \"nginx\" is forbidden: unable to create new content in namespace nginx because it is being terminated Error"
-      result: "blocked"
-      evidencePath: "observation-log.txt"
-      evidenceSHA256: "cfad2031f630e002ee52aa726870e9fd3ea5b201fb92118c3b8c78e8e2e05cd3"
-    -
-      name: "workload-converged"
-      object: "Deployment|nginx|nginx"
-      reason: "not-ready: nginx-5c568bf554-7php2[PodInitializing ready=false restarts=0;]"
-      result: "fail"
-  clusterStatus: "existing"
-  freshnessTTL: "1h"
-  observedAt: "2026-06-11T12:51:41.085Z"
+  variantRevision: "recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "35c8f535452c33518088a067f035d6249750b0a67245138feaf84d728c94588f"
   observer:
-    method: "kubectl-kind"
     name: "next80-local-live"
     version: "0.1.0"
-  renderedObjectSetSHA256: "35c8f535452c33518088a067f035d6249750b0a67245138feaf84d728c94588f"
-  result: "fail"
+    method: "kubectl-kind"
   target:
-    context: "kind-claude-helm-expt-next80"
     kind: "kind"
-    name: "claude-helm-expt-next80"
+    name: "claude-helm-expt-codex-nginx2404-tls"
+    context: "kind-claude-helm-expt-codex-nginx2404-tls"
     namespace: "nginx"
+  observedAt: "2026-06-11T15:17:04.328Z"
+  freshnessTTL: "1h"
+  result: "fail"
+  clusterStatus: "created-by-test"
   variant: "existing-tls-ingress"
-  variantRevision: "recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/variant-revision.yaml"
   workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "f8cc6f425f1101c2b2e26b1035a325a5f8fac0ab79c6e2d7daa77ef11c0f1065"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||nginx"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "6 object(s) from recipes/bitnami/nginx/24.0.4/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "Deployment|nginx|nginx"
+      reason: "not-ready: nginx-78b966456-4plns[PodInitializing ready=false restarts=0;]"
+  blockedReasons:
+    - "deployment/nginx: not-ready (nginx-78b966456-4plns[PodInitializing ready=false restarts=0;])"

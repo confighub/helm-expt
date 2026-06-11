@@ -11,18 +11,18 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-next80"
-    context: "kind-claude-helm-expt-next80"
+    name: "claude-helm-expt-codex-nats-ha"
+    context: "kind-claude-helm-expt-codex-nats-ha"
     namespace: "default"
-  observedAt: "2026-06-11T14:38:37.727Z"
+  observedAt: "2026-06-11T14:53:17.758Z"
   freshnessTTL: "1h"
   result: "pass"
-  clusterStatus: "existing"
+  clusterStatus: "created-by-test"
   variant: "ha"
   workloads: 2
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "201e0a48b5a2e6c6e8650f545ce50d77e4ff281c0baf7b8f45d91aa012b9582a"
+    sha256: "d40d253d06ca1300442fd479ab2e81ea894d95b4ac1f129376c1e1bee93ba988"
   checks:
     -
       name: "rendered-objects-applied"
