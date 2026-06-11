@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "minio-operator-tenant-7.1.1-default-local-kind"
+spec:
+  variantRevision: "recipes/minio-operator/tenant/7.1.1/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "4577edd3c6c83479b029c32a8e41e966b19ef3810e062c156c5c54850c4ab32a"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-minio-tenant"
+    context: "kind-claude-helm-expt-codex-minio-tenant"
+    namespace: "default"
+  observedAt: "2026-06-11T13:22:43.839Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 0
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "blocked"
+      object: "2 object(s) from recipes/minio-operator/tenant/7.1.1/revisions/default/r001/rendered/release-objects.yaml"
+      reason: "apply-blocked: error: resource mapping not found for name: \"myminio\" namespace: \"\" from \"STDIN\": no matches for kind \"Tenant\" in version \"minio.min.io/v2\" ensure CRDs are installed first Command failed: kubectl --co"
+  blockedReasons:
+    - "apply: error: resource mapping not found for name: \"myminio\" namespace: \"\" from \"STDIN\": no matches for kind \"Tenant\" in version \"minio.min.io/v2\" ensure CRDs are installed first Command failed: kubectl --co"

@@ -1,0 +1,34 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "vm-victoria-logs-single-0.12.5-default-local-kind"
+spec:
+  variantRevision: "recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "edbf6e7dd31e9a1d0686592e7c1f050b04f5d780bdc33bb34fb3ddbfdfedde04"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-victoria-logs"
+    context: "kind-claude-helm-expt-codex-victoria-logs"
+    namespace: "default"
+  observedAt: "2026-06-11T13:23:50.342Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "1f6e356b74012eb6e92ccbe72dd7e98c74ded8150381655e908e030fd598409f"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "2 object(s) from recipes/vm/victoria-logs-single/0.12.5/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "StatefulSet|default|victoria-logs-single-server"
