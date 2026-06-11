@@ -335,7 +335,7 @@ spreadsheet.
 | jetstack/cert-manager@v1.20.2 | crds-enabled (start-here) | start-here:1; lifecycle-observed:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | - |
 | longhorn/longhorn@1.11.2 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | - |
 | metrics-server/metrics-server@3.13.0 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle) |
-| prometheus-community/kube-prometheus-stack@85.3.3 | default (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | existing-secret (chart ships no Secret toggle) |
+| prometheus-community/kube-prometheus-stack@85.3.3 | default (start-here) | start-here:2 | live-helm-vs-confighub-parity | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
 | prometheus-community/prometheus@29.8.0 | server-only-ephemeral (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | ha (curated proof lane - bespoke teaching needed) |
 | secrets-store-csi-driver/secrets-store-csi-driver@1.6.0 | default (start-here) | start-here:1; try-with-proof:1 | live-helm-vs-confighub-parity | 2/2 | 1/2 | 2/2 | 1/2 | 1/2 | - |
 
