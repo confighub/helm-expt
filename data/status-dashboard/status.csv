@@ -33,8 +33,8 @@ top500,rows with no current recipe proof,409,500,gap,data/top500-catalog-analysi
 top500,version-drift review rows,21,500,partial,data/top500-catalog-analysis/review.csv,Current recipe exists but the retained source-scan version differs.
 proof lanes,render parity rows,189,189,good,data/outcome-coverage/base-outcomes.csv,Every chart/base row has render parity under recorded inputs.
 proof lanes,in-ConfigHub proof rows,20,189,partial,data/outcome-coverage/base-outcomes.csv,"Rows with upload, scan, or safe-operation proof receipts."
-proof lanes,local live rows,23,189,partial,data/outcome-coverage/base-outcomes.csv,Rows with committed local Kubernetes observation receipts.
-proof lanes,GitOps/OCI live pass rows,22,189,partial,data/outcome-coverage/base-outcomes.csv,6 rows have non-pass GitOps/OCI receipts.
+proof lanes,local live rows,31,189,partial,data/outcome-coverage/base-outcomes.csv,Rows with committed local Kubernetes observation receipts.
+proof lanes,GitOps/OCI live pass rows,23,189,partial,data/outcome-coverage/base-outcomes.csv,6 rows have non-pass GitOps/OCI receipts.
 proof lanes,live Helm-vs-ConfigHub parity pass rows,20,189,partial,data/outcome-coverage/base-outcomes.csv,2 rows have non-pass live parity receipts.
 proof lanes,two-cluster kind parity pass rows,49,50,partial,data/live-kind-parity/summary.csv,"Regular Helm in one vanilla kind cluster, cub installer output in another, then semantic comparison."
 proof lanes,two-cluster semantic parity pass rows,50,50,good,data/live-kind-parity/summary.csv,"Rows where the strict two-cluster receipt records the same Kubernetes object meaning, even when a hook or lifecycle command result still needs review."

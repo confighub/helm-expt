@@ -35,7 +35,7 @@ from a different chart version's disposition row.
 | --- | ---: |
 | Chart versions | 110 |
 | Variant rows | 189 |
-| Lane cells ✅ / ⚠️ / ❌ / ⬜ | 323 / 4 / 5 / 802 |
+| Lane cells ✅ / ⚠️ / ❌ / ⬜ | 332 / 4 / 6 / 791 |
 | Variants with the complete core lane set | 20 |
 | Variants with a SUPPORTED production decision | 17 |
 | Recorded production decisions (supported / superseded / rejected) | 17 / 2 / 1 |
@@ -73,16 +73,16 @@ them for width.
 |  | no-crds | top20 | — | — | ✅ | ⬜ | ⬜ | ❌ | ⬜ | ✅ | render-parity | ⬜ |
 | `argo-cd/argo-cd@9.5.17` | default | — | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 |  | no-crds | — | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-| `argo-cd/argo-events@2.4.21` | default | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+| `argo-cd/argo-events@2.4.21` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 |  | no-crds | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-| `argo-cd/argo-rollouts@2.40.9` | default | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+| `argo-cd/argo-rollouts@2.40.9` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 |  | no-crds | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-| `argo-cd/argo-workflows@1.0.14` | default | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+| `argo-cd/argo-workflows@1.0.14` | default | next80 | — | — | ✅ | ⬜ | fail | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 |  | controller-default-reviewed | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `argo-cd/argocd-image-updater@1.2.2` | default | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `autoscaler/cluster-autoscaler@9.57.0` | default | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 |  | controller-default-reviewed | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-| `autoscaler/vertical-pod-autoscaler@0.9.0` | default | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+| `autoscaler/vertical-pod-autoscaler@0.9.0` | default | next80 | — | — | ✅ | ⬜ | ❌ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 |  | no-crds | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | default | next80 | `tpl;capabilities;cluster-rbac` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `bitnami/apache@11.4.29` | default | next80 | `lookup;generated-facts;tpl;capabilities` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
@@ -126,9 +126,9 @@ them for width.
 |  | ha | next80 | `lookup;generated-facts;tpl;capabilities;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | default | next80 | `generated-facts;tpl;crds;cluster-rbac;webhooks` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
 |  | no-crds | next80 | `generated-facts;tpl;crds;cluster-rbac;webhooks` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-| `coredns/coredns@1.45.2` | default | next80 | `generated-facts;tpl;capabilities;cluster-rbac` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+| `coredns/coredns@1.45.2` | default | next80 | `generated-facts;tpl;capabilities;cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `crossplane-stable/crossplane@2.3.1` | default | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-| `descheduler/descheduler@0.36.0` | default | next80 | `tpl;cluster-rbac` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+| `descheduler/descheduler@0.36.0` | default | next80 | `tpl;cluster-rbac` | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `dex/dex@0.24.0` | default | next80 | `tpl;capabilities;cluster-rbac` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `elastic/eck-operator@3.4.0` | default | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
 |  | ha | next80 | `tpl;capabilities;cluster-rbac;webhooks;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
@@ -149,7 +149,7 @@ them for width.
 |  | no-crds | next80 | `lookup;tpl;capabilities;crds;cluster-rbac;webhooks` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `falcosecurity/falco@9.0.0` | default | next80 | `lookup;tpl;capabilities;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `falcosecurity/falcosidekick@0.13.1` | default | next80 | `capabilities;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-| `fluent/fluent-bit@0.57.6` | default | next80 | `tpl;capabilities;hooks;cluster-rbac` | 1 observed ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+| `fluent/fluent-bit@0.57.6` | default | next80 | `tpl;capabilities;hooks;cluster-rbac` | 1 observed ✅ | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 | `fluent/fluentd@0.5.3` | default | next80 | `tpl;capabilities;cluster-rbac;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `gatekeeper/gatekeeper@3.22.2` | default | next80 | `capabilities;hooks;crds;cluster-rbac;webhooks` | unrouted ⚠️ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 |  | no-crds | next80 | `capabilities;hooks;crds;cluster-rbac;webhooks` | unrouted ⚠️ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
@@ -190,9 +190,9 @@ them for width.
 | `jetstack/cert-manager-csi-driver@v0.14.0` | default | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `jetstack/trust-manager@v0.22.1` | default | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 |  | no-crds | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-| `kedacore/keda@2.19.0` | default | next80 | `tpl;capabilities;crds;cluster-rbac;webhooks` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |
+| `kedacore/keda@2.19.0` | default | next80 | `tpl;capabilities;crds;cluster-rbac;webhooks` | — | ✅ | ⬜ | ✅ | ✅ | ⬜ | ✅ | gitops-live | ⬜ |
 |  | no-crds | next80 | `tpl;capabilities;crds;cluster-rbac;webhooks` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-| `kyverno/kyverno@3.8.1` | default | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+| `kyverno/kyverno@3.8.1` | default | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 |  | no-crds | next80 | `lookup;generated-facts;tpl;capabilities;hooks;crds;cluster-rbac;stateful-storage` | 8 observed ✅ | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `kyverno/kyverno-policies@3.8.0` | default | next80 | `lookup;tpl` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `linkerd/linkerd-crds@1.8.0` | default | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
@@ -241,7 +241,7 @@ them for width.
 | `rook-release/rook-ceph@v1.19.5` | default | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `rook-release/rook-ceph-cluster@v1.19.5` | default | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `runix/pgadmin4@1.62.0` | default | next80 | `tpl;capabilities;stateful-storage` | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
-| `sealed-secrets/sealed-secrets@2.18.6` | default | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
+| `sealed-secrets/sealed-secrets@2.18.6` | default | next80 | — | — | ✅ | ⬜ | ✅ | ⬜ | ⬜ | ⬜ | local-live | ⬜ |
 |  | no-crds | next80 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | render-parity | ⬜ |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default | top20 | — | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | live-parity | ✅ |
 |  | sync-secret-rotation | top20 | — | — | ✅ | ⬜ | ⬜ | ⬜ | ⬜ | ✅ | render-parity | ⬜ |

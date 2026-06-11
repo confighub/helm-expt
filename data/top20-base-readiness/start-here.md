@@ -13,10 +13,10 @@ target-scoped support decision for the chart/base/target you intend to use.
 ~~~text
 start-here bases: 20
 top-20 base variants: 42
-target-scoped supported decisions: 16
+target-scoped supported decisions: 17
 target-scoped superseded decisions: 2
 target-scoped rejected decisions: 1
-target-scoped draft decisions: 1
+target-scoped draft decisions: 0
 ~~~
 
 ## First Paths

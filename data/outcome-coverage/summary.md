@@ -13,8 +13,8 @@ chart/base rows:                     189
 complete core lane rows:             20/189
 render parity rows:                  189/189
 in-ConfigHub proof rows:             20/189
-local live rows:                     23/189
-GitOps/OCI live pass rows:           22/189
+local live rows:                     31/189
+GitOps/OCI live pass rows:           23/189
 GitOps/OCI non-pass receipts:        6
 live Helm-vs-ConfigHub pass rows:    20/189
 live Helm-vs-ConfigHub non-pass receipts: 2

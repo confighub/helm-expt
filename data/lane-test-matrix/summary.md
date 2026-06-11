@@ -26,8 +26,8 @@ incomplete core lane set: 169
 | --- | ---: | ---: | ---: | ---: | ---: |
 | helm_template_vs_installer_setup | 189 | 0 | 0 | 0 | 0 |
 | confighub_upload_variant_scan_safe_ops | 20 | 169 | 0 | 0 | 0 |
-| local_kind_kubectl_apply | 23 | 166 | 0 | 0 | 0 |
-| confighub_oci_argo_live | 22 | 161 | 0 | 2 | 4 |
+| local_kind_kubectl_apply | 31 | 156 | 1 | 0 | 1 |
+| confighub_oci_argo_live | 23 | 160 | 0 | 2 | 4 |
 | live_helm_vs_confighub_dual_compare | 20 | 167 | 0 | 2 | 0 |
 
 ## Lane Definitions
@@ -81,9 +81,7 @@ currently has no committed PASS receipts for every chart-recipe-variant row.
 - argo-cd/argo-cd@9.5.15 / no-crds
 - argo-cd/argo-cd@9.5.17 / default
 - argo-cd/argo-cd@9.5.17 / no-crds
-- argo-cd/argo-events@2.4.21 / default
 - argo-cd/argo-events@2.4.21 / no-crds
-- argo-cd/argo-rollouts@2.40.9 / default
 - argo-cd/argo-rollouts@2.40.9 / no-crds
 - argo-cd/argo-workflows@1.0.14 / controller-default-reviewed
 - argo-cd/argo-workflows@1.0.14 / default
@@ -101,6 +99,8 @@ currently has no committed PASS receipts for every chart-recipe-variant row.
 - bitnami/memcached@8.5.5 / default
 - bitnami/mongodb@19.0.7 / existing-secret-replicaset
 - bitnami/mongodb@19.0.9 / existing-secret-replicaset
+- bitnami/mongodb@19.0.9 / generated-passwords
+- bitnami/mongodb@19.1.0 / existing-secret-replicaset
 
 
 ### First Non-Pass Or Missing Live Helm Vs ConfigHub Rows
