@@ -176,6 +176,57 @@ function runTarget() {
         return evidence("admission-server-dry-run.yaml", "server-side dry-run exercised the live admission path");
       });
     }
+
+    if (clusterCreated) {
+      record("pre-upgrade-crd-route-apply", () => {
+        const crdFiles = gatekeeperCrdFiles(workDir);
+        check(crdFiles.length === 17, `expected 17 Gatekeeper CRD files, found ${crdFiles.length}`);
+        const out = kubectl(context, ["apply", "--server-side", ...crdFiles.flatMap((file) => ["-f", file])], 420);
+        write(join(runRoot, "pre-upgrade-crd-route-apply.txt"), out);
+        return {
+          ...evidence("pre-upgrade-crd-route-apply.txt", "re-applied rendered Gatekeeper CRDs as the explicit pre-upgrade route"),
+          crdCount: crdFiles.length,
+        };
+      });
+    }
+
+    if (clusterCreated) {
+      record("pre-upgrade-crds-established", () => {
+        const crds = gatekeeperCrds();
+        check(crds.length === 17, `expected 17 Gatekeeper CRDs, found ${crds.length}`);
+        const lines = [];
+        for (const crd of crds) {
+          const out = kubectl(context, ["wait", "--for=condition=Established", `crd/${crd}`, "--timeout=180s"], 210);
+          lines.push(out.trim());
+        }
+        write(join(runRoot, "pre-upgrade-crds-established.txt"), `${lines.join("\n")}\n`);
+        return { ...evidence("pre-upgrade-crds-established.txt", "Gatekeeper CRDs remained Established after the explicit pre-upgrade route"), crdCount: crds.length };
+      });
+    }
+
+    if (clusterCreated) {
+      record("pre-upgrade-webhook-configurations-routed", () => {
+        const names = ["gatekeeper-mutating-webhook-configuration", "gatekeeper-validating-webhook-configuration"];
+        const observed = {};
+        for (const name of names) {
+          const config = waitForJson(context, ["get", webhookKind(name), name, "-o", "json"], (json) => {
+            const webhooks = json.webhooks ?? [];
+            return webhooks.length > 0 && webhooks.every((webhook) => Boolean(webhook.clientConfig?.service?.name && webhook.clientConfig?.caBundle));
+          }, 180_000);
+          observed[name] = summarizeWebhookConfiguration(config);
+        }
+        writeJson(join(runRoot, "pre-upgrade-webhook-configurations.json"), observed);
+        return evidence("pre-upgrade-webhook-configurations.json", "Gatekeeper webhook configurations stayed routed after the explicit pre-upgrade route");
+      });
+    }
+
+    if (clusterCreated) {
+      record("pre-upgrade-admission-server-dry-run", () => {
+        const out = waitForKubectl(context, ["create", "namespace", "gatekeeper-lifecycle-check-upgrade", "--dry-run=server", "-o", "yaml"], 180_000);
+        write(join(runRoot, "pre-upgrade-admission-server-dry-run.yaml"), out);
+        return evidence("pre-upgrade-admission-server-dry-run.yaml", "server-side dry-run exercised admission after the explicit pre-upgrade route");
+      });
+    }
   } finally {
     if (existsSync(workDir)) rmSync(workDir, { recursive: true, force: true });
     if (clusterCreated) {
@@ -195,7 +246,7 @@ function baseReceipt(cluster) {
   return {
     apiVersion: "helm-expt.confighub.com/v1alpha1",
     kind: "HookLifecycleObservationReceipt",
-    metadata: { name: "gatekeeper-gatekeeper-default-install-lifecycle" },
+    metadata: { name: "gatekeeper-gatekeeper-default-install-and-upgrade-route-lifecycle" },
     spec: {
       chart: target.chart,
       version: target.version,
@@ -207,8 +258,8 @@ function baseReceipt(cluster) {
       variantRevision: target.variantRevision,
       lifecycleModel: {
         hookTypes: ["pre-install", "pre-upgrade"],
-        route: "preflight-or-presync-install-observation",
-        claim: "The fresh-install route observes the separated Secret prerequisite, CRD establishment, controller readiness, webhook service readiness, controller-populated TLS material, and server-side admission dry-run. It does not claim Gatekeeper upgrade-hook behavior.",
+        route: "preflight-or-presync-install-and-upgrade-route-observation",
+        claim: "The fresh-install route observes the separated Secret prerequisite, CRD establishment, controller readiness, webhook service readiness, controller-populated TLS material, and server-side admission dry-run. The pre-upgrade route rehearsal re-applies the pinned rendered CRDs, then rechecks CRD Established, webhook routing, and admission dry-run. It does not claim cross-version Gatekeeper upgrade support.",
       },
       run: {
         mode: "single-kind-cluster-cub-installer-install-lifecycle-observation",
@@ -230,7 +281,7 @@ function verify() {
   check(receipt.spec?.version === target.version, "Gatekeeper hook lifecycle version mismatch");
   check(receipt.spec?.base === target.base, "Gatekeeper hook lifecycle base mismatch");
   check(receipt.spec?.result === "pass", "Gatekeeper hook lifecycle did not pass");
-  check(receipt.spec?.lifecycleModel?.route === "preflight-or-presync-install-observation", "Gatekeeper hook lifecycle route mismatch");
+  check(receipt.spec?.lifecycleModel?.route === "preflight-or-presync-install-and-upgrade-route-observation", "Gatekeeper hook lifecycle route mismatch");
   check(receipt.spec?.run?.cleanup?.result === "pass", "Gatekeeper hook lifecycle cleanup did not pass");
   const checks = receipt.spec?.checks ?? [];
   for (const name of [
@@ -244,6 +295,10 @@ function verify() {
     "webhook-secret-populated",
     "webhook-configurations-routed",
     "admission-server-dry-run",
+    "pre-upgrade-crd-route-apply",
+    "pre-upgrade-crds-established",
+    "pre-upgrade-webhook-configurations-routed",
+    "pre-upgrade-admission-server-dry-run",
   ]) {
     const item = checks.find((checkItem) => checkItem.name === name);
     check(Boolean(item), `Gatekeeper hook lifecycle missing check ${name}`);
@@ -252,6 +307,8 @@ function verify() {
   }
   const crdCheck = checks.find((item) => item.name === "crds-established");
   check(crdCheck?.crdCount === 17, "Gatekeeper hook lifecycle did not observe 17 CRDs");
+  const preUpgradeCrdCheck = checks.find((item) => item.name === "pre-upgrade-crds-established");
+  check(preUpgradeCrdCheck?.crdCount === 17, "Gatekeeper pre-upgrade route did not observe 17 CRDs");
   console.log("verified Gatekeeper hook lifecycle observation");
 }
 
@@ -276,6 +333,24 @@ function gatekeeperCrds() {
     .filter((object) => object.kind === "CustomResourceDefinition")
     .map((object) => object.name)
     .sort();
+}
+
+function gatekeeperCrdFiles(workDir) {
+  const manifestsDir = join(workDir, "out", "manifests");
+  return manifestFiles(manifestsDir)
+    .filter((file) => file.includes("/customresourcedefinition-"))
+    .sort();
+}
+
+function manifestFiles(path) {
+  if (!existsSync(path)) return [];
+  const files = [];
+  for (const entry of readdirSync(path, { withFileTypes: true })) {
+    const entryPath = join(path, entry.name);
+    if (entry.isDirectory()) files.push(...manifestFiles(entryPath));
+    else if (entry.isFile() && (entry.name.endsWith(".yaml") || entry.name.endsWith(".yml"))) files.push(entryPath);
+  }
+  return files;
 }
 
 function webhookKind(name) {

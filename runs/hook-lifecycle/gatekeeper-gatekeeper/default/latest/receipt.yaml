@@ -1,13 +1,13 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "HookLifecycleObservationReceipt"
 metadata:
-  name: "gatekeeper-gatekeeper-default-install-lifecycle"
+  name: "gatekeeper-gatekeeper-default-install-and-upgrade-route-lifecycle"
 spec:
   chart: "gatekeeper/gatekeeper"
   version: "3.22.2"
   base: "default"
   result: "pass"
-  observedAt: "2026-06-10T18:53:33Z"
+  observedAt: "2026-06-11T03:45:44Z"
   package:
     path: "packages/gatekeeper/gatekeeper/3.22.2"
   recipe:
@@ -17,11 +17,11 @@ spec:
     hookTypes:
       - "pre-install"
       - "pre-upgrade"
-    route: "preflight-or-presync-install-observation"
-    claim: "The fresh-install route observes the separated Secret prerequisite, CRD establishment, controller readiness, webhook service readiness, controller-populated TLS material, and server-side admission dry-run. It does not claim Gatekeeper upgrade-hook behavior."
+    route: "preflight-or-presync-install-and-upgrade-route-observation"
+    claim: "The fresh-install route observes the separated Secret prerequisite, CRD establishment, controller readiness, webhook service readiness, controller-populated TLS material, and server-side admission dry-run. The pre-upgrade route rehearsal re-applies the pinned rendered CRDs, then rechecks CRD Established, webhook routing, and admission dry-run. It does not claim cross-version Gatekeeper upgrade support."
   run:
     mode: "single-kind-cluster-cub-installer-install-lifecycle-observation"
-    cluster: "hx-hook-gatekeeper-8ffua6"
+    cluster: "hx-hook-gatekeeper-8yg8b0"
     namespace: "default"
     cleanup:
       result: "pass"
@@ -36,7 +36,7 @@ spec:
       result: "pass"
       detail: "rendered Gatekeeper cub installer package output"
       evidencePath: "cub-installer-setup.txt"
-      evidenceSHA256: "4125a139ec0493a81134ad2e522b97b10431e3e302f9caf0b7aa8b9232c801a2"
+      evidenceSHA256: "90e8315c99eb022f87bfef1e7f60fd329530ece522deea682a54e4e41415fe4a"
     -
       name: "kubectl-apply-separated-secrets"
       result: "pass"
@@ -67,28 +67,54 @@ spec:
       result: "pass"
       detail: "Gatekeeper audit deployment rolled out"
       evidencePath: "deployment-gatekeeper-audit-rollout.txt"
-      evidenceSHA256: "15f5182ff656d2b5aa3c1285fca9416812370a09a0f6fa3ec87945ac0e71191b"
+      evidenceSHA256: "c27887d5708820a76a7c5a177071c1f8479267717cc3fae6e812086d2a2411ca"
     -
       name: "webhook-service-endpoints"
       result: "pass"
       detail: "Gatekeeper webhook Service has ready endpoints"
       evidencePath: "service-gatekeeper-webhook-endpoints.yaml"
-      evidenceSHA256: "2814c2ef43d8ede7632425ce32bd6538ca3c53131c25290ab8b3984e3574504e"
+      evidenceSHA256: "b29db1de99b2fd984a54bb07be232eeec259ee4a71bf251772f086a3f0e0f981"
     -
       name: "webhook-secret-populated"
       result: "pass"
       detail: "Gatekeeper controller populated webhook TLS Secret keys"
       evidencePath: "secret-gatekeeper-webhook-server-cert.json"
-      evidenceSHA256: "49c7c08a8251f7b0708f2c8e60a698f6e8f2cef0ab7a27f89bbaf1eac05dca6b"
+      evidenceSHA256: "16ca2e68b1fc479839d7fb25578212821d0e365a69f59cde5053aa484971a33f"
     -
       name: "webhook-configurations-routed"
       result: "pass"
       detail: "Gatekeeper webhook configurations point at the rendered Service and contain CA bundles"
       evidencePath: "webhook-configurations.json"
-      evidenceSHA256: "80c23e5838f824c5c44c591083114058e127f8e9843edba8596f954f3c5ad87c"
+      evidenceSHA256: "09658ac09727ec045f74f68273521eb29c3bb4f05a0a522fddf0232a8c604096"
     -
       name: "admission-server-dry-run"
       result: "pass"
       detail: "server-side dry-run exercised the live admission path"
       evidencePath: "admission-server-dry-run.yaml"
-      evidenceSHA256: "fac242bad96fdfa708fa398ad93e0a86cdd3b398247f747d89f257efc80bf157"
+      evidenceSHA256: "33cb6887b20d304645036bfb00b8c55e5e19d0114aa0cfc54cef7825191ad084"
+    -
+      name: "pre-upgrade-crd-route-apply"
+      result: "pass"
+      detail: "re-applied rendered Gatekeeper CRDs as the explicit pre-upgrade route"
+      evidencePath: "pre-upgrade-crd-route-apply.txt"
+      evidenceSHA256: "b65a35f9e05eca97e146787b80b690ecc44c13320c618ad2c2641538dc431fbb"
+      crdCount: 17
+    -
+      name: "pre-upgrade-crds-established"
+      result: "pass"
+      detail: "Gatekeeper CRDs remained Established after the explicit pre-upgrade route"
+      evidencePath: "pre-upgrade-crds-established.txt"
+      evidenceSHA256: "c8a644f9d0c2344ea2d726b41196f685a2e2f2ec6d4de1b6db05a1852b40efd8"
+      crdCount: 17
+    -
+      name: "pre-upgrade-webhook-configurations-routed"
+      result: "pass"
+      detail: "Gatekeeper webhook configurations stayed routed after the explicit pre-upgrade route"
+      evidencePath: "pre-upgrade-webhook-configurations.json"
+      evidenceSHA256: "09658ac09727ec045f74f68273521eb29c3bb4f05a0a522fddf0232a8c604096"
+    -
+      name: "pre-upgrade-admission-server-dry-run"
+      result: "pass"
+      detail: "server-side dry-run exercised admission after the explicit pre-upgrade route"
+      evidencePath: "pre-upgrade-admission-server-dry-run.yaml"
+      evidenceSHA256: "95f99cf3346c390cc3708bf49785f7d9a0f27073e06a2421e9009259d1a25a74"

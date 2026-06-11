@@ -424,6 +424,15 @@
     },
     {
       "section": "proof lanes",
+      "metric": "two-cluster semantic parity pass rows",
+      "value": "50",
+      "total": "50",
+      "status": "good",
+      "source": "data/live-kind-parity/summary.csv",
+      "note": "Rows where the strict two-cluster receipt records the same Kubernetes object meaning, even when a hook or lifecycle command result still needs review."
+    },
+    {
+      "section": "proof lanes",
       "metric": "complete core lane rows",
       "value": "20",
       "total": "179",
@@ -866,7 +875,7 @@
     {
       "section": "hooks",
       "metric": "hook lifecycle observations present",
-      "value": "3",
+      "value": "4",
       "total": "5",
       "status": "gap",
       "source": "data/hook-lifecycle/maintained-hook-queue.csv",
@@ -875,7 +884,7 @@
     {
       "section": "hooks",
       "metric": "hook partial lifecycle observations present",
-      "value": "2",
+      "value": "1",
       "total": "5",
       "status": "partial",
       "source": "data/hook-lifecycle/maintained-hook-queue.csv",
@@ -902,7 +911,7 @@
     {
       "section": "hooks",
       "metric": "hook routes still needing execution or observation",
-      "value": "2",
+      "value": "1",
       "total": "5",
       "status": "gap",
       "source": "data/lifecycle-boundary/lifecycle-boundary.csv",
