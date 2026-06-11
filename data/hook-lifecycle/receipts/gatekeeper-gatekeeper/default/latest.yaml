@@ -6,35 +6,36 @@ spec:
   chart: gatekeeper/gatekeeper
   version: 3.22.2
   base: default
-  result: partially-observed
+  result: observed
   selectedAt: "2026-06-09"
-  observedAt: "2026-06-10T18:53:33Z"
+  observedAt: "2026-06-11T03:45:44Z"
   route:
-    summary: CRD upgrade hooks are routed to preflight or presync plus upgrade receipts.
+    summary: CRD install and pre-upgrade hooks are routed to explicit CRD preflight or presync plus observed route checks.
     phases:
       - hookTypes: [pre-install, pre-upgrade]
         action: preflight-or-presync
         reason: CRD and admission-webhook prerequisites must be checked before apply.
       - hookTypes: [pre-upgrade]
         action: upgrade-action-with-receipt
-        reason: CRD upgrade behavior must be recorded as a target-aware operation.
+        reason: The pinned rendered CRD route must be recorded as a target-aware operation before stronger upgrade claims.
   evidence:
     - path: data/hook-lifecycle/top100-hooks.csv
       claim: Source scan found pre-install and pre-upgrade CRD hook templates.
     - path: recipes/gatekeeper/gatekeeper/3.22.2/helm-pain-report.yaml
       claim: Chart pain report records CRD, webhook, and hook lifecycle risk.
     - path: runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml
-      claim: Fresh kind run observed separated Secret prerequisite, CRD establishment, workload rollout, webhook Service readiness, webhook TLS material, webhook CA bundles, and server-side admission dry-run.
+      claim: Fresh kind run observed separated Secret prerequisite, CRD establishment, workload rollout, webhook Service readiness, webhook TLS material, webhook CA bundles, server-side admission dry-run, and an explicit pre-upgrade CRD route rehearsal followed by webhook and admission checks.
   execution:
     helmHooksExecutedByHarness: false
     runtimeObserved: true
     observedRoute:
-      route: preflight-or-presync-install-observation
+      route: preflight-or-presync-install-and-upgrade-route-observation
       result: pass
       receipt: runs/hook-lifecycle/gatekeeper-gatekeeper/default/latest/receipt.yaml
     notes:
       - This is a route selection for a proof-grade chart, not a production support claim.
       - The fresh-install lifecycle route has been observed.
-      - The pre-upgrade hook route remains pending.
+      - The pinned-base pre-upgrade CRD route has been rehearsed and observed.
+      - This does not claim cross-version Gatekeeper upgrade support.
   remainingWork:
-    - Record pre-upgrade CRD behavior and webhook readiness with freshness.
+    - Record cross-version Gatekeeper upgrade behavior before making production upgrade support claims.

@@ -2,8 +2,8 @@ apiVersion: v1
 kind: Endpoints
 metadata:
   annotations:
-    endpoints.kubernetes.io/last-change-trigger-time: "2026-06-10T18:54:29Z"
-  creationTimestamp: "2026-06-10T18:54:13Z"
+    endpoints.kubernetes.io/last-change-trigger-time: "2026-06-11T03:46:22Z"
+  creationTimestamp: "2026-06-11T03:46:11Z"
   labels:
     app: gatekeeper
     chart: gatekeeper
@@ -13,31 +13,31 @@ metadata:
     release: gatekeeper
   name: gatekeeper-webhook-service
   namespace: default
-  resourceVersion: "705"
-  uid: 21285d78-e6d0-499d-8ab8-4d16cf4f04be
+  resourceVersion: "671"
+  uid: ceefdcb1-81cb-41e9-8398-4058c4805f8b
 subsets:
 - addresses:
-  - ip: 10.244.0.5
-    nodeName: hx-hook-gatekeeper-8ffua6-control-plane
+  - ip: 10.244.0.6
+    nodeName: hx-hook-gatekeeper-8yg8b0-control-plane
     targetRef:
       kind: Pod
-      name: gatekeeper-controller-manager-6988f9c779-486rw
+      name: gatekeeper-controller-manager-6988f9c779-kvmgh
       namespace: default
-      uid: 6c624d5f-2404-47a7-9b5b-84caf843b126
+      uid: 7758b9a4-aa21-4883-8351-297a874b8886
   - ip: 10.244.0.7
-    nodeName: hx-hook-gatekeeper-8ffua6-control-plane
+    nodeName: hx-hook-gatekeeper-8yg8b0-control-plane
     targetRef:
       kind: Pod
-      name: gatekeeper-controller-manager-6988f9c779-m8wgs
+      name: gatekeeper-controller-manager-6988f9c779-cczbn
       namespace: default
-      uid: 283d321f-76a5-4c1a-81c7-389805a74705
+      uid: 648437e3-e290-44a4-b50a-b8d1b0a23cc4
   - ip: 10.244.0.8
-    nodeName: hx-hook-gatekeeper-8ffua6-control-plane
+    nodeName: hx-hook-gatekeeper-8yg8b0-control-plane
     targetRef:
       kind: Pod
-      name: gatekeeper-controller-manager-6988f9c779-t7p8c
+      name: gatekeeper-controller-manager-6988f9c779-8ndsb
       namespace: default
-      uid: aabce380-419d-4cbe-94ae-755e0d215215
+      uid: 82b4806f-40d1-4355-a00f-68e79924c798
   ports:
   - name: https-webhook-server
     port: 8443

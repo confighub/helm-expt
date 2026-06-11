@@ -1,0 +1,17 @@
+customresourcedefinition.apiextensions.k8s.io/assign.mutations.gatekeeper.sh serverside-applied
+customresourcedefinition.apiextensions.k8s.io/assignimage.mutations.gatekeeper.sh serverside-applied
+customresourcedefinition.apiextensions.k8s.io/assignmetadata.mutations.gatekeeper.sh serverside-applied
+customresourcedefinition.apiextensions.k8s.io/configpodstatuses.status.gatekeeper.sh serverside-applied
+customresourcedefinition.apiextensions.k8s.io/configs.config.gatekeeper.sh serverside-applied
+customresourcedefinition.apiextensions.k8s.io/connectionpodstatuses.status.gatekeeper.sh serverside-applied
+customresourcedefinition.apiextensions.k8s.io/connections.connection.gatekeeper.sh serverside-applied
+customresourcedefinition.apiextensions.k8s.io/constraintpodstatuses.status.gatekeeper.sh serverside-applied
+customresourcedefinition.apiextensions.k8s.io/constrainttemplatepodstatuses.status.gatekeeper.sh serverside-applied
+customresourcedefinition.apiextensions.k8s.io/constrainttemplates.templates.gatekeeper.sh serverside-applied
+customresourcedefinition.apiextensions.k8s.io/expansiontemplate.expansion.gatekeeper.sh serverside-applied
+customresourcedefinition.apiextensions.k8s.io/expansiontemplatepodstatuses.status.gatekeeper.sh serverside-applied
+customresourcedefinition.apiextensions.k8s.io/modifyset.mutations.gatekeeper.sh serverside-applied
+customresourcedefinition.apiextensions.k8s.io/mutatorpodstatuses.status.gatekeeper.sh serverside-applied
+customresourcedefinition.apiextensions.k8s.io/providerpodstatuses.status.gatekeeper.sh serverside-applied
+customresourcedefinition.apiextensions.k8s.io/providers.externaldata.gatekeeper.sh serverside-applied
+customresourcedefinition.apiextensions.k8s.io/syncsets.syncset.gatekeeper.sh serverside-applied
