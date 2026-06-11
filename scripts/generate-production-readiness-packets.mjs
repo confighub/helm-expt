@@ -40,6 +40,10 @@ const CHARTS = [
         "Regular Helm workload upgrade rehearsal 85.3.3 -> 86.1.0 (install, workloads Ready, upgrade, workloads Ready)",
         "runs/serious-chart-reviews/kube-prometheus-stack/workload-upgrade-live/latest/receipt.yaml",
       ],
+      [
+        "No-CRDs two-cluster live parity with explicit CRD and admission Secret target facts staged",
+        "runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml",
+      ],
     ],
     mustNot: [
       "\"ConfigHub upgrades are proven\" - the workload-upgrade receipt exercises regular Helm on one kind profile, not ConfigHub upgrade orchestration",
@@ -47,7 +51,7 @@ const CHARTS = [
       "\"webhook runtime lifecycle is proven for this chart\" - the observed pattern lives on cert-manager/external-secrets; this chart's own operator webhook lifecycle has no receipt",
     ],
     nextTest:
-      "a ConfigHub-managed upgrade or a no-crds support receipt with compatible external CRDs and the admission Secret staged",
+      "a ConfigHub-managed upgrade or target-scoped no-crds GitOps/OCI evidence showing how compatible external CRDs and the admission Secret are supplied",
   },
   {
     slug: "cert-manager",

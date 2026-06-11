@@ -48,6 +48,14 @@ comparison (`default`) and the two-cluster kind parity lane (`default` and
 named values profiles, Kubernetes 1.30 kind clusters. This is install-time
 equivalence on that profile; it is not an any-cluster or any-values claim.
 
+The `no-crds` row is the useful hard case. It proves more than rendered YAML
+equivalence: both clusters staged the same compatible Prometheus Operator CRDs,
+the installer lane also staged the `monitoring/kube-prometheus-stack-admission`
+Secret as an explicit target fact, and both sides reached Ready workloads with
+no semantic object diff other than the allowed installer-created Namespace. The
+fresh 2026-06-11 receipt is
+[`runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml`](../../runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml).
+
 ## Hook Lifecycle Proof
 
 The chart's admission-webhook cert patch jobs are the hooks. Status in the
@@ -105,9 +113,11 @@ OCI/Argo evidence for the declared scope. Stricter environments may still need
 a hardened or digest-pinned base.
 
 The `no-crds` base remains a separate support decision. Its GitOps/OCI runtime
-receipt is valuable because it blocks when target CRDs are missing; support for
-that base requires compatible external CRDs, the admission Secret, and fresh
-target evidence.
+receipt is valuable because it blocks when target CRDs are missing; the fresh
+two-cluster kind receipt is valuable because it proves the positive path when
+compatible external CRDs and the admission Secret are staged. Support for that
+base still needs a target-scoped production decision and GitOps/OCI evidence
+showing how those prerequisites are supplied for the chosen target.
 
 ## Claims That Must Not Be Made Yet
 
@@ -130,8 +140,9 @@ target evidence.
 ## Suggested Next Receipts
 
 In value order: (1) a ConfigHub-managed upgrade receipt for a reviewed
-upgrade path; (2) a `no-crds` support receipt with compatible external CRDs
-and the admission Secret staged; (3) runtime webhook lifecycle observation for
-this chart's own operator, reusing the cert-manager/External Secrets pattern;
-(4) a hardened or digest-pinned base for stricter environments that should not
-reuse the public proof scope's mutable-image and scan exceptions.
+upgrade path; (2) a target-scoped `no-crds` production-support decision with
+GitOps/OCI evidence for supplying compatible external CRDs and the admission
+Secret; (3) runtime webhook lifecycle observation for this chart's own
+operator, reusing the cert-manager/External Secrets pattern; (4) a hardened or
+digest-pinned base for stricter environments that should not reuse the public
+proof scope's mutable-image and scan exceptions.
