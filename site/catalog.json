@@ -436,6 +436,15 @@
     },
     {
       "section": "proof lanes",
+      "metric": "local live non-pass rows classified",
+      "value": "83",
+      "total": "83",
+      "status": "good",
+      "source": "data/local-live-triage/triage.csv",
+      "note": "Every local live non-pass receipt is mapped to a route class, next action, and proof boundary."
+    },
+    {
+      "section": "proof lanes",
       "metric": "GitOps/OCI live pass rows",
       "value": "23",
       "total": "189",

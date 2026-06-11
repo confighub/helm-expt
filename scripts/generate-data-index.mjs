@@ -73,6 +73,7 @@ function readme(rows) {
     ["I want to know how upstream chart updates are handled.", "data/refresh-survival/summary.md; data/latest-top20-refresh/action-queue/summary.md; data/latest-top20-refresh/replacement-decisions/summary.md"],
     ["I want the top-100 or top-500 planning picture.", "data/top100-readiness/summary.md; data/top100-readiness/next80-queues.md; data/top500-catalog-analysis/review.csv"],
     ["I want live parity status.", "data/live-kind-parity/summary.md; data/live-helm-confighub-compare/summary.md"],
+    ["I want to understand local live non-pass rows.", "data/local-live-triage/summary.md; data/local-live-triage/triage.csv"],
     ["I want hook, APIService, CRD, webhook, or lifecycle status.", "data/hook-coverage/summary.md; data/apiservice-coverage/summary.md; data/apiservice-coverage/work-orders.md; data/lifecycle-boundary/summary.md; data/outcome-coverage/feature-outcomes.csv"],
     ["I want candidate routes for hook-bearing source charts.", "data/hook-route-candidates/summary.md; data/hook-route-candidates/candidates.csv; data/hook-route-candidates/work-orders.md"],
     ["I want extension-slot or custom-config risk.", "data/extension-slots/summary.md; data/nginx-config-checks/summary.md"],
@@ -108,6 +109,7 @@ function readme(rows) {
     ["data/hook-route-candidates/work-orders.md", "Generated work orders for turning hook route candidates into maintained route receipts, observations, or explicit blockers."],
     ["data/lifecycle-observations/cert-manager-eso/summary.md", "Concrete lifecycle observations for cert-manager and External Secrets: CRD policy, post-apply API readiness, webhook CA injection, and controller-populated Secret data."],
     ["data/live-kind-parity/summary.md", "Two-cluster live parity: regular Helm in one vanilla kind cluster and cub installer output in another."],
+    ["data/local-live-triage/summary.md", "Local Kubernetes non-pass triage: every local live fail/block row mapped to a route class, next action, and receipt."],
     ["data/live-helm-confighub-compare/summary.md", "Selected live Helm-vs-ConfigHub parity: regular Helm compared with ConfigHub delivery for selected top-20 rows."],
     ["data/live-parity-rerun-plan/summary.md", "Rerun queue for non-pass live parity rows: next action, current diagnosis, and exact rerun command."],
     ["data/production-disposition/summary.md", "Production support boundary for top-20 catalog charts: accepted dispositions, open blockers, and next actions."],
@@ -298,6 +300,7 @@ function audienceFor(path) {
   if (path.startsWith("data/chart-use-guide/")) return "user/front-door";
   if (path.startsWith("data/chart-evidence-router/")) return "user/front-door";
   if (path.startsWith("data/status-dashboard/")) return "user/front-door";
+  if (path.startsWith("data/local-live-triage/")) return "user/front-door";
   if (path.startsWith("data/outcome-evidence-contract/")) return "user/front-door";
   if (path.startsWith("data/top20-base-readiness/")) return "user/front-door";
   if (path.startsWith("data/outcome-coverage/")) return "user/front-door";
@@ -342,6 +345,8 @@ function roleFor(path) {
   if (path === "data/status-dashboard/next-work-queues.csv") return "machine-readable next work queues: section, item, count, action, source table, and detail";
   if (path === "data/status-dashboard/active-proof-queue.csv") return "current non-pass live parity rows with their next step, support artifact, receipt, and rerun command";
   if (path === "data/status-dashboard/top20-status.csv") return "one row per top-20 catalog chart: recommended base, setup command, base-readiness mix, evidence strength, proof lanes, feature summary, gaps, next action";
+  if (path === "data/local-live-triage/triage.csv") return "one row per local live non-pass chart/base: route class, user meaning, next action, and receipt";
+  if (path === "data/local-live-triage/classes.csv") return "route-class summary for local live non-pass rows";
   if (path === "data/outcome-evidence-contract/outcomes.csv") return "one row per user-visible outcome: question, status, evidence, verifier command, scope, and next action";
   if (path === "data/live-e2e/cub-scout-watchlist.csv") return "strict cub-scout live witness gaps where ordinary live checks pass but rendered/live parity needs a target capability or lifecycle decision";
   if (path === "data/top20-base-readiness/base-readiness.csv") return "one row per top-20 base variant: user readiness, proof status, target facts, command, and next action";
@@ -419,6 +424,7 @@ function familyRole(family) {
     "claims-register": "front-door public claim-to-evidence register",
     "blast-radius-accuracy": "front-door measured blast-radius accuracy seed and backlog",
     "status-dashboard": "one-page front-door status dashboard",
+    "local-live-triage": "front-door local live non-pass route classes and next actions",
     "top20-base-readiness": "top-20 base-variant readiness and first-path guidance",
     "pain-point-coverage": "front-door Helm pain point coverage map",
     "top100-user-readiness": "front-door top-100 user-language readiness, prerequisites, first base, and next action",
@@ -519,6 +525,7 @@ function commandMap() {
     "torture-suite": { generate: "npm run torture:suite", verify: "npm run torture:suite:verify" },
     "doc-freshness": { generate: "npm run doc-freshness", verify: "npm run doc-freshness:verify" },
     "status-dashboard": { generate: "npm run status:dashboard", verify: "npm run status:dashboard:verify" },
+    "local-live-triage": { generate: "npm run local-live:triage", verify: "npm run local-live:triage:verify" },
     "top20-base-readiness": { generate: "npm run top20:base-readiness", verify: "npm run top20:base-readiness:verify" },
     "pain-point-coverage": { generate: "npm run pain-points:generate", verify: "npm run pain-points:verify" },
     "top100-user-readiness": { generate: "npm run top100:user-readiness", verify: "npm run top100:user-readiness:verify" },

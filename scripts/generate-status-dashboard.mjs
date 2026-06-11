@@ -43,6 +43,8 @@ if (mode === "--generate") {
 function buildReport() {
   const chartRows = readCsv("data/outcome-coverage/chart-outcomes.csv");
   const baseRows = readCsv("data/outcome-coverage/base-outcomes.csv");
+  const localLiveTriageRows = readCsv("data/local-live-triage/triage.csv");
+  const localLiveTriageClassRows = readCsv("data/local-live-triage/classes.csv");
   const top20BaseReadinessRows = readCsv("data/top20-base-readiness/base-readiness.csv");
   const chartUseRows = readCsv("data/chart-use-guide/chart-use-guide.csv");
   const top100Rows = readCsv("data/top100-readiness/readiness.csv");
@@ -127,6 +129,7 @@ function buildReport() {
   rows.push(metric("proof lanes", "render parity rows", passCount(baseRows, "render_parity"), baseRows.length, "good", "data/outcome-coverage/base-outcomes.csv", "Every chart/base row has render parity under recorded inputs."));
   rows.push(metric("proof lanes", "in-ConfigHub proof rows", passCount(baseRows, "in_confighub"), baseRows.length, "partial", "data/outcome-coverage/base-outcomes.csv", "Rows with upload, scan, or safe-operation proof receipts."));
   rows.push(metric("proof lanes", "local live rows", passCount(baseRows, "local_live"), baseRows.length, "partial", "data/outcome-coverage/base-outcomes.csv", "Rows with committed local Kubernetes observation receipts."));
+  rows.push(metric("proof lanes", "local live non-pass rows classified", localLiveTriageRows.length, baseRows.filter((row) => ["fail", "blocked", "watch"].includes(row.local_live)).length, "good", "data/local-live-triage/triage.csv", "Every local live non-pass receipt is mapped to a route class, next action, and proof boundary."));
   rows.push(metric("proof lanes", "GitOps/OCI live pass rows", passCount(baseRows, "gitops_oci_live"), baseRows.length, "partial", "data/outcome-coverage/base-outcomes.csv", `${nonPassCount(baseRows, "gitops_oci_live")} rows have non-pass GitOps/OCI receipts.`));
   rows.push(metric("proof lanes", "live Helm-vs-ConfigHub parity pass rows", passCount(baseRows, "live_helm_vs_confighub_parity"), baseRows.length, "partial", "data/outcome-coverage/base-outcomes.csv", `${nonPassCount(baseRows, "live_helm_vs_confighub_parity")} rows have non-pass live parity receipts.`));
   rows.push(metric("proof lanes", "two-cluster kind parity pass rows", resultCount(kindParityRows, "pass"), kindParityRows.length, "partial", "data/live-kind-parity/summary.csv", "Regular Helm in one vanilla kind cluster, cub installer output in another, then semantic comparison."));
@@ -220,7 +223,7 @@ function buildReport() {
     nextWorkQueuesCsv: nextWorkQueuesToCsv(nextWorkQueues),
     activeProofQueue,
     activeProofQueueCsv: activeProofQueueToCsv(activeProofQueue),
-    summary: summary(rows, { chartRows, baseRows, chartUseRows, top100Rows, top100CoverageWorkRows, usefulBaseRows, top100PromotionFastTrackRows, top100PromotionFastTrackReviewRows, top100PromotionFastTrackStorageRows, top500Rows, top20Rows, quirkRows, hardProofGapRows, extensionRows, hookRows, hookReviewRows, hookCandidateRows, hookCandidateWorkOrderRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, productionSupportDecisionRows, scanDispositionRows, latestRefreshActionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues, activeProofQueue }),
+    summary: summary(rows, { chartRows, baseRows, localLiveTriageRows, localLiveTriageClassRows, chartUseRows, top100Rows, top100CoverageWorkRows, usefulBaseRows, top100PromotionFastTrackRows, top100PromotionFastTrackReviewRows, top100PromotionFastTrackStorageRows, top500Rows, top20Rows, quirkRows, hardProofGapRows, extensionRows, hookRows, hookReviewRows, hookCandidateRows, hookCandidateWorkOrderRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, productionSupportDecisionRows, scanDispositionRows, latestRefreshActionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues, activeProofQueue }),
   };
 }
 
@@ -238,6 +241,7 @@ function summary(rows, context) {
   const kindParityNonPass = context.kindParityRows.filter((row) => row.result && row.result !== "pass");
   const liveParityNextSteps = groupCount(context.liveParityRerunRows, "next_step_type");
   const liveParityRerunReadiness = groupCount(context.liveParityRerunRows, "rerun_readiness");
+  const localLiveTriagePreview = context.localLiveTriageRows.slice(0, 12);
   const productionBlockers = [...flattenCounts(context.productionRows, "open_dispositions").entries()]
     .sort((left, right) => right[1] - left[1] || left[0].localeCompare(right[0]))
     .slice(0, 8);
@@ -336,6 +340,23 @@ lifecycle route, target fit, or operating policy.
 | Chart | Base | Result | Next step | Support artifact |
 | --- | --- | --- | --- | --- |
 ${activeProofQueueMarkdown(context.activeProofQueue)}
+
+### Local Live Non-Pass Triage
+
+Every chart/base row now has local-kind observation evidence. Passing rows prove
+that the rendered objects converged on the tested target. Non-pass rows are
+classified here so they become next actions rather than vague failures.
+
+| Route class | Rows | Next action |
+| --- | ---: | --- |
+${context.localLiveTriageClassRows.map((row) => `| \`${row.route_class}\` | ${row.rows} | ${row.next_action} |`).join("\n")}
+
+| Chart | Base | Result | Route class |
+| --- | --- | --- | --- |
+${localLiveTriagePreview.map((row) => `| \`${row.chart}\` | ${row.base} | ${row.local_live} | \`${row.route_class}\` |`).join("\n")}
+
+Use [local-live-triage/summary.md](../local-live-triage/summary.md) for the
+full table with receipts and per-row next actions.
 
 ### Hook And Lifecycle Work
 
