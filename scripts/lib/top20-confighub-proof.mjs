@@ -198,6 +198,17 @@ export const CONFIGHUB_PROMOTION_PROOF_CHARTS = [
     skipDemoDocs: true,
   },
   {
+    slug: "eck-operator",
+    displayName: "ECK Operator",
+    component: "ECKOperator",
+    packagePath: "packages/elastic/eck-operator/3.4.0",
+    chart: "elastic/eck-operator",
+    chartVersion: "3.4.0",
+    namespace: "elastic-system",
+    defaultBase: "default",
+    skipDemoDocs: true,
+  },
+  {
     slug: "keda",
     displayName: "KEDA",
     component: "KEDA",
