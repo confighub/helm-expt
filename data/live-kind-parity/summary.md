@@ -12,11 +12,11 @@ the same live outcome as cub installer output?
 
 ```text
 pass: 54
-watch: 2
+watch: 3
 blocked: 2
-semantic parity pass: 57
+semantic parity pass: 58
 semantic parity defects: 0
-non-pass rows where semantic parity passed: 3
+non-pass rows where semantic parity passed: 4
 non-pass rows with related lifecycle evidence: 1
 ```
 
@@ -35,6 +35,7 @@ data/live-parity-rerun-plan/summary.md
 | target-runtime: installer-applied workload not ready at observation cutoff (parity passed) | 2 |
 | helm-hook: post-install hook failed (parity passed) | 1 |
 | target-prerequisite: CRDs missing | 1 |
+| watch: object parity passed; readiness needs review | 1 |
 
 ## How To Read Non-Pass Rows
 
@@ -78,6 +79,7 @@ records the chart-specific startup API check route.
 | `bitnami/redis@25.5.3` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-redis-default/receipt.yaml |
 | `bitnami/redis@25.5.3` | reuse-existing-secret | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-redis-reuse-existing-secret/receipt.yaml |
 | `cloudnative-pg/cloudnative-pg@0.28.2` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/cloudnative-pg-cloudnative-pg-default/receipt.yaml |
+| `descheduler/descheduler@0.36.0` | default | watch | pass | watch: object parity passed; readiness needs review |  | semantic parity passed; target or lifecycle behavior needs review | runs/live-kind-parity/descheduler-descheduler-default/receipt.yaml |
 | `elastic/eck-operator@3.4.0` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-eck-operator-default/receipt.yaml |
 | `elastic/logstash@8.5.1` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/elastic-logstash-default/receipt.yaml |
 | `external-dns/external-dns@1.21.1` | dry-run-txt-registry | pass | pass |  |  | live parity passed | runs/live-kind-parity/external-dns-external-dns-dry-run-txt-registry/receipt.yaml |

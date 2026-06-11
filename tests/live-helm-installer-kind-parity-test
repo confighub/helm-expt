@@ -815,6 +815,35 @@ def ready_status(kubeconfig: Path, context: str, namespace: str) -> dict:
             "detailHead": detail[:3000],
             "detailTail": detail[-3000:],
         })
+    if rc == 0 and not workloads.strip():
+        # No long-running workloads in this namespace. A CronJob-only chart
+        # (issue #517) must classify instead of wedging the readiness loop:
+        # pass when a Job completed, blocked when a Job failed, otherwise
+        # pending-cronjob so the caller can keep polling until its cutoff.
+        rc_cron, crons, cron_err = kubectl(["-n", namespace, "get", "cronjobs", "--no-headers"], kubeconfig, context, timeout=60)
+        if rc_cron == 0 and crons.strip():
+            rc_jobs, jobs, _jobs_err = kubectl(["-n", namespace, "get", "jobs", "--no-headers"], kubeconfig, context, timeout=60)
+            job_lines = [line.split() for line in jobs.splitlines() if line.split()] if rc_jobs == 0 else []
+            completed = [fields[0] for fields in job_lines if len(fields) > 2 and fields[2].startswith("Complete")]
+            # kubectl >=1.31 prints STATUS in column 2; older prints COMPLETIONS "n/m".
+            completed += [fields[0] for fields in job_lines if len(fields) > 1 and "/" in fields[1] and fields[1].split("/")[0] == fields[1].split("/")[1] and fields[1].split("/")[0] != "0"]
+            failed = [fields[0] for fields in job_lines if len(fields) > 2 and fields[2].startswith("Failed")]
+            failed += [item["pod"] for item in not_ready if item.get("status", "").startswith(("Error", "CrashLoop"))]
+            if failed:
+                cron_result = "blocked"
+            elif completed:
+                cron_result = "pass"
+            else:
+                cron_result = "pending-cronjob"
+            return {
+                "result": cron_result,
+                "kind": "cronjob-only",
+                "workloads": f"cronjobs:\n{crons}\njobs:\n{jobs if rc_jobs == 0 else ''}".rstrip(),
+                "pods": pods if rc_pods == 0 else pod_err,
+                "notReady": not_ready,
+                "diagnostics": diagnostics,
+                "cronJobEvidence": {"completedJobs": sorted(set(completed)), "failedJobs": sorted(set(failed))},
+            }
     return {
         "result": "pass" if rc == 0 and bool(workloads.strip()) and rc_pods == 0 and not not_ready else "watch",
         "workloads": workloads if rc == 0 else workload_err,
@@ -825,13 +854,21 @@ def ready_status(kubeconfig: Path, context: str, namespace: str) -> dict:
 
 
 def wait_ready_many(kubeconfig: Path, context: str, namespaces: list[str], timeout_seconds: int = 300) -> dict:
-    deadline = time.monotonic() + timeout_seconds
+    start = time.monotonic()
+    deadline = start + timeout_seconds
     last = {}
     while time.monotonic() < deadline:
         results = {namespace: ready_status(kubeconfig, context, namespace) for namespace in namespaces}
         last = results
         if results and all(item.get("result") == "pass" for item in results.values()):
             break
+        if results and any(item.get("result") == "blocked" for item in results.values()):
+            break
+        if results and all(item.get("kind") == "cronjob-only" for item in results.values()):
+            # CronJob-only charts do not need the full workload budget: give
+            # schedules a fair window (descheduler default fires every few
+            # minutes), then classify as watch instead of wedging (issue #517).
+            deadline = min(deadline, start + 360)
         time.sleep(10)
     not_ready = []
     diagnostics = []
@@ -844,8 +881,16 @@ def wait_ready_many(kubeconfig: Path, context: str, namespaces: list[str], timeo
             not_ready.append({"namespace": namespace, **item})
         for item in result.get("diagnostics", []):
             diagnostics.append({"namespace": namespace, **item})
+    if last and all(item.get("result") == "pass" for item in last.values()):
+        overall = "pass"
+    elif last and any(item.get("result") == "blocked" for item in last.values()):
+        overall = "blocked"
+    else:
+        overall = "watch"
+    cron_evidence = {ns: item.get("cronJobEvidence") for ns, item in last.items() if item.get("cronJobEvidence")}
     return {
-        "result": "pass" if last and all(item.get("result") == "pass" for item in last.values()) else "watch",
+        "result": overall,
+        **({"cronJobEvidence": cron_evidence} if cron_evidence else {}),
         "namespaces": namespaces,
         "workloads": "\n".join(workloads),
         "pods": "\n".join(pods),
@@ -1425,7 +1470,8 @@ def main() -> int:
         helm_runtime = wait_ready_many(helm_kubeconfig, helm_context, helm_runtime_names, timeout_seconds=wait_seconds)
         helm_api_services = wait_api_services(helm_kubeconfig, helm_context, api_service_refs(canonical_helm_manifest), timeout_seconds=wait_seconds)
         helm_runtime["apiServices"] = helm_api_services
-        helm_result = "pass" if rc == 0 and get_rc == 0 and helm_operations["result"] == "pass" and helm_runtime["result"] == "pass" and helm_api_services["result"] == "pass" else "blocked"
+        helm_clean = rc == 0 and get_rc == 0 and helm_operations["result"] == "pass" and helm_api_services["result"] == "pass"
+        helm_result = "pass" if helm_clean and helm_runtime["result"] == "pass" else ("watch" if helm_clean and helm_runtime["result"] == "watch" else "blocked")
         leg("regularHelm",
             result=helm_result,
             command=" ".join(helm_cmd),
@@ -1478,7 +1524,8 @@ def main() -> int:
         installer_runtime = wait_ready_many(installer_kubeconfig, installer_context, apply_info["runtimeNamespaces"], timeout_seconds=wait_seconds)
         installer_api_services = wait_api_services(installer_kubeconfig, installer_context, api_service_refs(installer_manifest), timeout_seconds=wait_seconds)
         installer_runtime["apiServices"] = installer_api_services
-        installer_result = "pass" if installer_operations["result"] == "pass" and installer_runtime["result"] == "pass" and installer_api_services["result"] == "pass" else "watch"
+        installer_clean = installer_operations["result"] == "pass" and installer_api_services["result"] == "pass"
+        installer_result = "pass" if installer_clean and installer_runtime["result"] == "pass" else ("blocked" if installer_runtime["result"] == "blocked" else "watch")
         leg("cubInstallerApply",
             result=installer_result,
             renderCommand=" ".join(setup_cmd),
