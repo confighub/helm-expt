@@ -123,6 +123,7 @@ function buildReport() {
   rows.push(metric("proof lanes", "GitOps/OCI live pass rows", passCount(baseRows, "gitops_oci_live"), baseRows.length, "partial", "data/outcome-coverage/base-outcomes.csv", `${nonPassCount(baseRows, "gitops_oci_live")} rows have non-pass GitOps/OCI receipts.`));
   rows.push(metric("proof lanes", "live Helm-vs-ConfigHub parity pass rows", passCount(baseRows, "live_helm_vs_confighub_parity"), baseRows.length, "partial", "data/outcome-coverage/base-outcomes.csv", `${nonPassCount(baseRows, "live_helm_vs_confighub_parity")} rows have non-pass live parity receipts.`));
   rows.push(metric("proof lanes", "two-cluster kind parity pass rows", resultCount(kindParityRows, "pass"), kindParityRows.length, "partial", "data/live-kind-parity/summary.csv", "Regular Helm in one vanilla kind cluster, cub installer output in another, then semantic comparison."));
+  rows.push(metric("proof lanes", "two-cluster semantic parity pass rows", semanticParityPassCount(kindParityRows), kindParityRows.length, "good", "data/live-kind-parity/summary.csv", "Rows where the strict two-cluster receipt records the same Kubernetes object meaning, even when a hook or lifecycle command result still needs review."));
   rows.push(metric("proof lanes", "complete core lane rows", count(baseRows, "complete_core_lane_set", "yes"), baseRows.length, "gap", "data/outcome-coverage/base-outcomes.csv", "Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."));
   rows.push(metric("proof lanes", "top20 start-here base variants", count(top20BaseReadinessRows, "user_readiness", "start-here"), top20BaseReadinessRows.length, "partial", "data/top20-base-readiness/base-readiness.csv", "Base variants that are the cleanest first catalog paths today."));
   rows.push(metric("proof lanes", "top20 bases needing unresolved prerequisite or runtime review", top20BaseReadinessRows.filter((row) => ["target-prerequisite-needed", "runtime-watch", "runtime-review-needed", "hook-lifecycle-review-needed", "operating-policy-needed", "target-fit-needed"].includes(row.user_readiness)).length, top20BaseReadinessRows.length, "partial", "data/top20-base-readiness/base-readiness.csv", "Base variants whose render parity is useful but whose target fit, runtime, or lifecycle behavior still needs review."));
@@ -1326,10 +1327,16 @@ function resultCount(rows, result) {
 }
 
 function semanticDefectCount(rows) {
+  if (rows.some((row) => row.semantic_parity)) return rows.filter((row) => row.semantic_parity === "defect").length;
   return rows.filter((row) => {
     const reason = String(row.reason ?? "").toLowerCase();
     return reason.startsWith("parity:") || reason.includes("semantic object diff");
   }).length;
+}
+
+function semanticParityPassCount(rows) {
+  if (rows.some((row) => row.semantic_parity)) return rows.filter((row) => row.semantic_parity === "pass").length;
+  return rows.length - semanticDefectCount(rows);
 }
 
 function dispositionCount(value) {

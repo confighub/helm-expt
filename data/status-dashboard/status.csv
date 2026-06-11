@@ -33,6 +33,7 @@ proof lanes,local live rows,23,179,partial,data/outcome-coverage/base-outcomes.c
 proof lanes,GitOps/OCI live pass rows,22,179,partial,data/outcome-coverage/base-outcomes.csv,6 rows have non-pass GitOps/OCI receipts.
 proof lanes,live Helm-vs-ConfigHub parity pass rows,20,179,partial,data/outcome-coverage/base-outcomes.csv,2 rows have non-pass live parity receipts.
 proof lanes,two-cluster kind parity pass rows,49,50,partial,data/live-kind-parity/summary.csv,"Regular Helm in one vanilla kind cluster, cub installer output in another, then semantic comparison."
+proof lanes,two-cluster semantic parity pass rows,50,50,good,data/live-kind-parity/summary.csv,"Rows where the strict two-cluster receipt records the same Kubernetes object meaning, even when a hook or lifecycle command result still needs review."
 proof lanes,complete core lane rows,20,179,gap,data/outcome-coverage/base-outcomes.csv,"Rows with render parity, ConfigHub proof, local live, GitOps live, and live parity all passing."
 proof lanes,top20 start-here base variants,20,42,partial,data/top20-base-readiness/base-readiness.csv,Base variants that are the cleanest first catalog paths today.
 proof lanes,top20 bases needing unresolved prerequisite or runtime review,0,42,partial,data/top20-base-readiness/base-readiness.csv,"Base variants whose render parity is useful but whose target fit, runtime, or lifecycle behavior still needs review."
