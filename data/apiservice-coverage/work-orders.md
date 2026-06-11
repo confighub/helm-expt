@@ -8,7 +8,7 @@ regular Helm while Kubernetes API aggregation still fails after apply.
 
 | Priority | Chart | Version | Current state | Work type | First task | Done when |
 | ---: | --- | --- | --- | --- | --- | --- |
-| 1 | `kedacore/keda` | 2.19.0 | `two-cluster-parity-only` | `runtime-aggregation-proof` | run an APIService observation lane for the existing keda/default recipe base | keda row becomes api-aggregation-observed, or records a named target prerequisite/refusal |
+| 1 | `kedacore/keda` | 2.19.0 | `two-cluster-api-aggregation-observed` | `promotion-scope-decision` | review the new two-cluster API aggregation receipt and decide whether KEDA enters a catalog promotion wave | KEDA has either a promotion work order with runtime/GitOps scope or a named reason to stay proof-grade |
 | 2 | `k8s-dashboard/kubernetes-dashboard` | 7.14.0 | `source-detected-needs-recipe` | `recipe-import-plus-runtime-proof` | create the recipe/import candidate, then add APIService readiness and runtime aggregation checks | the chart has a maintained recipe row plus a pass/watch/refused aggregation receipt |
 | 3 | `datadog/datadog` | 3.214.0 | `source-detected-needs-recipe` | `recipe-import-plus-runtime-proof` | create the recipe/import candidate, then add APIService readiness and runtime aggregation checks | the chart has a maintained recipe row plus a pass/watch/refused aggregation receipt |
 | 4 | `bitnami/metrics-server` | 7.4.12 | `source-detected-needs-recipe` | `duplicate-chart-decision` | decide whether Bitnami Metrics Server should be imported separately or routed to the existing upstream Metrics Server catalog entry | the row is either modeled with APIService readiness or intentionally refused as a duplicate package route |
@@ -28,9 +28,11 @@ freshness timestamp recorded
 ~~~
 
 KEDA is the first proof-wave target because it already has a maintained
-recipe row and two-cluster parity. Kubernetes Dashboard, Datadog, and Bitnami
-Metrics Server need import/catalog decisions before a runtime aggregation
-receipt can close the gap.
+recipe row and two-cluster parity. Its current row records two-cluster API
+aggregation evidence; the next KEDA question is whether it should move into a
+catalog promotion or runtime/GitOps wave. Kubernetes Dashboard, Datadog, and
+Bitnami Metrics Server need import/catalog decisions before a runtime
+aggregation receipt can close the gap.
 
 ## Files
 

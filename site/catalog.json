@@ -938,7 +938,7 @@
     {
       "section": "apiservice",
       "metric": "APIService rows with aggregation availability receipts",
-      "value": "1",
+      "value": "2",
       "total": "5",
       "status": "partial",
       "source": "data/apiservice-coverage/top100-apiservice-coverage.csv",

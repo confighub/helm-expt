@@ -7,7 +7,7 @@ spec:
   version: 2.19.0
   base: default
   result: pass
-  observedAt: '2026-06-10T08:57:33Z'
+  observedAt: '2026-06-11T03:20:26Z'
   package:
     path: packages/kedacore/keda/2.19.0
   recipe:
@@ -15,24 +15,24 @@ spec:
   variantRevision: recipes/kedacore/keda/2.19.0/revisions/default/r001/variant-revision.yaml
   run:
     mode: two-vanilla-kind-clusters
-    helmCluster: hx-keda-ead66-5dsr-helm
-    installerCluster: hx-keda-ead66-5dsr-installer
+    helmCluster: hx-keda-ead66-jp67-helm
+    installerCluster: hx-keda-ead66-jp67-installer
     namespace: default
     cleanup:
       result: pass
       clusters:
-      - cluster: hx-keda-ead66-5dsr-helm
+      - cluster: hx-keda-ead66-jp67-helm
         leg: helm
         result: pass
-        detail: 'Deleting cluster "hx-keda-ead66-5dsr-helm" ...
+        detail: 'Deleting cluster "hx-keda-ead66-jp67-helm" ...
 
-          Deleted nodes: ["hx-keda-ead66-5dsr-helm-control-plane"]'
-      - cluster: hx-keda-ead66-5dsr-installer
+          Deleted nodes: ["hx-keda-ead66-jp67-helm-control-plane"]'
+      - cluster: hx-keda-ead66-jp67-installer
         leg: installer
         result: pass
-        detail: 'Deleting cluster "hx-keda-ead66-5dsr-installer" ...
+        detail: 'Deleting cluster "hx-keda-ead66-jp67-installer" ...
 
-          Deleted nodes: ["hx-keda-ead66-5dsr-installer-control-plane"]'
+          Deleted nodes: ["hx-keda-ead66-jp67-installer-control-plane"]'
     targetTopology:
       minimumSchedulableNodes: 1
       purpose: ''
@@ -54,27 +54,42 @@ spec:
         namespaces: *id001
         workloads: '# default
 
-          deployment.apps/keda-admission-webhooks           1/1   1     1     49s
+          deployment.apps/keda-admission-webhooks           1/1   1     1     51s
 
-          deployment.apps/keda-operator                     1/1   1     1     49s
+          deployment.apps/keda-operator                     1/1   1     1     51s
 
-          deployment.apps/keda-operator-metrics-apiserver   1/1   1     1     49s'
+          deployment.apps/keda-operator-metrics-apiserver   1/1   1     1     51s'
         pods: '# default
 
-          keda-admission-webhooks-7b48797dc8-shzv7          1/1   Running   0             49s
+          keda-admission-webhooks-7b48797dc8-jtx9j          1/1   Running   0             51s
 
-          keda-operator-55db59458d-lxhmz                    1/1   Running   1 (37s
-          ago)   49s
+          keda-operator-55db59458d-bv64w                    1/1   Running   1 (39s
+          ago)   51s
 
-          keda-operator-metrics-apiserver-cb7df9874-t6d4x   1/1   Running   0             49s'
+          keda-operator-metrics-apiserver-cb7df9874-fpxvw   1/1   Running   0             51s'
         notReady: []
         diagnostics: []
+        apiServices:
+          result: pass
+          items:
+          - name: v1beta1.external.metrics.k8s.io
+            group: external.metrics.k8s.io
+            version: v1beta1
+            queryPath: /apis/external.metrics.k8s.io/v1beta1
+            result: pass
+            available: true
+            conditionStatus: 'True'
+            conditionReason: Passed
+            conditionMessage: all checks passed
+            queryResult: pass
+            querySHA256: 09cd6ec84f2951a72fd9a76a4eda767e4424ea22ba7d19b27cce78d5d62cd801
+            queryError: ''
       stderr: ''
       getManifestError: ''
     cubInstallerApply:
       result: pass
       renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/kedacore/keda/2.19.0
-        --base default --work-dir /tmp/helm-expt-kind-parity-hx-keda-ead66-5dsr-keda
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-keda-ead66-jp67-keda
         --non-interactive --namespace default
       applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
         secrets staged when present
@@ -91,21 +106,36 @@ spec:
         namespaces: *id002
         workloads: '# default
 
-          deployment.apps/keda-admission-webhooks           1/1   1     1     51s
+          deployment.apps/keda-admission-webhooks           1/1   1     1     41s
 
-          deployment.apps/keda-operator                     1/1   1     1     51s
+          deployment.apps/keda-operator                     1/1   1     1     41s
 
-          deployment.apps/keda-operator-metrics-apiserver   1/1   1     1     51s'
+          deployment.apps/keda-operator-metrics-apiserver   1/1   1     1     41s'
         pods: '# default
 
-          keda-admission-webhooks-7b48797dc8-5468q          1/1   Running   0             51s
+          keda-admission-webhooks-7b48797dc8-cls85          1/1   Running   0             41s
 
-          keda-operator-55db59458d-b29qv                    1/1   Running   1 (39s
-          ago)   51s
+          keda-operator-55db59458d-74ssc                    1/1   Running   1 (29s
+          ago)   41s
 
-          keda-operator-metrics-apiserver-cb7df9874-k249v   1/1   Running   0             51s'
+          keda-operator-metrics-apiserver-cb7df9874-xs9kc   1/1   Running   0             41s'
         notReady: []
         diagnostics: []
+        apiServices:
+          result: pass
+          items:
+          - name: v1beta1.external.metrics.k8s.io
+            group: external.metrics.k8s.io
+            version: v1beta1
+            queryPath: /apis/external.metrics.k8s.io/v1beta1
+            result: pass
+            available: true
+            conditionStatus: 'True'
+            conditionReason: Passed
+            conditionMessage: all checks passed
+            queryResult: pass
+            querySHA256: 09cd6ec84f2951a72fd9a76a4eda767e4424ea22ba7d19b27cce78d5d62cd801
+            queryError: ''
   semanticComparison:
     allowedExtraInstallerObjects:
     - v1|Namespace||default
@@ -140,7 +170,7 @@ spec:
   - name: regular-helm-live
     result: pass
     detail: "Release \"keda\" does not exist. Installing it now.\nNAME: keda\nLAST\
-      \ DEPLOYED: Wed Jun 10 09:58:28 2026\nNAMESPACE: default\nSTATUS: deployed\n\
+      \ DEPLOYED: Thu Jun 11 04:21:21 2026\nNAMESPACE: default\nSTATUS: deployed\n\
       REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n:::^.\
       \     .::::^:     :::::::::::::::    .:::::::::.                   .^.     \
       \             \n7???~   .^7????~.     7??????????????.   :?????????77!^.   \
@@ -153,6 +183,9 @@ spec:
       \ :????:       :????:     ^???7?#P7????7.            \n7???~  ^????~       \
       \                     :????:      :7???!     ^???7J#@J7?????7.           \n\
       7???~   :7???!.                          :????:   .:~"
+  - name: regular-helm-apiservice-aggregation
+    result: pass
+    detail: v1beta1.external.metrics.k8s.io available=True query=pass
   - name: cub-installer-operating-policy
     result: pass
     detail: none
@@ -160,11 +193,14 @@ spec:
     result: pass
     detail: '# default
 
-      deployment.apps/keda-admission-webhooks           1/1   1     1     51s
+      deployment.apps/keda-admission-webhooks           1/1   1     1     41s
 
-      deployment.apps/keda-operator                     1/1   1     1     51s
+      deployment.apps/keda-operator                     1/1   1     1     41s
 
-      deployment.apps/keda-operator-metrics-apiserver   1/1   1     1     51s'
+      deployment.apps/keda-operator-metrics-apiserver   1/1   1     1     41s'
+  - name: cub-installer-apiservice-aggregation
+    result: pass
+    detail: v1beta1.external.metrics.k8s.io available=True query=pass
   - name: semantic-object-parity
     result: pass
     detail: missing=0 extra=['v1|Namespace||default'] diffs=0
