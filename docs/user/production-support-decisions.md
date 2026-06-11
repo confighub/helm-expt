@@ -21,8 +21,8 @@ operator-owned boundaries
 ```
 
 The current top-20 catalog has pre-review disposition evidence for every chart.
-Nineteen charts are production-review-ready. Vault dev-mode remains blocked as
-a production boundary and is rejected by the target-scoped support decision.
+All twenty charts are production-review-ready. Vault `dev-mode` remains
+rejected as a production support boundary because it is a local/demo base.
 Disposition evidence does not mean every chart is production-supported.
 
 ## The Boundary
@@ -120,11 +120,11 @@ The current generated summary is:
 
 ```text
 decision artifacts: 20
-supported decisions: 16
-draft decisions: 1
+supported decisions: 17
+draft decisions: 0
 rejected decisions: 1
 superseded decisions: 2
-open work items: 1
+open work items: 0
 ```
 
 Each decision names:
@@ -152,15 +152,14 @@ being a loose spreadsheet.
 
 | Group | Charts | What it means |
 | --- | ---: | --- |
-| `supported` | 16 | The named chart/base/target/delivery scope has fresh evidence and an explicit operating boundary. |
+| `supported` | 17 | The named chart/base/target/delivery scope has fresh evidence and an explicit operating boundary. |
 | `superseded` | 2 | The proof remains useful, but the upstream chart source is deprecated and should not be promoted as production-supported. |
 | `rejected` | 1 | The base remains parity evidence, but it is not a good production support boundary. |
-| `draft` | 1 | One chart has a concrete runtime gap to close before final support. |
+| `draft` | 0 | No current top-20 support decisions are draft. |
 
 The next production work is specific:
 
-- keep evidence fresh for the 16 supported scopes;
-- resolve external-secrets default-base separated Secret delivery, rerun Argo OCI, then run a provider round-trip rehearsal;
+- keep evidence fresh for the 17 supported scopes;
 - choose maintained successor sources for Grafana and Tempo;
 - create a production Vault base with init/unseal, storage, TLS, backup/restore,
   and an operator runbook;
