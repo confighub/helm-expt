@@ -170,6 +170,21 @@ ConfigHub is the proof and variant layer around those Helm-generated objects.
 The goal is not to replace Helm. The goal is to make Helm output reviewable,
 comparable, scannable, promotable, and auditable.
 
+Render parity is necessary, but it is not the whole value. Render parity proves
+that the `cub installer` path did not silently invent a different Kubernetes
+object set from regular Helm. The harder user problems start when a chart needs
+target facts, staged CRDs, admission certificates, provider prerequisites,
+controller-owned fields, hook-like lifecycle behavior, or fresh live
+observation. The catalog makes those requirements explicit, stages or routes
+them, observes the result where evidence exists, and records the boundary of
+the claim.
+
+kube-prometheus-stack is the main example. The `no-crds` base is not just a
+smaller YAML bundle; it is a contract that compatible CRDs and admission
+certificate material must already exist or be staged before config-only
+delivery. That is the point of the model: make the hidden operational contract
+visible before users trust the install.
+
 We use AI to accelerate Helm chart analysis and recipe creation. We use
 `cub installer` to prove the resulting recipes produce correct, Helm-equivalent,
 reviewable base variants and derived ConfigHub variants.
