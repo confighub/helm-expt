@@ -1,0 +1,57 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "prometheus-community-kube-prometheus-stack-86.1.0-default-local-kind"
+spec:
+  variantRevision: "recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "58c19d82e70831986861de45eba5697418105140625afa840f5e329f1c21d1dd"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-kps861"
+    context: "kind-claude-helm-expt-codex-kps861"
+    namespace: "monitoring"
+  observedAt: "2026-06-11T12:23:39.532Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 4
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "90f1a8eae91095e2d9373edb8d9a18f204951644c8b29bad8f9e914ef77b5906"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||monitoring"
+    -
+      name: "crds-applied-and-established"
+      result: "pass"
+      object: "10 CustomResourceDefinition(s)"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "124 object(s) from recipes/prometheus-community/kube-prometheus-stack/86.1.0/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "DaemonSet|monitoring|kube-prometheus-stack-prometheus-node-exporter"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|monitoring|kube-prometheus-stack-grafana"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|monitoring|kube-prometheus-stack-kube-state-metrics"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|monitoring|kube-prometheus-stack-operator"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): kube-prometheus-stack-grafana-689f864759-zgtwn[ ready=true restarts=0; ready=true restarts=0; ready=true restarts=0;] kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-xzrqr[ ready=true restarts=0;] kube-prometheus-stack-operator-6cd9d8fb8d-hdmng[ContainerCreating ready=false restarts=0;] kube-pro"
+  blockedReasons:
+    - "deployment/kube-prometheus-stack-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (kube-prometheus-stack-grafana-689f864759-zgtwn[ ready=true restarts=0; ready=true restarts=0; ready=true restarts=0;] kube-prometheus-stack-kube-state-metrics-5)"

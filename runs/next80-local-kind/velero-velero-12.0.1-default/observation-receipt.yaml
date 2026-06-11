@@ -1,0 +1,41 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "velero-velero-12.0.1-default-local-kind"
+spec:
+  variantRevision: "recipes/velero/velero/12.0.1/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "3fc8afa5a2077710e8e9a49df435b234925b373cdaf2209e66fada0044ef2c1b"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-velero"
+    context: "kind-claude-helm-expt-codex-velero"
+    namespace: "default"
+  observedAt: "2026-06-11T12:26:30.233Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "194c6a75c253794336252445664b43be4479e68c82fd6c4642ff26ea9ec8ad43"
+  checks:
+    -
+      name: "crds-applied-and-established"
+      result: "pass"
+      object: "13 CustomResourceDefinition(s)"
+    -
+      name: "rendered-objects-applied"
+      result: "blocked"
+      object: "23 object(s) from recipes/velero/velero/12.0.1/revisions/default/r001/rendered/release-objects.yaml"
+      reason: "apply-blocked: Error from server (Invalid): error when creating \"STDIN\": BackupStorageLocation.velero.io \"default\" is invalid: spec.provider: Required value Error from server (Invalid): error when creating \"STDIN\": "
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|velero"
+  blockedReasons:
+    - "apply: Error from server (Invalid): error when creating \"STDIN\": BackupStorageLocation.velero.io \"default\" is invalid: spec.provider: Required value Error from server (Invalid): error when creating \"STDIN\": "
