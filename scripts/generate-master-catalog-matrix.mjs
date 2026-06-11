@@ -6,9 +6,15 @@
 // truth — every cell is a join over committed sources, and the verifier fails
 // when this view goes stale against them.
 //
-// Cell vocabulary (CSV words -> summary icons):
+// Three renderings of the same rows:
+//   matrix.csv  — machine/spreadsheet import (words, not colors: CSV cannot
+//                 carry formatting; open matrix.html for the colored cells)
+//   summary.md  — GitHub-readable compact table with icons
+//   matrix.html — self-contained colored-cell rendering for a browser
+//
+// Cell vocabulary:
 //   yes (pass)            -> green
-//   watch                 -> needs attention, not a failure
+//   watch                 -> amber: passing with a recorded caution
 //   no (blocked/failed)   -> red
 //   todo (not yet run)    -> grey box: absence of evidence, not a failure
 //   n/a                   -> dash: the attribute does not apply
@@ -26,6 +32,7 @@ const outputRoot = join(repoRoot, "data", "master-catalog-matrix");
 const outputs = {
   summary: join(outputRoot, "summary.md"),
   matrix: join(outputRoot, "matrix.csv"),
+  html: join(outputRoot, "matrix.html"),
 };
 
 const SOURCES = {
@@ -44,16 +51,48 @@ const LANE_COLUMNS = [
   ["lane_live_dual_parity", "live_helm_vs_confighub_dual_compare"],
 ];
 
+// What each joined source carries into this view and what stays behind —
+// rendered into the summary so the compression is documented, not silent.
+const COLUMN_PROVENANCE = [
+  {
+    source: "lane-test-matrix/variant-lanes.csv",
+    carried: "the five proof lanes, core-lane completeness, recipe path",
+    dropped: "missing_core_lanes detail, package_path, variant_revision, lane_notes",
+  },
+  {
+    source: "outcome-coverage/base-outcomes.csv",
+    carried: "outcome level, two-cluster kind parity (K)",
+    dropped: "its duplicate copies of the five lanes, two_cluster_kind_parity_reason, missing_or_non_pass_lanes, evidence_notes",
+  },
+  {
+    source: "top100-readiness/readiness.csv",
+    carried: "catalog tier, adoption bucket, quirk features, hard gap, strongest evidence, next action",
+    dropped: "workability, user_status, per-chart lane ratios, proof_surface_rank, top500_rank, next_action_source/receipt, file paths",
+  },
+  {
+    source: "hook-disposition/top100-hook-dispositions.csv",
+    carried: "hook count, disposition, live status",
+    dropped: "hook_phases, selected_route detail, evidence_status text, next_action, evidence paths, rank",
+  },
+  {
+    source: "production-support-decisions/decisions.csv",
+    carried: "decision, target scope",
+    dropped: "delivery_path, image/scan/lifecycle/target-fact/live-evidence sub-decisions, evidence_count, remaining_final_requirements, next_action",
+  },
+];
+
 if (mode === "--generate") {
   const report = buildReport();
   write(outputs.matrix, report.csv);
   write(outputs.summary, report.summary);
+  write(outputs.html, report.html);
   console.log(`wrote master catalog matrix -> ${relativeRepo(outputRoot)}/ (${report.rows.length} variant rows)`);
 } else if (mode === "--verify") {
   const report = buildReport();
+  const expected = { summary: report.summary, matrix: report.csv, html: report.html };
   for (const [name, path] of Object.entries(outputs)) {
     check(existsSync(path), `${relativeRepo(path)} is missing; run npm run master-matrix`);
-    check(readFileSync(path, "utf8") === report[name === "matrix" ? "csv" : name], `${relativeRepo(path)} is stale; run npm run master-matrix`);
+    check(readFileSync(path, "utf8") === expected[name], `${relativeRepo(path)} is stale; run npm run master-matrix`);
   }
   console.log(`verified master catalog matrix: ${report.rows.length} variant rows, ${report.charts} chart versions`);
 } else {
@@ -85,13 +124,17 @@ function buildReport() {
         adoption_bucket: ready?.adoption_bucket ?? "",
         quirk_features: ready?.source_features ?? "",
         hard_gap: ready?.hard_gap === "-" ? "" : (ready?.hard_gap ?? ""),
+        strongest_evidence: ready?.strongest_evidence ?? "",
+        next_action: ready?.next_action ?? "",
         hook_count: hook ? String(hookCount) : "",
         hook_disposition: hook ? (hookCount === 0 ? "n/a" : hook.disposition) : "",
         hook_live_status: hook && hookCount > 0 ? (hook.live_status === "observed" ? "yes" : hook.live_status === "none" ? "todo" : hook.live_status.startsWith("none (") ? "n/a" : "no") : hook ? "n/a" : "",
         ...Object.fromEntries(LANE_COLUMNS.map(([target, source]) => [target, normalizeLane(lane[source])])),
+        lane_two_cluster_kind: outcome ? normalizeLane(outcome.two_cluster_kind_parity) : "",
         core_lanes_complete: lane.complete_core_lane_set === "yes" ? "yes" : "no",
         outcome_level: outcome?.outcome_level ?? "",
         production_decision: decision ? (decision.decision === "supported" ? "yes" : decision.decision === "rejected" ? "no" : decision.decision) : "todo",
+        production_target_scope: decision?.target_scope ?? "",
         recipe_path: lane.recipe_path,
       };
       return row;
@@ -115,6 +158,7 @@ function buildReport() {
     unmatchedReadiness,
     csv: toCsv(rows),
     summary: summary(rows, charts, unmatchedReadiness),
+    html: htmlReport(rows, charts, unmatchedReadiness),
   };
 }
 
@@ -136,7 +180,7 @@ function icon(value) {
 }
 
 function summary(rows, charts, unmatchedReadiness) {
-  const laneCells = rows.flatMap((row) => LANE_COLUMNS.map(([target]) => row[target]));
+  const laneCells = rows.flatMap((row) => [...LANE_COLUMNS.map(([target]) => row[target]), row.lane_two_cluster_kind]).filter(Boolean);
   const counts = {
     yes: laneCells.filter((value) => value === "yes").length,
     watch: laneCells.filter((value) => value === "watch").length,
@@ -154,9 +198,11 @@ function summary(rows, charts, unmatchedReadiness) {
       lastChart = chartAtVersion;
       const hooks = row.hook_count === "" ? "—" : row.hook_count === "0" ? "0 —" : `${row.hook_count} ${row.hook_disposition} ${icon(row.hook_live_status)}`;
       const quirks = row.quirk_features ? `\`${row.quirk_features}\`` : "—";
-      return `| ${chartCell} | ${row.variant} | ${tierShort(row.catalog_tier)} | ${quirks} | ${hooks} | ${icon(row.lane_render_parity)} | ${icon(row.lane_confighub_scan_ops)} | ${icon(row.lane_local_kind)} | ${icon(row.lane_gitops_oci_live)} | ${icon(row.lane_live_dual_parity)} | ${row.outcome_level || "—"} | ${icon(row.production_decision)} |`;
+      return `| ${chartCell} | ${row.variant} | ${tierShort(row.catalog_tier)} | ${quirks} | ${hooks} | ${icon(row.lane_render_parity)} | ${icon(row.lane_confighub_scan_ops)} | ${icon(row.lane_local_kind)} | ${icon(row.lane_gitops_oci_live)} | ${icon(row.lane_live_dual_parity)} | ${icon(row.lane_two_cluster_kind)} | ${row.outcome_level || "—"} | ${icon(row.production_decision)} |`;
     })
     .join("\n");
+
+  const provenance = COLUMN_PROVENANCE.map((entry) => `| [${entry.source}](../${entry.source}) | ${entry.carried} | ${entry.dropped} |`).join("\n");
 
   return `# Master Catalog Matrix
 
@@ -164,6 +210,11 @@ ONE view of the whole catalog: one row per supported variant, grouped by chart
 and version, with the translation attributes and per-lane status joined from
 the committed sources below. This file invents no new truth — every cell comes
 from a source the verifier checks this view against.
+
+Three renderings of the same rows: this summary (GitHub),
+[matrix.csv](matrix.csv) for spreadsheet import (CSV carries words, not
+colors), and [matrix.html](matrix.html) — open it in a browser for the
+literal red/green/grey colored cells.
 
 ## Legend
 
@@ -177,7 +228,8 @@ from a source the verifier checks this view against.
 
 Lane columns: **R** render parity (helm template vs installer setup) ·
 **C** ConfigHub upload + scan + safe ops · **L** local kind apply ·
-**G** ConfigHub OCI + Argo live · **P** live Helm-vs-ConfigHub dual parity.
+**G** ConfigHub OCI + Argo live · **P** live Helm-vs-ConfigHub dual parity ·
+**K** two-cluster kind parity.
 Hooks column: source hook count, disposition route, live-rehearsal status.
 
 ## Current Status
@@ -191,20 +243,27 @@ Hooks column: source hook count, disposition route, live-rehearsal status.
 | Variants with a recorded production support decision | ${supported} |
 
 ${unmatchedReadiness.length ? `Chart versions in the lane matrix but not in top-100 readiness (retained candidates or version drift): ${unmatchedReadiness.map((chart) => `\`${chart}\``).join(", ")}.\n` : ""}
-## Sources joined
+## Sources joined, and what this view compresses
 
-| Attribute | Source of truth |
-| --- | --- |
-| Variants and the five proof lanes | [lane-test-matrix](../lane-test-matrix/variant-lanes.csv) |
-| Outcome level per variant | [outcome-coverage](../outcome-coverage/base-outcomes.csv) |
-| Tier, adoption bucket, quirk features, hard gap | [top100-readiness](../top100-readiness/readiness.csv) |
-| Hook count, disposition, live status | [hook-disposition](../hook-disposition/top100-hook-dispositions.csv) |
-| Production support decision | [production-support-decisions](../production-support-decisions/decisions.csv) |
+The matrix is the variant-granularity overview, not a replacement for its
+sources. Per source: what is carried here, and what deliberately stays
+behind (follow the source link when you need it). Chart-granularity,
+value-path-granularity, and claim-granularity views (status dashboard,
+blast-radius accuracy, claims register) are different granularities, not
+duplicates of this one.
+
+| Source of truth | Carried into the matrix | Stays in the source |
+| --- | --- | --- |
+${provenance}
+
+The CSV additionally carries adoption bucket, hard gap, strongest evidence,
+next action, and production target scope as columns; the table below omits
+them for width.
 
 ## Matrix
 
-| Chart | Variant | Tier | Quirks | Hooks | R | C | L | G | P | Outcome | Prod |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Chart | Variant | Tier | Quirks | Hooks | R | C | L | G | P | K | Outcome | Prod |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 ${table}
 
 ## Regenerate
@@ -214,6 +273,83 @@ npm run master-matrix
 npm run master-matrix:verify
 ~~~
 `;
+}
+
+function htmlReport(rows, charts, unmatchedReadiness) {
+  const laneCells = rows.flatMap((row) => [...LANE_COLUMNS.map(([target]) => row[target]), row.lane_two_cluster_kind]).filter(Boolean);
+  const counts = {
+    yes: laneCells.filter((value) => value === "yes").length,
+    watch: laneCells.filter((value) => value === "watch").length,
+    no: laneCells.filter((value) => value === "no").length,
+    todo: laneCells.filter((value) => value === "todo").length,
+  };
+  const supported = rows.filter((row) => row.production_decision === "yes").length;
+
+  const statusCell = (value, title, label) => {
+    const cls = value === "yes" ? "y" : value === "watch" ? "w" : value === "no" ? "n" : value === "todo" ? "t" : "na";
+    const symbol = label ?? (value === "yes" ? "✓" : value === "watch" ? "!" : value === "no" ? "✗" : value === "todo" ? "·" : "–");
+    return `<td class="s ${cls}"${title ? ` title="${escapeHtml(title)}"` : ""}>${symbol}</td>`;
+  };
+
+  let lastChart = "";
+  const bodyRows = rows
+    .map((row) => {
+      const chartAtVersion = `${row.chart}@${row.version}`;
+      const first = chartAtVersion !== lastChart;
+      lastChart = chartAtVersion;
+      const hooks =
+        row.hook_count === ""
+          ? `<td class="s na">–</td>`
+          : row.hook_count === "0"
+            ? `<td class="s na" title="no source hooks">0</td>`
+            : statusCell(row.hook_live_status, `${row.hook_count} hook(s), disposition: ${row.hook_disposition}`, row.hook_count);
+      const nextAction = row.next_action ? `<td class="note" title="${escapeHtml(row.next_action)}">${escapeHtml(row.next_action.length > 70 ? `${row.next_action.slice(0, 67)}...` : row.next_action)}</td>` : `<td class="note"></td>`;
+      return `<tr${first ? ' class="grp"' : ""}><td class="chart">${first ? escapeHtml(chartAtVersion) : ""}</td><td>${escapeHtml(row.variant)}</td><td>${escapeHtml(tierShort(row.catalog_tier))}</td><td class="note" title="${escapeHtml(row.quirk_features)}${row.hard_gap ? ` | hard gap: ${escapeHtml(row.hard_gap)}` : ""}">${escapeHtml(row.quirk_features)}</td>${hooks}${statusCell(row.lane_render_parity)}${statusCell(row.lane_confighub_scan_ops)}${statusCell(row.lane_local_kind)}${statusCell(row.lane_gitops_oci_live)}${statusCell(row.lane_live_dual_parity)}${statusCell(row.lane_two_cluster_kind)}<td>${escapeHtml(row.outcome_level || "–")}</td>${statusCell(row.production_decision, row.production_target_scope || "")}${nextAction}</tr>`;
+    })
+    .join("\n");
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Master Catalog Matrix</title>
+<style>
+body{font:13px/1.45 -apple-system,Segoe UI,Helvetica,Arial,sans-serif;margin:24px;color:#202124}
+h1{font-size:20px;margin:0 0 4px}
+p.sub{color:#5f6368;margin:0 0 12px}
+.chips span{display:inline-block;border-radius:4px;padding:2px 8px;margin-right:8px;font-size:12px}
+table{border-collapse:collapse;margin-top:16px;width:100%}
+th,td{border:1px solid #dadce0;padding:3px 7px;text-align:left;vertical-align:top}
+thead th{position:sticky;top:0;background:#f1f3f4;z-index:1}
+tr.grp td{border-top:2px solid #80868b}
+td.chart{font-weight:600;white-space:nowrap}
+td.s{text-align:center;font-weight:700;width:28px}
+td.note{max-width:330px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#5f6368}
+.y{background:#1e8e3e;color:#fff}
+.w{background:#f9ab00;color:#202124}
+.n{background:#d93025;color:#fff}
+.t{background:#e8eaed;color:#5f6368}
+.na{background:#fff;color:#9aa0a6}
+</style>
+</head>
+<body>
+<h1>Master Catalog Matrix</h1>
+<p class="sub">${charts} chart versions · ${rows.length} variant rows · lane cells: ${counts.yes} pass / ${counts.watch} watch / ${counts.no} blocked / ${counts.todo} not yet run · ${supported} variants production-supported. Generated from committed sources by scripts/generate-master-catalog-matrix.mjs; regenerate with <code>npm run master-matrix</code>.</p>
+<p class="chips"><span class="y">✓ pass</span><span class="w">! watch</span><span class="n">✗ blocked/failed</span><span class="t">· not yet run</span><span class="na">– n/a</span></p>
+<p class="sub">Lanes: R render parity · C ConfigHub upload+scan+ops · L local kind apply · G OCI+Argo live · P live dual parity · K two-cluster kind parity. Hover cells for detail (hooks, quirks, production target scope, next action).${unmatchedReadiness.length ? ` Not in top-100 readiness (candidates/version drift): ${unmatchedReadiness.map(escapeHtml).join(", ")}.` : ""}</p>
+<table>
+<thead><tr><th>Chart</th><th>Variant</th><th>Tier</th><th>Quirks</th><th>Hooks</th><th>R</th><th>C</th><th>L</th><th>G</th><th>P</th><th>K</th><th>Outcome</th><th>Prod</th><th>Next action</th></tr></thead>
+<tbody>
+${bodyRows}
+</tbody>
+</table>
+</body>
+</html>
+`;
+}
+
+function escapeHtml(text) {
+  return String(text).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 }
 
 function tierShort(tier) {
