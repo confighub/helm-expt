@@ -31,7 +31,7 @@ for exact base-variant evidence.
 | Adoption bucket | promote-after-review |
 | User status | proof-grade-ready-for-promotion-review |
 | Strongest evidence | two-cluster-kind-parity |
-| Proof lanes | render parity 2/2; ConfigHub 0/2; local live 2/2; GitOps live 0/2; live parity 0/2 |
+| Proof lanes | render parity 2/2; ConfigHub 1/2; local live 2/2; GitOps live 0/2; live parity 0/2 |
 | Feature summary | values-schema;extension-slots |
 | Hard gap | - |
 | Next action | run catalog promotion review |
