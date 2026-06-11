@@ -85,7 +85,7 @@
         <div class="metric"><strong>dev-mode</strong><span>Recommended first base</span></div>
         <div class="metric"><strong>3</strong><span>Supported base variants</span></div>
         <div class="metric"><strong>start-here</strong><span>Start-base status</span></div>
-        <div class="metric"><strong>blocked</strong><span>Production disposition</span></div>
+        <div class="metric"><strong>production-review-ready</strong><span>Production disposition</span></div>
       </div>
       <p>Use the public catalog entry, then check the exact base and lane before making a production claim.</p>
       <div class="card"><table>
@@ -145,7 +145,7 @@
       <p>A green render or local live result is not a production support claim. Production support is target-scoped and uses the support-decision artifact when present.</p>
       <div class="card"><table>
         <thead><tr><th>Field</th><th>Value</th></tr></thead>
-        <tbody><tr><td>Production disposition</td><td>blocked</td></tr><tr><td>Target-scoped support decision</td><td>rejected</td></tr><tr><td>Supported base</td><td>dev-mode</td></tr><tr><td>Target scope</td><td>vanilla-kubernetes; namespace=vault; delivery=confighub-oci; controller=argo-or-flux</td></tr><tr><td>Accepted dispositions</td><td>cluster RBAC review; extension slot provenance and scan policy; scan/gate warning disposition; storage backup restore and rollback policy; webhook readiness and failure policy</td></tr><tr><td>Open dispositions</td><td>target fact preflight</td></tr><tr><td>Next action</td><td>Keep dev-mode as the local/demo first path only; create a separate Vault production base with init/unseal, storage, TLS, backup/restore, and operator runbook evidence before making a support claim.</td></tr></tbody>
+        <tbody><tr><td>Production disposition</td><td>production-review-ready</td></tr><tr><td>Target-scoped support decision</td><td>rejected</td></tr><tr><td>Supported base</td><td>dev-mode</td></tr><tr><td>Target scope</td><td>vanilla-kubernetes; namespace=vault; delivery=confighub-oci; controller=argo-or-flux</td></tr><tr><td>Accepted dispositions</td><td>cluster RBAC review; extension slot provenance and scan policy; scan/gate warning disposition; storage backup restore and rollback policy; target fact preflight; webhook readiness and failure policy</td></tr><tr><td>Open dispositions</td><td>none</td></tr><tr><td>Next action</td><td>Keep dev-mode as the local/demo first path only; create a separate Vault production base with init/unseal, storage, TLS, backup/restore, and operator runbook evidence before making a support claim.</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }

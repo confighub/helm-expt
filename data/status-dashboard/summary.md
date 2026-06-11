@@ -77,8 +77,8 @@ Which detailed CSV should I open next?
 | live evidence | live parity rows needing target review first | 0/0 | partial | [data/live-parity-rerun-plan/rerun-plan.csv](../../data/live-parity-rerun-plan/rerun-plan.csv) |
 | live evidence | ConfigHub/OCI semantic parity defect receipts | 0/20 | good | [data/live-helm-confighub-compare/summary.csv](../../data/live-helm-confighub-compare/summary.csv) |
 | live evidence | two-cluster semantic parity defect receipts | 0/59 | good | [data/live-kind-parity/summary.csv](../../data/live-kind-parity/summary.csv) |
-| production disposition | top20 production-review-ready charts | 19/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
-| production disposition | top20 production-blocked charts | 1/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | top20 production-review-ready charts | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
+| production disposition | top20 production-blocked charts | 0/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production disposition | charts with accepted production dispositions | 20/20 | partial | [data/production-disposition/top20.csv](../../data/production-disposition/top20.csv) |
 | production support decisions | target-scoped decision artifacts | 20/20 | partial | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
 | production support decisions | supported decision artifacts | 17/20 | partial | [data/production-support-decisions/decisions.csv](../../data/production-support-decisions/decisions.csv) |
@@ -414,8 +414,8 @@ is recorded only in the target-scoped support decision artifacts.
 
 | Metric | Value |
 | --- | ---: |
-| production-review-ready disposition rows | 19/20 |
-| production-blocked pending disposition | 1/20 |
+| production-review-ready disposition rows | 20/20 |
+| production-blocked pending disposition | 0/20 |
 | charts with accepted dispositions | 20/20 |
 | target-scoped support decision artifacts | 20/20 |
 | supported decision artifacts | 17/20 |
@@ -427,7 +427,7 @@ is recorded only in the target-scoped support decision artifacts.
 
 | Open disposition | Charts |
 | --- | ---: |
-| target fact preflight | 1 |
+| none | 0 |
 
 | Scan route | Charts |
 | --- | ---: |

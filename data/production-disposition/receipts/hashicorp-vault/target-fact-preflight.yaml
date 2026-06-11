@@ -1,0 +1,49 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: ProductionDispositionReceipt
+metadata:
+  name: hashicorp-vault-target-fact-preflight
+spec:
+  chart: hashicorp/vault
+  version: "0.32.0"
+  disposition: target fact preflight
+  decision: accepted
+  acceptedAt: "2026-06-11"
+  scope:
+    - local-test
+    - production-review-input
+  summary: >-
+    Vault has no target Secret or CRD prerequisite in the promoted bases, but
+    the ha-raft-ui base has a real target-topology prerequisite: the target
+    must have at least three schedulable nodes before the three-server Raft
+    topology can be treated as live-ready. The recipe declares that fact, the
+    package collector records it and can live-check node capacity, and the
+    two-cluster parity receipt proves the HA base on two three-worker kind
+    clusters. Init, unseal, recovery custody, TLS, backup, restore, and
+    rollback remain operating-policy decisions rather than hidden Helm values.
+  evidence:
+    - path: recipes/hashicorp/vault/0.32.0/variants/ha-raft-ui/variant.yaml
+      claim: The ha-raft-ui variant declares minimumSchedulableNodes=3 as a required target topology fact.
+    - path: packages/hashicorp/vault/0.32.0/collector/target-facts.sh
+      claim: The package collector emits the topology target fact and can live-check the target node count when TARGET_FACT_CHECK_MODE=live.
+    - path: recipes/hashicorp/vault/0.32.0/operating-policy.yaml
+      claim: The operating policy records that HA/Raft needs target topology, init, unseal, recovery custody, and readiness observations after apply.
+    - path: recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/receipts/install-gate.yaml
+      claim: The HA/Raft/UI install gate keeps production blocked until topology, storage, TLS, init/unseal, injector, RBAC, and service exposure are reviewed.
+    - path: runs/live-kind-parity/hashicorp-vault-ha-raft-ui/receipt.yaml
+      claim: Two-cluster parity created three-worker kind targets, staged no secret material, recorded the topology requirement, and passed semantic and workload parity.
+    - path: runs/live-kind-parity/hashicorp-vault-default/receipt.yaml
+      claim: The default base passes parity on a one-node target and records init/unseal as an operating-policy action rather than a target topology fact.
+    - path: runs/live-helm-confighub-compare/hashicorp-vault-default/receipt.yaml
+      claim: The ConfigHub OCI/Argo lane reaches semantic parity and Argo sync for the default base while readiness remains watch until Vault operation is performed.
+  affectedVariants:
+    - ha-raft-ui
+  acceptedPolicy:
+    topologyPreflight: The ha-raft-ui base requires at least three schedulable nodes before live readiness or production support can be claimed.
+    noSecretEmbedding: Init, unseal, root token, and recovery key material must remain outside rendered config and outside this public repo.
+    operatingPreflight: Vault init/unseal and recovery-custody procedures must be checked as operations after apply, not inferred from render parity.
+  variantCaveats:
+    - "dev-mode is a local-demo base and is not a production support path."
+    - "default can be rendered and synced on a one-node target, but readiness still depends on init/unseal operation."
+    - "ha-raft-ui requires target capacity, persistent storage, init/unseal, peer observation, and recovery-custody evidence before production support."
+  remainingProductionBlockers: []
+  nextDecision: A production support decision should choose the supported Vault base, target topology, TLS posture, init/unseal workflow, recovery material custody, backup/restore procedure, and freshness checks.

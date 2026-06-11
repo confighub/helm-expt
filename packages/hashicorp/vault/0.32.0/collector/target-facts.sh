@@ -9,6 +9,9 @@ emit_empty() {
 targetFacts:
   requiredSecrets: []
   requiredCRDs: []
+  requiredValues: []
+  requiredObjectStores: []
+  requiredTopology: null
 targetFactChecks:
   base: "$base"
   mode: not-required
@@ -49,10 +52,23 @@ live_check_crd() {
   fi
 }
 
+live_check_min_schedulable_nodes() {
+  required="$1"
+  if ! command -v kubectl >/dev/null 2>&1; then
+    echo "kubectl is required for TARGET_FACT_CHECK_MODE=live" >&2
+    exit 1
+  fi
+  count="$(kubectl get nodes -o jsonpath='{range .items[*]}{.spec.unschedulable}{"\n"}{end}' | awk '$1 != "true" { c++ } END { print c + 0 }')"
+  if [ "$count" -lt "$required" ]; then
+    echo "required at least $required schedulable node(s); found $count" >&2
+    exit 1
+  fi
+}
+
 case "$base" in
   'ha-raft-ui')
     if [ "$check_mode" = "live" ]; then
-    true
+      live_check_min_schedulable_nodes '3'
       result="pass"
     else
       result="recorded"
@@ -60,11 +76,14 @@ case "$base" in
     cat <<YAML
 targetFacts:
   requiredSecrets: []
-
   requiredCRDs: []
-
+  requiredValues: []
+  requiredObjectStores: []
+  requiredTopology:
+    minimumSchedulableNodes: 3
+    purpose: "schedule the three Vault server replicas rendered by the HA Raft base"
 targetFactChecks:
-  base: "ha-raft-ui"
+  base: "$base"
   mode: "$check_mode"
   result: "$result"
 YAML
