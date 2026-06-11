@@ -108,7 +108,7 @@ Which detailed CSV should I open next?
 | hooks | related lifecycle observation receipts passing | 4/4 | good | [data/lifecycle-observations/cert-manager-eso/summary.csv](../../data/lifecycle-observations/cert-manager-eso/summary.csv) |
 | apiservice | top100 source APIService charts | 5/100 | partial | [data/apiservice-coverage/top100-apiservice-coverage.csv](../../data/apiservice-coverage/top100-apiservice-coverage.csv) |
 | apiservice | APIService rows with object/workload observation | 1/5 | partial | [data/apiservice-coverage/top100-apiservice-coverage.csv](../../data/apiservice-coverage/top100-apiservice-coverage.csv) |
-| apiservice | APIService rows with aggregation availability receipts | 0/5 | gap | [data/apiservice-coverage/top100-apiservice-coverage.csv](../../data/apiservice-coverage/top100-apiservice-coverage.csv) |
+| apiservice | APIService rows with aggregation availability receipts | 1/5 | partial | [data/apiservice-coverage/top100-apiservice-coverage.csv](../../data/apiservice-coverage/top100-apiservice-coverage.csv) |
 | apiservice | APIService rows still source-detected only | 3/5 | gap | [data/apiservice-coverage/top100-apiservice-coverage.csv](../../data/apiservice-coverage/top100-apiservice-coverage.csv) |
 
 ## Next Work Queues
