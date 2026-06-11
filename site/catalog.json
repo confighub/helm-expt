@@ -11,6 +11,7 @@
     "nextTenGaps": "data/next-ten-waves/gap-review-wave.csv",
     "statusDashboard": "data/status-dashboard/status.csv",
     "activeProofQueue": "data/status-dashboard/active-proof-queue.csv",
+    "outcomeEvidenceContract": "data/outcome-evidence-contract/summary.md",
     "baseReadiness": "data/top20-base-readiness/base-readiness.csv",
     "extensionSlots": "data/extension-slots/extension-slots.csv",
     "chartUseGuide": "data/chart-use-guide/chart-use-guide.csv",

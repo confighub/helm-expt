@@ -12,6 +12,14 @@ The shortest generated front door is:
 It gives one current view of top100 readiness, the retained top500 evidence
 map, proof lanes, hook and quirk residues, GitOps/OCI status, and live parity.
 
+The most product-shaped generated front door is:
+
+[Outcome Evidence Contract](../../data/outcome-evidence-contract/summary.md)
+
+It maps user questions to current status, evidence files, verifier commands,
+scope, and next action. Use it when you need to explain what the project
+currently proves without walking through every receipt.
+
 The detailed generated outcome front door is:
 
 [Outcome Coverage](../../data/outcome-coverage/summary.md)
