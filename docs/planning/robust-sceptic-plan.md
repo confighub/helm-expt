@@ -87,7 +87,7 @@ keep this register current as new proof lanes and product claims are added.
 
 **T3. Synthetic torture suite.** The known-adversarial list covers real charts; this adds charts written to break the model: random values in selector labels, lookup in a spec field, a hook that mutates non-hook resources, sprig env access, dry-run detection, tpl recursion, subchart alias collisions, import-values chains. Each fixture must end in PASS or a named refusal, never silence. Make it public and invite contributions: "break our model" as a standing challenge converts attackers into contributors, and every submitted breaker becomes a regression test.
 
-**T4. Environment determinism matrix.** Render the corpus across Helm versions, OS and arch, timezone and locale, and the flag profiles, and record the matrix on the equivalence receipt. Closes attack A cheaply and permanently.
+**T4. Environment determinism matrix.** The recorded matrix lives at `data/environment-matrix/summary.md`: the proof-grade corpus rendered across timezone and locale variations and flag profiles, each cell rendered twice for per-cell determinism, with digests recorded per flag profile. Open columns — other operating systems, architectures, and Helm versions — are intended to ride on CI runners rather than bespoke local infrastructure. A divergent cell is recorded, not hidden.
 
 **T5. Cluster matrix.** Capability profiles and admission on/off across kind versions: verify that facts and capability profiles catch every divergence, and that each webhook mutation lands as a named normalization rule with its justification. This is what makes attack C's "etcd is not what you applied" answerable line by line.
 

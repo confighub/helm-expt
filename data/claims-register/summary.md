@@ -10,7 +10,7 @@ should be added.
 | Status | Count | Meaning |
 | --- | ---: | --- |
 | `backed` | 4 | Current claim with committed evidence and a scoped verifier. |
-| `partial` | 9 | Useful current evidence, but limited by lane, chart, base, target, or coverage. |
+| `partial` | 10 | Useful current evidence, but limited by lane, chart, base, target, or coverage. |
 | `planned` | 2 | Design or roadmap item. Do not market as shipped behavior. |
 | `refused` | 1 | Explicit non-claim used to keep public messaging narrow. |
 
@@ -28,7 +28,7 @@ should be added.
 | operations | 1 |
 | pain-points | 1 |
 | refusals | 1 |
-| sceptic-tests | 1 |
+| sceptic-tests | 2 |
 | variants | 2 |
 
 ## Rules
@@ -59,6 +59,7 @@ should be added.
 | `serverless-verified-install` | commercial | `planned` | A low-friction verified-install path can exist before full paid ConfigHub operations. | [docs/planning/serverless-verified-install-plan.md](../../docs/planning/serverless-verified-install-plan.md)<br>[docs/planning/verified-install-commercial-model.md](../../docs/planning/verified-install-commercial-model.md)<br>[docs/user/product-support-tiers.md](../../docs/user/product-support-tiers.md) | This is planning, not a current shipped anonymous service claim. |
 | `commercial-security-signing` | commercial | `planned` | Signed artifacts, factory scans, image digest inventory, refresh SLAs, private catalogs, and fleet queries are commercial directions. | [docs/planning/verified-install-commercial-model.md](../../docs/planning/verified-install-commercial-model.md)<br>[data/image-digest-workdown/summary.md](../image-digest-workdown/summary.md)<br>[docs/user/product-support-tiers.md](../../docs/user/product-support-tiers.md)<br>[docs/user/maintenance-sla.md](../../docs/user/maintenance-sla.md) | Security signing and paid support claims require production key, policy, transparency, and SLA decisions. |
 | `blast-radius-prediction` | sceptic-tests | `partial` | Blast-radius prediction is scored by comparing predicted affected objects with actual rerender diffs, from committed base pairs and recorded single-value rerender receipts. | [data/blast-radius-accuracy/summary.md](../blast-radius-accuracy/summary.md)<br>[data/blast-radius-accuracy/cases.csv](../blast-radius-accuracy/cases.csv)<br>[docs/planning/robust-sceptic-plan.md](../../docs/planning/robust-sceptic-plan.md)<br>[data/edge-recovery/summary.md](../edge-recovery/summary.md)<br>[data/high-fanout-demo/summary.md](../high-fanout-demo/summary.md) | Measured coverage is still a small slice of the catalog (current counts are in data/blast-radius-accuracy/summary.md). Whole-release identity paths stay on the backlog until rename-aware scoring exists. |
+| `environment-determinism` | sceptic-tests | `partial` | Rendering is recorded as environment-invariant across timezone and locale variations for the measured corpus, per flag profile. | [data/environment-matrix/summary.md](../environment-matrix/summary.md)<br>[data/environment-matrix/matrix.csv](../environment-matrix/matrix.csv)<br>[docs/planning/robust-sceptic-plan.md](../../docs/planning/robust-sceptic-plan.md) | The matrix covers the proof-grade corpus on one operating system, architecture, and helm version; other platforms and helm versions are open columns intended for CI runners. A divergent cell is recorded, not hidden. |
 | `refused-blanket-verification` | refusals | `refused` | The project refuses to claim that a chart is verified without naming the exact chart, version, base, lane, and target profile. | [docs/user/what-we-refuse-to-claim.md](../../docs/user/what-we-refuse-to-claim.md)<br>[docs/user/current-proof-status.md](../../docs/user/current-proof-status.md)<br>[docs/user/live-parity.md](../../docs/user/live-parity.md)<br>[data/live-parity-rerun-plan/summary.md](../live-parity-rerun-plan/summary.md) | This is a rule that constrains public claims. It does not reduce the work needed to pass more lanes. |
 
 ## Regenerate

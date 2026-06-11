@@ -210,6 +210,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `data-index` | - | CSV index and generated data guide |
 | `derived-variant-target-bound` | [derived-variant-target-bound/summary.md](./derived-variant-target-bound/summary.md) | derived ConfigHub variants with target/live evidence |
 | `edge-recovery` | [edge-recovery/summary.md](./edge-recovery/summary.md) | recovered desired-state graph fragments |
+| `environment-matrix` | [environment-matrix/summary.md](./environment-matrix/summary.md) | supporting generated evidence |
 | `extension-slots` | [extension-slots/summary.md](./extension-slots/summary.md) | NGINX-like extension-slot coverage and routing |
 | `external-scan-lane` | [external-scan-lane/summary.md](./external-scan-lane/summary.md) | external scanner lane review output |
 | `hard-chart-production-packets` | [hard-chart-production-packets/summary.md](./hard-chart-production-packets/summary.md) | supporting generated evidence |
@@ -270,7 +271,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 112 CSV files. Each row records the path, audience,
+It includes 113 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

@@ -21,6 +21,7 @@ data/claims-register/claims.csv,claims-register,user/front-door,"one row per pub
 data/csv-index.csv,data-index,user/front-door,machine-readable index of every CSV under data,,npm run data:index,npm run data:index:verify
 data/derived-variant-target-bound/summary.csv,derived-variant-target-bound,verification,machine-readable summary,data/derived-variant-target-bound/summary.md,npm run derived-variants:target-bound:summary,npm run derived-variants:target-bound:summary:verify
 data/edge-recovery/edges.csv,edge-recovery,corpus,recovered desired-state graph fragments from recipe artifacts,data/edge-recovery/summary.md,npm run edges:generate,npm run edges:verify
+data/environment-matrix/matrix.csv,environment-matrix,supporting,supporting generated CSV,data/environment-matrix/summary.md,,
 data/extension-slots/extension-slots.csv,extension-slots,user/front-door,one row per chart with NGINX-like extension slots and the route for populated slots,data/extension-slots/summary.md,npm run extension-slots,npm run extension-slots:verify
 data/external-scan-lane/chart-workdown.csv,external-scan-lane,user/front-door,one row per chart: external scan findings grouped into priority and next production action,data/external-scan-lane/summary.md,npm run external-scan,npm run external-scan:verify
 data/external-scan-lane/review.csv,external-scan-lane,supporting,review or promotion worksheet,data/external-scan-lane/summary.md,npm run external-scan,npm run external-scan:verify
