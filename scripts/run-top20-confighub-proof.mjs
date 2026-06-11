@@ -20,13 +20,14 @@ import {
   write,
   writeYaml,
 } from "./lib/proof-common.mjs";
-import { TOP20_CONFIGHUB_PROOF_CHARTS } from "./lib/top20-confighub-proof.mjs";
+import { CONFIGHUB_PROMOTION_PROOF_CHARTS, TOP20_CONFIGHUB_PROOF_CHARTS } from "./lib/top20-confighub-proof.mjs";
 
 const args = process.argv.slice(2);
 const force = args.includes("--force");
 const all = args.includes("--all");
 const cleanupSpaces = args.includes("--cleanup-spaces");
 const latestCandidates = args.includes("--latest-candidates");
+const promotionCandidates = args.includes("--promotion-candidates");
 const chartsArg = optionValue("--charts");
 const baseOverride = optionValue("--base");
 const smoke = args.includes("--smoke");
@@ -56,6 +57,7 @@ function usage() {
   node scripts/run-top20-confighub-proof.mjs
   node scripts/run-top20-confighub-proof.mjs --charts ingress-nginx,rabbitmq
   node scripts/run-top20-confighub-proof.mjs --charts kube-prometheus-stack --base no-crds --cleanup-spaces
+  node scripts/run-top20-confighub-proof.mjs --promotion-candidates --charts keda --cleanup-spaces
   node scripts/run-top20-confighub-proof.mjs --all --force
   node scripts/run-top20-confighub-proof.mjs --latest-candidates --charts nginx --cleanup-spaces
   node scripts/run-top20-confighub-proof.mjs --cleanup-spaces
@@ -63,6 +65,8 @@ function usage() {
 Default: run top-20 charts whose ConfigHub proof receipt is missing.
 --latest-candidates runs against generated latest-version candidate packages
 under data/latest-top20-refresh/candidates/.
+--promotion-candidates runs explicitly configured proof-grade promotion
+candidate charts without changing the top-20 proof set.
 --base selects one explicit package base for one selected chart and writes a
 base-specific proof run without replacing the chart's default proof receipt.
 --cleanup-spaces deletes the live proof spaces after receipts are written so
@@ -77,7 +81,12 @@ function optionValue(name) {
 }
 
 function selectCharts() {
-  const sourceCharts = latestCandidates ? latestCandidateCharts() : TOP20_CONFIGHUB_PROOF_CHARTS;
+  check(!(latestCandidates && promotionCandidates), "--latest-candidates and --promotion-candidates are mutually exclusive");
+  const sourceCharts = latestCandidates
+    ? latestCandidateCharts()
+    : promotionCandidates
+      ? CONFIGHUB_PROMOTION_PROOF_CHARTS
+      : TOP20_CONFIGHUB_PROOF_CHARTS;
   let charts;
   if (chartsArg) {
     charts = chartsArg
@@ -93,7 +102,7 @@ function selectCharts() {
             candidate.chart.split("/").at(-1),
           ].filter(Boolean).includes(slug),
         );
-        check(chart, `unknown ${latestCandidates ? "latest-candidate" : "top-20"} chart selector: ${slug}`);
+        check(chart, `unknown ${chartSetName()} chart selector: ${slug}`);
         return chart;
       });
   } else if (all) {
@@ -107,6 +116,12 @@ function selectCharts() {
     charts = [withBaseOverride(charts[0], baseOverride)];
   }
   return charts;
+}
+
+function chartSetName() {
+  if (latestCandidates) return "latest-candidate";
+  if (promotionCandidates) return "promotion-candidate";
+  return "top-20";
 }
 
 function withBaseOverride(chart, base) {

@@ -185,6 +185,20 @@ export const TOP20_CONFIGHUB_PROOF_CHARTS = [
   },
 ];
 
+export const CONFIGHUB_PROMOTION_PROOF_CHARTS = [
+  {
+    slug: "keda",
+    displayName: "KEDA",
+    component: "KEDA",
+    packagePath: "packages/kedacore/keda/2.19.0",
+    chart: "kedacore/keda",
+    chartVersion: "2.19.0",
+    namespace: "default",
+    defaultBase: "default",
+    skipDemoDocs: true,
+  },
+];
+
 export function chartBySlug(slug) {
   return TOP20_CONFIGHUB_PROOF_CHARTS.find((chart) => chart.slug === slug);
 }
