@@ -1,0 +1,47 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-mongodb-19.0.7-existing-secret-replicaset-local-kind"
+spec:
+  variantRevision: "recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "3723a87004e25f813534be469bf648b6d6b80357fb01e47e465f775dcaec9231"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "mongodb"
+  observedAt: "2026-06-11T12:47:37.721Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "existing"
+  variant: "existing-secret-replicaset"
+  workloads: 2
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "ae774031a2e91b11dcce71164875e2c6cb8dfd98e3710ac90e58a3cd97df003d"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||mongodb"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "10 object(s) from recipes/bitnami/mongodb/19.0.7/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "StatefulSet|mongodb|mongodb-arbiter"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): mongodb-0[PodInitializing ready=false restarts=0;] mongodb-arbiter-0[ContainerCreating ready=false restarts=0;]"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "StatefulSet|mongodb|mongodb"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): mongodb-0[PodInitializing ready=false restarts=0;] mongodb-arbiter-0[ContainerCreating ready=false restarts=0;]"
+  blockedReasons:
+    - "statefulset/mongodb-arbiter: prerequisite-blocked (stuck creating: missing mount/secret/config) (mongodb-0[PodInitializing ready=false restarts=0;] mongodb-arbiter-0[ContainerCreating ready=false restarts=0;])"
+    - "statefulset/mongodb: prerequisite-blocked (stuck creating: missing mount/secret/config) (mongodb-0[PodInitializing ready=false restarts=0;] mongodb-arbiter-0[ContainerCreating ready=false restarts=0;])"

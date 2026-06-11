@@ -177,6 +177,20 @@ const failed = checks.filter((entry) => entry.result === "fail");
 const blocked = checks.filter((entry) => entry.result === "blocked");
 const result = failed.length ? "fail" : blocked.length ? "blocked" : "pass";
 
+// Fully-blocked applies capture no live payload; the observation log (the
+// checks and reasons themselves) is then the committed evidence so the p0
+// receipt contract (some evidence digest) always holds.
+const logPath = join(runDir, "observation-log.txt");
+const logText = `${checks.map((c) => `${c.result.toUpperCase()} ${c.name} ${c.object}${c.reason ? ` :: ${c.reason}` : ""}`).join("\n")}\n${blockedReasons.length ? `blocked:\n${blockedReasons.join("\n")}\n` : ""}`;
+if (!observedPayload.trim()) {
+  const { writeFileSync } = await import("node:fs");
+  writeFileSync(logPath, logText);
+  const firstNonPass = checks.find((c) => c.result !== "pass") ?? checks[0];
+  if (firstNonPass) {
+    firstNonPass.evidencePath = "observation-log.txt";
+    firstNonPass.evidenceSHA256 = sha256(logText);
+  }
+}
 const receiptPath = join(runDir, "observation-receipt.yaml");
 const observedPath = join(runDir, "observed-objects.yaml");
 if (observedPayload.trim()) {

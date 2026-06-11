@@ -1,0 +1,39 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "open-telemetry-opentelemetry-operator-0.114.0-no-crds-local-kind"
+spec:
+  variantRevision: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "6ca1e737e9540f4b6a2d6e19fa83fa580cb407942b78ed53f9604aa46b662ea1"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T15:12:53.961Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "existing"
+  variant: "no-crds"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "9b09b23b54aed714cf03875e3269d7930e7525b25b747859313bba3dd541f8fc"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "blocked"
+      object: "13 object(s) from recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+      reason: "apply-blocked: resource mapping not found for name: \"opentelemetry-operator-serving-cert\" namespace: \"default\" from \"STDIN\": no matches for kind \"Certificate\" in version \"cert-manager.io/v1\" ensure CRDs are installe"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|default|opentelemetry-operator"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): opentelemetry-operator-7b79f764b-z49wm[ContainerCreating ready=false restarts=0;]"
+  blockedReasons:
+    - "apply: resource mapping not found for name: \"opentelemetry-operator-serving-cert\" namespace: \"default\" from \"STDIN\": no matches for kind \"Certificate\" in version \"cert-manager.io/v1\" ensure CRDs are installe"
+    - "deployment/opentelemetry-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (opentelemetry-operator-7b79f764b-z49wm[ContainerCreating ready=false restarts=0;])"

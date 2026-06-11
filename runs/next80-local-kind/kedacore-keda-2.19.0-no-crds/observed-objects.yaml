@@ -1,0 +1,1504 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-operator\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\"},\"name\":\"keda-operator\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      labels:
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "keda-operator"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+      name: "keda-operator"
+      namespace: "default"
+      resourceVersion: "1952"
+      uid: "a3b1decf-85ee-4b85-bdda-43cdfd32838a"
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-metrics-server\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\"},\"name\":\"keda-metrics-server\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      labels:
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "keda-metrics-server"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+      name: "keda-metrics-server"
+      namespace: "default"
+      resourceVersion: "1953"
+      uid: "50586a83-359b-44b6-aa56-f76cd676216d"
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-webhook\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\"},\"name\":\"keda-webhook\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      labels:
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "keda-webhook"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+      name: "keda-webhook"
+      namespace: "default"
+      resourceVersion: "1954"
+      uid: "54783587-d27b-45d5-b0e2-c9e523b9ee75"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-operator-certs\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\"},\"name\":\"keda-operator-certs\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"\"],\"resourceNames\":[\"kedaorg-certs\"],\"resources\":[\"secrets\"],\"verbs\":[\"get\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"create\",\"update\"]}]}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      labels:
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "keda-operator-certs"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+      name: "keda-operator-certs"
+      namespace: "default"
+      resourceVersion: "1955"
+      uid: "5844805d-92a6-4d18-9c5c-aff098417cd0"
+    rules:
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resourceNames:
+          - "kedaorg-certs"
+        resources:
+          - "secrets"
+        verbs:
+          - "get"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "create"
+          - "update"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-operator-certs\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\"},\"name\":\"keda-operator-certs\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"keda-operator-certs\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"keda-operator\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      labels:
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "keda-operator-certs"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+      name: "keda-operator-certs"
+      namespace: "default"
+      resourceVersion: "1956"
+      uid: "bd7d84ab-a015-4184-99ce-da57c2417d9f"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "keda-operator-certs"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "keda-operator"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-operator-auth-reader\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\"},\"name\":\"keda-operator-auth-reader\",\"namespace\":\"kube-system\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"extension-apiserver-authentication-reader\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"keda-metrics-server\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      labels:
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "keda-operator-auth-reader"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+      name: "keda-operator-auth-reader"
+      namespace: "kube-system"
+      resourceVersion: "1957"
+      uid: "d5e112b6-e873-4012-907c-e5b607127650"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "extension-apiserver-authentication-reader"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "keda-metrics-server"
+        namespace: "default"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-operator\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\"},\"name\":\"keda-operator\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"metricsservice\",\"port\":9666,\"targetPort\":9666}],\"selector\":{\"app\":\"keda-operator\"}}}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      labels:
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "keda-operator"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+      name: "keda-operator"
+      namespace: "default"
+      resourceVersion: "1959"
+      uid: "2a6dbfa6-b978-48b1-8128-3dd152b69041"
+    spec:
+      clusterIP: "10.96.61.182"
+      clusterIPs:
+        - "10.96.61.182"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "metricsservice"
+          port: 9666
+          protocol: "TCP"
+          targetPort: 9666
+      selector:
+        app: "keda-operator"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"keda-operator-metrics-apiserver\",\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-operator-metrics-apiserver\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\"},\"name\":\"keda-operator-metrics-apiserver\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"appProtocol\":\"https\",\"name\":\"https\",\"port\":443,\"protocol\":\"TCP\",\"targetPort\":6443},{\"name\":\"metrics\",\"port\":8080,\"protocol\":\"TCP\",\"targetPort\":8080}],\"selector\":{\"app\":\"keda-operator-metrics-apiserver\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      labels:
+        app: "keda-operator-metrics-apiserver"
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "keda-operator-metrics-apiserver"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+      name: "keda-operator-metrics-apiserver"
+      namespace: "default"
+      resourceVersion: "1963"
+      uid: "7b002c5f-1f03-477a-a8ec-f73ff6b2231c"
+    spec:
+      clusterIP: "10.96.69.99"
+      clusterIPs:
+        - "10.96.69.99"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          appProtocol: "https"
+          name: "https"
+          port: 443
+          protocol: "TCP"
+          targetPort: 6443
+        -
+          name: "metrics"
+          port: 8080
+          protocol: "TCP"
+          targetPort: 8080
+      selector:
+        app: "keda-operator-metrics-apiserver"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-admission-webhooks\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\"},\"name\":\"keda-admission-webhooks\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"appProtocol\":\"https\",\"name\":\"https\",\"port\":443,\"protocol\":\"TCP\",\"targetPort\":9443}],\"selector\":{\"app\":\"keda-admission-webhooks\"}}}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      labels:
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "keda-admission-webhooks"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+      name: "keda-admission-webhooks"
+      namespace: "default"
+      resourceVersion: "1967"
+      uid: "c152ad28-1b6b-43f9-bcb1-9d2bcc035a3e"
+    spec:
+      clusterIP: "10.96.232.1"
+      clusterIPs:
+        - "10.96.232.1"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          appProtocol: "https"
+          name: "https"
+          port: 443
+          protocol: "TCP"
+          targetPort: 9443
+      selector:
+        app: "keda-admission-webhooks"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"keda-operator\",\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-operator\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\",\"name\":\"keda-operator\"},\"name\":\"keda-operator\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app\":\"keda-operator\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"keda-operator\",\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-operator\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\",\"name\":\"keda-operator\"}},\"spec\":{\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"--leader-elect\",\"--disable-compression=true\",\"--zap-log-level=info\",\"--zap-encoder=console\",\"--zap-time-encoding=rfc3339\",\"--enable-webhook-patching=true\",\"--cert-dir=/certs\",\"--enable-cert-rotation=true\",\"--cert-secret-name=kedaorg-certs\",\"--operator-service-name=keda-operator\",\"--metrics-server-service-name=keda-operator-metrics-apiserver\",\"--webhooks-service-name=keda-admission-webhooks\",\"--k8s-cluster-name=kubernetes-default\",\"--k8s-cluster-domain=cluster.local\",\"--enable-prometheus-metrics=false\"],\"command\":[\"/keda\"],\"env\":[{\"name\":\"WATCH_NAMESPACE\",\"value\":\"\"},{\"name\":\"POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"POD_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"OPERATOR_NAME\",\"value\":\"keda-operator\"},{\"name\":\"KEDA_HTTP_DEFAULT_TIMEOUT\",\"value\":\"3000\"},{\"name\":\"KEDA_HTTP_MIN_TLS_VERSION\",\"value\":\"TLS12\"}],\"image\":\"ghcr.io/kedacore/keda:2.19.0\",\"imagePullPolicy\":\"Always\",\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/healthz\",\"port\":8081},\"initialDelaySeconds\":25,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":1},\"name\":\"keda-operator\",\"ports\":[{\"containerPort\":9666,\"name\":\"metricsservice\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/readyz\",\"port\":8081},\"initialDelaySeconds\":20,\"periodSeconds\":3,\"successThreshold\":1,\"timeoutSeconds\":1},\"resources\":{\"limits\":{\"cpu\":1,\"memory\":\"1000Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"100Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/certs\",\"name\":\"certificates\",\"readOnly\":true}]}],\"dnsPolicy\":\"ClusterFirst\",\"enableServiceLinks\":true,\"hostNetwork\":false,\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"securityContext\":{\"runAsNonRoot\":true},\"serviceAccountName\":\"keda-operator\",\"volumes\":[{\"name\":\"certificates\",\"secret\":{\"defaultMode\":420,\"optional\":true,\"secretName\":\"kedaorg-certs\"}}]}}}}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      generation: 1
+      labels:
+        app: "keda-operator"
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "keda-operator"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+        name: "keda-operator"
+      name: "keda-operator"
+      namespace: "default"
+      resourceVersion: "2133"
+      uid: "8db8a24a-f281-4215-a36b-a9862db06ebe"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app: "keda-operator"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app: "keda-operator"
+            app.kubernetes.io/component: "operator"
+            app.kubernetes.io/instance: "keda"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "keda-operator"
+            app.kubernetes.io/part-of: "keda-operator"
+            app.kubernetes.io/version: "2.19.0"
+            helm.sh/chart: "keda-2.19.0"
+            name: "keda-operator"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "--leader-elect"
+                - "--disable-compression=true"
+                - "--zap-log-level=info"
+                - "--zap-encoder=console"
+                - "--zap-time-encoding=rfc3339"
+                - "--enable-webhook-patching=true"
+                - "--cert-dir=/certs"
+                - "--enable-cert-rotation=true"
+                - "--cert-secret-name=kedaorg-certs"
+                - "--operator-service-name=keda-operator"
+                - "--metrics-server-service-name=keda-operator-metrics-apiserver"
+                - "--webhooks-service-name=keda-admission-webhooks"
+                - "--k8s-cluster-name=kubernetes-default"
+                - "--k8s-cluster-domain=cluster.local"
+                - "--enable-prometheus-metrics=false"
+              command:
+                - "/keda"
+              env:
+                -
+                  name: "WATCH_NAMESPACE"
+                -
+                  name: "POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "POD_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "OPERATOR_NAME"
+                  value: "keda-operator"
+                -
+                  name: "KEDA_HTTP_DEFAULT_TIMEOUT"
+                  value: "3000"
+                -
+                  name: "KEDA_HTTP_MIN_TLS_VERSION"
+                  value: "TLS12"
+              image: "ghcr.io/kedacore/keda:2.19.0"
+              imagePullPolicy: "Always"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: 8081
+                  scheme: "HTTP"
+                initialDelaySeconds: 25
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              name: "keda-operator"
+              ports:
+                -
+                  containerPort: 9666
+                  name: "metricsservice"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/readyz"
+                  port: 8081
+                  scheme: "HTTP"
+                initialDelaySeconds: 20
+                periodSeconds: 3
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                limits:
+                  cpu: "1"
+                  memory: "1000Mi"
+                requests:
+                  cpu: "100m"
+                  memory: "100Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/certs"
+                  name: "certificates"
+                  readOnly: true
+          dnsPolicy: "ClusterFirst"
+          enableServiceLinks: true
+          nodeSelector:
+            kubernetes.io/os: "linux"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            runAsNonRoot: true
+          serviceAccount: "keda-operator"
+          serviceAccountName: "keda-operator"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              name: "certificates"
+              secret:
+                defaultMode: 420
+                optional: true
+                secretName: "kedaorg-certs"
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T15:05:47Z"
+          lastUpdateTime: "2026-06-11T15:05:47Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T15:05:12Z"
+          lastUpdateTime: "2026-06-11T15:05:47Z"
+          message: "ReplicaSet \"keda-operator-55db59458d\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"keda-operator-metrics-apiserver\",\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-operator-metrics-apiserver\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\"},\"name\":\"keda-operator-metrics-apiserver\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app\":\"keda-operator-metrics-apiserver\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"keda-operator-metrics-apiserver\",\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-operator-metrics-apiserver\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\"}},\"spec\":{\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"--port=8080\",\"--secure-port=6443\",\"--logtostderr=true\",\"--stderrthreshold=ERROR\",\"--disable-compression=true\",\"--metrics-service-address=keda-operator.default.svc.cluster.local:9666\",\"--client-ca-file=/certs/ca.crt\",\"--tls-cert-file=/certs/tls.crt\",\"--tls-private-key-file=/certs/tls.key\",\"--cert-dir=/certs\",\"--v=0\",\"--zap-log-level=info\",\"--zap-encoder=console\",\"--zap-time-encoding=rfc3339\"],\"command\":[\"/keda-adapter\"],\"env\":[{\"name\":\"WATCH_NAMESPACE\",\"value\":\"\"},{\"name\":\"POD_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"KEDA_HTTP_DEFAULT_TIMEOUT\",\"value\":\"3000\"},{\"name\":\"KEDA_HTTP_MIN_TLS_VERSION\",\"value\":\"TLS12\"}],\"image\":\"ghcr.io/kedacore/keda-metrics-apiserver:2.19.0\",\"imagePullPolicy\":\"Always\",\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/healthz\",\"port\":6443,\"scheme\":\"HTTPS\"},\"initialDelaySeconds\":5,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":1},\"name\":\"keda-operator-metrics-apiserver\",\"ports\":[{\"containerPort\":6443,\"name\":\"https\",\"protocol\":\"TCP\"},{\"containerPort\":8080,\"name\":\"metrics\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/readyz\",\"port\":6443,\"scheme\":\"HTTPS\"},\"initialDelaySeconds\":5,\"periodSeconds\":3,\"successThreshold\":1,\"timeoutSeconds\":1},\"resources\":{\"limits\":{\"cpu\":1,\"memory\":\"1000Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"100Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/certs\",\"name\":\"certificates\",\"readOnly\":true}]}],\"dnsPolicy\":\"ClusterFirst\",\"enableServiceLinks\":true,\"hostNetwork\":false,\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"securityContext\":{\"runAsNonRoot\":true},\"serviceAccountName\":\"keda-metrics-server\",\"volumes\":[{\"name\":\"certificates\",\"secret\":{\"defaultMode\":420,\"secretName\":\"kedaorg-certs\"}}]}}}}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      generation: 1
+      labels:
+        app: "keda-operator-metrics-apiserver"
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "keda-operator-metrics-apiserver"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+      name: "keda-operator-metrics-apiserver"
+      namespace: "default"
+      resourceVersion: "2116"
+      uid: "cc3ada44-3d6d-4bd3-aaf4-7810f28ef5bd"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app: "keda-operator-metrics-apiserver"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app: "keda-operator-metrics-apiserver"
+            app.kubernetes.io/component: "operator"
+            app.kubernetes.io/instance: "keda"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "keda-operator-metrics-apiserver"
+            app.kubernetes.io/part-of: "keda-operator"
+            app.kubernetes.io/version: "2.19.0"
+            helm.sh/chart: "keda-2.19.0"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "--port=8080"
+                - "--secure-port=6443"
+                - "--logtostderr=true"
+                - "--stderrthreshold=ERROR"
+                - "--disable-compression=true"
+                - "--metrics-service-address=keda-operator.default.svc.cluster.local:9666"
+                - "--client-ca-file=/certs/ca.crt"
+                - "--tls-cert-file=/certs/tls.crt"
+                - "--tls-private-key-file=/certs/tls.key"
+                - "--cert-dir=/certs"
+                - "--v=0"
+                - "--zap-log-level=info"
+                - "--zap-encoder=console"
+                - "--zap-time-encoding=rfc3339"
+              command:
+                - "/keda-adapter"
+              env:
+                -
+                  name: "WATCH_NAMESPACE"
+                -
+                  name: "POD_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "KEDA_HTTP_DEFAULT_TIMEOUT"
+                  value: "3000"
+                -
+                  name: "KEDA_HTTP_MIN_TLS_VERSION"
+                  value: "TLS12"
+              image: "ghcr.io/kedacore/keda-metrics-apiserver:2.19.0"
+              imagePullPolicy: "Always"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: 6443
+                  scheme: "HTTPS"
+                initialDelaySeconds: 5
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              name: "keda-operator-metrics-apiserver"
+              ports:
+                -
+                  containerPort: 6443
+                  name: "https"
+                  protocol: "TCP"
+                -
+                  containerPort: 8080
+                  name: "metrics"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/readyz"
+                  port: 6443
+                  scheme: "HTTPS"
+                initialDelaySeconds: 5
+                periodSeconds: 3
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                limits:
+                  cpu: "1"
+                  memory: "1000Mi"
+                requests:
+                  cpu: "100m"
+                  memory: "100Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/certs"
+                  name: "certificates"
+                  readOnly: true
+          dnsPolicy: "ClusterFirst"
+          enableServiceLinks: true
+          nodeSelector:
+            kubernetes.io/os: "linux"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            runAsNonRoot: true
+          serviceAccount: "keda-metrics-server"
+          serviceAccountName: "keda-metrics-server"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              name: "certificates"
+              secret:
+                defaultMode: 420
+                secretName: "kedaorg-certs"
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T15:05:42Z"
+          lastUpdateTime: "2026-06-11T15:05:42Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T15:05:12Z"
+          lastUpdateTime: "2026-06-11T15:05:42Z"
+          message: "ReplicaSet \"keda-operator-metrics-apiserver-cb7df9874\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"keda-admission-webhooks\",\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-admission-webhooks\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\",\"name\":\"keda-admission-webhooks\"},\"name\":\"keda-admission-webhooks\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app\":\"keda-admission-webhooks\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"keda-admission-webhooks\",\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-admission-webhooks\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\",\"name\":\"keda-admission-webhooks\"}},\"spec\":{\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"--zap-log-level=info\",\"--zap-encoder=console\",\"--zap-time-encoding=rfc3339\",\"--cert-dir=/certs\",\"--health-probe-bind-address=:8081\",\"--metrics-bind-address=:8080\"],\"command\":[\"/keda-admission-webhooks\"],\"env\":[{\"name\":\"WATCH_NAMESPACE\",\"value\":\"\"},{\"name\":\"POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"POD_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}}],\"image\":\"ghcr.io/kedacore/keda-admission-webhooks:2.19.0\",\"imagePullPolicy\":\"Always\",\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/healthz\",\"port\":8081},\"initialDelaySeconds\":25,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":1},\"name\":\"keda-admission-webhooks\",\"ports\":[{\"containerPort\":9443,\"name\":\"http\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/readyz\",\"port\":8081},\"initialDelaySeconds\":20,\"periodSeconds\":3,\"successThreshold\":1,\"timeoutSeconds\":1},\"resources\":{\"limits\":{\"cpu\":1,\"memory\":\"1000Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"100Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/certs\",\"name\":\"certificates\",\"readOnly\":true}]}],\"enableServiceLinks\":true,\"hostNetwork\":false,\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"securityContext\":{\"runAsNonRoot\":true},\"serviceAccountName\":\"keda-webhook\",\"volumes\":[{\"name\":\"certificates\",\"secret\":{\"defaultMode\":420,\"secretName\":\"kedaorg-certs\"}}]}}}}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      generation: 1
+      labels:
+        app: "keda-admission-webhooks"
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "keda-admission-webhooks"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+        name: "keda-admission-webhooks"
+      name: "keda-admission-webhooks"
+      namespace: "default"
+      resourceVersion: "2170"
+      uid: "d08ab717-0dee-497d-9f49-6b54deea7375"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app: "keda-admission-webhooks"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app: "keda-admission-webhooks"
+            app.kubernetes.io/component: "operator"
+            app.kubernetes.io/instance: "keda"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "keda-admission-webhooks"
+            app.kubernetes.io/part-of: "keda-operator"
+            app.kubernetes.io/version: "2.19.0"
+            helm.sh/chart: "keda-2.19.0"
+            name: "keda-admission-webhooks"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "--zap-log-level=info"
+                - "--zap-encoder=console"
+                - "--zap-time-encoding=rfc3339"
+                - "--cert-dir=/certs"
+                - "--health-probe-bind-address=:8081"
+                - "--metrics-bind-address=:8080"
+              command:
+                - "/keda-admission-webhooks"
+              env:
+                -
+                  name: "WATCH_NAMESPACE"
+                -
+                  name: "POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "POD_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+              image: "ghcr.io/kedacore/keda-admission-webhooks:2.19.0"
+              imagePullPolicy: "Always"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: 8081
+                  scheme: "HTTP"
+                initialDelaySeconds: 25
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              name: "keda-admission-webhooks"
+              ports:
+                -
+                  containerPort: 9443
+                  name: "http"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/readyz"
+                  port: 8081
+                  scheme: "HTTP"
+                initialDelaySeconds: 20
+                periodSeconds: 3
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                limits:
+                  cpu: "1"
+                  memory: "1000Mi"
+                requests:
+                  cpu: "100m"
+                  memory: "100Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/certs"
+                  name: "certificates"
+                  readOnly: true
+          dnsPolicy: "ClusterFirst"
+          enableServiceLinks: true
+          nodeSelector:
+            kubernetes.io/os: "linux"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            runAsNonRoot: true
+          serviceAccount: "keda-webhook"
+          serviceAccountName: "keda-webhook"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              name: "certificates"
+              secret:
+                defaultMode: 420
+                secretName: "kedaorg-certs"
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T15:06:03Z"
+          lastUpdateTime: "2026-06-11T15:06:03Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T15:05:12Z"
+          lastUpdateTime: "2026-06-11T15:06:03Z"
+          message: "ReplicaSet \"keda-admission-webhooks-7b48797dc8\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-operator\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\"},\"name\":\"keda-operator\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\",\"configmaps/status\",\"limitranges\",\"pods\",\"services\",\"serviceaccounts\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"patch\"]},{\"apiGroups\":[\"discovery.k8s.io\"],\"resources\":[\"endpointslices\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"*\"],\"resources\":[\"*/scale\"],\"verbs\":[\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"*\"],\"resources\":[\"*\"],\"verbs\":[\"get\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"deployments/scale\",\"statefulsets/scale\"],\"verbs\":[\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"deployments\",\"statefulsets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"autoscaling\"],\"resources\":[\"horizontalpodautoscalers\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"jobs\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"eventing.keda.sh\"],\"resources\":[\"cloudeventsources\",\"cloudeventsources/status\",\"clustercloudeventsources\",\"clustercloudeventsources/status\"],\"verbs\":[\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"keda.sh\"],\"resources\":[\"scaledjobs\",\"scaledjobs/finalizers\",\"scaledjobs/status\",\"scaledobjects\",\"scaledobjects/finalizers\",\"scaledobjects/status\",\"triggerauthentications\",\"triggerauthentications/status\"],\"verbs\":[\"get\",\"list\",\"patch\",\"update\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      labels:
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "keda-operator"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+      name: "keda-operator"
+      resourceVersion: "2009"
+      uid: "6644b0b7-d573-4467-8f45-1dc2714f5fde"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+          - "configmaps/status"
+          - "limitranges"
+          - "pods"
+          - "services"
+          - "serviceaccounts"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "patch"
+      -
+        apiGroups:
+          - "discovery.k8s.io"
+        resources:
+          - "endpointslices"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "*"
+        resources:
+          - "*/scale"
+        verbs:
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "*"
+        resources:
+          - "*"
+        verbs:
+          - "get"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "deployments/scale"
+          - "statefulsets/scale"
+        verbs:
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "deployments"
+          - "statefulsets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "autoscaling"
+        resources:
+          - "horizontalpodautoscalers"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "batch"
+        resources:
+          - "jobs"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "eventing.keda.sh"
+        resources:
+          - "cloudeventsources"
+          - "cloudeventsources/status"
+          - "clustercloudeventsources"
+          - "clustercloudeventsources/status"
+        verbs:
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "keda.sh"
+        resources:
+          - "scaledjobs"
+          - "scaledjobs/finalizers"
+          - "scaledjobs/status"
+          - "scaledobjects"
+          - "scaledobjects/finalizers"
+          - "scaledobjects/status"
+          - "triggerauthentications"
+          - "triggerauthentications/status"
+        verbs:
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-operator-minimal-cluster-role\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\"},\"name\":\"keda-operator-minimal-cluster-role\"},\"rules\":[{\"apiGroups\":[\"keda.sh\"],\"resources\":[\"clustertriggerauthentications\",\"clustertriggerauthentications/status\"],\"verbs\":[\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"admissionregistration.k8s.io\"],\"resources\":[\"validatingwebhookconfigurations\"],\"verbs\":[\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"apiregistration.k8s.io\"],\"resources\":[\"apiservices\"],\"verbs\":[\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"eventing.keda.sh\"],\"resources\":[\"cloudeventsources\",\"cloudeventsources/status\",\"clustercloudeventsources\",\"clustercloudeventsources/status\"],\"verbs\":[\"get\",\"list\",\"patch\",\"update\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      labels:
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "keda-operator-minimal-cluster-role"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+      name: "keda-operator-minimal-cluster-role"
+      resourceVersion: "2010"
+      uid: "09648dd9-c603-44f3-bf3d-8b2f174eb25e"
+    rules:
+      -
+        apiGroups:
+          - "keda.sh"
+        resources:
+          - "clustertriggerauthentications"
+          - "clustertriggerauthentications/status"
+        verbs:
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "admissionregistration.k8s.io"
+        resources:
+          - "validatingwebhookconfigurations"
+        verbs:
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "apiregistration.k8s.io"
+        resources:
+          - "apiservices"
+        verbs:
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "eventing.keda.sh"
+        resources:
+          - "cloudeventsources"
+          - "cloudeventsources/status"
+          - "clustercloudeventsources"
+          - "clustercloudeventsources/status"
+        verbs:
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-operator-external-metrics-reader\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\"},\"name\":\"keda-operator-external-metrics-reader\"},\"rules\":[{\"apiGroups\":[\"external.metrics.k8s.io\"],\"resources\":[\"externalmetrics\"],\"verbs\":[\"get\"]}]}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      labels:
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "keda-operator-external-metrics-reader"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+      name: "keda-operator-external-metrics-reader"
+      resourceVersion: "2011"
+      uid: "82259e57-3c30-417c-9c43-e26ec5f1d691"
+    rules:
+      -
+        apiGroups:
+          - "external.metrics.k8s.io"
+        resources:
+          - "externalmetrics"
+        verbs:
+          - "get"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-operator-webhook\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\"},\"name\":\"keda-operator-webhook\"},\"rules\":[{\"apiGroups\":[\"autoscaling\"],\"resources\":[\"horizontalpodautoscalers\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"keda.sh\"],\"resources\":[\"scaledobjects\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"deployments\",\"statefulsets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"limitranges\"],\"verbs\":[\"list\"]}]}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      labels:
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "keda-operator-webhook"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+      name: "keda-operator-webhook"
+      resourceVersion: "2012"
+      uid: "8636c93a-30d7-45d0-80e1-432aae45c77e"
+    rules:
+      -
+        apiGroups:
+          - "autoscaling"
+        resources:
+          - "horizontalpodautoscalers"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "keda.sh"
+        resources:
+          - "scaledobjects"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "deployments"
+          - "statefulsets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "limitranges"
+        verbs:
+          - "list"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-operator\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\"},\"name\":\"keda-operator\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"keda-operator\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"keda-operator\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      labels:
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "keda-operator"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+      name: "keda-operator"
+      resourceVersion: "2013"
+      uid: "1556f1ec-7b12-47d7-911e-64f4fad809fb"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "keda-operator"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "keda-operator"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-operator-minimal\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\"},\"name\":\"keda-operator-minimal\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"keda-operator-minimal-cluster-role\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"keda-operator\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      labels:
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "keda-operator-minimal"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+      name: "keda-operator-minimal"
+      resourceVersion: "2014"
+      uid: "e72ce5ae-da2b-4d38-a158-d3daeebe512d"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "keda-operator-minimal-cluster-role"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "keda-operator"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-operator-system-auth-delegator\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\"},\"name\":\"keda-operator-system-auth-delegator\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"system:auth-delegator\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"keda-metrics-server\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      labels:
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "keda-operator-system-auth-delegator"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+      name: "keda-operator-system-auth-delegator"
+      resourceVersion: "2015"
+      uid: "f1ddd8b6-7000-4731-b3be-820ec1de40de"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "system:auth-delegator"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "keda-metrics-server"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-operator-hpa-controller-external-metrics\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\"},\"name\":\"keda-operator-hpa-controller-external-metrics\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"keda-operator-external-metrics-reader\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"horizontal-pod-autoscaler\",\"namespace\":\"kube-system\"}]}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      labels:
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "keda-operator-hpa-controller-external-metrics"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+      name: "keda-operator-hpa-controller-external-metrics"
+      resourceVersion: "2016"
+      uid: "a0b61702-3f27-4690-9e81-b06ad245966c"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "keda-operator-external-metrics-reader"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "horizontal-pod-autoscaler"
+        namespace: "kube-system"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-operator-webhook\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\"},\"name\":\"keda-operator-webhook\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"keda-operator-webhook\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"keda-webhook\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      labels:
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "keda-operator-webhook"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+      name: "keda-operator-webhook"
+      resourceVersion: "2017"
+      uid: "19cd3fba-3fa3-47a5-8beb-5dd8a595b6f7"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "keda-operator-webhook"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "keda-webhook"
+        namespace: "default"
+  -
+    apiVersion: "apiregistration.k8s.io/v1"
+    kind: "APIService"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apiregistration.k8s.io/v1\",\"kind\":\"APIService\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"v1beta1.external.metrics.k8s.io\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\"},\"name\":\"v1beta1.external.metrics.k8s.io\"},\"spec\":{\"group\":\"external.metrics.k8s.io\",\"groupPriorityMinimum\":100,\"service\":{\"name\":\"keda-operator-metrics-apiserver\",\"namespace\":\"default\",\"port\":443},\"version\":\"v1beta1\",\"versionPriority\":100}}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      labels:
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "v1beta1.external.metrics.k8s.io"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+      name: "v1beta1.external.metrics.k8s.io"
+      resourceVersion: "2118"
+      uid: "b68242c8-61a1-46fa-93db-bb8e903f92ed"
+    spec:
+      caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURFRENDQWZpZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFoTVJBd0RnWURWUVFLRXdkTFJVUkIKVDFKSE1RMHdDd1lEVlFRREV3UkxSVVJCTUI0WERUSTJNRFl4TVRFME1EVXlORm9YRFRNMk1EWXdPREUxTURVeQpORm93SVRFUU1BNEdBMVVFQ2hNSFMwVkVRVTlTUnpFTk1Bc0dBMVVFQXhNRVMwVkVRVENDQVNJd0RRWUpLb1pJCmh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTHFFZVBwejlhSSs1NVJWRkJqeXYwWEJoVVFVWUd1Nng4SzIKZ3lrUDBZOFEvcG9qZ2ZPMk02eXRrTmdWOE14dmVqVktPZlNKZTRIMkV2QVA3RWI0dzhEZytlZ25JSHlCRk1TcgpyNEN5S3RQMng2cnVyRzU4L0ZsQzVkTS96Z0ZxTXlXdXBIR1dweldHc2RnUG9MTXJQVy90UCtyWkQwalY5eWI2CkV2aW1BSkw3emUrUUtkaU1FcGFFNVlPTGptZk1PTkFQSEZjZXpMdCs3TndQdjlMdFhmSG8xa0ZMUVJjQ0hEL3QKQWxZejVDbEQrV3Z5NTM1b1dQWDZNZFRGZ0hDMnY4SytXTUJTK3lGMTJvcHBTZGFwUjRBdk1ZSzQyUTlXWlV2cwo3MlJqNnU1MEFRYmhWMXB1QjdMeko0eUlQSGpPY29pYXN5MUd4cER2QmY4TGZtdkJyczBDQXdFQUFhTlRNRkV3CkRnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5qVUVEUnYKcmQ2VHJITm1qb0dCSkttMTlqVElNQThHQTFVZEVRUUlNQWFDQkV0RlJFRXdEUVlKS29aSWh2Y05BUUVMQlFBRApnZ0VCQURPeWsreVJycU1IV0ZobTE1U1BJMEhWUzEveHh0U1JjY29PazBtaThQMEpZa0ZOOVQzM3h2ekVZanJLCkJhVUtOamVjVlVGRkNHS3UxaW9Zc2dkRDIzdGw1aGdBTHROLzliWlpwU1FMOTlNWlJtcVhmMm44dml2NTdReVMKZWQ0NEhQQWhiUUR5a2RjRWxOdi9vQXp4bXB4SVZFRU9WejRYdXYrVWlXeHBwRVJ1L1RjczVNQmJka253dWFRaQpYVzlRbVJoTVhLcUlOVkdFUHltRzhSTGdDNTFJZUFsSWhVR1QwOG9Ua2g5YVJhajVpMitVUEtWelVBQW1NQTI1Cm92eFhoWmpNa1poTUVKR1FLMEZXN0tXOUZrYnRuUVhKb3pZZm5qaUl1aWNPRUVQMzYwVGxXVGdsdXIwUVRJUWIKRDFYWlV6dXl0SWw1NEhPQTJaTzZNZ0VGVmM4PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+      group: "external.metrics.k8s.io"
+      groupPriorityMinimum: 100
+      service:
+        name: "keda-operator-metrics-apiserver"
+        namespace: "default"
+        port: 443
+      version: "v1beta1"
+      versionPriority: 100
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T15:05:42Z"
+          message: "all checks passed"
+          reason: "Passed"
+          status: "True"
+          type: "Available"
+  -
+    apiVersion: "admissionregistration.k8s.io/v1"
+    kind: "ValidatingWebhookConfiguration"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"ValidatingWebhookConfiguration\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"keda\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"keda-admission-webhooks\",\"app.kubernetes.io/part-of\":\"keda-operator\",\"app.kubernetes.io/version\":\"2.19.0\",\"helm.sh/chart\":\"keda-2.19.0\"},\"name\":\"keda-admission\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"keda-admission-webhooks\",\"namespace\":\"default\",\"path\":\"/validate-keda-sh-v1alpha1-scaledobject\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Equivalent\",\"name\":\"vscaledobject.kb.io\",\"namespaceSelector\":{},\"objectSelector\":{},\"rules\":[{\"apiGroups\":[\"keda.sh\"],\"apiVersions\":[\"v1alpha1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"scaledobjects\"]}],\"sideEffects\":\"None\",\"timeoutSeconds\":10},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"keda-admission-webhooks\",\"namespace\":\"default\",\"path\":\"/validate-keda-sh-v1alpha1-scaledjob\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Equivalent\",\"name\":\"vscaledjob.kb.io\",\"namespaceSelector\":{},\"objectSelector\":{},\"rules\":[{\"apiGroups\":[\"keda.sh\"],\"apiVersions\":[\"v1alpha1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"scaledjobs\"]}],\"sideEffects\":\"None\",\"timeoutSeconds\":10},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"keda-admission-webhooks\",\"namespace\":\"default\",\"path\":\"/validate-keda-sh-v1alpha1-triggerauthentication\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Equivalent\",\"name\":\"vstriggerauthentication.kb.io\",\"namespaceSelector\":{},\"objectSelector\":{},\"rules\":[{\"apiGroups\":[\"keda.sh\"],\"apiVersions\":[\"v1alpha1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"triggerauthentications\"]}],\"sideEffects\":\"None\",\"timeoutSeconds\":10},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"keda-admission-webhooks\",\"namespace\":\"default\",\"path\":\"/validate-keda-sh-v1alpha1-clustertriggerauthentication\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Equivalent\",\"name\":\"vsclustertriggerauthentication.kb.io\",\"namespaceSelector\":{},\"objectSelector\":{},\"rules\":[{\"apiGroups\":[\"keda.sh\"],\"apiVersions\":[\"v1alpha1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"clustertriggerauthentications\"]}],\"sideEffects\":\"None\",\"timeoutSeconds\":10},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"keda-admission-webhooks\",\"namespace\":\"default\",\"path\":\"/validate-eventing-keda-sh-v1alpha1-cloudeventsource\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Equivalent\",\"name\":\"vcloudeventsource.kb.io\",\"namespaceSelector\":{},\"objectSelector\":{},\"rules\":[{\"apiGroups\":[\"eventing.keda.sh\"],\"apiVersions\":[\"v1alpha1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"cloudeventsources\"]}],\"sideEffects\":\"None\",\"timeoutSeconds\":10},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"keda-admission-webhooks\",\"namespace\":\"default\",\"path\":\"/validate-eventing-keda-sh-v1alpha1-clustercloudeventsource\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Equivalent\",\"name\":\"vclustercloudeventsource.kb.io\",\"namespaceSelector\":{},\"objectSelector\":{},\"rules\":[{\"apiGroups\":[\"eventing.keda.sh\"],\"apiVersions\":[\"v1alpha1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"clustercloudeventsources\"]}],\"sideEffects\":\"None\",\"timeoutSeconds\":10}]}\n"
+      creationTimestamp: "2026-06-11T15:05:12Z"
+      generation: 2
+      labels:
+        app.kubernetes.io/component: "operator"
+        app.kubernetes.io/instance: "keda"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "keda-admission-webhooks"
+        app.kubernetes.io/part-of: "keda-operator"
+        app.kubernetes.io/version: "2.19.0"
+        helm.sh/chart: "keda-2.19.0"
+      name: "keda-admission"
+      resourceVersion: "2119"
+      uid: "ef484bf8-d63c-4f27-811e-a61a617195c6"
+    webhooks:
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURFRENDQWZpZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFoTVJBd0RnWURWUVFLRXdkTFJVUkIKVDFKSE1RMHdDd1lEVlFRREV3UkxSVVJCTUI0WERUSTJNRFl4TVRFME1EVXlORm9YRFRNMk1EWXdPREUxTURVeQpORm93SVRFUU1BNEdBMVVFQ2hNSFMwVkVRVTlTUnpFTk1Bc0dBMVVFQXhNRVMwVkVRVENDQVNJd0RRWUpLb1pJCmh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTHFFZVBwejlhSSs1NVJWRkJqeXYwWEJoVVFVWUd1Nng4SzIKZ3lrUDBZOFEvcG9qZ2ZPMk02eXRrTmdWOE14dmVqVktPZlNKZTRIMkV2QVA3RWI0dzhEZytlZ25JSHlCRk1TcgpyNEN5S3RQMng2cnVyRzU4L0ZsQzVkTS96Z0ZxTXlXdXBIR1dweldHc2RnUG9MTXJQVy90UCtyWkQwalY5eWI2CkV2aW1BSkw3emUrUUtkaU1FcGFFNVlPTGptZk1PTkFQSEZjZXpMdCs3TndQdjlMdFhmSG8xa0ZMUVJjQ0hEL3QKQWxZejVDbEQrV3Z5NTM1b1dQWDZNZFRGZ0hDMnY4SytXTUJTK3lGMTJvcHBTZGFwUjRBdk1ZSzQyUTlXWlV2cwo3MlJqNnU1MEFRYmhWMXB1QjdMeko0eUlQSGpPY29pYXN5MUd4cER2QmY4TGZtdkJyczBDQXdFQUFhTlRNRkV3CkRnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5qVUVEUnYKcmQ2VHJITm1qb0dCSkttMTlqVElNQThHQTFVZEVRUUlNQWFDQkV0RlJFRXdEUVlKS29aSWh2Y05BUUVMQlFBRApnZ0VCQURPeWsreVJycU1IV0ZobTE1U1BJMEhWUzEveHh0U1JjY29PazBtaThQMEpZa0ZOOVQzM3h2ekVZanJLCkJhVUtOamVjVlVGRkNHS3UxaW9Zc2dkRDIzdGw1aGdBTHROLzliWlpwU1FMOTlNWlJtcVhmMm44dml2NTdReVMKZWQ0NEhQQWhiUUR5a2RjRWxOdi9vQXp4bXB4SVZFRU9WejRYdXYrVWlXeHBwRVJ1L1RjczVNQmJka253dWFRaQpYVzlRbVJoTVhLcUlOVkdFUHltRzhSTGdDNTFJZUFsSWhVR1QwOG9Ua2g5YVJhajVpMitVUEtWelVBQW1NQTI1Cm92eFhoWmpNa1poTUVKR1FLMEZXN0tXOUZrYnRuUVhKb3pZZm5qaUl1aWNPRUVQMzYwVGxXVGdsdXIwUVRJUWIKRDFYWlV6dXl0SWw1NEhPQTJaTzZNZ0VGVmM4PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+          service:
+            name: "keda-admission-webhooks"
+            namespace: "default"
+            path: "/validate-keda-sh-v1alpha1-scaledobject"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Equivalent"
+        name: "vscaledobject.kb.io"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "keda.sh"
+            apiVersions:
+              - "v1alpha1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "scaledobjects"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURFRENDQWZpZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFoTVJBd0RnWURWUVFLRXdkTFJVUkIKVDFKSE1RMHdDd1lEVlFRREV3UkxSVVJCTUI0WERUSTJNRFl4TVRFME1EVXlORm9YRFRNMk1EWXdPREUxTURVeQpORm93SVRFUU1BNEdBMVVFQ2hNSFMwVkVRVTlTUnpFTk1Bc0dBMVVFQXhNRVMwVkVRVENDQVNJd0RRWUpLb1pJCmh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTHFFZVBwejlhSSs1NVJWRkJqeXYwWEJoVVFVWUd1Nng4SzIKZ3lrUDBZOFEvcG9qZ2ZPMk02eXRrTmdWOE14dmVqVktPZlNKZTRIMkV2QVA3RWI0dzhEZytlZ25JSHlCRk1TcgpyNEN5S3RQMng2cnVyRzU4L0ZsQzVkTS96Z0ZxTXlXdXBIR1dweldHc2RnUG9MTXJQVy90UCtyWkQwalY5eWI2CkV2aW1BSkw3emUrUUtkaU1FcGFFNVlPTGptZk1PTkFQSEZjZXpMdCs3TndQdjlMdFhmSG8xa0ZMUVJjQ0hEL3QKQWxZejVDbEQrV3Z5NTM1b1dQWDZNZFRGZ0hDMnY4SytXTUJTK3lGMTJvcHBTZGFwUjRBdk1ZSzQyUTlXWlV2cwo3MlJqNnU1MEFRYmhWMXB1QjdMeko0eUlQSGpPY29pYXN5MUd4cER2QmY4TGZtdkJyczBDQXdFQUFhTlRNRkV3CkRnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5qVUVEUnYKcmQ2VHJITm1qb0dCSkttMTlqVElNQThHQTFVZEVRUUlNQWFDQkV0RlJFRXdEUVlKS29aSWh2Y05BUUVMQlFBRApnZ0VCQURPeWsreVJycU1IV0ZobTE1U1BJMEhWUzEveHh0U1JjY29PazBtaThQMEpZa0ZOOVQzM3h2ekVZanJLCkJhVUtOamVjVlVGRkNHS3UxaW9Zc2dkRDIzdGw1aGdBTHROLzliWlpwU1FMOTlNWlJtcVhmMm44dml2NTdReVMKZWQ0NEhQQWhiUUR5a2RjRWxOdi9vQXp4bXB4SVZFRU9WejRYdXYrVWlXeHBwRVJ1L1RjczVNQmJka253dWFRaQpYVzlRbVJoTVhLcUlOVkdFUHltRzhSTGdDNTFJZUFsSWhVR1QwOG9Ua2g5YVJhajVpMitVUEtWelVBQW1NQTI1Cm92eFhoWmpNa1poTUVKR1FLMEZXN0tXOUZrYnRuUVhKb3pZZm5qaUl1aWNPRUVQMzYwVGxXVGdsdXIwUVRJUWIKRDFYWlV6dXl0SWw1NEhPQTJaTzZNZ0VGVmM4PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+          service:
+            name: "keda-admission-webhooks"
+            namespace: "default"
+            path: "/validate-keda-sh-v1alpha1-scaledjob"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Equivalent"
+        name: "vscaledjob.kb.io"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "keda.sh"
+            apiVersions:
+              - "v1alpha1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "scaledjobs"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURFRENDQWZpZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFoTVJBd0RnWURWUVFLRXdkTFJVUkIKVDFKSE1RMHdDd1lEVlFRREV3UkxSVVJCTUI0WERUSTJNRFl4TVRFME1EVXlORm9YRFRNMk1EWXdPREUxTURVeQpORm93SVRFUU1BNEdBMVVFQ2hNSFMwVkVRVTlTUnpFTk1Bc0dBMVVFQXhNRVMwVkVRVENDQVNJd0RRWUpLb1pJCmh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTHFFZVBwejlhSSs1NVJWRkJqeXYwWEJoVVFVWUd1Nng4SzIKZ3lrUDBZOFEvcG9qZ2ZPMk02eXRrTmdWOE14dmVqVktPZlNKZTRIMkV2QVA3RWI0dzhEZytlZ25JSHlCRk1TcgpyNEN5S3RQMng2cnVyRzU4L0ZsQzVkTS96Z0ZxTXlXdXBIR1dweldHc2RnUG9MTXJQVy90UCtyWkQwalY5eWI2CkV2aW1BSkw3emUrUUtkaU1FcGFFNVlPTGptZk1PTkFQSEZjZXpMdCs3TndQdjlMdFhmSG8xa0ZMUVJjQ0hEL3QKQWxZejVDbEQrV3Z5NTM1b1dQWDZNZFRGZ0hDMnY4SytXTUJTK3lGMTJvcHBTZGFwUjRBdk1ZSzQyUTlXWlV2cwo3MlJqNnU1MEFRYmhWMXB1QjdMeko0eUlQSGpPY29pYXN5MUd4cER2QmY4TGZtdkJyczBDQXdFQUFhTlRNRkV3CkRnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5qVUVEUnYKcmQ2VHJITm1qb0dCSkttMTlqVElNQThHQTFVZEVRUUlNQWFDQkV0RlJFRXdEUVlKS29aSWh2Y05BUUVMQlFBRApnZ0VCQURPeWsreVJycU1IV0ZobTE1U1BJMEhWUzEveHh0U1JjY29PazBtaThQMEpZa0ZOOVQzM3h2ekVZanJLCkJhVUtOamVjVlVGRkNHS3UxaW9Zc2dkRDIzdGw1aGdBTHROLzliWlpwU1FMOTlNWlJtcVhmMm44dml2NTdReVMKZWQ0NEhQQWhiUUR5a2RjRWxOdi9vQXp4bXB4SVZFRU9WejRYdXYrVWlXeHBwRVJ1L1RjczVNQmJka253dWFRaQpYVzlRbVJoTVhLcUlOVkdFUHltRzhSTGdDNTFJZUFsSWhVR1QwOG9Ua2g5YVJhajVpMitVUEtWelVBQW1NQTI1Cm92eFhoWmpNa1poTUVKR1FLMEZXN0tXOUZrYnRuUVhKb3pZZm5qaUl1aWNPRUVQMzYwVGxXVGdsdXIwUVRJUWIKRDFYWlV6dXl0SWw1NEhPQTJaTzZNZ0VGVmM4PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+          service:
+            name: "keda-admission-webhooks"
+            namespace: "default"
+            path: "/validate-keda-sh-v1alpha1-triggerauthentication"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Equivalent"
+        name: "vstriggerauthentication.kb.io"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "keda.sh"
+            apiVersions:
+              - "v1alpha1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "triggerauthentications"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURFRENDQWZpZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFoTVJBd0RnWURWUVFLRXdkTFJVUkIKVDFKSE1RMHdDd1lEVlFRREV3UkxSVVJCTUI0WERUSTJNRFl4TVRFME1EVXlORm9YRFRNMk1EWXdPREUxTURVeQpORm93SVRFUU1BNEdBMVVFQ2hNSFMwVkVRVTlTUnpFTk1Bc0dBMVVFQXhNRVMwVkVRVENDQVNJd0RRWUpLb1pJCmh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTHFFZVBwejlhSSs1NVJWRkJqeXYwWEJoVVFVWUd1Nng4SzIKZ3lrUDBZOFEvcG9qZ2ZPMk02eXRrTmdWOE14dmVqVktPZlNKZTRIMkV2QVA3RWI0dzhEZytlZ25JSHlCRk1TcgpyNEN5S3RQMng2cnVyRzU4L0ZsQzVkTS96Z0ZxTXlXdXBIR1dweldHc2RnUG9MTXJQVy90UCtyWkQwalY5eWI2CkV2aW1BSkw3emUrUUtkaU1FcGFFNVlPTGptZk1PTkFQSEZjZXpMdCs3TndQdjlMdFhmSG8xa0ZMUVJjQ0hEL3QKQWxZejVDbEQrV3Z5NTM1b1dQWDZNZFRGZ0hDMnY4SytXTUJTK3lGMTJvcHBTZGFwUjRBdk1ZSzQyUTlXWlV2cwo3MlJqNnU1MEFRYmhWMXB1QjdMeko0eUlQSGpPY29pYXN5MUd4cER2QmY4TGZtdkJyczBDQXdFQUFhTlRNRkV3CkRnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5qVUVEUnYKcmQ2VHJITm1qb0dCSkttMTlqVElNQThHQTFVZEVRUUlNQWFDQkV0RlJFRXdEUVlKS29aSWh2Y05BUUVMQlFBRApnZ0VCQURPeWsreVJycU1IV0ZobTE1U1BJMEhWUzEveHh0U1JjY29PazBtaThQMEpZa0ZOOVQzM3h2ekVZanJLCkJhVUtOamVjVlVGRkNHS3UxaW9Zc2dkRDIzdGw1aGdBTHROLzliWlpwU1FMOTlNWlJtcVhmMm44dml2NTdReVMKZWQ0NEhQQWhiUUR5a2RjRWxOdi9vQXp4bXB4SVZFRU9WejRYdXYrVWlXeHBwRVJ1L1RjczVNQmJka253dWFRaQpYVzlRbVJoTVhLcUlOVkdFUHltRzhSTGdDNTFJZUFsSWhVR1QwOG9Ua2g5YVJhajVpMitVUEtWelVBQW1NQTI1Cm92eFhoWmpNa1poTUVKR1FLMEZXN0tXOUZrYnRuUVhKb3pZZm5qaUl1aWNPRUVQMzYwVGxXVGdsdXIwUVRJUWIKRDFYWlV6dXl0SWw1NEhPQTJaTzZNZ0VGVmM4PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+          service:
+            name: "keda-admission-webhooks"
+            namespace: "default"
+            path: "/validate-keda-sh-v1alpha1-clustertriggerauthentication"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Equivalent"
+        name: "vsclustertriggerauthentication.kb.io"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "keda.sh"
+            apiVersions:
+              - "v1alpha1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "clustertriggerauthentications"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURFRENDQWZpZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFoTVJBd0RnWURWUVFLRXdkTFJVUkIKVDFKSE1RMHdDd1lEVlFRREV3UkxSVVJCTUI0WERUSTJNRFl4TVRFME1EVXlORm9YRFRNMk1EWXdPREUxTURVeQpORm93SVRFUU1BNEdBMVVFQ2hNSFMwVkVRVTlTUnpFTk1Bc0dBMVVFQXhNRVMwVkVRVENDQVNJd0RRWUpLb1pJCmh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTHFFZVBwejlhSSs1NVJWRkJqeXYwWEJoVVFVWUd1Nng4SzIKZ3lrUDBZOFEvcG9qZ2ZPMk02eXRrTmdWOE14dmVqVktPZlNKZTRIMkV2QVA3RWI0dzhEZytlZ25JSHlCRk1TcgpyNEN5S3RQMng2cnVyRzU4L0ZsQzVkTS96Z0ZxTXlXdXBIR1dweldHc2RnUG9MTXJQVy90UCtyWkQwalY5eWI2CkV2aW1BSkw3emUrUUtkaU1FcGFFNVlPTGptZk1PTkFQSEZjZXpMdCs3TndQdjlMdFhmSG8xa0ZMUVJjQ0hEL3QKQWxZejVDbEQrV3Z5NTM1b1dQWDZNZFRGZ0hDMnY4SytXTUJTK3lGMTJvcHBTZGFwUjRBdk1ZSzQyUTlXWlV2cwo3MlJqNnU1MEFRYmhWMXB1QjdMeko0eUlQSGpPY29pYXN5MUd4cER2QmY4TGZtdkJyczBDQXdFQUFhTlRNRkV3CkRnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5qVUVEUnYKcmQ2VHJITm1qb0dCSkttMTlqVElNQThHQTFVZEVRUUlNQWFDQkV0RlJFRXdEUVlKS29aSWh2Y05BUUVMQlFBRApnZ0VCQURPeWsreVJycU1IV0ZobTE1U1BJMEhWUzEveHh0U1JjY29PazBtaThQMEpZa0ZOOVQzM3h2ekVZanJLCkJhVUtOamVjVlVGRkNHS3UxaW9Zc2dkRDIzdGw1aGdBTHROLzliWlpwU1FMOTlNWlJtcVhmMm44dml2NTdReVMKZWQ0NEhQQWhiUUR5a2RjRWxOdi9vQXp4bXB4SVZFRU9WejRYdXYrVWlXeHBwRVJ1L1RjczVNQmJka253dWFRaQpYVzlRbVJoTVhLcUlOVkdFUHltRzhSTGdDNTFJZUFsSWhVR1QwOG9Ua2g5YVJhajVpMitVUEtWelVBQW1NQTI1Cm92eFhoWmpNa1poTUVKR1FLMEZXN0tXOUZrYnRuUVhKb3pZZm5qaUl1aWNPRUVQMzYwVGxXVGdsdXIwUVRJUWIKRDFYWlV6dXl0SWw1NEhPQTJaTzZNZ0VGVmM4PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+          service:
+            name: "keda-admission-webhooks"
+            namespace: "default"
+            path: "/validate-eventing-keda-sh-v1alpha1-cloudeventsource"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Equivalent"
+        name: "vcloudeventsource.kb.io"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "eventing.keda.sh"
+            apiVersions:
+              - "v1alpha1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "cloudeventsources"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURFRENDQWZpZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFoTVJBd0RnWURWUVFLRXdkTFJVUkIKVDFKSE1RMHdDd1lEVlFRREV3UkxSVVJCTUI0WERUSTJNRFl4TVRFME1EVXlORm9YRFRNMk1EWXdPREUxTURVeQpORm93SVRFUU1BNEdBMVVFQ2hNSFMwVkVRVTlTUnpFTk1Bc0dBMVVFQXhNRVMwVkVRVENDQVNJd0RRWUpLb1pJCmh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTHFFZVBwejlhSSs1NVJWRkJqeXYwWEJoVVFVWUd1Nng4SzIKZ3lrUDBZOFEvcG9qZ2ZPMk02eXRrTmdWOE14dmVqVktPZlNKZTRIMkV2QVA3RWI0dzhEZytlZ25JSHlCRk1TcgpyNEN5S3RQMng2cnVyRzU4L0ZsQzVkTS96Z0ZxTXlXdXBIR1dweldHc2RnUG9MTXJQVy90UCtyWkQwalY5eWI2CkV2aW1BSkw3emUrUUtkaU1FcGFFNVlPTGptZk1PTkFQSEZjZXpMdCs3TndQdjlMdFhmSG8xa0ZMUVJjQ0hEL3QKQWxZejVDbEQrV3Z5NTM1b1dQWDZNZFRGZ0hDMnY4SytXTUJTK3lGMTJvcHBTZGFwUjRBdk1ZSzQyUTlXWlV2cwo3MlJqNnU1MEFRYmhWMXB1QjdMeko0eUlQSGpPY29pYXN5MUd4cER2QmY4TGZtdkJyczBDQXdFQUFhTlRNRkV3CkRnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRk5qVUVEUnYKcmQ2VHJITm1qb0dCSkttMTlqVElNQThHQTFVZEVRUUlNQWFDQkV0RlJFRXdEUVlKS29aSWh2Y05BUUVMQlFBRApnZ0VCQURPeWsreVJycU1IV0ZobTE1U1BJMEhWUzEveHh0U1JjY29PazBtaThQMEpZa0ZOOVQzM3h2ekVZanJLCkJhVUtOamVjVlVGRkNHS3UxaW9Zc2dkRDIzdGw1aGdBTHROLzliWlpwU1FMOTlNWlJtcVhmMm44dml2NTdReVMKZWQ0NEhQQWhiUUR5a2RjRWxOdi9vQXp4bXB4SVZFRU9WejRYdXYrVWlXeHBwRVJ1L1RjczVNQmJka253dWFRaQpYVzlRbVJoTVhLcUlOVkdFUHltRzhSTGdDNTFJZUFsSWhVR1QwOG9Ua2g5YVJhajVpMitVUEtWelVBQW1NQTI1Cm92eFhoWmpNa1poTUVKR1FLMEZXN0tXOUZrYnRuUVhKb3pZZm5qaUl1aWNPRUVQMzYwVGxXVGdsdXIwUVRJUWIKRDFYWlV6dXl0SWw1NEhPQTJaTzZNZ0VGVmM4PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+          service:
+            name: "keda-admission-webhooks"
+            namespace: "default"
+            path: "/validate-eventing-keda-sh-v1alpha1-clustercloudeventsource"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Equivalent"
+        name: "vclustercloudeventsource.kb.io"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "eventing.keda.sh"
+            apiVersions:
+              - "v1alpha1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "clustercloudeventsources"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+kind: "List"
+metadata:
+  resourceVersion: ""

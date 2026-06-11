@@ -1,0 +1,44 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-mongodb-19.1.0-existing-secret-replicaset-local-kind"
+spec:
+  blockedReasons:
+    - "apply: Error from server (Forbidden): error when creating \"STDIN\": networkpolicies.networking.k8s.io \"mongodb\" is forbidden: unable to create new content in namespace mongodb because it is being terminated E"
+    - "statefulset/mongodb-arbiter: prerequisite-blocked (stuck creating: missing mount/secret/config) (mongodb-arbiter-0[ContainerCreating ready=false restarts=0;])"
+    - "statefulset/mongodb: prerequisite-blocked (stuck creating: missing mount/secret/config) (mongodb-arbiter-0[ContainerCreating ready=false restarts=0;])"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      object: "10 object(s) from recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml"
+      reason: "apply-blocked: Error from server (Forbidden): error when creating \"STDIN\": networkpolicies.networking.k8s.io \"mongodb\" is forbidden: unable to create new content in namespace mongodb because it is being terminated E"
+      result: "blocked"
+      evidencePath: "observation-log.txt"
+      evidenceSHA256: "8db3dbb426dc11dd0e0cabe65429b9ea21921e791d3a52ce99c932b9ebf532d6"
+    -
+      name: "workload-converged"
+      object: "StatefulSet|mongodb|mongodb-arbiter"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): mongodb-arbiter-0[ContainerCreating ready=false restarts=0;]"
+      result: "blocked"
+    -
+      name: "workload-converged"
+      object: "StatefulSet|mongodb|mongodb"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): mongodb-arbiter-0[ContainerCreating ready=false restarts=0;]"
+      result: "blocked"
+  clusterStatus: "existing"
+  freshnessTTL: "1h"
+  observedAt: "2026-06-11T12:47:39.072Z"
+  observer:
+    method: "kubectl-kind"
+    name: "next80-local-live"
+    version: "0.1.0"
+  renderedObjectSetSHA256: "b39a69abcab4c663d77a1176895385b5c864766a5ac19b16953d3cfd4597adcd"
+  result: "blocked"
+  target:
+    context: "kind-claude-helm-expt-next80"
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    namespace: "mongodb"
+  variant: "existing-secret-replicaset"
+  variantRevision: "recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/variant-revision.yaml"
+  workloads: 2

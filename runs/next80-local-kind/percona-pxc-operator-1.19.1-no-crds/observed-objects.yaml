@@ -1,0 +1,312 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"name\":\"pxc-operator\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T14:39:04Z"
+      name: "pxc-operator"
+      namespace: "default"
+      resourceVersion: "24833"
+      uid: "9aeeac57-2d80-447d-bbf3-4119abb87109"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"pxc-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"pxc-operator\",\"app.kubernetes.io/version\":\"1.19.1\",\"helm.sh/chart\":\"pxc-operator-1.19.1\"},\"name\":\"pxc-operator\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"pxc.percona.com\"],\"resources\":[\"perconaxtradbclusters\",\"perconaxtradbclusters/status\",\"perconaxtradbclusterbackups\",\"perconaxtradbclusterbackups/status\",\"perconaxtradbclusterrestores\",\"perconaxtradbclusterrestores/status\",\"perconaxtradbclusterrestores/finalizers\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods\",\"pods/exec\",\"pods/log\",\"configmaps\",\"services\",\"persistentvolumeclaims\",\"secrets\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"deployments\",\"replicasets\",\"statefulsets\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"jobs\",\"cronjobs\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"policy\"],\"resources\":[\"poddisruptionbudgets\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"events.k8s.io\",\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"patch\",\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"certmanager.k8s.io\",\"cert-manager.io\"],\"resources\":[\"issuers\",\"certificates\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\",\"deletecollection\"]}]}\n"
+      creationTimestamp: "2026-06-11T14:39:04Z"
+      labels:
+        app.kubernetes.io/instance: "pxc-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "pxc-operator"
+        app.kubernetes.io/version: "1.19.1"
+        helm.sh/chart: "pxc-operator-1.19.1"
+      name: "pxc-operator"
+      namespace: "default"
+      resourceVersion: "24834"
+      uid: "43d0a6f9-c5e4-4d0e-b604-cbf361fcacbc"
+    rules:
+      -
+        apiGroups:
+          - "pxc.percona.com"
+        resources:
+          - "perconaxtradbclusters"
+          - "perconaxtradbclusters/status"
+          - "perconaxtradbclusterbackups"
+          - "perconaxtradbclusterbackups/status"
+          - "perconaxtradbclusterrestores"
+          - "perconaxtradbclusterrestores/status"
+          - "perconaxtradbclusterrestores/finalizers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+          - "pods/exec"
+          - "pods/log"
+          - "configmaps"
+          - "services"
+          - "persistentvolumeclaims"
+          - "secrets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "deployments"
+          - "replicasets"
+          - "statefulsets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "batch"
+        resources:
+          - "jobs"
+          - "cronjobs"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "policy"
+        resources:
+          - "poddisruptionbudgets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "events.k8s.io"
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "patch"
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "certmanager.k8s.io"
+          - "cert-manager.io"
+        resources:
+          - "issuers"
+          - "certificates"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+          - "deletecollection"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"pxc-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"pxc-operator\",\"app.kubernetes.io/version\":\"1.19.1\",\"helm.sh/chart\":\"pxc-operator-1.19.1\"},\"name\":\"pxc-operator\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"pxc-operator\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"pxc-operator\"}]}\n"
+      creationTimestamp: "2026-06-11T14:39:04Z"
+      labels:
+        app.kubernetes.io/instance: "pxc-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "pxc-operator"
+        app.kubernetes.io/version: "1.19.1"
+        helm.sh/chart: "pxc-operator-1.19.1"
+      name: "pxc-operator"
+      namespace: "default"
+      resourceVersion: "24835"
+      uid: "2ddd0c0e-1a69-4028-be3f-3bd247d1bef4"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "pxc-operator"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "pxc-operator"
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"pxc-operator\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"pxc-operator\",\"app.kubernetes.io/version\":\"1.19.1\",\"helm.sh/chart\":\"pxc-operator-1.19.1\"},\"name\":\"pxc-operator\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"pxc-operator\",\"app.kubernetes.io/name\":\"pxc-operator\",\"app.kubernetes.io/part-of\":\"pxc-operator\"}},\"strategy\":{\"rollingUpdate\":{\"maxUnavailable\":1},\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"operator\",\"app.kubernetes.io/instance\":\"pxc-operator\",\"app.kubernetes.io/name\":\"pxc-operator\",\"app.kubernetes.io/part-of\":\"pxc-operator\"}},\"spec\":{\"containers\":[{\"command\":[\"percona-xtradb-cluster-operator\"],\"env\":[{\"name\":\"WATCH_NAMESPACE\",\"value\":\"default\"},{\"name\":\"POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"OPERATOR_NAME\",\"value\":\"pxc-operator\"},{\"name\":\"LOG_STRUCTURED\",\"value\":\"false\"},{\"name\":\"LOG_LEVEL\",\"value\":\"INFO\"},{\"name\":\"DISABLE_TELEMETRY\",\"value\":\"false\"},{\"name\":\"MAX_CONCURRENT_RECONCILES\",\"value\":\"1\"},{\"name\":\"S3_WORKERS_LIMIT\",\"value\":\"10\"},{\"name\":\"PXCO_FEATURE_GATES\",\"value\":\"XtrabackupSidecar=false\"}],\"image\":\"percona/percona-xtradb-cluster-operator:1.19.1\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/metrics\",\"port\":\"metrics\",\"scheme\":\"HTTP\"}},\"name\":\"percona-xtradb-cluster-operator\",\"ports\":[{\"containerPort\":8080,\"name\":\"metrics\",\"protocol\":\"TCP\"}],\"resources\":{\"limits\":{\"cpu\":\"200m\",\"memory\":\"500Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"20Mi\"}}}],\"serviceAccountName\":\"pxc-operator\",\"terminationGracePeriodSeconds\":600}}}}\n"
+      creationTimestamp: "2026-06-11T14:39:04Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "pxc-operator"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "pxc-operator"
+        app.kubernetes.io/version: "1.19.1"
+        helm.sh/chart: "pxc-operator-1.19.1"
+      name: "pxc-operator"
+      namespace: "default"
+      resourceVersion: "24848"
+      uid: "c5c334c5-521f-4de0-b516-ed54342eeb73"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "operator"
+          app.kubernetes.io/instance: "pxc-operator"
+          app.kubernetes.io/name: "pxc-operator"
+          app.kubernetes.io/part-of: "pxc-operator"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: 1
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/component: "operator"
+            app.kubernetes.io/instance: "pxc-operator"
+            app.kubernetes.io/name: "pxc-operator"
+            app.kubernetes.io/part-of: "pxc-operator"
+        spec:
+          containers:
+            -
+              command:
+                - "percona-xtradb-cluster-operator"
+              env:
+                -
+                  name: "WATCH_NAMESPACE"
+                  value: "default"
+                -
+                  name: "POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "OPERATOR_NAME"
+                  value: "pxc-operator"
+                -
+                  name: "LOG_STRUCTURED"
+                  value: "false"
+                -
+                  name: "LOG_LEVEL"
+                  value: "INFO"
+                -
+                  name: "DISABLE_TELEMETRY"
+                  value: "false"
+                -
+                  name: "MAX_CONCURRENT_RECONCILES"
+                  value: "1"
+                -
+                  name: "S3_WORKERS_LIMIT"
+                  value: "10"
+                -
+                  name: "PXCO_FEATURE_GATES"
+                  value: "XtrabackupSidecar=false"
+              image: "percona/percona-xtradb-cluster-operator:1.19.1"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/metrics"
+                  port: "metrics"
+                  scheme: "HTTP"
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              name: "percona-xtradb-cluster-operator"
+              ports:
+                -
+                  containerPort: 8080
+                  name: "metrics"
+                  protocol: "TCP"
+              resources:
+                limits:
+                  cpu: "200m"
+                  memory: "500Mi"
+                requests:
+                  cpu: "100m"
+                  memory: "20Mi"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "pxc-operator"
+          serviceAccountName: "pxc-operator"
+          terminationGracePeriodSeconds: 600
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T14:39:04Z"
+          lastUpdateTime: "2026-06-11T14:39:04Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T14:39:04Z"
+          lastUpdateTime: "2026-06-11T14:39:04Z"
+          message: "ReplicaSet \"pxc-operator-5f59645bd\" is progressing."
+          reason: "ReplicaSetUpdated"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      replicas: 1
+      terminatingReplicas: 0
+      unavailableReplicas: 1
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""

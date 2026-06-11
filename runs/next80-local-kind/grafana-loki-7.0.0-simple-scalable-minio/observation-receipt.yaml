@@ -1,0 +1,66 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "grafana-loki-7.0.0-simple-scalable-minio-local-kind"
+spec:
+  variantRevision: "recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "91787d0999a776a5b32de6fa06264eb4ba43bc520a66f82234a07cdf94c2f207"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "loki"
+  observedAt: "2026-06-11T12:08:03.386Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "existing"
+  variant: "simple-scalable-minio"
+  workloads: 8
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "ce3d57c4fb469caef84f806dd8195fb3d05aefc28c4cffe10be76eabaed620a3"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||loki"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "33 object(s) from recipes/grafana/loki/7.0.0/revisions/simple-scalable-minio/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "DaemonSet|loki|loki-canary"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|loki|loki-gateway"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|loki|loki-read"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "StatefulSet|loki|loki-minio"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "StatefulSet|loki|loki-backend"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "StatefulSet|loki|loki-chunks-cache"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "StatefulSet|loki|loki-results-cache"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "StatefulSet|loki|loki-write"

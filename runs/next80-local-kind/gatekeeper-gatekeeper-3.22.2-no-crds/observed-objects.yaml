@@ -1,0 +1,1076 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "ResourceQuota"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ResourceQuota\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"gatekeeper\",\"chart\":\"gatekeeper\",\"gatekeeper.sh/system\":\"yes\",\"heritage\":\"Helm\",\"release\":\"gatekeeper\"},\"name\":\"gatekeeper-critical-pods\",\"namespace\":\"default\"},\"spec\":{\"hard\":{\"pods\":100},\"scopeSelector\":{\"matchExpressions\":[{\"operator\":\"In\",\"scopeName\":\"PriorityClass\",\"values\":[\"system-cluster-critical\",\"system-cluster-critical\"]}]}}}\n"
+      creationTimestamp: "2026-06-11T14:54:03Z"
+      labels:
+        app: "gatekeeper"
+        chart: "gatekeeper"
+        gatekeeper.sh/system: "yes"
+        heritage: "Helm"
+        release: "gatekeeper"
+      name: "gatekeeper-critical-pods"
+      namespace: "default"
+      resourceVersion: "507"
+      uid: "2cce1709-20d5-475a-8c7e-3ff744f43946"
+    spec:
+      hard:
+        pods: "100"
+      scopeSelector:
+        matchExpressions:
+          -
+            operator: "In"
+            scopeName: "PriorityClass"
+            values:
+              - "system-cluster-critical"
+              - "system-cluster-critical"
+    status:
+      hard:
+        pods: "100"
+      used:
+        pods: "4"
+  -
+    apiVersion: "policy/v1"
+    kind: "PodDisruptionBudget"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"policy/v1\",\"kind\":\"PodDisruptionBudget\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"gatekeeper\",\"chart\":\"gatekeeper\",\"gatekeeper.sh/system\":\"yes\",\"heritage\":\"Helm\",\"release\":\"gatekeeper\"},\"name\":\"gatekeeper-controller-manager\",\"namespace\":\"default\"},\"spec\":{\"minAvailable\":1,\"selector\":{\"matchLabels\":{\"app\":\"gatekeeper\",\"chart\":\"gatekeeper\",\"control-plane\":\"controller-manager\",\"gatekeeper.sh/operation\":\"webhook\",\"gatekeeper.sh/system\":\"yes\",\"heritage\":\"Helm\",\"release\":\"gatekeeper\"}}}}\n"
+      creationTimestamp: "2026-06-11T14:54:03Z"
+      generation: 1
+      labels:
+        app: "gatekeeper"
+        chart: "gatekeeper"
+        gatekeeper.sh/system: "yes"
+        heritage: "Helm"
+        release: "gatekeeper"
+      name: "gatekeeper-controller-manager"
+      namespace: "default"
+      resourceVersion: "518"
+      uid: "b9f85755-5d2b-4e83-bada-2bde71099691"
+    spec:
+      minAvailable: 1
+      selector:
+        matchLabels:
+          app: "gatekeeper"
+          chart: "gatekeeper"
+          control-plane: "controller-manager"
+          gatekeeper.sh/operation: "webhook"
+          gatekeeper.sh/system: "yes"
+          heritage: "Helm"
+          release: "gatekeeper"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T14:54:03Z"
+          message: ""
+          observedGeneration: 1
+          reason: "InsufficientPods"
+          status: "False"
+          type: "DisruptionAllowed"
+      currentHealthy: 0
+      desiredHealthy: 1
+      disruptionsAllowed: 0
+      expectedPods: 3
+      observedGeneration: 1
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"gatekeeper\",\"chart\":\"gatekeeper\",\"gatekeeper.sh/system\":\"yes\",\"heritage\":\"Helm\",\"release\":\"gatekeeper\"},\"name\":\"gatekeeper-admin\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T14:54:03Z"
+      labels:
+        app: "gatekeeper"
+        chart: "gatekeeper"
+        gatekeeper.sh/system: "yes"
+        heritage: "Helm"
+        release: "gatekeeper"
+      name: "gatekeeper-admin"
+      namespace: "default"
+      resourceVersion: "471"
+      uid: "5ec741ee-cd79-42b2-89d4-0e78f7d45bd2"
+  -
+    apiVersion: "v1"
+    data:
+      redacted: "live Secret data is not committed"
+    kind: "Secret"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "redacted: live Secret last-applied-configuration is not committed"
+      creationTimestamp: "2026-06-11T14:54:03Z"
+      labels:
+        app: "gatekeeper"
+        chart: "gatekeeper"
+        gatekeeper.sh/system: "yes"
+        heritage: "Helm"
+        release: "gatekeeper"
+      name: "gatekeeper-webhook-server-cert"
+      namespace: "default"
+      resourceVersion: "576"
+      uid: "cb12dcdd-bf96-4e01-a5ef-3d47d1648265"
+    type: "Opaque"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"gatekeeper\",\"chart\":\"gatekeeper\",\"gatekeeper.sh/system\":\"yes\",\"heritage\":\"Helm\",\"release\":\"gatekeeper\"},\"name\":\"gatekeeper-manager-role\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"patch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T14:54:03Z"
+      labels:
+        app: "gatekeeper"
+        chart: "gatekeeper"
+        gatekeeper.sh/system: "yes"
+        heritage: "Helm"
+        release: "gatekeeper"
+      name: "gatekeeper-manager-role"
+      namespace: "default"
+      resourceVersion: "476"
+      uid: "78d1db58-a83f-46d2-aab8-0cc583657f05"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "patch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"gatekeeper\",\"chart\":\"gatekeeper\",\"gatekeeper.sh/system\":\"yes\",\"heritage\":\"Helm\",\"release\":\"gatekeeper\"},\"name\":\"gatekeeper-manager-rolebinding\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"gatekeeper-manager-role\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"gatekeeper-admin\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T14:54:03Z"
+      labels:
+        app: "gatekeeper"
+        chart: "gatekeeper"
+        gatekeeper.sh/system: "yes"
+        heritage: "Helm"
+        release: "gatekeeper"
+      name: "gatekeeper-manager-rolebinding"
+      namespace: "default"
+      resourceVersion: "477"
+      uid: "85641105-2f2b-435f-bb02-5cef76a5b552"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "gatekeeper-manager-role"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "gatekeeper-admin"
+        namespace: "default"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"gatekeeper\",\"chart\":\"gatekeeper\",\"gatekeeper.sh/system\":\"yes\",\"heritage\":\"Helm\",\"release\":\"gatekeeper\"},\"name\":\"gatekeeper-webhook-service\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"https-webhook-server\",\"port\":443,\"targetPort\":\"webhook-server\"}],\"selector\":{\"app\":\"gatekeeper\",\"chart\":\"gatekeeper\",\"control-plane\":\"controller-manager\",\"gatekeeper.sh/operation\":\"webhook\",\"gatekeeper.sh/system\":\"yes\",\"heritage\":\"Helm\",\"release\":\"gatekeeper\"}}}\n"
+      creationTimestamp: "2026-06-11T14:54:03Z"
+      labels:
+        app: "gatekeeper"
+        chart: "gatekeeper"
+        gatekeeper.sh/system: "yes"
+        heritage: "Helm"
+        release: "gatekeeper"
+      name: "gatekeeper-webhook-service"
+      namespace: "default"
+      resourceVersion: "479"
+      uid: "7c2dc43d-1695-4ecc-84d1-eb3bc75e9b9c"
+    spec:
+      clusterIP: "10.96.223.47"
+      clusterIPs:
+        - "10.96.223.47"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "https-webhook-server"
+          port: 443
+          protocol: "TCP"
+          targetPort: "webhook-server"
+      selector:
+        app: "gatekeeper"
+        chart: "gatekeeper"
+        control-plane: "controller-manager"
+        gatekeeper.sh/operation: "webhook"
+        gatekeeper.sh/system: "yes"
+        heritage: "Helm"
+        release: "gatekeeper"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"gatekeeper\",\"app.kubernetes.io/instance\":\"gatekeeper\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"gatekeeper\",\"app.kubernetes.io/version\":\"3.22.2\",\"chart\":\"gatekeeper\",\"control-plane\":\"audit-controller\",\"gatekeeper.sh/operation\":\"audit\",\"gatekeeper.sh/system\":\"yes\",\"helm.sh/chart\":\"gatekeeper-3.22.2\",\"heritage\":\"Helm\",\"release\":\"gatekeeper\"},\"name\":\"gatekeeper-audit\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app\":\"gatekeeper\",\"chart\":\"gatekeeper\",\"control-plane\":\"audit-controller\",\"gatekeeper.sh/operation\":\"audit\",\"gatekeeper.sh/system\":\"yes\",\"heritage\":\"Helm\",\"release\":\"gatekeeper\"}},\"template\":{\"metadata\":{\"annotations\":null,\"labels\":{\"app\":\"gatekeeper\",\"app.kubernetes.io/instance\":\"gatekeeper\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"gatekeeper\",\"app.kubernetes.io/version\":\"3.22.2\",\"chart\":\"gatekeeper\",\"control-plane\":\"audit-controller\",\"gatekeeper.sh/operation\":\"audit\",\"gatekeeper.sh/system\":\"yes\",\"helm.sh/chart\":\"gatekeeper-3.22.2\",\"heritage\":\"Helm\",\"release\":\"gatekeeper\"}},\"spec\":{\"affinity\":{},\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"--audit-interval=60\",\"--log-level=INFO\",\"--constraint-violations-limit=20\",\"--validating-webhook-configuration-name=gatekeeper-validating-webhook-configuration\",\"--mutating-webhook-configuration-name=gatekeeper-mutating-webhook-configuration\",\"--audit-from-cache=false\",\"--audit-chunk-size=500\",\"--audit-match-kind-only=false\",\"--audit-events-involved-namespace=false\",\"--operation=generate\",\"--operation=audit\",\"--operation=status\",\"--operation=mutation-status\",\"--logtostderr\",\"--health-addr=:9090\",\"--prometheus-port=8888\",\"--enable-external-data=true\",\"--enable-generator-resource-expansion=true\",\"--metrics-backend=prometheus\",\"--disable-cert-rotation=false\",\"--external-data-provider-response-cache-ttl=3m\",\"--enable-k8s-native-validation=true\"],\"command\":[\"/manager\"],\"env\":[{\"name\":\"POD_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"apiVersion\":\"v1\",\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"apiVersion\":\"v1\",\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"CONTAINER_NAME\",\"value\":\"manager\"},{\"name\":\"OTEL_RESOURCE_ATTRIBUTES\",\"value\":\"k8s.pod.name=$(POD_NAME),k8s.namespace.name=$(NAMESPACE),k8s.container.name=$(CONTAINER_NAME)\"}],\"image\":\"openpolicyagent/gatekeeper:v3.22.2\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"httpGet\":{\"path\":\"/healthz\",\"port\":9090},\"timeoutSeconds\":1},\"name\":\"manager\",\"ports\":[{\"containerPort\":8888,\"name\":\"metrics\",\"protocol\":\"TCP\"},{\"containerPort\":9090,\"name\":\"healthz\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/readyz\",\"port\":9090},\"timeoutSeconds\":1},\"resources\":{\"limits\":{\"memory\":\"512Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"512Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsGroup\":999,\"runAsNonRoot\":true,\"runAsUser\":1000,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/certs\",\"name\":\"cert\",\"readOnly\":true},{\"mountPath\":\"/tmp/audit\",\"name\":\"tmp-volume\"}]}],\"dnsPolicy\":\"ClusterFirst\",\"hostNetwork\":false,\"imagePullSecrets\":[],\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"priorityClassName\":\"system-cluster-critical\",\"securityContext\":{\"fsGroup\":999,\"supplementalGroups\":[999]},\"serviceAccountName\":\"gatekeeper-admin\",\"terminationGracePeriodSeconds\":60,\"tolerations\":[],\"volumes\":[{\"name\":\"cert\",\"secret\":{\"defaultMode\":420,\"secretName\":\"gatekeeper-webhook-server-cert\"}},{\"emptyDir\":{},\"name\":\"tmp-volume\"}]}}}}\n"
+      creationTimestamp: "2026-06-11T14:54:03Z"
+      generation: 1
+      labels:
+        app: "gatekeeper"
+        app.kubernetes.io/instance: "gatekeeper"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "gatekeeper"
+        app.kubernetes.io/version: "3.22.2"
+        chart: "gatekeeper"
+        control-plane: "audit-controller"
+        gatekeeper.sh/operation: "audit"
+        gatekeeper.sh/system: "yes"
+        helm.sh/chart: "gatekeeper-3.22.2"
+        heritage: "Helm"
+        release: "gatekeeper"
+      name: "gatekeeper-audit"
+      namespace: "default"
+      resourceVersion: "509"
+      uid: "2c691627-85fb-4cda-b8e4-629d61f3d819"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app: "gatekeeper"
+          chart: "gatekeeper"
+          control-plane: "audit-controller"
+          gatekeeper.sh/operation: "audit"
+          gatekeeper.sh/system: "yes"
+          heritage: "Helm"
+          release: "gatekeeper"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app: "gatekeeper"
+            app.kubernetes.io/instance: "gatekeeper"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "gatekeeper"
+            app.kubernetes.io/version: "3.22.2"
+            chart: "gatekeeper"
+            control-plane: "audit-controller"
+            gatekeeper.sh/operation: "audit"
+            gatekeeper.sh/system: "yes"
+            helm.sh/chart: "gatekeeper-3.22.2"
+            heritage: "Helm"
+            release: "gatekeeper"
+        spec:
+          affinity:
+            {}
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "--audit-interval=60"
+                - "--log-level=INFO"
+                - "--constraint-violations-limit=20"
+                - "--validating-webhook-configuration-name=gatekeeper-validating-webhook-configuration"
+                - "--mutating-webhook-configuration-name=gatekeeper-mutating-webhook-configuration"
+                - "--audit-from-cache=false"
+                - "--audit-chunk-size=500"
+                - "--audit-match-kind-only=false"
+                - "--audit-events-involved-namespace=false"
+                - "--operation=generate"
+                - "--operation=audit"
+                - "--operation=status"
+                - "--operation=mutation-status"
+                - "--logtostderr"
+                - "--health-addr=:9090"
+                - "--prometheus-port=8888"
+                - "--enable-external-data=true"
+                - "--enable-generator-resource-expansion=true"
+                - "--metrics-backend=prometheus"
+                - "--disable-cert-rotation=false"
+                - "--external-data-provider-response-cache-ttl=3m"
+                - "--enable-k8s-native-validation=true"
+              command:
+                - "/manager"
+              env:
+                -
+                  name: "POD_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "CONTAINER_NAME"
+                  value: "manager"
+                -
+                  name: "OTEL_RESOURCE_ATTRIBUTES"
+                  value: "k8s.pod.name=$(POD_NAME),k8s.namespace.name=$(NAMESPACE),k8s.container.name=$(CONTAINER_NAME)"
+              image: "openpolicyagent/gatekeeper:v3.22.2"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: 9090
+                  scheme: "HTTP"
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              name: "manager"
+              ports:
+                -
+                  containerPort: 8888
+                  name: "metrics"
+                  protocol: "TCP"
+                -
+                  containerPort: 9090
+                  name: "healthz"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/readyz"
+                  port: 9090
+                  scheme: "HTTP"
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                limits:
+                  memory: "512Mi"
+                requests:
+                  cpu: "100m"
+                  memory: "512Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+                runAsGroup: 999
+                runAsNonRoot: true
+                runAsUser: 1000
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/certs"
+                  name: "cert"
+                  readOnly: true
+                -
+                  mountPath: "/tmp/audit"
+                  name: "tmp-volume"
+          dnsPolicy: "ClusterFirst"
+          nodeSelector:
+            kubernetes.io/os: "linux"
+          priorityClassName: "system-cluster-critical"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 999
+            supplementalGroups:
+              - 999
+          serviceAccount: "gatekeeper-admin"
+          serviceAccountName: "gatekeeper-admin"
+          terminationGracePeriodSeconds: 60
+          volumes:
+            -
+              name: "cert"
+              secret:
+                defaultMode: 420
+                secretName: "gatekeeper-webhook-server-cert"
+            -
+              emptyDir:
+                {}
+              name: "tmp-volume"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T14:54:03Z"
+          lastUpdateTime: "2026-06-11T14:54:03Z"
+          message: "Deployment does not have minimum availability."
+          reason: "MinimumReplicasUnavailable"
+          status: "False"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T14:54:03Z"
+          lastUpdateTime: "2026-06-11T14:54:03Z"
+          message: "ReplicaSet \"gatekeeper-audit-858d4d5444\" is progressing."
+          reason: "ReplicaSetUpdated"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      replicas: 1
+      terminatingReplicas: 0
+      unavailableReplicas: 1
+      updatedReplicas: 1
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"gatekeeper\",\"app.kubernetes.io/instance\":\"gatekeeper\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"gatekeeper\",\"app.kubernetes.io/version\":\"3.22.2\",\"chart\":\"gatekeeper\",\"control-plane\":\"controller-manager\",\"gatekeeper.sh/operation\":\"webhook\",\"gatekeeper.sh/system\":\"yes\",\"helm.sh/chart\":\"gatekeeper-3.22.2\",\"heritage\":\"Helm\",\"release\":\"gatekeeper\"},\"name\":\"gatekeeper-controller-manager\",\"namespace\":\"default\"},\"spec\":{\"replicas\":3,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app\":\"gatekeeper\",\"chart\":\"gatekeeper\",\"control-plane\":\"controller-manager\",\"gatekeeper.sh/operation\":\"webhook\",\"gatekeeper.sh/system\":\"yes\",\"heritage\":\"Helm\",\"release\":\"gatekeeper\"}},\"strategy\":{\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"annotations\":null,\"labels\":{\"app\":\"gatekeeper\",\"app.kubernetes.io/instance\":\"gatekeeper\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"gatekeeper\",\"app.kubernetes.io/version\":\"3.22.2\",\"chart\":\"gatekeeper\",\"control-plane\":\"controller-manager\",\"gatekeeper.sh/operation\":\"webhook\",\"gatekeeper.sh/system\":\"yes\",\"helm.sh/chart\":\"gatekeeper-3.22.2\",\"heritage\":\"Helm\",\"release\":\"gatekeeper\"}},\"spec\":{\"affinity\":{\"podAntiAffinity\":{\"preferredDuringSchedulingIgnoredDuringExecution\":[{\"podAffinityTerm\":{\"labelSelector\":{\"matchExpressions\":[{\"key\":\"gatekeeper.sh/operation\",\"operator\":\"In\",\"values\":[\"webhook\"]}]},\"topologyKey\":\"kubernetes.io/hostname\"},\"weight\":100}]}},\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"--port=8443\",\"--health-addr=:9090\",\"--prometheus-port=8888\",\"--logtostderr\",\"--log-denies=false\",\"--admission-events-involved-namespace=false\",\"--log-level=INFO\",\"--exempt-namespace=default\",\"--operation=webhook\",\"--enable-external-data=true\",\"--enable-generator-resource-expansion=true\",\"--log-mutations=false\",\"--mutation-annotations=false\",\"--disable-cert-rotation=false\",\"--max-serving-threads=-1\",\"--tls-min-version=1.3\",\"--validating-webhook-configuration-name=gatekeeper-validating-webhook-configuration\",\"--mutating-webhook-configuration-name=gatekeeper-mutating-webhook-configuration\",\"--external-data-provider-response-cache-ttl=3m\",\"--enable-k8s-native-validation=true\",\"--metrics-backend=prometheus\",\"--operation=mutation-webhook\",\"--disable-opa-builtin={http.send}\"],\"command\":[\"/manager\"],\"env\":[{\"name\":\"POD_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"apiVersion\":\"v1\",\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"apiVersion\":\"v1\",\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"CONTAINER_NAME\",\"value\":\"manager\"},{\"name\":\"OTEL_RESOURCE_ATTRIBUTES\",\"value\":\"k8s.pod.name=$(POD_NAME),k8s.namespace.name=$(NAMESPACE),k8s.container.name=$(CONTAINER_NAME)\"}],\"image\":\"openpolicyagent/gatekeeper:v3.22.2\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"httpGet\":{\"path\":\"/healthz\",\"port\":9090},\"timeoutSeconds\":1},\"name\":\"manager\",\"ports\":[{\"containerPort\":8443,\"name\":\"webhook-server\",\"protocol\":\"TCP\"},{\"containerPort\":8888,\"name\":\"metrics\",\"protocol\":\"TCP\"},{\"containerPort\":9090,\"name\":\"healthz\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/readyz\",\"port\":9090},\"timeoutSeconds\":1},\"resources\":{\"limits\":{\"memory\":\"512Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"512Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsGroup\":999,\"runAsNonRoot\":true,\"runAsUser\":1000,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/certs\",\"name\":\"cert\",\"readOnly\":true}]}],\"dnsPolicy\":\"ClusterFirst\",\"hostNetwork\":false,\"imagePullSecrets\":[],\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"priorityClassName\":\"system-cluster-critical\",\"securityContext\":{\"fsGroup\":999,\"supplementalGroups\":[999]},\"serviceAccountName\":\"gatekeeper-admin\",\"terminationGracePeriodSeconds\":60,\"tolerations\":[],\"topologySpreadConstraints\":[],\"volumes\":[{\"name\":\"cert\",\"secret\":{\"defaultMode\":420,\"secretName\":\"gatekeeper-webhook-server-cert\"}}]}}}}\n"
+      creationTimestamp: "2026-06-11T14:54:03Z"
+      generation: 1
+      labels:
+        app: "gatekeeper"
+        app.kubernetes.io/instance: "gatekeeper"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "gatekeeper"
+        app.kubernetes.io/version: "3.22.2"
+        chart: "gatekeeper"
+        control-plane: "controller-manager"
+        gatekeeper.sh/operation: "webhook"
+        gatekeeper.sh/system: "yes"
+        helm.sh/chart: "gatekeeper-3.22.2"
+        heritage: "Helm"
+        release: "gatekeeper"
+      name: "gatekeeper-controller-manager"
+      namespace: "default"
+      resourceVersion: "525"
+      uid: "62b060eb-8132-49f4-b4bb-2108603bc639"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 3
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app: "gatekeeper"
+          chart: "gatekeeper"
+          control-plane: "controller-manager"
+          gatekeeper.sh/operation: "webhook"
+          gatekeeper.sh/system: "yes"
+          heritage: "Helm"
+          release: "gatekeeper"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app: "gatekeeper"
+            app.kubernetes.io/instance: "gatekeeper"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "gatekeeper"
+            app.kubernetes.io/version: "3.22.2"
+            chart: "gatekeeper"
+            control-plane: "controller-manager"
+            gatekeeper.sh/operation: "webhook"
+            gatekeeper.sh/system: "yes"
+            helm.sh/chart: "gatekeeper-3.22.2"
+            heritage: "Helm"
+            release: "gatekeeper"
+        spec:
+          affinity:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                -
+                  podAffinityTerm:
+                    labelSelector:
+                      matchExpressions:
+                        -
+                          key: "gatekeeper.sh/operation"
+                          operator: "In"
+                          values:
+                            - "webhook"
+                    topologyKey: "kubernetes.io/hostname"
+                  weight: 100
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "--port=8443"
+                - "--health-addr=:9090"
+                - "--prometheus-port=8888"
+                - "--logtostderr"
+                - "--log-denies=false"
+                - "--admission-events-involved-namespace=false"
+                - "--log-level=INFO"
+                - "--exempt-namespace=default"
+                - "--operation=webhook"
+                - "--enable-external-data=true"
+                - "--enable-generator-resource-expansion=true"
+                - "--log-mutations=false"
+                - "--mutation-annotations=false"
+                - "--disable-cert-rotation=false"
+                - "--max-serving-threads=-1"
+                - "--tls-min-version=1.3"
+                - "--validating-webhook-configuration-name=gatekeeper-validating-webhook-configuration"
+                - "--mutating-webhook-configuration-name=gatekeeper-mutating-webhook-configuration"
+                - "--external-data-provider-response-cache-ttl=3m"
+                - "--enable-k8s-native-validation=true"
+                - "--metrics-backend=prometheus"
+                - "--operation=mutation-webhook"
+                - "--disable-opa-builtin={http.send}"
+              command:
+                - "/manager"
+              env:
+                -
+                  name: "POD_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "CONTAINER_NAME"
+                  value: "manager"
+                -
+                  name: "OTEL_RESOURCE_ATTRIBUTES"
+                  value: "k8s.pod.name=$(POD_NAME),k8s.namespace.name=$(NAMESPACE),k8s.container.name=$(CONTAINER_NAME)"
+              image: "openpolicyagent/gatekeeper:v3.22.2"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: 9090
+                  scheme: "HTTP"
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              name: "manager"
+              ports:
+                -
+                  containerPort: 8443
+                  name: "webhook-server"
+                  protocol: "TCP"
+                -
+                  containerPort: 8888
+                  name: "metrics"
+                  protocol: "TCP"
+                -
+                  containerPort: 9090
+                  name: "healthz"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/readyz"
+                  port: 9090
+                  scheme: "HTTP"
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                limits:
+                  memory: "512Mi"
+                requests:
+                  cpu: "100m"
+                  memory: "512Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+                runAsGroup: 999
+                runAsNonRoot: true
+                runAsUser: 1000
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/certs"
+                  name: "cert"
+                  readOnly: true
+          dnsPolicy: "ClusterFirst"
+          nodeSelector:
+            kubernetes.io/os: "linux"
+          priorityClassName: "system-cluster-critical"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 999
+            supplementalGroups:
+              - 999
+          serviceAccount: "gatekeeper-admin"
+          serviceAccountName: "gatekeeper-admin"
+          terminationGracePeriodSeconds: 60
+          volumes:
+            -
+              name: "cert"
+              secret:
+                defaultMode: 420
+                secretName: "gatekeeper-webhook-server-cert"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T14:54:03Z"
+          lastUpdateTime: "2026-06-11T14:54:03Z"
+          message: "Deployment does not have minimum availability."
+          reason: "MinimumReplicasUnavailable"
+          status: "False"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T14:54:03Z"
+          lastUpdateTime: "2026-06-11T14:54:03Z"
+          message: "ReplicaSet \"gatekeeper-controller-manager-6988f9c779\" is progressing."
+          reason: "ReplicaSetUpdated"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      replicas: 3
+      terminatingReplicas: 0
+      unavailableReplicas: 3
+      updatedReplicas: 3
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"gatekeeper\",\"chart\":\"gatekeeper\",\"gatekeeper.sh/system\":\"yes\",\"heritage\":\"Helm\",\"release\":\"gatekeeper\"},\"name\":\"gatekeeper-manager-role\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"patch\"]},{\"apiGroups\":[\"*\"],\"resources\":[\"*\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"admissionregistration.k8s.io\"],\"resourceNames\":[\"gatekeeper-mutating-webhook-configuration\"],\"resources\":[\"mutatingwebhookconfigurations\"],\"verbs\":[\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"admissionregistration.k8s.io\"],\"resources\":[\"validatingadmissionpolicies\",\"validatingadmissionpolicybindings\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"admissionregistration.k8s.io\"],\"resources\":[\"validatingwebhookconfigurations\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"apiextensions.k8s.io\"],\"resources\":[\"customresourcedefinitions\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"config.gatekeeper.sh\"],\"resources\":[\"*\",\"configs\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"config.gatekeeper.sh\"],\"resources\":[\"configs/status\"],\"verbs\":[\"get\",\"patch\",\"update\"]},{\"apiGroups\":[\"connection.gatekeeper.sh\",\"constraints.gatekeeper.sh\",\"expansion.gatekeeper.sh\",\"mutations.gatekeeper.sh\",\"status.gatekeeper.sh\"],\"resources\":[\"*\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"externaldata.gatekeeper.sh\"],\"resources\":[\"providers\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"externaldata.gatekeeper.sh\"],\"resources\":[\"providers/status\"],\"verbs\":[\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"templates.gatekeeper.sh\"],\"resources\":[\"constrainttemplates\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"templates.gatekeeper.sh\"],\"resources\":[\"constrainttemplates/finalizers\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"templates.gatekeeper.sh\"],\"resources\":[\"constrainttemplates/status\"],\"verbs\":[\"get\",\"patch\",\"update\"]},{\"apiGroups\":[\"admissionregistration.k8s.io\"],\"resourceNames\":[\"gatekeeper-validating-webhook-configuration\"],\"resources\":[\"validatingwebhookconfigurations\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T14:54:03Z"
+      labels:
+        app: "gatekeeper"
+        chart: "gatekeeper"
+        gatekeeper.sh/system: "yes"
+        heritage: "Helm"
+        release: "gatekeeper"
+      name: "gatekeeper-manager-role"
+      resourceVersion: "524"
+      uid: "957c07e1-d455-41ea-9d21-39cae452ea1f"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "patch"
+      -
+        apiGroups:
+          - "*"
+        resources:
+          - "*"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "admissionregistration.k8s.io"
+        resourceNames:
+          - "gatekeeper-mutating-webhook-configuration"
+        resources:
+          - "mutatingwebhookconfigurations"
+        verbs:
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "admissionregistration.k8s.io"
+        resources:
+          - "validatingadmissionpolicies"
+          - "validatingadmissionpolicybindings"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "admissionregistration.k8s.io"
+        resources:
+          - "validatingwebhookconfigurations"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apiextensions.k8s.io"
+        resources:
+          - "customresourcedefinitions"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "config.gatekeeper.sh"
+        resources:
+          - "*"
+          - "configs"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "config.gatekeeper.sh"
+        resources:
+          - "configs/status"
+        verbs:
+          - "get"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "connection.gatekeeper.sh"
+          - "constraints.gatekeeper.sh"
+          - "expansion.gatekeeper.sh"
+          - "mutations.gatekeeper.sh"
+          - "status.gatekeeper.sh"
+        resources:
+          - "*"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "externaldata.gatekeeper.sh"
+        resources:
+          - "providers"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "externaldata.gatekeeper.sh"
+        resources:
+          - "providers/status"
+        verbs:
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "templates.gatekeeper.sh"
+        resources:
+          - "constrainttemplates"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "templates.gatekeeper.sh"
+        resources:
+          - "constrainttemplates/finalizers"
+        verbs:
+          - "update"
+      -
+        apiGroups:
+          - "templates.gatekeeper.sh"
+        resources:
+          - "constrainttemplates/status"
+        verbs:
+          - "get"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "admissionregistration.k8s.io"
+        resourceNames:
+          - "gatekeeper-validating-webhook-configuration"
+        resources:
+          - "validatingwebhookconfigurations"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"gatekeeper\",\"chart\":\"gatekeeper\",\"gatekeeper.sh/system\":\"yes\",\"heritage\":\"Helm\",\"release\":\"gatekeeper\"},\"name\":\"gatekeeper-manager-rolebinding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"gatekeeper-manager-role\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"gatekeeper-admin\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T14:54:03Z"
+      labels:
+        app: "gatekeeper"
+        chart: "gatekeeper"
+        gatekeeper.sh/system: "yes"
+        heritage: "Helm"
+        release: "gatekeeper"
+      name: "gatekeeper-manager-rolebinding"
+      resourceVersion: "527"
+      uid: "0668d6ff-4e1b-4664-af26-73b025ccaeb5"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "gatekeeper-manager-role"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "gatekeeper-admin"
+        namespace: "default"
+  -
+    apiVersion: "admissionregistration.k8s.io/v1"
+    kind: "MutatingWebhookConfiguration"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"MutatingWebhookConfiguration\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"gatekeeper\",\"chart\":\"gatekeeper\",\"gatekeeper.sh/system\":\"yes\",\"heritage\":\"Helm\",\"release\":\"gatekeeper\"},\"name\":\"gatekeeper-mutating-webhook-configuration\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\",\"v1beta1\"],\"clientConfig\":{\"service\":{\"name\":\"gatekeeper-webhook-service\",\"namespace\":\"default\",\"path\":\"/v1/mutate\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Exact\",\"name\":\"mutation.gatekeeper.sh\",\"namespaceSelector\":{\"matchExpressions\":[{\"key\":\"admission.gatekeeper.sh/ignore\",\"operator\":\"DoesNotExist\"},{\"key\":\"kubernetes.io/metadata.name\",\"operator\":\"NotIn\",\"values\":[\"default\"]}]},\"objectSelector\":{},\"reinvocationPolicy\":\"Never\",\"rules\":[{\"apiGroups\":[\"*\"],\"apiVersions\":[\"*\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"*\",\"pods/ephemeralcontainers\",\"pods/exec\",\"pods/log\",\"pods/eviction\",\"pods/portforward\",\"pods/proxy\",\"pods/attach\",\"pods/binding\",\"deployments/scale\",\"replicasets/scale\",\"statefulsets/scale\",\"replicationcontrollers/scale\",\"services/proxy\",\"nodes/proxy\",\"services/status\"],\"scope\":\"*\"}],\"sideEffects\":\"None\",\"timeoutSeconds\":1}]}\n"
+      creationTimestamp: "2026-06-11T14:54:03Z"
+      generation: 2
+      labels:
+        app: "gatekeeper"
+        chart: "gatekeeper"
+        gatekeeper.sh/system: "yes"
+        heritage: "Helm"
+        release: "gatekeeper"
+      name: "gatekeeper-mutating-webhook-configuration"
+      resourceVersion: "595"
+      uid: "970eea92-2aca-45d9-af06-9e9b3083639c"
+    webhooks:
+      -
+        admissionReviewVersions:
+          - "v1"
+          - "v1beta1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURNVENDQWhtZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREF0TVJNd0VRWURWUVFLRXdwbllYUmwKYTJWbGNHVnlNUll3RkFZRFZRUURFdzFuWVhSbGEyVmxjR1Z5TFdOaE1CNFhEVEkyTURZeE1URXpOVFF4TWxvWApEVE0yTURZd09ERTBOVFF4TWxvd0xURVRNQkVHQTFVRUNoTUtaMkYwWld0bFpYQmxjakVXTUJRR0ExVUVBeE1OCloyRjBaV3RsWlhCbGNpMWpZVENDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFNbWEKak80MVZZRnR4Z0pPaXFrOW8zUmlKZEI3OTZ2eDlGUVZvNWViemd3clRITnJXRlFMTVdKbVNKMDBLZWlzZElGSQphZ1pOZmV4UUw3N041bGNsVFMrSjZzUUVPZTIxL1phQzVNeThjQ0MvdDVtR05DMWROYW1hVk1FbUdTU21RaXU0CkNRelBSbkdEaTJNbWcyNlMyUXJDWEoxODdqQWoxbTdHYjdDb2o1Q0JrZnV4RFZjTGdvTEd5eklQSnBOdWkrZkEKVzVoOGVHc3RnVmxqQVI3emt1ZFJIQjM1N1lmVkxtbTMyakgzTHFMUThqeEgvZFBGUzhOdHF0eFlraGF6MEZQWQpPR0ZjMVBUbnVQQ2xVOG1uQS93alFFZlpJbnNyelJEaDBKWVd4bzVsekJrVU1xVDZrTFNLMjFxM2xyN2VIVVEvClYvRk5STmpQSm1iV0FzMnBXTmNDQXdFQUFhTmNNRm93RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHQTFVZEV3RUIKL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRkUxM1ZjMnlndnE2SGt3WnJkU3kySTBTN0t4cU1CZ0dBMVVkRVFRUgpNQStDRFdkaGRHVnJaV1Z3WlhJdFkyRXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBTDlxUDBubk9qR2dvbjBlCnBrRCsvRnVoMVd6anBQOGE1VTN2RndBNldLZVI2OWQ3TkZ1RjNQTEZtcWRuSEhUallmWGpVZVhXT08zaTZqd3QKRUVMWFNXdWJiSi8zMVN1cTM1cTZUU0FLM0d6aXRFOGFrZk9zVWNGUkFRSzZFZW5zN0JwYW0zYnlSZ2ZHdTZ2NApJTWowQ2dHMDM3Vld5WkVzT0tiRU5OZHJhU0VyWWoyWUEvQ2FKeE1SRjhNN0ZJaHRaL0NNalRnSU9uYXN0ZUh2ClZnK0VZRkxUL1REMzBjSzB4cTI1d0ozYm4xN3BMaExVUlhOZXNPQ2U0c3ZXL3lBV1QyeHZHWVVXQU5TZzZoczkKSy82cUlTYjJUUjBQQmc0SGsvc3NJc0dUWVpLWWpYWUNQS2VsWGV6YVU0dXcrQ253VGYrckhOK0tUVjBtRUZHTgpIdWM5WWtnPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+          service:
+            name: "gatekeeper-webhook-service"
+            namespace: "default"
+            path: "/v1/mutate"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Exact"
+        name: "mutation.gatekeeper.sh"
+        namespaceSelector:
+          matchExpressions:
+            -
+              key: "admission.gatekeeper.sh/ignore"
+              operator: "DoesNotExist"
+            -
+              key: "kubernetes.io/metadata.name"
+              operator: "NotIn"
+              values:
+                - "default"
+        objectSelector:
+          {}
+        reinvocationPolicy: "Never"
+        rules:
+          -
+            apiGroups:
+              - "*"
+            apiVersions:
+              - "*"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "*"
+              - "pods/ephemeralcontainers"
+              - "pods/exec"
+              - "pods/log"
+              - "pods/eviction"
+              - "pods/portforward"
+              - "pods/proxy"
+              - "pods/attach"
+              - "pods/binding"
+              - "deployments/scale"
+              - "replicasets/scale"
+              - "statefulsets/scale"
+              - "replicationcontrollers/scale"
+              - "services/proxy"
+              - "nodes/proxy"
+              - "services/status"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 1
+  -
+    apiVersion: "admissionregistration.k8s.io/v1"
+    kind: "ValidatingWebhookConfiguration"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"ValidatingWebhookConfiguration\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"gatekeeper\",\"chart\":\"gatekeeper\",\"gatekeeper.sh/system\":\"yes\",\"heritage\":\"Helm\",\"release\":\"gatekeeper\"},\"name\":\"gatekeeper-validating-webhook-configuration\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\",\"v1beta1\"],\"clientConfig\":{\"service\":{\"name\":\"gatekeeper-webhook-service\",\"namespace\":\"default\",\"path\":\"/v1/admit\"}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Exact\",\"name\":\"validation.gatekeeper.sh\",\"namespaceSelector\":{\"matchExpressions\":[{\"key\":\"admission.gatekeeper.sh/ignore\",\"operator\":\"DoesNotExist\"},{\"key\":\"kubernetes.io/metadata.name\",\"operator\":\"NotIn\",\"values\":[\"default\"]}]},\"objectSelector\":{},\"rules\":[{\"apiGroups\":[\"*\"],\"apiVersions\":[\"*\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"*\",\"pods/ephemeralcontainers\",\"pods/exec\",\"pods/log\",\"pods/eviction\",\"pods/portforward\",\"pods/proxy\",\"pods/attach\",\"pods/binding\",\"pods/resize\",\"deployments/scale\",\"replicasets/scale\",\"statefulsets/scale\",\"replicationcontrollers/scale\",\"services/proxy\",\"nodes/proxy\",\"services/status\"],\"scope\":\"*\"}],\"sideEffects\":\"None\",\"timeoutSeconds\":3},{\"admissionReviewVersions\":[\"v1\",\"v1beta1\"],\"clientConfig\":{\"service\":{\"name\":\"gatekeeper-webhook-service\",\"namespace\":\"default\",\"path\":\"/v1/admitlabel\"}},\"failurePolicy\":\"Fail\",\"matchPolicy\":\"Exact\",\"name\":\"check-ignore-label.gatekeeper.sh\",\"namespaceSelector\":{\"matchExpressions\":[{\"key\":\"kubernetes.io/metadata.name\",\"operator\":\"NotIn\",\"values\":[\"default\"]}]},\"rules\":[{\"apiGroups\":[\"\"],\"apiVersions\":[\"*\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"namespaces\"],\"scope\":\"*\"}],\"sideEffects\":\"None\",\"timeoutSeconds\":3}]}\n"
+      creationTimestamp: "2026-06-11T14:54:03Z"
+      generation: 2
+      labels:
+        app: "gatekeeper"
+        chart: "gatekeeper"
+        gatekeeper.sh/system: "yes"
+        heritage: "Helm"
+        release: "gatekeeper"
+      name: "gatekeeper-validating-webhook-configuration"
+      resourceVersion: "594"
+      uid: "4c8deb53-f7cf-4c4d-9625-47eec1ca7f5b"
+    webhooks:
+      -
+        admissionReviewVersions:
+          - "v1"
+          - "v1beta1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURNVENDQWhtZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREF0TVJNd0VRWURWUVFLRXdwbllYUmwKYTJWbGNHVnlNUll3RkFZRFZRUURFdzFuWVhSbGEyVmxjR1Z5TFdOaE1CNFhEVEkyTURZeE1URXpOVFF4TWxvWApEVE0yTURZd09ERTBOVFF4TWxvd0xURVRNQkVHQTFVRUNoTUtaMkYwWld0bFpYQmxjakVXTUJRR0ExVUVBeE1OCloyRjBaV3RsWlhCbGNpMWpZVENDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFNbWEKak80MVZZRnR4Z0pPaXFrOW8zUmlKZEI3OTZ2eDlGUVZvNWViemd3clRITnJXRlFMTVdKbVNKMDBLZWlzZElGSQphZ1pOZmV4UUw3N041bGNsVFMrSjZzUUVPZTIxL1phQzVNeThjQ0MvdDVtR05DMWROYW1hVk1FbUdTU21RaXU0CkNRelBSbkdEaTJNbWcyNlMyUXJDWEoxODdqQWoxbTdHYjdDb2o1Q0JrZnV4RFZjTGdvTEd5eklQSnBOdWkrZkEKVzVoOGVHc3RnVmxqQVI3emt1ZFJIQjM1N1lmVkxtbTMyakgzTHFMUThqeEgvZFBGUzhOdHF0eFlraGF6MEZQWQpPR0ZjMVBUbnVQQ2xVOG1uQS93alFFZlpJbnNyelJEaDBKWVd4bzVsekJrVU1xVDZrTFNLMjFxM2xyN2VIVVEvClYvRk5STmpQSm1iV0FzMnBXTmNDQXdFQUFhTmNNRm93RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHQTFVZEV3RUIKL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRkUxM1ZjMnlndnE2SGt3WnJkU3kySTBTN0t4cU1CZ0dBMVVkRVFRUgpNQStDRFdkaGRHVnJaV1Z3WlhJdFkyRXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBTDlxUDBubk9qR2dvbjBlCnBrRCsvRnVoMVd6anBQOGE1VTN2RndBNldLZVI2OWQ3TkZ1RjNQTEZtcWRuSEhUallmWGpVZVhXT08zaTZqd3QKRUVMWFNXdWJiSi8zMVN1cTM1cTZUU0FLM0d6aXRFOGFrZk9zVWNGUkFRSzZFZW5zN0JwYW0zYnlSZ2ZHdTZ2NApJTWowQ2dHMDM3Vld5WkVzT0tiRU5OZHJhU0VyWWoyWUEvQ2FKeE1SRjhNN0ZJaHRaL0NNalRnSU9uYXN0ZUh2ClZnK0VZRkxUL1REMzBjSzB4cTI1d0ozYm4xN3BMaExVUlhOZXNPQ2U0c3ZXL3lBV1QyeHZHWVVXQU5TZzZoczkKSy82cUlTYjJUUjBQQmc0SGsvc3NJc0dUWVpLWWpYWUNQS2VsWGV6YVU0dXcrQ253VGYrckhOK0tUVjBtRUZHTgpIdWM5WWtnPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+          service:
+            name: "gatekeeper-webhook-service"
+            namespace: "default"
+            path: "/v1/admit"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Exact"
+        name: "validation.gatekeeper.sh"
+        namespaceSelector:
+          matchExpressions:
+            -
+              key: "admission.gatekeeper.sh/ignore"
+              operator: "DoesNotExist"
+            -
+              key: "kubernetes.io/metadata.name"
+              operator: "NotIn"
+              values:
+                - "default"
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "*"
+            apiVersions:
+              - "*"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "*"
+              - "pods/ephemeralcontainers"
+              - "pods/exec"
+              - "pods/log"
+              - "pods/eviction"
+              - "pods/portforward"
+              - "pods/proxy"
+              - "pods/attach"
+              - "pods/binding"
+              - "pods/resize"
+              - "deployments/scale"
+              - "replicasets/scale"
+              - "statefulsets/scale"
+              - "replicationcontrollers/scale"
+              - "services/proxy"
+              - "nodes/proxy"
+              - "services/status"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 3
+      -
+        admissionReviewVersions:
+          - "v1"
+          - "v1beta1"
+        clientConfig:
+          caBundle: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURNVENDQWhtZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREF0TVJNd0VRWURWUVFLRXdwbllYUmwKYTJWbGNHVnlNUll3RkFZRFZRUURFdzFuWVhSbGEyVmxjR1Z5TFdOaE1CNFhEVEkyTURZeE1URXpOVFF4TWxvWApEVE0yTURZd09ERTBOVFF4TWxvd0xURVRNQkVHQTFVRUNoTUtaMkYwWld0bFpYQmxjakVXTUJRR0ExVUVBeE1OCloyRjBaV3RsWlhCbGNpMWpZVENDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFNbWEKak80MVZZRnR4Z0pPaXFrOW8zUmlKZEI3OTZ2eDlGUVZvNWViemd3clRITnJXRlFMTVdKbVNKMDBLZWlzZElGSQphZ1pOZmV4UUw3N041bGNsVFMrSjZzUUVPZTIxL1phQzVNeThjQ0MvdDVtR05DMWROYW1hVk1FbUdTU21RaXU0CkNRelBSbkdEaTJNbWcyNlMyUXJDWEoxODdqQWoxbTdHYjdDb2o1Q0JrZnV4RFZjTGdvTEd5eklQSnBOdWkrZkEKVzVoOGVHc3RnVmxqQVI3emt1ZFJIQjM1N1lmVkxtbTMyakgzTHFMUThqeEgvZFBGUzhOdHF0eFlraGF6MEZQWQpPR0ZjMVBUbnVQQ2xVOG1uQS93alFFZlpJbnNyelJEaDBKWVd4bzVsekJrVU1xVDZrTFNLMjFxM2xyN2VIVVEvClYvRk5STmpQSm1iV0FzMnBXTmNDQXdFQUFhTmNNRm93RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHQTFVZEV3RUIKL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRkUxM1ZjMnlndnE2SGt3WnJkU3kySTBTN0t4cU1CZ0dBMVVkRVFRUgpNQStDRFdkaGRHVnJaV1Z3WlhJdFkyRXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBTDlxUDBubk9qR2dvbjBlCnBrRCsvRnVoMVd6anBQOGE1VTN2RndBNldLZVI2OWQ3TkZ1RjNQTEZtcWRuSEhUallmWGpVZVhXT08zaTZqd3QKRUVMWFNXdWJiSi8zMVN1cTM1cTZUU0FLM0d6aXRFOGFrZk9zVWNGUkFRSzZFZW5zN0JwYW0zYnlSZ2ZHdTZ2NApJTWowQ2dHMDM3Vld5WkVzT0tiRU5OZHJhU0VyWWoyWUEvQ2FKeE1SRjhNN0ZJaHRaL0NNalRnSU9uYXN0ZUh2ClZnK0VZRkxUL1REMzBjSzB4cTI1d0ozYm4xN3BMaExVUlhOZXNPQ2U0c3ZXL3lBV1QyeHZHWVVXQU5TZzZoczkKSy82cUlTYjJUUjBQQmc0SGsvc3NJc0dUWVpLWWpYWUNQS2VsWGV6YVU0dXcrQ253VGYrckhOK0tUVjBtRUZHTgpIdWM5WWtnPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+          service:
+            name: "gatekeeper-webhook-service"
+            namespace: "default"
+            path: "/v1/admitlabel"
+            port: 443
+        failurePolicy: "Fail"
+        matchPolicy: "Exact"
+        name: "check-ignore-label.gatekeeper.sh"
+        namespaceSelector:
+          matchExpressions:
+            -
+              key: "kubernetes.io/metadata.name"
+              operator: "NotIn"
+              values:
+                - "default"
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - ""
+            apiVersions:
+              - "*"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "namespaces"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 3
+kind: "List"
+metadata:
+  resourceVersion: ""

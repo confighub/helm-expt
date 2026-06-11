@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "elastic-logstash-8.5.1-ha-local-kind"
+spec:
+  variantRevision: "recipes/elastic/logstash/8.5.1/revisions/ha/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "d65903a7c75f9e3cdaed333b6a2daddcca45d3cc7f80ff09e6b7972a90c3aa70"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T14:22:37.528Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "existing"
+  variant: "ha"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "f68bf7914e434067a0b7a4f713c688cc5a7d60124470b95e000ee18b0dc6ff60"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "3 object(s) from recipes/elastic/logstash/8.5.1/revisions/ha/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "StatefulSet|default|logstash-logstash"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] logstash-logstash-0[ ready=true restarts=0;] logstash-logstash-1[] logstash-logstash-2[] rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;] surveyor-c4759d87-p4692[CrashLoopBackOff ready=false restarts=36;]"
+  blockedReasons:
+    - "statefulset/logstash-logstash: prerequisite-blocked (stuck creating: missing mount/secret/config) (kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] logstash-logstash-0[ ready=true restarts=0;] logstash-logstash-1[] logstash-logstash-2[)"

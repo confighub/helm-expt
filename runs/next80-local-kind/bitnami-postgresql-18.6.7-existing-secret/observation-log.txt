@@ -1,0 +1,5 @@
+BLOCKED rendered-objects-applied 6 object(s) from recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/rendered/release-objects.yaml :: apply-blocked: Error from server (Forbidden): error when creating "STDIN": networkpolicies.networking.k8s.io "postgresql" is forbidden: unable to create new content in namespace postgresql because it is being termin
+BLOCKED workload-converged StatefulSet|postgresql|postgresql :: prerequisite-blocked (stuck creating: missing mount/secret/config): postgresql-0[ContainerCreating ready=false restarts=0;]
+blocked:
+apply: Error from server (Forbidden): error when creating "STDIN": networkpolicies.networking.k8s.io "postgresql" is forbidden: unable to create new content in namespace postgresql because it is being termin
+statefulset/postgresql: prerequisite-blocked (stuck creating: missing mount/secret/config) (postgresql-0[ContainerCreating ready=false restarts=0;])

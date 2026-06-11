@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-contour-21.1.4-no-crds-local-kind"
+spec:
+  variantRevision: "recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "c481362a773024134946dc9307db4819ae2ccdd46b8d71e658595b11bb42622f"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T12:39:50.014Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "existing"
+  variant: "no-crds"
+  workloads: 2
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "50cf89d1607fb65620ef06e7ad3a8a9efa77b01e073d702104322518086bab48"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "15 object(s) from recipes/bitnami/contour/21.1.4/revisions/no-crds/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "DaemonSet|default|contour-envoy"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): contour-contour-6f88fd5fc6-2bhll[ContainerCreating ready=false restarts=0;] contour-envoy-tgr65[PodInitializing ready=false restarts=0;PodInitializing ready=false restarts=0;] rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;] surveyor-c4759d87-p4692[Error ready=false restarts=17;]"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|default|contour-contour"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): contour-contour-6f88fd5fc6-2bhll[ContainerCreating ready=false restarts=0;] contour-envoy-tgr65[PodInitializing ready=false restarts=0;PodInitializing ready=false restarts=0;] rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;] surveyor-c4759d87-p4692[CrashLoopBackOff ready=false restarts=17"
+  blockedReasons:
+    - "daemonset/contour-envoy: prerequisite-blocked (stuck creating: missing mount/secret/config) (contour-contour-6f88fd5fc6-2bhll[ContainerCreating ready=false restarts=0;] contour-envoy-tgr65[PodInitializing ready=false restarts=0;PodInitializing ready=fal)"
+    - "deployment/contour-contour: prerequisite-blocked (stuck creating: missing mount/secret/config) (contour-contour-6f88fd5fc6-2bhll[ContainerCreating ready=false restarts=0;] contour-envoy-tgr65[PodInitializing ready=false restarts=0;PodInitializing ready=fal)"

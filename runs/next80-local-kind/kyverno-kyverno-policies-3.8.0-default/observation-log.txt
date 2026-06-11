@@ -1,0 +1,3 @@
+BLOCKED rendered-objects-applied 11 object(s) from recipes/kyverno/kyverno-policies/3.8.0/revisions/default/r001/rendered/release-objects.yaml :: apply-blocked: resource mapping not found for name: "disallow-capabilities" namespace: "" from "STDIN": no matches for kind "ClusterPolicy" in version "kyverno.io/v1" ensure CRDs are installed first resource mapping
+blocked:
+apply: resource mapping not found for name: "disallow-capabilities" namespace: "" from "STDIN": no matches for kind "ClusterPolicy" in version "kyverno.io/v1" ensure CRDs are installed first resource mapping

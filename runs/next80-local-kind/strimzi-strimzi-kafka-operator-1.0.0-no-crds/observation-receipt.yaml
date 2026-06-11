@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "strimzi-strimzi-kafka-operator-1.0.0-no-crds-local-kind"
+spec:
+  variantRevision: "recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "c074a6281dddbc35ec340c8efcce77b1875ed5c3432cc54c651a7976304ef43d"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T14:45:05.176Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "existing"
+  variant: "no-crds"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "94ecea00a6fe9654017031f525f64ad55e0a5ed3b5fb1de9abea818b7242dda9"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "17 object(s) from recipes/strimzi/strimzi-kafka-operator/1.0.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|default|strimzi-cluster-operator"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;] strimzi-cluster-operator-57856f5f9b-bc7dx[CrashLoopBackOff ready=false restarts=4;]"
+  blockedReasons:
+    - "deployment/strimzi-cluster-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;] strimzi-cluster-operator-57)"

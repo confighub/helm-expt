@@ -1,0 +1,34 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "nats-nack-0.34.0-no-crds-local-kind"
+spec:
+  variantRevision: "recipes/nats/nack/0.34.0/revisions/no-crds/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "2a0e96ea4834808a0b66545eb50b94c4dc773572f699c3acad3ef2d6649a152d"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T14:38:06.939Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "existing"
+  variant: "no-crds"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "6a16fd98940136370f6c97338c2f389afda394caf1fbeb9872a0709a1b163700"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "4 object(s) from recipes/nats/nack/0.34.0/revisions/no-crds/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|nack"

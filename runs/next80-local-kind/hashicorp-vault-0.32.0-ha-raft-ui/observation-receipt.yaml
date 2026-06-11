@@ -1,0 +1,45 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "hashicorp-vault-0.32.0-ha-raft-ui-local-kind"
+spec:
+  variantRevision: "recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "734a212cbb2e8d11ed288d32bc8b709e859248ef5587090b04e0fa407b248b5f"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "vault"
+  observedAt: "2026-06-11T14:32:00.369Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "existing"
+  variant: "ha-raft-ui"
+  workloads: 2
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "937c39ce3122d065c61a12ff27c51e96ceaff18b4ce72fc93bc895cb68fc939e"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||vault"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "18 object(s) from recipes/hashicorp/vault/0.32.0/revisions/ha-raft-ui/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|vault|vault-agent-injector"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "StatefulSet|vault|vault"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): vault-0[ContainerCreating ready=false restarts=0;] vault-1[] vault-2[] vault-agent-injector-8c76487db-r7vcn[ ready=true restarts=0;]"
+  blockedReasons:
+    - "statefulset/vault: prerequisite-blocked (stuck creating: missing mount/secret/config) (vault-0[ContainerCreating ready=false restarts=0;] vault-1[] vault-2[] vault-agent-injector-8c76487db-r7vcn[ ready=true restarts=0;])"

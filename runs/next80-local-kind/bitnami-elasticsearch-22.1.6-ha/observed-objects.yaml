@@ -1,0 +1,1732 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "networking.k8s.io/v1"
+    kind: "NetworkPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"},\"name\":\"elasticsearch-coordinating\",\"namespace\":\"default\"},\"spec\":{\"egress\":[{}],\"ingress\":[{\"ports\":[{\"port\":9200},{\"port\":9300}]}],\"podSelector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/name\":\"elasticsearch\"}},\"policyTypes\":[\"Ingress\",\"Egress\"]}}\n"
+      creationTimestamp: "2026-06-11T12:42:36Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "coordinating-only"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elasticsearch"
+        app.kubernetes.io/version: "9.1.2"
+        helm.sh/chart: "elasticsearch-22.1.6"
+      name: "elasticsearch-coordinating"
+      namespace: "default"
+      resourceVersion: "10303"
+      uid: "ad5975f8-b335-4bd5-bfe7-5a16f600df4c"
+    spec:
+      egress:
+        -
+          {}
+      ingress:
+        -
+          ports:
+            -
+              port: 9200
+              protocol: "TCP"
+            -
+              port: 9300
+              protocol: "TCP"
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/component: "coordinating-only"
+          app.kubernetes.io/instance: "elasticsearch"
+          app.kubernetes.io/name: "elasticsearch"
+      policyTypes:
+        - "Ingress"
+        - "Egress"
+  -
+    apiVersion: "networking.k8s.io/v1"
+    kind: "NetworkPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"data\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"},\"name\":\"elasticsearch-data\",\"namespace\":\"default\"},\"spec\":{\"egress\":[{}],\"ingress\":[{\"ports\":[{\"port\":9200},{\"port\":9300}]}],\"podSelector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"data\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/name\":\"elasticsearch\"}},\"policyTypes\":[\"Ingress\",\"Egress\"]}}\n"
+      creationTimestamp: "2026-06-11T12:42:36Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "data"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elasticsearch"
+        app.kubernetes.io/version: "9.1.2"
+        helm.sh/chart: "elasticsearch-22.1.6"
+      name: "elasticsearch-data"
+      namespace: "default"
+      resourceVersion: "10304"
+      uid: "eb1146de-bf73-43d1-a829-b018d5622d0f"
+    spec:
+      egress:
+        -
+          {}
+      ingress:
+        -
+          ports:
+            -
+              port: 9200
+              protocol: "TCP"
+            -
+              port: 9300
+              protocol: "TCP"
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/component: "data"
+          app.kubernetes.io/instance: "elasticsearch"
+          app.kubernetes.io/name: "elasticsearch"
+      policyTypes:
+        - "Ingress"
+        - "Egress"
+  -
+    apiVersion: "networking.k8s.io/v1"
+    kind: "NetworkPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"ingest\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"},\"name\":\"elasticsearch-ingest\",\"namespace\":\"default\"},\"spec\":{\"egress\":[{}],\"ingress\":[{\"ports\":[{\"port\":9200},{\"port\":9300}]}],\"podSelector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"ingest\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/name\":\"elasticsearch\"}},\"policyTypes\":[\"Ingress\",\"Egress\"]}}\n"
+      creationTimestamp: "2026-06-11T12:42:36Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "ingest"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elasticsearch"
+        app.kubernetes.io/version: "9.1.2"
+        helm.sh/chart: "elasticsearch-22.1.6"
+      name: "elasticsearch-ingest"
+      namespace: "default"
+      resourceVersion: "10305"
+      uid: "1236b514-a3dc-4038-90db-1f7091641ef7"
+    spec:
+      egress:
+        -
+          {}
+      ingress:
+        -
+          ports:
+            -
+              port: 9200
+              protocol: "TCP"
+            -
+              port: 9300
+              protocol: "TCP"
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/component: "ingest"
+          app.kubernetes.io/instance: "elasticsearch"
+          app.kubernetes.io/name: "elasticsearch"
+      policyTypes:
+        - "Ingress"
+        - "Egress"
+  -
+    apiVersion: "networking.k8s.io/v1"
+    kind: "NetworkPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"},\"name\":\"elasticsearch-master\",\"namespace\":\"default\"},\"spec\":{\"egress\":[{}],\"ingress\":[{\"ports\":[{\"port\":9200},{\"port\":9300}]}],\"podSelector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/name\":\"elasticsearch\"}},\"policyTypes\":[\"Ingress\",\"Egress\"]}}\n"
+      creationTimestamp: "2026-06-11T12:42:36Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "master"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elasticsearch"
+        app.kubernetes.io/version: "9.1.2"
+        helm.sh/chart: "elasticsearch-22.1.6"
+      name: "elasticsearch-master"
+      namespace: "default"
+      resourceVersion: "10306"
+      uid: "92dd3e14-63c8-423f-8624-d3aa529edb05"
+    spec:
+      egress:
+        -
+          {}
+      ingress:
+        -
+          ports:
+            -
+              port: 9200
+              protocol: "TCP"
+            -
+              port: 9300
+              protocol: "TCP"
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/component: "master"
+          app.kubernetes.io/instance: "elasticsearch"
+          app.kubernetes.io/name: "elasticsearch"
+      policyTypes:
+        - "Ingress"
+        - "Egress"
+  -
+    apiVersion: "policy/v1"
+    kind: "PodDisruptionBudget"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"policy/v1\",\"kind\":\"PodDisruptionBudget\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"},\"name\":\"elasticsearch-coordinating\",\"namespace\":\"default\"},\"spec\":{\"maxUnavailable\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/name\":\"elasticsearch\"}}}}\n"
+      creationTimestamp: "2026-06-11T12:42:36Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "coordinating-only"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elasticsearch"
+        app.kubernetes.io/version: "9.1.2"
+        helm.sh/chart: "elasticsearch-22.1.6"
+      name: "elasticsearch-coordinating"
+      namespace: "default"
+      resourceVersion: "10463"
+      uid: "fad2acc6-999c-459b-a4e6-83789c9da0d3"
+    spec:
+      maxUnavailable: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "coordinating-only"
+          app.kubernetes.io/instance: "elasticsearch"
+          app.kubernetes.io/name: "elasticsearch"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T12:42:36Z"
+          message: ""
+          observedGeneration: 1
+          reason: "InsufficientPods"
+          status: "False"
+          type: "DisruptionAllowed"
+      currentHealthy: 0
+      desiredHealthy: 1
+      disruptionsAllowed: 0
+      expectedPods: 2
+      observedGeneration: 1
+  -
+    apiVersion: "policy/v1"
+    kind: "PodDisruptionBudget"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"policy/v1\",\"kind\":\"PodDisruptionBudget\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"data\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"},\"name\":\"elasticsearch-data\",\"namespace\":\"default\"},\"spec\":{\"maxUnavailable\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"data\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/name\":\"elasticsearch\"}}}}\n"
+      creationTimestamp: "2026-06-11T12:42:36Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "data"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elasticsearch"
+        app.kubernetes.io/version: "9.1.2"
+        helm.sh/chart: "elasticsearch-22.1.6"
+      name: "elasticsearch-data"
+      namespace: "default"
+      resourceVersion: "10447"
+      uid: "344bf56c-7d4a-4186-8a30-9b06b598d774"
+    spec:
+      maxUnavailable: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "data"
+          app.kubernetes.io/instance: "elasticsearch"
+          app.kubernetes.io/name: "elasticsearch"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T12:42:36Z"
+          message: ""
+          observedGeneration: 1
+          reason: "InsufficientPods"
+          status: "False"
+          type: "DisruptionAllowed"
+      currentHealthy: 0
+      desiredHealthy: 2
+      disruptionsAllowed: 0
+      expectedPods: 3
+      observedGeneration: 1
+  -
+    apiVersion: "policy/v1"
+    kind: "PodDisruptionBudget"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"policy/v1\",\"kind\":\"PodDisruptionBudget\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"ingest\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"},\"name\":\"elasticsearch-ingest\",\"namespace\":\"default\"},\"spec\":{\"maxUnavailable\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"ingest\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/name\":\"elasticsearch\"}}}}\n"
+      creationTimestamp: "2026-06-11T12:42:36Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "ingest"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elasticsearch"
+        app.kubernetes.io/version: "9.1.2"
+        helm.sh/chart: "elasticsearch-22.1.6"
+      name: "elasticsearch-ingest"
+      namespace: "default"
+      resourceVersion: "10440"
+      uid: "456ec48a-8a8c-48db-a8bd-10b316d5a5e9"
+    spec:
+      maxUnavailable: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "ingest"
+          app.kubernetes.io/instance: "elasticsearch"
+          app.kubernetes.io/name: "elasticsearch"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T12:42:36Z"
+          message: ""
+          observedGeneration: 1
+          reason: "InsufficientPods"
+          status: "False"
+          type: "DisruptionAllowed"
+      currentHealthy: 0
+      desiredHealthy: 1
+      disruptionsAllowed: 0
+      expectedPods: 2
+      observedGeneration: 1
+  -
+    apiVersion: "policy/v1"
+    kind: "PodDisruptionBudget"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"policy/v1\",\"kind\":\"PodDisruptionBudget\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"},\"name\":\"elasticsearch-master\",\"namespace\":\"default\"},\"spec\":{\"maxUnavailable\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/name\":\"elasticsearch\"}}}}\n"
+      creationTimestamp: "2026-06-11T12:42:36Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "master"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elasticsearch"
+        app.kubernetes.io/version: "9.1.2"
+        helm.sh/chart: "elasticsearch-22.1.6"
+      name: "elasticsearch-master"
+      namespace: "default"
+      resourceVersion: "10451"
+      uid: "53212aed-cb2e-420e-a792-f99e25e12dce"
+    spec:
+      maxUnavailable: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "master"
+          app.kubernetes.io/instance: "elasticsearch"
+          app.kubernetes.io/name: "elasticsearch"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T12:42:36Z"
+          message: ""
+          observedGeneration: 1
+          reason: "InsufficientPods"
+          status: "False"
+          type: "DisruptionAllowed"
+      currentHealthy: 0
+      desiredHealthy: 2
+      disruptionsAllowed: 0
+      expectedPods: 3
+      observedGeneration: 1
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: false
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":false,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"},\"name\":\"elasticsearch-coordinating\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T12:42:36Z"
+      labels:
+        app.kubernetes.io/component: "coordinating-only"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elasticsearch"
+        app.kubernetes.io/version: "9.1.2"
+        helm.sh/chart: "elasticsearch-22.1.6"
+      name: "elasticsearch-coordinating"
+      namespace: "default"
+      resourceVersion: "10317"
+      uid: "92ff08f0-546e-4ac9-ac87-0f6557351f0a"
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: false
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":false,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"data\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"},\"name\":\"elasticsearch-data\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T12:42:36Z"
+      labels:
+        app.kubernetes.io/component: "data"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elasticsearch"
+        app.kubernetes.io/version: "9.1.2"
+        helm.sh/chart: "elasticsearch-22.1.6"
+      name: "elasticsearch-data"
+      namespace: "default"
+      resourceVersion: "10319"
+      uid: "78a012cc-2aaa-46fe-809f-af892887ffc9"
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: false
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":false,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"ingest\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"},\"name\":\"elasticsearch-ingest\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T12:42:36Z"
+      labels:
+        app.kubernetes.io/component: "ingest"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elasticsearch"
+        app.kubernetes.io/version: "9.1.2"
+        helm.sh/chart: "elasticsearch-22.1.6"
+      name: "elasticsearch-ingest"
+      namespace: "default"
+      resourceVersion: "10321"
+      uid: "c707ab62-a32f-444c-8fb0-a29676c1383b"
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: false
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":false,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"},\"name\":\"elasticsearch-master\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T12:42:36Z"
+      labels:
+        app.kubernetes.io/component: "master"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elasticsearch"
+        app.kubernetes.io/version: "9.1.2"
+        helm.sh/chart: "elasticsearch-22.1.6"
+      name: "elasticsearch-master"
+      namespace: "default"
+      resourceVersion: "10324"
+      uid: "965b2462-e837-4bdc-bb1c-7fcd7648b9a5"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"},\"name\":\"elasticsearch-coordinating-hl\",\"namespace\":\"default\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"name\":\"tcp-rest-api\",\"port\":9200,\"targetPort\":\"rest-api\"},{\"name\":\"tcp-transport\",\"port\":9300,\"targetPort\":\"transport\"}],\"publishNotReadyAddresses\":true,\"selector\":{\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/name\":\"elasticsearch\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:42:36Z"
+      labels:
+        app.kubernetes.io/component: "coordinating-only"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elasticsearch"
+        app.kubernetes.io/version: "9.1.2"
+        helm.sh/chart: "elasticsearch-22.1.6"
+      name: "elasticsearch-coordinating-hl"
+      namespace: "default"
+      resourceVersion: "10327"
+      uid: "b16d7c6e-7ac3-45de-9503-45beaf1d5f83"
+    spec:
+      clusterIP: "None"
+      clusterIPs:
+        - "None"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "tcp-rest-api"
+          port: 9200
+          protocol: "TCP"
+          targetPort: "rest-api"
+        -
+          name: "tcp-transport"
+          port: 9300
+          protocol: "TCP"
+          targetPort: "transport"
+      publishNotReadyAddresses: true
+      selector:
+        app.kubernetes.io/component: "coordinating-only"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/name: "elasticsearch"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"data\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"},\"name\":\"elasticsearch-data-hl\",\"namespace\":\"default\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"name\":\"tcp-rest-api\",\"port\":9200,\"targetPort\":\"rest-api\"},{\"name\":\"tcp-transport\",\"port\":9300,\"targetPort\":\"transport\"}],\"publishNotReadyAddresses\":true,\"selector\":{\"app.kubernetes.io/component\":\"data\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/name\":\"elasticsearch\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:42:36Z"
+      labels:
+        app.kubernetes.io/component: "data"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elasticsearch"
+        app.kubernetes.io/version: "9.1.2"
+        helm.sh/chart: "elasticsearch-22.1.6"
+      name: "elasticsearch-data-hl"
+      namespace: "default"
+      resourceVersion: "10331"
+      uid: "9c2bfb2e-13c2-4c24-8176-218438ee7b81"
+    spec:
+      clusterIP: "None"
+      clusterIPs:
+        - "None"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "tcp-rest-api"
+          port: 9200
+          protocol: "TCP"
+          targetPort: "rest-api"
+        -
+          name: "tcp-transport"
+          port: 9300
+          protocol: "TCP"
+          targetPort: "transport"
+      publishNotReadyAddresses: true
+      selector:
+        app.kubernetes.io/component: "data"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/name: "elasticsearch"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"ingest\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"},\"name\":\"elasticsearch-ingest-hl\",\"namespace\":\"default\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"name\":\"tcp-rest-api\",\"port\":9200,\"targetPort\":\"rest-api\"},{\"name\":\"tcp-transport\",\"port\":9300,\"targetPort\":\"transport\"}],\"publishNotReadyAddresses\":true,\"selector\":{\"app.kubernetes.io/component\":\"ingest\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/name\":\"elasticsearch\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:42:36Z"
+      labels:
+        app.kubernetes.io/component: "ingest"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elasticsearch"
+        app.kubernetes.io/version: "9.1.2"
+        helm.sh/chart: "elasticsearch-22.1.6"
+      name: "elasticsearch-ingest-hl"
+      namespace: "default"
+      resourceVersion: "10335"
+      uid: "b582cc97-ebb4-466e-ae7e-9aee7f14d552"
+    spec:
+      clusterIP: "None"
+      clusterIPs:
+        - "None"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "tcp-rest-api"
+          port: 9200
+          protocol: "TCP"
+          targetPort: "rest-api"
+        -
+          name: "tcp-transport"
+          port: 9300
+          protocol: "TCP"
+          targetPort: "transport"
+      publishNotReadyAddresses: true
+      selector:
+        app.kubernetes.io/component: "ingest"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/name: "elasticsearch"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"},\"name\":\"elasticsearch-master-hl\",\"namespace\":\"default\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"name\":\"tcp-rest-api\",\"port\":9200,\"targetPort\":\"rest-api\"},{\"name\":\"tcp-transport\",\"port\":9300,\"targetPort\":\"transport\"}],\"publishNotReadyAddresses\":true,\"selector\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/name\":\"elasticsearch\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:42:36Z"
+      labels:
+        app.kubernetes.io/component: "master"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elasticsearch"
+        app.kubernetes.io/version: "9.1.2"
+        helm.sh/chart: "elasticsearch-22.1.6"
+      name: "elasticsearch-master-hl"
+      namespace: "default"
+      resourceVersion: "10340"
+      uid: "2e22bdf4-0973-4e00-802d-0417c4e3769b"
+    spec:
+      clusterIP: "None"
+      clusterIPs:
+        - "None"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "tcp-rest-api"
+          port: 9200
+          protocol: "TCP"
+          targetPort: "rest-api"
+        -
+          name: "tcp-transport"
+          port: 9300
+          protocol: "TCP"
+          targetPort: "transport"
+      publishNotReadyAddresses: true
+      selector:
+        app.kubernetes.io/component: "master"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/name: "elasticsearch"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"},\"name\":\"elasticsearch\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"tcp-rest-api\",\"nodePort\":null,\"port\":9200,\"targetPort\":\"rest-api\"},{\"name\":\"tcp-transport\",\"nodePort\":null,\"port\":9300}],\"selector\":{\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/name\":\"elasticsearch\"},\"sessionAffinity\":\"None\",\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:42:36Z"
+      labels:
+        app.kubernetes.io/component: "coordinating-only"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elasticsearch"
+        app.kubernetes.io/version: "9.1.2"
+        helm.sh/chart: "elasticsearch-22.1.6"
+      name: "elasticsearch"
+      namespace: "default"
+      resourceVersion: "10344"
+      uid: "46261bcc-434f-4fb9-9596-a9b750ae3663"
+    spec:
+      clusterIP: "10.96.210.170"
+      clusterIPs:
+        - "10.96.210.170"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "tcp-rest-api"
+          port: 9200
+          protocol: "TCP"
+          targetPort: "rest-api"
+        -
+          name: "tcp-transport"
+          port: 9300
+          protocol: "TCP"
+          targetPort: 9300
+      selector:
+        app.kubernetes.io/component: "coordinating-only"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/name: "elasticsearch"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "StatefulSet"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"coordinating-only\",\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"},\"name\":\"elasticsearch-coordinating\",\"namespace\":\"default\"},\"spec\":{\"podManagementPolicy\":\"Parallel\",\"replicas\":2,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/name\":\"elasticsearch\"}},\"serviceName\":\"elasticsearch-coordinating-hl\",\"template\":{\"metadata\":{\"annotations\":null,\"labels\":{\"app\":\"coordinating-only\",\"app.kubernetes.io/component\":\"coordinating-only\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":null,\"podAffinity\":null,\"podAntiAffinity\":null},\"automountServiceAccountToken\":false,\"containers\":[{\"env\":[{\"name\":\"MY_POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"BITNAMI_DEBUG\",\"value\":\"false\"},{\"name\":\"ELASTICSEARCH_CLUSTER_NAME\",\"value\":\"elastic\"},{\"name\":\"ELASTICSEARCH_IS_DEDICATED_NODE\",\"value\":\"yes\"},{\"name\":\"ELASTICSEARCH_NODE_ROLES\",\"value\":\"\"},{\"name\":\"ELASTICSEARCH_TRANSPORT_PORT_NUMBER\",\"value\":\"9300\"},{\"name\":\"ELASTICSEARCH_HTTP_PORT_NUMBER\",\"value\":\"9200\"},{\"name\":\"ELASTICSEARCH_CLUSTER_HOSTS\",\"value\":\"elasticsearch-master-hl.default.svc.cluster.local,elasticsearch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,\"},{\"name\":\"ELASTICSEARCH_TOTAL_NODES\",\"value\":\"6\"},{\"name\":\"ELASTICSEARCH_CLUSTER_MASTER_HOSTS\",\"value\":\"elasticsearch-master-0 elasticsearch-master-1 elasticsearch-master-2\"},{\"name\":\"ELASTICSEARCH_MINIMUM_MASTER_NODES\",\"value\":\"2\"},{\"name\":\"ELASTICSEARCH_ADVERTISED_HOSTNAME\",\"value\":\"$(MY_POD_NAME).elasticsearch-coordinating-hl.default.svc.cluster.local\"},{\"name\":\"ELASTICSEARCH_HEAP_SIZE\",\"value\":\"128m\"}],\"image\":\"docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":5,\"initialDelaySeconds\":180,\"periodSeconds\":10,\"successThreshold\":1,\"tcpSocket\":{\"port\":\"rest-api\"},\"timeoutSeconds\":5},\"name\":\"elasticsearch\",\"ports\":[{\"containerPort\":9200,\"name\":\"rest-api\"},{\"containerPort\":9300,\"name\":\"transport\"}],\"readinessProbe\":{\"exec\":{\"command\":[\"/opt/bitnami/scripts/elasticsearch/healthcheck.sh\"]},\"failureThreshold\":5,\"initialDelaySeconds\":90,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"resources\":{\"limits\":{\"cpu\":\"750m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"768Mi\"},\"requests\":{\"cpu\":\"500m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"512Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"empty-dir\",\"subPath\":\"tmp-dir\"},{\"mountPath\":\"/opt/bitnami/elasticsearch/config\",\"name\":\"empty-dir\",\"subPath\":\"app-conf-dir\"},{\"mountPath\":\"/opt/bitnami/elasticsearch/tmp\",\"name\":\"empty-dir\",\"subPath\":\"app-tmp-dir\"},{\"mountPath\":\"/opt/bitnami/elasticsearch/logs\",\"name\":\"empty-dir\",\"subPath\":\"app-logs-dir\"},{\"mountPath\":\"/opt/bitnami/elasticsearch/plugins\",\"name\":\"empty-dir\",\"subPath\":\"app-plugins-dir\"},{\"mountPath\":\"/bitnami/elasticsearch\",\"name\":\"empty-dir\",\"subPath\":\"app-volume-dir\"},{\"mountPath\":\"/bitnami/elasticsearch/data\",\"name\":\"data\"}]}],\"initContainers\":[{\"command\":[\"/bin/bash\",\"-ec\",\"CURRENT=`sysctl -n vm.max_map_count`;\\nDESIRED=\\\"262144\\\";\\nif [ \\\"$DESIRED\\\" -gt \\\"$CURRENT\\\" ]; then\\n    sysctl -w vm.max_map_count=262144;\\nfi;\\nCURRENT=`sysctl -n fs.file-max`;\\nDESIRED=\\\"65536\\\";\\nif [ \\\"$DESIRED\\\" -gt \\\"$CURRENT\\\" ]; then\\n    sysctl -w fs.file-max=65536;\\nfi;\\n\"],\"image\":\"docker.io/bitnami/os-shell:12-debian-12-r50\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"sysctl\",\"resources\":{\"limits\":{\"cpu\":\"150m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"192Mi\"},\"requests\":{\"cpu\":\"100m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"128Mi\"}},\"securityContext\":{\"privileged\":true,\"runAsUser\":0}},{\"args\":[\"-ec\",\"#!/bin/bash\\n\\n. /opt/bitnami/scripts/libfs.sh\\n. /opt/bitnami/scripts/elasticsearch-env.sh\\n\\nif ! is_dir_empty \\\"$DB_DEFAULT_PLUGINS_DIR\\\"; then\\n    cp -nr \\\"$DB_DEFAULT_PLUGINS_DIR\\\"/* /plugins\\nfi\\n\"],\"command\":[\"/bin/bash\"],\"image\":\"docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"copy-default-plugins\",\"resources\":{\"limits\":{\"cpu\":\"750m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"768Mi\"},\"requests\":{\"cpu\":\"500m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"512Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"empty-dir\",\"subPath\":\"tmp-dir\"},{\"mountPath\":\"/plugins\",\"name\":\"empty-dir\",\"subPath\":\"app-plugins-dir\"}]}],\"securityContext\":{\"fsGroup\":1001,\"fsGroupChangePolicy\":\"Always\",\"supplementalGroups\":[],\"sysctls\":[]},\"serviceAccountName\":\"elasticsearch-coordinating\",\"volumes\":[{\"emptyDir\":{},\"name\":\"empty-dir\"},{\"emptyDir\":{},\"name\":\"data\"}]}},\"updateStrategy\":{\"type\":\"RollingUpdate\"}}}\n"
+      creationTimestamp: "2026-06-11T12:42:36Z"
+      generation: 1
+      labels:
+        app: "coordinating-only"
+        app.kubernetes.io/component: "coordinating-only"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elasticsearch"
+        app.kubernetes.io/version: "9.1.2"
+        helm.sh/chart: "elasticsearch-22.1.6"
+      name: "elasticsearch-coordinating"
+      namespace: "default"
+      resourceVersion: "10502"
+      uid: "88c13fa4-fa2c-4abb-95a9-3ad3da672471"
+    spec:
+      persistentVolumeClaimRetentionPolicy:
+        whenDeleted: "Retain"
+        whenScaled: "Retain"
+      podManagementPolicy: "Parallel"
+      replicas: 2
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "coordinating-only"
+          app.kubernetes.io/instance: "elasticsearch"
+          app.kubernetes.io/name: "elasticsearch"
+      serviceName: "elasticsearch-coordinating-hl"
+      template:
+        metadata:
+          labels:
+            app: "coordinating-only"
+            app.kubernetes.io/component: "coordinating-only"
+            app.kubernetes.io/instance: "elasticsearch"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "elasticsearch"
+            app.kubernetes.io/version: "9.1.2"
+            helm.sh/chart: "elasticsearch-22.1.6"
+        spec:
+          affinity:
+            {}
+          automountServiceAccountToken: false
+          containers:
+            -
+              env:
+                -
+                  name: "MY_POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "BITNAMI_DEBUG"
+                  value: "false"
+                -
+                  name: "ELASTICSEARCH_CLUSTER_NAME"
+                  value: "elastic"
+                -
+                  name: "ELASTICSEARCH_IS_DEDICATED_NODE"
+                  value: "yes"
+                -
+                  name: "ELASTICSEARCH_NODE_ROLES"
+                -
+                  name: "ELASTICSEARCH_TRANSPORT_PORT_NUMBER"
+                  value: "9300"
+                -
+                  name: "ELASTICSEARCH_HTTP_PORT_NUMBER"
+                  value: "9200"
+                -
+                  name: "ELASTICSEARCH_CLUSTER_HOSTS"
+                  value: "elasticsearch-master-hl.default.svc.cluster.local,elasticsearch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,"
+                -
+                  name: "ELASTICSEARCH_TOTAL_NODES"
+                  value: "6"
+                -
+                  name: "ELASTICSEARCH_CLUSTER_MASTER_HOSTS"
+                  value: "elasticsearch-master-0 elasticsearch-master-1 elasticsearch-master-2"
+                -
+                  name: "ELASTICSEARCH_MINIMUM_MASTER_NODES"
+                  value: "2"
+                -
+                  name: "ELASTICSEARCH_ADVERTISED_HOSTNAME"
+                  value: "$(MY_POD_NAME).elasticsearch-coordinating-hl.default.svc.cluster.local"
+                -
+                  name: "ELASTICSEARCH_HEAP_SIZE"
+                  value: "128m"
+              image: "docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 5
+                initialDelaySeconds: 180
+                periodSeconds: 10
+                successThreshold: 1
+                tcpSocket:
+                  port: "rest-api"
+                timeoutSeconds: 5
+              name: "elasticsearch"
+              ports:
+                -
+                  containerPort: 9200
+                  name: "rest-api"
+                  protocol: "TCP"
+                -
+                  containerPort: 9300
+                  name: "transport"
+                  protocol: "TCP"
+              readinessProbe:
+                exec:
+                  command:
+                    - "/opt/bitnami/scripts/elasticsearch/healthcheck.sh"
+                failureThreshold: 5
+                initialDelaySeconds: 90
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                limits:
+                  cpu: "750m"
+                  ephemeral-storage: "2Gi"
+                  memory: "768Mi"
+                requests:
+                  cpu: "500m"
+                  ephemeral-storage: "50Mi"
+                  memory: "512Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/tmp"
+                  name: "empty-dir"
+                  subPath: "tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/elasticsearch/config"
+                  name: "empty-dir"
+                  subPath: "app-conf-dir"
+                -
+                  mountPath: "/opt/bitnami/elasticsearch/tmp"
+                  name: "empty-dir"
+                  subPath: "app-tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/elasticsearch/logs"
+                  name: "empty-dir"
+                  subPath: "app-logs-dir"
+                -
+                  mountPath: "/opt/bitnami/elasticsearch/plugins"
+                  name: "empty-dir"
+                  subPath: "app-plugins-dir"
+                -
+                  mountPath: "/bitnami/elasticsearch"
+                  name: "empty-dir"
+                  subPath: "app-volume-dir"
+                -
+                  mountPath: "/bitnami/elasticsearch/data"
+                  name: "data"
+          dnsPolicy: "ClusterFirst"
+          initContainers:
+            -
+              command:
+                - "/bin/bash"
+                - "-ec"
+                - "CURRENT=`sysctl -n vm.max_map_count`;\nDESIRED=\"262144\";\nif [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n    sysctl -w vm.max_map_count=262144;\nfi;\nCURRENT=`sysctl -n fs.file-max`;\nDESIRED=\"65536\";\nif [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n    sysctl -w fs.file-max=65536;\nfi;\n"
+              image: "docker.io/bitnami/os-shell:12-debian-12-r50"
+              imagePullPolicy: "IfNotPresent"
+              name: "sysctl"
+              resources:
+                limits:
+                  cpu: "150m"
+                  ephemeral-storage: "2Gi"
+                  memory: "192Mi"
+                requests:
+                  cpu: "100m"
+                  ephemeral-storage: "50Mi"
+                  memory: "128Mi"
+              securityContext:
+                privileged: true
+                runAsUser: 0
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+            -
+              args:
+                - "-ec"
+                - "#!/bin/bash\n\n. /opt/bitnami/scripts/libfs.sh\n. /opt/bitnami/scripts/elasticsearch-env.sh\n\nif ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n    cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /plugins\nfi\n"
+              command:
+                - "/bin/bash"
+              image: "docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0"
+              imagePullPolicy: "IfNotPresent"
+              name: "copy-default-plugins"
+              resources:
+                limits:
+                  cpu: "750m"
+                  ephemeral-storage: "2Gi"
+                  memory: "768Mi"
+                requests:
+                  cpu: "500m"
+                  ephemeral-storage: "50Mi"
+                  memory: "512Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/tmp"
+                  name: "empty-dir"
+                  subPath: "tmp-dir"
+                -
+                  mountPath: "/plugins"
+                  name: "empty-dir"
+                  subPath: "app-plugins-dir"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 1001
+            fsGroupChangePolicy: "Always"
+          serviceAccount: "elasticsearch-coordinating"
+          serviceAccountName: "elasticsearch-coordinating"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              emptyDir:
+                {}
+              name: "empty-dir"
+            -
+              emptyDir:
+                {}
+              name: "data"
+      updateStrategy:
+        type: "RollingUpdate"
+    status:
+      availableReplicas: 0
+      collisionCount: 0
+      currentReplicas: 2
+      currentRevision: "elasticsearch-coordinating-7c86b56f4f"
+      observedGeneration: 1
+      replicas: 2
+      updateRevision: "elasticsearch-coordinating-7c86b56f4f"
+      updatedReplicas: 2
+  -
+    apiVersion: "apps/v1"
+    kind: "StatefulSet"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"data\",\"app.kubernetes.io/component\":\"data\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"},\"name\":\"elasticsearch-data\",\"namespace\":\"default\"},\"spec\":{\"podManagementPolicy\":\"Parallel\",\"replicas\":3,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"data\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/name\":\"elasticsearch\"}},\"serviceName\":\"elasticsearch-data-hl\",\"template\":{\"metadata\":{\"annotations\":null,\"labels\":{\"app\":\"data\",\"app.kubernetes.io/component\":\"data\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":null,\"podAffinity\":null,\"podAntiAffinity\":null},\"automountServiceAccountToken\":false,\"containers\":[{\"env\":[{\"name\":\"BITNAMI_DEBUG\",\"value\":\"false\"},{\"name\":\"MY_POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"ELASTICSEARCH_IS_DEDICATED_NODE\",\"value\":\"yes\"},{\"name\":\"ELASTICSEARCH_NODE_ROLES\",\"value\":\"data\"},{\"name\":\"ELASTICSEARCH_TRANSPORT_PORT_NUMBER\",\"value\":\"9300\"},{\"name\":\"ELASTICSEARCH_HTTP_PORT_NUMBER\",\"value\":\"9200\"},{\"name\":\"ELASTICSEARCH_CLUSTER_NAME\",\"value\":\"elastic\"},{\"name\":\"ELASTICSEARCH_CLUSTER_HOSTS\",\"value\":\"elasticsearch-master-hl.default.svc.cluster.local,elasticsearch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,\"},{\"name\":\"ELASTICSEARCH_TOTAL_NODES\",\"value\":\"6\"},{\"name\":\"ELASTICSEARCH_CLUSTER_MASTER_HOSTS\",\"value\":\"elasticsearch-master-0 elasticsearch-master-1 elasticsearch-master-2\"},{\"name\":\"ELASTICSEARCH_MINIMUM_MASTER_NODES\",\"value\":\"2\"},{\"name\":\"ELASTICSEARCH_ADVERTISED_HOSTNAME\",\"value\":\"$(MY_POD_NAME).elasticsearch-data-hl.default.svc.cluster.local\"},{\"name\":\"ELASTICSEARCH_HEAP_SIZE\",\"value\":\"1024m\"}],\"image\":\"docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":5,\"initialDelaySeconds\":180,\"periodSeconds\":10,\"successThreshold\":1,\"tcpSocket\":{\"port\":\"rest-api\"},\"timeoutSeconds\":5},\"name\":\"elasticsearch\",\"ports\":[{\"containerPort\":9200,\"name\":\"rest-api\"},{\"containerPort\":9300,\"name\":\"transport\"}],\"readinessProbe\":{\"exec\":{\"command\":[\"/opt/bitnami/scripts/elasticsearch/healthcheck.sh\"]},\"failureThreshold\":5,\"initialDelaySeconds\":90,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"resources\":{\"limits\":{\"cpu\":\"750m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"1536Mi\"},\"requests\":{\"cpu\":\"500m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"1024Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"empty-dir\",\"subPath\":\"tmp-dir\"},{\"mountPath\":\"/opt/bitnami/elasticsearch/config\",\"name\":\"empty-dir\",\"subPath\":\"app-conf-dir\"},{\"mountPath\":\"/opt/bitnami/elasticsearch/tmp\",\"name\":\"empty-dir\",\"subPath\":\"app-tmp-dir\"},{\"mountPath\":\"/opt/bitnami/elasticsearch/logs\",\"name\":\"empty-dir\",\"subPath\":\"app-logs-dir\"},{\"mountPath\":\"/opt/bitnami/elasticsearch/plugins\",\"name\":\"empty-dir\",\"subPath\":\"app-plugins-dir\"},{\"mountPath\":\"/bitnami/elasticsearch\",\"name\":\"empty-dir\",\"subPath\":\"app-volume-dirs\"},{\"mountPath\":\"/bitnami/elasticsearch/data\",\"name\":\"data\"}]}],\"initContainers\":[{\"command\":[\"/bin/bash\",\"-ec\",\"CURRENT=`sysctl -n vm.max_map_count`;\\nDESIRED=\\\"262144\\\";\\nif [ \\\"$DESIRED\\\" -gt \\\"$CURRENT\\\" ]; then\\n    sysctl -w vm.max_map_count=262144;\\nfi;\\nCURRENT=`sysctl -n fs.file-max`;\\nDESIRED=\\\"65536\\\";\\nif [ \\\"$DESIRED\\\" -gt \\\"$CURRENT\\\" ]; then\\n    sysctl -w fs.file-max=65536;\\nfi;\\n\"],\"image\":\"docker.io/bitnami/os-shell:12-debian-12-r50\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"sysctl\",\"resources\":{\"limits\":{\"cpu\":\"150m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"192Mi\"},\"requests\":{\"cpu\":\"100m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"128Mi\"}},\"securityContext\":{\"privileged\":true,\"runAsUser\":0}},{\"args\":[\"-ec\",\"#!/bin/bash\\n\\n. /opt/bitnami/scripts/libfs.sh\\n. /opt/bitnami/scripts/elasticsearch-env.sh\\n\\nif ! is_dir_empty \\\"$DB_DEFAULT_PLUGINS_DIR\\\"; then\\n    cp -nr \\\"$DB_DEFAULT_PLUGINS_DIR\\\"/* /plugins\\nfi\\n\"],\"command\":[\"/bin/bash\"],\"image\":\"docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"copy-default-plugins\",\"resources\":{\"limits\":{\"cpu\":\"750m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"1536Mi\"},\"requests\":{\"cpu\":\"500m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"1024Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"empty-dir\",\"subPath\":\"tmp-dir\"},{\"mountPath\":\"/plugins\",\"name\":\"empty-dir\",\"subPath\":\"app-plugins-dir\"}]}],\"securityContext\":{\"fsGroup\":1001,\"fsGroupChangePolicy\":\"Always\",\"supplementalGroups\":[],\"sysctls\":[]},\"serviceAccountName\":\"elasticsearch-data\",\"volumes\":[{\"emptyDir\":{},\"name\":\"empty-dir\"}]}},\"updateStrategy\":{\"type\":\"RollingUpdate\"},\"volumeClaimTemplates\":[{\"apiVersion\":\"v1\",\"kind\":\"PersistentVolumeClaim\",\"metadata\":{\"name\":\"data\"},\"spec\":{\"accessModes\":[\"ReadWriteOnce\"],\"resources\":{\"requests\":{\"storage\":\"8Gi\"}}}}]}}\n"
+      creationTimestamp: "2026-06-11T12:42:36Z"
+      generation: 1
+      labels:
+        app: "data"
+        app.kubernetes.io/component: "data"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elasticsearch"
+        app.kubernetes.io/version: "9.1.2"
+        helm.sh/chart: "elasticsearch-22.1.6"
+      name: "elasticsearch-data"
+      namespace: "default"
+      resourceVersion: "10479"
+      uid: "aaa94f41-a619-49bd-b489-10fade0bd79c"
+    spec:
+      persistentVolumeClaimRetentionPolicy:
+        whenDeleted: "Retain"
+        whenScaled: "Retain"
+      podManagementPolicy: "Parallel"
+      replicas: 3
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "data"
+          app.kubernetes.io/instance: "elasticsearch"
+          app.kubernetes.io/name: "elasticsearch"
+      serviceName: "elasticsearch-data-hl"
+      template:
+        metadata:
+          labels:
+            app: "data"
+            app.kubernetes.io/component: "data"
+            app.kubernetes.io/instance: "elasticsearch"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "elasticsearch"
+            app.kubernetes.io/version: "9.1.2"
+            helm.sh/chart: "elasticsearch-22.1.6"
+        spec:
+          affinity:
+            {}
+          automountServiceAccountToken: false
+          containers:
+            -
+              env:
+                -
+                  name: "BITNAMI_DEBUG"
+                  value: "false"
+                -
+                  name: "MY_POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "ELASTICSEARCH_IS_DEDICATED_NODE"
+                  value: "yes"
+                -
+                  name: "ELASTICSEARCH_NODE_ROLES"
+                  value: "data"
+                -
+                  name: "ELASTICSEARCH_TRANSPORT_PORT_NUMBER"
+                  value: "9300"
+                -
+                  name: "ELASTICSEARCH_HTTP_PORT_NUMBER"
+                  value: "9200"
+                -
+                  name: "ELASTICSEARCH_CLUSTER_NAME"
+                  value: "elastic"
+                -
+                  name: "ELASTICSEARCH_CLUSTER_HOSTS"
+                  value: "elasticsearch-master-hl.default.svc.cluster.local,elasticsearch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,"
+                -
+                  name: "ELASTICSEARCH_TOTAL_NODES"
+                  value: "6"
+                -
+                  name: "ELASTICSEARCH_CLUSTER_MASTER_HOSTS"
+                  value: "elasticsearch-master-0 elasticsearch-master-1 elasticsearch-master-2"
+                -
+                  name: "ELASTICSEARCH_MINIMUM_MASTER_NODES"
+                  value: "2"
+                -
+                  name: "ELASTICSEARCH_ADVERTISED_HOSTNAME"
+                  value: "$(MY_POD_NAME).elasticsearch-data-hl.default.svc.cluster.local"
+                -
+                  name: "ELASTICSEARCH_HEAP_SIZE"
+                  value: "1024m"
+              image: "docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 5
+                initialDelaySeconds: 180
+                periodSeconds: 10
+                successThreshold: 1
+                tcpSocket:
+                  port: "rest-api"
+                timeoutSeconds: 5
+              name: "elasticsearch"
+              ports:
+                -
+                  containerPort: 9200
+                  name: "rest-api"
+                  protocol: "TCP"
+                -
+                  containerPort: 9300
+                  name: "transport"
+                  protocol: "TCP"
+              readinessProbe:
+                exec:
+                  command:
+                    - "/opt/bitnami/scripts/elasticsearch/healthcheck.sh"
+                failureThreshold: 5
+                initialDelaySeconds: 90
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                limits:
+                  cpu: "750m"
+                  ephemeral-storage: "2Gi"
+                  memory: "1536Mi"
+                requests:
+                  cpu: "500m"
+                  ephemeral-storage: "50Mi"
+                  memory: "1Gi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/tmp"
+                  name: "empty-dir"
+                  subPath: "tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/elasticsearch/config"
+                  name: "empty-dir"
+                  subPath: "app-conf-dir"
+                -
+                  mountPath: "/opt/bitnami/elasticsearch/tmp"
+                  name: "empty-dir"
+                  subPath: "app-tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/elasticsearch/logs"
+                  name: "empty-dir"
+                  subPath: "app-logs-dir"
+                -
+                  mountPath: "/opt/bitnami/elasticsearch/plugins"
+                  name: "empty-dir"
+                  subPath: "app-plugins-dir"
+                -
+                  mountPath: "/bitnami/elasticsearch"
+                  name: "empty-dir"
+                  subPath: "app-volume-dirs"
+                -
+                  mountPath: "/bitnami/elasticsearch/data"
+                  name: "data"
+          dnsPolicy: "ClusterFirst"
+          initContainers:
+            -
+              command:
+                - "/bin/bash"
+                - "-ec"
+                - "CURRENT=`sysctl -n vm.max_map_count`;\nDESIRED=\"262144\";\nif [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n    sysctl -w vm.max_map_count=262144;\nfi;\nCURRENT=`sysctl -n fs.file-max`;\nDESIRED=\"65536\";\nif [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n    sysctl -w fs.file-max=65536;\nfi;\n"
+              image: "docker.io/bitnami/os-shell:12-debian-12-r50"
+              imagePullPolicy: "IfNotPresent"
+              name: "sysctl"
+              resources:
+                limits:
+                  cpu: "150m"
+                  ephemeral-storage: "2Gi"
+                  memory: "192Mi"
+                requests:
+                  cpu: "100m"
+                  ephemeral-storage: "50Mi"
+                  memory: "128Mi"
+              securityContext:
+                privileged: true
+                runAsUser: 0
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+            -
+              args:
+                - "-ec"
+                - "#!/bin/bash\n\n. /opt/bitnami/scripts/libfs.sh\n. /opt/bitnami/scripts/elasticsearch-env.sh\n\nif ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n    cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /plugins\nfi\n"
+              command:
+                - "/bin/bash"
+              image: "docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0"
+              imagePullPolicy: "IfNotPresent"
+              name: "copy-default-plugins"
+              resources:
+                limits:
+                  cpu: "750m"
+                  ephemeral-storage: "2Gi"
+                  memory: "1536Mi"
+                requests:
+                  cpu: "500m"
+                  ephemeral-storage: "50Mi"
+                  memory: "1Gi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/tmp"
+                  name: "empty-dir"
+                  subPath: "tmp-dir"
+                -
+                  mountPath: "/plugins"
+                  name: "empty-dir"
+                  subPath: "app-plugins-dir"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 1001
+            fsGroupChangePolicy: "Always"
+          serviceAccount: "elasticsearch-data"
+          serviceAccountName: "elasticsearch-data"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              emptyDir:
+                {}
+              name: "empty-dir"
+      updateStrategy:
+        type: "RollingUpdate"
+      volumeClaimTemplates:
+        -
+          apiVersion: "v1"
+          kind: "PersistentVolumeClaim"
+          metadata:
+            name: "data"
+          spec:
+            accessModes:
+              - "ReadWriteOnce"
+            resources:
+              requests:
+                storage: "8Gi"
+            volumeMode: "Filesystem"
+          status:
+            phase: "Pending"
+    status:
+      availableReplicas: 0
+      collisionCount: 0
+      currentReplicas: 3
+      currentRevision: "elasticsearch-data-7d7df8d9bc"
+      observedGeneration: 1
+      replicas: 3
+      updateRevision: "elasticsearch-data-7d7df8d9bc"
+      updatedReplicas: 3
+  -
+    apiVersion: "apps/v1"
+    kind: "StatefulSet"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"ingest\",\"app.kubernetes.io/component\":\"ingest\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"},\"name\":\"elasticsearch-ingest\",\"namespace\":\"default\"},\"spec\":{\"podManagementPolicy\":\"Parallel\",\"replicas\":2,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"ingest\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/name\":\"elasticsearch\"}},\"serviceName\":\"elasticsearch-ingest-hl\",\"template\":{\"metadata\":{\"annotations\":null,\"labels\":{\"app\":\"ingest\",\"app.kubernetes.io/component\":\"ingest\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":null,\"podAffinity\":null,\"podAntiAffinity\":null},\"automountServiceAccountToken\":false,\"containers\":[{\"env\":[{\"name\":\"BITNAMI_DEBUG\",\"value\":\"false\"},{\"name\":\"MY_POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"ELASTICSEARCH_IS_DEDICATED_NODE\",\"value\":\"yes\"},{\"name\":\"ELASTICSEARCH_NODE_ROLES\",\"value\":\"ingest\"},{\"name\":\"ELASTICSEARCH_TRANSPORT_PORT_NUMBER\",\"value\":\"9300\"},{\"name\":\"ELASTICSEARCH_HTTP_PORT_NUMBER\",\"value\":\"9200\"},{\"name\":\"ELASTICSEARCH_CLUSTER_NAME\",\"value\":\"elastic\"},{\"name\":\"ELASTICSEARCH_CLUSTER_HOSTS\",\"value\":\"elasticsearch-master-hl.default.svc.cluster.local,elasticsearch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,\"},{\"name\":\"ELASTICSEARCH_TOTAL_NODES\",\"value\":\"6\"},{\"name\":\"ELASTICSEARCH_CLUSTER_MASTER_HOSTS\",\"value\":\"elasticsearch-master-0 elasticsearch-master-1 elasticsearch-master-2\"},{\"name\":\"ELASTICSEARCH_MINIMUM_MASTER_NODES\",\"value\":\"2\"},{\"name\":\"ELASTICSEARCH_ADVERTISED_HOSTNAME\",\"value\":\"$(MY_POD_NAME).elasticsearch-ingest-hl.default.svc.cluster.local\"},{\"name\":\"ELASTICSEARCH_HEAP_SIZE\",\"value\":\"128m\"}],\"image\":\"docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":5,\"initialDelaySeconds\":180,\"periodSeconds\":10,\"successThreshold\":1,\"tcpSocket\":{\"port\":\"rest-api\"},\"timeoutSeconds\":5},\"name\":\"elasticsearch\",\"ports\":[{\"containerPort\":9200,\"name\":\"rest-api\"},{\"containerPort\":9300,\"name\":\"transport\"}],\"readinessProbe\":{\"exec\":{\"command\":[\"/opt/bitnami/scripts/elasticsearch/healthcheck.sh\"]},\"failureThreshold\":5,\"initialDelaySeconds\":90,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"resources\":{\"limits\":{\"cpu\":\"750m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"768Mi\"},\"requests\":{\"cpu\":\"500m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"512Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"empty-dir\",\"subPath\":\"tmp-dir\"},{\"mountPath\":\"/opt/bitnami/elasticsearch/config\",\"name\":\"empty-dir\",\"subPath\":\"app-conf-dir\"},{\"mountPath\":\"/opt/bitnami/elasticsearch/tmp\",\"name\":\"empty-dir\",\"subPath\":\"app-tmp-dir\"},{\"mountPath\":\"/opt/bitnami/elasticsearch/logs\",\"name\":\"empty-dir\",\"subPath\":\"app-logs-dir\"},{\"mountPath\":\"/opt/bitnami/elasticsearch/plugins\",\"name\":\"empty-dir\",\"subPath\":\"app-plugins-dir\"},{\"mountPath\":\"/bitnami/elasticsearch\",\"name\":\"empty-dir\",\"subPath\":\"app-volume-dir\"},{\"mountPath\":\"/bitnami/elasticsearch/data\",\"name\":\"data\"}]}],\"initContainers\":[{\"command\":[\"/bin/bash\",\"-ec\",\"CURRENT=`sysctl -n vm.max_map_count`;\\nDESIRED=\\\"262144\\\";\\nif [ \\\"$DESIRED\\\" -gt \\\"$CURRENT\\\" ]; then\\n    sysctl -w vm.max_map_count=262144;\\nfi;\\nCURRENT=`sysctl -n fs.file-max`;\\nDESIRED=\\\"65536\\\";\\nif [ \\\"$DESIRED\\\" -gt \\\"$CURRENT\\\" ]; then\\n    sysctl -w fs.file-max=65536;\\nfi;\\n\"],\"image\":\"docker.io/bitnami/os-shell:12-debian-12-r50\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"sysctl\",\"resources\":{\"limits\":{\"cpu\":\"150m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"192Mi\"},\"requests\":{\"cpu\":\"100m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"128Mi\"}},\"securityContext\":{\"privileged\":true,\"runAsUser\":0}},{\"args\":[\"-ec\",\"#!/bin/bash\\n\\n. /opt/bitnami/scripts/libfs.sh\\n. /opt/bitnami/scripts/elasticsearch-env.sh\\n\\nif ! is_dir_empty \\\"$DB_DEFAULT_PLUGINS_DIR\\\"; then\\n    cp -nr \\\"$DB_DEFAULT_PLUGINS_DIR\\\"/* /plugins\\nfi\\n\"],\"command\":[\"/bin/bash\"],\"image\":\"docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"copy-default-plugins\",\"resources\":{\"limits\":{\"cpu\":\"750m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"768Mi\"},\"requests\":{\"cpu\":\"500m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"512Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"empty-dir\",\"subPath\":\"tmp-dir\"},{\"mountPath\":\"/plugins\",\"name\":\"empty-dir\",\"subPath\":\"app-plugins-dir\"}]}],\"securityContext\":{\"fsGroup\":1001,\"fsGroupChangePolicy\":\"Always\",\"supplementalGroups\":[],\"sysctls\":[]},\"serviceAccountName\":\"elasticsearch-ingest\",\"volumes\":[{\"emptyDir\":{},\"name\":\"empty-dir\"},{\"emptyDir\":{},\"name\":\"data\"}]}},\"updateStrategy\":{\"type\":\"RollingUpdate\"}}}\n"
+      creationTimestamp: "2026-06-11T12:42:36Z"
+      generation: 1
+      labels:
+        app: "ingest"
+        app.kubernetes.io/component: "ingest"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elasticsearch"
+        app.kubernetes.io/version: "9.1.2"
+        helm.sh/chart: "elasticsearch-22.1.6"
+      name: "elasticsearch-ingest"
+      namespace: "default"
+      resourceVersion: "10493"
+      uid: "dace877c-6bf0-4b72-896d-b1a417b4aeb1"
+    spec:
+      persistentVolumeClaimRetentionPolicy:
+        whenDeleted: "Retain"
+        whenScaled: "Retain"
+      podManagementPolicy: "Parallel"
+      replicas: 2
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "ingest"
+          app.kubernetes.io/instance: "elasticsearch"
+          app.kubernetes.io/name: "elasticsearch"
+      serviceName: "elasticsearch-ingest-hl"
+      template:
+        metadata:
+          labels:
+            app: "ingest"
+            app.kubernetes.io/component: "ingest"
+            app.kubernetes.io/instance: "elasticsearch"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "elasticsearch"
+            app.kubernetes.io/version: "9.1.2"
+            helm.sh/chart: "elasticsearch-22.1.6"
+        spec:
+          affinity:
+            {}
+          automountServiceAccountToken: false
+          containers:
+            -
+              env:
+                -
+                  name: "BITNAMI_DEBUG"
+                  value: "false"
+                -
+                  name: "MY_POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "ELASTICSEARCH_IS_DEDICATED_NODE"
+                  value: "yes"
+                -
+                  name: "ELASTICSEARCH_NODE_ROLES"
+                  value: "ingest"
+                -
+                  name: "ELASTICSEARCH_TRANSPORT_PORT_NUMBER"
+                  value: "9300"
+                -
+                  name: "ELASTICSEARCH_HTTP_PORT_NUMBER"
+                  value: "9200"
+                -
+                  name: "ELASTICSEARCH_CLUSTER_NAME"
+                  value: "elastic"
+                -
+                  name: "ELASTICSEARCH_CLUSTER_HOSTS"
+                  value: "elasticsearch-master-hl.default.svc.cluster.local,elasticsearch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,"
+                -
+                  name: "ELASTICSEARCH_TOTAL_NODES"
+                  value: "6"
+                -
+                  name: "ELASTICSEARCH_CLUSTER_MASTER_HOSTS"
+                  value: "elasticsearch-master-0 elasticsearch-master-1 elasticsearch-master-2"
+                -
+                  name: "ELASTICSEARCH_MINIMUM_MASTER_NODES"
+                  value: "2"
+                -
+                  name: "ELASTICSEARCH_ADVERTISED_HOSTNAME"
+                  value: "$(MY_POD_NAME).elasticsearch-ingest-hl.default.svc.cluster.local"
+                -
+                  name: "ELASTICSEARCH_HEAP_SIZE"
+                  value: "128m"
+              image: "docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 5
+                initialDelaySeconds: 180
+                periodSeconds: 10
+                successThreshold: 1
+                tcpSocket:
+                  port: "rest-api"
+                timeoutSeconds: 5
+              name: "elasticsearch"
+              ports:
+                -
+                  containerPort: 9200
+                  name: "rest-api"
+                  protocol: "TCP"
+                -
+                  containerPort: 9300
+                  name: "transport"
+                  protocol: "TCP"
+              readinessProbe:
+                exec:
+                  command:
+                    - "/opt/bitnami/scripts/elasticsearch/healthcheck.sh"
+                failureThreshold: 5
+                initialDelaySeconds: 90
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                limits:
+                  cpu: "750m"
+                  ephemeral-storage: "2Gi"
+                  memory: "768Mi"
+                requests:
+                  cpu: "500m"
+                  ephemeral-storage: "50Mi"
+                  memory: "512Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/tmp"
+                  name: "empty-dir"
+                  subPath: "tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/elasticsearch/config"
+                  name: "empty-dir"
+                  subPath: "app-conf-dir"
+                -
+                  mountPath: "/opt/bitnami/elasticsearch/tmp"
+                  name: "empty-dir"
+                  subPath: "app-tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/elasticsearch/logs"
+                  name: "empty-dir"
+                  subPath: "app-logs-dir"
+                -
+                  mountPath: "/opt/bitnami/elasticsearch/plugins"
+                  name: "empty-dir"
+                  subPath: "app-plugins-dir"
+                -
+                  mountPath: "/bitnami/elasticsearch"
+                  name: "empty-dir"
+                  subPath: "app-volume-dir"
+                -
+                  mountPath: "/bitnami/elasticsearch/data"
+                  name: "data"
+          dnsPolicy: "ClusterFirst"
+          initContainers:
+            -
+              command:
+                - "/bin/bash"
+                - "-ec"
+                - "CURRENT=`sysctl -n vm.max_map_count`;\nDESIRED=\"262144\";\nif [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n    sysctl -w vm.max_map_count=262144;\nfi;\nCURRENT=`sysctl -n fs.file-max`;\nDESIRED=\"65536\";\nif [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n    sysctl -w fs.file-max=65536;\nfi;\n"
+              image: "docker.io/bitnami/os-shell:12-debian-12-r50"
+              imagePullPolicy: "IfNotPresent"
+              name: "sysctl"
+              resources:
+                limits:
+                  cpu: "150m"
+                  ephemeral-storage: "2Gi"
+                  memory: "192Mi"
+                requests:
+                  cpu: "100m"
+                  ephemeral-storage: "50Mi"
+                  memory: "128Mi"
+              securityContext:
+                privileged: true
+                runAsUser: 0
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+            -
+              args:
+                - "-ec"
+                - "#!/bin/bash\n\n. /opt/bitnami/scripts/libfs.sh\n. /opt/bitnami/scripts/elasticsearch-env.sh\n\nif ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n    cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /plugins\nfi\n"
+              command:
+                - "/bin/bash"
+              image: "docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0"
+              imagePullPolicy: "IfNotPresent"
+              name: "copy-default-plugins"
+              resources:
+                limits:
+                  cpu: "750m"
+                  ephemeral-storage: "2Gi"
+                  memory: "768Mi"
+                requests:
+                  cpu: "500m"
+                  ephemeral-storage: "50Mi"
+                  memory: "512Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/tmp"
+                  name: "empty-dir"
+                  subPath: "tmp-dir"
+                -
+                  mountPath: "/plugins"
+                  name: "empty-dir"
+                  subPath: "app-plugins-dir"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 1001
+            fsGroupChangePolicy: "Always"
+          serviceAccount: "elasticsearch-ingest"
+          serviceAccountName: "elasticsearch-ingest"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              emptyDir:
+                {}
+              name: "empty-dir"
+            -
+              emptyDir:
+                {}
+              name: "data"
+      updateStrategy:
+        type: "RollingUpdate"
+    status:
+      availableReplicas: 0
+      collisionCount: 0
+      currentReplicas: 2
+      currentRevision: "elasticsearch-ingest-78ccc5d5d7"
+      observedGeneration: 1
+      replicas: 2
+      updateRevision: "elasticsearch-ingest-78ccc5d5d7"
+      updatedReplicas: 2
+  -
+    apiVersion: "apps/v1"
+    kind: "StatefulSet"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"master\",\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"},\"name\":\"elasticsearch-master\",\"namespace\":\"default\"},\"spec\":{\"podManagementPolicy\":\"Parallel\",\"replicas\":3,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/name\":\"elasticsearch\"}},\"serviceName\":\"elasticsearch-master-hl\",\"template\":{\"metadata\":{\"annotations\":null,\"labels\":{\"app\":\"master\",\"app.kubernetes.io/component\":\"master\",\"app.kubernetes.io/instance\":\"elasticsearch\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"elasticsearch\",\"app.kubernetes.io/version\":\"9.1.2\",\"helm.sh/chart\":\"elasticsearch-22.1.6\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":null,\"podAffinity\":null,\"podAntiAffinity\":null},\"automountServiceAccountToken\":false,\"containers\":[{\"env\":[{\"name\":\"BITNAMI_DEBUG\",\"value\":\"false\"},{\"name\":\"MY_POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"ELASTICSEARCH_IS_DEDICATED_NODE\",\"value\":\"yes\"},{\"name\":\"ELASTICSEARCH_NODE_ROLES\",\"value\":\"master\"},{\"name\":\"ELASTICSEARCH_TRANSPORT_PORT_NUMBER\",\"value\":\"9300\"},{\"name\":\"ELASTICSEARCH_HTTP_PORT_NUMBER\",\"value\":\"9200\"},{\"name\":\"ELASTICSEARCH_CLUSTER_NAME\",\"value\":\"elastic\"},{\"name\":\"ELASTICSEARCH_CLUSTER_HOSTS\",\"value\":\"elasticsearch-master-hl.default.svc.cluster.local,elasticsearch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,\"},{\"name\":\"ELASTICSEARCH_TOTAL_NODES\",\"value\":\"6\"},{\"name\":\"ELASTICSEARCH_CLUSTER_MASTER_HOSTS\",\"value\":\"elasticsearch-master-0 elasticsearch-master-1 elasticsearch-master-2\"},{\"name\":\"ELASTICSEARCH_MINIMUM_MASTER_NODES\",\"value\":\"2\"},{\"name\":\"ELASTICSEARCH_ADVERTISED_HOSTNAME\",\"value\":\"$(MY_POD_NAME).elasticsearch-master-hl.default.svc.cluster.local\"},{\"name\":\"ELASTICSEARCH_HEAP_SIZE\",\"value\":\"128m\"}],\"image\":\"docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":5,\"initialDelaySeconds\":180,\"periodSeconds\":10,\"successThreshold\":1,\"tcpSocket\":{\"port\":\"rest-api\"},\"timeoutSeconds\":5},\"name\":\"elasticsearch\",\"ports\":[{\"containerPort\":9200,\"name\":\"rest-api\"},{\"containerPort\":9300,\"name\":\"transport\"}],\"readinessProbe\":{\"exec\":{\"command\":[\"/opt/bitnami/scripts/elasticsearch/healthcheck.sh\"]},\"failureThreshold\":5,\"initialDelaySeconds\":90,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"resources\":{\"limits\":{\"cpu\":\"750m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"768Mi\"},\"requests\":{\"cpu\":\"500m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"512Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"empty-dir\",\"subPath\":\"tmp-dir\"},{\"mountPath\":\"/opt/bitnami/elasticsearch/config\",\"name\":\"empty-dir\",\"subPath\":\"app-conf-dir\"},{\"mountPath\":\"/opt/bitnami/elasticsearch/tmp\",\"name\":\"empty-dir\",\"subPath\":\"app-tmp-dir\"},{\"mountPath\":\"/opt/bitnami/elasticsearch/logs\",\"name\":\"empty-dir\",\"subPath\":\"app-logs-dir\"},{\"mountPath\":\"/opt/bitnami/elasticsearch/plugins\",\"name\":\"empty-dir\",\"subPath\":\"app-plugins-dir\"},{\"mountPath\":\"/bitnami/elasticsearch\",\"name\":\"empty-dir\",\"subPath\":\"app-volume-dir\"},{\"mountPath\":\"/bitnami/elasticsearch/data\",\"name\":\"data\"}]}],\"initContainers\":[{\"command\":[\"/bin/bash\",\"-ec\",\"CURRENT=`sysctl -n vm.max_map_count`;\\nDESIRED=\\\"262144\\\";\\nif [ \\\"$DESIRED\\\" -gt \\\"$CURRENT\\\" ]; then\\n    sysctl -w vm.max_map_count=262144;\\nfi;\\nCURRENT=`sysctl -n fs.file-max`;\\nDESIRED=\\\"65536\\\";\\nif [ \\\"$DESIRED\\\" -gt \\\"$CURRENT\\\" ]; then\\n    sysctl -w fs.file-max=65536;\\nfi;\\n\"],\"image\":\"docker.io/bitnami/os-shell:12-debian-12-r50\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"sysctl\",\"resources\":{\"limits\":{\"cpu\":\"150m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"192Mi\"},\"requests\":{\"cpu\":\"100m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"128Mi\"}},\"securityContext\":{\"privileged\":true,\"runAsUser\":0}},{\"args\":[\"-ec\",\"#!/bin/bash\\n\\n. /opt/bitnami/scripts/libfs.sh\\n. /opt/bitnami/scripts/elasticsearch-env.sh\\n\\nif ! is_dir_empty \\\"$DB_DEFAULT_PLUGINS_DIR\\\"; then\\n    cp -nr \\\"$DB_DEFAULT_PLUGINS_DIR\\\"/* /plugins\\nfi\\n\"],\"command\":[\"/bin/bash\"],\"image\":\"docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"copy-default-plugins\",\"resources\":{\"limits\":{\"cpu\":\"750m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"768Mi\"},\"requests\":{\"cpu\":\"500m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"512Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"empty-dir\",\"subPath\":\"tmp-dir\"},{\"mountPath\":\"/plugins\",\"name\":\"empty-dir\",\"subPath\":\"app-plugins-dir\"}]}],\"securityContext\":{\"fsGroup\":1001,\"fsGroupChangePolicy\":\"Always\",\"supplementalGroups\":[],\"sysctls\":[]},\"serviceAccountName\":\"elasticsearch-master\",\"volumes\":[{\"emptyDir\":{},\"name\":\"empty-dir\"}]}},\"updateStrategy\":{\"type\":\"RollingUpdate\"},\"volumeClaimTemplates\":[{\"apiVersion\":\"v1\",\"kind\":\"PersistentVolumeClaim\",\"metadata\":{\"name\":\"data\"},\"spec\":{\"accessModes\":[\"ReadWriteOnce\"],\"resources\":{\"requests\":{\"storage\":\"8Gi\"}}}}]}}\n"
+      creationTimestamp: "2026-06-11T12:42:36Z"
+      generation: 1
+      labels:
+        app: "master"
+        app.kubernetes.io/component: "master"
+        app.kubernetes.io/instance: "elasticsearch"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "elasticsearch"
+        app.kubernetes.io/version: "9.1.2"
+        helm.sh/chart: "elasticsearch-22.1.6"
+      name: "elasticsearch-master"
+      namespace: "default"
+      resourceVersion: "10488"
+      uid: "13480385-8dcd-4afa-98fd-111af532fe15"
+    spec:
+      persistentVolumeClaimRetentionPolicy:
+        whenDeleted: "Retain"
+        whenScaled: "Retain"
+      podManagementPolicy: "Parallel"
+      replicas: 3
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "master"
+          app.kubernetes.io/instance: "elasticsearch"
+          app.kubernetes.io/name: "elasticsearch"
+      serviceName: "elasticsearch-master-hl"
+      template:
+        metadata:
+          labels:
+            app: "master"
+            app.kubernetes.io/component: "master"
+            app.kubernetes.io/instance: "elasticsearch"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "elasticsearch"
+            app.kubernetes.io/version: "9.1.2"
+            helm.sh/chart: "elasticsearch-22.1.6"
+        spec:
+          affinity:
+            {}
+          automountServiceAccountToken: false
+          containers:
+            -
+              env:
+                -
+                  name: "BITNAMI_DEBUG"
+                  value: "false"
+                -
+                  name: "MY_POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "ELASTICSEARCH_IS_DEDICATED_NODE"
+                  value: "yes"
+                -
+                  name: "ELASTICSEARCH_NODE_ROLES"
+                  value: "master"
+                -
+                  name: "ELASTICSEARCH_TRANSPORT_PORT_NUMBER"
+                  value: "9300"
+                -
+                  name: "ELASTICSEARCH_HTTP_PORT_NUMBER"
+                  value: "9200"
+                -
+                  name: "ELASTICSEARCH_CLUSTER_NAME"
+                  value: "elastic"
+                -
+                  name: "ELASTICSEARCH_CLUSTER_HOSTS"
+                  value: "elasticsearch-master-hl.default.svc.cluster.local,elasticsearch-coordinating-hl.default.svc.cluster.local,elasticsearch-data-hl.default.svc.cluster.local,elasticsearch-ingest-hl.default.svc.cluster.local,"
+                -
+                  name: "ELASTICSEARCH_TOTAL_NODES"
+                  value: "6"
+                -
+                  name: "ELASTICSEARCH_CLUSTER_MASTER_HOSTS"
+                  value: "elasticsearch-master-0 elasticsearch-master-1 elasticsearch-master-2"
+                -
+                  name: "ELASTICSEARCH_MINIMUM_MASTER_NODES"
+                  value: "2"
+                -
+                  name: "ELASTICSEARCH_ADVERTISED_HOSTNAME"
+                  value: "$(MY_POD_NAME).elasticsearch-master-hl.default.svc.cluster.local"
+                -
+                  name: "ELASTICSEARCH_HEAP_SIZE"
+                  value: "128m"
+              image: "docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 5
+                initialDelaySeconds: 180
+                periodSeconds: 10
+                successThreshold: 1
+                tcpSocket:
+                  port: "rest-api"
+                timeoutSeconds: 5
+              name: "elasticsearch"
+              ports:
+                -
+                  containerPort: 9200
+                  name: "rest-api"
+                  protocol: "TCP"
+                -
+                  containerPort: 9300
+                  name: "transport"
+                  protocol: "TCP"
+              readinessProbe:
+                exec:
+                  command:
+                    - "/opt/bitnami/scripts/elasticsearch/healthcheck.sh"
+                failureThreshold: 5
+                initialDelaySeconds: 90
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                limits:
+                  cpu: "750m"
+                  ephemeral-storage: "2Gi"
+                  memory: "768Mi"
+                requests:
+                  cpu: "500m"
+                  ephemeral-storage: "50Mi"
+                  memory: "512Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/tmp"
+                  name: "empty-dir"
+                  subPath: "tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/elasticsearch/config"
+                  name: "empty-dir"
+                  subPath: "app-conf-dir"
+                -
+                  mountPath: "/opt/bitnami/elasticsearch/tmp"
+                  name: "empty-dir"
+                  subPath: "app-tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/elasticsearch/logs"
+                  name: "empty-dir"
+                  subPath: "app-logs-dir"
+                -
+                  mountPath: "/opt/bitnami/elasticsearch/plugins"
+                  name: "empty-dir"
+                  subPath: "app-plugins-dir"
+                -
+                  mountPath: "/bitnami/elasticsearch"
+                  name: "empty-dir"
+                  subPath: "app-volume-dir"
+                -
+                  mountPath: "/bitnami/elasticsearch/data"
+                  name: "data"
+          dnsPolicy: "ClusterFirst"
+          initContainers:
+            -
+              command:
+                - "/bin/bash"
+                - "-ec"
+                - "CURRENT=`sysctl -n vm.max_map_count`;\nDESIRED=\"262144\";\nif [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n    sysctl -w vm.max_map_count=262144;\nfi;\nCURRENT=`sysctl -n fs.file-max`;\nDESIRED=\"65536\";\nif [ \"$DESIRED\" -gt \"$CURRENT\" ]; then\n    sysctl -w fs.file-max=65536;\nfi;\n"
+              image: "docker.io/bitnami/os-shell:12-debian-12-r50"
+              imagePullPolicy: "IfNotPresent"
+              name: "sysctl"
+              resources:
+                limits:
+                  cpu: "150m"
+                  ephemeral-storage: "2Gi"
+                  memory: "192Mi"
+                requests:
+                  cpu: "100m"
+                  ephemeral-storage: "50Mi"
+                  memory: "128Mi"
+              securityContext:
+                privileged: true
+                runAsUser: 0
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+            -
+              args:
+                - "-ec"
+                - "#!/bin/bash\n\n. /opt/bitnami/scripts/libfs.sh\n. /opt/bitnami/scripts/elasticsearch-env.sh\n\nif ! is_dir_empty \"$DB_DEFAULT_PLUGINS_DIR\"; then\n    cp -nr \"$DB_DEFAULT_PLUGINS_DIR\"/* /plugins\nfi\n"
+              command:
+                - "/bin/bash"
+              image: "docker.io/bitnami/elasticsearch:9.1.2-debian-12-r0"
+              imagePullPolicy: "IfNotPresent"
+              name: "copy-default-plugins"
+              resources:
+                limits:
+                  cpu: "750m"
+                  ephemeral-storage: "2Gi"
+                  memory: "768Mi"
+                requests:
+                  cpu: "500m"
+                  ephemeral-storage: "50Mi"
+                  memory: "512Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/tmp"
+                  name: "empty-dir"
+                  subPath: "tmp-dir"
+                -
+                  mountPath: "/plugins"
+                  name: "empty-dir"
+                  subPath: "app-plugins-dir"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 1001
+            fsGroupChangePolicy: "Always"
+          serviceAccount: "elasticsearch-master"
+          serviceAccountName: "elasticsearch-master"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              emptyDir:
+                {}
+              name: "empty-dir"
+      updateStrategy:
+        type: "RollingUpdate"
+      volumeClaimTemplates:
+        -
+          apiVersion: "v1"
+          kind: "PersistentVolumeClaim"
+          metadata:
+            name: "data"
+          spec:
+            accessModes:
+              - "ReadWriteOnce"
+            resources:
+              requests:
+                storage: "8Gi"
+            volumeMode: "Filesystem"
+          status:
+            phase: "Pending"
+    status:
+      availableReplicas: 0
+      collisionCount: 0
+      currentReplicas: 3
+      currentRevision: "elasticsearch-master-67f8488b6"
+      observedGeneration: 1
+      replicas: 3
+      updateRevision: "elasticsearch-master-67f8488b6"
+      updatedReplicas: 3
+kind: "List"
+metadata:
+  resourceVersion: ""

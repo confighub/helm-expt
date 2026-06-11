@@ -1,0 +1,131 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "admissionregistration.k8s.io/v1"
+    kind: "MutatingWebhookConfiguration"
+    metadata:
+      annotations:
+        cert-manager.io/inject-ca-from: "default/jaeger-operator-service-cert"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"MutatingWebhookConfiguration\",\"metadata\":{\"annotations\":{\"cert-manager.io/inject-ca-from\":\"default/jaeger-operator-service-cert\"},\"labels\":{\"app.kubernetes.io/instance\":\"jaeger-operator\",\"app.kubernetes.io/name\":\"jaeger-operator\"},\"name\":\"jaeger-operator-mutating-webhook-configuration\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"jaeger-operator-webhook-service\",\"namespace\":\"default\",\"path\":\"/mutate-v1-deployment\"}},\"failurePolicy\":\"Ignore\",\"name\":\"deployment.sidecar-injector.jaegertracing.io\",\"objectSelector\":{\"matchExpressions\":[{\"key\":\"app.kubernetes.io/name\",\"operator\":\"NotIn\",\"values\":[\"jaeger-operator\"]}]},\"rules\":[{\"apiGroups\":[\"apps\"],\"apiVersions\":[\"v1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"deployments\"]}],\"sideEffects\":\"None\"},{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"jaeger-operator-webhook-service\",\"namespace\":\"default\",\"path\":\"/mutate-jaegertracing-io-v1-jaeger\"}},\"failurePolicy\":\"Fail\",\"name\":\"mjaeger.kb.io\",\"rules\":[{\"apiGroups\":[\"jaegertracing.io\"],\"apiVersions\":[\"v1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"jaegers\"]}],\"sideEffects\":\"None\"}]}\n"
+      creationTimestamp: "2026-06-11T14:35:01Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "jaeger-operator"
+        app.kubernetes.io/name: "jaeger-operator"
+      name: "jaeger-operator-mutating-webhook-configuration"
+      resourceVersion: "24206"
+      uid: "cbf4b5c9-86bb-4ffa-bc79-1f289c67f87b"
+    webhooks:
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          service:
+            name: "jaeger-operator-webhook-service"
+            namespace: "default"
+            path: "/mutate-v1-deployment"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Equivalent"
+        name: "deployment.sidecar-injector.jaegertracing.io"
+        namespaceSelector:
+          {}
+        objectSelector:
+          matchExpressions:
+            -
+              key: "app.kubernetes.io/name"
+              operator: "NotIn"
+              values:
+                - "jaeger-operator"
+        reinvocationPolicy: "Never"
+        rules:
+          -
+            apiGroups:
+              - "apps"
+            apiVersions:
+              - "v1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "deployments"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          service:
+            name: "jaeger-operator-webhook-service"
+            namespace: "default"
+            path: "/mutate-jaegertracing-io-v1-jaeger"
+            port: 443
+        failurePolicy: "Fail"
+        matchPolicy: "Equivalent"
+        name: "mjaeger.kb.io"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        reinvocationPolicy: "Never"
+        rules:
+          -
+            apiGroups:
+              - "jaegertracing.io"
+            apiVersions:
+              - "v1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "jaegers"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+  -
+    apiVersion: "admissionregistration.k8s.io/v1"
+    kind: "ValidatingWebhookConfiguration"
+    metadata:
+      annotations:
+        cert-manager.io/inject-ca-from: "default/jaeger-operator-service-cert"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"ValidatingWebhookConfiguration\",\"metadata\":{\"annotations\":{\"cert-manager.io/inject-ca-from\":\"default/jaeger-operator-service-cert\"},\"name\":\"jaeger-operator-validating-webhook-configuration\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"jaeger-operator-webhook-service\",\"namespace\":\"default\",\"path\":\"/validate-jaegertracing-io-v1-jaeger\"}},\"failurePolicy\":\"Fail\",\"name\":\"vjaeger.kb.io\",\"rules\":[{\"apiGroups\":[\"jaegertracing.io\"],\"apiVersions\":[\"v1\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"jaegers\"]}],\"sideEffects\":\"None\"}]}\n"
+      creationTimestamp: "2026-06-11T14:35:01Z"
+      generation: 1
+      name: "jaeger-operator-validating-webhook-configuration"
+      resourceVersion: "24207"
+      uid: "2cf4dfaa-9be6-4453-bc50-230dc3545abc"
+    webhooks:
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          service:
+            name: "jaeger-operator-webhook-service"
+            namespace: "default"
+            path: "/validate-jaegertracing-io-v1-jaeger"
+            port: 443
+        failurePolicy: "Fail"
+        matchPolicy: "Equivalent"
+        name: "vjaeger.kb.io"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        rules:
+          -
+            apiGroups:
+              - "jaegertracing.io"
+            apiVersions:
+              - "v1"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "jaegers"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 10
+kind: "List"
+metadata:
+  resourceVersion: ""

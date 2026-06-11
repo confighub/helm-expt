@@ -1,0 +1,2100 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"canary\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\"},\"name\":\"loki-canary\",\"namespace\":\"loki\"}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app.kubernetes.io/component: "canary"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/version: "3.6.7"
+        helm.sh/chart: "loki-7.0.0"
+      name: "loki-canary"
+      namespace: "loki"
+      resourceVersion: "4947"
+      uid: "8143052f-dfa7-412a-bc94-79cfecb2b934"
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\"},\"name\":\"loki\",\"namespace\":\"loki\"}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/version: "3.6.7"
+        helm.sh/chart: "loki-7.0.0"
+      name: "loki"
+      namespace: "loki"
+      resourceVersion: "4948"
+      uid: "8d4d8888-1976-493e-82da-be0f1d4151b0"
+  -
+    apiVersion: "v1"
+    data:
+      config.yaml: "\nauth_enabled: true\nbloom_build:\n  builder:\n    planner_address: loki-backend-headless.loki.svc.cluster.local:9095\n  enabled: false\nbloom_gateway:\n  client:\n    addresses: dnssrvnoa+_grpc._tcp.loki-backend-headless.loki.svc.cluster.local\n  enabled: false\nchunk_store_config:\n  chunk_cache_config:\n    background:\n      writeback_buffer: 500000\n      writeback_goroutines: 1\n      writeback_size_limit: 500MB\n    default_validity: 0s\n    memcached:\n      batch_size: 4\n      parallelism: 5\n    memcached_client:\n      addresses: dnssrvnoa+_memcached-client._tcp.loki-chunks-cache.loki.svc.cluster.local\n      consistent_hash: true\n      max_idle_conns: 72\n      timeout: 2000ms\ncommon:\n  compactor_grpc_address: 'loki-backend.loki.svc.cluster.local:9095'\n  path_prefix: /var/loki\n  replication_factor: 1\n  storage:\n    s3:\n      access_key_id: root-user\n      bucketnames: chunks\n      endpoint: loki-minio.loki.svc:9000\n      insecure: true\n      s3forcepathstyle: true\n      secret_access_key: supersecretpassword\nfrontend:\n  scheduler_address: \"\"\n  tail_proxy_url: \"\"\nfrontend_worker:\n  scheduler_address: \"\"\nindex_gateway:\n  mode: simple\nlimits_config:\n  max_cache_freshness_per_query: 10m\n  query_timeout: 300s\n  reject_old_samples: true\n  reject_old_samples_max_age: 168h\n  split_queries_by_interval: 15m\n  volume_enabled: true\nmemberlist:\n  join_members:\n  - loki-memberlist.loki.svc.cluster.local\npattern_ingester:\n  enabled: false\nquery_range:\n  align_queries_with_step: true\n  cache_results: true\n  results_cache:\n    cache:\n      background:\n        writeback_buffer: 500000\n        writeback_goroutines: 1\n        writeback_size_limit: 500MB\n      default_validity: 12h\n      memcached_client:\n        addresses: dnssrvnoa+_memcached-client._tcp.loki-results-cache.loki.svc.cluster.local\n        consistent_hash: true\n        timeout: 500ms\n        update_interval: 1m\nruler:\n  storage:\n    s3:\n      bucketnames: ruler\n    type: s3\n  wal:\n    dir: /var/loki/ruler-wal\nruntime_config:\n  file: /etc/loki/runtime-config/runtime-config.yaml\nschema_config:\n  configs:\n  - from: \"2024-04-01\"\n    index:\n      period: 24h\n      prefix: loki_index_\n    object_store: s3\n    schema: v13\n    store: tsdb\nserver:\n  grpc_listen_port: 9095\n  http_listen_port: 3100\n  http_server_read_timeout: 600s\n  http_server_write_timeout: 600s\nstorage_config:\n  bloom_shipper:\n    working_directory: /var/loki/data/bloomshipper\n  boltdb_shipper:\n    index_gateway_client:\n      server_address: dns+loki-backend-headless.loki.svc.cluster.local:9095\n  hedging:\n    at: 250ms\n    max_per_second: 20\n    up_to: 3\n  tsdb_shipper:\n    index_gateway_client:\n      server_address: dns+loki-backend-headless.loki.svc.cluster.local:9095\n  use_thanos_objstore: false\ntracing:\n  enabled: false\n"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"config.yaml\":\"\\nauth_enabled: true\\nbloom_build:\\n  builder:\\n    planner_address: loki-backend-headless.loki.svc.cluster.local:9095\\n  enabled: false\\nbloom_gateway:\\n  client:\\n    addresses: dnssrvnoa+_grpc._tcp.loki-backend-headless.loki.svc.cluster.local\\n  enabled: false\\nchunk_store_config:\\n  chunk_cache_config:\\n    background:\\n      writeback_buffer: 500000\\n      writeback_goroutines: 1\\n      writeback_size_limit: 500MB\\n    default_validity: 0s\\n    memcached:\\n      batch_size: 4\\n      parallelism: 5\\n    memcached_client:\\n      addresses: dnssrvnoa+_memcached-client._tcp.loki-chunks-cache.loki.svc.cluster.local\\n      consistent_hash: true\\n      max_idle_conns: 72\\n      timeout: 2000ms\\ncommon:\\n  compactor_grpc_address: 'loki-backend.loki.svc.cluster.local:9095'\\n  path_prefix: /var/loki\\n  replication_factor: 1\\n  storage:\\n    s3:\\n      access_key_id: root-user\\n      bucketnames: chunks\\n      endpoint: loki-minio.loki.svc:9000\\n      insecure: true\\n      s3forcepathstyle: true\\n      secret_access_key: supersecretpassword\\nfrontend:\\n  scheduler_address: \\\"\\\"\\n  tail_proxy_url: \\\"\\\"\\nfrontend_worker:\\n  scheduler_address: \\\"\\\"\\nindex_gateway:\\n  mode: simple\\nlimits_config:\\n  max_cache_freshness_per_query: 10m\\n  query_timeout: 300s\\n  reject_old_samples: true\\n  reject_old_samples_max_age: 168h\\n  split_queries_by_interval: 15m\\n  volume_enabled: true\\nmemberlist:\\n  join_members:\\n  - loki-memberlist.loki.svc.cluster.local\\npattern_ingester:\\n  enabled: false\\nquery_range:\\n  align_queries_with_step: true\\n  cache_results: true\\n  results_cache:\\n    cache:\\n      background:\\n        writeback_buffer: 500000\\n        writeback_goroutines: 1\\n        writeback_size_limit: 500MB\\n      default_validity: 12h\\n      memcached_client:\\n        addresses: dnssrvnoa+_memcached-client._tcp.loki-results-cache.loki.svc.cluster.local\\n        consistent_hash: true\\n        timeout: 500ms\\n        update_interval: 1m\\nruler:\\n  storage:\\n    s3:\\n      bucketnames: ruler\\n    type: s3\\n  wal:\\n    dir: /var/loki/ruler-wal\\nruntime_config:\\n  file: /etc/loki/runtime-config/runtime-config.yaml\\nschema_config:\\n  configs:\\n  - from: \\\"2024-04-01\\\"\\n    index:\\n      period: 24h\\n      prefix: loki_index_\\n    object_store: s3\\n    schema: v13\\n    store: tsdb\\nserver:\\n  grpc_listen_port: 9095\\n  http_listen_port: 3100\\n  http_server_read_timeout: 600s\\n  http_server_write_timeout: 600s\\nstorage_config:\\n  bloom_shipper:\\n    working_directory: /var/loki/data/bloomshipper\\n  boltdb_shipper:\\n    index_gateway_client:\\n      server_address: dns+loki-backend-headless.loki.svc.cluster.local:9095\\n  hedging:\\n    at: 250ms\\n    max_per_second: 20\\n    up_to: 3\\n  tsdb_shipper:\\n    index_gateway_client:\\n      server_address: dns+loki-backend-headless.loki.svc.cluster.local:9095\\n  use_thanos_objstore: false\\ntracing:\\n  enabled: false\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\"},\"name\":\"loki\",\"namespace\":\"loki\"}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/version: "3.6.7"
+        helm.sh/chart: "loki-7.0.0"
+      name: "loki"
+      namespace: "loki"
+      resourceVersion: "4949"
+      uid: "21aa4f0e-0a54-4629-ad18-a68c1689b819"
+  -
+    apiVersion: "v1"
+    data:
+      nginx.conf: "worker_processes  5;  ## Default: 1\nerror_log  /dev/stderr;\npid        /tmp/nginx.pid;\nworker_rlimit_nofile 8192;\n\nevents {\n  worker_connections  4096;  ## Default: 1024\n}\n\nhttp {\n  client_body_temp_path /tmp/client_temp;\n  proxy_temp_path       /tmp/proxy_temp_path;\n  fastcgi_temp_path     /tmp/fastcgi_temp;\n  uwsgi_temp_path       /tmp/uwsgi_temp;\n  scgi_temp_path        /tmp/scgi_temp;\n\n  client_max_body_size  4M;\n\n  proxy_read_timeout    600; ## 10 minutes\n  proxy_send_timeout    600;\n  proxy_connect_timeout 600;\n\n  proxy_http_version    1.1;\n\n  default_type application/octet-stream;\n  log_format   main '$remote_addr - $remote_user [$time_local]  $status '\n        '\"$request\" $body_bytes_sent \"$http_referer\" '\n        '\"$http_user_agent\" \"$http_x_forwarded_for\"';\n  access_log   /dev/stderr  main;\n\n  sendfile     on;\n  tcp_nopush   on;\n  resolver kube-dns.kube-system.svc.cluster.local.;\n\n  # if the X-Query-Tags header is empty, set a noop= without a value as empty values are not logged\n  map $http_x_query_tags $query_tags {\n    \"\"        \"noop=\";            # When header is empty, set noop=\n    default   $http_x_query_tags; # Otherwise, preserve the original value\n  }\n\n  server {\n    listen             8080;\n    listen             [::]:8080;\n\n    location = / {\n\n      return 200 'OK';\n      auth_basic off;\n    }\n\n    ########################################################\n    # Configure backend targets\n    location ^~ /ui {\n\n      proxy_pass       http://loki-read.loki.svc.cluster.local:3100$request_uri;\n    }\n\n    # Distributor\n    location = /api/prom/push {\n\n      proxy_pass       http://loki-write.loki.svc.cluster.local:3100$request_uri;\n    }\n    location = /loki/api/v1/push {\n\n      proxy_pass       http://loki-write.loki.svc.cluster.local:3100$request_uri;\n    }\n    location = /distributor/ring {\n\n      proxy_pass       http://loki-write.loki.svc.cluster.local:3100$request_uri;\n    }\n    location = /otlp/v1/logs {\n\n      proxy_pass       http://loki-write.loki.svc.cluster.local:3100$request_uri;\n    }\n\n    # Ingester\n    location = /flush {\n\n      proxy_pass       http://loki-write.loki.svc.cluster.local:3100$request_uri;\n    }\n    location ^~ /ingester/ {\n\n      proxy_pass       http://loki-write.loki.svc.cluster.local:3100$request_uri;\n    }\n    location = /ingester {\n\n      internal;        # to suppress 301\n    }\n\n    # Ring\n    location = /ring {\n\n      proxy_pass       http://loki-write.loki.svc.cluster.local:3100$request_uri;\n    }\n\n    # MemberListKV\n    location = /memberlist {\n\n      proxy_pass       http://loki-write.loki.svc.cluster.local:3100$request_uri;\n    }\n\n    # Ruler\n    location = /ruler/ring {\n\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\n    }\n    location = /api/prom/rules {\n\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\n    }\n    location ^~ /api/prom/rules/ {\n\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\n    }\n    location = /loki/api/v1/rules {\n\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\n    }\n    location ^~ /loki/api/v1/rules/ {\n\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\n    }\n    location = /prometheus/api/v1/alerts {\n\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\n    }\n    location = /prometheus/api/v1/rules {\n\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\n    }\n\n    # Compactor\n    location = /compactor/ring {\n\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\n    }\n    location = /loki/api/v1/delete {\n\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\n    }\n    location = /loki/api/v1/cache/generation_numbers {\n\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\n    }\n\n    # IndexGateway\n    location = /indexgateway/ring {\n\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\n    }\n\n    # QueryScheduler\n    location = /scheduler/ring {\n\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\n    }\n\n    # Config\n    location = /config {\n\n      proxy_pass       http://loki-write.loki.svc.cluster.local:3100$request_uri;\n    }\n\n\n    # QueryFrontend, Querier\n    location = /api/prom/tail {\n      proxy_set_header Upgrade $http_upgrade;\n      proxy_set_header Connection \"upgrade\";\n\n      proxy_pass       http://loki-read.loki.svc.cluster.local:3100$request_uri;\n    }\n    location = /loki/api/v1/tail {\n      proxy_set_header Upgrade $http_upgrade;\n      proxy_set_header Connection \"upgrade\";\n\n      proxy_pass       http://loki-read.loki.svc.cluster.local:3100$request_uri;\n    }\n    location ^~ /api/prom/ {\n\n      proxy_pass       http://loki-read.loki.svc.cluster.local:3100$request_uri;\n    }\n    location = /api/prom {\n\n      internal;        # to suppress 301\n    }\n    location ^~ /loki/api/v1/ {\n      # pass custom headers set by Grafana as X-Query-Tags which are logged as key/value pairs in metrics.go log messages\n      proxy_set_header X-Query-Tags \"${query_tags},user=${http_x_grafana_user},dashboard_id=${http_x_dashboard_uid},dashboard_title=${http_x_dashboard_title},panel_id=${http_x_panel_id},panel_title=${http_x_panel_title},source_rule_uid=${http_x_rule_uid},rule_name=${http_x_rule_name},rule_folder=${http_x_rule_folder},rule_version=${http_x_rule_version},rule_source=${http_x_rule_source},rule_type=${http_x_rule_type}\";\n\n      proxy_pass       http://loki-read.loki.svc.cluster.local:3100$request_uri;\n    }\n    location = /loki/api/v1 {\n\n      internal;        # to suppress 301\n    }\n  }\n}\n"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"nginx.conf\":\"worker_processes  5;  ## Default: 1\\nerror_log  /dev/stderr;\\npid        /tmp/nginx.pid;\\nworker_rlimit_nofile 8192;\\n\\nevents {\\n  worker_connections  4096;  ## Default: 1024\\n}\\n\\nhttp {\\n  client_body_temp_path /tmp/client_temp;\\n  proxy_temp_path       /tmp/proxy_temp_path;\\n  fastcgi_temp_path     /tmp/fastcgi_temp;\\n  uwsgi_temp_path       /tmp/uwsgi_temp;\\n  scgi_temp_path        /tmp/scgi_temp;\\n\\n  client_max_body_size  4M;\\n\\n  proxy_read_timeout    600; ## 10 minutes\\n  proxy_send_timeout    600;\\n  proxy_connect_timeout 600;\\n\\n  proxy_http_version    1.1;\\n\\n  default_type application/octet-stream;\\n  log_format   main '$remote_addr - $remote_user [$time_local]  $status '\\n        '\\\"$request\\\" $body_bytes_sent \\\"$http_referer\\\" '\\n        '\\\"$http_user_agent\\\" \\\"$http_x_forwarded_for\\\"';\\n  access_log   /dev/stderr  main;\\n\\n  sendfile     on;\\n  tcp_nopush   on;\\n  resolver kube-dns.kube-system.svc.cluster.local.;\\n\\n  # if the X-Query-Tags header is empty, set a noop= without a value as empty values are not logged\\n  map $http_x_query_tags $query_tags {\\n    \\\"\\\"        \\\"noop=\\\";            # When header is empty, set noop=\\n    default   $http_x_query_tags; # Otherwise, preserve the original value\\n  }\\n\\n  server {\\n    listen             8080;\\n    listen             [::]:8080;\\n\\n    location = / {\\n\\n      return 200 'OK';\\n      auth_basic off;\\n    }\\n\\n    ########################################################\\n    # Configure backend targets\\n    location ^~ /ui {\\n\\n      proxy_pass       http://loki-read.loki.svc.cluster.local:3100$request_uri;\\n    }\\n\\n    # Distributor\\n    location = /api/prom/push {\\n\\n      proxy_pass       http://loki-write.loki.svc.cluster.local:3100$request_uri;\\n    }\\n    location = /loki/api/v1/push {\\n\\n      proxy_pass       http://loki-write.loki.svc.cluster.local:3100$request_uri;\\n    }\\n    location = /distributor/ring {\\n\\n      proxy_pass       http://loki-write.loki.svc.cluster.local:3100$request_uri;\\n    }\\n    location = /otlp/v1/logs {\\n\\n      proxy_pass       http://loki-write.loki.svc.cluster.local:3100$request_uri;\\n    }\\n\\n    # Ingester\\n    location = /flush {\\n\\n      proxy_pass       http://loki-write.loki.svc.cluster.local:3100$request_uri;\\n    }\\n    location ^~ /ingester/ {\\n\\n      proxy_pass       http://loki-write.loki.svc.cluster.local:3100$request_uri;\\n    }\\n    location = /ingester {\\n\\n      internal;        # to suppress 301\\n    }\\n\\n    # Ring\\n    location = /ring {\\n\\n      proxy_pass       http://loki-write.loki.svc.cluster.local:3100$request_uri;\\n    }\\n\\n    # MemberListKV\\n    location = /memberlist {\\n\\n      proxy_pass       http://loki-write.loki.svc.cluster.local:3100$request_uri;\\n    }\\n\\n    # Ruler\\n    location = /ruler/ring {\\n\\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\\n    }\\n    location = /api/prom/rules {\\n\\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\\n    }\\n    location ^~ /api/prom/rules/ {\\n\\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\\n    }\\n    location = /loki/api/v1/rules {\\n\\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\\n    }\\n    location ^~ /loki/api/v1/rules/ {\\n\\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\\n    }\\n    location = /prometheus/api/v1/alerts {\\n\\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\\n    }\\n    location = /prometheus/api/v1/rules {\\n\\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\\n    }\\n\\n    # Compactor\\n    location = /compactor/ring {\\n\\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\\n    }\\n    location = /loki/api/v1/delete {\\n\\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\\n    }\\n    location = /loki/api/v1/cache/generation_numbers {\\n\\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\\n    }\\n\\n    # IndexGateway\\n    location = /indexgateway/ring {\\n\\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\\n    }\\n\\n    # QueryScheduler\\n    location = /scheduler/ring {\\n\\n      proxy_pass       http://loki-backend.loki.svc.cluster.local:3100$request_uri;\\n    }\\n\\n    # Config\\n    location = /config {\\n\\n      proxy_pass       http://loki-write.loki.svc.cluster.local:3100$request_uri;\\n    }\\n\\n\\n    # QueryFrontend, Querier\\n    location = /api/prom/tail {\\n      proxy_set_header Upgrade $http_upgrade;\\n      proxy_set_header Connection \\\"upgrade\\\";\\n\\n      proxy_pass       http://loki-read.loki.svc.cluster.local:3100$request_uri;\\n    }\\n    location = /loki/api/v1/tail {\\n      proxy_set_header Upgrade $http_upgrade;\\n      proxy_set_header Connection \\\"upgrade\\\";\\n\\n      proxy_pass       http://loki-read.loki.svc.cluster.local:3100$request_uri;\\n    }\\n    location ^~ /api/prom/ {\\n\\n      proxy_pass       http://loki-read.loki.svc.cluster.local:3100$request_uri;\\n    }\\n    location = /api/prom {\\n\\n      internal;        # to suppress 301\\n    }\\n    location ^~ /loki/api/v1/ {\\n      # pass custom headers set by Grafana as X-Query-Tags which are logged as key/value pairs in metrics.go log messages\\n      proxy_set_header X-Query-Tags \\\"${query_tags},user=${http_x_grafana_user},dashboard_id=${http_x_dashboard_uid},dashboard_title=${http_x_dashboard_title},panel_id=${http_x_panel_id},panel_title=${http_x_panel_title},source_rule_uid=${http_x_rule_uid},rule_name=${http_x_rule_name},rule_folder=${http_x_rule_folder},rule_version=${http_x_rule_version},rule_source=${http_x_rule_source},rule_type=${http_x_rule_type}\\\";\\n\\n      proxy_pass       http://loki-read.loki.svc.cluster.local:3100$request_uri;\\n    }\\n    location = /loki/api/v1 {\\n\\n      internal;        # to suppress 301\\n    }\\n  }\\n}\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"gateway\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\"},\"name\":\"loki-gateway\",\"namespace\":\"loki\"}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app.kubernetes.io/component: "gateway"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/version: "3.6.7"
+        helm.sh/chart: "loki-7.0.0"
+      name: "loki-gateway"
+      namespace: "loki"
+      resourceVersion: "4950"
+      uid: "8a7f61e1-e67b-4e4c-a250-7d534b051e1d"
+  -
+    apiVersion: "v1"
+    data:
+      runtime-config.yaml: "{}\n"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"runtime-config.yaml\":\"{}\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\"},\"name\":\"loki-runtime\",\"namespace\":\"loki\"}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/version: "3.6.7"
+        helm.sh/chart: "loki-7.0.0"
+      name: "loki-runtime"
+      namespace: "loki"
+      resourceVersion: "4951"
+      uid: "b5420403-6a53-4809-b435-72017e2de313"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"backend\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"prometheus.io/service-monitor\":\"false\"},\"name\":\"loki-query-scheduler-discovery\",\"namespace\":\"loki\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"name\":\"http-metrics\",\"port\":3100,\"protocol\":\"TCP\",\"targetPort\":\"http-metrics\"},{\"name\":\"grpc\",\"port\":9095,\"protocol\":\"TCP\",\"targetPort\":\"grpc\"}],\"publishNotReadyAddresses\":true,\"selector\":{\"app.kubernetes.io/component\":\"backend\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app.kubernetes.io/component: "backend"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        prometheus.io/service-monitor: "false"
+      name: "loki-query-scheduler-discovery"
+      namespace: "loki"
+      resourceVersion: "4952"
+      uid: "620cdec2-b8b5-453b-ada9-43e1ee6f7537"
+    spec:
+      clusterIP: "None"
+      clusterIPs:
+        - "None"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http-metrics"
+          port: 3100
+          protocol: "TCP"
+          targetPort: "http-metrics"
+        -
+          name: "grpc"
+          port: 9095
+          protocol: "TCP"
+          targetPort: "grpc"
+      publishNotReadyAddresses: true
+      selector:
+        app.kubernetes.io/component: "backend"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"backend\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"prometheus.io/service-monitor\":\"false\",\"variant\":\"headless\"},\"name\":\"loki-backend-headless\",\"namespace\":\"loki\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"name\":\"http-metrics\",\"port\":3100,\"protocol\":\"TCP\",\"targetPort\":\"http-metrics\"},{\"appProtocol\":\"tcp\",\"name\":\"grpc\",\"port\":9095,\"protocol\":\"TCP\",\"targetPort\":\"grpc\"}],\"selector\":{\"app.kubernetes.io/component\":\"backend\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app.kubernetes.io/component: "backend"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        prometheus.io/service-monitor: "false"
+        variant: "headless"
+      name: "loki-backend-headless"
+      namespace: "loki"
+      resourceVersion: "4955"
+      uid: "2bf50660-72c0-467f-ac72-0b2b58adfabf"
+    spec:
+      clusterIP: "None"
+      clusterIPs:
+        - "None"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http-metrics"
+          port: 3100
+          protocol: "TCP"
+          targetPort: "http-metrics"
+        -
+          appProtocol: "tcp"
+          name: "grpc"
+          port: 9095
+          protocol: "TCP"
+          targetPort: "grpc"
+      selector:
+        app.kubernetes.io/component: "backend"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"backend\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\"},\"name\":\"loki-backend\",\"namespace\":\"loki\"},\"spec\":{\"ports\":[{\"name\":\"http-metrics\",\"port\":3100,\"protocol\":\"TCP\",\"targetPort\":\"http-metrics\"},{\"name\":\"grpc\",\"port\":9095,\"protocol\":\"TCP\",\"targetPort\":\"grpc\"}],\"selector\":{\"app.kubernetes.io/component\":\"backend\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app.kubernetes.io/component: "backend"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/version: "3.6.7"
+        helm.sh/chart: "loki-7.0.0"
+      name: "loki-backend"
+      namespace: "loki"
+      resourceVersion: "4959"
+      uid: "e00d76ef-1318-48f2-94eb-fc7ca9fce6c3"
+    spec:
+      clusterIP: "10.96.216.209"
+      clusterIPs:
+        - "10.96.216.209"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http-metrics"
+          port: 3100
+          protocol: "TCP"
+          targetPort: "http-metrics"
+        -
+          name: "grpc"
+          port: 9095
+          protocol: "TCP"
+          targetPort: "grpc"
+      selector:
+        app.kubernetes.io/component: "backend"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"memcached-chunks-cache\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\"},\"name\":\"loki-chunks-cache\",\"namespace\":\"loki\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"name\":\"memcached-client\",\"port\":11211,\"targetPort\":\"client\"},{\"name\":\"http-metrics\",\"port\":9150,\"targetPort\":\"http-metrics\"}],\"selector\":{\"app.kubernetes.io/component\":\"memcached-chunks-cache\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app.kubernetes.io/component: "memcached-chunks-cache"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/version: "3.6.7"
+        helm.sh/chart: "loki-7.0.0"
+      name: "loki-chunks-cache"
+      namespace: "loki"
+      resourceVersion: "4962"
+      uid: "13ca014c-b2e9-48cc-85c5-2162712a2d39"
+    spec:
+      clusterIP: "None"
+      clusterIPs:
+        - "None"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "memcached-client"
+          port: 11211
+          protocol: "TCP"
+          targetPort: "client"
+        -
+          name: "http-metrics"
+          port: 9150
+          protocol: "TCP"
+          targetPort: "http-metrics"
+      selector:
+        app.kubernetes.io/component: "memcached-chunks-cache"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"gateway\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\",\"prometheus.io/service-monitor\":\"false\"},\"name\":\"loki-gateway\",\"namespace\":\"loki\"},\"spec\":{\"ports\":[{\"name\":\"http-metrics\",\"port\":80,\"protocol\":\"TCP\",\"targetPort\":\"http-metrics\"}],\"selector\":{\"app.kubernetes.io/component\":\"gateway\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app.kubernetes.io/component: "gateway"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/version: "3.6.7"
+        helm.sh/chart: "loki-7.0.0"
+        prometheus.io/service-monitor: "false"
+      name: "loki-gateway"
+      namespace: "loki"
+      resourceVersion: "4966"
+      uid: "d341acd3-6192-409f-b9c8-f14809f91144"
+    spec:
+      clusterIP: "10.96.42.63"
+      clusterIPs:
+        - "10.96.42.63"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http-metrics"
+          port: 80
+          protocol: "TCP"
+          targetPort: "http-metrics"
+      selector:
+        app.kubernetes.io/component: "gateway"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"canary\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\"},\"name\":\"loki-canary\",\"namespace\":\"loki\"},\"spec\":{\"ports\":[{\"name\":\"http-metrics\",\"port\":3500,\"protocol\":\"TCP\",\"targetPort\":\"http-metrics\"}],\"selector\":{\"app.kubernetes.io/component\":\"canary\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app.kubernetes.io/component: "canary"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/version: "3.6.7"
+        helm.sh/chart: "loki-7.0.0"
+      name: "loki-canary"
+      namespace: "loki"
+      resourceVersion: "4970"
+      uid: "7a92d205-b042-4c95-acf6-e1e7e1f5ea69"
+    spec:
+      clusterIP: "10.96.60.222"
+      clusterIPs:
+        - "10.96.60.222"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http-metrics"
+          port: 3500
+          protocol: "TCP"
+          targetPort: "http-metrics"
+      selector:
+        app.kubernetes.io/component: "canary"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"read\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"prometheus.io/service-monitor\":\"false\",\"variant\":\"headless\"},\"name\":\"loki-read-headless\",\"namespace\":\"loki\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"name\":\"http-metrics\",\"port\":3100,\"protocol\":\"TCP\",\"targetPort\":\"http-metrics\"},{\"appProtocol\":\"tcp\",\"name\":\"grpc\",\"port\":9095,\"protocol\":\"TCP\",\"targetPort\":\"grpc\"}],\"selector\":{\"app.kubernetes.io/component\":\"read\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app.kubernetes.io/component: "read"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        prometheus.io/service-monitor: "false"
+        variant: "headless"
+      name: "loki-read-headless"
+      namespace: "loki"
+      resourceVersion: "4973"
+      uid: "8a701dc8-206e-49a0-89ba-52636a0c60ed"
+    spec:
+      clusterIP: "None"
+      clusterIPs:
+        - "None"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http-metrics"
+          port: 3100
+          protocol: "TCP"
+          targetPort: "http-metrics"
+        -
+          appProtocol: "tcp"
+          name: "grpc"
+          port: 9095
+          protocol: "TCP"
+          targetPort: "grpc"
+      selector:
+        app.kubernetes.io/component: "read"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"read\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\"},\"name\":\"loki-read\",\"namespace\":\"loki\"},\"spec\":{\"ports\":[{\"name\":\"http-metrics\",\"port\":3100,\"protocol\":\"TCP\",\"targetPort\":\"http-metrics\"},{\"name\":\"grpc\",\"port\":9095,\"protocol\":\"TCP\",\"targetPort\":\"grpc\"}],\"selector\":{\"app.kubernetes.io/component\":\"read\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app.kubernetes.io/component: "read"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/version: "3.6.7"
+        helm.sh/chart: "loki-7.0.0"
+      name: "loki-read"
+      namespace: "loki"
+      resourceVersion: "4977"
+      uid: "876d29ab-5e57-437d-93c9-2a0f97d184f8"
+    spec:
+      clusterIP: "10.96.104.41"
+      clusterIPs:
+        - "10.96.104.41"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http-metrics"
+          port: 3100
+          protocol: "TCP"
+          targetPort: "http-metrics"
+        -
+          name: "grpc"
+          port: 9095
+          protocol: "TCP"
+          targetPort: "grpc"
+      selector:
+        app.kubernetes.io/component: "read"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"memcached-results-cache\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\"},\"name\":\"loki-results-cache\",\"namespace\":\"loki\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"name\":\"memcached-client\",\"port\":11211,\"targetPort\":\"client\"},{\"name\":\"http-metrics\",\"port\":9150,\"targetPort\":\"http-metrics\"}],\"selector\":{\"app.kubernetes.io/component\":\"memcached-results-cache\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app.kubernetes.io/component: "memcached-results-cache"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/version: "3.6.7"
+        helm.sh/chart: "loki-7.0.0"
+      name: "loki-results-cache"
+      namespace: "loki"
+      resourceVersion: "4980"
+      uid: "de95c3a8-a006-498e-b043-8a6614a09264"
+    spec:
+      clusterIP: "None"
+      clusterIPs:
+        - "None"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "memcached-client"
+          port: 11211
+          protocol: "TCP"
+          targetPort: "client"
+        -
+          name: "http-metrics"
+          port: 9150
+          protocol: "TCP"
+          targetPort: "http-metrics"
+      selector:
+        app.kubernetes.io/component: "memcached-results-cache"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\"},\"name\":\"loki-memberlist\",\"namespace\":\"loki\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"name\":\"tcp\",\"port\":7946,\"protocol\":\"TCP\",\"targetPort\":\"http-memberlist\"}],\"selector\":{\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/part-of\":\"memberlist\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/version: "3.6.7"
+        helm.sh/chart: "loki-7.0.0"
+      name: "loki-memberlist"
+      namespace: "loki"
+      resourceVersion: "4983"
+      uid: "74b91d30-3109-4e16-9261-67d7776b22f0"
+    spec:
+      clusterIP: "None"
+      clusterIPs:
+        - "None"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "tcp"
+          port: 7946
+          protocol: "TCP"
+          targetPort: "http-memberlist"
+      selector:
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/part-of: "memberlist"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"write\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"prometheus.io/service-monitor\":\"false\",\"variant\":\"headless\"},\"name\":\"loki-write-headless\",\"namespace\":\"loki\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"name\":\"http-metrics\",\"port\":3100,\"protocol\":\"TCP\",\"targetPort\":\"http-metrics\"},{\"appProtocol\":\"tcp\",\"name\":\"grpc\",\"port\":9095,\"protocol\":\"TCP\",\"targetPort\":\"grpc\"}],\"selector\":{\"app.kubernetes.io/component\":\"write\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app.kubernetes.io/component: "write"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        prometheus.io/service-monitor: "false"
+        variant: "headless"
+      name: "loki-write-headless"
+      namespace: "loki"
+      resourceVersion: "4986"
+      uid: "0eda9cc8-ce62-4896-a387-5fd543a0129d"
+    spec:
+      clusterIP: "None"
+      clusterIPs:
+        - "None"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http-metrics"
+          port: 3100
+          protocol: "TCP"
+          targetPort: "http-metrics"
+        -
+          appProtocol: "tcp"
+          name: "grpc"
+          port: 9095
+          protocol: "TCP"
+          targetPort: "grpc"
+      selector:
+        app.kubernetes.io/component: "write"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"write\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\"},\"name\":\"loki-write\",\"namespace\":\"loki\"},\"spec\":{\"ports\":[{\"name\":\"http-metrics\",\"port\":3100,\"protocol\":\"TCP\",\"targetPort\":\"http-metrics\"},{\"name\":\"grpc\",\"port\":9095,\"protocol\":\"TCP\",\"targetPort\":\"grpc\"}],\"selector\":{\"app.kubernetes.io/component\":\"write\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app.kubernetes.io/component: "write"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/version: "3.6.7"
+        helm.sh/chart: "loki-7.0.0"
+      name: "loki-write"
+      namespace: "loki"
+      resourceVersion: "4990"
+      uid: "314894c2-db97-40e7-94a8-44eccd80d151"
+    spec:
+      clusterIP: "10.96.47.220"
+      clusterIPs:
+        - "10.96.47.220"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http-metrics"
+          port: 3100
+          protocol: "TCP"
+          targetPort: "http-metrics"
+        -
+          name: "grpc"
+          port: 9095
+          protocol: "TCP"
+          targetPort: "grpc"
+      selector:
+        app.kubernetes.io/component: "write"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "DaemonSet"
+    metadata:
+      annotations:
+        deprecated.daemonset.template.generation: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"DaemonSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"canary\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\"},\"name\":\"loki-canary\",\"namespace\":\"loki\"},\"spec\":{\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"canary\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\"}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"canary\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\"}},\"spec\":{\"containers\":[{\"args\":[\"-addr=loki-gateway.loki.svc.cluster.local.:80\",\"-labelname=pod\",\"-labelvalue=$(POD_NAME)\",\"-user=self-monitoring\",\"-tenant-id=self-monitoring\",\"-pass=\",\"-push=true\"],\"env\":[{\"name\":\"POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}}],\"image\":\"docker.io/grafana/loki-canary:3.6.7\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"loki-canary\",\"ports\":[{\"containerPort\":3500,\"name\":\"http-metrics\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/metrics\",\"port\":\"http-metrics\"},\"initialDelaySeconds\":15,\"timeoutSeconds\":1},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":null}],\"securityContext\":{\"fsGroup\":10001,\"fsGroupChangePolicy\":\"OnRootMismatch\",\"runAsGroup\":10001,\"runAsNonRoot\":true,\"runAsUser\":10001},\"serviceAccountName\":\"loki-canary\",\"volumes\":null}},\"updateStrategy\":{\"rollingUpdate\":{\"maxUnavailable\":1},\"type\":\"RollingUpdate\"}}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "canary"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/version: "3.6.7"
+        helm.sh/chart: "loki-7.0.0"
+      name: "loki-canary"
+      namespace: "loki"
+      resourceVersion: "5299"
+      uid: "934f18fc-8307-4bd0-b815-6c5838938cc1"
+    spec:
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "canary"
+          app.kubernetes.io/instance: "loki"
+          app.kubernetes.io/name: "loki"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/component: "canary"
+            app.kubernetes.io/instance: "loki"
+            app.kubernetes.io/name: "loki"
+        spec:
+          containers:
+            -
+              args:
+                - "-addr=loki-gateway.loki.svc.cluster.local.:80"
+                - "-labelname=pod"
+                - "-labelvalue=$(POD_NAME)"
+                - "-user=self-monitoring"
+                - "-tenant-id=self-monitoring"
+                - "-pass="
+                - "-push=true"
+              env:
+                -
+                  name: "POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+              image: "docker.io/grafana/loki-canary:3.6.7"
+              imagePullPolicy: "IfNotPresent"
+              name: "loki-canary"
+              ports:
+                -
+                  containerPort: 3500
+                  name: "http-metrics"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/metrics"
+                  port: "http-metrics"
+                  scheme: "HTTP"
+                initialDelaySeconds: 15
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 10001
+            fsGroupChangePolicy: "OnRootMismatch"
+            runAsGroup: 10001
+            runAsNonRoot: true
+            runAsUser: 10001
+          serviceAccount: "loki-canary"
+          serviceAccountName: "loki-canary"
+          terminationGracePeriodSeconds: 30
+      updateStrategy:
+        rollingUpdate:
+          maxSurge: 0
+          maxUnavailable: 1
+        type: "RollingUpdate"
+    status:
+      currentNumberScheduled: 1
+      desiredNumberScheduled: 1
+      numberAvailable: 1
+      numberMisscheduled: 0
+      numberReady: 1
+      observedGeneration: 1
+      updatedNumberScheduled: 1
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"gateway\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\"},\"name\":\"loki-gateway\",\"namespace\":\"loki\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"gateway\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\"}},\"strategy\":{\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"annotations\":{\"checksum/config\":\"551f2f0b8c3a57d612deebdb6e46ed5e64807c15eebb972a030549402e4e6183\"},\"labels\":{\"app.kubernetes.io/component\":\"gateway\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\"}},\"spec\":{\"affinity\":{\"podAntiAffinity\":{\"requiredDuringSchedulingIgnoredDuringExecution\":[{\"labelSelector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"gateway\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\"}},\"topologyKey\":\"kubernetes.io/hostname\"}]}},\"containers\":[{\"image\":\"docker.io/nginxinc/nginx-unprivileged:1.29-alpine\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"nginx\",\"ports\":[{\"containerPort\":8080,\"name\":\"http-metrics\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/\",\"port\":\"http-metrics\"},\"initialDelaySeconds\":15,\"timeoutSeconds\":1},\"resources\":{},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/etc/nginx\",\"name\":\"config\"},{\"mountPath\":\"/tmp\",\"name\":\"tmp\"},{\"mountPath\":\"/docker-entrypoint.d\",\"name\":\"docker-entrypoint-d-override\"}]}],\"enableServiceLinks\":true,\"securityContext\":{\"fsGroup\":101,\"runAsGroup\":101,\"runAsNonRoot\":true,\"runAsUser\":101},\"serviceAccountName\":\"loki\",\"terminationGracePeriodSeconds\":30,\"volumes\":[{\"configMap\":{\"name\":\"loki-gateway\"},\"name\":\"config\"},{\"emptyDir\":{},\"name\":\"tmp\"},{\"emptyDir\":{},\"name\":\"docker-entrypoint-d-override\"}]}}}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "gateway"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/version: "3.6.7"
+        helm.sh/chart: "loki-7.0.0"
+      name: "loki-gateway"
+      namespace: "loki"
+      resourceVersion: "5286"
+      uid: "eaab1183-ff4b-4cb9-a07a-fdbf6f0bca0f"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "gateway"
+          app.kubernetes.io/instance: "loki"
+          app.kubernetes.io/name: "loki"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          annotations:
+            checksum/config: "551f2f0b8c3a57d612deebdb6e46ed5e64807c15eebb972a030549402e4e6183"
+          labels:
+            app.kubernetes.io/component: "gateway"
+            app.kubernetes.io/instance: "loki"
+            app.kubernetes.io/name: "loki"
+        spec:
+          affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                -
+                  labelSelector:
+                    matchLabels:
+                      app.kubernetes.io/component: "gateway"
+                      app.kubernetes.io/instance: "loki"
+                      app.kubernetes.io/name: "loki"
+                  topologyKey: "kubernetes.io/hostname"
+          containers:
+            -
+              image: "docker.io/nginxinc/nginx-unprivileged:1.29-alpine"
+              imagePullPolicy: "IfNotPresent"
+              name: "nginx"
+              ports:
+                -
+                  containerPort: 8080
+                  name: "http-metrics"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/"
+                  port: "http-metrics"
+                  scheme: "HTTP"
+                initialDelaySeconds: 15
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/etc/nginx"
+                  name: "config"
+                -
+                  mountPath: "/tmp"
+                  name: "tmp"
+                -
+                  mountPath: "/docker-entrypoint.d"
+                  name: "docker-entrypoint-d-override"
+          dnsPolicy: "ClusterFirst"
+          enableServiceLinks: true
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 101
+            runAsGroup: 101
+            runAsNonRoot: true
+            runAsUser: 101
+          serviceAccount: "loki"
+          serviceAccountName: "loki"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              configMap:
+                defaultMode: 420
+                name: "loki-gateway"
+              name: "config"
+            -
+              emptyDir:
+                {}
+              name: "tmp"
+            -
+              emptyDir:
+                {}
+              name: "docker-entrypoint-d-override"
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T12:07:20Z"
+          lastUpdateTime: "2026-06-11T12:07:20Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T12:06:53Z"
+          lastUpdateTime: "2026-06-11T12:07:20Z"
+          message: "ReplicaSet \"loki-gateway-75b9df9f48\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"read\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/part-of\":\"memberlist\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\"},\"name\":\"loki-read\",\"namespace\":\"loki\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"read\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\"}},\"strategy\":{\"rollingUpdate\":{\"maxSurge\":0,\"maxUnavailable\":1}},\"template\":{\"metadata\":{\"annotations\":{\"checksum/config\":\"4eef0afb58cecadace9be7d3d45e81fe45e43a6eb6c767089b8e22b155889b47\"},\"labels\":{\"app.kubernetes.io/component\":\"read\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/part-of\":\"memberlist\"}},\"spec\":{\"affinity\":{\"podAntiAffinity\":{\"requiredDuringSchedulingIgnoredDuringExecution\":[{\"labelSelector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"read\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\"}},\"topologyKey\":\"kubernetes.io/hostname\"}]}},\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"-config.file=/etc/loki/config/config.yaml\",\"-target=read\",\"-legacy-read-mode=false\",\"-common.compactor-grpc-address=loki-backend.loki.svc.cluster.local:9095\"],\"image\":\"docker.io/grafana/loki:3.6.7\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"loki\",\"ports\":[{\"containerPort\":3100,\"name\":\"http-metrics\",\"protocol\":\"TCP\"},{\"containerPort\":9095,\"name\":\"grpc\",\"protocol\":\"TCP\"},{\"containerPort\":7946,\"name\":\"http-memberlist\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/ready\",\"port\":\"http-metrics\"},\"initialDelaySeconds\":15,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":1},\"resources\":{},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/etc/loki/config\",\"name\":\"config\"},{\"mountPath\":\"/etc/loki/runtime-config\",\"name\":\"runtime-config\"},{\"mountPath\":\"/tmp\",\"name\":\"tmp\"},{\"mountPath\":\"/var/loki\",\"name\":\"data\"}]}],\"securityContext\":{\"fsGroup\":10001,\"fsGroupChangePolicy\":\"OnRootMismatch\",\"runAsGroup\":10001,\"runAsNonRoot\":true,\"runAsUser\":10001},\"serviceAccountName\":\"loki\",\"terminationGracePeriodSeconds\":30,\"volumes\":[{\"emptyDir\":{},\"name\":\"tmp\"},{\"emptyDir\":{},\"name\":\"data\"},{\"configMap\":{\"items\":[{\"key\":\"config.yaml\",\"path\":\"config.yaml\"}],\"name\":\"loki\"},\"name\":\"config\"},{\"configMap\":{\"name\":\"loki-runtime\"},\"name\":\"runtime-config\"}]}}}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "read"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/part-of: "memberlist"
+        app.kubernetes.io/version: "3.6.7"
+        helm.sh/chart: "loki-7.0.0"
+      name: "loki-read"
+      namespace: "loki"
+      resourceVersion: "5429"
+      uid: "108f8602-df00-4698-9718-1b5ae7c57e60"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "read"
+          app.kubernetes.io/instance: "loki"
+          app.kubernetes.io/name: "loki"
+      strategy:
+        rollingUpdate:
+          maxSurge: 0
+          maxUnavailable: 1
+        type: "RollingUpdate"
+      template:
+        metadata:
+          annotations:
+            checksum/config: "4eef0afb58cecadace9be7d3d45e81fe45e43a6eb6c767089b8e22b155889b47"
+          labels:
+            app.kubernetes.io/component: "read"
+            app.kubernetes.io/instance: "loki"
+            app.kubernetes.io/name: "loki"
+            app.kubernetes.io/part-of: "memberlist"
+        spec:
+          affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                -
+                  labelSelector:
+                    matchLabels:
+                      app.kubernetes.io/component: "read"
+                      app.kubernetes.io/instance: "loki"
+                      app.kubernetes.io/name: "loki"
+                  topologyKey: "kubernetes.io/hostname"
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "-config.file=/etc/loki/config/config.yaml"
+                - "-target=read"
+                - "-legacy-read-mode=false"
+                - "-common.compactor-grpc-address=loki-backend.loki.svc.cluster.local:9095"
+              image: "docker.io/grafana/loki:3.6.7"
+              imagePullPolicy: "IfNotPresent"
+              name: "loki"
+              ports:
+                -
+                  containerPort: 3100
+                  name: "http-metrics"
+                  protocol: "TCP"
+                -
+                  containerPort: 9095
+                  name: "grpc"
+                  protocol: "TCP"
+                -
+                  containerPort: 7946
+                  name: "http-memberlist"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/ready"
+                  port: "http-metrics"
+                  scheme: "HTTP"
+                initialDelaySeconds: 15
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/etc/loki/config"
+                  name: "config"
+                -
+                  mountPath: "/etc/loki/runtime-config"
+                  name: "runtime-config"
+                -
+                  mountPath: "/tmp"
+                  name: "tmp"
+                -
+                  mountPath: "/var/loki"
+                  name: "data"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 10001
+            fsGroupChangePolicy: "OnRootMismatch"
+            runAsGroup: 10001
+            runAsNonRoot: true
+            runAsUser: 10001
+          serviceAccount: "loki"
+          serviceAccountName: "loki"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              emptyDir:
+                {}
+              name: "tmp"
+            -
+              emptyDir:
+                {}
+              name: "data"
+            -
+              configMap:
+                defaultMode: 420
+                items:
+                  -
+                    key: "config.yaml"
+                    path: "config.yaml"
+                name: "loki"
+              name: "config"
+            -
+              configMap:
+                defaultMode: 420
+                name: "loki-runtime"
+              name: "runtime-config"
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T12:06:53Z"
+          lastUpdateTime: "2026-06-11T12:06:53Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T12:06:53Z"
+          lastUpdateTime: "2026-06-11T12:08:02Z"
+          message: "ReplicaSet \"loki-read-57fc7f5747\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+  -
+    apiVersion: "apps/v1"
+    kind: "StatefulSet"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"backend\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/part-of\":\"memberlist\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\"},\"name\":\"loki-backend\",\"namespace\":\"loki\"},\"spec\":{\"persistentVolumeClaimRetentionPolicy\":{\"whenDeleted\":\"Delete\",\"whenScaled\":\"Delete\"},\"podManagementPolicy\":\"Parallel\",\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"backend\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\"}},\"serviceName\":\"loki-backend-headless\",\"template\":{\"metadata\":{\"annotations\":{\"checksum/config\":\"4eef0afb58cecadace9be7d3d45e81fe45e43a6eb6c767089b8e22b155889b47\",\"kubectl.kubernetes.io/default-container\":\"loki\"},\"labels\":{\"app.kubernetes.io/component\":\"backend\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/part-of\":\"memberlist\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\"}},\"spec\":{\"affinity\":{\"podAntiAffinity\":{\"requiredDuringSchedulingIgnoredDuringExecution\":[{\"labelSelector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"backend\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\"}},\"topologyKey\":\"kubernetes.io/hostname\"}]}},\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"-config.file=/etc/loki/config/config.yaml\",\"-target=backend\",\"-legacy-read-mode=false\"],\"image\":\"docker.io/grafana/loki:3.6.7\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"loki\",\"ports\":[{\"containerPort\":3100,\"name\":\"http-metrics\",\"protocol\":\"TCP\"},{\"containerPort\":9095,\"name\":\"grpc\",\"protocol\":\"TCP\"},{\"containerPort\":7946,\"name\":\"http-memberlist\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/ready\",\"port\":\"http-metrics\"},\"initialDelaySeconds\":15,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":1},\"resources\":{},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/etc/loki/config\",\"name\":\"config\"},{\"mountPath\":\"/etc/loki/runtime-config\",\"name\":\"runtime-config\"},{\"mountPath\":\"/tmp\",\"name\":\"tmp\"},{\"mountPath\":\"/var/loki\",\"name\":\"data\"},{\"mountPath\":\"/rules\",\"name\":\"sc-rules-volume\"}]},{\"env\":[{\"name\":\"METHOD\",\"value\":\"WATCH\"},{\"name\":\"LABEL\",\"value\":\"loki_rule\"},{\"name\":\"FOLDER\",\"value\":\"/rules\"},{\"name\":\"RESOURCE\",\"value\":\"both\"},{\"name\":\"WATCH_SERVER_TIMEOUT\",\"value\":\"60\"},{\"name\":\"WATCH_CLIENT_TIMEOUT\",\"value\":\"60\"},{\"name\":\"LOG_LEVEL\",\"value\":\"INFO\"}],\"image\":\"docker.io/kiwigrid/k8s-sidecar:2.5.0\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"loki-sc-rules\",\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"tmp\"},{\"mountPath\":\"/rules\",\"name\":\"sc-rules-volume\"}]}],\"securityContext\":{\"fsGroup\":10001,\"fsGroupChangePolicy\":\"OnRootMismatch\",\"runAsGroup\":10001,\"runAsNonRoot\":true,\"runAsUser\":10001},\"serviceAccountName\":\"loki\",\"terminationGracePeriodSeconds\":300,\"volumes\":[{\"emptyDir\":{},\"name\":\"tmp\"},{\"configMap\":{\"items\":[{\"key\":\"config.yaml\",\"path\":\"config.yaml\"}],\"name\":\"loki\"},\"name\":\"config\"},{\"configMap\":{\"name\":\"loki-runtime\"},\"name\":\"runtime-config\"},{\"emptyDir\":{},\"name\":\"sc-rules-volume\"}]}},\"updateStrategy\":{\"rollingUpdate\":{\"partition\":0}},\"volumeClaimTemplates\":[{\"apiVersion\":\"v1\",\"kind\":\"PersistentVolumeClaim\",\"metadata\":{\"name\":\"data\"},\"spec\":{\"accessModes\":[\"ReadWriteOnce\"],\"resources\":{\"requests\":{\"storage\":\"10Gi\"}}}}]}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "backend"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/part-of: "memberlist"
+        app.kubernetes.io/version: "3.6.7"
+        helm.sh/chart: "loki-7.0.0"
+      name: "loki-backend"
+      namespace: "loki"
+      resourceVersion: "5393"
+      uid: "f957ef4a-9a1d-4f7e-9b9e-3a8a8618967c"
+    spec:
+      persistentVolumeClaimRetentionPolicy:
+        whenDeleted: "Delete"
+        whenScaled: "Delete"
+      podManagementPolicy: "Parallel"
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "backend"
+          app.kubernetes.io/instance: "loki"
+          app.kubernetes.io/name: "loki"
+      serviceName: "loki-backend-headless"
+      template:
+        metadata:
+          annotations:
+            checksum/config: "4eef0afb58cecadace9be7d3d45e81fe45e43a6eb6c767089b8e22b155889b47"
+            kubectl.kubernetes.io/default-container: "loki"
+          labels:
+            app.kubernetes.io/component: "backend"
+            app.kubernetes.io/instance: "loki"
+            app.kubernetes.io/name: "loki"
+            app.kubernetes.io/part-of: "memberlist"
+            app.kubernetes.io/version: "3.6.7"
+            helm.sh/chart: "loki-7.0.0"
+        spec:
+          affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                -
+                  labelSelector:
+                    matchLabels:
+                      app.kubernetes.io/component: "backend"
+                      app.kubernetes.io/instance: "loki"
+                      app.kubernetes.io/name: "loki"
+                  topologyKey: "kubernetes.io/hostname"
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "-config.file=/etc/loki/config/config.yaml"
+                - "-target=backend"
+                - "-legacy-read-mode=false"
+              image: "docker.io/grafana/loki:3.6.7"
+              imagePullPolicy: "IfNotPresent"
+              name: "loki"
+              ports:
+                -
+                  containerPort: 3100
+                  name: "http-metrics"
+                  protocol: "TCP"
+                -
+                  containerPort: 9095
+                  name: "grpc"
+                  protocol: "TCP"
+                -
+                  containerPort: 7946
+                  name: "http-memberlist"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/ready"
+                  port: "http-metrics"
+                  scheme: "HTTP"
+                initialDelaySeconds: 15
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/etc/loki/config"
+                  name: "config"
+                -
+                  mountPath: "/etc/loki/runtime-config"
+                  name: "runtime-config"
+                -
+                  mountPath: "/tmp"
+                  name: "tmp"
+                -
+                  mountPath: "/var/loki"
+                  name: "data"
+                -
+                  mountPath: "/rules"
+                  name: "sc-rules-volume"
+            -
+              env:
+                -
+                  name: "METHOD"
+                  value: "WATCH"
+                -
+                  name: "LABEL"
+                  value: "loki_rule"
+                -
+                  name: "FOLDER"
+                  value: "/rules"
+                -
+                  name: "RESOURCE"
+                  value: "both"
+                -
+                  name: "WATCH_SERVER_TIMEOUT"
+                  value: "60"
+                -
+                  name: "WATCH_CLIENT_TIMEOUT"
+                  value: "60"
+                -
+                  name: "LOG_LEVEL"
+                  value: "INFO"
+              image: "docker.io/kiwigrid/k8s-sidecar:2.5.0"
+              imagePullPolicy: "IfNotPresent"
+              name: "loki-sc-rules"
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/tmp"
+                  name: "tmp"
+                -
+                  mountPath: "/rules"
+                  name: "sc-rules-volume"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 10001
+            fsGroupChangePolicy: "OnRootMismatch"
+            runAsGroup: 10001
+            runAsNonRoot: true
+            runAsUser: 10001
+          serviceAccount: "loki"
+          serviceAccountName: "loki"
+          terminationGracePeriodSeconds: 300
+          volumes:
+            -
+              emptyDir:
+                {}
+              name: "tmp"
+            -
+              configMap:
+                defaultMode: 420
+                items:
+                  -
+                    key: "config.yaml"
+                    path: "config.yaml"
+                name: "loki"
+              name: "config"
+            -
+              configMap:
+                defaultMode: 420
+                name: "loki-runtime"
+              name: "runtime-config"
+            -
+              emptyDir:
+                {}
+              name: "sc-rules-volume"
+      updateStrategy:
+        rollingUpdate:
+          maxUnavailable: 1
+          partition: 0
+        type: "RollingUpdate"
+      volumeClaimTemplates:
+        -
+          apiVersion: "v1"
+          kind: "PersistentVolumeClaim"
+          metadata:
+            name: "data"
+          spec:
+            accessModes:
+              - "ReadWriteOnce"
+            resources:
+              requests:
+                storage: "10Gi"
+            volumeMode: "Filesystem"
+          status:
+            phase: "Pending"
+    status:
+      availableReplicas: 1
+      collisionCount: 0
+      currentReplicas: 1
+      currentRevision: "loki-backend-f99db5cc5"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      updateRevision: "loki-backend-f99db5cc5"
+      updatedReplicas: 1
+  -
+    apiVersion: "apps/v1"
+    kind: "StatefulSet"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"memcached-chunks-cache\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\",\"name\":\"memcached-chunks-cache\"},\"name\":\"loki-chunks-cache\",\"namespace\":\"loki\"},\"spec\":{\"podManagementPolicy\":\"Parallel\",\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"memcached-chunks-cache\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"name\":\"memcached-chunks-cache\"}},\"serviceName\":\"loki-chunks-cache\",\"template\":{\"metadata\":{\"annotations\":null,\"labels\":{\"app.kubernetes.io/component\":\"memcached-chunks-cache\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"name\":\"memcached-chunks-cache\"}},\"spec\":{\"affinity\":{},\"containers\":[{\"args\":[\"-m 8192\",\"--extended=modern,track_sizes\",\"-I 5m\",\"-c 16384\",\"-v\",\"-u 11211\"],\"env\":null,\"envFrom\":null,\"image\":\"memcached:1.6.39-alpine\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":3,\"initialDelaySeconds\":30,\"periodSeconds\":10,\"tcpSocket\":{\"port\":\"client\"},\"timeoutSeconds\":5},\"name\":\"memcached\",\"ports\":[{\"containerPort\":11211,\"name\":\"client\"}],\"readinessProbe\":{\"failureThreshold\":6,\"initialDelaySeconds\":5,\"periodSeconds\":5,\"tcpSocket\":{\"port\":\"client\"},\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"memory\":\"9830Mi\"},\"requests\":{\"cpu\":\"500m\",\"memory\":\"9830Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true}},{\"args\":[\"--memcached.address=localhost:11211\",\"--web.listen-address=0.0.0.0:9150\"],\"image\":\"prom/memcached-exporter:v0.15.4\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/metrics\",\"port\":\"http-metrics\"},\"initialDelaySeconds\":30,\"periodSeconds\":10,\"timeoutSeconds\":5},\"name\":\"exporter\",\"ports\":[{\"containerPort\":9150,\"name\":\"http-metrics\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/metrics\",\"port\":\"http-metrics\"},\"initialDelaySeconds\":5,\"periodSeconds\":5,\"timeoutSeconds\":3},\"resources\":{\"limits\":{},\"requests\":{}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true}}],\"initContainers\":[],\"nodeSelector\":{},\"securityContext\":{\"fsGroup\":11211,\"runAsGroup\":11211,\"runAsNonRoot\":true,\"runAsUser\":11211},\"serviceAccountName\":\"loki\",\"terminationGracePeriodSeconds\":60,\"tolerations\":[],\"topologySpreadConstraints\":[]}},\"updateStrategy\":{\"type\":\"RollingUpdate\"}}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "memcached-chunks-cache"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/version: "3.6.7"
+        helm.sh/chart: "loki-7.0.0"
+        name: "memcached-chunks-cache"
+      name: "loki-chunks-cache"
+      namespace: "loki"
+      resourceVersion: "5353"
+      uid: "ba85496a-9e01-44ec-a03c-65d3448eace4"
+    spec:
+      persistentVolumeClaimRetentionPolicy:
+        whenDeleted: "Retain"
+        whenScaled: "Retain"
+      podManagementPolicy: "Parallel"
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "memcached-chunks-cache"
+          app.kubernetes.io/instance: "loki"
+          app.kubernetes.io/name: "loki"
+          name: "memcached-chunks-cache"
+      serviceName: "loki-chunks-cache"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/component: "memcached-chunks-cache"
+            app.kubernetes.io/instance: "loki"
+            app.kubernetes.io/name: "loki"
+            name: "memcached-chunks-cache"
+        spec:
+          affinity:
+            {}
+          containers:
+            -
+              args:
+                - "-m 8192"
+                - "--extended=modern,track_sizes"
+                - "-I 5m"
+                - "-c 16384"
+                - "-v"
+                - "-u 11211"
+              image: "memcached:1.6.39-alpine"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                tcpSocket:
+                  port: "client"
+                timeoutSeconds: 5
+              name: "memcached"
+              ports:
+                -
+                  containerPort: 11211
+                  name: "client"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 6
+                initialDelaySeconds: 5
+                periodSeconds: 5
+                successThreshold: 1
+                tcpSocket:
+                  port: "client"
+                timeoutSeconds: 3
+              resources:
+                limits:
+                  memory: "9830Mi"
+                requests:
+                  cpu: "500m"
+                  memory: "9830Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+            -
+              args:
+                - "--memcached.address=localhost:11211"
+                - "--web.listen-address=0.0.0.0:9150"
+              image: "prom/memcached-exporter:v0.15.4"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/metrics"
+                  port: "http-metrics"
+                  scheme: "HTTP"
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: "exporter"
+              ports:
+                -
+                  containerPort: 9150
+                  name: "http-metrics"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/metrics"
+                  port: "http-metrics"
+                  scheme: "HTTP"
+                initialDelaySeconds: 5
+                periodSeconds: 5
+                successThreshold: 1
+                timeoutSeconds: 3
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 11211
+            runAsGroup: 11211
+            runAsNonRoot: true
+            runAsUser: 11211
+          serviceAccount: "loki"
+          serviceAccountName: "loki"
+          terminationGracePeriodSeconds: 60
+      updateStrategy:
+        type: "RollingUpdate"
+    status:
+      availableReplicas: 1
+      collisionCount: 0
+      currentReplicas: 1
+      currentRevision: "loki-chunks-cache-796d474d6f"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      updateRevision: "loki-chunks-cache-796d474d6f"
+      updatedReplicas: 1
+  -
+    apiVersion: "apps/v1"
+    kind: "StatefulSet"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"memcached-results-cache\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\",\"name\":\"memcached-results-cache\"},\"name\":\"loki-results-cache\",\"namespace\":\"loki\"},\"spec\":{\"podManagementPolicy\":\"Parallel\",\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"memcached-results-cache\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"name\":\"memcached-results-cache\"}},\"serviceName\":\"loki-results-cache\",\"template\":{\"metadata\":{\"annotations\":null,\"labels\":{\"app.kubernetes.io/component\":\"memcached-results-cache\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"name\":\"memcached-results-cache\"}},\"spec\":{\"affinity\":{},\"containers\":[{\"args\":[\"-m 1024\",\"--extended=modern,track_sizes\",\"-I 5m\",\"-c 16384\",\"-v\",\"-u 11211\"],\"env\":null,\"envFrom\":null,\"image\":\"memcached:1.6.39-alpine\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":3,\"initialDelaySeconds\":30,\"periodSeconds\":10,\"tcpSocket\":{\"port\":\"client\"},\"timeoutSeconds\":5},\"name\":\"memcached\",\"ports\":[{\"containerPort\":11211,\"name\":\"client\"}],\"readinessProbe\":{\"failureThreshold\":6,\"initialDelaySeconds\":5,\"periodSeconds\":5,\"tcpSocket\":{\"port\":\"client\"},\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"memory\":\"1229Mi\"},\"requests\":{\"cpu\":\"500m\",\"memory\":\"1229Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true}},{\"args\":[\"--memcached.address=localhost:11211\",\"--web.listen-address=0.0.0.0:9150\"],\"image\":\"prom/memcached-exporter:v0.15.4\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/metrics\",\"port\":\"http-metrics\"},\"initialDelaySeconds\":30,\"periodSeconds\":10,\"timeoutSeconds\":5},\"name\":\"exporter\",\"ports\":[{\"containerPort\":9150,\"name\":\"http-metrics\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/metrics\",\"port\":\"http-metrics\"},\"initialDelaySeconds\":5,\"periodSeconds\":5,\"timeoutSeconds\":3},\"resources\":{\"limits\":{},\"requests\":{}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true}}],\"initContainers\":[],\"nodeSelector\":{},\"securityContext\":{\"fsGroup\":11211,\"runAsGroup\":11211,\"runAsNonRoot\":true,\"runAsUser\":11211},\"serviceAccountName\":\"loki\",\"terminationGracePeriodSeconds\":60,\"tolerations\":[],\"topologySpreadConstraints\":[]}},\"updateStrategy\":{\"type\":\"RollingUpdate\"}}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "memcached-results-cache"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/version: "3.6.7"
+        helm.sh/chart: "loki-7.0.0"
+        name: "memcached-results-cache"
+      name: "loki-results-cache"
+      namespace: "loki"
+      resourceVersion: "5366"
+      uid: "189c82fc-fdf2-4fdf-b8de-bb1b64d12318"
+    spec:
+      persistentVolumeClaimRetentionPolicy:
+        whenDeleted: "Retain"
+        whenScaled: "Retain"
+      podManagementPolicy: "Parallel"
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "memcached-results-cache"
+          app.kubernetes.io/instance: "loki"
+          app.kubernetes.io/name: "loki"
+          name: "memcached-results-cache"
+      serviceName: "loki-results-cache"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/component: "memcached-results-cache"
+            app.kubernetes.io/instance: "loki"
+            app.kubernetes.io/name: "loki"
+            name: "memcached-results-cache"
+        spec:
+          affinity:
+            {}
+          containers:
+            -
+              args:
+                - "-m 1024"
+                - "--extended=modern,track_sizes"
+                - "-I 5m"
+                - "-c 16384"
+                - "-v"
+                - "-u 11211"
+              image: "memcached:1.6.39-alpine"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                tcpSocket:
+                  port: "client"
+                timeoutSeconds: 5
+              name: "memcached"
+              ports:
+                -
+                  containerPort: 11211
+                  name: "client"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 6
+                initialDelaySeconds: 5
+                periodSeconds: 5
+                successThreshold: 1
+                tcpSocket:
+                  port: "client"
+                timeoutSeconds: 3
+              resources:
+                limits:
+                  memory: "1229Mi"
+                requests:
+                  cpu: "500m"
+                  memory: "1229Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+            -
+              args:
+                - "--memcached.address=localhost:11211"
+                - "--web.listen-address=0.0.0.0:9150"
+              image: "prom/memcached-exporter:v0.15.4"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/metrics"
+                  port: "http-metrics"
+                  scheme: "HTTP"
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: "exporter"
+              ports:
+                -
+                  containerPort: 9150
+                  name: "http-metrics"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/metrics"
+                  port: "http-metrics"
+                  scheme: "HTTP"
+                initialDelaySeconds: 5
+                periodSeconds: 5
+                successThreshold: 1
+                timeoutSeconds: 3
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 11211
+            runAsGroup: 11211
+            runAsNonRoot: true
+            runAsUser: 11211
+          serviceAccount: "loki"
+          serviceAccountName: "loki"
+          terminationGracePeriodSeconds: 60
+      updateStrategy:
+        type: "RollingUpdate"
+    status:
+      availableReplicas: 1
+      collisionCount: 0
+      currentReplicas: 1
+      currentRevision: "loki-results-cache-664cf8558b"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      updateRevision: "loki-results-cache-664cf8558b"
+      updatedReplicas: 1
+  -
+    apiVersion: "apps/v1"
+    kind: "StatefulSet"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"write\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/part-of\":\"memberlist\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\"},\"name\":\"loki-write\",\"namespace\":\"loki\"},\"spec\":{\"podManagementPolicy\":\"Parallel\",\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"write\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\"}},\"serviceName\":\"loki-write-headless\",\"template\":{\"metadata\":{\"annotations\":{\"checksum/config\":\"4eef0afb58cecadace9be7d3d45e81fe45e43a6eb6c767089b8e22b155889b47\"},\"labels\":{\"app.kubernetes.io/component\":\"write\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/part-of\":\"memberlist\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\"}},\"spec\":{\"affinity\":{\"podAntiAffinity\":{\"requiredDuringSchedulingIgnoredDuringExecution\":[{\"labelSelector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"write\",\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\"}},\"topologyKey\":\"kubernetes.io/hostname\"}]}},\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"-config.file=/etc/loki/config/config.yaml\",\"-target=write\"],\"image\":\"docker.io/grafana/loki:3.6.7\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"loki\",\"ports\":[{\"containerPort\":3100,\"name\":\"http-metrics\",\"protocol\":\"TCP\"},{\"containerPort\":9095,\"name\":\"grpc\",\"protocol\":\"TCP\"},{\"containerPort\":7946,\"name\":\"http-memberlist\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/ready\",\"port\":\"http-metrics\"},\"initialDelaySeconds\":15,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":1},\"resources\":{},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/etc/loki/config\",\"name\":\"config\"},{\"mountPath\":\"/etc/loki/runtime-config\",\"name\":\"runtime-config\"},{\"mountPath\":\"/var/loki\",\"name\":\"data\"}]}],\"enableServiceLinks\":true,\"securityContext\":{\"fsGroup\":10001,\"fsGroupChangePolicy\":\"OnRootMismatch\",\"runAsGroup\":10001,\"runAsNonRoot\":true,\"runAsUser\":10001},\"serviceAccountName\":\"loki\",\"terminationGracePeriodSeconds\":300,\"volumes\":[{\"configMap\":{\"items\":[{\"key\":\"config.yaml\",\"path\":\"config.yaml\"}],\"name\":\"loki\"},\"name\":\"config\"},{\"configMap\":{\"name\":\"loki-runtime\"},\"name\":\"runtime-config\"}]}},\"updateStrategy\":{\"rollingUpdate\":{\"partition\":0}},\"volumeClaimTemplates\":[{\"apiVersion\":\"v1\",\"kind\":\"PersistentVolumeClaim\",\"metadata\":{\"name\":\"data\"},\"spec\":{\"accessModes\":[\"ReadWriteOnce\"],\"resources\":{\"requests\":{\"storage\":\"10Gi\"}}}}]}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "write"
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/part-of: "memberlist"
+        app.kubernetes.io/version: "3.6.7"
+        helm.sh/chart: "loki-7.0.0"
+      name: "loki-write"
+      namespace: "loki"
+      resourceVersion: "5413"
+      uid: "431a2f88-1e6b-4ef8-98b6-d395698b45fa"
+    spec:
+      persistentVolumeClaimRetentionPolicy:
+        whenDeleted: "Retain"
+        whenScaled: "Retain"
+      podManagementPolicy: "Parallel"
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "write"
+          app.kubernetes.io/instance: "loki"
+          app.kubernetes.io/name: "loki"
+      serviceName: "loki-write-headless"
+      template:
+        metadata:
+          annotations:
+            checksum/config: "4eef0afb58cecadace9be7d3d45e81fe45e43a6eb6c767089b8e22b155889b47"
+          labels:
+            app.kubernetes.io/component: "write"
+            app.kubernetes.io/instance: "loki"
+            app.kubernetes.io/name: "loki"
+            app.kubernetes.io/part-of: "memberlist"
+            app.kubernetes.io/version: "3.6.7"
+            helm.sh/chart: "loki-7.0.0"
+        spec:
+          affinity:
+            podAntiAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                -
+                  labelSelector:
+                    matchLabels:
+                      app.kubernetes.io/component: "write"
+                      app.kubernetes.io/instance: "loki"
+                      app.kubernetes.io/name: "loki"
+                  topologyKey: "kubernetes.io/hostname"
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "-config.file=/etc/loki/config/config.yaml"
+                - "-target=write"
+              image: "docker.io/grafana/loki:3.6.7"
+              imagePullPolicy: "IfNotPresent"
+              name: "loki"
+              ports:
+                -
+                  containerPort: 3100
+                  name: "http-metrics"
+                  protocol: "TCP"
+                -
+                  containerPort: 9095
+                  name: "grpc"
+                  protocol: "TCP"
+                -
+                  containerPort: 7946
+                  name: "http-memberlist"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/ready"
+                  port: "http-metrics"
+                  scheme: "HTTP"
+                initialDelaySeconds: 15
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/etc/loki/config"
+                  name: "config"
+                -
+                  mountPath: "/etc/loki/runtime-config"
+                  name: "runtime-config"
+                -
+                  mountPath: "/var/loki"
+                  name: "data"
+          dnsPolicy: "ClusterFirst"
+          enableServiceLinks: true
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 10001
+            fsGroupChangePolicy: "OnRootMismatch"
+            runAsGroup: 10001
+            runAsNonRoot: true
+            runAsUser: 10001
+          serviceAccount: "loki"
+          serviceAccountName: "loki"
+          terminationGracePeriodSeconds: 300
+          volumes:
+            -
+              configMap:
+                defaultMode: 420
+                items:
+                  -
+                    key: "config.yaml"
+                    path: "config.yaml"
+                name: "loki"
+              name: "config"
+            -
+              configMap:
+                defaultMode: 420
+                name: "loki-runtime"
+              name: "runtime-config"
+      updateStrategy:
+        rollingUpdate:
+          maxUnavailable: 1
+          partition: 0
+        type: "RollingUpdate"
+      volumeClaimTemplates:
+        -
+          apiVersion: "v1"
+          kind: "PersistentVolumeClaim"
+          metadata:
+            name: "data"
+          spec:
+            accessModes:
+              - "ReadWriteOnce"
+            resources:
+              requests:
+                storage: "10Gi"
+            volumeMode: "Filesystem"
+          status:
+            phase: "Pending"
+    status:
+      availableReplicas: 1
+      collisionCount: 0
+      currentReplicas: 1
+      currentRevision: "loki-write-785b5ffddb"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      updateRevision: "loki-write-785b5ffddb"
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"name\":\"minio-sa\",\"namespace\":\"loki\"}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      name: "minio-sa"
+      namespace: "loki"
+      resourceVersion: "5079"
+      uid: "bfa4598d-2328-46b5-81e5-67a163aa0584"
+  -
+    apiVersion: "v1"
+    data:
+      redacted: "live Secret data is not committed"
+    kind: "Secret"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "redacted: live Secret last-applied-configuration is not committed"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app: "minio"
+        chart: "minio-5.4.0"
+        heritage: "Helm"
+        release: "loki"
+      name: "loki-minio"
+      namespace: "loki"
+      resourceVersion: "5080"
+      uid: "71eeb030-19d6-4ce8-9767-9f3ca76a11a1"
+    type: "Opaque"
+  -
+    apiVersion: "v1"
+    data:
+      add-policy: "#!/bin/sh\nset -e ; # Have script exit in the event of a failed command.\nMC_CONFIG_DIR=\"/etc/minio/mc/\"\nMC=\"/usr/bin/mc --insecure --config-dir ${MC_CONFIG_DIR}\"\n\n# connectToMinio\n# Use a check-sleep-check loop to wait for MinIO service to be available\nconnectToMinio() {\n  SCHEME=$1\n  ATTEMPTS=0 ; LIMIT=29 ; # Allow 30 attempts\n  set -e ; # fail if we can't read the keys.\n  ACCESS=$(cat /config/rootUser) ; SECRET=$(cat /config/rootPassword) ;\n  set +e ; # The connections to minio are allowed to fail.\n  echo \"Connecting to MinIO server: $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT\" ;\n  MC_COMMAND=\"${MC} alias set myminio $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT $ACCESS $SECRET\" ;\n  $MC_COMMAND ;\n  STATUS=$? ;\n  until [ $STATUS = 0 ]\n  do\n    ATTEMPTS=`expr $ATTEMPTS + 1` ;\n    echo \\\"Failed attempts: $ATTEMPTS\\\" ;\n    if [ $ATTEMPTS -gt $LIMIT ]; then\n      exit 1 ;\n    fi ;\n    sleep 2 ; # 1 second intervals between attempts\n    $MC_COMMAND ;\n    STATUS=$? ;\n  done ;\n  set -e ; # reset `e` as active\n  return 0\n}\n\n# checkPolicyExists ($policy)\n# Check if the policy exists, by using the exit code of `mc admin policy info`\ncheckPolicyExists() {\n  POLICY=$1\n  CMD=$(${MC} admin policy info myminio $POLICY > /dev/null 2>&1)\n  return $?\n}\n\n# createPolicy($name, $filename)\ncreatePolicy () {\n  NAME=$1\n  FILENAME=$2\n\n  # Create the name if it does not exist\n  echo \"Checking policy: $NAME (in /config/$FILENAME.json)\"\n  if ! checkPolicyExists $NAME ; then\n    echo \"Creating policy '$NAME'\"\n  else\n    echo \"Policy '$NAME' already exists.\"\n  fi\n  ${MC} admin policy create myminio $NAME /config/$FILENAME.json\n\n}\n\n# Try connecting to MinIO instance\nscheme=http\nconnectToMinio $scheme"
+      add-svcacct: "#!/bin/sh\nset -e ; # Have script exit in the event of a failed command.\nMC_CONFIG_DIR=\"/etc/minio/mc/\"\nMC=\"/usr/bin/mc --insecure --config-dir ${MC_CONFIG_DIR}\"\n\n# AccessKey and secretkey credentials file are added to prevent shell execution errors caused by special characters.\n# Special characters for example : ',\",<,>,{,}\nMINIO_ACCESSKEY_SECRETKEY_TMP=\"/tmp/accessKey_and_secretKey_svcacct_tmp\"\n\n# connectToMinio\n# Use a check-sleep-check loop to wait for MinIO service to be available\nconnectToMinio() {\n  SCHEME=$1\n  ATTEMPTS=0 ; LIMIT=29 ; # Allow 30 attempts\n  set -e ; # fail if we can't read the keys.\n  ACCESS=$(cat /config/rootUser) ; SECRET=$(cat /config/rootPassword) ;\n  set +e ; # The connections to minio are allowed to fail.\n  echo \"Connecting to MinIO server: $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT\" ;\n  MC_COMMAND=\"${MC} alias set myminio $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT $ACCESS $SECRET\" ;\n  $MC_COMMAND ;\n  STATUS=$? ;\n  until [ $STATUS = 0 ]\n  do\n    ATTEMPTS=`expr $ATTEMPTS + 1` ;\n    echo \\\"Failed attempts: $ATTEMPTS\\\" ;\n    if [ $ATTEMPTS -gt $LIMIT ]; then\n      exit 1 ;\n    fi ;\n    sleep 2 ; # 2 second intervals between attempts\n    $MC_COMMAND ;\n    STATUS=$? ;\n  done ;\n  set -e ; # reset `e` as active\n  return 0\n}\n\n# checkSvcacctExists ()\n# Check if the svcacct exists, by using the exit code of `mc admin user svcacct info`\ncheckSvcacctExists() {\n  CMD=$(${MC} admin user svcacct info myminio $(head -1 $MINIO_ACCESSKEY_SECRETKEY_TMP) > /dev/null 2>&1)\n  return $?\n}\n\n# createSvcacct ($user)\ncreateSvcacct () {\n  USER=$1\n  FILENAME=$2\n  #check accessKey_and_secretKey_tmp file\n  if [[ ! -f $MINIO_ACCESSKEY_SECRETKEY_TMP ]];then\n    echo \"credentials file does not exist\"\n    return 1\n  fi\n  if [[ $(cat $MINIO_ACCESSKEY_SECRETKEY_TMP|wc -l) -ne 2 ]];then\n    echo \"credentials file is invalid\"\n    rm -f $MINIO_ACCESSKEY_SECRETKEY_TMP\n    return 1\n  fi\n  SVCACCT=$(head -1 $MINIO_ACCESSKEY_SECRETKEY_TMP)\n  # Create the svcacct if it does not exist\n  if ! checkSvcacctExists ; then\n    echo \"Creating svcacct '$SVCACCT'\"\n    # Check if policy file is define\n    if [ -z $FILENAME ]; then\n      ${MC} admin user svcacct add --access-key $(head -1 $MINIO_ACCESSKEY_SECRETKEY_TMP) --secret-key $(tail -n1 $MINIO_ACCESSKEY_SECRETKEY_TMP) myminio $USER\n    else\n      ${MC} admin user svcacct add --access-key $(head -1 $MINIO_ACCESSKEY_SECRETKEY_TMP) --secret-key $(tail -n1 $MINIO_ACCESSKEY_SECRETKEY_TMP) --policy /config/$FILENAME.json myminio $USER\n    fi\n  else\n    echo \"Svcacct '$SVCACCT' already exists.\"\n  fi\n  #clean up credentials files.\n  rm -f $MINIO_ACCESSKEY_SECRETKEY_TMP\n}\n\n# Try connecting to MinIO instance\nscheme=http\nconnectToMinio $scheme"
+      add-user: "#!/bin/sh\nset -e ; # Have script exit in the event of a failed command.\nMC_CONFIG_DIR=\"/etc/minio/mc/\"\nMC=\"/usr/bin/mc --insecure --config-dir ${MC_CONFIG_DIR}\"\n\n# AccessKey and secretkey credentials file are added to prevent shell execution errors caused by special characters.\n# Special characters for example : ',\",<,>,{,}\nMINIO_ACCESSKEY_SECRETKEY_TMP=\"/tmp/accessKey_and_secretKey_tmp\"\n\n# connectToMinio\n# Use a check-sleep-check loop to wait for MinIO service to be available\nconnectToMinio() {\n  SCHEME=$1\n  ATTEMPTS=0 ; LIMIT=29 ; # Allow 30 attempts\n  set -e ; # fail if we can't read the keys.\n  ACCESS=$(cat /config/rootUser) ; SECRET=$(cat /config/rootPassword) ;\n  set +e ; # The connections to minio are allowed to fail.\n  echo \"Connecting to MinIO server: $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT\" ;\n  MC_COMMAND=\"${MC} alias set myminio $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT $ACCESS $SECRET\" ;\n  $MC_COMMAND ;\n  STATUS=$? ;\n  until [ $STATUS = 0 ]\n  do\n    ATTEMPTS=`expr $ATTEMPTS + 1` ;\n    echo \\\"Failed attempts: $ATTEMPTS\\\" ;\n    if [ $ATTEMPTS -gt $LIMIT ]; then\n      exit 1 ;\n    fi ;\n    sleep 2 ; # 1 second intervals between attempts\n    $MC_COMMAND ;\n    STATUS=$? ;\n  done ;\n  set -e ; # reset `e` as active\n  return 0\n}\n\n# checkUserExists ()\n# Check if the user exists, by using the exit code of `mc admin user info`\ncheckUserExists() {\n  CMD=$(${MC} admin user info myminio $(head -1 $MINIO_ACCESSKEY_SECRETKEY_TMP) > /dev/null 2>&1)\n  return $?\n}\n\n# createUser ($policy)\ncreateUser() {\n  POLICY=$1\n  #check accessKey_and_secretKey_tmp file\n  if [[ ! -f $MINIO_ACCESSKEY_SECRETKEY_TMP ]];then\n    echo \"credentials file does not exist\"\n    return 1\n  fi\n  if [[ $(cat $MINIO_ACCESSKEY_SECRETKEY_TMP|wc -l) -ne 2 ]];then\n    echo \"credentials file is invalid\"\n    rm -f $MINIO_ACCESSKEY_SECRETKEY_TMP\n    return 1\n  fi\n  USER=$(head -1 $MINIO_ACCESSKEY_SECRETKEY_TMP)\n  # Create the user if it does not exist\n  if ! checkUserExists ; then\n    echo \"Creating user '$USER'\"\n    cat $MINIO_ACCESSKEY_SECRETKEY_TMP | ${MC} admin user add myminio\n  else\n    echo \"User '$USER' already exists.\"\n  fi\n  #clean up credentials files.\n  rm -f $MINIO_ACCESSKEY_SECRETKEY_TMP\n\n  # set policy for user\n  if [ ! -z $POLICY -a $POLICY != \" \" ] ; then\n      echo \"Adding policy '$POLICY' for '$USER'\"\n      set +e ; # policy already attach errors out, allow it.\n      ${MC} admin policy attach myminio $POLICY --user=$USER\n      set -e\n  else\n      echo \"User '$USER' has no policy attached.\"\n  fi\n}\n\n# Try connecting to MinIO instance\nscheme=http\nconnectToMinio $scheme\n\n\n\n# Create the users\necho logs-user > $MINIO_ACCESSKEY_SECRETKEY_TMP\necho supersecretpassword >> $MINIO_ACCESSKEY_SECRETKEY_TMP\ncreateUser readwrite"
+      custom-command: "#!/bin/sh\nset -e ; # Have script exit in the event of a failed command.\nMC_CONFIG_DIR=\"/etc/minio/mc/\"\nMC=\"/usr/bin/mc --insecure --config-dir ${MC_CONFIG_DIR}\"\n\n# connectToMinio\n# Use a check-sleep-check loop to wait for MinIO service to be available\nconnectToMinio() {\n  SCHEME=$1\n  ATTEMPTS=0 ; LIMIT=29 ; # Allow 30 attempts\n  set -e ; # fail if we can't read the keys.\n  ACCESS=$(cat /config/rootUser) ; SECRET=$(cat /config/rootPassword) ;\n  set +e ; # The connections to minio are allowed to fail.\n  echo \"Connecting to MinIO server: $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT\" ;\n  MC_COMMAND=\"${MC} alias set myminio $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT $ACCESS $SECRET\" ;\n  $MC_COMMAND ;\n  STATUS=$? ;\n  until [ $STATUS = 0 ]\n  do\n    ATTEMPTS=`expr $ATTEMPTS + 1` ;\n    echo \\\"Failed attempts: $ATTEMPTS\\\" ;\n    if [ $ATTEMPTS -gt $LIMIT ]; then\n      exit 1 ;\n    fi ;\n    sleep 2 ; # 1 second intervals between attempts\n    $MC_COMMAND ;\n    STATUS=$? ;\n  done ;\n  set -e ; # reset `e` as active\n  return 0\n}\n\n# runCommand ($@)\n# Run custom mc command\nrunCommand() {\n  ${MC} \"$@\"\n  return $?\n}\n\n# Try connecting to MinIO instance\nscheme=http\nconnectToMinio $scheme"
+      initialize: "#!/bin/sh\nset -e # Have script exit in the event of a failed command.\nMC_CONFIG_DIR=\"/etc/minio/mc/\"\nMC=\"/usr/bin/mc --insecure --config-dir ${MC_CONFIG_DIR}\"\n\n# connectToMinio\n# Use a check-sleep-check loop to wait for MinIO service to be available\nconnectToMinio() {\n\tSCHEME=$1\n\tATTEMPTS=0\n\tLIMIT=29 # Allow 30 attempts\n\tset -e   # fail if we can't read the keys.\n\tACCESS=$(cat /config/rootUser)\n\tSECRET=$(cat /config/rootPassword)\n\tset +e # The connections to minio are allowed to fail.\n\techo \"Connecting to MinIO server: $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT\"\n\tMC_COMMAND=\"${MC} alias set myminio $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT $ACCESS $SECRET\"\n\t$MC_COMMAND\n\tSTATUS=$?\n\tuntil [ $STATUS = 0 ]; do\n\t\tATTEMPTS=$(expr $ATTEMPTS + 1)\n\t\techo \\\"Failed attempts: $ATTEMPTS\\\"\n\t\tif [ $ATTEMPTS -gt $LIMIT ]; then\n\t\t\texit 1\n\t\tfi\n\t\tsleep 2 # 1 second intervals between attempts\n\t\t$MC_COMMAND\n\t\tSTATUS=$?\n\tdone\n\tset -e # reset `e` as active\n\treturn 0\n}\n\n# checkBucketExists ($bucket)\n# Check if the bucket exists, by using the exit code of `mc ls`\ncheckBucketExists() {\n\tBUCKET=$1\n\tCMD=$(${MC} stat myminio/$BUCKET >/dev/null 2>&1)\n\treturn $?\n}\n\n# createBucket ($bucket, $policy, $purge)\n# Ensure bucket exists, purging if asked to\ncreateBucket() {\n\tBUCKET=$1\n\tPOLICY=$2\n\tPURGE=$3\n\tVERSIONING=$4\n\tOBJECTLOCKING=$5\n\n\t# Purge the bucket, if set & exists\n\t# Since PURGE is user input, check explicitly for `true`\n\tif [ $PURGE = true ]; then\n\t\tif checkBucketExists $BUCKET; then\n\t\t\techo \"Purging bucket '$BUCKET'.\"\n\t\t\tset +e # don't exit if this fails\n\t\t\t${MC} rm -r --force myminio/$BUCKET\n\t\t\tset -e # reset `e` as active\n\t\telse\n\t\t\techo \"Bucket '$BUCKET' does not exist, skipping purge.\"\n\t\tfi\n\tfi\n\n\t# Create the bucket if it does not exist and set objectlocking if enabled (NOTE: versioning will be not changed if OBJECTLOCKING is set because it enables versioning to the Buckets created)\n\tif ! checkBucketExists $BUCKET; then\n\t\tif [ ! -z $OBJECTLOCKING ]; then\n\t\t\tif [ $OBJECTLOCKING = true ]; then\n\t\t\t\techo \"Creating bucket with OBJECTLOCKING '$BUCKET'\"\n\t\t\t\t${MC} mb --with-lock myminio/$BUCKET\n\t\t\telif [ $OBJECTLOCKING = false ]; then\n\t\t\t\techo \"Creating bucket '$BUCKET'\"\n\t\t\t\t${MC} mb myminio/$BUCKET\n\t\t\tfi\n\t\telif [ -z $OBJECTLOCKING ]; then\n\t\t\techo \"Creating bucket '$BUCKET'\"\n\t\t\t${MC} mb myminio/$BUCKET\n\t\telse\n\t\t\techo \"Bucket '$BUCKET' already exists.\"\n\t\tfi\n\tfi\n\n\t# set versioning for bucket if objectlocking is disabled or not set\n\tif [ $OBJECTLOCKING = false ]; then\n\t\tif [ ! -z $VERSIONING ]; then\n\t\t\tif [ $VERSIONING = true ]; then\n\t\t\t\techo \"Enabling versioning for '$BUCKET'\"\n\t\t\t\t${MC} version enable myminio/$BUCKET\n\t\t\telif [ $VERSIONING = false ]; then\n\t\t\t\techo \"Suspending versioning for '$BUCKET'\"\n\t\t\t\t${MC} version suspend myminio/$BUCKET\n\t\t\tfi\n\t\tfi\n\telse\n\t\techo \"Bucket '$BUCKET' versioning unchanged.\"\n\tfi\n\n\t# At this point, the bucket should exist, skip checking for existence\n\t# Set policy on the bucket\n\techo \"Setting policy of bucket '$BUCKET' to '$POLICY'.\"\n\t${MC} anonymous set $POLICY myminio/$BUCKET\n}\n\n# Try connecting to MinIO instance\nscheme=http\nconnectToMinio $scheme\n\n\n\n# Create the buckets\ncreateBucket chunks \"none\" false false false\ncreateBucket ruler \"none\" false false false\ncreateBucket admin \"none\" false false false"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"add-policy\":\"#!/bin/sh\\nset -e ; # Have script exit in the event of a failed command.\\nMC_CONFIG_DIR=\\\"/etc/minio/mc/\\\"\\nMC=\\\"/usr/bin/mc --insecure --config-dir ${MC_CONFIG_DIR}\\\"\\n\\n# connectToMinio\\n# Use a check-sleep-check loop to wait for MinIO service to be available\\nconnectToMinio() {\\n  SCHEME=$1\\n  ATTEMPTS=0 ; LIMIT=29 ; # Allow 30 attempts\\n  set -e ; # fail if we can't read the keys.\\n  ACCESS=$(cat /config/rootUser) ; SECRET=$(cat /config/rootPassword) ;\\n  set +e ; # The connections to minio are allowed to fail.\\n  echo \\\"Connecting to MinIO server: $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT\\\" ;\\n  MC_COMMAND=\\\"${MC} alias set myminio $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT $ACCESS $SECRET\\\" ;\\n  $MC_COMMAND ;\\n  STATUS=$? ;\\n  until [ $STATUS = 0 ]\\n  do\\n    ATTEMPTS=`expr $ATTEMPTS + 1` ;\\n    echo \\\\\\\"Failed attempts: $ATTEMPTS\\\\\\\" ;\\n    if [ $ATTEMPTS -gt $LIMIT ]; then\\n      exit 1 ;\\n    fi ;\\n    sleep 2 ; # 1 second intervals between attempts\\n    $MC_COMMAND ;\\n    STATUS=$? ;\\n  done ;\\n  set -e ; # reset `e` as active\\n  return 0\\n}\\n\\n# checkPolicyExists ($policy)\\n# Check if the policy exists, by using the exit code of `mc admin policy info`\\ncheckPolicyExists() {\\n  POLICY=$1\\n  CMD=$(${MC} admin policy info myminio $POLICY \\u003e /dev/null 2\\u003e\\u00261)\\n  return $?\\n}\\n\\n# createPolicy($name, $filename)\\ncreatePolicy () {\\n  NAME=$1\\n  FILENAME=$2\\n\\n  # Create the name if it does not exist\\n  echo \\\"Checking policy: $NAME (in /config/$FILENAME.json)\\\"\\n  if ! checkPolicyExists $NAME ; then\\n    echo \\\"Creating policy '$NAME'\\\"\\n  else\\n    echo \\\"Policy '$NAME' already exists.\\\"\\n  fi\\n  ${MC} admin policy create myminio $NAME /config/$FILENAME.json\\n\\n}\\n\\n# Try connecting to MinIO instance\\nscheme=http\\nconnectToMinio $scheme\",\"add-svcacct\":\"#!/bin/sh\\nset -e ; # Have script exit in the event of a failed command.\\nMC_CONFIG_DIR=\\\"/etc/minio/mc/\\\"\\nMC=\\\"/usr/bin/mc --insecure --config-dir ${MC_CONFIG_DIR}\\\"\\n\\n# AccessKey and secretkey credentials file are added to prevent shell execution errors caused by special characters.\\n# Special characters for example : ',\\\",\\u003c,\\u003e,{,}\\nMINIO_ACCESSKEY_SECRETKEY_TMP=\\\"/tmp/accessKey_and_secretKey_svcacct_tmp\\\"\\n\\n# connectToMinio\\n# Use a check-sleep-check loop to wait for MinIO service to be available\\nconnectToMinio() {\\n  SCHEME=$1\\n  ATTEMPTS=0 ; LIMIT=29 ; # Allow 30 attempts\\n  set -e ; # fail if we can't read the keys.\\n  ACCESS=$(cat /config/rootUser) ; SECRET=$(cat /config/rootPassword) ;\\n  set +e ; # The connections to minio are allowed to fail.\\n  echo \\\"Connecting to MinIO server: $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT\\\" ;\\n  MC_COMMAND=\\\"${MC} alias set myminio $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT $ACCESS $SECRET\\\" ;\\n  $MC_COMMAND ;\\n  STATUS=$? ;\\n  until [ $STATUS = 0 ]\\n  do\\n    ATTEMPTS=`expr $ATTEMPTS + 1` ;\\n    echo \\\\\\\"Failed attempts: $ATTEMPTS\\\\\\\" ;\\n    if [ $ATTEMPTS -gt $LIMIT ]; then\\n      exit 1 ;\\n    fi ;\\n    sleep 2 ; # 2 second intervals between attempts\\n    $MC_COMMAND ;\\n    STATUS=$? ;\\n  done ;\\n  set -e ; # reset `e` as active\\n  return 0\\n}\\n\\n# checkSvcacctExists ()\\n# Check if the svcacct exists, by using the exit code of `mc admin user svcacct info`\\ncheckSvcacctExists() {\\n  CMD=$(${MC} admin user svcacct info myminio $(head -1 $MINIO_ACCESSKEY_SECRETKEY_TMP) \\u003e /dev/null 2\\u003e\\u00261)\\n  return $?\\n}\\n\\n# createSvcacct ($user)\\ncreateSvcacct () {\\n  USER=$1\\n  FILENAME=$2\\n  #check accessKey_and_secretKey_tmp file\\n  if [[ ! -f $MINIO_ACCESSKEY_SECRETKEY_TMP ]];then\\n    echo \\\"credentials file does not exist\\\"\\n    return 1\\n  fi\\n  if [[ $(cat $MINIO_ACCESSKEY_SECRETKEY_TMP|wc -l) -ne 2 ]];then\\n    echo \\\"credentials file is invalid\\\"\\n    rm -f $MINIO_ACCESSKEY_SECRETKEY_TMP\\n    return 1\\n  fi\\n  SVCACCT=$(head -1 $MINIO_ACCESSKEY_SECRETKEY_TMP)\\n  # Create the svcacct if it does not exist\\n  if ! checkSvcacctExists ; then\\n    echo \\\"Creating svcacct '$SVCACCT'\\\"\\n    # Check if policy file is define\\n    if [ -z $FILENAME ]; then\\n      ${MC} admin user svcacct add --access-key $(head -1 $MINIO_ACCESSKEY_SECRETKEY_TMP) --secret-key $(tail -n1 $MINIO_ACCESSKEY_SECRETKEY_TMP) myminio $USER\\n    else\\n      ${MC} admin user svcacct add --access-key $(head -1 $MINIO_ACCESSKEY_SECRETKEY_TMP) --secret-key $(tail -n1 $MINIO_ACCESSKEY_SECRETKEY_TMP) --policy /config/$FILENAME.json myminio $USER\\n    fi\\n  else\\n    echo \\\"Svcacct '$SVCACCT' already exists.\\\"\\n  fi\\n  #clean up credentials files.\\n  rm -f $MINIO_ACCESSKEY_SECRETKEY_TMP\\n}\\n\\n# Try connecting to MinIO instance\\nscheme=http\\nconnectToMinio $scheme\",\"add-user\":\"#!/bin/sh\\nset -e ; # Have script exit in the event of a failed command.\\nMC_CONFIG_DIR=\\\"/etc/minio/mc/\\\"\\nMC=\\\"/usr/bin/mc --insecure --config-dir ${MC_CONFIG_DIR}\\\"\\n\\n# AccessKey and secretkey credentials file are added to prevent shell execution errors caused by special characters.\\n# Special characters for example : ',\\\",\\u003c,\\u003e,{,}\\nMINIO_ACCESSKEY_SECRETKEY_TMP=\\\"/tmp/accessKey_and_secretKey_tmp\\\"\\n\\n# connectToMinio\\n# Use a check-sleep-check loop to wait for MinIO service to be available\\nconnectToMinio() {\\n  SCHEME=$1\\n  ATTEMPTS=0 ; LIMIT=29 ; # Allow 30 attempts\\n  set -e ; # fail if we can't read the keys.\\n  ACCESS=$(cat /config/rootUser) ; SECRET=$(cat /config/rootPassword) ;\\n  set +e ; # The connections to minio are allowed to fail.\\n  echo \\\"Connecting to MinIO server: $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT\\\" ;\\n  MC_COMMAND=\\\"${MC} alias set myminio $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT $ACCESS $SECRET\\\" ;\\n  $MC_COMMAND ;\\n  STATUS=$? ;\\n  until [ $STATUS = 0 ]\\n  do\\n    ATTEMPTS=`expr $ATTEMPTS + 1` ;\\n    echo \\\\\\\"Failed attempts: $ATTEMPTS\\\\\\\" ;\\n    if [ $ATTEMPTS -gt $LIMIT ]; then\\n      exit 1 ;\\n    fi ;\\n    sleep 2 ; # 1 second intervals between attempts\\n    $MC_COMMAND ;\\n    STATUS=$? ;\\n  done ;\\n  set -e ; # reset `e` as active\\n  return 0\\n}\\n\\n# checkUserExists ()\\n# Check if the user exists, by using the exit code of `mc admin user info`\\ncheckUserExists() {\\n  CMD=$(${MC} admin user info myminio $(head -1 $MINIO_ACCESSKEY_SECRETKEY_TMP) \\u003e /dev/null 2\\u003e\\u00261)\\n  return $?\\n}\\n\\n# createUser ($policy)\\ncreateUser() {\\n  POLICY=$1\\n  #check accessKey_and_secretKey_tmp file\\n  if [[ ! -f $MINIO_ACCESSKEY_SECRETKEY_TMP ]];then\\n    echo \\\"credentials file does not exist\\\"\\n    return 1\\n  fi\\n  if [[ $(cat $MINIO_ACCESSKEY_SECRETKEY_TMP|wc -l) -ne 2 ]];then\\n    echo \\\"credentials file is invalid\\\"\\n    rm -f $MINIO_ACCESSKEY_SECRETKEY_TMP\\n    return 1\\n  fi\\n  USER=$(head -1 $MINIO_ACCESSKEY_SECRETKEY_TMP)\\n  # Create the user if it does not exist\\n  if ! checkUserExists ; then\\n    echo \\\"Creating user '$USER'\\\"\\n    cat $MINIO_ACCESSKEY_SECRETKEY_TMP | ${MC} admin user add myminio\\n  else\\n    echo \\\"User '$USER' already exists.\\\"\\n  fi\\n  #clean up credentials files.\\n  rm -f $MINIO_ACCESSKEY_SECRETKEY_TMP\\n\\n  # set policy for user\\n  if [ ! -z $POLICY -a $POLICY != \\\" \\\" ] ; then\\n      echo \\\"Adding policy '$POLICY' for '$USER'\\\"\\n      set +e ; # policy already attach errors out, allow it.\\n      ${MC} admin policy attach myminio $POLICY --user=$USER\\n      set -e\\n  else\\n      echo \\\"User '$USER' has no policy attached.\\\"\\n  fi\\n}\\n\\n# Try connecting to MinIO instance\\nscheme=http\\nconnectToMinio $scheme\\n\\n\\n\\n# Create the users\\necho logs-user \\u003e $MINIO_ACCESSKEY_SECRETKEY_TMP\\necho supersecretpassword \\u003e\\u003e $MINIO_ACCESSKEY_SECRETKEY_TMP\\ncreateUser readwrite\",\"custom-command\":\"#!/bin/sh\\nset -e ; # Have script exit in the event of a failed command.\\nMC_CONFIG_DIR=\\\"/etc/minio/mc/\\\"\\nMC=\\\"/usr/bin/mc --insecure --config-dir ${MC_CONFIG_DIR}\\\"\\n\\n# connectToMinio\\n# Use a check-sleep-check loop to wait for MinIO service to be available\\nconnectToMinio() {\\n  SCHEME=$1\\n  ATTEMPTS=0 ; LIMIT=29 ; # Allow 30 attempts\\n  set -e ; # fail if we can't read the keys.\\n  ACCESS=$(cat /config/rootUser) ; SECRET=$(cat /config/rootPassword) ;\\n  set +e ; # The connections to minio are allowed to fail.\\n  echo \\\"Connecting to MinIO server: $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT\\\" ;\\n  MC_COMMAND=\\\"${MC} alias set myminio $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT $ACCESS $SECRET\\\" ;\\n  $MC_COMMAND ;\\n  STATUS=$? ;\\n  until [ $STATUS = 0 ]\\n  do\\n    ATTEMPTS=`expr $ATTEMPTS + 1` ;\\n    echo \\\\\\\"Failed attempts: $ATTEMPTS\\\\\\\" ;\\n    if [ $ATTEMPTS -gt $LIMIT ]; then\\n      exit 1 ;\\n    fi ;\\n    sleep 2 ; # 1 second intervals between attempts\\n    $MC_COMMAND ;\\n    STATUS=$? ;\\n  done ;\\n  set -e ; # reset `e` as active\\n  return 0\\n}\\n\\n# runCommand ($@)\\n# Run custom mc command\\nrunCommand() {\\n  ${MC} \\\"$@\\\"\\n  return $?\\n}\\n\\n# Try connecting to MinIO instance\\nscheme=http\\nconnectToMinio $scheme\",\"initialize\":\"#!/bin/sh\\nset -e # Have script exit in the event of a failed command.\\nMC_CONFIG_DIR=\\\"/etc/minio/mc/\\\"\\nMC=\\\"/usr/bin/mc --insecure --config-dir ${MC_CONFIG_DIR}\\\"\\n\\n# connectToMinio\\n# Use a check-sleep-check loop to wait for MinIO service to be available\\nconnectToMinio() {\\n\\tSCHEME=$1\\n\\tATTEMPTS=0\\n\\tLIMIT=29 # Allow 30 attempts\\n\\tset -e   # fail if we can't read the keys.\\n\\tACCESS=$(cat /config/rootUser)\\n\\tSECRET=$(cat /config/rootPassword)\\n\\tset +e # The connections to minio are allowed to fail.\\n\\techo \\\"Connecting to MinIO server: $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT\\\"\\n\\tMC_COMMAND=\\\"${MC} alias set myminio $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT $ACCESS $SECRET\\\"\\n\\t$MC_COMMAND\\n\\tSTATUS=$?\\n\\tuntil [ $STATUS = 0 ]; do\\n\\t\\tATTEMPTS=$(expr $ATTEMPTS + 1)\\n\\t\\techo \\\\\\\"Failed attempts: $ATTEMPTS\\\\\\\"\\n\\t\\tif [ $ATTEMPTS -gt $LIMIT ]; then\\n\\t\\t\\texit 1\\n\\t\\tfi\\n\\t\\tsleep 2 # 1 second intervals between attempts\\n\\t\\t$MC_COMMAND\\n\\t\\tSTATUS=$?\\n\\tdone\\n\\tset -e # reset `e` as active\\n\\treturn 0\\n}\\n\\n# checkBucketExists ($bucket)\\n# Check if the bucket exists, by using the exit code of `mc ls`\\ncheckBucketExists() {\\n\\tBUCKET=$1\\n\\tCMD=$(${MC} stat myminio/$BUCKET \\u003e/dev/null 2\\u003e\\u00261)\\n\\treturn $?\\n}\\n\\n# createBucket ($bucket, $policy, $purge)\\n# Ensure bucket exists, purging if asked to\\ncreateBucket() {\\n\\tBUCKET=$1\\n\\tPOLICY=$2\\n\\tPURGE=$3\\n\\tVERSIONING=$4\\n\\tOBJECTLOCKING=$5\\n\\n\\t# Purge the bucket, if set \\u0026 exists\\n\\t# Since PURGE is user input, check explicitly for `true`\\n\\tif [ $PURGE = true ]; then\\n\\t\\tif checkBucketExists $BUCKET; then\\n\\t\\t\\techo \\\"Purging bucket '$BUCKET'.\\\"\\n\\t\\t\\tset +e # don't exit if this fails\\n\\t\\t\\t${MC} rm -r --force myminio/$BUCKET\\n\\t\\t\\tset -e # reset `e` as active\\n\\t\\telse\\n\\t\\t\\techo \\\"Bucket '$BUCKET' does not exist, skipping purge.\\\"\\n\\t\\tfi\\n\\tfi\\n\\n\\t# Create the bucket if it does not exist and set objectlocking if enabled (NOTE: versioning will be not changed if OBJECTLOCKING is set because it enables versioning to the Buckets created)\\n\\tif ! checkBucketExists $BUCKET; then\\n\\t\\tif [ ! -z $OBJECTLOCKING ]; then\\n\\t\\t\\tif [ $OBJECTLOCKING = true ]; then\\n\\t\\t\\t\\techo \\\"Creating bucket with OBJECTLOCKING '$BUCKET'\\\"\\n\\t\\t\\t\\t${MC} mb --with-lock myminio/$BUCKET\\n\\t\\t\\telif [ $OBJECTLOCKING = false ]; then\\n\\t\\t\\t\\techo \\\"Creating bucket '$BUCKET'\\\"\\n\\t\\t\\t\\t${MC} mb myminio/$BUCKET\\n\\t\\t\\tfi\\n\\t\\telif [ -z $OBJECTLOCKING ]; then\\n\\t\\t\\techo \\\"Creating bucket '$BUCKET'\\\"\\n\\t\\t\\t${MC} mb myminio/$BUCKET\\n\\t\\telse\\n\\t\\t\\techo \\\"Bucket '$BUCKET' already exists.\\\"\\n\\t\\tfi\\n\\tfi\\n\\n\\t# set versioning for bucket if objectlocking is disabled or not set\\n\\tif [ $OBJECTLOCKING = false ]; then\\n\\t\\tif [ ! -z $VERSIONING ]; then\\n\\t\\t\\tif [ $VERSIONING = true ]; then\\n\\t\\t\\t\\techo \\\"Enabling versioning for '$BUCKET'\\\"\\n\\t\\t\\t\\t${MC} version enable myminio/$BUCKET\\n\\t\\t\\telif [ $VERSIONING = false ]; then\\n\\t\\t\\t\\techo \\\"Suspending versioning for '$BUCKET'\\\"\\n\\t\\t\\t\\t${MC} version suspend myminio/$BUCKET\\n\\t\\t\\tfi\\n\\t\\tfi\\n\\telse\\n\\t\\techo \\\"Bucket '$BUCKET' versioning unchanged.\\\"\\n\\tfi\\n\\n\\t# At this point, the bucket should exist, skip checking for existence\\n\\t# Set policy on the bucket\\n\\techo \\\"Setting policy of bucket '$BUCKET' to '$POLICY'.\\\"\\n\\t${MC} anonymous set $POLICY myminio/$BUCKET\\n}\\n\\n# Try connecting to MinIO instance\\nscheme=http\\nconnectToMinio $scheme\\n\\n\\n\\n# Create the buckets\\ncreateBucket chunks \\\"none\\\" false false false\\ncreateBucket ruler \\\"none\\\" false false false\\ncreateBucket admin \\\"none\\\" false false false\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"minio\",\"chart\":\"minio-5.4.0\",\"heritage\":\"Helm\",\"release\":\"loki\"},\"name\":\"loki-minio\",\"namespace\":\"loki\"}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app: "minio"
+        chart: "minio-5.4.0"
+        heritage: "Helm"
+        release: "loki"
+      name: "loki-minio"
+      namespace: "loki"
+      resourceVersion: "5081"
+      uid: "5068d762-809e-4579-be13-9fb7a36734c1"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\"},\"name\":\"loki-clusterrole\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\",\"secrets\"],\"verbs\":[\"get\",\"watch\",\"list\"]}]}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/version: "3.6.7"
+        helm.sh/chart: "loki-7.0.0"
+      name: "loki-clusterrole"
+      resourceVersion: "5082"
+      uid: "8ef22850-9a6a-49d3-a205-1c38d95515ca"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+          - "secrets"
+        verbs:
+          - "get"
+          - "watch"
+          - "list"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"loki\",\"app.kubernetes.io/name\":\"loki\",\"app.kubernetes.io/version\":\"3.6.7\",\"helm.sh/chart\":\"loki-7.0.0\"},\"name\":\"loki-clusterrolebinding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"loki-clusterrole\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"loki\",\"namespace\":\"loki\"}]}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app.kubernetes.io/instance: "loki"
+        app.kubernetes.io/name: "loki"
+        app.kubernetes.io/version: "3.6.7"
+        helm.sh/chart: "loki-7.0.0"
+      name: "loki-clusterrolebinding"
+      resourceVersion: "5083"
+      uid: "76ad6b8a-094d-4729-acca-dddc86fa0c32"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "loki-clusterrole"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "loki"
+        namespace: "loki"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"minio\",\"chart\":\"minio-5.4.0\",\"heritage\":\"Helm\",\"release\":\"loki\"},\"name\":\"loki-minio-console\",\"namespace\":\"loki\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":9001,\"protocol\":\"TCP\",\"targetPort\":9001}],\"selector\":{\"app\":\"minio\",\"release\":\"loki\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app: "minio"
+        chart: "minio-5.4.0"
+        heritage: "Helm"
+        release: "loki"
+      name: "loki-minio-console"
+      namespace: "loki"
+      resourceVersion: "5085"
+      uid: "73585e2c-91c6-4bf4-86fd-0326ba7960b8"
+    spec:
+      clusterIP: "10.96.152.12"
+      clusterIPs:
+        - "10.96.152.12"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http"
+          port: 9001
+          protocol: "TCP"
+          targetPort: 9001
+      selector:
+        app: "minio"
+        release: "loki"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"minio\",\"chart\":\"minio-5.4.0\",\"heritage\":\"Helm\",\"monitoring\":\"true\",\"release\":\"loki\"},\"name\":\"loki-minio\",\"namespace\":\"loki\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":9000,\"protocol\":\"TCP\",\"targetPort\":9000}],\"selector\":{\"app\":\"minio\",\"release\":\"loki\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app: "minio"
+        chart: "minio-5.4.0"
+        heritage: "Helm"
+        monitoring: "true"
+        release: "loki"
+      name: "loki-minio"
+      namespace: "loki"
+      resourceVersion: "5089"
+      uid: "e596677c-aef9-49d6-9bca-91744cfd2b73"
+    spec:
+      clusterIP: "10.96.182.19"
+      clusterIPs:
+        - "10.96.182.19"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http"
+          port: 9000
+          protocol: "TCP"
+          targetPort: 9000
+      selector:
+        app: "minio"
+        release: "loki"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"minio\",\"chart\":\"minio-5.4.0\",\"heritage\":\"Helm\",\"release\":\"loki\"},\"name\":\"loki-minio-svc\",\"namespace\":\"loki\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"name\":\"http\",\"port\":9000,\"protocol\":\"TCP\",\"targetPort\":9000}],\"publishNotReadyAddresses\":true,\"selector\":{\"app\":\"minio\",\"release\":\"loki\"}}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      labels:
+        app: "minio"
+        chart: "minio-5.4.0"
+        heritage: "Helm"
+        release: "loki"
+      name: "loki-minio-svc"
+      namespace: "loki"
+      resourceVersion: "5092"
+      uid: "50539ed5-1289-4290-b3a3-023acb4737be"
+    spec:
+      clusterIP: "None"
+      clusterIPs:
+        - "None"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http"
+          port: 9000
+          protocol: "TCP"
+          targetPort: 9000
+      publishNotReadyAddresses: true
+      selector:
+        app: "minio"
+        release: "loki"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "StatefulSet"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"minio\",\"chart\":\"minio-5.4.0\",\"heritage\":\"Helm\",\"release\":\"loki\"},\"name\":\"loki-minio\",\"namespace\":\"loki\"},\"spec\":{\"podManagementPolicy\":\"Parallel\",\"replicas\":1,\"selector\":{\"matchLabels\":{\"app\":\"minio\",\"release\":\"loki\"}},\"serviceName\":\"loki-minio-svc\",\"template\":{\"metadata\":{\"annotations\":{\"checksum/config\":\"c6991decd6e21178368a30e50fface4a5e2be73d6f997ade38de9d235be74fb5\",\"checksum/secrets\":\"a24420cd2e540a1a4450d0c9c9eec9c54974c87203e17500a7e7ab32e762b639\"},\"labels\":{\"app\":\"minio\",\"release\":\"loki\"},\"name\":\"loki-minio\"},\"spec\":{\"containers\":[{\"command\":[\"/bin/sh\",\"-ce\",\"/usr/bin/docker-entrypoint.sh minio server http://loki-minio-{0...0}.loki-minio-svc.loki.svc/export-{0...1} -S /etc/minio/certs/ --address :9000 --console-address :9001\"],\"env\":[{\"name\":\"MINIO_ROOT_USER\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"rootUser\",\"name\":\"loki-minio\"}}},{\"name\":\"MINIO_ROOT_PASSWORD\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"rootPassword\",\"name\":\"loki-minio\"}}},{\"name\":\"MINIO_PROMETHEUS_AUTH_TYPE\",\"value\":\"public\"}],\"image\":\"docker.io/pgsty/minio:RELEASE.2026-03-14T12-00-00Z\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"minio\",\"ports\":[{\"containerPort\":9000,\"name\":\"http\"},{\"containerPort\":9001,\"name\":\"http-console\"}],\"resources\":{\"requests\":{\"cpu\":\"100m\",\"memory\":\"128Mi\"}},\"securityContext\":{\"readOnlyRootFilesystem\":false},\"volumeMounts\":[{\"mountPath\":\"/export-0\",\"name\":\"export-0\"},{\"mountPath\":\"/export-1\",\"name\":\"export-1\"}]}],\"securityContext\":{\"fsGroup\":1000,\"fsGroupChangePolicy\":\"OnRootMismatch\",\"runAsGroup\":1000,\"runAsUser\":1000},\"serviceAccountName\":\"minio-sa\",\"volumes\":[{\"name\":\"minio-user\",\"secret\":{\"secretName\":\"loki-minio\"}}]}},\"updateStrategy\":{\"type\":\"RollingUpdate\"},\"volumeClaimTemplates\":[{\"apiVersion\":\"v1\",\"kind\":\"PersistentVolumeClaim\",\"metadata\":{\"name\":\"export-0\"},\"spec\":{\"accessModes\":[\"ReadWriteOnce\"],\"resources\":{\"requests\":{\"storage\":\"5Gi\"}}}},{\"apiVersion\":\"v1\",\"kind\":\"PersistentVolumeClaim\",\"metadata\":{\"name\":\"export-1\"},\"spec\":{\"accessModes\":[\"ReadWriteOnce\"],\"resources\":{\"requests\":{\"storage\":\"5Gi\"}}}}]}}\n"
+      creationTimestamp: "2026-06-11T12:06:53Z"
+      generation: 1
+      labels:
+        app: "minio"
+        chart: "minio-5.4.0"
+        heritage: "Helm"
+        release: "loki"
+      name: "loki-minio"
+      namespace: "loki"
+      resourceVersion: "5307"
+      uid: "e04f41e9-5b4a-4040-9ffd-ae561801bb36"
+    spec:
+      persistentVolumeClaimRetentionPolicy:
+        whenDeleted: "Retain"
+        whenScaled: "Retain"
+      podManagementPolicy: "Parallel"
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app: "minio"
+          release: "loki"
+      serviceName: "loki-minio-svc"
+      template:
+        metadata:
+          annotations:
+            checksum/config: "c6991decd6e21178368a30e50fface4a5e2be73d6f997ade38de9d235be74fb5"
+            checksum/secrets: "a24420cd2e540a1a4450d0c9c9eec9c54974c87203e17500a7e7ab32e762b639"
+          labels:
+            app: "minio"
+            release: "loki"
+          name: "loki-minio"
+        spec:
+          containers:
+            -
+              command:
+                - "/bin/sh"
+                - "-ce"
+                - "/usr/bin/docker-entrypoint.sh minio server http://loki-minio-{0...0}.loki-minio-svc.loki.svc/export-{0...1} -S /etc/minio/certs/ --address :9000 --console-address :9001"
+              env:
+                -
+                  name: "MINIO_ROOT_USER"
+                  valueFrom:
+                    secretKeyRef:
+                      key: "rootUser"
+                      name: "loki-minio"
+                -
+                  name: "MINIO_ROOT_PASSWORD"
+                  valueFrom:
+                    secretKeyRef:
+                      key: "rootPassword"
+                      name: "loki-minio"
+                -
+                  name: "MINIO_PROMETHEUS_AUTH_TYPE"
+                  value: "public"
+              image: "docker.io/pgsty/minio:RELEASE.2026-03-14T12-00-00Z"
+              imagePullPolicy: "IfNotPresent"
+              name: "minio"
+              ports:
+                -
+                  containerPort: 9000
+                  name: "http"
+                  protocol: "TCP"
+                -
+                  containerPort: 9001
+                  name: "http-console"
+                  protocol: "TCP"
+              resources:
+                requests:
+                  cpu: "100m"
+                  memory: "128Mi"
+              securityContext:
+                readOnlyRootFilesystem: false
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/export-0"
+                  name: "export-0"
+                -
+                  mountPath: "/export-1"
+                  name: "export-1"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 1000
+            fsGroupChangePolicy: "OnRootMismatch"
+            runAsGroup: 1000
+            runAsUser: 1000
+          serviceAccount: "minio-sa"
+          serviceAccountName: "minio-sa"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              name: "minio-user"
+              secret:
+                defaultMode: 420
+                secretName: "loki-minio"
+      updateStrategy:
+        type: "RollingUpdate"
+      volumeClaimTemplates:
+        -
+          apiVersion: "v1"
+          kind: "PersistentVolumeClaim"
+          metadata:
+            name: "export-0"
+          spec:
+            accessModes:
+              - "ReadWriteOnce"
+            resources:
+              requests:
+                storage: "5Gi"
+            volumeMode: "Filesystem"
+          status:
+            phase: "Pending"
+        -
+          apiVersion: "v1"
+          kind: "PersistentVolumeClaim"
+          metadata:
+            name: "export-1"
+          spec:
+            accessModes:
+              - "ReadWriteOnce"
+            resources:
+              requests:
+                storage: "5Gi"
+            volumeMode: "Filesystem"
+          status:
+            phase: "Pending"
+    status:
+      availableReplicas: 1
+      collisionCount: 0
+      currentReplicas: 1
+      currentRevision: "loki-minio-cfbc557cb"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      updateRevision: "loki-minio-cfbc557cb"
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""

@@ -1,0 +1,3 @@
+BLOCKED rendered-objects-applied 2 object(s) from recipes/minio-operator/tenant/7.1.1/revisions/default/r001/rendered/release-objects.yaml :: apply-blocked: error: resource mapping not found for name: "myminio" namespace: "" from "STDIN": no matches for kind "Tenant" in version "minio.min.io/v2" ensure CRDs are installed first Command failed: kubectl --co
+blocked:
+apply: error: resource mapping not found for name: "myminio" namespace: "" from "STDIN": no matches for kind "Tenant" in version "minio.min.io/v2" ensure CRDs are installed first Command failed: kubectl --co

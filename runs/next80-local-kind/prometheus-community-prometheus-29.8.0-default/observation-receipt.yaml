@@ -1,0 +1,54 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "prometheus-community-prometheus-29.8.0-default-local-kind"
+spec:
+  variantRevision: "recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "c11349803ddbb44562066474dd04d47d7c5c75d083dbc96162224573f949c11b"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "monitoring"
+  observedAt: "2026-06-11T15:14:38.016Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "existing"
+  variant: "default"
+  workloads: 5
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "5e0346038cf1f96512ad44d7b096e6d5d7be840d828d4ad1dab84cde092b5459"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||monitoring"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "23 object(s) from recipes/prometheus-community/prometheus/29.8.0/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "DaemonSet|monitoring|prometheus-prometheus-node-exporter"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|monitoring|prometheus-kube-state-metrics"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|monitoring|prometheus-prometheus-pushgateway"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|monitoring|prometheus-server"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "StatefulSet|monitoring|prometheus-alertmanager"

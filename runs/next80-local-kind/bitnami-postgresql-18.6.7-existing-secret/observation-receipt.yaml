@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-postgresql-18.6.7-existing-secret-local-kind"
+spec:
+  blockedReasons:
+    - "apply: Error from server (Forbidden): error when creating \"STDIN\": networkpolicies.networking.k8s.io \"postgresql\" is forbidden: unable to create new content in namespace postgresql because it is being termin"
+    - "statefulset/postgresql: prerequisite-blocked (stuck creating: missing mount/secret/config) (postgresql-0[ContainerCreating ready=false restarts=0;])"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      object: "6 object(s) from recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/rendered/release-objects.yaml"
+      reason: "apply-blocked: Error from server (Forbidden): error when creating \"STDIN\": networkpolicies.networking.k8s.io \"postgresql\" is forbidden: unable to create new content in namespace postgresql because it is being termin"
+      result: "blocked"
+      evidencePath: "observation-log.txt"
+      evidenceSHA256: "d30d0959750f113e90f8c4a0f2753f31581ab3a547d9908c1e52d6e52a0b7889"
+    -
+      name: "workload-converged"
+      object: "StatefulSet|postgresql|postgresql"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): postgresql-0[ContainerCreating ready=false restarts=0;]"
+      result: "blocked"
+  clusterStatus: "existing"
+  freshnessTTL: "1h"
+  observedAt: "2026-06-11T12:59:15.179Z"
+  observer:
+    method: "kubectl-kind"
+    name: "next80-local-live"
+    version: "0.1.0"
+  renderedObjectSetSHA256: "595ce44f8c11b10ad1817bf57141529864efd48318a6a97a6e914d3669bb90dd"
+  result: "blocked"
+  target:
+    context: "kind-claude-helm-expt-next80"
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    namespace: "postgresql"
+  variant: "existing-secret"
+  variantRevision: "recipes/bitnami/postgresql/18.6.7/revisions/existing-secret/r001/variant-revision.yaml"
+  workloads: 1

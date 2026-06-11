@@ -1,0 +1,353 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{\"meta.helm.sh/release-name\":\"reloader\",\"meta.helm.sh/release-namespace\":\"default\"},\"labels\":{\"app\":\"reloader-reloader\",\"app.kubernetes.io/instance\":\"reloader\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"reloader\",\"app.kubernetes.io/version\":\"v1.4.17\",\"chart\":\"reloader-2.2.12\",\"helm.sh/chart\":\"reloader-2.2.12\",\"heritage\":\"Helm\",\"release\":\"reloader\"},\"name\":\"reloader-reloader\",\"namespace\":\"default\"}}\n"
+        meta.helm.sh/release-name: "reloader"
+        meta.helm.sh/release-namespace: "default"
+      creationTimestamp: "2026-06-11T15:15:03Z"
+      labels:
+        app: "reloader-reloader"
+        app.kubernetes.io/instance: "reloader"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "reloader"
+        app.kubernetes.io/version: "v1.4.17"
+        chart: "reloader-2.2.12"
+        helm.sh/chart: "reloader-2.2.12"
+        heritage: "Helm"
+        release: "reloader"
+      name: "reloader-reloader"
+      namespace: "default"
+      resourceVersion: "4059"
+      uid: "af460b10-2bf7-4f50-99e8-1ee654c507b5"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{\"meta.helm.sh/release-name\":\"reloader\",\"meta.helm.sh/release-namespace\":\"default\"},\"labels\":{\"app\":\"reloader-reloader\",\"app.kubernetes.io/instance\":\"reloader\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"reloader\",\"app.kubernetes.io/version\":\"v1.4.17\",\"chart\":\"reloader-2.2.12\",\"helm.sh/chart\":\"reloader-2.2.12\",\"heritage\":\"Helm\",\"release\":\"reloader\"},\"name\":\"reloader-reloader-metadata-role\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\"],\"verbs\":[\"list\",\"get\",\"watch\",\"create\",\"update\"]}]}\n"
+        meta.helm.sh/release-name: "reloader"
+        meta.helm.sh/release-namespace: "default"
+      creationTimestamp: "2026-06-11T15:15:03Z"
+      labels:
+        app: "reloader-reloader"
+        app.kubernetes.io/instance: "reloader"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "reloader"
+        app.kubernetes.io/version: "v1.4.17"
+        chart: "reloader-2.2.12"
+        helm.sh/chart: "reloader-2.2.12"
+        heritage: "Helm"
+        release: "reloader"
+      name: "reloader-reloader-metadata-role"
+      namespace: "default"
+      resourceVersion: "4060"
+      uid: "b6f95254-92d8-4d8b-99e1-ea54c6c9d370"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+        verbs:
+          - "list"
+          - "get"
+          - "watch"
+          - "create"
+          - "update"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{\"meta.helm.sh/release-name\":\"reloader\",\"meta.helm.sh/release-namespace\":\"default\"},\"labels\":{\"app\":\"reloader-reloader\",\"app.kubernetes.io/instance\":\"reloader\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"reloader\",\"app.kubernetes.io/version\":\"v1.4.17\",\"chart\":\"reloader-2.2.12\",\"helm.sh/chart\":\"reloader-2.2.12\",\"heritage\":\"Helm\",\"release\":\"reloader\"},\"name\":\"reloader-reloader-metadata-role-binding\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"reloader-reloader-metadata-role\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"reloader-reloader\",\"namespace\":\"default\"}]}\n"
+        meta.helm.sh/release-name: "reloader"
+        meta.helm.sh/release-namespace: "default"
+      creationTimestamp: "2026-06-11T15:15:03Z"
+      labels:
+        app: "reloader-reloader"
+        app.kubernetes.io/instance: "reloader"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "reloader"
+        app.kubernetes.io/version: "v1.4.17"
+        chart: "reloader-2.2.12"
+        helm.sh/chart: "reloader-2.2.12"
+        heritage: "Helm"
+        release: "reloader"
+      name: "reloader-reloader-metadata-role-binding"
+      namespace: "default"
+      resourceVersion: "4061"
+      uid: "8b9617bb-ea72-49fd-acae-4588409927a1"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "reloader-reloader-metadata-role"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "reloader-reloader"
+        namespace: "default"
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{\"meta.helm.sh/release-name\":\"reloader\",\"meta.helm.sh/release-namespace\":\"default\"},\"labels\":{\"app\":\"reloader-reloader\",\"app.kubernetes.io/instance\":\"reloader\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"reloader\",\"app.kubernetes.io/version\":\"v1.4.17\",\"chart\":\"reloader-2.2.12\",\"group\":\"com.stakater.platform\",\"helm.sh/chart\":\"reloader-2.2.12\",\"heritage\":\"Helm\",\"provider\":\"stakater\",\"release\":\"reloader\",\"version\":\"v1.4.14\"},\"name\":\"reloader-reloader\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":2,\"selector\":{\"matchLabels\":{\"app\":\"reloader-reloader\",\"release\":\"reloader\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"reloader-reloader\",\"app.kubernetes.io/instance\":\"reloader\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"reloader\",\"app.kubernetes.io/version\":\"v1.4.17\",\"chart\":\"reloader-2.2.12\",\"group\":\"com.stakater.platform\",\"helm.sh/chart\":\"reloader-2.2.12\",\"heritage\":\"Helm\",\"provider\":\"stakater\",\"release\":\"reloader\",\"version\":\"v1.4.14\"}},\"spec\":{\"containers\":[{\"args\":[\"--log-level=info\"],\"env\":[{\"name\":\"GOMAXPROCS\",\"valueFrom\":{\"resourceFieldRef\":{\"divisor\":\"1\",\"resource\":\"limits.cpu\"}}},{\"name\":\"GOMEMLIMIT\",\"valueFrom\":{\"resourceFieldRef\":{\"divisor\":\"1\",\"resource\":\"limits.memory\"}}},{\"name\":\"RELOADER_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"RELOADER_DEPLOYMENT_NAME\",\"value\":\"reloader-reloader\"}],\"image\":\"ghcr.io/stakater/reloader:v1.4.17\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":5,\"httpGet\":{\"path\":\"/live\",\"port\":\"http\"},\"initialDelaySeconds\":10,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"name\":\"reloader-reloader\",\"ports\":[{\"containerPort\":9090,\"name\":\"http\"}],\"readinessProbe\":{\"failureThreshold\":5,\"httpGet\":{\"path\":\"/metrics\",\"port\":\"http\"},\"initialDelaySeconds\":10,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"securityContext\":{}}],\"securityContext\":{\"runAsNonRoot\":true,\"runAsUser\":65534,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"serviceAccountName\":\"reloader-reloader\"}}}}\n"
+        meta.helm.sh/release-name: "reloader"
+        meta.helm.sh/release-namespace: "default"
+      creationTimestamp: "2026-06-11T15:15:03Z"
+      generation: 1
+      labels:
+        app: "reloader-reloader"
+        app.kubernetes.io/instance: "reloader"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "reloader"
+        app.kubernetes.io/version: "v1.4.17"
+        chart: "reloader-2.2.12"
+        group: "com.stakater.platform"
+        helm.sh/chart: "reloader-2.2.12"
+        heritage: "Helm"
+        provider: "stakater"
+        release: "reloader"
+        version: "v1.4.14"
+      name: "reloader-reloader"
+      namespace: "default"
+      resourceVersion: "4105"
+      uid: "9a1c02c8-293f-4110-bc36-6a6b027ab035"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 2
+      selector:
+        matchLabels:
+          app: "reloader-reloader"
+          release: "reloader"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app: "reloader-reloader"
+            app.kubernetes.io/instance: "reloader"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "reloader"
+            app.kubernetes.io/version: "v1.4.17"
+            chart: "reloader-2.2.12"
+            group: "com.stakater.platform"
+            helm.sh/chart: "reloader-2.2.12"
+            heritage: "Helm"
+            provider: "stakater"
+            release: "reloader"
+            version: "v1.4.14"
+        spec:
+          containers:
+            -
+              args:
+                - "--log-level=info"
+              env:
+                -
+                  name: "GOMAXPROCS"
+                  valueFrom:
+                    resourceFieldRef:
+                      divisor: "1"
+                      resource: "limits.cpu"
+                -
+                  name: "GOMEMLIMIT"
+                  valueFrom:
+                    resourceFieldRef:
+                      divisor: "1"
+                      resource: "limits.memory"
+                -
+                  name: "RELOADER_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "RELOADER_DEPLOYMENT_NAME"
+                  value: "reloader-reloader"
+              image: "ghcr.io/stakater/reloader:v1.4.17"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: "/live"
+                  port: "http"
+                  scheme: "HTTP"
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: "reloader-reloader"
+              ports:
+                -
+                  containerPort: 9090
+                  name: "http"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: "/metrics"
+                  port: "http"
+                  scheme: "HTTP"
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                {}
+              securityContext:
+                {}
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+            seccompProfile:
+              type: "RuntimeDefault"
+          serviceAccount: "reloader-reloader"
+          serviceAccountName: "reloader-reloader"
+          terminationGracePeriodSeconds: 30
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T15:15:18Z"
+          lastUpdateTime: "2026-06-11T15:15:18Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T15:15:03Z"
+          lastUpdateTime: "2026-06-11T15:15:18Z"
+          message: "ReplicaSet \"reloader-reloader-78b4cc9c8b\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{\"meta.helm.sh/release-name\":\"reloader\",\"meta.helm.sh/release-namespace\":\"default\"},\"labels\":{\"app\":\"reloader-reloader\",\"app.kubernetes.io/instance\":\"reloader\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"reloader\",\"app.kubernetes.io/version\":\"v1.4.17\",\"chart\":\"reloader-2.2.12\",\"helm.sh/chart\":\"reloader-2.2.12\",\"heritage\":\"Helm\",\"release\":\"reloader\"},\"name\":\"reloader-reloader-role\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"secrets\",\"configmaps\"],\"verbs\":[\"list\",\"get\",\"watch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"deployments\",\"daemonsets\",\"statefulsets\"],\"verbs\":[\"list\",\"get\",\"update\",\"patch\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"cronjobs\"],\"verbs\":[\"list\",\"get\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"jobs\"],\"verbs\":[\"create\",\"delete\",\"list\",\"get\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"patch\"]}]}\n"
+        meta.helm.sh/release-name: "reloader"
+        meta.helm.sh/release-namespace: "default"
+      creationTimestamp: "2026-06-11T15:15:03Z"
+      labels:
+        app: "reloader-reloader"
+        app.kubernetes.io/instance: "reloader"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "reloader"
+        app.kubernetes.io/version: "v1.4.17"
+        chart: "reloader-2.2.12"
+        helm.sh/chart: "reloader-2.2.12"
+        heritage: "Helm"
+        release: "reloader"
+      name: "reloader-reloader-role"
+      resourceVersion: "4075"
+      uid: "6dfe795f-a790-47a0-8950-1aa26062a738"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+          - "configmaps"
+        verbs:
+          - "list"
+          - "get"
+          - "watch"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "deployments"
+          - "daemonsets"
+          - "statefulsets"
+        verbs:
+          - "list"
+          - "get"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "batch"
+        resources:
+          - "cronjobs"
+        verbs:
+          - "list"
+          - "get"
+      -
+        apiGroups:
+          - "batch"
+        resources:
+          - "jobs"
+        verbs:
+          - "create"
+          - "delete"
+          - "list"
+          - "get"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "patch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{\"meta.helm.sh/release-name\":\"reloader\",\"meta.helm.sh/release-namespace\":\"default\"},\"labels\":{\"app\":\"reloader-reloader\",\"app.kubernetes.io/instance\":\"reloader\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"reloader\",\"app.kubernetes.io/version\":\"v1.4.17\",\"chart\":\"reloader-2.2.12\",\"helm.sh/chart\":\"reloader-2.2.12\",\"heritage\":\"Helm\",\"release\":\"reloader\"},\"name\":\"reloader-reloader-role-binding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"reloader-reloader-role\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"reloader-reloader\",\"namespace\":\"default\"}]}\n"
+        meta.helm.sh/release-name: "reloader"
+        meta.helm.sh/release-namespace: "default"
+      creationTimestamp: "2026-06-11T15:15:03Z"
+      labels:
+        app: "reloader-reloader"
+        app.kubernetes.io/instance: "reloader"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "reloader"
+        app.kubernetes.io/version: "v1.4.17"
+        chart: "reloader-2.2.12"
+        helm.sh/chart: "reloader-2.2.12"
+        heritage: "Helm"
+        release: "reloader"
+      name: "reloader-reloader-role-binding"
+      resourceVersion: "4076"
+      uid: "e922449b-09c0-418b-84fa-9f877d96392d"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "reloader-reloader-role"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "reloader-reloader"
+        namespace: "default"
+kind: "List"
+metadata:
+  resourceVersion: ""

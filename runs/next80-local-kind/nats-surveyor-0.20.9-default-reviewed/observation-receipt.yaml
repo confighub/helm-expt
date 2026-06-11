@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "nats-surveyor-0.20.9-default-reviewed-local-kind"
+spec:
+  variantRevision: "recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T14:38:38.153Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "existing"
+  variant: "default-reviewed"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "a58a8610b453925e83b4c16cbe63474551f750ad6cc191144d025f5b6e8ff046"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "3 object(s) from recipes/nats/surveyor/0.20.9/revisions/default-reviewed/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|default|surveyor"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] nats-0[ ready=true restarts=0; ready=true restarts=0;] nats-1[ ready=true restarts=0; ready=true restarts=0;] nats-2[ ready=true restarts=0; ready=true restarts=0;] nats-box-9bdbc696f-b42wz[Error ready=false restarts=0;] rollou"
+  blockedReasons:
+    - "deployment/surveyor: prerequisite-blocked (stuck creating: missing mount/secret/config) (kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] nats-0[ ready=true restarts=0; ready=true restarts=0;] nats-1[ ready=true restarts=0; r)"

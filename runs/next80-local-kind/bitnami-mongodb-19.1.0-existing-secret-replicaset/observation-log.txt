@@ -1,0 +1,7 @@
+BLOCKED rendered-objects-applied 10 object(s) from recipes/bitnami/mongodb/19.1.0/revisions/existing-secret-replicaset/r001/rendered/release-objects.yaml :: apply-blocked: Error from server (Forbidden): error when creating "STDIN": networkpolicies.networking.k8s.io "mongodb" is forbidden: unable to create new content in namespace mongodb because it is being terminated E
+BLOCKED workload-converged StatefulSet|mongodb|mongodb-arbiter :: prerequisite-blocked (stuck creating: missing mount/secret/config): mongodb-arbiter-0[ContainerCreating ready=false restarts=0;]
+BLOCKED workload-converged StatefulSet|mongodb|mongodb :: prerequisite-blocked (stuck creating: missing mount/secret/config): mongodb-arbiter-0[ContainerCreating ready=false restarts=0;]
+blocked:
+apply: Error from server (Forbidden): error when creating "STDIN": networkpolicies.networking.k8s.io "mongodb" is forbidden: unable to create new content in namespace mongodb because it is being terminated E
+statefulset/mongodb-arbiter: prerequisite-blocked (stuck creating: missing mount/secret/config) (mongodb-arbiter-0[ContainerCreating ready=false restarts=0;])
+statefulset/mongodb: prerequisite-blocked (stuck creating: missing mount/secret/config) (mongodb-arbiter-0[ContainerCreating ready=false restarts=0;])

@@ -1,0 +1,41 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-nginx-24.0.2-existing-tls-ingress-local-kind"
+spec:
+  variantRevision: "recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "cb5cdb64d2f05a0f3e2b2d07facc3d08705f86b3a34a3f52c891bdbd28d44e8f"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "nginx"
+  observedAt: "2026-06-11T12:51:40.657Z"
+  freshnessTTL: "1h"
+  result: "fail"
+  clusterStatus: "existing"
+  variant: "existing-tls-ingress"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "3a452b4d2e98f18e651a1685ae356c734b4a28cae39294181cb11890f3e18000"
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||nginx"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "6 object(s) from recipes/bitnami/nginx/24.0.2/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "Deployment|nginx|nginx"
+      reason: "not-ready: nginx-5c568bf554-7php2[PodInitializing ready=false restarts=0;]"
+  blockedReasons:
+    - "deployment/nginx: not-ready (nginx-5c568bf554-7php2[PodInitializing ready=false restarts=0;])"

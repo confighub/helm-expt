@@ -1,0 +1,5 @@
+BLOCKED rendered-objects-applied 6 object(s) from recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml :: apply-blocked: Error from server (Forbidden): error when creating "STDIN": networkpolicies.networking.k8s.io "nginx" is forbidden: unable to create new content in namespace nginx because it is being terminated Error
+FAIL workload-converged Deployment|nginx|nginx :: not-ready: nginx-5c568bf554-7php2[PodInitializing ready=false restarts=0;]
+blocked:
+apply: Error from server (Forbidden): error when creating "STDIN": networkpolicies.networking.k8s.io "nginx" is forbidden: unable to create new content in namespace nginx because it is being terminated Error
+deployment/nginx: not-ready (nginx-5c568bf554-7php2[PodInitializing ready=false restarts=0;])

@@ -1,0 +1,277 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-dns\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-dns\",\"app.kubernetes.io/version\":\"0.21.0\",\"helm.sh/chart\":\"external-dns-1.21.1\"},\"name\":\"external-dns\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T14:22:56Z"
+      labels:
+        app.kubernetes.io/instance: "external-dns"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "external-dns"
+        app.kubernetes.io/version: "0.21.0"
+        helm.sh/chart: "external-dns-1.21.1"
+      name: "external-dns"
+      namespace: "default"
+      resourceVersion: "22088"
+      uid: "5a02f52d-d964-4096-b221-b93d03cc0d0e"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-dns\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-dns\",\"app.kubernetes.io/version\":\"0.21.0\",\"helm.sh/chart\":\"external-dns-1.21.1\"},\"name\":\"external-dns\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":7979,\"protocol\":\"TCP\",\"targetPort\":\"http\"}],\"selector\":{\"app.kubernetes.io/instance\":\"external-dns\",\"app.kubernetes.io/name\":\"external-dns\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T14:22:56Z"
+      labels:
+        app.kubernetes.io/instance: "external-dns"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "external-dns"
+        app.kubernetes.io/version: "0.21.0"
+        helm.sh/chart: "external-dns-1.21.1"
+      name: "external-dns"
+      namespace: "default"
+      resourceVersion: "22090"
+      uid: "08f739d9-2589-487a-9949-06fde36bdefd"
+    spec:
+      clusterIP: "10.96.119.228"
+      clusterIPs:
+        - "10.96.119.228"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http"
+          port: 7979
+          protocol: "TCP"
+          targetPort: "http"
+      selector:
+        app.kubernetes.io/instance: "external-dns"
+        app.kubernetes.io/name: "external-dns"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-dns\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-dns\",\"app.kubernetes.io/version\":\"0.21.0\",\"helm.sh/chart\":\"external-dns-1.21.1\"},\"name\":\"external-dns\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"external-dns\",\"app.kubernetes.io/name\":\"external-dns\"}},\"strategy\":{\"type\":\"Recreate\"},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/instance\":\"external-dns\",\"app.kubernetes.io/name\":\"external-dns\"}},\"spec\":{\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"--log-level=info\",\"--log-format=text\",\"--interval=1m\",\"--source=service\",\"--source=ingress\",\"--policy=upsert-only\",\"--registry=txt\",\"--provider=aws\"],\"image\":\"registry.k8s.io/external-dns/external-dns:v0.21.0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":2,\"httpGet\":{\"path\":\"/healthz\",\"port\":\"http\"},\"initialDelaySeconds\":10,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"name\":\"external-dns\",\"ports\":[{\"containerPort\":7979,\"name\":\"http\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":6,\"httpGet\":{\"path\":\"/healthz\",\"port\":\"http\"},\"initialDelaySeconds\":5,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":65532,\"runAsNonRoot\":true,\"runAsUser\":65532}}],\"securityContext\":{\"fsGroup\":65534,\"runAsNonRoot\":true,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"serviceAccountName\":\"external-dns\"}}}}\n"
+      creationTimestamp: "2026-06-11T14:22:56Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "external-dns"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "external-dns"
+        app.kubernetes.io/version: "0.21.0"
+        helm.sh/chart: "external-dns-1.21.1"
+      name: "external-dns"
+      namespace: "default"
+      resourceVersion: "22138"
+      uid: "33e913e5-fa79-457b-bc53-8201623fb1d9"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "external-dns"
+          app.kubernetes.io/name: "external-dns"
+      strategy:
+        type: "Recreate"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/instance: "external-dns"
+            app.kubernetes.io/name: "external-dns"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "--log-level=info"
+                - "--log-format=text"
+                - "--interval=1m"
+                - "--source=service"
+                - "--source=ingress"
+                - "--policy=upsert-only"
+                - "--registry=txt"
+                - "--provider=aws"
+              image: "registry.k8s.io/external-dns/external-dns:v0.21.0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 2
+                httpGet:
+                  path: "/healthz"
+                  port: "http"
+                  scheme: "HTTP"
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: "external-dns"
+              ports:
+                -
+                  containerPort: 7979
+                  name: "http"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 6
+                httpGet:
+                  path: "/healthz"
+                  port: "http"
+                  scheme: "HTTP"
+                initialDelaySeconds: 5
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 65532
+                runAsNonRoot: true
+                runAsUser: 65532
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 65534
+            runAsNonRoot: true
+            seccompProfile:
+              type: "RuntimeDefault"
+          serviceAccount: "external-dns"
+          serviceAccountName: "external-dns"
+          terminationGracePeriodSeconds: 30
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T14:23:08Z"
+          lastUpdateTime: "2026-06-11T14:23:08Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T14:22:56Z"
+          lastUpdateTime: "2026-06-11T14:23:08Z"
+          message: "ReplicaSet \"external-dns-9f77ccdf9\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-dns\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-dns\",\"app.kubernetes.io/version\":\"0.21.0\",\"helm.sh/chart\":\"external-dns-1.21.1\"},\"name\":\"external-dns\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"nodes\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods\"],\"verbs\":[\"get\",\"watch\",\"list\"]},{\"apiGroups\":[\"\"],\"resources\":[\"services\"],\"verbs\":[\"get\",\"watch\",\"list\"]},{\"apiGroups\":[\"discovery.k8s.io\"],\"resources\":[\"endpointslices\"],\"verbs\":[\"get\",\"watch\",\"list\"]},{\"apiGroups\":[\"extensions\",\"networking.k8s.io\"],\"resources\":[\"ingresses\"],\"verbs\":[\"get\",\"watch\",\"list\"]}]}\n"
+      creationTimestamp: "2026-06-11T14:22:56Z"
+      labels:
+        app.kubernetes.io/instance: "external-dns"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "external-dns"
+        app.kubernetes.io/version: "0.21.0"
+        helm.sh/chart: "external-dns-1.21.1"
+      name: "external-dns"
+      resourceVersion: "22106"
+      uid: "f48ce45d-5ec3-4fd4-b55b-1d549daf707e"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "nodes"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+        verbs:
+          - "get"
+          - "watch"
+          - "list"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "services"
+        verbs:
+          - "get"
+          - "watch"
+          - "list"
+      -
+        apiGroups:
+          - "discovery.k8s.io"
+        resources:
+          - "endpointslices"
+        verbs:
+          - "get"
+          - "watch"
+          - "list"
+      -
+        apiGroups:
+          - "extensions"
+          - "networking.k8s.io"
+        resources:
+          - "ingresses"
+        verbs:
+          - "get"
+          - "watch"
+          - "list"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"external-dns\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"external-dns\",\"app.kubernetes.io/version\":\"0.21.0\",\"helm.sh/chart\":\"external-dns-1.21.1\"},\"name\":\"external-dns-viewer\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"external-dns\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"external-dns\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T14:22:56Z"
+      labels:
+        app.kubernetes.io/instance: "external-dns"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "external-dns"
+        app.kubernetes.io/version: "0.21.0"
+        helm.sh/chart: "external-dns-1.21.1"
+      name: "external-dns-viewer"
+      resourceVersion: "22107"
+      uid: "2273f876-eeab-4d34-836c-523ca483dd93"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "external-dns"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "external-dns"
+        namespace: "default"
+kind: "List"
+metadata:
+  resourceVersion: ""

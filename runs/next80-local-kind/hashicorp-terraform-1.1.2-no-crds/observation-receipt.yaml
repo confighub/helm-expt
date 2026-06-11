@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "hashicorp-terraform-1.1.2-no-crds-local-kind"
+spec:
+  variantRevision: "recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "a8b9e5e6ce83d71e19d70e4695bdda1a2cb28c26e094a0f28b70b58a3fc6a50a"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T14:31:44.260Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "existing"
+  variant: "no-crds"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "34de59cbd1bab1908402497ec71e3254cd3ac930029bf32c7fa0f8fc0e8c5b9b"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "4 object(s) from recipes/hashicorp/terraform/1.1.2/revisions/no-crds/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|default|terraform-terraform-sync-workspace"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;] surveyor-c4759d87-p4692[CrashLoopBackOff ready=false restarts=38;] terraform-terraform-sync-workspace-67688dd4fd-2llrj[ContainerCreating ready=false restarts=0;]"
+  blockedReasons:
+    - "deployment/terraform-terraform-sync-workspace: prerequisite-blocked (stuck creating: missing mount/secret/config) (kibana-kibana-9bf64bc55-qm87r[ContainerCreating ready=false restarts=0;] rollout-operator-5f688cdb68-pc7sz[ ready=false restarts=0;] surveyor-c4759d87-p4692[Cra)"

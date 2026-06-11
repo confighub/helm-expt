@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-nginx-25.0.0-existing-tls-ingress-local-kind"
+spec:
+  blockedReasons:
+    - "apply: Error from server (Forbidden): error when creating \"STDIN\": networkpolicies.networking.k8s.io \"nginx\" is forbidden: unable to create new content in namespace nginx because it is being terminated Error"
+    - "deployment/nginx: not-ready (nginx-5c568bf554-7php2[PodInitializing ready=false restarts=0;])"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      object: "6 object(s) from recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/rendered/release-objects.yaml"
+      reason: "apply-blocked: Error from server (Forbidden): error when creating \"STDIN\": networkpolicies.networking.k8s.io \"nginx\" is forbidden: unable to create new content in namespace nginx because it is being terminated Error"
+      result: "blocked"
+      evidencePath: "observation-log.txt"
+      evidenceSHA256: "e0390dbfa18737556dacb384405a64ede1bf3d8d4694b29e007a73a201bf000e"
+    -
+      name: "workload-converged"
+      object: "Deployment|nginx|nginx"
+      reason: "not-ready: nginx-5c568bf554-7php2[PodInitializing ready=false restarts=0;]"
+      result: "fail"
+  clusterStatus: "existing"
+  freshnessTTL: "1h"
+  observedAt: "2026-06-11T12:51:41.921Z"
+  observer:
+    method: "kubectl-kind"
+    name: "next80-local-live"
+    version: "0.1.0"
+  renderedObjectSetSHA256: "6cbd96e9b63ddeab378f378b86e1b7821d850144539d1a6e367eb639f2b2166e"
+  result: "fail"
+  target:
+    context: "kind-claude-helm-expt-next80"
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    namespace: "nginx"
+  variant: "existing-tls-ingress"
+  variantRevision: "recipes/bitnami/nginx/25.0.0/revisions/existing-tls-ingress/r001/variant-revision.yaml"
+  workloads: 1

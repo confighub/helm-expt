@@ -1,0 +1,42 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "grafana-tempo-1.24.4-s3-query-observability-local-kind"
+spec:
+  variantRevision: "recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "4e981336df773cdd82b2551d35d27d61f4b39e6a3df0a9a693ac81fd0d3cf8ed"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "tempo"
+  observedAt: "2026-06-11T15:02:40.888Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "existing"
+  variant: "s3-query-observability"
+  workloads: 1
+  checks:
+    -
+      name: "namespace-created"
+      result: "pass"
+      object: "v1|Namespace||tempo"
+    -
+      name: "rendered-objects-applied"
+      result: "blocked"
+      object: "8 object(s) from recipes/grafana/tempo/1.24.4/revisions/s3-query-observability/r001/rendered/release-objects.yaml"
+      reason: "apply-blocked: error: resource mapping not found for name: \"tempo\" namespace: \"tempo\" from \"STDIN\": no matches for kind \"ServiceMonitor\" in version \"monitoring.coreos.com/v1\" ensure CRDs are installed first Command "
+      evidencePath: "observation-log.txt"
+      evidenceSHA256: "5911f02c23354643040a18d65a0dfa9c0b4eaab333d63a09be420eae7884a49f"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "StatefulSet|tempo|tempo"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): tempo-0[CreateContainerConfigError ready=false restarts=0; ready=true restarts=0;]"
+  blockedReasons:
+    - "apply: error: resource mapping not found for name: \"tempo\" namespace: \"tempo\" from \"STDIN\": no matches for kind \"ServiceMonitor\" in version \"monitoring.coreos.com/v1\" ensure CRDs are installed first Command "
+    - "statefulset/tempo: prerequisite-blocked (stuck creating: missing mount/secret/config) (tempo-0[CreateContainerConfigError ready=false restarts=0; ready=true restarts=0;])"

@@ -1,0 +1,3491 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: false
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":false,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-admission-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno-admission-controller\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "admission-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-admission-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno-admission-controller"
+      namespace: "default"
+      resourceVersion: "2267"
+      uid: "3dbc27a4-bd97-4c56-b120-4a0174037e3d"
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: false
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":false,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"background-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-background-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno-background-controller\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "background-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-background-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno-background-controller"
+      namespace: "default"
+      resourceVersion: "2268"
+      uid: "b1708fc6-52db-4711-bca8-eebc949bc821"
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: false
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":false,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"cleanup-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-cleanup-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno-cleanup-controller\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "cleanup-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-cleanup-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno-cleanup-controller"
+      namespace: "default"
+      resourceVersion: "2269"
+      uid: "41f7f86b-9f78-4287-b3f8-9485d2d238a2"
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: false
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":false,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"reports-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-reports-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno-reports-controller\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "reports-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-reports-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno-reports-controller"
+      namespace: "default"
+      resourceVersion: "2270"
+      uid: "e5fbefe4-3d45-4c85-809c-405d6dff3261"
+  -
+    apiVersion: "v1"
+    data:
+      defaultRegistry: "docker.io"
+      enableDefaultRegistryMutation: "true"
+      excludeGroups: "system:nodes"
+      generateSuccessEvents: "false"
+      resourceFilters: "[*/*,default,*] [Event,*,*] [*/*,kube-system,*] [*/*,kube-public,*] [*/*,kube-node-lease,*] [Node,*,*] [Node/?*,*,*] [APIService,*,*] [APIService/?*,*,*] [TokenReview,*,*] [SubjectAccessReview,*,*] [SelfSubjectAccessReview,*,*] [Binding,*,*] [Pod/binding,*,*] [ReplicaSet,*,*] [ReplicaSet/?*,*,*] [EphemeralReport,*,*] [ClusterEphemeralReport,*,*] [ClusterRole,*,kyverno:admission-controller] [ClusterRole,*,kyverno:admission-controller:core] [ClusterRole,*,kyverno:admission-controller:additional] [ClusterRole,*,kyverno:background-controller] [ClusterRole,*,kyverno:background-controller:core] [ClusterRole,*,kyverno:background-controller:additional] [ClusterRole,*,kyverno:cleanup-controller] [ClusterRole,*,kyverno:cleanup-controller:core] [ClusterRole,*,kyverno:cleanup-controller:additional] [ClusterRole,*,kyverno:reports-controller] [ClusterRole,*,kyverno:reports-controller:core] [ClusterRole,*,kyverno:reports-controller:additional] [ClusterRoleBinding,*,kyverno:admission-controller] [ClusterRoleBinding,*,kyverno:background-controller] [ClusterRoleBinding,*,kyverno:cleanup-controller] [ClusterRoleBinding,*,kyverno:reports-controller] [ServiceAccount,default,kyverno-admission-controller] [ServiceAccount/?*,default,kyverno-admission-controller] [ServiceAccount,default,kyverno-background-controller] [ServiceAccount/?*,default,kyverno-background-controller] [ServiceAccount,default,kyverno-cleanup-controller] [ServiceAccount/?*,default,kyverno-cleanup-controller] [ServiceAccount,default,kyverno-reports-controller] [ServiceAccount/?*,default,kyverno-reports-controller] [Role,default,kyverno:admission-controller] [Role,default,kyverno:background-controller] [Role,default,kyverno:cleanup-controller] [Role,default,kyverno:reports-controller] [RoleBinding,default,kyverno:admission-controller] [RoleBinding,default,kyverno:background-controller] [RoleBinding,default,kyverno:cleanup-controller] [RoleBinding,default,kyverno:reports-controller] [ConfigMap,default,kyverno] [ConfigMap,default,kyverno-metrics] [Deployment,default,kyverno-admission-controller] [Deployment/?*,default,kyverno-admission-controller] [Deployment,default,kyverno-background-controller] [Deployment/?*,default,kyverno-background-controller] [Deployment,default,kyverno-cleanup-controller] [Deployment/?*,default,kyverno-cleanup-controller] [Deployment,default,kyverno-reports-controller] [Deployment/?*,default,kyverno-reports-controller] [Pod,default,kyverno-admission-controller-*] [Pod/?*,default,kyverno-admission-controller-*] [Pod,default,kyverno-background-controller-*] [Pod/?*,default,kyverno-background-controller-*] [Pod,default,kyverno-cleanup-controller-*] [Pod/?*,default,kyverno-cleanup-controller-*] [Pod,default,kyverno-reports-controller-*] [Pod/?*,default,kyverno-reports-controller-*] [Job,default,kyverno-hook-pre-delete] [Job/?*,default,kyverno-hook-pre-delete] [NetworkPolicy,default,kyverno-admission-controller] [NetworkPolicy/?*,default,kyverno-admission-controller] [NetworkPolicy,default,kyverno-background-controller] [NetworkPolicy/?*,default,kyverno-background-controller] [NetworkPolicy,default,kyverno-cleanup-controller] [NetworkPolicy/?*,default,kyverno-cleanup-controller] [NetworkPolicy,default,kyverno-reports-controller] [NetworkPolicy/?*,default,kyverno-reports-controller] [PodDisruptionBudget,default,kyverno-admission-controller] [PodDisruptionBudget/?*,default,kyverno-admission-controller] [PodDisruptionBudget,default,kyverno-background-controller] [PodDisruptionBudget/?*,default,kyverno-background-controller] [PodDisruptionBudget,default,kyverno-cleanup-controller] [PodDisruptionBudget/?*,default,kyverno-cleanup-controller] [PodDisruptionBudget,default,kyverno-reports-controller] [PodDisruptionBudget/?*,default,kyverno-reports-controller] [Service,default,kyverno-svc] [Service/?*,default,kyverno-svc] [Service,default,kyverno-svc-metrics] [Service/?*,default,kyverno-svc-metrics] [Service,default,kyverno-background-controller-metrics] [Service/?*,default,kyverno-background-controller-metrics] [Service,default,kyverno-cleanup-controller] [Service/?*,default,kyverno-cleanup-controller] [Service,default,kyverno-cleanup-controller-metrics] [Service/?*,default,kyverno-cleanup-controller-metrics] [Service,default,kyverno-reports-controller-metrics] [Service/?*,default,kyverno-reports-controller-metrics] [ServiceMonitor,default,kyverno-admission-controller] [ServiceMonitor,default,kyverno-background-controller] [ServiceMonitor,default,kyverno-cleanup-controller] [ServiceMonitor,default,kyverno-reports-controller] [Secret,default,kyverno-svc.default.svc.*] [Secret,default,kyverno-cleanup-controller.default.svc.*]"
+      updateRequestThreshold: "1000"
+      webhookAnnotations: "{\"admissions.enforcer/disabled\":\"true\"}"
+      webhooks: "{\"namespaceSelector\":{\"matchExpressions\":[{\"key\":\"kubernetes.io/metadata.name\",\"operator\":\"NotIn\",\"values\":[\"kube-system\"]},{\"key\":\"kubernetes.io/metadata.name\",\"operator\":\"NotIn\",\"values\":[\"default\"]}],\"matchLabels\":null}}"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        helm.sh/resource-policy: "keep"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"defaultRegistry\":\"docker.io\",\"enableDefaultRegistryMutation\":\"true\",\"excludeGroups\":\"system:nodes\",\"generateSuccessEvents\":\"false\",\"resourceFilters\":\"[*/*,default,*] [Event,*,*] [*/*,kube-system,*] [*/*,kube-public,*] [*/*,kube-node-lease,*] [Node,*,*] [Node/?*,*,*] [APIService,*,*] [APIService/?*,*,*] [TokenReview,*,*] [SubjectAccessReview,*,*] [SelfSubjectAccessReview,*,*] [Binding,*,*] [Pod/binding,*,*] [ReplicaSet,*,*] [ReplicaSet/?*,*,*] [EphemeralReport,*,*] [ClusterEphemeralReport,*,*] [ClusterRole,*,kyverno:admission-controller] [ClusterRole,*,kyverno:admission-controller:core] [ClusterRole,*,kyverno:admission-controller:additional] [ClusterRole,*,kyverno:background-controller] [ClusterRole,*,kyverno:background-controller:core] [ClusterRole,*,kyverno:background-controller:additional] [ClusterRole,*,kyverno:cleanup-controller] [ClusterRole,*,kyverno:cleanup-controller:core] [ClusterRole,*,kyverno:cleanup-controller:additional] [ClusterRole,*,kyverno:reports-controller] [ClusterRole,*,kyverno:reports-controller:core] [ClusterRole,*,kyverno:reports-controller:additional] [ClusterRoleBinding,*,kyverno:admission-controller] [ClusterRoleBinding,*,kyverno:background-controller] [ClusterRoleBinding,*,kyverno:cleanup-controller] [ClusterRoleBinding,*,kyverno:reports-controller] [ServiceAccount,default,kyverno-admission-controller] [ServiceAccount/?*,default,kyverno-admission-controller] [ServiceAccount,default,kyverno-background-controller] [ServiceAccount/?*,default,kyverno-background-controller] [ServiceAccount,default,kyverno-cleanup-controller] [ServiceAccount/?*,default,kyverno-cleanup-controller] [ServiceAccount,default,kyverno-reports-controller] [ServiceAccount/?*,default,kyverno-reports-controller] [Role,default,kyverno:admission-controller] [Role,default,kyverno:background-controller] [Role,default,kyverno:cleanup-controller] [Role,default,kyverno:reports-controller] [RoleBinding,default,kyverno:admission-controller] [RoleBinding,default,kyverno:background-controller] [RoleBinding,default,kyverno:cleanup-controller] [RoleBinding,default,kyverno:reports-controller] [ConfigMap,default,kyverno] [ConfigMap,default,kyverno-metrics] [Deployment,default,kyverno-admission-controller] [Deployment/?*,default,kyverno-admission-controller] [Deployment,default,kyverno-background-controller] [Deployment/?*,default,kyverno-background-controller] [Deployment,default,kyverno-cleanup-controller] [Deployment/?*,default,kyverno-cleanup-controller] [Deployment,default,kyverno-reports-controller] [Deployment/?*,default,kyverno-reports-controller] [Pod,default,kyverno-admission-controller-*] [Pod/?*,default,kyverno-admission-controller-*] [Pod,default,kyverno-background-controller-*] [Pod/?*,default,kyverno-background-controller-*] [Pod,default,kyverno-cleanup-controller-*] [Pod/?*,default,kyverno-cleanup-controller-*] [Pod,default,kyverno-reports-controller-*] [Pod/?*,default,kyverno-reports-controller-*] [Job,default,kyverno-hook-pre-delete] [Job/?*,default,kyverno-hook-pre-delete] [NetworkPolicy,default,kyverno-admission-controller] [NetworkPolicy/?*,default,kyverno-admission-controller] [NetworkPolicy,default,kyverno-background-controller] [NetworkPolicy/?*,default,kyverno-background-controller] [NetworkPolicy,default,kyverno-cleanup-controller] [NetworkPolicy/?*,default,kyverno-cleanup-controller] [NetworkPolicy,default,kyverno-reports-controller] [NetworkPolicy/?*,default,kyverno-reports-controller] [PodDisruptionBudget,default,kyverno-admission-controller] [PodDisruptionBudget/?*,default,kyverno-admission-controller] [PodDisruptionBudget,default,kyverno-background-controller] [PodDisruptionBudget/?*,default,kyverno-background-controller] [PodDisruptionBudget,default,kyverno-cleanup-controller] [PodDisruptionBudget/?*,default,kyverno-cleanup-controller] [PodDisruptionBudget,default,kyverno-reports-controller] [PodDisruptionBudget/?*,default,kyverno-reports-controller] [Service,default,kyverno-svc] [Service/?*,default,kyverno-svc] [Service,default,kyverno-svc-metrics] [Service/?*,default,kyverno-svc-metrics] [Service,default,kyverno-background-controller-metrics] [Service/?*,default,kyverno-background-controller-metrics] [Service,default,kyverno-cleanup-controller] [Service/?*,default,kyverno-cleanup-controller] [Service,default,kyverno-cleanup-controller-metrics] [Service/?*,default,kyverno-cleanup-controller-metrics] [Service,default,kyverno-reports-controller-metrics] [Service/?*,default,kyverno-reports-controller-metrics] [ServiceMonitor,default,kyverno-admission-controller] [ServiceMonitor,default,kyverno-background-controller] [ServiceMonitor,default,kyverno-cleanup-controller] [ServiceMonitor,default,kyverno-reports-controller] [Secret,default,kyverno-svc.default.svc.*] [Secret,default,kyverno-cleanup-controller.default.svc.*]\",\"updateRequestThreshold\":\"1000\",\"webhookAnnotations\":\"{\\\"admissions.enforcer/disabled\\\":\\\"true\\\"}\",\"webhooks\":\"{\\\"namespaceSelector\\\":{\\\"matchExpressions\\\":[{\\\"key\\\":\\\"kubernetes.io/metadata.name\\\",\\\"operator\\\":\\\"NotIn\\\",\\\"values\\\":[\\\"kube-system\\\"]},{\\\"key\\\":\\\"kubernetes.io/metadata.name\\\",\\\"operator\\\":\\\"NotIn\\\",\\\"values\\\":[\\\"default\\\"]}],\\\"matchLabels\\\":null}}\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{\"helm.sh/resource-policy\":\"keep\"},\"labels\":{\"app.kubernetes.io/component\":\"config\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "config"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno"
+      namespace: "default"
+      resourceVersion: "2271"
+      uid: "d2ee672c-118a-4bc6-8b1e-cb12ead13457"
+  -
+    apiVersion: "v1"
+    data:
+      bucketBoundaries: "0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10, 15, 20, 25, 30"
+      metricsExposure: "{\"kyverno_admission_requests_total\":{\"disabledLabelDimensions\":[\"resource_namespace\"]},\"kyverno_admission_review_duration_seconds\":{\"disabledLabelDimensions\":[\"resource_namespace\"]},\"kyverno_cleanup_controller_deletedobjects_total\":{\"disabledLabelDimensions\":[\"resource_namespace\",\"policy_namespace\"]},\"kyverno_generating_policy_execution_duration_seconds\":{\"disabledLabelDimensions\":[\"resource_namespace\",\"resource_request_operation\"]},\"kyverno_image_validating_policy_execution_duration_seconds\":{\"disabledLabelDimensions\":[\"resource_namespace\",\"resource_request_operation\"]},\"kyverno_mutating_policy_execution_duration_seconds\":{\"disabledLabelDimensions\":[\"resource_namespace\",\"resource_request_operation\"]},\"kyverno_policy_execution_duration_seconds\":{\"disabledLabelDimensions\":[\"resource_namespace\",\"resource_request_operation\"]},\"kyverno_policy_results_total\":{\"disabledLabelDimensions\":[\"resource_namespace\",\"policy_namespace\"]},\"kyverno_policy_rule_info_total\":{\"disabledLabelDimensions\":[\"resource_namespace\",\"policy_namespace\"]},\"kyverno_validating_policy_execution_duration_seconds\":{\"disabledLabelDimensions\":[\"resource_namespace\",\"resource_request_operation\"]}}"
+      namespaces: "{\"exclude\":[],\"include\":[]}"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"bucketBoundaries\":\"0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10, 15, 20, 25, 30\",\"metricsExposure\":\"{\\\"kyverno_admission_requests_total\\\":{\\\"disabledLabelDimensions\\\":[\\\"resource_namespace\\\"]},\\\"kyverno_admission_review_duration_seconds\\\":{\\\"disabledLabelDimensions\\\":[\\\"resource_namespace\\\"]},\\\"kyverno_cleanup_controller_deletedobjects_total\\\":{\\\"disabledLabelDimensions\\\":[\\\"resource_namespace\\\",\\\"policy_namespace\\\"]},\\\"kyverno_generating_policy_execution_duration_seconds\\\":{\\\"disabledLabelDimensions\\\":[\\\"resource_namespace\\\",\\\"resource_request_operation\\\"]},\\\"kyverno_image_validating_policy_execution_duration_seconds\\\":{\\\"disabledLabelDimensions\\\":[\\\"resource_namespace\\\",\\\"resource_request_operation\\\"]},\\\"kyverno_mutating_policy_execution_duration_seconds\\\":{\\\"disabledLabelDimensions\\\":[\\\"resource_namespace\\\",\\\"resource_request_operation\\\"]},\\\"kyverno_policy_execution_duration_seconds\\\":{\\\"disabledLabelDimensions\\\":[\\\"resource_namespace\\\",\\\"resource_request_operation\\\"]},\\\"kyverno_policy_results_total\\\":{\\\"disabledLabelDimensions\\\":[\\\"resource_namespace\\\",\\\"policy_namespace\\\"]},\\\"kyverno_policy_rule_info_total\\\":{\\\"disabledLabelDimensions\\\":[\\\"resource_namespace\\\",\\\"policy_namespace\\\"]},\\\"kyverno_validating_policy_execution_duration_seconds\\\":{\\\"disabledLabelDimensions\\\":[\\\"resource_namespace\\\",\\\"resource_request_operation\\\"]}}\",\"namespaces\":\"{\\\"exclude\\\":[],\\\"include\\\":[]}\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"config\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno-metrics\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "config"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno-metrics"
+      namespace: "default"
+      resourceVersion: "2272"
+      uid: "ae2677ed-9ee2-4ce0-b53d-6bdefafa75a5"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-admission-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:admission-controller\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"secrets\",\"serviceaccounts\"],\"verbs\":[\"get\",\"list\",\"watch\",\"patch\",\"create\",\"update\",\"delete\"]},{\"apiGroups\":[\"\"],\"resourceNames\":[\"kyverno\",\"kyverno-metrics\"],\"resources\":[\"configmaps\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"create\",\"delete\",\"get\",\"patch\",\"update\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"deployments\",\"deployments/scale\"],\"verbs\":[\"get\",\"list\",\"watch\",\"patch\",\"update\"]}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "admission-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-admission-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:admission-controller"
+      namespace: "default"
+      resourceVersion: "2273"
+      uid: "732f181c-ddb7-4aac-b726-dd4de90f0888"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+          - "serviceaccounts"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "patch"
+          - "create"
+          - "update"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resourceNames:
+          - "kyverno"
+          - "kyverno-metrics"
+        resources:
+          - "configmaps"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "deployments"
+          - "deployments/scale"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "patch"
+          - "update"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"background-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-background-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:background-controller\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"\"],\"resourceNames\":[\"kyverno\",\"kyverno-metrics\"],\"resources\":[\"configmaps\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"create\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resourceNames\":[\"kyverno-background-controller\"],\"resources\":[\"leases\"],\"verbs\":[\"delete\",\"get\",\"patch\",\"update\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "background-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-background-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:background-controller"
+      namespace: "default"
+      resourceVersion: "2274"
+      uid: "48770cf7-54ca-4f23-b541-d27344f52f8a"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resourceNames:
+          - "kyverno"
+          - "kyverno-metrics"
+        resources:
+          - "configmaps"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "create"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resourceNames:
+          - "kyverno-background-controller"
+        resources:
+          - "leases"
+        verbs:
+          - "delete"
+          - "get"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"cleanup-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-cleanup-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:cleanup-controller\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"create\"]},{\"apiGroups\":[\"\"],\"resourceNames\":[\"kyverno-cleanup-controller.default.svc.kyverno-tls-ca\",\"kyverno-cleanup-controller.default.svc.kyverno-tls-pair\",\"kyverno-cleanup-controller.default.metering.kyverno-tls-ca\",\"kyverno-cleanup-controller.default.metering.kyverno-tls-pair\"],\"resources\":[\"secrets\"],\"verbs\":[\"delete\",\"get\",\"list\",\"update\",\"watch\"]},{\"apiGroups\":[\"\"],\"resourceNames\":[\"kyverno\",\"kyverno-metrics\"],\"resources\":[\"configmaps\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"create\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resourceNames\":[\"kyverno-cleanup-controller\"],\"resources\":[\"leases\"],\"verbs\":[\"delete\",\"get\",\"patch\",\"update\"]},{\"apiGroups\":[\"discovery.k8s.io\"],\"resources\":[\"endpointslices\"],\"verbs\":[\"list\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"deployments\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "cleanup-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-cleanup-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:cleanup-controller"
+      namespace: "default"
+      resourceVersion: "2275"
+      uid: "4596cee2-b6a4-47c7-84b9-4150e4727269"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "create"
+      -
+        apiGroups:
+          - ""
+        resourceNames:
+          - "kyverno-cleanup-controller.default.svc.kyverno-tls-ca"
+          - "kyverno-cleanup-controller.default.svc.kyverno-tls-pair"
+          - "kyverno-cleanup-controller.default.metering.kyverno-tls-ca"
+          - "kyverno-cleanup-controller.default.metering.kyverno-tls-pair"
+        resources:
+          - "secrets"
+        verbs:
+          - "delete"
+          - "get"
+          - "list"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resourceNames:
+          - "kyverno"
+          - "kyverno-metrics"
+        resources:
+          - "configmaps"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "create"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resourceNames:
+          - "kyverno-cleanup-controller"
+        resources:
+          - "leases"
+        verbs:
+          - "delete"
+          - "get"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "discovery.k8s.io"
+        resources:
+          - "endpointslices"
+        verbs:
+          - "list"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "deployments"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"reports-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-reports-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:reports-controller\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"\"],\"resourceNames\":[\"kyverno\",\"kyverno-metrics\"],\"resources\":[\"configmaps\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"create\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resourceNames\":[\"kyverno-reports-controller\"],\"resources\":[\"leases\"],\"verbs\":[\"delete\",\"get\",\"patch\",\"update\"]}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "reports-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-reports-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:reports-controller"
+      namespace: "default"
+      resourceVersion: "2276"
+      uid: "0e412e87-ed3a-4b6f-9382-b5ba44721d73"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resourceNames:
+          - "kyverno"
+          - "kyverno-metrics"
+        resources:
+          - "configmaps"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "create"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resourceNames:
+          - "kyverno-reports-controller"
+        resources:
+          - "leases"
+        verbs:
+          - "delete"
+          - "get"
+          - "patch"
+          - "update"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-admission-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:admission-controller\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"kyverno:admission-controller\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"kyverno-admission-controller\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "admission-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-admission-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:admission-controller"
+      namespace: "default"
+      resourceVersion: "2277"
+      uid: "2d8ba6d1-64d4-45f5-8f58-50529b9baa5b"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "kyverno:admission-controller"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "kyverno-admission-controller"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"background-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-background-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:background-controller\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"kyverno:background-controller\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"kyverno-background-controller\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "background-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-background-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:background-controller"
+      namespace: "default"
+      resourceVersion: "2278"
+      uid: "532eabd3-d68a-42f1-a1f8-81bc5b137a5d"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "kyverno:background-controller"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "kyverno-background-controller"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"cleanup-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-cleanup-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:cleanup-controller\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"kyverno:cleanup-controller\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"kyverno-cleanup-controller\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "cleanup-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-cleanup-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:cleanup-controller"
+      namespace: "default"
+      resourceVersion: "2279"
+      uid: "3cf926b1-6f67-494c-8ecc-9e73b9aa4dff"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "kyverno:cleanup-controller"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "kyverno-cleanup-controller"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"reports-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-reports-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:reports-controller\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"kyverno:reports-controller\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"kyverno-reports-controller\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "reports-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-reports-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:reports-controller"
+      namespace: "default"
+      resourceVersion: "2280"
+      uid: "cea46dd9-c7e0-4e40-ac4a-e5479f275478"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "kyverno:reports-controller"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "kyverno-reports-controller"
+        namespace: "default"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-admission-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno-svc\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"appProtocol\":\"https\",\"name\":\"https\",\"port\":443,\"protocol\":\"TCP\",\"targetPort\":\"https\"}],\"selector\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/part-of\":\"kyverno\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "admission-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-admission-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno-svc"
+      namespace: "default"
+      resourceVersion: "2282"
+      uid: "b80565d8-d8d7-4bca-b1e1-9d5126872659"
+    spec:
+      clusterIP: "10.96.163.184"
+      clusterIPs:
+        - "10.96.163.184"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          appProtocol: "https"
+          name: "https"
+          port: 443
+          protocol: "TCP"
+          targetPort: "https"
+      selector:
+        app.kubernetes.io/component: "admission-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/part-of: "kyverno"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-admission-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno-svc-metrics\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"metrics-port\",\"port\":8000,\"protocol\":\"TCP\",\"targetPort\":8000}],\"selector\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/part-of\":\"kyverno\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "admission-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-admission-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno-svc-metrics"
+      namespace: "default"
+      resourceVersion: "2286"
+      uid: "edda06f2-62b3-495c-b5cf-5a157ddd7057"
+    spec:
+      clusterIP: "10.96.209.36"
+      clusterIPs:
+        - "10.96.209.36"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "metrics-port"
+          port: 8000
+          protocol: "TCP"
+          targetPort: 8000
+      selector:
+        app.kubernetes.io/component: "admission-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/part-of: "kyverno"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"background-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-background-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno-background-controller-metrics\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"metrics-port\",\"port\":8000,\"protocol\":\"TCP\",\"targetPort\":8000}],\"selector\":{\"app.kubernetes.io/component\":\"background-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/part-of\":\"kyverno\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "background-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-background-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno-background-controller-metrics"
+      namespace: "default"
+      resourceVersion: "2290"
+      uid: "4a62cdfc-eaf4-4230-a7cd-7a87b835e042"
+    spec:
+      clusterIP: "10.96.181.95"
+      clusterIPs:
+        - "10.96.181.95"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "metrics-port"
+          port: 8000
+          protocol: "TCP"
+          targetPort: 8000
+      selector:
+        app.kubernetes.io/component: "background-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/part-of: "kyverno"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"cleanup-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-cleanup-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno-cleanup-controller\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"appProtocol\":\"https\",\"name\":\"https\",\"port\":443,\"protocol\":\"TCP\",\"targetPort\":\"https\"}],\"selector\":{\"app.kubernetes.io/component\":\"cleanup-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/part-of\":\"kyverno\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "cleanup-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-cleanup-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno-cleanup-controller"
+      namespace: "default"
+      resourceVersion: "2294"
+      uid: "60fcb52e-1954-4303-a059-179e1b76c656"
+    spec:
+      clusterIP: "10.96.11.162"
+      clusterIPs:
+        - "10.96.11.162"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          appProtocol: "https"
+          name: "https"
+          port: 443
+          protocol: "TCP"
+          targetPort: "https"
+      selector:
+        app.kubernetes.io/component: "cleanup-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/part-of: "kyverno"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"cleanup-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-cleanup-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno-cleanup-controller-metrics\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"metrics-port\",\"port\":8000,\"protocol\":\"TCP\",\"targetPort\":8000}],\"selector\":{\"app.kubernetes.io/component\":\"cleanup-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/part-of\":\"kyverno\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "cleanup-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-cleanup-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno-cleanup-controller-metrics"
+      namespace: "default"
+      resourceVersion: "2298"
+      uid: "45363531-7c3a-499d-9efc-914e5abd2695"
+    spec:
+      clusterIP: "10.96.167.45"
+      clusterIPs:
+        - "10.96.167.45"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "metrics-port"
+          port: 8000
+          protocol: "TCP"
+          targetPort: 8000
+      selector:
+        app.kubernetes.io/component: "cleanup-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/part-of: "kyverno"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"reports-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-reports-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno-reports-controller-metrics\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"metrics-port\",\"port\":8000,\"protocol\":\"TCP\",\"targetPort\":8000}],\"selector\":{\"app.kubernetes.io/component\":\"reports-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/part-of\":\"kyverno\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "reports-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-reports-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno-reports-controller-metrics"
+      namespace: "default"
+      resourceVersion: "2302"
+      uid: "b152a122-2b1c-4862-bbe5-5a92cbeefa82"
+    spec:
+      clusterIP: "10.96.54.71"
+      clusterIPs:
+        - "10.96.54.71"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "metrics-port"
+          port: 8000
+          protocol: "TCP"
+          targetPort: 8000
+      selector:
+        app.kubernetes.io/component: "reports-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/part-of: "kyverno"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-admission-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno-admission-controller\",\"namespace\":\"default\"},\"spec\":{\"replicas\":null,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/part-of\":\"kyverno\"}},\"strategy\":{\"rollingUpdate\":{\"maxSurge\":1,\"maxUnavailable\":\"40%\"},\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-admission-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"}},\"spec\":{\"affinity\":{\"podAntiAffinity\":{\"preferredDuringSchedulingIgnoredDuringExecution\":[{\"podAffinityTerm\":{\"labelSelector\":{\"matchExpressions\":[{\"key\":\"app.kubernetes.io/component\",\"operator\":\"In\",\"values\":[\"admission-controller\"]}]},\"topologyKey\":\"kubernetes.io/hostname\"},\"weight\":1}]}},\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"--caSecretName=kyverno-svc.default.svc.kyverno-tls-ca\",\"--tlsSecretName=kyverno-svc.default.svc.kyverno-tls-pair\",\"--tlsKeyAlgorithm=RSA\",\"--backgroundServiceAccountName=system:serviceaccount:default:kyverno-background-controller\",\"--reportsServiceAccountName=system:serviceaccount:default:kyverno-reports-controller\",\"--servicePort=443\",\"--webhookServerPort=9443\",\"--resyncPeriod=15m\",\"--crdWatcher=false\",\"--disableMetrics=false\",\"--otelConfig=prometheus\",\"--metricsPort=8000\",\"--admissionReports=true\",\"--maxAdmissionReports=1000\",\"--autoUpdateWebhooks=true\",\"--enableConfigMapCaching=true\",\"--controllerRuntimeMetricsAddress=:8080\",\"--enableDeferredLoading=true\",\"--dumpPayload=false\",\"--forceFailurePolicyIgnore=false\",\"--generateValidatingAdmissionPolicy=true\",\"--generateMutatingAdmissionPolicy=false\",\"--dumpPatches=false\",\"--maxAPICallResponseLength=2000000\",\"--apiCallTimeout=30s\",\"--loggingFormat=text\",\"--v=2\",\"--omitEvents=PolicyApplied,PolicySkipped\",\"--enablePolicyException=false\",\"--protectManagedResources=false\",\"--allowInsecureRegistry=false\",\"--registryCredentialHelpers=default,google,amazon,azure,github\",\"--enableReporting=validate,mutate,mutateExisting,imageVerify,generate\"],\"env\":[{\"name\":\"INIT_CONFIG\",\"value\":\"kyverno\"},{\"name\":\"METRICS_CONFIG\",\"value\":\"kyverno-metrics\"},{\"name\":\"KYVERNO_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"KYVERNO_POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"KYVERNO_SERVICEACCOUNT_NAME\",\"value\":\"kyverno-admission-controller\"},{\"name\":\"KYVERNO_ROLE_NAME\",\"value\":\"kyverno:admission-controller\"},{\"name\":\"KYVERNO_SVC\",\"value\":\"kyverno-svc\"},{\"name\":\"TUF_ROOT\",\"value\":\"/.sigstore\"},{\"name\":\"KYVERNO_DEPLOYMENT\",\"value\":\"kyverno-admission-controller\"}],\"image\":\"reg.kyverno.io/kyverno/kyverno:v1.18.1\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":2,\"httpGet\":{\"path\":\"/health/liveness\",\"port\":9443,\"scheme\":\"HTTPS\"},\"initialDelaySeconds\":15,\"periodSeconds\":30,\"successThreshold\":1,\"timeoutSeconds\":5},\"name\":\"kyverno\",\"ports\":[{\"containerPort\":9443,\"name\":\"https\",\"protocol\":\"TCP\"},{\"containerPort\":8000,\"name\":\"metrics-port\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":6,\"httpGet\":{\"path\":\"/health/readiness\",\"port\":9443,\"scheme\":\"HTTPS\"},\"initialDelaySeconds\":5,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"resources\":{\"limits\":{\"memory\":\"384Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"128Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":65534,\"runAsNonRoot\":true,\"runAsUser\":65534,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"startupProbe\":{\"failureThreshold\":20,\"httpGet\":{\"path\":\"/health/liveness\",\"port\":9443,\"scheme\":\"HTTPS\"},\"initialDelaySeconds\":2,\"periodSeconds\":6},\"volumeMounts\":[{\"mountPath\":\"/.sigstore\",\"name\":\"sigstore\"},{\"mountPath\":\"/var/run/secrets/kyverno/apicall\",\"name\":\"apicall-token\",\"readOnly\":true}]}],\"dnsPolicy\":\"ClusterFirst\",\"initContainers\":[{\"args\":[\"--loggingFormat=text\",\"--v=2\",\"--openreportsEnabled=false\"],\"env\":[{\"name\":\"KYVERNO_SERVICEACCOUNT_NAME\",\"value\":\"kyverno-admission-controller\"},{\"name\":\"KYVERNO_ROLE_NAME\",\"value\":\"kyverno:admission-controller\"},{\"name\":\"INIT_CONFIG\",\"value\":\"kyverno\"},{\"name\":\"METRICS_CONFIG\",\"value\":\"kyverno-metrics\"},{\"name\":\"KYVERNO_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"KYVERNO_POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"KYVERNO_DEPLOYMENT\",\"value\":\"kyverno-admission-controller\"},{\"name\":\"KYVERNO_SVC\",\"value\":\"kyverno-svc\"}],\"image\":\"reg.kyverno.io/kyverno/kyvernopre:v1.18.1\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"kyverno-pre\",\"resources\":{\"limits\":{\"cpu\":\"100m\",\"memory\":\"256Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"64Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":65534,\"runAsNonRoot\":true,\"runAsUser\":65534,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}}}],\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"serviceAccountName\":\"kyverno-admission-controller\",\"volumes\":[{\"emptyDir\":{},\"name\":\"sigstore\"},{\"name\":\"apicall-token\",\"projected\":{\"defaultMode\":292,\"sources\":[{\"serviceAccountToken\":{\"audience\":\"kyverno-svc.kyverno.io\",\"expirationSeconds\":3600,\"path\":\"token\"}}]}}]}}}}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "admission-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-admission-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno-admission-controller"
+      namespace: "default"
+      resourceVersion: "2338"
+      uid: "fd5fc55f-66f9-4046-8f50-0eaa0bdc9a2a"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "admission-controller"
+          app.kubernetes.io/instance: "kyverno"
+          app.kubernetes.io/part-of: "kyverno"
+      strategy:
+        rollingUpdate:
+          maxSurge: 1
+          maxUnavailable: "40%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/component: "admission-controller"
+            app.kubernetes.io/instance: "kyverno"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "kyverno-admission-controller"
+            app.kubernetes.io/part-of: "kyverno"
+            app.kubernetes.io/version: "3.8.1"
+            helm.sh/chart: "kyverno-3.8.1"
+        spec:
+          affinity:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                -
+                  podAffinityTerm:
+                    labelSelector:
+                      matchExpressions:
+                        -
+                          key: "app.kubernetes.io/component"
+                          operator: "In"
+                          values:
+                            - "admission-controller"
+                    topologyKey: "kubernetes.io/hostname"
+                  weight: 1
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "--caSecretName=kyverno-svc.default.svc.kyverno-tls-ca"
+                - "--tlsSecretName=kyverno-svc.default.svc.kyverno-tls-pair"
+                - "--tlsKeyAlgorithm=RSA"
+                - "--backgroundServiceAccountName=system:serviceaccount:default:kyverno-background-controller"
+                - "--reportsServiceAccountName=system:serviceaccount:default:kyverno-reports-controller"
+                - "--servicePort=443"
+                - "--webhookServerPort=9443"
+                - "--resyncPeriod=15m"
+                - "--crdWatcher=false"
+                - "--disableMetrics=false"
+                - "--otelConfig=prometheus"
+                - "--metricsPort=8000"
+                - "--admissionReports=true"
+                - "--maxAdmissionReports=1000"
+                - "--autoUpdateWebhooks=true"
+                - "--enableConfigMapCaching=true"
+                - "--controllerRuntimeMetricsAddress=:8080"
+                - "--enableDeferredLoading=true"
+                - "--dumpPayload=false"
+                - "--forceFailurePolicyIgnore=false"
+                - "--generateValidatingAdmissionPolicy=true"
+                - "--generateMutatingAdmissionPolicy=false"
+                - "--dumpPatches=false"
+                - "--maxAPICallResponseLength=2000000"
+                - "--apiCallTimeout=30s"
+                - "--loggingFormat=text"
+                - "--v=2"
+                - "--omitEvents=PolicyApplied,PolicySkipped"
+                - "--enablePolicyException=false"
+                - "--protectManagedResources=false"
+                - "--allowInsecureRegistry=false"
+                - "--registryCredentialHelpers=default,google,amazon,azure,github"
+                - "--enableReporting=validate,mutate,mutateExisting,imageVerify,generate"
+              env:
+                -
+                  name: "INIT_CONFIG"
+                  value: "kyverno"
+                -
+                  name: "METRICS_CONFIG"
+                  value: "kyverno-metrics"
+                -
+                  name: "KYVERNO_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "KYVERNO_POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "KYVERNO_SERVICEACCOUNT_NAME"
+                  value: "kyverno-admission-controller"
+                -
+                  name: "KYVERNO_ROLE_NAME"
+                  value: "kyverno:admission-controller"
+                -
+                  name: "KYVERNO_SVC"
+                  value: "kyverno-svc"
+                -
+                  name: "TUF_ROOT"
+                  value: "/.sigstore"
+                -
+                  name: "KYVERNO_DEPLOYMENT"
+                  value: "kyverno-admission-controller"
+              image: "reg.kyverno.io/kyverno/kyverno:v1.18.1"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 2
+                httpGet:
+                  path: "/health/liveness"
+                  port: 9443
+                  scheme: "HTTPS"
+                initialDelaySeconds: 15
+                periodSeconds: 30
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: "kyverno"
+              ports:
+                -
+                  containerPort: 9443
+                  name: "https"
+                  protocol: "TCP"
+                -
+                  containerPort: 8000
+                  name: "metrics-port"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 6
+                httpGet:
+                  path: "/health/readiness"
+                  port: 9443
+                  scheme: "HTTPS"
+                initialDelaySeconds: 5
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                limits:
+                  memory: "384Mi"
+                requests:
+                  cpu: "100m"
+                  memory: "128Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 65534
+                runAsNonRoot: true
+                runAsUser: 65534
+                seccompProfile:
+                  type: "RuntimeDefault"
+              startupProbe:
+                failureThreshold: 20
+                httpGet:
+                  path: "/health/liveness"
+                  port: 9443
+                  scheme: "HTTPS"
+                initialDelaySeconds: 2
+                periodSeconds: 6
+                successThreshold: 1
+                timeoutSeconds: 1
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/.sigstore"
+                  name: "sigstore"
+                -
+                  mountPath: "/var/run/secrets/kyverno/apicall"
+                  name: "apicall-token"
+                  readOnly: true
+          dnsPolicy: "ClusterFirst"
+          initContainers:
+            -
+              args:
+                - "--loggingFormat=text"
+                - "--v=2"
+                - "--openreportsEnabled=false"
+              env:
+                -
+                  name: "KYVERNO_SERVICEACCOUNT_NAME"
+                  value: "kyverno-admission-controller"
+                -
+                  name: "KYVERNO_ROLE_NAME"
+                  value: "kyverno:admission-controller"
+                -
+                  name: "INIT_CONFIG"
+                  value: "kyverno"
+                -
+                  name: "METRICS_CONFIG"
+                  value: "kyverno-metrics"
+                -
+                  name: "KYVERNO_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "KYVERNO_POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "KYVERNO_DEPLOYMENT"
+                  value: "kyverno-admission-controller"
+                -
+                  name: "KYVERNO_SVC"
+                  value: "kyverno-svc"
+              image: "reg.kyverno.io/kyverno/kyvernopre:v1.18.1"
+              imagePullPolicy: "IfNotPresent"
+              name: "kyverno-pre"
+              resources:
+                limits:
+                  cpu: "100m"
+                  memory: "256Mi"
+                requests:
+                  cpu: "10m"
+                  memory: "64Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 65534
+                runAsNonRoot: true
+                runAsUser: 65534
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          nodeSelector:
+            kubernetes.io/os: "linux"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "kyverno-admission-controller"
+          serviceAccountName: "kyverno-admission-controller"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              emptyDir:
+                {}
+              name: "sigstore"
+            -
+              name: "apicall-token"
+              projected:
+                defaultMode: 292
+                sources:
+                  -
+                    serviceAccountToken:
+                      audience: "kyverno-svc.kyverno.io"
+                      expirationSeconds: 3600
+                      path: "token"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T15:06:36Z"
+          lastUpdateTime: "2026-06-11T15:06:36Z"
+          message: "Deployment does not have minimum availability."
+          reason: "MinimumReplicasUnavailable"
+          status: "False"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T15:06:36Z"
+          lastUpdateTime: "2026-06-11T15:06:36Z"
+          message: "ReplicaSet \"kyverno-admission-controller-798db6b999\" is progressing."
+          reason: "ReplicaSetUpdated"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      replicas: 1
+      terminatingReplicas: 0
+      unavailableReplicas: 1
+      updatedReplicas: 1
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"background-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-background-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno-background-controller\",\"namespace\":\"default\"},\"spec\":{\"replicas\":null,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"background-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/part-of\":\"kyverno\"}},\"strategy\":{\"rollingUpdate\":{\"maxSurge\":1,\"maxUnavailable\":\"40%\"},\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"background-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-background-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"}},\"spec\":{\"affinity\":{\"podAntiAffinity\":{\"preferredDuringSchedulingIgnoredDuringExecution\":[{\"podAffinityTerm\":{\"labelSelector\":{\"matchExpressions\":[{\"key\":\"app.kubernetes.io/component\",\"operator\":\"In\",\"values\":[\"background-controller\"]}]},\"topologyKey\":\"kubernetes.io/hostname\"},\"weight\":1}]}},\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"--disableMetrics=false\",\"--otelConfig=prometheus\",\"--metricsPort=8000\",\"--resyncPeriod=15m\",\"--enableConfigMapCaching=true\",\"--controllerRuntimeMetricsAddress=:8080\",\"--enableDeferredLoading=true\",\"--maxAPICallResponseLength=2000000\",\"--apiCallTimeout=30s\",\"--loggingFormat=text\",\"--v=2\",\"--omitEvents=PolicyApplied,PolicySkipped\",\"--enablePolicyException=false\",\"--enableReporting=validate,mutate,mutateExisting,imageVerify,generate\"],\"env\":[{\"name\":\"KYVERNO_SERVICEACCOUNT_NAME\",\"value\":\"kyverno-background-controller\"},{\"name\":\"KYVERNO_DEPLOYMENT\",\"value\":\"kyverno-background-controller\"},{\"name\":\"INIT_CONFIG\",\"value\":\"kyverno\"},{\"name\":\"METRICS_CONFIG\",\"value\":\"kyverno-metrics\"},{\"name\":\"KYVERNO_POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"KYVERNO_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}}],\"image\":\"reg.kyverno.io/kyverno/background-controller:v1.18.1\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"controller\",\"ports\":[{\"containerPort\":9443,\"name\":\"https\",\"protocol\":\"TCP\"},{\"containerPort\":8000,\"name\":\"metrics\",\"protocol\":\"TCP\"}],\"resources\":{\"limits\":{\"memory\":\"128Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"64Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":65534,\"runAsNonRoot\":true,\"runAsUser\":65534,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/var/run/secrets/kyverno/apicall\",\"name\":\"apicall-token\",\"readOnly\":true}]}],\"dnsPolicy\":\"ClusterFirst\",\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"serviceAccountName\":\"kyverno-background-controller\",\"volumes\":[{\"name\":\"apicall-token\",\"projected\":{\"defaultMode\":292,\"sources\":[{\"serviceAccountToken\":{\"audience\":\"kyverno-svc.kyverno.io\",\"expirationSeconds\":3600,\"path\":\"token\"}}]}}]}}}}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "background-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-background-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno-background-controller"
+      namespace: "default"
+      resourceVersion: "2861"
+      uid: "252a4ecb-65bd-4f61-abf0-0319b86650a9"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "background-controller"
+          app.kubernetes.io/instance: "kyverno"
+          app.kubernetes.io/part-of: "kyverno"
+      strategy:
+        rollingUpdate:
+          maxSurge: 1
+          maxUnavailable: "40%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/component: "background-controller"
+            app.kubernetes.io/instance: "kyverno"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "kyverno-background-controller"
+            app.kubernetes.io/part-of: "kyverno"
+            app.kubernetes.io/version: "3.8.1"
+            helm.sh/chart: "kyverno-3.8.1"
+        spec:
+          affinity:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                -
+                  podAffinityTerm:
+                    labelSelector:
+                      matchExpressions:
+                        -
+                          key: "app.kubernetes.io/component"
+                          operator: "In"
+                          values:
+                            - "background-controller"
+                    topologyKey: "kubernetes.io/hostname"
+                  weight: 1
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "--disableMetrics=false"
+                - "--otelConfig=prometheus"
+                - "--metricsPort=8000"
+                - "--resyncPeriod=15m"
+                - "--enableConfigMapCaching=true"
+                - "--controllerRuntimeMetricsAddress=:8080"
+                - "--enableDeferredLoading=true"
+                - "--maxAPICallResponseLength=2000000"
+                - "--apiCallTimeout=30s"
+                - "--loggingFormat=text"
+                - "--v=2"
+                - "--omitEvents=PolicyApplied,PolicySkipped"
+                - "--enablePolicyException=false"
+                - "--enableReporting=validate,mutate,mutateExisting,imageVerify,generate"
+              env:
+                -
+                  name: "KYVERNO_SERVICEACCOUNT_NAME"
+                  value: "kyverno-background-controller"
+                -
+                  name: "KYVERNO_DEPLOYMENT"
+                  value: "kyverno-background-controller"
+                -
+                  name: "INIT_CONFIG"
+                  value: "kyverno"
+                -
+                  name: "METRICS_CONFIG"
+                  value: "kyverno-metrics"
+                -
+                  name: "KYVERNO_POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "KYVERNO_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+              image: "reg.kyverno.io/kyverno/background-controller:v1.18.1"
+              imagePullPolicy: "IfNotPresent"
+              name: "controller"
+              ports:
+                -
+                  containerPort: 9443
+                  name: "https"
+                  protocol: "TCP"
+                -
+                  containerPort: 8000
+                  name: "metrics"
+                  protocol: "TCP"
+              resources:
+                limits:
+                  memory: "128Mi"
+                requests:
+                  cpu: "100m"
+                  memory: "64Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 65534
+                runAsNonRoot: true
+                runAsUser: 65534
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/var/run/secrets/kyverno/apicall"
+                  name: "apicall-token"
+                  readOnly: true
+          dnsPolicy: "ClusterFirst"
+          nodeSelector:
+            kubernetes.io/os: "linux"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "kyverno-background-controller"
+          serviceAccountName: "kyverno-background-controller"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              name: "apicall-token"
+              projected:
+                defaultMode: 292
+                sources:
+                  -
+                    serviceAccountToken:
+                      audience: "kyverno-svc.kyverno.io"
+                      expirationSeconds: 3600
+                      path: "token"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T15:06:36Z"
+          lastUpdateTime: "2026-06-11T15:09:59Z"
+          message: "ReplicaSet \"kyverno-background-controller-57f7cb7c48\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+        -
+          lastTransitionTime: "2026-06-11T15:10:00Z"
+          lastUpdateTime: "2026-06-11T15:10:00Z"
+          message: "Deployment does not have minimum availability."
+          reason: "MinimumReplicasUnavailable"
+          status: "False"
+          type: "Available"
+      observedGeneration: 1
+      replicas: 1
+      terminatingReplicas: 0
+      unavailableReplicas: 1
+      updatedReplicas: 1
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"cleanup-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-cleanup-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno-cleanup-controller\",\"namespace\":\"default\"},\"spec\":{\"replicas\":null,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"cleanup-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/part-of\":\"kyverno\"}},\"strategy\":{\"rollingUpdate\":{\"maxSurge\":1,\"maxUnavailable\":\"40%\"},\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"cleanup-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-cleanup-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"}},\"spec\":{\"affinity\":{\"podAntiAffinity\":{\"preferredDuringSchedulingIgnoredDuringExecution\":[{\"podAffinityTerm\":{\"labelSelector\":{\"matchExpressions\":[{\"key\":\"app.kubernetes.io/component\",\"operator\":\"In\",\"values\":[\"cleanup-controller\"]}]},\"topologyKey\":\"kubernetes.io/hostname\"},\"weight\":1}]}},\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"--caSecretName=kyverno-cleanup-controller.default.svc.kyverno-tls-ca\",\"--tlsSecretName=kyverno-cleanup-controller.default.svc.kyverno-tls-pair\",\"--tlsKeyAlgorithm=RSA\",\"--servicePort=443\",\"--resyncPeriod=15m\",\"--cleanupServerPort=9443\",\"--disableMetrics=false\",\"--otelConfig=prometheus\",\"--metricsPort=8000\",\"--enableDeferredLoading=true\",\"--dumpPayload=false\",\"--maxAPICallResponseLength=2000000\",\"--apiCallTimeout=30s\",\"--loggingFormat=text\",\"--v=2\",\"--protectManagedResources=false\",\"--ttlReconciliationInterval=1m\"],\"env\":[{\"name\":\"KYVERNO_DEPLOYMENT\",\"value\":\"kyverno-cleanup-controller\"},{\"name\":\"INIT_CONFIG\",\"value\":\"kyverno\"},{\"name\":\"METRICS_CONFIG\",\"value\":\"kyverno-metrics\"},{\"name\":\"KYVERNO_POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"KYVERNO_SERVICEACCOUNT_NAME\",\"value\":\"kyverno-cleanup-controller\"},{\"name\":\"KYVERNO_ROLE_NAME\",\"value\":\"kyverno:cleanup-controller\"},{\"name\":\"KYVERNO_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"KYVERNO_SVC\",\"value\":\"kyverno-cleanup-controller\"}],\"image\":\"reg.kyverno.io/kyverno/cleanup-controller:v1.18.1\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":2,\"httpGet\":{\"path\":\"/health/liveness\",\"port\":9443,\"scheme\":\"HTTPS\"},\"initialDelaySeconds\":15,\"periodSeconds\":30,\"successThreshold\":1,\"timeoutSeconds\":5},\"name\":\"controller\",\"ports\":[{\"containerPort\":9443,\"name\":\"https\",\"protocol\":\"TCP\"},{\"containerPort\":8000,\"name\":\"metrics\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":6,\"httpGet\":{\"path\":\"/health/readiness\",\"port\":9443,\"scheme\":\"HTTPS\"},\"initialDelaySeconds\":5,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"resources\":{\"limits\":{\"memory\":\"128Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"64Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":65534,\"runAsNonRoot\":true,\"runAsUser\":65534,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"startupProbe\":{\"failureThreshold\":20,\"httpGet\":{\"path\":\"/health/liveness\",\"port\":9443,\"scheme\":\"HTTPS\"},\"initialDelaySeconds\":2,\"periodSeconds\":6},\"volumeMounts\":[{\"mountPath\":\"/var/run/secrets/kyverno/apicall\",\"name\":\"apicall-token\",\"readOnly\":true}]}],\"dnsPolicy\":\"ClusterFirst\",\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"serviceAccountName\":\"kyverno-cleanup-controller\",\"volumes\":[{\"name\":\"apicall-token\",\"projected\":{\"defaultMode\":292,\"sources\":[{\"serviceAccountToken\":{\"audience\":\"kyverno-svc.kyverno.io\",\"expirationSeconds\":3600,\"path\":\"token\"}}]}}]}}}}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "cleanup-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-cleanup-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno-cleanup-controller"
+      namespace: "default"
+      resourceVersion: "2352"
+      uid: "f0c3d359-3767-46c4-b9a0-99c766ae81d3"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "cleanup-controller"
+          app.kubernetes.io/instance: "kyverno"
+          app.kubernetes.io/part-of: "kyverno"
+      strategy:
+        rollingUpdate:
+          maxSurge: 1
+          maxUnavailable: "40%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/component: "cleanup-controller"
+            app.kubernetes.io/instance: "kyverno"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "kyverno-cleanup-controller"
+            app.kubernetes.io/part-of: "kyverno"
+            app.kubernetes.io/version: "3.8.1"
+            helm.sh/chart: "kyverno-3.8.1"
+        spec:
+          affinity:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                -
+                  podAffinityTerm:
+                    labelSelector:
+                      matchExpressions:
+                        -
+                          key: "app.kubernetes.io/component"
+                          operator: "In"
+                          values:
+                            - "cleanup-controller"
+                    topologyKey: "kubernetes.io/hostname"
+                  weight: 1
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "--caSecretName=kyverno-cleanup-controller.default.svc.kyverno-tls-ca"
+                - "--tlsSecretName=kyverno-cleanup-controller.default.svc.kyverno-tls-pair"
+                - "--tlsKeyAlgorithm=RSA"
+                - "--servicePort=443"
+                - "--resyncPeriod=15m"
+                - "--cleanupServerPort=9443"
+                - "--disableMetrics=false"
+                - "--otelConfig=prometheus"
+                - "--metricsPort=8000"
+                - "--enableDeferredLoading=true"
+                - "--dumpPayload=false"
+                - "--maxAPICallResponseLength=2000000"
+                - "--apiCallTimeout=30s"
+                - "--loggingFormat=text"
+                - "--v=2"
+                - "--protectManagedResources=false"
+                - "--ttlReconciliationInterval=1m"
+              env:
+                -
+                  name: "KYVERNO_DEPLOYMENT"
+                  value: "kyverno-cleanup-controller"
+                -
+                  name: "INIT_CONFIG"
+                  value: "kyverno"
+                -
+                  name: "METRICS_CONFIG"
+                  value: "kyverno-metrics"
+                -
+                  name: "KYVERNO_POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "KYVERNO_SERVICEACCOUNT_NAME"
+                  value: "kyverno-cleanup-controller"
+                -
+                  name: "KYVERNO_ROLE_NAME"
+                  value: "kyverno:cleanup-controller"
+                -
+                  name: "KYVERNO_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "KYVERNO_SVC"
+                  value: "kyverno-cleanup-controller"
+              image: "reg.kyverno.io/kyverno/cleanup-controller:v1.18.1"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 2
+                httpGet:
+                  path: "/health/liveness"
+                  port: 9443
+                  scheme: "HTTPS"
+                initialDelaySeconds: 15
+                periodSeconds: 30
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: "controller"
+              ports:
+                -
+                  containerPort: 9443
+                  name: "https"
+                  protocol: "TCP"
+                -
+                  containerPort: 8000
+                  name: "metrics"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 6
+                httpGet:
+                  path: "/health/readiness"
+                  port: 9443
+                  scheme: "HTTPS"
+                initialDelaySeconds: 5
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                limits:
+                  memory: "128Mi"
+                requests:
+                  cpu: "100m"
+                  memory: "64Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 65534
+                runAsNonRoot: true
+                runAsUser: 65534
+                seccompProfile:
+                  type: "RuntimeDefault"
+              startupProbe:
+                failureThreshold: 20
+                httpGet:
+                  path: "/health/liveness"
+                  port: 9443
+                  scheme: "HTTPS"
+                initialDelaySeconds: 2
+                periodSeconds: 6
+                successThreshold: 1
+                timeoutSeconds: 1
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/var/run/secrets/kyverno/apicall"
+                  name: "apicall-token"
+                  readOnly: true
+          dnsPolicy: "ClusterFirst"
+          nodeSelector:
+            kubernetes.io/os: "linux"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "kyverno-cleanup-controller"
+          serviceAccountName: "kyverno-cleanup-controller"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              name: "apicall-token"
+              projected:
+                defaultMode: 292
+                sources:
+                  -
+                    serviceAccountToken:
+                      audience: "kyverno-svc.kyverno.io"
+                      expirationSeconds: 3600
+                      path: "token"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T15:06:36Z"
+          lastUpdateTime: "2026-06-11T15:06:36Z"
+          message: "Deployment does not have minimum availability."
+          reason: "MinimumReplicasUnavailable"
+          status: "False"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T15:06:36Z"
+          lastUpdateTime: "2026-06-11T15:06:36Z"
+          message: "ReplicaSet \"kyverno-cleanup-controller-5f46cd89f7\" is progressing."
+          reason: "ReplicaSetUpdated"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      replicas: 1
+      terminatingReplicas: 0
+      unavailableReplicas: 1
+      updatedReplicas: 1
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"reports-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-reports-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno-reports-controller\",\"namespace\":\"default\"},\"spec\":{\"replicas\":null,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"reports-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/part-of\":\"kyverno\"}},\"strategy\":{\"rollingUpdate\":{\"maxSurge\":1,\"maxUnavailable\":\"40%\"},\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"reports-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-reports-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"}},\"spec\":{\"affinity\":{\"podAntiAffinity\":{\"preferredDuringSchedulingIgnoredDuringExecution\":[{\"podAffinityTerm\":{\"labelSelector\":{\"matchExpressions\":[{\"key\":\"app.kubernetes.io/component\",\"operator\":\"In\",\"values\":[\"reports-controller\"]}]},\"topologyKey\":\"kubernetes.io/hostname\"},\"weight\":1}]}},\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"--disableMetrics=false\",\"--openreportsEnabled=false\",\"--otelConfig=prometheus\",\"--metricsPort=8000\",\"--resyncPeriod=15m\",\"--admissionReports=true\",\"--aggregateReports=true\",\"--policyReports=true\",\"--validatingAdmissionPolicyReports=true\",\"--mutatingAdmissionPolicyReports=false\",\"--backgroundScan=true\",\"--backgroundScanWorkers=2\",\"--backgroundScanInterval=1h\",\"--skipResourceFilters=true\",\"--enableConfigMapCaching=true\",\"--enableDeferredLoading=true\",\"--maxAPICallResponseLength=2000000\",\"--apiCallTimeout=30s\",\"--loggingFormat=text\",\"--v=2\",\"--omitEvents=PolicyApplied,PolicySkipped\",\"--enablePolicyException=false\",\"--allowInsecureRegistry=false\",\"--registryCredentialHelpers=default,google,amazon,azure,github\",\"--enableReporting=validate,mutate,mutateExisting,imageVerify,generate\"],\"env\":[{\"name\":\"KYVERNO_SERVICEACCOUNT_NAME\",\"value\":\"kyverno-reports-controller\"},{\"name\":\"KYVERNO_DEPLOYMENT\",\"value\":\"kyverno-reports-controller\"},{\"name\":\"INIT_CONFIG\",\"value\":\"kyverno\"},{\"name\":\"METRICS_CONFIG\",\"value\":\"kyverno-metrics\"},{\"name\":\"KYVERNO_POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}},{\"name\":\"KYVERNO_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"TUF_ROOT\",\"value\":\"/.sigstore\"}],\"image\":\"reg.kyverno.io/kyverno/reports-controller:v1.18.1\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"controller\",\"ports\":[{\"containerPort\":9443,\"name\":\"https\",\"protocol\":\"TCP\"},{\"containerPort\":8000,\"name\":\"metrics\",\"protocol\":\"TCP\"}],\"resources\":{\"limits\":{\"memory\":\"128Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"64Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":65534,\"runAsNonRoot\":true,\"runAsUser\":65534,\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/.sigstore\",\"name\":\"sigstore\"},{\"mountPath\":\"/var/run/secrets/kyverno/apicall\",\"name\":\"apicall-token\",\"readOnly\":true}]}],\"dnsPolicy\":\"ClusterFirst\",\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"serviceAccountName\":\"kyverno-reports-controller\",\"volumes\":[{\"emptyDir\":{},\"name\":\"sigstore\"},{\"name\":\"apicall-token\",\"projected\":{\"defaultMode\":292,\"sources\":[{\"serviceAccountToken\":{\"audience\":\"kyverno-svc.kyverno.io\",\"expirationSeconds\":3600,\"path\":\"token\"}}]}}]}}}}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "reports-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-reports-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno-reports-controller"
+      namespace: "default"
+      resourceVersion: "2881"
+      uid: "49dd8269-8726-4bf6-8c6a-24c90e64cca3"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "reports-controller"
+          app.kubernetes.io/instance: "kyverno"
+          app.kubernetes.io/part-of: "kyverno"
+      strategy:
+        rollingUpdate:
+          maxSurge: 1
+          maxUnavailable: "40%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/component: "reports-controller"
+            app.kubernetes.io/instance: "kyverno"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "kyverno-reports-controller"
+            app.kubernetes.io/part-of: "kyverno"
+            app.kubernetes.io/version: "3.8.1"
+            helm.sh/chart: "kyverno-3.8.1"
+        spec:
+          affinity:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                -
+                  podAffinityTerm:
+                    labelSelector:
+                      matchExpressions:
+                        -
+                          key: "app.kubernetes.io/component"
+                          operator: "In"
+                          values:
+                            - "reports-controller"
+                    topologyKey: "kubernetes.io/hostname"
+                  weight: 1
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "--disableMetrics=false"
+                - "--openreportsEnabled=false"
+                - "--otelConfig=prometheus"
+                - "--metricsPort=8000"
+                - "--resyncPeriod=15m"
+                - "--admissionReports=true"
+                - "--aggregateReports=true"
+                - "--policyReports=true"
+                - "--validatingAdmissionPolicyReports=true"
+                - "--mutatingAdmissionPolicyReports=false"
+                - "--backgroundScan=true"
+                - "--backgroundScanWorkers=2"
+                - "--backgroundScanInterval=1h"
+                - "--skipResourceFilters=true"
+                - "--enableConfigMapCaching=true"
+                - "--enableDeferredLoading=true"
+                - "--maxAPICallResponseLength=2000000"
+                - "--apiCallTimeout=30s"
+                - "--loggingFormat=text"
+                - "--v=2"
+                - "--omitEvents=PolicyApplied,PolicySkipped"
+                - "--enablePolicyException=false"
+                - "--allowInsecureRegistry=false"
+                - "--registryCredentialHelpers=default,google,amazon,azure,github"
+                - "--enableReporting=validate,mutate,mutateExisting,imageVerify,generate"
+              env:
+                -
+                  name: "KYVERNO_SERVICEACCOUNT_NAME"
+                  value: "kyverno-reports-controller"
+                -
+                  name: "KYVERNO_DEPLOYMENT"
+                  value: "kyverno-reports-controller"
+                -
+                  name: "INIT_CONFIG"
+                  value: "kyverno"
+                -
+                  name: "METRICS_CONFIG"
+                  value: "kyverno-metrics"
+                -
+                  name: "KYVERNO_POD_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "KYVERNO_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "TUF_ROOT"
+                  value: "/.sigstore"
+              image: "reg.kyverno.io/kyverno/reports-controller:v1.18.1"
+              imagePullPolicy: "IfNotPresent"
+              name: "controller"
+              ports:
+                -
+                  containerPort: 9443
+                  name: "https"
+                  protocol: "TCP"
+                -
+                  containerPort: 8000
+                  name: "metrics"
+                  protocol: "TCP"
+              resources:
+                limits:
+                  memory: "128Mi"
+                requests:
+                  cpu: "100m"
+                  memory: "64Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 65534
+                runAsNonRoot: true
+                runAsUser: 65534
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/.sigstore"
+                  name: "sigstore"
+                -
+                  mountPath: "/var/run/secrets/kyverno/apicall"
+                  name: "apicall-token"
+                  readOnly: true
+          dnsPolicy: "ClusterFirst"
+          nodeSelector:
+            kubernetes.io/os: "linux"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "kyverno-reports-controller"
+          serviceAccountName: "kyverno-reports-controller"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              emptyDir:
+                {}
+              name: "sigstore"
+            -
+              name: "apicall-token"
+              projected:
+                defaultMode: 292
+                sources:
+                  -
+                    serviceAccountToken:
+                      audience: "kyverno-svc.kyverno.io"
+                      expirationSeconds: 3600
+                      path: "token"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T15:06:36Z"
+          lastUpdateTime: "2026-06-11T15:07:04Z"
+          message: "ReplicaSet \"kyverno-reports-controller-dfdd969cd\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+        -
+          lastTransitionTime: "2026-06-11T15:10:04Z"
+          lastUpdateTime: "2026-06-11T15:10:04Z"
+          message: "Deployment does not have minimum availability."
+          reason: "MinimumReplicasUnavailable"
+          status: "False"
+          type: "Available"
+      observedGeneration: 1
+      replicas: 1
+      terminatingReplicas: 0
+      unavailableReplicas: 1
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    aggregationRule:
+      clusterRoleSelectors:
+        -
+          matchLabels:
+            rbac.kyverno.io/aggregate-to-admission-controller: "true"
+        -
+          matchLabels:
+            app.kubernetes.io/component: "admission-controller"
+            app.kubernetes.io/instance: "kyverno"
+            app.kubernetes.io/part-of: "kyverno"
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"aggregationRule\":{\"clusterRoleSelectors\":[{\"matchLabels\":{\"rbac.kyverno.io/aggregate-to-admission-controller\":\"true\"}},{\"matchLabels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/part-of\":\"kyverno\"}}]},\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-admission-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:admission-controller\"}}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "admission-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-admission-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:admission-controller"
+      resourceVersion: "2360"
+      uid: "a728a197-5d5d-4cb9-9601-d7b47790fdbf"
+    rules:
+      -
+        apiGroups:
+          - "apiextensions.k8s.io"
+        resources:
+          - "customresourcedefinitions"
+        verbs:
+          - "get"
+      -
+        apiGroups:
+          - "admissionregistration.k8s.io"
+        resources:
+          - "mutatingwebhookconfigurations"
+          - "validatingwebhookconfigurations"
+          - "validatingadmissionpolicies"
+          - "validatingadmissionpolicybindings"
+          - "mutatingadmissionpolicies"
+          - "mutatingadmissionpolicybindings"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "rbac.authorization.k8s.io"
+        resources:
+          - "roles"
+          - "clusterroles"
+          - "rolebindings"
+          - "clusterrolebindings"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "kyverno.io"
+        resources:
+          - "policies"
+          - "policies/status"
+          - "clusterpolicies"
+          - "clusterpolicies/status"
+          - "updaterequests"
+          - "updaterequests/status"
+          - "globalcontextentries"
+          - "globalcontextentries/status"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "kyverno.io"
+        resources:
+          - "policyexceptions"
+        verbs:
+          - "create"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "policies.kyverno.io"
+        resources:
+          - "validatingpolicies"
+          - "validatingpolicies/status"
+          - "namespacedvalidatingpolicies"
+          - "namespacedvalidatingpolicies/status"
+          - "imagevalidatingpolicies"
+          - "imagevalidatingpolicies/status"
+          - "namespacedimagevalidatingpolicies"
+          - "namespacedimagevalidatingpolicies/status"
+          - "generatingpolicies"
+          - "generatingpolicies/status"
+          - "namespacedgeneratingpolicies"
+          - "namespacedgeneratingpolicies/status"
+          - "mutatingpolicies"
+          - "mutatingpolicies/status"
+          - "namespacedmutatingpolicies"
+          - "namespacedmutatingpolicies/status"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "policies.kyverno.io"
+        resources:
+          - "policyexceptions"
+        verbs:
+          - "create"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "reports.kyverno.io"
+        resources:
+          - "ephemeralreports"
+          - "clusterephemeralreports"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "wgpolicyk8s.io"
+        resources:
+          - "policyreports"
+          - "policyreports/status"
+          - "clusterpolicyreports"
+          - "clusterpolicyreports/status"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - ""
+          - "events.k8s.io"
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "authorization.k8s.io"
+        resources:
+          - "subjectaccessreviews"
+        verbs:
+          - "create"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+          - "namespaces"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "create"
+          - "update"
+          - "patch"
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-admission-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:admission-controller:core\"},\"rules\":[{\"apiGroups\":[\"apiextensions.k8s.io\"],\"resources\":[\"customresourcedefinitions\"],\"verbs\":[\"get\"]},{\"apiGroups\":[\"admissionregistration.k8s.io\"],\"resources\":[\"mutatingwebhookconfigurations\",\"validatingwebhookconfigurations\",\"validatingadmissionpolicies\",\"validatingadmissionpolicybindings\",\"mutatingadmissionpolicies\",\"mutatingadmissionpolicybindings\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\",\"deletecollection\"]},{\"apiGroups\":[\"rbac.authorization.k8s.io\"],\"resources\":[\"roles\",\"clusterroles\",\"rolebindings\",\"clusterrolebindings\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"kyverno.io\"],\"resources\":[\"policies\",\"policies/status\",\"clusterpolicies\",\"clusterpolicies/status\",\"updaterequests\",\"updaterequests/status\",\"globalcontextentries\",\"globalcontextentries/status\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\",\"deletecollection\"]},{\"apiGroups\":[\"kyverno.io\"],\"resources\":[\"policyexceptions\"],\"verbs\":[\"create\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"policies.kyverno.io\"],\"resources\":[\"validatingpolicies\",\"validatingpolicies/status\",\"namespacedvalidatingpolicies\",\"namespacedvalidatingpolicies/status\",\"imagevalidatingpolicies\",\"imagevalidatingpolicies/status\",\"namespacedimagevalidatingpolicies\",\"namespacedimagevalidatingpolicies/status\",\"generatingpolicies\",\"generatingpolicies/status\",\"namespacedgeneratingpolicies\",\"namespacedgeneratingpolicies/status\",\"mutatingpolicies\",\"mutatingpolicies/status\",\"namespacedmutatingpolicies\",\"namespacedmutatingpolicies/status\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\",\"deletecollection\"]},{\"apiGroups\":[\"policies.kyverno.io\"],\"resources\":[\"policyexceptions\"],\"verbs\":[\"create\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"reports.kyverno.io\"],\"resources\":[\"ephemeralreports\",\"clusterephemeralreports\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\",\"deletecollection\"]},{\"apiGroups\":[\"wgpolicyk8s.io\"],\"resources\":[\"policyreports\",\"policyreports/status\",\"clusterpolicyreports\",\"clusterpolicyreports/status\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\",\"deletecollection\"]},{\"apiGroups\":[\"\",\"events.k8s.io\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"update\",\"patch\"]},{\"apiGroups\":[\"authorization.k8s.io\"],\"resources\":[\"subjectaccessreviews\"],\"verbs\":[\"create\"]},{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\",\"namespaces\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"create\",\"update\",\"patch\",\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "admission-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-admission-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:admission-controller:core"
+      resourceVersion: "2358"
+      uid: "cf54be12-8f9c-43a4-aec9-f65d7fc1e0d1"
+    rules:
+      -
+        apiGroups:
+          - "apiextensions.k8s.io"
+        resources:
+          - "customresourcedefinitions"
+        verbs:
+          - "get"
+      -
+        apiGroups:
+          - "admissionregistration.k8s.io"
+        resources:
+          - "mutatingwebhookconfigurations"
+          - "validatingwebhookconfigurations"
+          - "validatingadmissionpolicies"
+          - "validatingadmissionpolicybindings"
+          - "mutatingadmissionpolicies"
+          - "mutatingadmissionpolicybindings"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "rbac.authorization.k8s.io"
+        resources:
+          - "roles"
+          - "clusterroles"
+          - "rolebindings"
+          - "clusterrolebindings"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "kyverno.io"
+        resources:
+          - "policies"
+          - "policies/status"
+          - "clusterpolicies"
+          - "clusterpolicies/status"
+          - "updaterequests"
+          - "updaterequests/status"
+          - "globalcontextentries"
+          - "globalcontextentries/status"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "kyverno.io"
+        resources:
+          - "policyexceptions"
+        verbs:
+          - "create"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "policies.kyverno.io"
+        resources:
+          - "validatingpolicies"
+          - "validatingpolicies/status"
+          - "namespacedvalidatingpolicies"
+          - "namespacedvalidatingpolicies/status"
+          - "imagevalidatingpolicies"
+          - "imagevalidatingpolicies/status"
+          - "namespacedimagevalidatingpolicies"
+          - "namespacedimagevalidatingpolicies/status"
+          - "generatingpolicies"
+          - "generatingpolicies/status"
+          - "namespacedgeneratingpolicies"
+          - "namespacedgeneratingpolicies/status"
+          - "mutatingpolicies"
+          - "mutatingpolicies/status"
+          - "namespacedmutatingpolicies"
+          - "namespacedmutatingpolicies/status"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "policies.kyverno.io"
+        resources:
+          - "policyexceptions"
+        verbs:
+          - "create"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "reports.kyverno.io"
+        resources:
+          - "ephemeralreports"
+          - "clusterephemeralreports"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "wgpolicyk8s.io"
+        resources:
+          - "policyreports"
+          - "policyreports/status"
+          - "clusterpolicyreports"
+          - "clusterpolicyreports/status"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - ""
+          - "events.k8s.io"
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - "authorization.k8s.io"
+        resources:
+          - "subjectaccessreviews"
+        verbs:
+          - "create"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+          - "namespaces"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "create"
+          - "update"
+          - "patch"
+          - "get"
+          - "list"
+          - "watch"
+  -
+    aggregationRule:
+      clusterRoleSelectors:
+        -
+          matchLabels:
+            rbac.kyverno.io/aggregate-to-background-controller: "true"
+        -
+          matchLabels:
+            app.kubernetes.io/component: "background-controller"
+            app.kubernetes.io/instance: "kyverno"
+            app.kubernetes.io/part-of: "kyverno"
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"aggregationRule\":{\"clusterRoleSelectors\":[{\"matchLabels\":{\"rbac.kyverno.io/aggregate-to-background-controller\":\"true\"}},{\"matchLabels\":{\"app.kubernetes.io/component\":\"background-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/part-of\":\"kyverno\"}}]},\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"background-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-background-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:background-controller\"}}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "background-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-background-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:background-controller"
+      resourceVersion: "2362"
+      uid: "ab481eaa-9150-4065-a0a3-6e25938d4778"
+    rules:
+      -
+        apiGroups:
+          - "apiextensions.k8s.io"
+        resources:
+          - "customresourcedefinitions"
+        verbs:
+          - "get"
+      -
+        apiGroups:
+          - "kyverno.io"
+        resources:
+          - "policies"
+          - "policies/status"
+          - "clusterpolicies"
+          - "clusterpolicies/status"
+          - "policyexceptions"
+          - "updaterequests"
+          - "updaterequests/status"
+          - "globalcontextentries"
+          - "globalcontextentries/status"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "policies.kyverno.io"
+        resources:
+          - "generatingpolicies"
+          - "namespacedgeneratingpolicies"
+          - "mutatingpolicies"
+          - "namespacedmutatingpolicies"
+          - "policyexceptions"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "policies.kyverno.io"
+        resources:
+          - "policyexceptions"
+        verbs:
+          - "create"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "namespaces"
+          - "configmaps"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+          - "events.k8s.io"
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "reports.kyverno.io"
+        resources:
+          - "ephemeralreports"
+          - "clusterephemeralreports"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "networking.k8s.io"
+        resources:
+          - "ingresses"
+          - "ingressclasses"
+          - "networkpolicies"
+        verbs:
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "rbac.authorization.k8s.io"
+        resources:
+          - "rolebindings"
+          - "roles"
+        verbs:
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+          - "resourcequotas"
+          - "limitranges"
+        verbs:
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "resource.k8s.io"
+        resources:
+          - "resourceclaims"
+          - "resourceclaimtemplates"
+        verbs:
+          - "create"
+          - "delete"
+          - "update"
+          - "patch"
+          - "deletecollection"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"background-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-background-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:background-controller:core\"},\"rules\":[{\"apiGroups\":[\"apiextensions.k8s.io\"],\"resources\":[\"customresourcedefinitions\"],\"verbs\":[\"get\"]},{\"apiGroups\":[\"kyverno.io\"],\"resources\":[\"policies\",\"policies/status\",\"clusterpolicies\",\"clusterpolicies/status\",\"policyexceptions\",\"updaterequests\",\"updaterequests/status\",\"globalcontextentries\",\"globalcontextentries/status\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\",\"deletecollection\"]},{\"apiGroups\":[\"policies.kyverno.io\"],\"resources\":[\"generatingpolicies\",\"namespacedgeneratingpolicies\",\"mutatingpolicies\",\"namespacedmutatingpolicies\",\"policyexceptions\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\",\"deletecollection\"]},{\"apiGroups\":[\"policies.kyverno.io\"],\"resources\":[\"policyexceptions\"],\"verbs\":[\"create\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces\",\"configmaps\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\",\"events.k8s.io\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"reports.kyverno.io\"],\"resources\":[\"ephemeralreports\",\"clusterephemeralreports\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\",\"deletecollection\"]},{\"apiGroups\":[\"networking.k8s.io\"],\"resources\":[\"ingresses\",\"ingressclasses\",\"networkpolicies\"],\"verbs\":[\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"rbac.authorization.k8s.io\"],\"resources\":[\"rolebindings\",\"roles\"],\"verbs\":[\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\",\"resourcequotas\",\"limitranges\"],\"verbs\":[\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"resource.k8s.io\"],\"resources\":[\"resourceclaims\",\"resourceclaimtemplates\"],\"verbs\":[\"create\",\"delete\",\"update\",\"patch\",\"deletecollection\"]}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "background-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-background-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:background-controller:core"
+      resourceVersion: "2361"
+      uid: "c0cb977a-7b8a-437b-b990-99d02f7fb87b"
+    rules:
+      -
+        apiGroups:
+          - "apiextensions.k8s.io"
+        resources:
+          - "customresourcedefinitions"
+        verbs:
+          - "get"
+      -
+        apiGroups:
+          - "kyverno.io"
+        resources:
+          - "policies"
+          - "policies/status"
+          - "clusterpolicies"
+          - "clusterpolicies/status"
+          - "policyexceptions"
+          - "updaterequests"
+          - "updaterequests/status"
+          - "globalcontextentries"
+          - "globalcontextentries/status"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "policies.kyverno.io"
+        resources:
+          - "generatingpolicies"
+          - "namespacedgeneratingpolicies"
+          - "mutatingpolicies"
+          - "namespacedmutatingpolicies"
+          - "policyexceptions"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "policies.kyverno.io"
+        resources:
+          - "policyexceptions"
+        verbs:
+          - "create"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "namespaces"
+          - "configmaps"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+          - "events.k8s.io"
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "reports.kyverno.io"
+        resources:
+          - "ephemeralreports"
+          - "clusterephemeralreports"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "networking.k8s.io"
+        resources:
+          - "ingresses"
+          - "ingressclasses"
+          - "networkpolicies"
+        verbs:
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "rbac.authorization.k8s.io"
+        resources:
+          - "rolebindings"
+          - "roles"
+        verbs:
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+          - "resourcequotas"
+          - "limitranges"
+        verbs:
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "resource.k8s.io"
+        resources:
+          - "resourceclaims"
+          - "resourceclaimtemplates"
+        verbs:
+          - "create"
+          - "delete"
+          - "update"
+          - "patch"
+          - "deletecollection"
+  -
+    aggregationRule:
+      clusterRoleSelectors:
+        -
+          matchLabels:
+            rbac.kyverno.io/aggregate-to-cleanup-controller: "true"
+        -
+          matchLabels:
+            app.kubernetes.io/component: "cleanup-controller"
+            app.kubernetes.io/instance: "kyverno"
+            app.kubernetes.io/part-of: "kyverno"
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"aggregationRule\":{\"clusterRoleSelectors\":[{\"matchLabels\":{\"rbac.kyverno.io/aggregate-to-cleanup-controller\":\"true\"}},{\"matchLabels\":{\"app.kubernetes.io/component\":\"cleanup-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/part-of\":\"kyverno\"}}]},\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"cleanup-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-cleanup-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:cleanup-controller\"}}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "cleanup-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-cleanup-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:cleanup-controller"
+      resourceVersion: "2365"
+      uid: "970fc807-8bef-4df0-b893-0d13a14a815e"
+    rules:
+      -
+        apiGroups:
+          - "apiextensions.k8s.io"
+        resources:
+          - "customresourcedefinitions"
+        verbs:
+          - "get"
+      -
+        apiGroups:
+          - "admissionregistration.k8s.io"
+        resources:
+          - "validatingwebhookconfigurations"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "namespaces"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "kyverno.io"
+        resources:
+          - "clustercleanuppolicies"
+          - "cleanuppolicies"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "policies.kyverno.io"
+        resources:
+          - "deletingpolicies"
+          - "namespaceddeletingpolicies"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "policies.kyverno.io"
+        resources:
+          - "deletingpolicies/status"
+          - "namespaceddeletingpolicies/status"
+        verbs:
+          - "update"
+      -
+        apiGroups:
+          - "policies.kyverno.io"
+        resources:
+          - "policyexceptions"
+        verbs:
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "kyverno.io"
+        resources:
+          - "globalcontextentries"
+          - "globalcontextentries/status"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "kyverno.io"
+        resources:
+          - "clustercleanuppolicies/status"
+          - "cleanuppolicies/status"
+        verbs:
+          - "update"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+          - "events.k8s.io"
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "authorization.k8s.io"
+        resources:
+          - "subjectaccessreviews"
+        verbs:
+          - "create"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"cleanup-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-cleanup-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:cleanup-controller:core\"},\"rules\":[{\"apiGroups\":[\"apiextensions.k8s.io\"],\"resources\":[\"customresourcedefinitions\"],\"verbs\":[\"get\"]},{\"apiGroups\":[\"admissionregistration.k8s.io\"],\"resources\":[\"validatingwebhookconfigurations\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"update\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"kyverno.io\"],\"resources\":[\"clustercleanuppolicies\",\"cleanuppolicies\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"policies.kyverno.io\"],\"resources\":[\"deletingpolicies\",\"namespaceddeletingpolicies\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"policies.kyverno.io\"],\"resources\":[\"deletingpolicies/status\",\"namespaceddeletingpolicies/status\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"policies.kyverno.io\"],\"resources\":[\"policyexceptions\"],\"verbs\":[\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"kyverno.io\"],\"resources\":[\"globalcontextentries\",\"globalcontextentries/status\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\",\"deletecollection\"]},{\"apiGroups\":[\"kyverno.io\"],\"resources\":[\"clustercleanuppolicies/status\",\"cleanuppolicies/status\"],\"verbs\":[\"update\"]},{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\",\"events.k8s.io\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"patch\",\"update\"]},{\"apiGroups\":[\"authorization.k8s.io\"],\"resources\":[\"subjectaccessreviews\"],\"verbs\":[\"create\"]}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "cleanup-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-cleanup-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:cleanup-controller:core"
+      resourceVersion: "2364"
+      uid: "c72a5951-5da0-4fb3-9ef2-b5e9bdb1c231"
+    rules:
+      -
+        apiGroups:
+          - "apiextensions.k8s.io"
+        resources:
+          - "customresourcedefinitions"
+        verbs:
+          - "get"
+      -
+        apiGroups:
+          - "admissionregistration.k8s.io"
+        resources:
+          - "validatingwebhookconfigurations"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "namespaces"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "kyverno.io"
+        resources:
+          - "clustercleanuppolicies"
+          - "cleanuppolicies"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "policies.kyverno.io"
+        resources:
+          - "deletingpolicies"
+          - "namespaceddeletingpolicies"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "policies.kyverno.io"
+        resources:
+          - "deletingpolicies/status"
+          - "namespaceddeletingpolicies/status"
+        verbs:
+          - "update"
+      -
+        apiGroups:
+          - "policies.kyverno.io"
+        resources:
+          - "policyexceptions"
+        verbs:
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "kyverno.io"
+        resources:
+          - "globalcontextentries"
+          - "globalcontextentries/status"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "kyverno.io"
+        resources:
+          - "clustercleanuppolicies/status"
+          - "cleanuppolicies/status"
+        verbs:
+          - "update"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+          - "events.k8s.io"
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "authorization.k8s.io"
+        resources:
+          - "subjectaccessreviews"
+        verbs:
+          - "create"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"rbac\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\",\"rbac.authorization.k8s.io/aggregate-to-admin\":\"true\"},\"name\":\"kyverno:rbac:admin:policies\"},\"rules\":[{\"apiGroups\":[\"kyverno.io\"],\"resources\":[\"cleanuppolicies\",\"clustercleanuppolicies\",\"policies\",\"clusterpolicies\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "rbac"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+        rbac.authorization.k8s.io/aggregate-to-admin: "true"
+      name: "kyverno:rbac:admin:policies"
+      resourceVersion: "2366"
+      uid: "28d5c95d-465e-48b0-9594-b111bd2a0bdd"
+    rules:
+      -
+        apiGroups:
+          - "kyverno.io"
+        resources:
+          - "cleanuppolicies"
+          - "clustercleanuppolicies"
+          - "policies"
+          - "clusterpolicies"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"rbac\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\",\"rbac.authorization.k8s.io/aggregate-to-view\":\"true\"},\"name\":\"kyverno:rbac:view:policies\"},\"rules\":[{\"apiGroups\":[\"kyverno.io\"],\"resources\":[\"cleanuppolicies\",\"clustercleanuppolicies\",\"policies\",\"clusterpolicies\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "rbac"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+        rbac.authorization.k8s.io/aggregate-to-view: "true"
+      name: "kyverno:rbac:view:policies"
+      resourceVersion: "2367"
+      uid: "6a0dbfa8-f039-422a-b08c-e3a7c88afe80"
+    rules:
+      -
+        apiGroups:
+          - "kyverno.io"
+        resources:
+          - "cleanuppolicies"
+          - "clustercleanuppolicies"
+          - "policies"
+          - "clusterpolicies"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"rbac\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\",\"rbac.authorization.k8s.io/aggregate-to-admin\":\"true\"},\"name\":\"kyverno:rbac:admin:policyreports\"},\"rules\":[{\"apiGroups\":[\"wgpolicyk8s.io\"],\"resources\":[\"policyreports\",\"clusterpolicyreports\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "rbac"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+        rbac.authorization.k8s.io/aggregate-to-admin: "true"
+      name: "kyverno:rbac:admin:policyreports"
+      resourceVersion: "2369"
+      uid: "8fd6ad83-5468-445f-8fd7-9e08125256c7"
+    rules:
+      -
+        apiGroups:
+          - "wgpolicyk8s.io"
+        resources:
+          - "policyreports"
+          - "clusterpolicyreports"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"rbac\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\",\"rbac.authorization.k8s.io/aggregate-to-view\":\"true\"},\"name\":\"kyverno:rbac:view:policyreports\"},\"rules\":[{\"apiGroups\":[\"wgpolicyk8s.io\"],\"resources\":[\"policyreports\",\"clusterpolicyreports\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "rbac"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+        rbac.authorization.k8s.io/aggregate-to-view: "true"
+      name: "kyverno:rbac:view:policyreports"
+      resourceVersion: "2370"
+      uid: "d6b01b82-21cc-4bc4-b3c0-d3093d0ff0a9"
+    rules:
+      -
+        apiGroups:
+          - "wgpolicyk8s.io"
+        resources:
+          - "policyreports"
+          - "clusterpolicyreports"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"rbac\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\",\"rbac.authorization.k8s.io/aggregate-to-admin\":\"true\"},\"name\":\"kyverno:rbac:admin:reports\"},\"rules\":[{\"apiGroups\":[\"reports.kyverno.io\"],\"resources\":[\"ephemeralreports\",\"clusterephemeralreports\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "rbac"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+        rbac.authorization.k8s.io/aggregate-to-admin: "true"
+      name: "kyverno:rbac:admin:reports"
+      resourceVersion: "2373"
+      uid: "b4eca9c8-6e76-4170-bdf8-e5c50d0d0371"
+    rules:
+      -
+        apiGroups:
+          - "reports.kyverno.io"
+        resources:
+          - "ephemeralreports"
+          - "clusterephemeralreports"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"rbac\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\",\"rbac.authorization.k8s.io/aggregate-to-view\":\"true\"},\"name\":\"kyverno:rbac:view:reports\"},\"rules\":[{\"apiGroups\":[\"reports.kyverno.io\"],\"resources\":[\"ephemeralreports\",\"clusterephemeralreports\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "rbac"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+        rbac.authorization.k8s.io/aggregate-to-view: "true"
+      name: "kyverno:rbac:view:reports"
+      resourceVersion: "2377"
+      uid: "54246371-10ee-4a28-b178-a39b8378481f"
+    rules:
+      -
+        apiGroups:
+          - "reports.kyverno.io"
+        resources:
+          - "ephemeralreports"
+          - "clusterephemeralreports"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"rbac\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\",\"rbac.authorization.k8s.io/aggregate-to-admin\":\"true\"},\"name\":\"kyverno:rbac:admin:updaterequests\"},\"rules\":[{\"apiGroups\":[\"kyverno.io\"],\"resources\":[\"updaterequests\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "rbac"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+        rbac.authorization.k8s.io/aggregate-to-admin: "true"
+      name: "kyverno:rbac:admin:updaterequests"
+      resourceVersion: "2381"
+      uid: "43e5d239-3c3e-4501-af3a-4e1c7324fb2c"
+    rules:
+      -
+        apiGroups:
+          - "kyverno.io"
+        resources:
+          - "updaterequests"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"rbac\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\",\"rbac.authorization.k8s.io/aggregate-to-view\":\"true\"},\"name\":\"kyverno:rbac:view:updaterequests\"},\"rules\":[{\"apiGroups\":[\"kyverno.io\"],\"resources\":[\"updaterequests\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "rbac"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+        rbac.authorization.k8s.io/aggregate-to-view: "true"
+      name: "kyverno:rbac:view:updaterequests"
+      resourceVersion: "2384"
+      uid: "47f87deb-702c-41cd-b33c-79fdee0b2437"
+    rules:
+      -
+        apiGroups:
+          - "kyverno.io"
+        resources:
+          - "updaterequests"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    aggregationRule:
+      clusterRoleSelectors:
+        -
+          matchLabels:
+            rbac.kyverno.io/aggregate-to-reports-controller: "true"
+        -
+          matchLabels:
+            app.kubernetes.io/component: "reports-controller"
+            app.kubernetes.io/instance: "kyverno"
+            app.kubernetes.io/part-of: "kyverno"
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"aggregationRule\":{\"clusterRoleSelectors\":[{\"matchLabels\":{\"rbac.kyverno.io/aggregate-to-reports-controller\":\"true\"}},{\"matchLabels\":{\"app.kubernetes.io/component\":\"reports-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/part-of\":\"kyverno\"}}]},\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"reports-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-reports-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:reports-controller\"}}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "reports-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-reports-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:reports-controller"
+      resourceVersion: "2391"
+      uid: "ffb9b597-d866-4985-ba2e-3c1ea4246bb0"
+    rules:
+      -
+        apiGroups:
+          - "apiextensions.k8s.io"
+        resources:
+          - "customresourcedefinitions"
+        verbs:
+          - "get"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+          - "namespaces"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "kyverno.io"
+        resources:
+          - "globalcontextentries"
+          - "globalcontextentries/status"
+          - "policyexceptions"
+          - "policies"
+          - "clusterpolicies"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "policies.kyverno.io"
+        resources:
+          - "validatingpolicies"
+          - "validatingpolicies/status"
+          - "namespacedvalidatingpolicies"
+          - "namespacedvalidatingpolicies/status"
+          - "imagevalidatingpolicies"
+          - "imagevalidatingpolicies/status"
+          - "namespacedimagevalidatingpolicies"
+          - "namespacedimagevalidatingpolicies/status"
+          - "generatingpolicies"
+          - "namespacedgeneratingpolicies"
+          - "mutatingpolicies"
+          - "namespacedmutatingpolicies"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "policies.kyverno.io"
+        resources:
+          - "policyexceptions"
+          - "policyexceptions/status"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "admissionregistration.k8s.io"
+        resources:
+          - "validatingadmissionpolicies"
+          - "validatingadmissionpolicybindings"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "reports.kyverno.io"
+        resources:
+          - "ephemeralreports"
+          - "clusterephemeralreports"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "wgpolicyk8s.io"
+        resources:
+          - "policyreports"
+          - "policyreports/status"
+          - "clusterpolicyreports"
+          - "clusterpolicyreports/status"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "openreports.io"
+        resources:
+          - "reports"
+          - "reports/status"
+          - "clusterreports"
+          - "clusterreports/status"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - ""
+          - "events.k8s.io"
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "patch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"reports-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-reports-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:reports-controller:core\"},\"rules\":[{\"apiGroups\":[\"apiextensions.k8s.io\"],\"resources\":[\"customresourcedefinitions\"],\"verbs\":[\"get\"]},{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\",\"namespaces\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"kyverno.io\"],\"resources\":[\"globalcontextentries\",\"globalcontextentries/status\",\"policyexceptions\",\"policies\",\"clusterpolicies\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\",\"deletecollection\"]},{\"apiGroups\":[\"policies.kyverno.io\"],\"resources\":[\"validatingpolicies\",\"validatingpolicies/status\",\"namespacedvalidatingpolicies\",\"namespacedvalidatingpolicies/status\",\"imagevalidatingpolicies\",\"imagevalidatingpolicies/status\",\"namespacedimagevalidatingpolicies\",\"namespacedimagevalidatingpolicies/status\",\"generatingpolicies\",\"namespacedgeneratingpolicies\",\"mutatingpolicies\",\"namespacedmutatingpolicies\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\",\"deletecollection\"]},{\"apiGroups\":[\"policies.kyverno.io\"],\"resources\":[\"policyexceptions\",\"policyexceptions/status\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"admissionregistration.k8s.io\"],\"resources\":[\"validatingadmissionpolicies\",\"validatingadmissionpolicybindings\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"reports.kyverno.io\"],\"resources\":[\"ephemeralreports\",\"clusterephemeralreports\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\",\"deletecollection\"]},{\"apiGroups\":[\"wgpolicyk8s.io\"],\"resources\":[\"policyreports\",\"policyreports/status\",\"clusterpolicyreports\",\"clusterpolicyreports/status\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\",\"deletecollection\"]},{\"apiGroups\":[\"openreports.io\"],\"resources\":[\"reports\",\"reports/status\",\"clusterreports\",\"clusterreports/status\"],\"verbs\":[\"create\",\"delete\",\"get\",\"list\",\"patch\",\"update\",\"watch\",\"deletecollection\"]},{\"apiGroups\":[\"\",\"events.k8s.io\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"patch\"]}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "reports-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-reports-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:reports-controller:core"
+      resourceVersion: "2389"
+      uid: "5d2835c0-079b-4654-a9ef-cdefae20c807"
+    rules:
+      -
+        apiGroups:
+          - "apiextensions.k8s.io"
+        resources:
+          - "customresourcedefinitions"
+        verbs:
+          - "get"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+          - "namespaces"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "kyverno.io"
+        resources:
+          - "globalcontextentries"
+          - "globalcontextentries/status"
+          - "policyexceptions"
+          - "policies"
+          - "clusterpolicies"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "policies.kyverno.io"
+        resources:
+          - "validatingpolicies"
+          - "validatingpolicies/status"
+          - "namespacedvalidatingpolicies"
+          - "namespacedvalidatingpolicies/status"
+          - "imagevalidatingpolicies"
+          - "imagevalidatingpolicies/status"
+          - "namespacedimagevalidatingpolicies"
+          - "namespacedimagevalidatingpolicies/status"
+          - "generatingpolicies"
+          - "namespacedgeneratingpolicies"
+          - "mutatingpolicies"
+          - "namespacedmutatingpolicies"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "policies.kyverno.io"
+        resources:
+          - "policyexceptions"
+          - "policyexceptions/status"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "admissionregistration.k8s.io"
+        resources:
+          - "validatingadmissionpolicies"
+          - "validatingadmissionpolicybindings"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "reports.kyverno.io"
+        resources:
+          - "ephemeralreports"
+          - "clusterephemeralreports"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "wgpolicyk8s.io"
+        resources:
+          - "policyreports"
+          - "policyreports/status"
+          - "clusterpolicyreports"
+          - "clusterpolicyreports/status"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "openreports.io"
+        resources:
+          - "reports"
+          - "reports/status"
+          - "clusterreports"
+          - "clusterreports/status"
+        verbs:
+          - "create"
+          - "delete"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - ""
+          - "events.k8s.io"
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "patch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-admission-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:admission-controller\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"kyverno:admission-controller\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"kyverno-admission-controller\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "admission-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-admission-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:admission-controller"
+      resourceVersion: "2392"
+      uid: "c247f7fb-0280-4f2a-8227-353bcb1dc35a"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "kyverno:admission-controller"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "kyverno-admission-controller"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-admission-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:admission-controller:view\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"view\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"kyverno-admission-controller\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "admission-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-admission-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:admission-controller:view"
+      resourceVersion: "2393"
+      uid: "dc171628-c959-4267-a214-92992bf39735"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "view"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "kyverno-admission-controller"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"background-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-background-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:background-controller\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"kyverno:background-controller\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"kyverno-background-controller\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "background-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-background-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:background-controller"
+      resourceVersion: "2394"
+      uid: "f7363293-d7dd-462e-9b4c-ea74901fc144"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "kyverno:background-controller"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "kyverno-background-controller"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"background-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-background-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:background-controller:view\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"view\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"kyverno-background-controller\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "background-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-background-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:background-controller:view"
+      resourceVersion: "2395"
+      uid: "9d028f3a-14e9-4f1e-89bf-8510f0711ca7"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "view"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "kyverno-background-controller"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"cleanup-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-cleanup-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:cleanup-controller\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"kyverno:cleanup-controller\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"kyverno-cleanup-controller\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "cleanup-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-cleanup-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:cleanup-controller"
+      resourceVersion: "2396"
+      uid: "97056f5a-1dba-42c9-976d-e1e0acbfbb94"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "kyverno:cleanup-controller"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "kyverno-cleanup-controller"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"reports-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-reports-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:reports-controller\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"kyverno:reports-controller\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"kyverno-reports-controller\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "reports-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-reports-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:reports-controller"
+      resourceVersion: "2397"
+      uid: "2c4d32fe-6ed5-4b5d-a0f5-cc67b3b435a8"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "kyverno:reports-controller"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "kyverno-reports-controller"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"reports-controller\",\"app.kubernetes.io/instance\":\"kyverno\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kyverno-reports-controller\",\"app.kubernetes.io/part-of\":\"kyverno\",\"app.kubernetes.io/version\":\"3.8.1\",\"helm.sh/chart\":\"kyverno-3.8.1\"},\"name\":\"kyverno:reports-controller:view\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"view\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"kyverno-reports-controller\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T15:06:36Z"
+      labels:
+        app.kubernetes.io/component: "reports-controller"
+        app.kubernetes.io/instance: "kyverno"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kyverno-reports-controller"
+        app.kubernetes.io/part-of: "kyverno"
+        app.kubernetes.io/version: "3.8.1"
+        helm.sh/chart: "kyverno-3.8.1"
+      name: "kyverno:reports-controller:view"
+      resourceVersion: "2398"
+      uid: "3849433f-0c07-4d6d-aaeb-830d8699d0f1"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "view"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "kyverno-reports-controller"
+        namespace: "default"
+kind: "List"
+metadata:
+  resourceVersion: ""

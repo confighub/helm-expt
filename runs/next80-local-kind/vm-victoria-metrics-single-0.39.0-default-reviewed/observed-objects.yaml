@@ -1,0 +1,185 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/managed-by\":\"Helm\",\"helm.sh/chart\":\"victoria-metrics-single-0.39.0\"},\"name\":\"victoria-metrics-single-server\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T15:15:31Z"
+      labels:
+        app.kubernetes.io/managed-by: "Helm"
+        helm.sh/chart: "victoria-metrics-single-0.39.0"
+      name: "victoria-metrics-single-server"
+      namespace: "default"
+      resourceVersion: "4183"
+      uid: "992a48b1-bc02-4451-8f84-b39c1c2fa804"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"server\",\"app.kubernetes.io/instance\":\"victoria-metrics-single\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"victoria-metrics-single\",\"app.kubernetes.io/version\":\"v1.144.0\",\"helm.sh/chart\":\"victoria-metrics-single-0.39.0\"},\"name\":\"victoria-metrics-single-server\",\"namespace\":\"default\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"name\":\"http\",\"port\":8428,\"protocol\":\"TCP\",\"targetPort\":\"http\"}],\"selector\":{\"app\":\"server\",\"app.kubernetes.io/instance\":\"victoria-metrics-single\",\"app.kubernetes.io/name\":\"victoria-metrics-single\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T15:15:31Z"
+      labels:
+        app.kubernetes.io/component: "server"
+        app.kubernetes.io/instance: "victoria-metrics-single"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "victoria-metrics-single"
+        app.kubernetes.io/version: "v1.144.0"
+        helm.sh/chart: "victoria-metrics-single-0.39.0"
+      name: "victoria-metrics-single-server"
+      namespace: "default"
+      resourceVersion: "4184"
+      uid: "85b82eaa-f919-49a5-a907-5280b0e73ef2"
+    spec:
+      clusterIP: "None"
+      clusterIPs:
+        - "None"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http"
+          port: 8428
+          protocol: "TCP"
+          targetPort: "http"
+      selector:
+        app: "server"
+        app.kubernetes.io/instance: "victoria-metrics-single"
+        app.kubernetes.io/name: "victoria-metrics-single"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "StatefulSet"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"server\",\"app.kubernetes.io/instance\":\"victoria-metrics-single\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"victoria-metrics-single\",\"app.kubernetes.io/version\":\"v1.144.0\",\"helm.sh/chart\":\"victoria-metrics-single-0.39.0\"},\"name\":\"victoria-metrics-single-server\",\"namespace\":\"default\"},\"spec\":{\"podManagementPolicy\":\"OrderedReady\",\"replicas\":1,\"selector\":{\"matchLabels\":{\"app\":\"server\",\"app.kubernetes.io/instance\":\"victoria-metrics-single\",\"app.kubernetes.io/name\":\"victoria-metrics-single\"}},\"serviceName\":\"victoria-metrics-single-server\",\"template\":{\"metadata\":{\"labels\":{\"app\":\"server\",\"app.kubernetes.io/component\":\"server\",\"app.kubernetes.io/instance\":\"victoria-metrics-single\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"victoria-metrics-single\"}},\"spec\":{\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"--envflag.enable\",\"--envflag.prefix=VM_\",\"--httpListenAddr=:8428\",\"--loggerFormat=json\",\"--retentionPeriod=1\",\"--storageDataPath=/storage\"],\"image\":\"victoriametrics/victoria-metrics:v1.144.0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":10,\"initialDelaySeconds\":30,\"periodSeconds\":30,\"tcpSocket\":{\"port\":\"http\"},\"timeoutSeconds\":5},\"name\":\"vmsingle\",\"ports\":[{\"containerPort\":8428,\"name\":\"http\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/health\",\"port\":\"http\",\"scheme\":\"HTTP\"},\"initialDelaySeconds\":5,\"periodSeconds\":15,\"timeoutSeconds\":5},\"securityContext\":{},\"volumeMounts\":[{\"mountPath\":\"/storage\",\"name\":\"server-volume\"}]}],\"securityContext\":{},\"serviceAccountName\":\"victoria-metrics-single-server\",\"terminationGracePeriodSeconds\":60,\"volumes\":null}},\"updateStrategy\":{},\"volumeClaimTemplates\":[{\"apiVersion\":\"v1\",\"kind\":\"PersistentVolumeClaim\",\"metadata\":{\"name\":\"server-volume\"},\"spec\":{\"accessModes\":[\"ReadWriteOnce\"],\"resources\":{\"requests\":{\"storage\":\"16Gi\"}}}}]}}\n"
+      creationTimestamp: "2026-06-11T15:15:31Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "server"
+        app.kubernetes.io/instance: "victoria-metrics-single"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "victoria-metrics-single"
+        app.kubernetes.io/version: "v1.144.0"
+        helm.sh/chart: "victoria-metrics-single-0.39.0"
+      name: "victoria-metrics-single-server"
+      namespace: "default"
+      resourceVersion: "4269"
+      uid: "21e5648d-d9c9-4d7e-8723-600115df7524"
+    spec:
+      persistentVolumeClaimRetentionPolicy:
+        whenDeleted: "Retain"
+        whenScaled: "Retain"
+      podManagementPolicy: "OrderedReady"
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app: "server"
+          app.kubernetes.io/instance: "victoria-metrics-single"
+          app.kubernetes.io/name: "victoria-metrics-single"
+      serviceName: "victoria-metrics-single-server"
+      template:
+        metadata:
+          labels:
+            app: "server"
+            app.kubernetes.io/component: "server"
+            app.kubernetes.io/instance: "victoria-metrics-single"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "victoria-metrics-single"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "--envflag.enable"
+                - "--envflag.prefix=VM_"
+                - "--httpListenAddr=:8428"
+                - "--loggerFormat=json"
+                - "--retentionPeriod=1"
+                - "--storageDataPath=/storage"
+              image: "victoriametrics/victoria-metrics:v1.144.0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 10
+                initialDelaySeconds: 30
+                periodSeconds: 30
+                successThreshold: 1
+                tcpSocket:
+                  port: "http"
+                timeoutSeconds: 5
+              name: "vmsingle"
+              ports:
+                -
+                  containerPort: 8428
+                  name: "http"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/health"
+                  port: "http"
+                  scheme: "HTTP"
+                initialDelaySeconds: 5
+                periodSeconds: 15
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                {}
+              securityContext:
+                {}
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/storage"
+                  name: "server-volume"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "victoria-metrics-single-server"
+          serviceAccountName: "victoria-metrics-single-server"
+          terminationGracePeriodSeconds: 60
+      updateStrategy:
+        rollingUpdate:
+          maxUnavailable: 1
+          partition: 0
+        type: "RollingUpdate"
+      volumeClaimTemplates:
+        -
+          apiVersion: "v1"
+          kind: "PersistentVolumeClaim"
+          metadata:
+            name: "server-volume"
+          spec:
+            accessModes:
+              - "ReadWriteOnce"
+            resources:
+              requests:
+                storage: "16Gi"
+            volumeMode: "Filesystem"
+          status:
+            phase: "Pending"
+    status:
+      availableReplicas: 1
+      collisionCount: 0
+      currentReplicas: 1
+      currentRevision: "victoria-metrics-single-server-656569fb78"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      updateRevision: "victoria-metrics-single-server-656569fb78"
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
