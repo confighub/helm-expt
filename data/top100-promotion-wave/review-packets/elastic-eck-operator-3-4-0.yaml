@@ -1,0 +1,107 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Top100PromotionReviewPacket"
+metadata:
+  name: "elastic-eck-operator-3-4-0-promotion-review"
+spec:
+  chart: "elastic/eck-operator"
+  version: "3.4.0"
+  selectedBaseCandidate: "default"
+  candidateVariants:
+    - "default"
+    - "ha"
+    - "no-crds"
+  decisionState: "review-input-only"
+  catalogSupportClaimAllowed: false
+  whyThisChartIsInTheWave:
+    - "The chart is proof-grade in the maintained top-100 corpus."
+    - "The chart has multiple named variants, so there is a real selection question."
+    - "The selected base has two-cluster kind parity evidence."
+    - "No named limitation currently blocks promotion review."
+  currentEvidence:
+    catalog: "recipes/elastic/eck-operator/3.4.0/CATALOG.md"
+    helmPainReport: "recipes/elastic/eck-operator/3.4.0/helm-pain-report.yaml"
+    controlPoints: "recipes/elastic/eck-operator/3.4.0/control-points.yaml"
+    valueModel: "recipes/elastic/eck-operator/3.4.0/value-model.yaml"
+    helmPlan: "recipes/elastic/eck-operator/3.4.0/helm-plan.yaml"
+    variant: "recipes/elastic/eck-operator/3.4.0/variants/default/variant.yaml"
+    variantRevision: "recipes/elastic/eck-operator/3.4.0/revisions/default/r001/variant-revision.yaml"
+    helmEquivalence: "recipes/elastic/eck-operator/3.4.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml"
+    scanReceipt: "recipes/elastic/eck-operator/3.4.0/revisions/default/r001/receipts/scan-receipt.yaml"
+    installGate: "recipes/elastic/eck-operator/3.4.0/revisions/default/r001/receipts/install-gate.yaml"
+    packageBase: "packages/elastic/eck-operator/3.4.0/bases/default/kustomization.yaml"
+    twoClusterKindParity: "runs/live-kind-parity/elastic-eck-operator-default/receipt.yaml"
+  currentState:
+    supportLevel: "machine-proof-only"
+    productionReadiness: "not-reviewed-for-production"
+    catalogStatus: "proof-grade"
+    strongestEvidence: "two-cluster-kind-parity"
+    scanHigh: 0
+    scanMedium: 18
+    gateDecisions:
+      - "allow"
+      - "warn"
+    featureFocus:
+      - "tpl"
+      - "capabilities"
+      - "cluster-rbac"
+      - "webhooks"
+      - "stateful-storage"
+  decisionsNeeded:
+    -
+      workType: "variant-selection"
+      reviewer: "catalog reviewer"
+      reason: "Confirm the promoted base is a real Helm-user path, not merely the first rendered baseline."
+      doneWhen: "A selected variant is named from default;ha;no-crds and the non-selected variants have a written promote/defer reason."
+      evidence: "recipes/elastic/eck-operator/3.4.0/CATALOG.md"
+    -
+      workType: "scan-and-gate-disposition"
+      reviewer: "security reviewer"
+      reason: "Scan/gate state is high=0, medium=18, gates=allow;warn."
+      doneWhen: "Every warning is fixed, accepted with rationale, or routed to a narrower base before catalog support."
+      evidence: "data/catalog-promotion-review/review.csv"
+    -
+      workType: "webhook-readiness"
+      reviewer: "platform reviewer"
+      reason: "The chart includes webhook resources or webhook runtime dependencies."
+      doneWhen: "Webhook readiness, CA/material injection, failure policy, and observation path are recorded or explicitly deferred."
+      evidence: "recipes/elastic/eck-operator/3.4.0/helm-pain-report.yaml"
+    -
+      workType: "storage-and-rollback-policy"
+      reviewer: "operator reviewer"
+      reason: "The chart has persistent or stateful behavior."
+      doneWhen: "Storage class assumptions, PVC behavior, backup/rollback boundary, and destructive-change policy are written for the selected base."
+      evidence: "recipes/elastic/eck-operator/3.4.0/helm-pain-report.yaml"
+    -
+      workType: "rbac-scope"
+      reviewer: "security reviewer"
+      reason: "The chart creates cluster-scoped RBAC or similar permissions."
+      doneWhen: "Cluster permissions are accepted for the support scope or a narrower base is selected."
+      evidence: "recipes/elastic/eck-operator/3.4.0/helm-pain-report.yaml"
+    -
+      workType: "template-and-capability-boundary"
+      reviewer: "catalog reviewer"
+      reason: "The chart has template-powered inputs or Kubernetes capability branches."
+      doneWhen: "The supported values, capability profile, and extension-slot policy are catalog-readable for the selected base."
+      evidence: "recipes/elastic/eck-operator/3.4.0/helm-plan.yaml"
+    -
+      workType: "selected-live-evidence"
+      reviewer: "operator reviewer"
+      reason: "Two-cluster kind parity exists; catalog promotion needs the selected runtime evidence boundary."
+      doneWhen: "The selected base has linked live evidence, GitOps/OCI evidence, live parity evidence, or a routed deferral with rationale."
+      evidence: "data/live-kind-parity/summary.csv"
+    -
+      workType: "target-scoped-support-decision"
+      reviewer: "catalog owner"
+      reason: "Catalog support is not implied by machine proof."
+      doneWhen: "A target-scoped support decision exists with supported, deferred, superseded, or blocked outcome."
+      evidence: "data/production-support-decisions/summary.md"
+  claimsNotMade:
+    - "catalog support"
+    - "production support"
+    - "support for non-selected variants"
+    - "support for private values overlays or wrapper charts"
+    - "support outside the eventual target scope"
+    - "webhook certificate and readiness behavior beyond the selected evidence scope"
+    - "backup, restore, storage-class fit, or data-retention behavior"
+    - "least-privilege RBAC hardening"
+  nextAction: "Use this packet to choose the promoted base, close the listed review decisions, link selected live evidence or a routed deferral, then write a target-scoped support decision before changing catalog status."
