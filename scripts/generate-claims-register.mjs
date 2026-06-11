@@ -222,7 +222,7 @@ const claims = [
       "data/high-fanout-demo/summary.md",
     ],
     verify: "npm run blast-radius:accuracy:verify; npm run edges:verify; npm run high-fanout:verify",
-    limit: "Measured coverage is still a small slice of the catalog (current counts are in data/blast-radius-accuracy/summary.md). Whole-release identity paths stay on the backlog until rename-aware scoring exists.",
+    limit: "Measured coverage is still a small slice of the catalog (current counts are in data/blast-radius-accuracy/summary.md). Whole-release identity paths are measured with rename-aware pairing and currently fail, recording that the source maps under-predict them; the route is exhaustive enumeration or a declared whole-release impact scope.",
   },
   {
     id: "refused-blanket-verification",
