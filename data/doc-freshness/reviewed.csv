@@ -1,3 +1,11 @@
 doc,reviewed_on,note
 README.md,2026-06-11,"Triggers were status-dashboard (APIService observation count 1->2 of 5; not cited in README) and regenerated CATALOG.md (role described generically; top-20 set unchanged). 20/20 and 19/20 production claims verified untouched."
 docs/README.md,2026-06-11,"Triggers were claims-register (row count 16->17 from the environment-determinism claim; doc describes the register's role, not its count) and regenerated CATALOG.md (generic role description). Map entries verified accurate."
+docs/user/extension-slots.md,2026-06-11,"Trigger: extension-slots data regen after candidate promotions (#447, redis 27). All four cited counts (13/20, 82/100, 254/500, 363/500) verified still exact against data/extension-slots/summary.md."
+docs/user/nginx-configuration-files.md,2026-06-11,"Trigger: same extension-slots regen. Doc describes the slot mechanism for nginx, no counts cited; mechanism unchanged by candidate promotions."
+docs/reference/quirk-coverage.md,2026-06-11,"Trigger: same extension-slots regen. Reference describes quirk axes and routing, no counts tied to the moved file; axes unchanged."
+docs/user/product-support-tiers.md,2026-06-11,"Trigger: image-digest-workdown regen from latest-candidate refreshes (mongodb 19.1.0, postgresql 18.7.0, nginx 25.0.0). Doc defines tier semantics, cites no digest counts; tiers unaffected by candidate refreshes."
+docs/reference/proof-kit-migration.md,2026-06-11,"Trigger: live-helm-confighub-compare additions (vault dev-mode, ingress clusterip). Doc is the historical migration narrative; the '19 charts' figure is migration-time context, not a current claim. Live-parity additions do not alter the migration story."
+docs/user/choosing-commands.md,2026-06-11,"Trigger: chart-use-guide summary regen same day. Doc routes command choice between cub helm template/install, installer, variants; routing logic unchanged by guide data refresh."
+docs/user/serious-charts.md,2026-06-11,"Trigger: cert-manager production-readiness packet update. Doc points at packets and explains their role; pointer targets verified present, role description unchanged."
+docs/user/tutorial-sequence.md,2026-06-11,"Trigger: prometheus 29.8.0 CATALOG regen (dependency-closure queue tightening). Tutorial paths and commands verified against the regenerated catalog; transcript examples unaffected."
