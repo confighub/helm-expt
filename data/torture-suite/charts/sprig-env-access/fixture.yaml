@@ -1,0 +1,3 @@
+attack: "sprig env reads the rendering machine's environment variables into the output, leaking machine state and making renders machine-dependent."
+expected_outcome: refused-template-error
+notes: "Helm itself removes env/expandenv from the template function map, so this fails at render with a named template error - the refusal is inherited from the tool and recorded, not silent. If a future helm re-enabled it, the environment probe would catch it as environment-dependent instead."

@@ -1,0 +1,3 @@
+attack: "import-values pulls child chart exports into the parent values space; a value-source map that only scans the parent values.yaml cannot explain where the rendered field came from."
+expected_outcome: pass-deterministic
+notes: "Renders deterministically - the chart is fine. The torture target is provenance: value-source maps must attribute imported paths to the child's exports block, or say they cannot."

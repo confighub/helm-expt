@@ -1,0 +1,3 @@
+attack: "The template branches on .Release.IsUpgrade, so the chart renders differently on install and upgrade - a single captured render is not the chart."
+expected_outcome: verb-dependent-render
+notes: "Named class, not a refusal: both verbs render deterministically and the route is capturing both renders (install and upgrade) as separate proof artifacts."

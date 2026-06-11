@@ -1,0 +1,4 @@
+apiVersion: v2
+name: timestamp-annotation
+description: "Torture fixture: render timestamp baked into an annotation"
+version: 0.1.0

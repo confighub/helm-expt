@@ -1,0 +1,4 @@
+apiVersion: v2
+name: child
+description: "Child chart that names objects from .Chart.Name (alias-unaware)"
+version: 0.1.0

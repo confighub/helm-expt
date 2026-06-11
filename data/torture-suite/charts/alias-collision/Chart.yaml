@@ -1,0 +1,11 @@
+apiVersion: v2
+name: alias-collision
+description: "Torture fixture: two aliases of one subchart colliding on object names"
+version: 0.1.0
+dependencies:
+  - name: child
+    version: 0.1.0
+    alias: alpha
+  - name: child
+    version: 0.1.0
+    alias: beta

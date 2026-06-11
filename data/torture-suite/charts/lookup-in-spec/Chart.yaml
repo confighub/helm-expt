@@ -1,0 +1,4 @@
+apiVersion: v2
+name: lookup-in-spec
+description: "Torture fixture: lookup feeding a spec field"
+version: 0.1.0

@@ -238,6 +238,19 @@ const claims = [
     limit: "The matrix covers the proof-grade corpus on one operating system, architecture, and helm version; other platforms and helm versions are open columns intended for CI runners. A divergent cell is recorded, not hidden.",
   },
   {
+    id: "torture-fixtures",
+    area: "sceptic-tests",
+    status: "partial",
+    claim: "Synthetic breaker charts (randomness in selectors, lookup in spec, sprig env, tpl recursion, alias collisions, import-values, verb branching) each land in a named pass, refusal, or route - never silence.",
+    evidence: [
+      "data/torture-suite/summary.md",
+      "data/torture-suite/results.csv",
+      "docs/planning/robust-sceptic-plan.md",
+    ],
+    verify: "npm run torture:suite:verify",
+    limit: "Eight fixtures cover seven outcome classes; the suite grows as breakers arrive. A public break-our-model challenge is a separate launch decision and is not claimed.",
+  },
+  {
     id: "refused-blanket-verification",
     area: "refusals",
     status: "refused",
