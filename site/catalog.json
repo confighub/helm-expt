@@ -13190,10 +13190,10 @@
       "two_cluster_kind_parity": "pass",
       "strict_live_configHub_argo": "pass",
       "runtime_gitops_wave": "blocked",
-      "production_status": "separate-support-decision-needed",
-      "next_hard_work": "record a target-scoped production support decision that reuses the proven staged-CRD and admission-Secret OCI path",
+      "production_status": "support-evidence-present",
+      "next_hard_work": "decide whether the recorded staged-CRD and admission-Secret target scope should become a supported no-crds scope",
       "lesson": "Use this base only when CRDs and separated secrets are supplied by the target environment.",
-      "evidence": "runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml"
+      "evidence": "data/production-support-decisions/prometheus-community-kube-prometheus-stack/fresh-target-evidence-no-crds-2026-06-11.yaml"
     },
     {
       "chart": "prometheus-community/kube-prometheus-stack",
