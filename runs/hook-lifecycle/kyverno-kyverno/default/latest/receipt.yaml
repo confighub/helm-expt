@@ -7,7 +7,7 @@ spec:
   version: "3.8.1"
   base: "default"
   result: "pass"
-  observedAt: "2026-06-10T21:07:27Z"
+  observedAt: "2026-06-11T04:24:31Z"
   package:
     path: "packages/kyverno/kyverno/3.8.1"
   recipe:
@@ -15,12 +15,14 @@ spec:
   variantRevision: "recipes/kyverno/kyverno/3.8.1/revisions/default/r001/variant-revision.yaml"
   lifecycleModel:
     hookTypes:
+      - "post-upgrade"
+      - "pre-delete"
       - "test"
-    route: "explicit-post-install-check"
-    claim: "The Helm test hook route is observed as explicit post-install checks: CRDs established, Kyverno controller Deployments ready, admission Service endpoints ready, webhook configurations routed, and a Kyverno ClusterPolicy server dry-run accepted. This does not claim post-upgrade migration or pre-delete cleanup behavior."
+    route: "explicit-lifecycle-actions-and-post-install-checks"
+    claim: "The Helm test route is observed as explicit post-install checks. The post-upgrade migration hook is rendered from the upstream chart and executed as an explicit lifecycle action. The pre-delete cleanup hooks are rendered from the upstream chart and mapped to equivalent explicit delete-cleanup policy actions with committed evidence. This proves the pinned Kyverno 3.8.1 default-base lifecycle route in a fresh kind target; it does not claim cross-version Kyverno upgrade support or production uninstall policy."
   run:
     mode: "single-kind-cluster-cub-installer-kyverno-hook-observation"
-    cluster: "hx-hook-kyverno-8k81ll"
+    cluster: "hx-hook-kyverno-8zu40j"
     namespace: "default"
     cleanup:
       result: "pass"
@@ -35,7 +37,7 @@ spec:
       result: "pass"
       detail: "rendered Kyverno cub installer package output"
       evidencePath: "cub-installer-setup.txt"
-      evidenceSHA256: "67cdb05a3bda979b880590852c7843c3ed6f775477cbe3370fd591a57a969d3b"
+      evidenceSHA256: "9abcc31ae6667498fa2f760ebe8355981d11cce27d138093b475ef55292dbcd9"
     -
       name: "kubectl-apply-crds"
       result: "pass"
@@ -86,17 +88,76 @@ spec:
       result: "pass"
       detail: "Kyverno admission Service has ready endpoints"
       evidencePath: "service-kyverno-svc-endpoints.yaml"
-      evidenceSHA256: "927025c3187464521622412a48e58cb5dce4034f9e66f23601ff32168c670188"
+      evidenceSHA256: "09e3b3dc667fb7c289b2eed60400b6ba64839fcfa2c8bb8ad54bf797a42a0011"
     -
       name: "webhook-configurations-routed"
       result: "pass"
       detail: "Kyverno webhook configurations point at Services and contain CA bundles"
       evidencePath: "webhook-configurations.json"
-      evidenceSHA256: "30ba0f7c1c6472b09c3242e449f44944b8f827cfd3de25575da9f59d2504b898"
+      evidenceSHA256: "72a05b8af651c29f1a9adc2217804164c4cdee8f592f06368cef3c73ccbd1067"
       webhookConfigurationCount: 10
     -
       name: "explicit-post-install-policy-check"
       result: "pass"
       detail: "server-side dry-run exercised Kyverno policy admission"
       evidencePath: "clusterpolicy-server-dry-run.yaml"
-      evidenceSHA256: "eddb3e1b563d075541752ec56fb27a8a8b53f6527bca19dfdbce82601816c06a"
+      evidenceSHA256: "c2fc0caade0a5e41b6329b452bd054383dd6af4a9208df61ba6bb1d93d2ee0ce"
+    -
+      name: "post-upgrade-migration-hook-action"
+      result: "pass"
+      detail: "rendered and executed Kyverno post-upgrade migration hook as an explicit lifecycle action"
+      hookManifest:
+        detail: "rendered upstream Kyverno post-upgrade migration hook"
+        evidencePath: "hook-post-upgrade-migrate-resources.yaml"
+        evidenceSHA256: "4cd7d156b22c21b31548226bf536efd05b7e4291fd672c9fb6e5e24bf5f1f185"
+      applyEvidence:
+        detail: "applied post-upgrade migration hook resources"
+        evidencePath: "post-upgrade-migration-hook-apply.txt"
+        evidenceSHA256: "e167040157f56d116eac2f9df967db82f08869b7c6ded0e22ce76e815cdb747b"
+      waitEvidence:
+        wait:
+          detail: "kyverno-migrate-resources completed"
+          evidencePath: "post-upgrade-migration-hook-wait.txt"
+          evidenceSHA256: "5f7fab5cc6fbd12737d04fd1a0f9f9f4964075f491a368bcee19e76dc9c7e1ef"
+        logs:
+          detail: "kyverno-migrate-resources logs captured"
+          evidencePath: "post-upgrade-migration-hook-logs.txt"
+          evidenceSHA256: "3268dbf9bf707f78a62fe81cc3cb851b24d0a4769854d0189b986e30d7fdfc40"
+    -
+      name: "pre-delete-scale-to-zero-policy-action"
+      result: "pass"
+      detail: "rendered Kyverno pre-delete scale-to-zero hook and executed the equivalent explicit delete-cleanup policy action"
+      hookManifest:
+        detail: "rendered upstream Kyverno pre-delete scale-to-zero hook"
+        evidencePath: "hook-pre-delete-scale-to-zero.yaml"
+        evidenceSHA256: "6d2514456732be5bafda9f01aaf5f6a43ef181e7b9cc97ad7ce42430a2f53a65"
+      actionEvidence:
+        detail: "scaled Kyverno controller Deployments to zero as an explicit lifecycle policy"
+        evidencePath: "pre-delete-scale-to-zero-policy.txt"
+        evidenceSHA256: "c6eba0d5a6d5061f144bd8b7d232f00cd8236052d773f242570abe0b53a6e0af"
+      scaledDeployments: 4
+      scaledEvidence:
+        detail: "all Kyverno controller Deployments observed at zero replicas after pre-delete scale action"
+        evidencePath: "pre-delete-scaled-deployments.json"
+        evidenceSHA256: "072e5d9aaea9c6897381db3a66c217c4bdd8b3e1a910befb3df359551653e1b6"
+    -
+      name: "pre-delete-remove-webhooks-policy-action"
+      result: "pass"
+      detail: "rendered Kyverno pre-delete remove-webhooks hook and executed the equivalent explicit delete-cleanup policy action"
+      hookManifest:
+        detail: "rendered upstream Kyverno pre-delete remove-webhooks hook"
+        evidencePath: "hook-pre-delete-remove-webhooks.yaml"
+        evidenceSHA256: "75a3c270ef9856c30402e99bc30883d0c46495f60e551f7758fa60d5504d8ea0"
+      beforeCleanupEvidence:
+        detail: "Kyverno webhook configurations observed before explicit cleanup"
+        evidencePath: "pre-delete-webhook-configurations-before-cleanup.json"
+        evidenceSHA256: "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      actionEvidence:
+        detail: "deleted Kyverno webhook configurations as an explicit lifecycle policy"
+        evidencePath: "pre-delete-remove-webhooks-policy.txt"
+        evidenceSHA256: "0036280be0f3f3aab10581deefd75e100cb8f7e14e9ed060b0eb32ab4584f313"
+      remainingWebhookConfigurations: 0
+      cleanupEvidence:
+        detail: "Kyverno webhook configurations removed after pre-delete cleanup action"
+        evidencePath: "pre-delete-webhook-configurations-after-cleanup.json"
+        evidenceSHA256: "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"

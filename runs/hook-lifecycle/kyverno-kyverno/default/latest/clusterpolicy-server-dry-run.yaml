@@ -4,10 +4,10 @@ metadata:
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: |
       {"apiVersion":"kyverno.io/v1","kind":"ClusterPolicy","metadata":{"annotations":{},"name":"helm-expt-kyverno-lifecycle-check"},"spec":{"background":false,"rules":[{"match":{"any":[{"resources":{"kinds":["Namespace"]}}]},"name":"require-owner-label","validate":{"message":"namespace should carry an owner label","pattern":{"metadata":{"labels":{"owner":"?*"}}}}}],"validationFailureAction":"Audit"}}
-  creationTimestamp: "2026-06-10T21:08:43Z"
+  creationTimestamp: "2026-06-11T04:25:50Z"
   generation: 1
   name: helm-expt-kyverno-lifecycle-check
-  uid: c10ef52f-eebf-4c7c-9c91-a5eb35b4d83a
+  uid: 57520da8-7ce6-42c7-929a-35fc7e15241e
 spec:
   admission: true
   background: false

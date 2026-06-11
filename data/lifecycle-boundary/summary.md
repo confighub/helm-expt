@@ -22,8 +22,8 @@ Helm hook.
 ~~~text
 maintained hook queue rows:               5
 hook route receipts present:              5/5
-hook lifecycle observations present:      4/5
-hook partial lifecycle observations:      1/5
+hook lifecycle observations present:      5/5
+hook partial lifecycle observations:      0/5
 hook routes awaiting observation:         0/5
 hook rows still needing route receipt:    0/5
 hook-like lifecycle observations passing: 4/4
@@ -34,7 +34,7 @@ hook-like lifecycle observations passing: 4/4
 | Lane | Chart | Base | Status | Route or policy | What it proves | What it does not prove |
 | --- | --- | --- | --- | --- | --- | --- |
 | helm-hook-lifecycle-queue | `prometheus-community/kube-prometheus-stack@85.3.3` | default | lifecycle-observed | preflight-or-presync;postsync-check-or-observation;upgrade-action-with-receipt;preserve-ordering;preserve-cleanup-policy;webhook-readiness-observation;target-facts-or-preflight | hook route has a lifecycle observation or execution receipt | universal Helm hook support or support for unrelated hook-bearing charts |
-| helm-hook-lifecycle-queue | `kyverno/kyverno@3.8.1` | default | install-lifecycle-observed-upgrade-pending | upgrade-action-with-receipt;delete-cleanup-policy;explicit-test-check;preserve-ordering;preserve-cleanup-policy;target-facts-or-preflight | fresh-install lifecycle route has runtime observation; at least one other route remains pending | remaining hook phases such as upgrade, delete, cleanup, or production support |
+| helm-hook-lifecycle-queue | `kyverno/kyverno@3.8.1` | default | lifecycle-observed | upgrade-action-with-receipt;delete-cleanup-policy;explicit-test-check;preserve-ordering;preserve-cleanup-policy;target-facts-or-preflight | hook route has a lifecycle observation or execution receipt | universal Helm hook support or support for unrelated hook-bearing charts |
 | helm-hook-lifecycle-queue | `fluent/fluent-bit@0.57.6` | default | lifecycle-observed | explicit-test-check;preserve-cleanup-policy | hook route has a lifecycle observation or execution receipt | universal Helm hook support or support for unrelated hook-bearing charts |
 | helm-hook-lifecycle-queue | `projectcalico/tigera-operator@v3.32.0` | default | lifecycle-observed | delete-cleanup-policy;preserve-ordering;preserve-cleanup-policy;target-facts-or-preflight | hook route has a lifecycle observation or execution receipt | universal Helm hook support or support for unrelated hook-bearing charts |
 | helm-hook-lifecycle-queue | `gatekeeper/gatekeeper@3.22.2` | default | lifecycle-observed | preflight-or-presync;upgrade-action-with-receipt;preserve-ordering;preserve-cleanup-policy;webhook-readiness-observation | hook route has a lifecycle observation or execution receipt | universal Helm hook support or support for unrelated hook-bearing charts |

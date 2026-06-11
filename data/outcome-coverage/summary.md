@@ -25,8 +25,8 @@ target-bound derived pass rows:      5
 target-bound derived blocked rows:   1
 maintained hook queue rows:          5
 hook route receipts present:         5/5
-hook lifecycle observations present: 3/5
-hook partial lifecycle observations: 2/5
+hook lifecycle observations present: 5/5
+hook partial lifecycle observations: 0/5
 hook routes awaiting observation:    0/5
 hook rows still needing route:       0/5
 related lifecycle observations:      4/4

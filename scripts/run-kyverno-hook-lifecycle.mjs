@@ -18,6 +18,12 @@ const target = {
   receiptPath: "runs/hook-lifecycle/kyverno-kyverno/default/latest/receipt.yaml",
 };
 
+const helmChart = {
+  name: "kyverno",
+  repo: "https://kyverno.github.io/kyverno/",
+  release: "kyverno",
+};
+
 if (mode === "--run") {
   runTarget();
 } else if (mode === "--verify") {
@@ -156,9 +162,70 @@ function runTarget() {
       record("explicit-post-install-policy-check", () => {
         const policyPath = join(runRoot, "clusterpolicy-dry-run-input.yaml");
         write(policyPath, kyvernoClusterPolicy());
-        const out = kubectl(context, ["apply", "--dry-run=server", "-f", policyPath, "-o", "yaml"], 180);
+        const out = waitForPolicyServerDryRun(context, policyPath, 240_000);
         write(join(runRoot, "clusterpolicy-server-dry-run.yaml"), out);
         return evidence("clusterpolicy-server-dry-run.yaml", "server-side dry-run exercised Kyverno policy admission");
+      });
+    }
+
+    if (manifestsReady) {
+      record("post-upgrade-migration-hook-action", () => {
+        const hookFile = renderHookManifest(runRoot, "hook-post-upgrade-migrate-resources.yaml", [
+          "templates/hooks/post-upgrade-migrate-resources.yaml",
+        ]);
+        deleteJobs(context, ["kyverno-migrate-resources"]);
+        const applyOut = kubectl(context, ["apply", "-f", hookFile], 240);
+        write(join(runRoot, "post-upgrade-migration-hook-apply.txt"), applyOut);
+        const waitOut = waitForJob(context, "kyverno-migrate-resources", "post-upgrade-migration-hook");
+        return {
+          detail: "rendered and executed Kyverno post-upgrade migration hook as an explicit lifecycle action",
+          hookManifest: evidence("hook-post-upgrade-migrate-resources.yaml", "rendered upstream Kyverno post-upgrade migration hook"),
+          applyEvidence: evidence("post-upgrade-migration-hook-apply.txt", "applied post-upgrade migration hook resources"),
+          waitEvidence: waitOut,
+        };
+      });
+    }
+
+    if (manifestsReady) {
+      record("pre-delete-scale-to-zero-policy-action", () => {
+        const hookFile = renderHookManifest(runRoot, "hook-pre-delete-scale-to-zero.yaml", [
+          "templates/hooks/pre-delete-scale-to-zero.yaml",
+        ]);
+        const scaleOut = kubectl(context, ["-n", target.namespace, "scale", "deployment", ...kyvernoDeployments(), "--replicas=0"], 180);
+        write(join(runRoot, "pre-delete-scale-to-zero-policy.txt"), scaleOut);
+        const scaled = observedDeploymentReplicas(context);
+        writeJson(join(runRoot, "pre-delete-scaled-deployments.json"), scaled);
+        check(scaled.every((deployment) => deployment.replicas === 0), "Kyverno pre-delete scale hook did not scale every controller Deployment to zero");
+        return {
+          detail: "rendered Kyverno pre-delete scale-to-zero hook and executed the equivalent explicit delete-cleanup policy action",
+          hookManifest: evidence("hook-pre-delete-scale-to-zero.yaml", "rendered upstream Kyverno pre-delete scale-to-zero hook"),
+          actionEvidence: evidence("pre-delete-scale-to-zero-policy.txt", "scaled Kyverno controller Deployments to zero as an explicit lifecycle policy"),
+          scaledDeployments: scaled.length,
+          scaledEvidence: evidence("pre-delete-scaled-deployments.json", "all Kyverno controller Deployments observed at zero replicas after pre-delete scale action"),
+        };
+      });
+    }
+
+    if (manifestsReady) {
+      record("pre-delete-remove-webhooks-policy-action", () => {
+        const hookFile = renderHookManifest(runRoot, "hook-pre-delete-remove-webhooks.yaml", [
+          "templates/hooks/pre-delete-remove-webhooks.yaml",
+        ]);
+        const before = kyvernoWebhookConfigurations(context);
+        writeJson(join(runRoot, "pre-delete-webhook-configurations-before-cleanup.json"), before);
+        const deleteOut = deleteWebhookConfigurations(context, before);
+        write(join(runRoot, "pre-delete-remove-webhooks-policy.txt"), deleteOut);
+        const after = kyvernoWebhookConfigurations(context);
+        writeJson(join(runRoot, "pre-delete-webhook-configurations-after-cleanup.json"), after);
+        check(after.length === 0, `expected Kyverno webhook configurations to be removed, found ${after.map((item) => item.name).join(", ")}`);
+        return {
+          detail: "rendered Kyverno pre-delete remove-webhooks hook and executed the equivalent explicit delete-cleanup policy action",
+          hookManifest: evidence("hook-pre-delete-remove-webhooks.yaml", "rendered upstream Kyverno pre-delete remove-webhooks hook"),
+          beforeCleanupEvidence: evidence("pre-delete-webhook-configurations-before-cleanup.json", "Kyverno webhook configurations observed before explicit cleanup"),
+          actionEvidence: evidence("pre-delete-remove-webhooks-policy.txt", "deleted Kyverno webhook configurations as an explicit lifecycle policy"),
+          remainingWebhookConfigurations: after.length,
+          cleanupEvidence: evidence("pre-delete-webhook-configurations-after-cleanup.json", "Kyverno webhook configurations removed after pre-delete cleanup action"),
+        };
       });
     }
   } finally {
@@ -191,9 +258,9 @@ function baseReceipt(cluster) {
       recipe: { path: target.recipePath },
       variantRevision: target.variantRevision,
       lifecycleModel: {
-        hookTypes: ["test"],
-        route: "explicit-post-install-check",
-        claim: "The Helm test hook route is observed as explicit post-install checks: CRDs established, Kyverno controller Deployments ready, admission Service endpoints ready, webhook configurations routed, and a Kyverno ClusterPolicy server dry-run accepted. This does not claim post-upgrade migration or pre-delete cleanup behavior.",
+        hookTypes: ["post-upgrade", "pre-delete", "test"],
+        route: "explicit-lifecycle-actions-and-post-install-checks",
+        claim: "The Helm test route is observed as explicit post-install checks. The post-upgrade migration hook is rendered from the upstream chart and executed as an explicit lifecycle action. The pre-delete cleanup hooks are rendered from the upstream chart and mapped to equivalent explicit delete-cleanup policy actions with committed evidence. This proves the pinned Kyverno 3.8.1 default-base lifecycle route in a fresh kind target; it does not claim cross-version Kyverno upgrade support or production uninstall policy.",
       },
       run: {
         mode: "single-kind-cluster-cub-installer-kyverno-hook-observation",
@@ -215,7 +282,7 @@ function verify() {
   check(receipt.spec?.version === target.version, "Kyverno hook lifecycle version mismatch");
   check(receipt.spec?.base === target.base, "Kyverno hook lifecycle base mismatch");
   check(receipt.spec?.result === "pass", "Kyverno hook lifecycle did not pass");
-  check(receipt.spec?.lifecycleModel?.route === "explicit-post-install-check", "Kyverno hook lifecycle route mismatch");
+  check(receipt.spec?.lifecycleModel?.route === "explicit-lifecycle-actions-and-post-install-checks", "Kyverno hook lifecycle route mismatch");
   check(receipt.spec?.run?.cleanup?.result === "pass", "Kyverno hook lifecycle cleanup did not pass");
   const checks = receipt.spec?.checks ?? [];
   const required = [
@@ -230,6 +297,9 @@ function verify() {
     "admission-service-endpoints",
     "webhook-configurations-routed",
     "explicit-post-install-policy-check",
+    "post-upgrade-migration-hook-action",
+    "pre-delete-scale-to-zero-policy-action",
+    "pre-delete-remove-webhooks-policy-action",
   ];
   for (const name of required) {
     const item = checks.find((checkItem) => checkItem.name === name);
@@ -241,6 +311,10 @@ function verify() {
   check(crdCheck?.crdCount === 22, "Kyverno hook lifecycle did not observe 22 CRDs");
   const webhookCheck = checks.find((item) => item.name === "webhook-configurations-routed");
   check(Number(webhookCheck?.webhookConfigurationCount ?? 0) >= 2, "Kyverno hook lifecycle did not observe webhook configurations");
+  const scaleCheck = checks.find((item) => item.name === "pre-delete-scale-to-zero-policy-action");
+  check(Number(scaleCheck?.scaledDeployments ?? 0) === kyvernoDeployments().length, "Kyverno pre-delete scale action did not observe all Deployments");
+  const cleanupCheck = checks.find((item) => item.name === "pre-delete-remove-webhooks-policy-action");
+  check(Number(cleanupCheck?.remainingWebhookConfigurations ?? -1) === 0, "Kyverno pre-delete cleanup did not remove webhook configurations");
   console.log("verified Kyverno hook lifecycle observation");
 }
 
@@ -274,6 +348,90 @@ function kyvernoDeployments() {
     "kyverno-cleanup-controller",
     "kyverno-reports-controller",
   ];
+}
+
+function renderHookManifest(runRoot, fileName, showOnlyTemplates) {
+  const out = must(
+    "helm",
+    [
+      "template",
+      helmChart.release,
+      helmChart.name,
+      "--repo",
+      helmChart.repo,
+      "--version",
+      target.version,
+      "--namespace",
+      target.namespace,
+      ...showOnlyTemplates.flatMap((templatePath) => ["--show-only", templatePath]),
+    ],
+    { timeout: 180 },
+  );
+  const path = join(runRoot, fileName);
+  write(path, cleanCapturedYaml(out));
+  return path;
+}
+
+function cleanCapturedYaml(text) {
+  return `${text
+    .split("\n")
+    .map((line) => line.trimEnd())
+    .join("\n")
+    .replace(/\n*$/, "")}\n`;
+}
+
+function deleteJobs(context, names) {
+  const out = kubectl(context, ["-n", target.namespace, "delete", "job", ...names, "--ignore-not-found=true"], 120);
+  return out;
+}
+
+function waitForJob(context, name, prefix) {
+  const waitOut = kubectl(context, ["-n", target.namespace, "wait", "--for=condition=complete", `job/${name}`, "--timeout=420s"], 450);
+  write(join(repoRoot, "runs", "hook-lifecycle", "kyverno-kyverno", "default", "latest", `${prefix}-wait.txt`), waitOut);
+  const logs = kubectl(context, ["-n", target.namespace, "logs", `job/${name}`, "--all-containers=true"], 180);
+  write(join(repoRoot, "runs", "hook-lifecycle", "kyverno-kyverno", "default", "latest", `${prefix}-logs.txt`), logs);
+  return {
+    wait: evidence(`${prefix}-wait.txt`, `${name} completed`),
+    logs: evidence(`${prefix}-logs.txt`, `${name} logs captured`),
+  };
+}
+
+function observedDeploymentReplicas(context) {
+  const out = kubectl(context, ["-n", target.namespace, "get", "deploy", ...kyvernoDeployments(), "-o", "json"], 120);
+  const list = JSON.parse(out);
+  return (list.items ?? []).map((item) => ({
+    name: item.metadata?.name,
+    replicas: Number(item.spec?.replicas ?? 0),
+    readyReplicas: Number(item.status?.readyReplicas ?? 0),
+    availableReplicas: Number(item.status?.availableReplicas ?? 0),
+  })).sort((a, b) => a.name.localeCompare(b.name));
+}
+
+function kyvernoWebhookConfigurationNames(context) {
+  return kyvernoWebhookConfigurations(context).map((item) => item.name);
+}
+
+function kyvernoWebhookConfigurations(context) {
+  const out = kubectl(context, ["get", "validatingwebhookconfiguration,mutatingwebhookconfiguration", "-o", "json"], 120);
+  const list = JSON.parse(out);
+  return (list.items ?? [])
+    .map((item) => ({
+      kind: item.kind,
+      name: item.metadata?.name,
+      apiVersion: item.apiVersion,
+    }))
+    .filter((item) => String(item.name ?? "").includes("kyverno"))
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+function deleteWebhookConfigurations(context, webhooks) {
+  const resources = webhooks.map((item) => {
+    if (item.kind === "ValidatingWebhookConfiguration") return `validatingwebhookconfiguration/${item.name}`;
+    if (item.kind === "MutatingWebhookConfiguration") return `mutatingwebhookconfiguration/${item.name}`;
+    throw new Error(`unsupported webhook configuration kind ${item.kind}`);
+  });
+  if (resources.length === 0) return "no Kyverno webhook configurations to delete\n";
+  return kubectl(context, ["delete", ...resources, "--ignore-not-found=true"], 180);
 }
 
 function waitForWebhookConfigurations(context, timeoutMs) {
@@ -350,6 +508,18 @@ spec:
             labels:
               owner: "?*"
 `;
+}
+
+function waitForPolicyServerDryRun(context, policyPath, timeoutMs) {
+  const deadline = Date.now() + timeoutMs;
+  let last = "";
+  while (Date.now() < deadline) {
+    const result = run("kubectl", ["--context", context, "apply", "--dry-run=server", "-f", policyPath, "-o", "yaml"], { timeout: 60 });
+    if (result.status === 0) return result.stdout;
+    last = `${result.stdout}\n${result.stderr}`.trim();
+    Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 5000);
+  }
+  throw new Error(`Kyverno policy server dry-run did not become available: ${last.slice(0, 1200)}`);
 }
 
 function hasYamlFiles(path) {

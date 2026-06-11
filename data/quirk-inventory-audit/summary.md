@@ -39,7 +39,8 @@ change when the sources change; re-derive before quoting.
    lookup, capabilities, tpl, RBAC, and storage are systematically understated
    for exactly the charts with the most proof.
 4. **Hook reality is wider than the queue.** 11 source-top-100 charts carry
-   hooks; 5 are modeled. The reviewed delta is in
+   hooks; 5 are modeled in the maintained queue, and 5/5 maintained queue
+   receipts are now observed. The reviewed delta is in
    `data/hook-lifecycle-review/`. Hook delete policies and weights are only
    tracked once a chart enters the queue — and the queue counts 4
    weight-bearing charts where the source scan counts 3, a counting

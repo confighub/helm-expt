@@ -19,8 +19,8 @@ maintained hook queue rows:            5
 catalog-supported hook charts:         1
 proof-grade hook charts:               4
 hook route receipts present:           5/5
-hook lifecycle observations present:   4/5
-hook partial lifecycle observations:   1/5
+hook lifecycle observations present:   5/5
+hook partial lifecycle observations:   0/5
 hook routes awaiting observation:      0/5
 hook rows still needing route receipt: 0/5
 related Helm-hook lifecycle rows:      2/2
