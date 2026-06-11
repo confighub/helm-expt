@@ -34,6 +34,7 @@ const productionDispositionPath = join(repoRoot, "data", "production-disposition
 const productionSupportDecisionsPath = join(repoRoot, "data", "production-support-decisions", "decisions.csv");
 const scanDispositionPath = join(repoRoot, "data", "scan-disposition-workdown", "workdown.csv");
 const highFanoutPath = join(repoRoot, "data", "high-fanout-demo", "prometheus-kps.csv");
+const hardChartPacketsSummaryPath = join(repoRoot, "data", "hard-chart-production-packets", "summary.md");
 const mode = process.argv[2] ?? "--generate";
 
 if (mode === "--generate") {
@@ -103,6 +104,7 @@ function buildSite() {
   const productionSupportDecisions = parseCsv(readFileSync(productionSupportDecisionsPath, "utf8"));
   const scanDisposition = parseCsv(readFileSync(scanDispositionPath, "utf8"));
   const highFanout = parseCsv(readFileSync(highFanoutPath, "utf8"));
+  check(existsSync(hardChartPacketsSummaryPath), "data/hard-chart-production-packets/summary.md is missing; run npm run hard-charts:packets");
   const baseReadinessByKey = new Map(baseReadiness.map((row) => [`${row.chart}|${row.base}`, row]));
   const bestBaseByChart = new Map(bestBaseRows(baseReadiness).map((row) => [row.chart, row]));
   const top100ReadinessWithSupport = applySupportDecisionNextActions(top100Readiness, productionSupportDecisions);
@@ -172,6 +174,7 @@ function buildSite() {
       liveParityRerunPlan: "data/live-parity-rerun-plan/rerun-plan.csv",
       productionDisposition: "data/production-disposition/top20.csv",
       productionSupportDecisions: "data/production-support-decisions/decisions.csv",
+      hardChartProductionPackets: "data/hard-chart-production-packets/summary.md",
       scanDisposition: "data/scan-disposition-workdown/workdown.csv",
       highFanout: "data/high-fanout-demo/prometheus-kps.csv",
     },
@@ -562,7 +565,7 @@ function html(catalog) {
         ["Chart", "Production", "Accepted", "Open", "Next action"],
         ...productionDispositionRows,
       ])}
-      <p><a href="../docs/user/production-support-decisions.md">Open the production support decision guide</a>, <a href="../data/production-disposition/summary.md">open the full production disposition report</a>, or <a href="../data/scan-disposition-workdown/summary.md">open the scan disposition workdown</a>.</p>
+      <p><a href="../docs/user/production-support-decisions.md">Open the production support decision guide</a>, <a href="../data/hard-chart-production-packets/summary.md">open the hard-chart production packets</a>, <a href="../data/production-disposition/summary.md">open the full production disposition report</a>, or <a href="../data/scan-disposition-workdown/summary.md">open the scan disposition workdown</a>.</p>
     </section>
 
     <section aria-labelledby="live-rerun-plan">
@@ -720,6 +723,7 @@ function html(catalog) {
         <li><a href="../data/runtime-gitops/summary.md">Runtime/GitOps first wave</a></li>
         <li><a href="../data/image-digest-workdown/summary.md">Image digest workdown</a></li>
         <li><a href="../data/scan-disposition-workdown/summary.md">Scan disposition workdown</a></li>
+        <li><a href="../data/hard-chart-production-packets/summary.md">Hard-chart production packets</a></li>
         <li><a href="../data/next-ten-waves/summary.md">Next-ten execution waves</a></li>
         <li><a href="../data/chart-use-guide/summary.md">Chart use guide</a></li>
         <li><a href="../data/top20-base-readiness/summary.md">Top-20 base readiness</a></li>
@@ -1651,6 +1655,7 @@ Data source:
 - \`data/live-parity-rerun-plan/rerun-plan.csv\`
 - \`data/production-disposition/top20.csv\`
 - \`data/production-support-decisions/decisions.csv\`
+- \`data/hard-chart-production-packets/summary.md\`
 - \`data/high-fanout-demo/prometheus-kps.csv\`
 - \`docs/user/choosing-commands.md\`
 - \`data/variant-goldens/redis-prod-us-east/\`

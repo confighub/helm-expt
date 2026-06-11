@@ -22,6 +22,7 @@
     "liveParityRerunPlan": "data/live-parity-rerun-plan/rerun-plan.csv",
     "productionDisposition": "data/production-disposition/top20.csv",
     "productionSupportDecisions": "data/production-support-decisions/decisions.csv",
+    "hardChartProductionPackets": "data/hard-chart-production-packets/summary.md",
     "scanDisposition": "data/scan-disposition-workdown/workdown.csv",
     "highFanout": "data/high-fanout-demo/prometheus-kps.csv"
   },

@@ -70,7 +70,7 @@ function readme(rows) {
     ["I want hook, APIService, CRD, webhook, or lifecycle status.", "data/hook-coverage/summary.md; data/apiservice-coverage/summary.md; data/apiservice-coverage/work-orders.md; data/lifecycle-boundary/summary.md; data/outcome-coverage/feature-outcomes.csv"],
     ["I want candidate routes for hook-bearing source charts.", "data/hook-route-candidates/summary.md; data/hook-route-candidates/candidates.csv; data/hook-route-candidates/work-orders.md"],
     ["I want extension-slot or custom-config risk.", "data/extension-slots/summary.md; data/nginx-config-checks/summary.md"],
-    ["I want production support status and next actions.", "data/status-dashboard/next-work-queues.csv; data/production-support-decisions/summary.md; data/production-support-decisions/work-items.csv; data/production-support-decisions/decisions.csv"],
+    ["I want production support status and next actions.", "data/status-dashboard/next-work-queues.csv; data/production-support-decisions/summary.md; data/production-support-decisions/work-items.csv; data/production-support-decisions/decisions.csv; data/hard-chart-production-packets/summary.md"],
     ["I want accepted pre-review production dispositions.", "data/production-disposition/summary.md; data/production-disposition/support-decision-contract.md; data/production-disposition/support-decision-queue.csv"],
   ];
   const primary = [
@@ -294,6 +294,7 @@ function audienceFor(path) {
   if (path.startsWith("data/extension-slots/")) return "user/front-door";
   if (path.startsWith("data/production-disposition/")) return "user/front-door";
   if (path.startsWith("data/production-support-decisions/")) return "user/front-door";
+  if (path.startsWith("data/hard-chart-production-packets/")) return "user/front-door";
   if (path === "data/external-scan-lane/chart-workdown.csv") return "user/front-door";
   if (path.startsWith("data/scan-disposition-workdown/")) return "user/front-door";
   if (path.startsWith("data/nginx-config-checks/")) return "verification";
@@ -354,6 +355,7 @@ function roleFor(path) {
   if (path === "data/production-disposition/support-decision-queue.csv") return "pre-review production support queue: candidate base, support boundary work, and required evidence";
   if (path === "data/production-support-decisions/decisions.csv") return "one row per target-scoped support decision artifact";
   if (path === "data/production-support-decisions/work-items.csv") return "one row per production-support task or keep-fresh item";
+  if (path === "data/hard-chart-production-packets/packets.csv") return "one row per hard chart production packet: supported base, target-scoped decision, proof status, safe use today, and broader support work";
   if (path === "data/external-scan-lane/chart-workdown.csv") return "one row per chart: external scan findings grouped into priority and next production action";
   if (path === "data/scan-disposition-workdown/workdown.csv") return "one row per top-20 chart: route scan warnings to fixes, hardened bases, acceptance, endpoint review, or PDB decisions";
   if (path === "data/high-fanout-demo/prometheus-kps.csv") return "Prometheus/kube-prometheus-stack high-fanout base-variant example";
