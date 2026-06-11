@@ -34,6 +34,18 @@ choice belongs, and flags target or lifecycle gaps before they become
 production surprises. The point is to keep the user on the right path, and to
 make departures from that path visible before they become operational risk.
 
+Render parity is the starting point, not the final product claim. It proves the
+`cub installer` path preserved Helm's intended object set for the recorded
+inputs. The stronger value is in the next questions: what must the target
+already provide, which lifecycle action must happen before or after apply, what
+did the cluster actually observe, and where does the proof stop?
+
+For example, kube-prometheus-stack with `no-crds` is not merely "the same YAML
+minus CRDs." It is a base whose success depends on compatible CRDs and admission
+certificate material being present or staged. The catalog records that contract
+as target facts, lifecycle evidence, and bounded receipts instead of treating a
+green render as a complete install.
+
 ## What Is Free To Try
 
 The public lane is for low-friction use of public chart bases:

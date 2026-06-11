@@ -782,6 +782,8 @@ function offeringHtml(catalog) {
   const proofRows = [
     ["Render parity", "Compare regular Helm rendering with the cub installer package output."],
     ["Exact object review", "Review the Kubernetes objects, not just the values file that may produce them."],
+    ["Target prerequisites", "Record required CRDs, Secrets, StorageClasses, cloud credentials, or controller assumptions as explicit facts."],
+    ["Lifecycle evidence", "Stage or route hook-like behavior and observe the target where a live claim is made."],
     ["Scans and gates", "Bind policy findings and decisions to the rendered object set."],
     ["Variants", "Use base variants for Helm render choices and derived ConfigHub variants for approved post-render changes."],
     ["Live evidence", "Record what a local cluster, GitOps controller, or observer actually saw."],
@@ -851,6 +853,8 @@ function offeringHtml(catalog) {
       <h2 id="problem">The Problem We Are Solving</h2>
       <p>Helm users can usually install something. The harder problem is knowing exactly what was produced, whether the same thing was promoted, what changed between environments, whether the exact objects were scanned, and what the cluster actually observed after deployment.</p>
       <p>The catalog keeps the supported path close to the chart author's golden path, but makes each stage visible. That matters when humans or AI agents make changes: the recipe, variant, rendered objects, scans, gates, and live receipts show whether the change stayed on the path or created a new install shape that needs review.</p>
+      <p>Render parity is necessary, but it is only the starting point. It proves the cub installer path preserved Helm's intended object set for recorded inputs. The harder value is making target facts and lifecycle prerequisites explicit: staged CRDs, admission certificates, provider credentials, controller-owned fields, hook routes, and live observation boundaries.</p>
+      <p>kube-prometheus-stack is the main example. Its no-CRDs base is not just a smaller YAML bundle; it is a contract that compatible CRDs and admission certificate material must already exist or be staged before config-only delivery. The catalog records that contract instead of treating a green render as a complete install.</p>
       <div class="grid">
         ${personaRows.map(([title, body]) => `<div class="card"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(body)}</p></div>`).join("\n        ")}
       </div>
@@ -1101,6 +1105,7 @@ npm run redis:verify-install:confighub -- \\
     <section aria-labelledby="kps">
       <h2 id="kps">Path 3: Serious Chart Check</h2>
       <p>Use kube-prometheus-stack to see why the catalog is more than a Redis demo. It includes CRDs, webhooks, RBAC, generated facts, dependency locks, extension slots, and target prerequisites.</p>
+      <p>The important question is not only whether the YAML matches Helm. Render parity is the baseline. The serious-chart path also shows target facts and lifecycle prerequisites: compatible CRDs, admission webhook certificate material, and live observation boundaries that must be explicit before a config-only install can be trusted.</p>
       <div class="split">
         <section class="card">
           <h3>Catalog status</h3>

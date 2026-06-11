@@ -98,6 +98,12 @@ labels.
 kube-prometheus-stack is the serious-chart proof path. It is useful because it
 exercises the hard Helm features that small examples often avoid.
 
+The useful question is not only "does the YAML match Helm?" Render parity is
+the baseline. The serious-chart path also shows target facts and lifecycle
+prerequisites: CRDs, admission webhook certificate material, and live
+observation boundaries that must be explicit before a config-only install can
+be trusted.
+
 ```sh
 npm run kube-prometheus-stack:verify-proof
 npm run kube-prometheus-stack:verify-package

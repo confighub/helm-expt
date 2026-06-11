@@ -57,6 +57,13 @@ This prevents overclaiming. Render parity is valuable, but it is not a live
 cluster proof. A live observation is valuable, but it does not replace the
 render-parity proof that says where the desired objects came from.
 
+For serious charts, the most important proof often sits between those two
+boundaries. A chart can render correctly and still need explicit target facts,
+staged CRDs, admission certificates, cloud credentials, hook routing, or
+controller readiness before it can be used safely. The catalog treats those as
+first-class contracts: declare the prerequisite, stage or route it, observe the
+target where possible, and keep the claim bounded to the tested scope.
+
 ## Why This Matters For AI And Day-2 Ops
 
 AI makes it easier to generate values, overlays, patches, functions, and
@@ -105,6 +112,7 @@ The kube-prometheus-stack page shows how one base choice changes the object
 set and prerequisites:
 
 - [`kube-prometheus-stack` high-fanout example](./prometheus-high-fanout.md)
+- [Webhook certificate lifecycle evidence](../../data/webhook-cert-lifecycle/summary.md)
 
 Use that chart when you want to know whether the model survives a complex,
 popular Helm chart, not just a small happy path.

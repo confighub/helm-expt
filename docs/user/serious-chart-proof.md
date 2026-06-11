@@ -46,6 +46,12 @@ That block is good evidence. It shows that removing CRDs from the rendered
 object set creates a target prerequisite. The model does not hide that
 prerequisite or pretend the install is complete.
 
+The current lifecycle evidence also shows the productive path forward: when
+compatible CRDs and the admission webhook certificate Secret are staged
+explicitly, the config-only path can converge in the tested local targets. That
+does not make certificate rotation or CRD upgrade policy automatic. It proves
+the target contract can be made visible, staged, observed, and bounded.
+
 ## Why This Matters
 
 Small charts can make the catalog look easy. kube-prometheus-stack tests the
@@ -74,6 +80,10 @@ Then open the user-facing proof explanation:
 For the current supported target scope, open:
 
 [kube-prometheus-stack production support workdown](../../data/production-support-decisions/prometheus-community-kube-prometheus-stack/README.md)
+
+For the staged CRD and admission certificate evidence, open:
+
+[Webhook Certificate Lifecycle Evidence](../../data/webhook-cert-lifecycle/summary.md)
 
 For reviewer-level detail, open:
 
@@ -142,5 +152,5 @@ prerequisites.
 
 kube-prometheus-stack is the main proof that this is more than a Redis demo.
 It shows how a complex Helm chart can become named base variants with visible
-prerequisites, render parity, live parity, production decisions, and honest
-limits.
+prerequisites, render parity, staged lifecycle evidence, live parity,
+production decisions, and honest limits.
