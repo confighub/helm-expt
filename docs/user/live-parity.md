@@ -20,8 +20,8 @@ top-20 bases plus a small next80 expansion set.
 | Lane | Current result | What it means |
 | --- | --- | --- |
 | Selected live Helm-vs-ConfigHub comparison | 20 pass, 0 watch, 0 blocked | The selected top-20 rows compare regular Helm against ConfigHub delivery paths. |
-| Two-cluster kind parity for all top-20 bases | 41 pass, 0 watch, 1 blocked, 0 semantic parity defects | Regular Helm runs in one vanilla kind cluster and `cub installer` output runs in another. |
-| Broader two-cluster kind parity corpus | 49 pass, 0 watch, 1 blocked, 0 semantic parity defects | The same two-cluster method has started moving into next80 proof-grade charts. |
+| Two-cluster kind parity for all top-20 bases | 41 command-level pass, 1 lifecycle-routed block, 42 semantic parity pass, 0 semantic parity defects | Regular Helm runs in one vanilla kind cluster and `cub installer` output runs in another. |
+| Broader two-cluster kind parity corpus | 49 command-level pass, 1 lifecycle-routed block, 50 semantic parity pass, 0 semantic parity defects | The same two-cluster method has started moving into next80 proof-grade charts. |
 
 Use the generated reports for exact rows:
 
@@ -34,6 +34,9 @@ The current rerun queue has no active non-pass rows and no semantic parity
 defects. The remaining strict two-cluster non-pass row is lifecycle-routed:
 cert-manager `default` keeps its Helm post-install hook behavior in a separate
 observation lane rather than treating the hook as rendered desired state.
+In the generated two-cluster summary, that row is explicit:
+`result=blocked`, `semantic_parity=pass`, and
+`related_lifecycle_evidence=pass`.
 
 ## How To Read Results
 
@@ -52,6 +55,9 @@ hooks, or operating policy.
 That distinction matters. A blocked row can still prove that the model is
 working: the harness found the same object set and then surfaced the real
 cluster requirement that plain Helm would also leave the user to understand.
+Use the `semantic_parity`, `related_lifecycle_evidence`, and `meaning` columns
+in [Two-Cluster Kind Parity](../../data/live-kind-parity/summary.md) to make
+that distinction without reading the raw receipt first.
 
 ## Rerun Rule
 

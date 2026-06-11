@@ -281,6 +281,7 @@ Strict two-cluster Helm-vs-installer parity now has committed receipts for all
 - 0 rows are watch;
 - 1 row is blocked by a Helm post-install hook route that has separate
   lifecycle observation evidence;
+- 42 rows have semantic object parity;
 - 0 rows currently report a semantic parity defect.
 
 The broader two-cluster kind parity corpus now has 50 committed receipts:
@@ -288,6 +289,7 @@ The broader two-cluster kind parity corpus now has 50 committed receipts:
 - 49 rows pass;
 - 0 rows are watch;
 - 1 row is blocked by the same lifecycle-routed cert-manager default row;
+- 50 rows have semantic object parity;
 - 0 rows currently report a semantic parity defect.
 
 Use the generated rerun plan for the next command and expected remediation:
@@ -299,7 +301,9 @@ For the shortest active queue, use:
 The current rerun queue has no active non-pass rows and no semantic parity
 defects. The remaining strict non-pass row is cert-manager `default`; it is
 lifecycle-routed, with the hook-like behavior tracked in the separate lifecycle
-observation lane.
+observation lane. In the generated two-cluster summary, that row is explicit:
+`result=blocked`, `semantic_parity=pass`, and
+`related_lifecycle_evidence=pass`.
 
 Production support decisions are now closed for the top-20 catalog:
 
