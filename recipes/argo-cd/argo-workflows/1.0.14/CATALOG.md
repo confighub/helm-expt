@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, controller-default-reviewed |
 | Control points | capability-profile, cluster-rbac, dependency-lock, extension-slots, helm-equivalence, lifecycle-policy, rendered-manifest-scan, source-lock, tpl-extension-slots, variant-revision |
 
 ## Feature And Proof Summary
@@ -58,12 +58,14 @@ for exact base-variant evidence.
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/argo-cd/argo-workflows/1.0.14/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/argo-cd/argo-workflows/1.0.14/bases/default](../../../../packages/argo-cd/argo-workflows/1.0.14/bases/default) | [recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 19 | 20 | 19/19 | pass | warn | warn | none |
+| controller-default-reviewed | [recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml](variants/controller-default-reviewed/variant.yaml) | [packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed](../../../../packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed) | [recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/variant-revision.yaml](revisions/controller-default-reviewed/r001/variant-revision.yaml) | 19 | 20 | 19/19 | pass | warn | warn | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/argo-cd/argo-workflows/1.0.14/bases/default](../../../../packages/argo-cd/argo-workflows/1.0.14/bases/default) | yes | argo-cd/argo-workflows default variant rendered from argo-cd/argo-workflows@1.0.14 |
+| controller-default-reviewed | [packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed](../../../../packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed) | no | argo-cd/argo-workflows controller-default-reviewed useful base; aliases the default render with a named user start path |
 
 ## Receipts
 
@@ -73,6 +75,10 @@ for exact base-variant evidence.
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | warn | [recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | warn | [recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| controller-default-reviewed | r001 | render | RenderReceipt | recorded | [recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/receipts/render-receipt.yaml](revisions/controller-default-reviewed/r001/receipts/render-receipt.yaml) |
+| controller-default-reviewed | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/receipts/helm-equivalence-receipt.yaml](revisions/controller-default-reviewed/r001/receipts/helm-equivalence-receipt.yaml) |
+| controller-default-reviewed | r001 | scan | ScanReceipt | warn | [recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/receipts/scan-receipt.yaml](revisions/controller-default-reviewed/r001/receipts/scan-receipt.yaml) |
+| controller-default-reviewed | r001 | installGate | InstallGate | warn | [recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/receipts/install-gate.yaml](revisions/controller-default-reviewed/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

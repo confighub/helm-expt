@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-blackbox-exporter"
+    confighub.io/chart-version: "11.10.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "cluster-metrics-readonly"
+  name: "cluster-metrics-readonly-r001"
+spec:
+  digest: "c8012eaac44f39c58d78bebf8e2fad63bf4400e7180c61a3b2d0f35477b96133"
+  digestInputs:
+    effectiveValuesSHA256: "b9d4676047dd43d328141f6cc43d2a07c19365eb7e9f633a8289ddf834cdbc24"
+    recipeSHA256: "c69c716f23c576a7a2243aec2a872e5b8c97176a3c01aafe80ade1a51f378ae7"
+    renderedObjectSetSHA256: "43dbd48cda5a6f5aa85365fdba15a04cb328d513a0123983ec943c505a01730c"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    variantSHA256: "80c5914bfc1f53cbf4fdf90136e5fe45763236f0be9d211fd77835d44a2be2ee"
+  rendered:
+    objectCount: 4
+    objectInventory: "rendered/object-inventory.yaml"
+    releaseObjects: "rendered/release-objects.yaml"
+  revision: "r001"
+  variant: "../../../variants/cluster-metrics-readonly/variant.yaml"

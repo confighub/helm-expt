@@ -6,7 +6,12 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "autoscaler/cluster-autoscaler default variant rendered from autoscaler/cluster-autoscaler@9.57.0"
+      name: "default"
+      path: "bases/default"
+    -
+      name: "controller-default-reviewed"
+      path: "bases/controller-default-reviewed"
+      default: false
+      description: "autoscaler/cluster-autoscaler controller-default-reviewed useful base; aliases the default render with a named user start path"

@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, controller-default-reviewed |
 | Control points | capability-profile, cluster-rbac, dependency-lock, extension-slots, helm-equivalence, rendered-manifest-scan, source-lock, tpl-extension-slots, variant-revision |
 
 ## Feature And Proof Summary
@@ -58,12 +58,14 @@ for exact base-variant evidence.
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/autoscaler/cluster-autoscaler/9.57.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/autoscaler/cluster-autoscaler/9.57.0/bases/default](../../../../packages/autoscaler/cluster-autoscaler/9.57.0/bases/default) | [recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 7 | 8 | 7/7 | pass | warn | warn | none |
+| controller-default-reviewed | [recipes/autoscaler/cluster-autoscaler/9.57.0/variants/controller-default-reviewed/variant.yaml](variants/controller-default-reviewed/variant.yaml) | [packages/autoscaler/cluster-autoscaler/9.57.0/bases/controller-default-reviewed](../../../../packages/autoscaler/cluster-autoscaler/9.57.0/bases/controller-default-reviewed) | [recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/variant-revision.yaml](revisions/controller-default-reviewed/r001/variant-revision.yaml) | 7 | 8 | 7/7 | pass | warn | warn | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/autoscaler/cluster-autoscaler/9.57.0/bases/default](../../../../packages/autoscaler/cluster-autoscaler/9.57.0/bases/default) | yes | autoscaler/cluster-autoscaler default variant rendered from autoscaler/cluster-autoscaler@9.57.0 |
+| controller-default-reviewed | [packages/autoscaler/cluster-autoscaler/9.57.0/bases/controller-default-reviewed](../../../../packages/autoscaler/cluster-autoscaler/9.57.0/bases/controller-default-reviewed) | no | autoscaler/cluster-autoscaler controller-default-reviewed useful base; aliases the default render with a named user start path |
 
 ## Receipts
 
@@ -73,6 +75,10 @@ for exact base-variant evidence.
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | warn | [recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | warn | [recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| controller-default-reviewed | r001 | render | RenderReceipt | recorded | [recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/receipts/render-receipt.yaml](revisions/controller-default-reviewed/r001/receipts/render-receipt.yaml) |
+| controller-default-reviewed | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/receipts/helm-equivalence-receipt.yaml](revisions/controller-default-reviewed/r001/receipts/helm-equivalence-receipt.yaml) |
+| controller-default-reviewed | r001 | scan | ScanReceipt | warn | [recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/receipts/scan-receipt.yaml](revisions/controller-default-reviewed/r001/receipts/scan-receipt.yaml) |
+| controller-default-reviewed | r001 | installGate | InstallGate | warn | [recipes/autoscaler/cluster-autoscaler/9.57.0/revisions/controller-default-reviewed/r001/receipts/install-gate.yaml](revisions/controller-default-reviewed/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

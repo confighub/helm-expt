@@ -1,0 +1,26 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  labels:
+    confighub.io/chart-ref: "nats/surveyor"
+    confighub.io/chart-version: "0.20.9"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default-reviewed"
+  name: "nats-surveyor-0-20-9-default-reviewed-r001"
+spec:
+  allowedScopes:
+    - "local-test"
+    - "review"
+    - "production-candidate"
+  blockedScopes:
+    []
+  decision: "allow"
+  reasons:
+    - "regular Helm output matches cub installer setup for nats/surveyor@0.20.9"
+    - "3 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan produced no findings in the local proof policy"
+  renderedObjectSetSHA256: "c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1"
+  variantRevision: "../variant-revision.yaml"
+  usefulBaseAlias:
+    sourceBase: "default"
+    realizationStrategy: "alias-of-default-render"

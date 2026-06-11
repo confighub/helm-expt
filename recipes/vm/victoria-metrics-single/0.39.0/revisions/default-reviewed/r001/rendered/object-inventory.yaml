@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  labels:
+    confighub.io/chart-ref: "vm/victoria-metrics-single"
+    confighub.io/chart-version: "0.39.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default-reviewed"
+  name: "vm-victoria-metrics-single-0-39-0-default-reviewed-r001"
+spec:
+  objectCount: 3
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|StatefulSet|default|victoria-metrics-single-server"
+      kind: "StatefulSet"
+      name: "victoria-metrics-single-server"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|victoria-metrics-single-server"
+      kind: "ServiceAccount"
+      name: "victoria-metrics-single-server"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|victoria-metrics-single-server"
+      kind: "Service"
+      name: "victoria-metrics-single-server"
+      namespace: "default"
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "10c95bd43cb02502fb823b0d461c26b60fb0b4fe988ccf8a0cbe2e29f0a8c5f8"

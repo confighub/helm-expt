@@ -1,15 +1,13 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "RenderedObjectInventory"
 metadata:
-  name: "argo-cd-argo-workflows-1-0-14-default-r001"
   labels:
     confighub.io/chart-ref: "argo-cd/argo-workflows"
     confighub.io/chart-version: "1.0.14"
     confighub.io/proof-tier: "next80-full"
     confighub.io/variant: "default"
+  name: "argo-cd-argo-workflows-1-0-14-default-r001"
 spec:
-  source: "rendered/release-objects.yaml"
-  sourceSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
   objectCount: 19
   objects:
     -
@@ -126,3 +124,5 @@ spec:
       kind: "Service"
       name: "argo-workflows-server"
       namespace: "default"
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"

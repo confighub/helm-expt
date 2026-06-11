@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  labels:
+    confighub.io/chart-ref: "argo-cd/argo-workflows"
+    confighub.io/chart-version: "1.0.14"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "controller-default-reviewed"
+  name: "controller-default-reviewed-r001"
+spec:
+  digest: "e6a419a8143360c595c866d6a54ecd6ec6a73915cf395832b59131290d87123d"
+  digestInputs:
+    effectiveValuesSHA256: "58f08fe6e4d3afc358d7ccbd56b553de209d7fc3048348ba076abff59ce8f773"
+    recipeSHA256: "1a876fa2b3c09822133863ae11d56e08fe2c6b3ea5f99613ad8d75f4e8beec32"
+    renderedObjectSetSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    variantSHA256: "642b6b298f1c98e18cf838756485a5de28c58d43306a6be1e87584d69cd3e80e"
+  rendered:
+    objectCount: 19
+    objectInventory: "rendered/object-inventory.yaml"
+    releaseObjects: "rendered/release-objects.yaml"
+  revision: "r001"
+  variant: "../../../variants/controller-default-reviewed/variant.yaml"

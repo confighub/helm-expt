@@ -1,0 +1,28 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ScanReceipt"
+metadata:
+  labels:
+    confighub.io/chart-ref: "nats/surveyor"
+    confighub.io/chart-version: "0.20.9"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default-reviewed"
+  name: "nats-surveyor-0-20-9-default-reviewed-r001"
+spec:
+  findingCounts:
+    critical: 0
+    high: 0
+    info: 0
+    low: 0
+    medium: 0
+  findings:
+    []
+  policyBundleDigest: "d4913c44f60cee40b376761c82c0c5b84e3f65043012ae875d8f376330dabc35"
+  renderedObjectSetSHA256: "c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1"
+  result: "pass"
+  scanner:
+    name: "helm-expt-local-rendered-object-scan"
+    version: "0.2.0"
+  variantRevision: "../variant-revision.yaml"
+  usefulBaseAlias:
+    sourceBase: "default"
+    realizationStrategy: "alias-of-default-render"

@@ -6,7 +6,12 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "prometheus-community/kube-state-metrics default variant rendered from prometheus-community/kube-state-metrics@7.4.0"
+      name: "default"
+      path: "bases/default"
+    -
+      name: "cluster-metrics-readonly"
+      path: "bases/cluster-metrics-readonly"
+      default: false
+      description: "prometheus-community/kube-state-metrics cluster-metrics-readonly useful base; aliases the default render with a named user start path"

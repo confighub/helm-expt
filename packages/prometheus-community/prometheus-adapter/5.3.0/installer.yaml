@@ -6,7 +6,12 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "prometheus-community/prometheus-adapter default variant rendered from prometheus-community/prometheus-adapter@5.3.0"
+      name: "default"
+      path: "bases/default"
+    -
+      name: "cluster-metrics-readonly"
+      path: "bases/cluster-metrics-readonly"
+      default: false
+      description: "prometheus-community/prometheus-adapter cluster-metrics-readonly useful base; aliases the default render with a named user start path"

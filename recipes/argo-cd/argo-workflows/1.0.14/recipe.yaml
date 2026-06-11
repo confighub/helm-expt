@@ -1,17 +1,16 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "Recipe"
 metadata:
-  name: "argo-cd-argo-workflows"
-  version: "1.0.14"
   labels:
     confighub.io/chart-ref: "argo-cd/argo-workflows"
     confighub.io/chart-version: "1.0.14"
     confighub.io/proof-tier: "next80-full"
+  name: "argo-cd-argo-workflows"
+  version: "1.0.14"
 spec:
   chartRef:
-    sourceLock: "source-lock.yaml"
     dependencyLock: "dependency-lock.yaml"
-  importMode: "render-and-vendor"
+    sourceLock: "source-lock.yaml"
   currentExecutableFixture:
     installerPackage: "packages/argo-cd/argo-workflows/1.0.14"
     setupCommand:
@@ -23,5 +22,7 @@ spec:
       - "--non-interactive"
       - "--namespace"
       - "default"
+  importMode: "render-and-vendor"
   variants:
     - "variants/default/variant.yaml"
+    - "variants/controller-default-reviewed/variant.yaml"

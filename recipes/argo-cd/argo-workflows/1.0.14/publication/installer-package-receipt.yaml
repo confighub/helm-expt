@@ -4,18 +4,29 @@ metadata:
   name: "argo-cd-argo-workflows-1-0-14"
 spec:
   chart:
-    repository: "argo-cd"
     name: "argo-workflows"
+    repository: "argo-cd"
     version: "1.0.14"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/argo-cd/argo-workflows/1.0.14 -o <tmp>/argo-cd-argo-workflows-1-0-14.tgz"
+    sha256: "09d0f78603a8dea4a5933c094aa9ab1e45b37199fd9a435b6704fdd5341f88b6"
   package:
-    path: "packages/argo-cd/argo-workflows/1.0.14"
     name: "argo-cd-argo-workflows"
-    version: "1.0.14"
+    path: "packages/argo-cd/argo-workflows/1.0.14"
     sourceFiles:
       -
         path: "README.md"
         sha256: "7c92dfaa8bf95c7a2c759388bdb2fd2bc7155a211bfc991e8891642de0cbb3bb"
         bytes: 203
+      -
+        path: "bases/controller-default-reviewed/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/controller-default-reviewed/upstream.yaml"
+        sha256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
+        bytes: 20123
       -
         path: "bases/default/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
@@ -26,20 +37,27 @@ spec:
         bytes: 20123
       -
         path: "installer.yaml"
-        sha256: "f76cf1788d914cfcdfd79abbd159cc35a500bca195aa4c62c4f0c499fa38d370"
-        bytes: 321
-  deterministicBundle:
-    command: "cub installer package packages/argo-cd/argo-workflows/1.0.14 -o <tmp>/argo-cd-argo-workflows-1-0-14.tgz"
-    sha256: "03c25e6e332632cc9f283859ea7746b0df907243637dcafc4b19e7bb96d4ec18"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "6047374fbfa81996ec90abdcd5937affc5bcd59f9d6ae7688079ded495b1449b"
+        bytes: 579
+    version: "1.0.14"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/argo-cd/argo-workflows/1.0.14 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 19
-      cubInstallObjectCountIncludingSupport: 20
-      semanticObjectMatches: "19/19"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/argo-cd/argo-workflows/1.0.14 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 20
+      helmReleaseObjectCount: 19
+      semanticObjectMatches: "19/19"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
+      base: "controller-default-reviewed"
+      command: "cub installer setup --pull packages/argo-cd/argo-workflows/1.0.14 --base controller-default-reviewed --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 20
+      helmReleaseObjectCount: 19
+      semanticObjectMatches: "19/19"
+      separatedSecretCount: 0
+      variant: "controller-default-reviewed"

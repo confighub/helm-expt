@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, default-reviewed |
 | Control points | capability-profile, dependency-lock, extension-slots, helm-equivalence, rendered-manifest-scan, source-lock, stateful-storage, tpl-extension-slots, variant-revision |
 
 ## Feature And Proof Summary
@@ -58,12 +58,14 @@ for exact base-variant evidence.
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/vm/victoria-metrics-single/0.39.0/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/vm/victoria-metrics-single/0.39.0/bases/default](../../../../packages/vm/victoria-metrics-single/0.39.0/bases/default) | [recipes/vm/victoria-metrics-single/0.39.0/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 3 | 4 | 3/3 | pass | pass | allow | none |
+| default-reviewed | [recipes/vm/victoria-metrics-single/0.39.0/variants/default-reviewed/variant.yaml](variants/default-reviewed/variant.yaml) | [packages/vm/victoria-metrics-single/0.39.0/bases/default-reviewed](../../../../packages/vm/victoria-metrics-single/0.39.0/bases/default-reviewed) | [recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/variant-revision.yaml](revisions/default-reviewed/r001/variant-revision.yaml) | 3 | 4 | 3/3 | pass | pass | allow | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/vm/victoria-metrics-single/0.39.0/bases/default](../../../../packages/vm/victoria-metrics-single/0.39.0/bases/default) | yes | vm/victoria-metrics-single default variant rendered from vm/victoria-metrics-single@0.39.0 |
+| default-reviewed | [packages/vm/victoria-metrics-single/0.39.0/bases/default-reviewed](../../../../packages/vm/victoria-metrics-single/0.39.0/bases/default-reviewed) | no | vm/victoria-metrics-single default-reviewed useful base; aliases the default render with a named user start path |
 
 ## Receipts
 
@@ -73,6 +75,10 @@ for exact base-variant evidence.
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/vm/victoria-metrics-single/0.39.0/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | pass | [recipes/vm/victoria-metrics-single/0.39.0/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | allow | [recipes/vm/victoria-metrics-single/0.39.0/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| default-reviewed | r001 | render | RenderReceipt | recorded | [recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/receipts/render-receipt.yaml](revisions/default-reviewed/r001/receipts/render-receipt.yaml) |
+| default-reviewed | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/receipts/helm-equivalence-receipt.yaml](revisions/default-reviewed/r001/receipts/helm-equivalence-receipt.yaml) |
+| default-reviewed | r001 | scan | ScanReceipt | pass | [recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/receipts/scan-receipt.yaml](revisions/default-reviewed/r001/receipts/scan-receipt.yaml) |
+| default-reviewed | r001 | installGate | InstallGate | allow | [recipes/vm/victoria-metrics-single/0.39.0/revisions/default-reviewed/r001/receipts/install-gate.yaml](revisions/default-reviewed/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

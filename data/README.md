@@ -29,6 +29,7 @@ smallest generated surface that answers it.
 | I want the top-100 coverage contract. | [top100-coverage/summary.md](./top100-coverage/summary.md)<br>[top100-coverage/coverage.csv](./top100-coverage/coverage.csv) |
 | I want the strict top-100 work queue. | [top100-coverage/work-queue.md](./top100-coverage/work-queue.md)<br>[top100-coverage/work-queue.csv](./top100-coverage/work-queue.csv)<br>[top100-coverage/decisions-needed.md](./top100-coverage/decisions-needed.md) |
 | I want to know which useful base variants need designing next. | [useful-base-design-queue/summary.md](./useful-base-design-queue/summary.md)<br>[useful-base-design-queue/queue.csv](./useful-base-design-queue/queue.csv) |
+| I want to know which useful base variants have been made real. | [useful-base-realization-wave/summary.md](./useful-base-realization-wave/summary.md)<br>[useful-base-realization-wave/wave.csv](./useful-base-realization-wave/wave.csv) |
 | I want the source-scan quirk work queue. | [quirk-work-queue/summary.md](./quirk-work-queue/summary.md)<br>[quirk-work-queue/top100-queue.csv](./quirk-work-queue/top100-queue.csv) |
 | I want the hardest top-100 proof gaps to assign next. | [hard-proof-gaps/summary.md](./hard-proof-gaps/summary.md)<br>[hard-proof-gaps/shortlist.csv](./hard-proof-gaps/shortlist.csv) |
 | I want remote dependency closure status. | [remote-dependency-closure/summary.md](./remote-dependency-closure/summary.md)<br>[remote-dependency-closure/top100.csv](./remote-dependency-closure/top100.csv) |
@@ -96,6 +97,8 @@ smallest generated surface that answers it.
 | [useful-base-design-queue/summary.md](./useful-base-design-queue/summary.md) | Useful base design queue for top-100 charts that are proof-grade but too default-shaped to recommend. |
 | [useful-base-design-queue/queue.csv](./useful-base-design-queue/queue.csv) | One row per chart needing a useful base proposal: proposed base shape, user job, render choices, target inputs, and proof required. |
 | [useful-base-design-queue/families.csv](./useful-base-design-queue/families.csv) | Grouped useful-base design families for assigning batches of related chart work. |
+| [useful-base-realization-wave/summary.md](./useful-base-realization-wave/summary.md) | First wave of useful base proposals made real as recipe variants and cub installer package bases. |
+| [useful-base-realization-wave/wave.csv](./useful-base-realization-wave/wave.csv) | One row per realized useful base: strategy, remaining proof work, package base, and recipe variant. |
 | [top100-promotion-wave/summary.md](./top100-promotion-wave/summary.md) | First strict top-100 promotion-review wave: proof-grade charts with two-cluster parity that need production disposition and support decisions. |
 | [top100-promotion-wave/wave.csv](./top100-promotion-wave/wave.csv) | One row per selected top-100 promotion wave chart: variants, evidence, scan/gate status, first step, and done-when rule. |
 | [top100-promotion-wave/wave.yaml](./top100-promotion-wave/wave.yaml) | Machine-readable strict top-100 promotion wave input. |
@@ -248,6 +251,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `top20-base-readiness` | [top20-base-readiness/summary.md](./top20-base-readiness/summary.md) | top-20 base-variant readiness and first-path guidance |
 | `top500-catalog-analysis` | [top500-catalog-analysis/summary.md](./top500-catalog-analysis/summary.md) | top-500 catalog planning analysis |
 | `useful-base-design-queue` | [useful-base-design-queue/summary.md](./useful-base-design-queue/summary.md) | front-door proposed useful-base queue for default-shaped top-100 charts |
+| `useful-base-realization-wave` | [useful-base-realization-wave/summary.md](./useful-base-realization-wave/summary.md) | front-door useful-base proposals made real as candidate recipe/package bases |
 | `variant-backlog` | [variant-backlog/summary.md](./variant-backlog/summary.md) | candidate base-variant expansion backlog |
 | `variant-goldens` | - | golden work orders for derived-variant examples |
 | `variant-path-coverage` | [variant-path-coverage/summary.md](./variant-path-coverage/summary.md) | chart/base/path proof status matrix |
@@ -260,7 +264,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 108 CSV files. Each row records the path, audience,
+It includes 109 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

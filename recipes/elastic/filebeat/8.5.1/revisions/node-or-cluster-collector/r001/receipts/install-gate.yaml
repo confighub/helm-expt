@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  labels:
+    confighub.io/chart-ref: "elastic/filebeat"
+    confighub.io/chart-version: "8.5.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "node-or-cluster-collector"
+  name: "elastic-filebeat-8-5-1-node-or-cluster-collector-r001"
+spec:
+  allowedScopes:
+    - "local-test"
+    - "review"
+  blockedScopes:
+    - "production-without-review"
+  decision: "warn"
+  reasons:
+    - "regular Helm output matches cub installer setup for elastic/filebeat@8.5.1"
+    - "7 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan has review findings; see scan-receipt.yaml"
+  renderedObjectSetSHA256: "690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"
+  variantRevision: "../variant-revision.yaml"
+  usefulBaseAlias:
+    sourceBase: "default"
+    realizationStrategy: "alias-of-default-render"

@@ -1,0 +1,25 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  labels:
+    confighub.io/chart-ref: "istio/gateway"
+    confighub.io/chart-version: "1.30.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "controller-default-reviewed"
+  name: "istio-gateway-1-30-0-controller-default-reviewed-r001"
+spec:
+  allowedScopes:
+    - "local-test"
+    - "review"
+  blockedScopes:
+    - "production-without-review"
+  decision: "warn"
+  reasons:
+    - "regular Helm output matches cub installer setup for istio/gateway@1.30.0"
+    - "6 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan has review findings; see scan-receipt.yaml"
+  renderedObjectSetSHA256: "07b3cb11d265a7b857b231a347be2c71742e5bc1eeb02efddd7ce71ecc1c7afc"
+  variantRevision: "../variant-revision.yaml"
+  usefulBaseAlias:
+    sourceBase: "default"
+    realizationStrategy: "alias-of-default-render"

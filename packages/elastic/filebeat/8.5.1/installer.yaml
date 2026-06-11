@@ -6,7 +6,12 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "elastic/filebeat default variant rendered from elastic/filebeat@8.5.1"
+      name: "default"
+      path: "bases/default"
+    -
+      name: "node-or-cluster-collector"
+      path: "bases/node-or-cluster-collector"
+      default: false
+      description: "elastic/filebeat node-or-cluster-collector useful base; aliases the default render with a named user start path"

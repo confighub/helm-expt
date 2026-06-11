@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  labels:
+    confighub.io/chart-ref: "stakater/reloader"
+    confighub.io/chart-version: "2.2.12"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "controller-default-reviewed"
+  name: "controller-default-reviewed-r001"
+spec:
+  digest: "dd5515670b808b776594418e711ad3230bab02d2db853461dcc12fd3d8f11281"
+  digestInputs:
+    effectiveValuesSHA256: "2e59af0fcfa54671faed3ab3b503216e3d9484b0e78ceebf670606a08fcde5ec"
+    recipeSHA256: "09b2928c304f6e398e266166a4f7c5b7470e72905ddfd075aa5bf3e6aed41402"
+    renderedObjectSetSHA256: "d73021c041d681424e89af4e6dde4e99ac3791b1622576649778f7314f979d9e"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    variantSHA256: "619259ed30f65584a9ad080c512b7b364b503ba50a4595037f6cc4d719b7de10"
+  rendered:
+    objectCount: 6
+    objectInventory: "rendered/object-inventory.yaml"
+    releaseObjects: "rendered/release-objects.yaml"
+  revision: "r001"
+  variant: "../../../variants/controller-default-reviewed/variant.yaml"

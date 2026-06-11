@@ -1,0 +1,32 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  labels:
+    confighub.io/chart-ref: "nats/surveyor"
+    confighub.io/chart-version: "0.20.9"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default-reviewed"
+  name: "nats-surveyor-0-20-9-default-reviewed-r001"
+spec:
+  objectCount: 3
+  objects:
+    -
+      apiVersion: "apps/v1"
+      identity: "apps/v1|Deployment||surveyor"
+      kind: "Deployment"
+      name: "surveyor"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount||surveyor"
+      kind: "ServiceAccount"
+      name: "surveyor"
+      namespace: ""
+    -
+      apiVersion: "v1"
+      identity: "v1|Service||surveyor"
+      kind: "Service"
+      name: "surveyor"
+      namespace: ""
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1"

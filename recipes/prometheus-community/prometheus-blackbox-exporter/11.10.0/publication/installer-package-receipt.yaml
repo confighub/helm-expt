@@ -4,18 +4,29 @@ metadata:
   name: "prometheus-community-prometheus-blackbox-exporter-11-10-0"
 spec:
   chart:
-    repository: "prometheus-community"
     name: "prometheus-blackbox-exporter"
+    repository: "prometheus-community"
     version: "11.10.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/prometheus-community/prometheus-blackbox-exporter/11.10.0 -o <tmp>/prometheus-community-prometheus-blackbox-exporter-11-10-0.tgz"
+    sha256: "c79ccb65a4813be3c4eecc663fd8d9b1dce4567f220ce9a13f32dfcdc42e1620"
   package:
-    path: "packages/prometheus-community/prometheus-blackbox-exporter/11.10.0"
     name: "prometheus-community-prometheus-blackbox-exporter"
-    version: "11.10.0"
+    path: "packages/prometheus-community/prometheus-blackbox-exporter/11.10.0"
     sourceFiles:
       -
         path: "README.md"
         sha256: "6a69858eb4d65da3e20df9a1705ed563550681dfac76f25fd653cd218df36325"
         bytes: 231
+      -
+        path: "bases/cluster-metrics-readonly/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/cluster-metrics-readonly/upstream.yaml"
+        sha256: "43dbd48cda5a6f5aa85365fdba15a04cb328d513a0123983ec943c505a01730c"
+        bytes: 4027
       -
         path: "bases/default/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
@@ -26,20 +37,27 @@ spec:
         bytes: 4027
       -
         path: "installer.yaml"
-        sha256: "90cb0aebecc58ae058b9f6580108d65347e6016708a064a742ef1b6f99ce623e"
-        bytes: 404
-  deterministicBundle:
-    command: "cub installer package packages/prometheus-community/prometheus-blackbox-exporter/11.10.0 -o <tmp>/prometheus-community-prometheus-blackbox-exporter-11-10-0.tgz"
-    sha256: "84c4f51468f7364252143d6322bbf3d955bf094c8b08cf999dcbe8aa3d667b45"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "562857af2abaddbe8437f8e39e634dcc65fad9091ea7ebf5e48df1c6bcaff3a4"
+        bytes: 680
+    version: "11.10.0"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/prometheus-community/prometheus-blackbox-exporter/11.10.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 4
-      cubInstallObjectCountIncludingSupport: 5
-      semanticObjectMatches: "4/4"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/prometheus-community/prometheus-blackbox-exporter/11.10.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 5
+      helmReleaseObjectCount: 4
+      semanticObjectMatches: "4/4"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
+      base: "cluster-metrics-readonly"
+      command: "cub installer setup --pull packages/prometheus-community/prometheus-blackbox-exporter/11.10.0 --base cluster-metrics-readonly --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 5
+      helmReleaseObjectCount: 4
+      semanticObjectMatches: "4/4"
+      separatedSecretCount: 0
+      variant: "cluster-metrics-readonly"

@@ -50,6 +50,7 @@ function buildReport() {
   const top100CoverageWorkRows = readCsv("data/top100-coverage/work-queue.csv");
   const usefulBaseRows = readCsv("data/useful-base-design-queue/queue.csv");
   const usefulBaseFamilyRows = readCsv("data/useful-base-design-queue/families.csv");
+  const usefulBaseRealizationRows = readCsv("data/useful-base-realization-wave/wave.csv");
   const top100PromotionWaveRows = readCsv("data/top100-promotion-wave/wave.csv");
   const top100PromotionFastTrackRows = readCsv("data/top100-promotion-wave/fast-track.csv");
   const top100PromotionFastTrackReviewRows = readCsv("data/top100-promotion-wave/fast-track-reviews/review-packets.csv");
@@ -108,6 +109,7 @@ function buildReport() {
   rows.push(metric("top100", "fast-track storage rollback reviews", top100PromotionFastTrackStorageRows.length, top100PromotionFastTrackRows.length, "partial", "data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv", "Rendered storage-shape and rollback-boundary review inputs for low-residue candidates. These are not backup, restore, or support decisions."));
   rows.push(metric("top100", "top100 user-shaped variant queue", count(top100CoverageWorkRows, "queue", "user-shaped-variant"), top100CoverageWorkRows.length, "partial", "data/top100-coverage/work-queue.csv", "Partial top100 rows whose proof exists but whose current base is not yet a useful catalog offer."));
   rows.push(metric("top100", "useful-base proposal rows", usefulBaseRows.length, count(top100CoverageWorkRows, "queue", "user-shaped-variant"), "partial", "data/useful-base-design-queue/queue.csv", "Proposed base shapes for default-shaped proof-grade charts. These are not supported bases until rendered and proved."));
+  rows.push(metric("top100", "useful-base realized rows", usefulBaseRealizationRows.length, usefulBaseRows.length, "partial", "data/useful-base-realization-wave/wave.csv", "Useful-base proposals that now have recipe variants and cub installer package bases. These still need ConfigHub proof, live evidence, and production disposition."));
   rows.push(metric("top100", "useful-base proposal families", usefulBaseFamilyRows.length, usefulBaseFamilyRows.length, "partial", "data/useful-base-design-queue/families.csv", "Grouped proposal families used to assign related base-design work."));
   rows.push(metric("top100", "useful-base proposals not yet built", count(usefulBaseRows, "proposal_status", "proposal-not-built"), usefulBaseRows.length, "gap", "data/useful-base-design-queue/queue.csv", "Rows where the proposed base shape still needs recipe/package artifacts and proof before catalog promotion."));
   rows.push(metric("top100", "top100 limitation-decision queue", count(top100CoverageWorkRows, "queue", "limitation-decision"), top100CoverageWorkRows.length, "partial", "data/top100-coverage/work-queue.csv", "Partial top100 rows needing a support, disclosure, defer, or block decision before promotion."));

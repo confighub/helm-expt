@@ -1,0 +1,31 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  labels:
+    confighub.io/chart-ref: "argo-cd/argo-workflows"
+    confighub.io/chart-version: "1.0.14"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "controller-default-reviewed"
+  name: "argo-cd-argo-workflows-1-0-14-controller-default-reviewed-r001"
+spec:
+  classifications:
+    -
+      classification: "installer-support-object"
+      disposition: "allowed"
+      identity: "v1|Namespace||default"
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 20
+    semanticObjectMatches: "19/19"
+    separatedSecretFiles: 0
+    uploadedManifestFiles: 20
+  evidenceCommand: "npm run next80:verify-packages"
+  regularHelm:
+    objectCount: 19
+    renderedSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
+  result: "pass"
+  semanticNormalizations:
+    - "prune-null-fields"
+  variantRevision: "../variant-revision.yaml"
+  usefulBaseAlias:
+    sourceBase: "default"
+    realizationStrategy: "alias-of-default-render"

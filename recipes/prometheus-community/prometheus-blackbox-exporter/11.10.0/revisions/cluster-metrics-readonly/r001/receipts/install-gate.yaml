@@ -1,0 +1,26 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "InstallGate"
+metadata:
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-blackbox-exporter"
+    confighub.io/chart-version: "11.10.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "cluster-metrics-readonly"
+  name: "prometheus-community-prometheus-blackbox-exporter-11-10-0-cluster-metrics-readonly-r001"
+spec:
+  allowedScopes:
+    - "local-test"
+    - "review"
+    - "production-candidate"
+  blockedScopes:
+    []
+  decision: "allow"
+  reasons:
+    - "regular Helm output matches cub installer setup for prometheus-community/prometheus-blackbox-exporter@11.10.0"
+    - "4 Helm objects are bound to renderedObjectSetSHA256"
+    - "rendered-object scan produced no findings in the local proof policy"
+  renderedObjectSetSHA256: "43dbd48cda5a6f5aa85365fdba15a04cb328d513a0123983ec943c505a01730c"
+  variantRevision: "../variant-revision.yaml"
+  usefulBaseAlias:
+    sourceBase: "default"
+    realizationStrategy: "alias-of-default-render"

@@ -1,0 +1,31 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  labels:
+    confighub.io/chart-ref: "prometheus-community/prometheus-adapter"
+    confighub.io/chart-version: "5.3.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "cluster-metrics-readonly"
+  name: "prometheus-community-prometheus-adapter-5-3-0-cluster-metrics-readonly-r001"
+spec:
+  classifications:
+    -
+      classification: "installer-support-object"
+      disposition: "allowed"
+      identity: "v1|Namespace||default"
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 12
+    semanticObjectMatches: "11/11"
+    separatedSecretFiles: 0
+    uploadedManifestFiles: 12
+  evidenceCommand: "npm run next80:verify-packages"
+  regularHelm:
+    objectCount: 11
+    renderedSHA256: "50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a"
+  result: "pass"
+  semanticNormalizations:
+    - "prune-null-fields"
+  variantRevision: "../variant-revision.yaml"
+  usefulBaseAlias:
+    sourceBase: "default"
+    realizationStrategy: "alias-of-default-render"

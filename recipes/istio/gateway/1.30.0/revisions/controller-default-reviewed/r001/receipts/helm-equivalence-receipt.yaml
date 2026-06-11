@@ -1,0 +1,31 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  labels:
+    confighub.io/chart-ref: "istio/gateway"
+    confighub.io/chart-version: "1.30.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "controller-default-reviewed"
+  name: "istio-gateway-1-30-0-controller-default-reviewed-r001"
+spec:
+  classifications:
+    -
+      classification: "installer-support-object"
+      disposition: "allowed"
+      identity: "v1|Namespace||default"
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 7
+    semanticObjectMatches: "6/6"
+    separatedSecretFiles: 0
+    uploadedManifestFiles: 7
+  evidenceCommand: "npm run next80:verify-packages"
+  regularHelm:
+    objectCount: 6
+    renderedSHA256: "07b3cb11d265a7b857b231a347be2c71742e5bc1eeb02efddd7ce71ecc1c7afc"
+  result: "pass"
+  semanticNormalizations:
+    - "prune-null-fields"
+  variantRevision: "../variant-revision.yaml"
+  usefulBaseAlias:
+    sourceBase: "default"
+    realizationStrategy: "alias-of-default-render"

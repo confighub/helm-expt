@@ -1,0 +1,35 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  labels:
+    confighub.io/chart-ref: "argo-cd/argo-workflows"
+    confighub.io/chart-version: "1.0.14"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "controller-default-reviewed"
+    helm-expt.confighub.com/useful-base-status: "realized-alias-base"
+  name: "controller-default-reviewed"
+spec:
+  capabilityProfile:
+    apiVersions:
+      []
+    kubeVersion: "1.30.0"
+  hookPolicy: "no-hooks"
+  namespace: "default"
+  recipe: "../../recipe.yaml"
+  releaseName: "argo-workflows"
+  valuesProfile: "../../effective-values.yaml"
+  usefulBase:
+    realizationStrategy: "alias-of-default-render"
+    sourceBase: "default"
+    userJob: "install a cluster controller with explicit CRD, RBAC, and lifecycle boundaries"
+    renderTimeChoices:
+      - "CRD ownership"
+      - "admission/webhook behavior"
+      - "RBAC scope"
+      - "leader-election or HA flags"
+      - "required values"
+    remainingBeforeCatalog:
+      - "ConfigHub proof lane"
+      - "selected live lane"
+      - "production disposition"
+    note: "This base intentionally reuses the default rendered object set and makes the user-facing install shape explicit."

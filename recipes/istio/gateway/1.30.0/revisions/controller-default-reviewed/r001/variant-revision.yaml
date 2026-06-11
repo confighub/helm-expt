@@ -1,0 +1,23 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "VariantRevision"
+metadata:
+  labels:
+    confighub.io/chart-ref: "istio/gateway"
+    confighub.io/chart-version: "1.30.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "controller-default-reviewed"
+  name: "controller-default-reviewed-r001"
+spec:
+  digest: "e0f999321bc8f539b567f66392c0573dd4727ab7533d95b2701180b598207011"
+  digestInputs:
+    effectiveValuesSHA256: "89025092d72d1996631cdede94ba9babc2f3cc1e27f82c71c1f386f341f9621c"
+    recipeSHA256: "034324eedc1aee8377cf9f0f1dada83f499521ba1e06e0fc9ce9cb77a0d13e51"
+    renderedObjectSetSHA256: "07b3cb11d265a7b857b231a347be2c71742e5bc1eeb02efddd7ce71ecc1c7afc"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    variantSHA256: "02c37731ed28d57dc0d0cf9520d52ad4e6aad1feca48dfbd1275289529c8d9d4"
+  rendered:
+    objectCount: 6
+    objectInventory: "rendered/object-inventory.yaml"
+    releaseObjects: "rendered/release-objects.yaml"
+  revision: "r001"
+  variant: "../../../variants/controller-default-reviewed/variant.yaml"

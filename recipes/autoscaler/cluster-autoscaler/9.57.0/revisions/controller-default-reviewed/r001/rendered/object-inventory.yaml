@@ -1,0 +1,56 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "RenderedObjectInventory"
+metadata:
+  labels:
+    confighub.io/chart-ref: "autoscaler/cluster-autoscaler"
+    confighub.io/chart-version: "9.57.0"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "controller-default-reviewed"
+  name: "autoscaler-cluster-autoscaler-9-57-0-controller-default-reviewed-r001"
+spec:
+  objectCount: 7
+  objects:
+    -
+      apiVersion: "policy/v1"
+      identity: "policy/v1|PodDisruptionBudget|default|cluster-autoscaler-aws-cluster-autoscaler"
+      kind: "PodDisruptionBudget"
+      name: "cluster-autoscaler-aws-cluster-autoscaler"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRoleBinding||cluster-autoscaler-aws-cluster-autoscaler"
+      kind: "ClusterRoleBinding"
+      name: "cluster-autoscaler-aws-cluster-autoscaler"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|ClusterRole||cluster-autoscaler-aws-cluster-autoscaler"
+      kind: "ClusterRole"
+      name: "cluster-autoscaler-aws-cluster-autoscaler"
+      namespace: ""
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|RoleBinding|default|cluster-autoscaler-aws-cluster-autoscaler"
+      kind: "RoleBinding"
+      name: "cluster-autoscaler-aws-cluster-autoscaler"
+      namespace: "default"
+    -
+      apiVersion: "rbac.authorization.k8s.io/v1"
+      identity: "rbac.authorization.k8s.io/v1|Role|default|cluster-autoscaler-aws-cluster-autoscaler"
+      kind: "Role"
+      name: "cluster-autoscaler-aws-cluster-autoscaler"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|ServiceAccount|default|cluster-autoscaler-aws-cluster-autoscaler"
+      kind: "ServiceAccount"
+      name: "cluster-autoscaler-aws-cluster-autoscaler"
+      namespace: "default"
+    -
+      apiVersion: "v1"
+      identity: "v1|Service|default|cluster-autoscaler-aws-cluster-autoscaler"
+      kind: "Service"
+      name: "cluster-autoscaler-aws-cluster-autoscaler"
+      namespace: "default"
+  source: "rendered/release-objects.yaml"
+  sourceSHA256: "9e67f520b5c65ff34d72f8c85e4245c2d9d238b6da336112dfa272a060d69446"

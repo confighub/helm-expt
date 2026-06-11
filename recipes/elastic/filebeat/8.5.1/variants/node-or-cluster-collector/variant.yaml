@@ -1,0 +1,34 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "Variant"
+metadata:
+  labels:
+    confighub.io/chart-ref: "elastic/filebeat"
+    confighub.io/chart-version: "8.5.1"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "node-or-cluster-collector"
+    helm-expt.confighub.com/useful-base-status: "realized-alias-base"
+  name: "node-or-cluster-collector"
+spec:
+  capabilityProfile:
+    apiVersions:
+      []
+    kubeVersion: "1.30.0"
+  hookPolicy: "no-hooks"
+  namespace: "default"
+  recipe: "../../recipe.yaml"
+  releaseName: "filebeat"
+  valuesProfile: "../../effective-values.yaml"
+  usefulBase:
+    realizationStrategy: "alias-of-default-render"
+    sourceBase: "default"
+    userJob: "run an observability collector or security agent with explicit output destinations"
+    renderTimeChoices:
+      - "DaemonSet versus Deployment shape"
+      - "destination Secret or endpoint"
+      - "RBAC scope"
+      - "persistence if present"
+    remainingBeforeCatalog:
+      - "ConfigHub proof lane"
+      - "selected live lane"
+      - "production disposition"
+    note: "This base intentionally reuses the default rendered object set and makes the user-facing install shape explicit."

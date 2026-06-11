@@ -1,23 +1,23 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "VariantRevision"
 metadata:
-  name: "default-r001"
   labels:
     confighub.io/chart-ref: "istio/gateway"
     confighub.io/chart-version: "1.30.0"
     confighub.io/proof-tier: "next80-full"
     confighub.io/variant: "default"
+  name: "default-r001"
 spec:
-  variant: "../../../variants/default/variant.yaml"
-  revision: "r001"
-  digest: "889fee5ff433fac7f615594e514bed33cbff9ecc8a092b5a1bcdede1f794a2a2"
+  digest: "1841f26edd8ff88a49ae40776f75e6901eab32ac85193401669e046737c3f208"
   digestInputs:
-    recipeSHA256: "0d5f10c685b6404559e474c91dd9d356420a8f7e3b8e8013f37b26cbed7ac4ea"
-    variantSHA256: "12b9df1f7cb64c6175aa2bf95ea85d5769f30f5d8e8356a40ac5a93f0309be42"
     effectiveValuesSHA256: "89025092d72d1996631cdede94ba9babc2f3cc1e27f82c71c1f386f341f9621c"
-    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    recipeSHA256: "034324eedc1aee8377cf9f0f1dada83f499521ba1e06e0fc9ce9cb77a0d13e51"
     renderedObjectSetSHA256: "07b3cb11d265a7b857b231a347be2c71742e5bc1eeb02efddd7ce71ecc1c7afc"
+    rendererSHA256: "5c7201e34962ec7b6216bef8811ca3569ea9e9632f53c90247d215523f0de22b"
+    variantSHA256: "12b9df1f7cb64c6175aa2bf95ea85d5769f30f5d8e8356a40ac5a93f0309be42"
   rendered:
-    releaseObjects: "rendered/release-objects.yaml"
-    objectInventory: "rendered/object-inventory.yaml"
     objectCount: 6
+    objectInventory: "rendered/object-inventory.yaml"
+    releaseObjects: "rendered/release-objects.yaml"
+  revision: "r001"
+  variant: "../../../variants/default/variant.yaml"

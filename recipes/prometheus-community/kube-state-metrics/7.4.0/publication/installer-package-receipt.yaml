@@ -4,18 +4,29 @@ metadata:
   name: "prometheus-community-kube-state-metrics-7-4-0"
 spec:
   chart:
-    repository: "prometheus-community"
     name: "kube-state-metrics"
+    repository: "prometheus-community"
     version: "7.4.0"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/prometheus-community/kube-state-metrics/7.4.0 -o <tmp>/prometheus-community-kube-state-metrics-7-4-0.tgz"
+    sha256: "e6a9f9fe1fde85952eafafa6845ccf29ea88a9fe150072acc034213e2ba7a810"
   package:
-    path: "packages/prometheus-community/kube-state-metrics/7.4.0"
     name: "prometheus-community-kube-state-metrics"
-    version: "7.4.0"
+    path: "packages/prometheus-community/kube-state-metrics/7.4.0"
     sourceFiles:
       -
         path: "README.md"
         sha256: "c359de0832a0aa797fe51f2de32d0258ec0759f06801cabc8471934015e015c4"
         bytes: 219
+      -
+        path: "bases/cluster-metrics-readonly/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/cluster-metrics-readonly/upstream.yaml"
+        sha256: "b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc"
+        bytes: 7739
       -
         path: "bases/default/kustomization.yaml"
         sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
@@ -26,20 +37,27 @@ spec:
         bytes: 7739
       -
         path: "installer.yaml"
-        sha256: "bc5f53657b2bbe858c3a294c7a8d384f8f6a5eca0db73a00bc2c122ffebafd03"
-        bytes: 370
-  deterministicBundle:
-    command: "cub installer package packages/prometheus-community/kube-state-metrics/7.4.0 -o <tmp>/prometheus-community-kube-state-metrics-7-4-0.tgz"
-    sha256: "c9c96969e7b0ebbeaea78b7bcf6b2856225715610ddf7edf9ab3b845d23826af"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "3fc58411d011d30647d9110b21dfea5390f62adf91469daf2e8983f261fe9f4c"
+        bytes: 636
+    version: "7.4.0"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/prometheus-community/kube-state-metrics/7.4.0 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 5
-      cubInstallObjectCountIncludingSupport: 6
-      semanticObjectMatches: "5/5"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/prometheus-community/kube-state-metrics/7.4.0 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 6
+      helmReleaseObjectCount: 5
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
+      base: "cluster-metrics-readonly"
+      command: "cub installer setup --pull packages/prometheus-community/kube-state-metrics/7.4.0 --base cluster-metrics-readonly --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 6
+      helmReleaseObjectCount: 5
+      semanticObjectMatches: "5/5"
+      separatedSecretCount: 0
+      variant: "cluster-metrics-readonly"

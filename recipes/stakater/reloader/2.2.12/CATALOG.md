@@ -18,7 +18,7 @@ chart -> recipe -> variants -> variant revisions -> package bases -> receipts
 | Supported scopes | none |
 | Production readiness | not-reviewed-for-production |
 | Supported variants | none |
-| Candidate variants | default |
+| Candidate variants | default, controller-default-reviewed |
 | Control points | capability-profile, cluster-rbac, dependency-lock, extension-slots, helm-equivalence, rendered-manifest-scan, source-lock, tpl-extension-slots, variant-revision |
 
 ## Feature And Proof Summary
@@ -58,12 +58,14 @@ for exact base-variant evidence.
 | Variant | Variant file | Package base | Revision | Helm objects | cub installer objects | Match | Helm equivalence | Scan | Gate | Target facts |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | default | [recipes/stakater/reloader/2.2.12/variants/default/variant.yaml](variants/default/variant.yaml) | [packages/stakater/reloader/2.2.12/bases/default](../../../../packages/stakater/reloader/2.2.12/bases/default) | [recipes/stakater/reloader/2.2.12/revisions/default/r001/variant-revision.yaml](revisions/default/r001/variant-revision.yaml) | 6 | 7 | 6/6 | pass | warn | warn | none |
+| controller-default-reviewed | [recipes/stakater/reloader/2.2.12/variants/controller-default-reviewed/variant.yaml](variants/controller-default-reviewed/variant.yaml) | [packages/stakater/reloader/2.2.12/bases/controller-default-reviewed](../../../../packages/stakater/reloader/2.2.12/bases/controller-default-reviewed) | [recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/variant-revision.yaml](revisions/controller-default-reviewed/r001/variant-revision.yaml) | 6 | 7 | 6/6 | pass | warn | warn | none |
 
 ## Package Bases
 
 | Base | Path | Default | Description |
 | --- | --- | --- | --- |
 | default | [packages/stakater/reloader/2.2.12/bases/default](../../../../packages/stakater/reloader/2.2.12/bases/default) | yes | stakater/reloader default variant rendered from stakater/reloader@2.2.12 |
+| controller-default-reviewed | [packages/stakater/reloader/2.2.12/bases/controller-default-reviewed](../../../../packages/stakater/reloader/2.2.12/bases/controller-default-reviewed) | no | stakater/reloader controller-default-reviewed useful base; aliases the default render with a named user start path |
 
 ## Receipts
 
@@ -73,6 +75,10 @@ for exact base-variant evidence.
 | default | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/stakater/reloader/2.2.12/revisions/default/r001/receipts/helm-equivalence-receipt.yaml](revisions/default/r001/receipts/helm-equivalence-receipt.yaml) |
 | default | r001 | scan | ScanReceipt | warn | [recipes/stakater/reloader/2.2.12/revisions/default/r001/receipts/scan-receipt.yaml](revisions/default/r001/receipts/scan-receipt.yaml) |
 | default | r001 | installGate | InstallGate | warn | [recipes/stakater/reloader/2.2.12/revisions/default/r001/receipts/install-gate.yaml](revisions/default/r001/receipts/install-gate.yaml) |
+| controller-default-reviewed | r001 | render | RenderReceipt | recorded | [recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/receipts/render-receipt.yaml](revisions/controller-default-reviewed/r001/receipts/render-receipt.yaml) |
+| controller-default-reviewed | r001 | helmEquivalence | HelmEquivalenceReceipt | pass | [recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/receipts/helm-equivalence-receipt.yaml](revisions/controller-default-reviewed/r001/receipts/helm-equivalence-receipt.yaml) |
+| controller-default-reviewed | r001 | scan | ScanReceipt | warn | [recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/receipts/scan-receipt.yaml](revisions/controller-default-reviewed/r001/receipts/scan-receipt.yaml) |
+| controller-default-reviewed | r001 | installGate | InstallGate | warn | [recipes/stakater/reloader/2.2.12/revisions/controller-default-reviewed/r001/receipts/install-gate.yaml](revisions/controller-default-reviewed/r001/receipts/install-gate.yaml) |
 
 ## Current Install Shape
 

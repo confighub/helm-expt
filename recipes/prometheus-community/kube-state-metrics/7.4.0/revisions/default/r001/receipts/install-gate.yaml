@@ -1,22 +1,22 @@
 apiVersion: "helm-expt.confighub.com/v1alpha1"
 kind: "InstallGate"
 metadata:
-  name: "prometheus-community-kube-state-metrics-7-4-0-default-r001"
   labels:
     confighub.io/chart-ref: "prometheus-community/kube-state-metrics"
     confighub.io/chart-version: "7.4.0"
     confighub.io/proof-tier: "next80-full"
     confighub.io/variant: "default"
+  name: "prometheus-community-kube-state-metrics-7-4-0-default-r001"
 spec:
-  variantRevision: "../variant-revision.yaml"
-  renderedObjectSetSHA256: "b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc"
-  decision: "warn"
   allowedScopes:
     - "local-test"
     - "review"
   blockedScopes:
     - "production-without-review"
+  decision: "warn"
   reasons:
     - "regular Helm output matches cub installer setup for prometheus-community/kube-state-metrics@7.4.0"
     - "5 Helm objects are bound to renderedObjectSetSHA256"
     - "rendered-object scan has review findings; see scan-receipt.yaml"
+  renderedObjectSetSHA256: "b892be5f9969f39e3a7a0fadacde77cf3b9a86ca16485d5712cc2a476bda14bc"
+  variantRevision: "../variant-revision.yaml"

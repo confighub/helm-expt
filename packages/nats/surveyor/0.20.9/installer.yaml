@@ -6,7 +6,12 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "nats/surveyor default variant rendered from nats/surveyor@0.20.9"
+      name: "default"
+      path: "bases/default"
+    -
+      name: "default-reviewed"
+      path: "bases/default-reviewed"
+      default: false
+      description: "nats/surveyor default-reviewed useful base; aliases the default render with a named user start path"

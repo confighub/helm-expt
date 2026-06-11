@@ -1,0 +1,31 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "HelmEquivalenceReceipt"
+metadata:
+  labels:
+    confighub.io/chart-ref: "nats/surveyor"
+    confighub.io/chart-version: "0.20.9"
+    confighub.io/proof-tier: "next80-full"
+    confighub.io/variant: "default-reviewed"
+  name: "nats-surveyor-0-20-9-default-reviewed-r001"
+spec:
+  classifications:
+    -
+      classification: "installer-support-object"
+      disposition: "allowed"
+      identity: "v1|Namespace||default"
+  cubInstall:
+    objectCountIncludingSecretsAndSupportObjects: 4
+    semanticObjectMatches: "3/3"
+    separatedSecretFiles: 0
+    uploadedManifestFiles: 4
+  evidenceCommand: "npm run next80:verify-packages"
+  regularHelm:
+    objectCount: 3
+    renderedSHA256: "c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1"
+  result: "pass"
+  semanticNormalizations:
+    - "prune-null-fields"
+  variantRevision: "../variant-revision.yaml"
+  usefulBaseAlias:
+    sourceBase: "default"
+    realizationStrategy: "alias-of-default-render"

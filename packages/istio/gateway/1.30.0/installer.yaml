@@ -6,7 +6,12 @@ metadata:
 spec:
   bases:
     -
-      name: "default"
-      path: "bases/default"
       default: true
       description: "istio/gateway default variant rendered from istio/gateway@1.30.0"
+      name: "default"
+      path: "bases/default"
+    -
+      name: "controller-default-reviewed"
+      path: "bases/controller-default-reviewed"
+      default: false
+      description: "istio/gateway controller-default-reviewed useful base; aliases the default render with a named user start path"

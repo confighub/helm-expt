@@ -46,6 +46,7 @@ spec:
       []
     candidateVariants:
       - "default"
+      - "controller-default-reviewed"
     deferredVariants:
       []
   proofSummary:
@@ -65,7 +66,7 @@ spec:
     path: "packages/argo-cd/argo-workflows/1.0.14"
     installer: "packages/argo-cd/argo-workflows/1.0.14/installer.yaml"
     receipt: "recipes/argo-cd/argo-workflows/1.0.14/publication/installer-package-receipt.yaml"
-    deterministicBundleSHA256: "03c25e6e332632cc9f283859ea7746b0df907243637dcafc4b19e7bb96d4ec18"
+    deterministicBundleSHA256: "09d0f78603a8dea4a5933c094aa9ab1e45b37199fd9a435b6704fdd5341f88b6"
     deterministicAcrossTwoLocalBundles: true
     bases:
       -
@@ -73,6 +74,11 @@ spec:
         path: "packages/argo-cd/argo-workflows/1.0.14/bases/default"
         default: true
         description: "argo-cd/argo-workflows default variant rendered from argo-cd/argo-workflows@1.0.14"
+      -
+        name: "controller-default-reviewed"
+        path: "packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed"
+        default: false
+        description: "argo-cd/argo-workflows controller-default-reviewed useful base; aliases the default render with a named user start path"
   variants:
     -
       name: "default"
@@ -106,7 +112,7 @@ spec:
           name: "default-r001"
           revision: "r001"
           variantRevision: "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/variant-revision.yaml"
-          digest: "c93eb1562544760545df133017d35193cb658beb743356d2e9933adc65cd9e8d"
+          digest: "1d484fac9319349776af73fdadc0159d611ac70f4e160e5ce240f14284a8c25d"
           renderedObjectSetSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
           renderedObjects: "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/release-objects.yaml"
           objectInventory: "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/rendered/object-inventory.yaml"
@@ -134,5 +140,67 @@ spec:
             installGate:
               kind: "InstallGate"
               path: "recipes/argo-cd/argo-workflows/1.0.14/revisions/default/r001/receipts/install-gate.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
+    -
+      name: "controller-default-reviewed"
+      variant: "recipes/argo-cd/argo-workflows/1.0.14/variants/controller-default-reviewed/variant.yaml"
+      namespace: "default"
+      releaseName: "argo-workflows"
+      valuesProfile: "recipes/argo-cd/argo-workflows/1.0.14/effective-values.yaml"
+      capabilityProfile:
+        apiVersions:
+          []
+        kubeVersion: "1.30.0"
+      hookPolicy: "no-hooks"
+      targetFacts:
+        {}
+      targetFactSummary: "none"
+      packageBase:
+        name: "controller-default-reviewed"
+        path: "packages/argo-cd/argo-workflows/1.0.14/bases/controller-default-reviewed"
+        default: false
+        description: "argo-cd/argo-workflows controller-default-reviewed useful base; aliases the default render with a named user start path"
+      setupCheck:
+        command: "cub installer setup --pull packages/argo-cd/argo-workflows/1.0.14 --base controller-default-reviewed --work-dir <tmp> --non-interactive --namespace default"
+        helmReleaseObjectCount: 19
+        cubInstallObjectCountIncludingSupport: 20
+        semanticObjectMatches: "19/19"
+        separatedSecretCount: 0
+        allowedCubOnlyObjects:
+          - "v1|Namespace||default"
+      revisions:
+        -
+          name: "controller-default-reviewed-r001"
+          revision: "r001"
+          variantRevision: "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/variant-revision.yaml"
+          digest: "e6a419a8143360c595c866d6a54ecd6ec6a73915cf395832b59131290d87123d"
+          renderedObjectSetSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
+          renderedObjects: "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/rendered/release-objects.yaml"
+          objectInventory: "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/rendered/object-inventory.yaml"
+          objectCount: 19
+          helmObjectCount: 19
+          cubInstallObjectCountIncludingSupport: 20
+          semanticObjectMatches: "19/19"
+          separatedSecretFiles: 0
+          receipts:
+            render:
+              kind: "RenderReceipt"
+              path: "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/receipts/render-receipt.yaml"
+              result: "recorded"
+              renderedObjectSetSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
+            helmEquivalence:
+              kind: "HelmEquivalenceReceipt"
+              path: "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/receipts/helm-equivalence-receipt.yaml"
+              result: "pass"
+              renderedObjectSetSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
+            scan:
+              kind: "ScanReceipt"
+              path: "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/receipts/scan-receipt.yaml"
+              result: "warn"
+              renderedObjectSetSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"
+            installGate:
+              kind: "InstallGate"
+              path: "recipes/argo-cd/argo-workflows/1.0.14/revisions/controller-default-reviewed/r001/receipts/install-gate.yaml"
               result: "warn"
               renderedObjectSetSHA256: "677516f7d311ffdfcf7a4b424585cada43ba104af51ef7e283c575d8279c16bc"

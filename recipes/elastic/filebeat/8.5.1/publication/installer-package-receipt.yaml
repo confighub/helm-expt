@@ -4,13 +4,16 @@ metadata:
   name: "elastic-filebeat-8-5-1"
 spec:
   chart:
-    repository: "elastic"
     name: "filebeat"
+    repository: "elastic"
     version: "8.5.1"
+  deterministicBundle:
+    byteIdenticalAcrossTwoLocalBundles: true
+    command: "cub installer package packages/elastic/filebeat/8.5.1 -o <tmp>/elastic-filebeat-8-5-1.tgz"
+    sha256: "30587401053a7a2e7bd7ab87a13d4cae6e788d7ba69e09375afdc5df38421525"
   package:
-    path: "packages/elastic/filebeat/8.5.1"
     name: "elastic-filebeat"
-    version: "8.5.1"
+    path: "packages/elastic/filebeat/8.5.1"
     sourceFiles:
       -
         path: "README.md"
@@ -25,21 +28,36 @@ spec:
         sha256: "690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"
         bytes: 6911
       -
+        path: "bases/node-or-cluster-collector/kustomization.yaml"
+        sha256: "44d52637f259f73730afd3a41d7350391387456ab7c418f201eec1ef73720153"
+        bytes: 99
+      -
+        path: "bases/node-or-cluster-collector/upstream.yaml"
+        sha256: "690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"
+        bytes: 6911
+      -
         path: "installer.yaml"
-        sha256: "65799464b453aadffe3b66b76799e777e9c47d3fe8e9c6f5064fb6b51bdd15bf"
-        bytes: 301
-  deterministicBundle:
-    command: "cub installer package packages/elastic/filebeat/8.5.1 -o <tmp>/elastic-filebeat-8-5-1.tgz"
-    sha256: "c31d6c291caaf2bb4942f058051bdf1df44c14762599d9123124be6d7bc6257a"
-    byteIdenticalAcrossTwoLocalBundles: true
+        sha256: "67408756dc68a132794c0a59a83ad021894ac421d72babcbd22eefa5448bb095"
+        bytes: 547
+    version: "8.5.1"
   setupChecks:
     -
-      variant: "default"
-      base: "default"
-      command: "cub installer setup --pull packages/elastic/filebeat/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
-      helmReleaseObjectCount: 7
-      cubInstallObjectCountIncludingSupport: 8
-      semanticObjectMatches: "7/7"
-      separatedSecretCount: 0
       allowedCubOnlyObjects:
         - "v1|Namespace||default"
+      base: "default"
+      command: "cub installer setup --pull packages/elastic/filebeat/8.5.1 --base default --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 8
+      helmReleaseObjectCount: 7
+      semanticObjectMatches: "7/7"
+      separatedSecretCount: 0
+      variant: "default"
+    -
+      allowedCubOnlyObjects:
+        - "v1|Namespace||default"
+      base: "node-or-cluster-collector"
+      command: "cub installer setup --pull packages/elastic/filebeat/8.5.1 --base node-or-cluster-collector --work-dir <tmp> --non-interactive --namespace default"
+      cubInstallObjectCountIncludingSupport: 8
+      helmReleaseObjectCount: 7
+      semanticObjectMatches: "7/7"
+      separatedSecretCount: 0
+      variant: "node-or-cluster-collector"
