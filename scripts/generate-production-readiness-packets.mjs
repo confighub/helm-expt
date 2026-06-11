@@ -36,13 +36,18 @@ const CHARTS = [
         "Render-level CRD upgrade delta (6/10 CRDs change; all additive)",
         "data/serious-chart-reviews/kps-crd-upgrade-delta-85.3.3-to-86.1.0.yaml",
       ],
+      [
+        "Regular Helm workload upgrade rehearsal 85.3.3 -> 86.1.0 (install, workloads Ready, upgrade, workloads Ready)",
+        "runs/serious-chart-reviews/kube-prometheus-stack/workload-upgrade-live/latest/receipt.yaml",
+      ],
     ],
     mustNot: [
-      "\"upgrades are proven\" - the CRD upgrade evidence is a render delta plus an API-server CRD rehearsal; no full chart upgrade with running workloads has been receipted",
+      "\"ConfigHub upgrades are proven\" - the workload-upgrade receipt exercises regular Helm on one kind profile, not ConfigHub upgrade orchestration",
+      "\"all upgrades are proven\" - no rollback, soak, private overlay, no-crds, or production target upgrade has been receipted",
       "\"webhook runtime lifecycle is proven for this chart\" - the observed pattern lives on cert-manager/external-secrets; this chart's own operator webhook lifecycle has no receipt",
     ],
     nextTest:
-      "a full live chart upgrade 85.3.3 -> 86.1.0 on kind with workloads running and the strict witness before and after (the committed CRD rehearsal scopes it)",
+      "a ConfigHub-managed upgrade or a no-crds support receipt with compatible external CRDs and the admission Secret staged",
   },
   {
     slug: "cert-manager",

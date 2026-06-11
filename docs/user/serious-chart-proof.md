@@ -117,6 +117,12 @@ Check the live CRD upgrade rehearsal:
 npm run kps:crd-upgrade-live:verify
 ```
 
+Check the full regular-Helm workload upgrade rehearsal:
+
+```sh
+npm run kps:workload-upgrade-live:verify
+```
+
 Check the staged CRD and webhook certificate evidence:
 
 ```sh
@@ -149,8 +155,10 @@ Do not claim that every kube-prometheus-stack topology is supported. The
 current support decision is for one base and one target scope.
 
 Do not claim that upgrades are solved. The repo has a render-level CRD upgrade
-delta and a live API-server CRD upgrade rehearsal for the latest candidate.
-It still does not have a full kube-prometheus-stack workload upgrade receipt.
+delta, a live API-server CRD upgrade rehearsal, and a live regular-Helm
+workload upgrade rehearsal for `85.3.3 -> 86.1.0`. It still does not have a
+ConfigHub-managed upgrade receipt, rollback receipt, soak receipt, private
+overlay upgrade receipt, or production-target upgrade receipt.
 
 Do not claim that all hook patterns are solved. This chart's hook route is
 observed for the selected profile. Other hook-bearing charts need their own

@@ -1,0 +1,7 @@
+NAME                                                        READY   STATUS            RESTARTS   AGE   IP             NODE                                                  NOMINATED NODE   READINESS GATES
+alertmanager-kube-prometheus-stack-alertmanager-0           0/2     PodInitializing   0          68s   10.244.0.9     helm-expt-kps-workload-upgrade-9vvhzr-control-plane   <none>           <none>
+kube-prometheus-stack-grafana-689f864759-9zqf6              3/3     Running           0          90s   10.244.0.6     helm-expt-kps-workload-upgrade-9vvhzr-control-plane   <none>           <none>
+kube-prometheus-stack-kube-state-metrics-58f5d9c5d4-xpr8j   1/1     Running           0          90s   10.244.0.8     helm-expt-kps-workload-upgrade-9vvhzr-control-plane   <none>           <none>
+kube-prometheus-stack-operator-6d54798576-6vbbc             1/1     Running           0          90s   10.244.0.7     helm-expt-kps-workload-upgrade-9vvhzr-control-plane   <none>           <none>
+kube-prometheus-stack-prometheus-node-exporter-9bc4z        1/1     Running           0          90s   192.168.97.2   helm-expt-kps-workload-upgrade-9vvhzr-control-plane   <none>           <none>
+prometheus-kube-prometheus-stack-prometheus-0               0/2     PodInitializing   0          68s   10.244.0.10    helm-expt-kps-workload-upgrade-9vvhzr-control-plane   <none>           <none>
