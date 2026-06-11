@@ -150,9 +150,17 @@ function userStatusFor(top100, outcome, strongestEvidence, productionNextAction,
           nextActionReceipt: apiService.aggregation_receipt,
         };
       }
+      if (apiService?.coverage_status === "target-api-version-refused") {
+        return {
+          userStatus: "proof-grade-with-named-limitation",
+          nextAction: apiService.next_action,
+          nextActionSource: "apiservice-coverage",
+          nextActionReceipt: apiService.target_compatibility_receipt,
+        };
+      }
       if (apiService?.coverage_status === "target-api-version-blocked") {
         return {
-          userStatus: "proof-grade-ready-for-promotion-review",
+          userStatus: "proof-grade-with-named-limitation",
           nextAction: "resolve APIService target compatibility before catalog promotion; the tested target does not serve the rendered APIService version",
           nextActionSource: "apiservice-coverage",
           nextActionReceipt: apiService.target_block_receipt,
@@ -207,11 +215,13 @@ function proofFocusFor(apiService) {
       : "APIService aggregation is observed; promotion needs a target-scoped decision";
     return { focus: catalog, status, receipt: apiService.aggregation_receipt };
   }
-  if (apiService.coverage_status === "target-api-version-blocked") {
+  if (["target-api-version-blocked", "target-api-version-refused"].includes(apiService.coverage_status)) {
     return {
       focus: "api-service-target-compatibility",
-      status: "rendered APIService objects exist, but the tested target does not serve that API version",
-      receipt: apiService.target_block_receipt,
+      status: apiService.coverage_status === "target-api-version-refused"
+        ? "target compatibility decision records that this chart stays proof-grade for the tested target profile"
+        : "rendered APIService objects exist, but the tested target does not serve that API version",
+      receipt: apiService.target_compatibility_receipt || apiService.target_block_receipt,
     };
   }
   if (apiService.coverage_status === "source-signal-not-rendered-in-maintained-bases") {
@@ -288,7 +298,7 @@ ${workabilityRows(rows).map((row) => `| ${row.question} | ${row.count} | ${row.a
 | Which charts are already public catalog entries? | ${top20.length} | Use the catalog, then check exact base status before claiming a lane. | Open \`CATALOG.md\`, the per-chart catalog page, \`base-outcomes.csv\`, and the production next-action queue. |
 | Which proof-grade charts are closest to promotion? | ${promotionReview.length} | Recipe/package proof and multiple variants exist, but catalog review is not done. | Run catalog promotion review and add live lanes for selected bases. |
 | Which charts need a useful user-shaped variant first? | ${needsVariant.length} | The default render proves the mechanism, but it is not yet a good catalog offer. | Add one or more realistic base variants before promotion. |
-| Which charts need a limitation decision first? | ${namedLimitation.length} | A known gap affects the recommended path. | Decide whether to support, disclose, or defer that capability. |
+| Which charts need a limitation or compatibility decision first? | ${namedLimitation.length} | A known gap or target compatibility issue affects the recommended path. | Decide whether to support, disclose, defer, or refuse that capability for the named scope. |
 
 ## Next Workstreams
 
@@ -638,10 +648,10 @@ function top100Workstreams({ top20, promotionReview, needsVariant, namedLimitati
       examples: sampleCharts(needsVariant),
     },
     {
-      name: "Resolve named limitations",
+      name: "Resolve limitations and compatibility blockers",
       count: namedLimitation.length,
-      start: "Decide whether to support, disclose, or defer the named gap.",
-      done: "The catalog page and hard-gap row agree on the supported path.",
+      start: "Decide whether to support, disclose, defer, or refuse the named gap for the target scope.",
+      done: "The catalog page, compatibility decision, or hard-gap row agrees on the supported path.",
       examples: sampleCharts(namedLimitation),
     },
     {
@@ -780,7 +790,7 @@ function statusMeaning(status) {
     "catalog-supported-with-live-evidence": "Top-20 catalog entry with at least one live proof lane.",
     "catalog-supported-needs-live-expansion": "Catalog entry whose remaining variants need live proof expansion.",
     "proof-grade-ready-for-promotion-review": "Recipe/package proof exists and variants exist; needs human catalog promotion review.",
-    "proof-grade-with-named-limitation": "Proof-grade chart with a named capability gap or operator decision.",
+    "proof-grade-with-named-limitation": "Proof-grade chart with a named capability gap, target compatibility issue, or operator decision.",
     "proof-grade-needs-user-shaped-variant": "Proof-grade chart whose current path is too default-only for catalog promotion.",
     "not-in-current-catalog-lane": "Not part of the maintained top-100 proof lane.",
   };
@@ -805,7 +815,7 @@ function adoptionMeaning(bucket) {
     "try-with-lane-check": "A public catalog entry exists, but the useful base still needs more live evidence.",
     "promote-after-review": "Recipe/package proof and multiple variants exist. It is a good candidate for catalog review and selected live lanes.",
     "needs-useful-variant": "The proof mechanism works, but the current default-only path is not yet a compelling catalog offer.",
-    "limitation-decision-first": "A named capability gap affects the recommended path. Decide whether to support, disclose, or defer it.",
+    "limitation-decision-first": "A named capability gap or target compatibility issue affects the recommended path. Decide whether to support, disclose, defer, or refuse it for the named scope.",
     "not-ready": "The chart is outside the current maintained proof lane.",
   };
   return meanings[bucket] ?? "";
@@ -817,7 +827,7 @@ function adoptionUse(bucket) {
     "try-with-lane-check": "You accept partial live coverage and will verify the exact base yourself.",
     "promote-after-review": "You are expanding the catalog or choosing the next charts for live evidence.",
     "needs-useful-variant": "You are deciding which realistic base variants users would actually want.",
-    "limitation-decision-first": "You need an operator/product decision before presenting the chart as supported.",
+    "limitation-decision-first": "You need an operator/product compatibility decision before presenting the chart as supported.",
     "not-ready": "Use source analysis only; do not present it as catalog support.",
   };
   return uses[bucket] ?? "";
