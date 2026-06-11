@@ -26,6 +26,8 @@ helm versions, or for other operating systems and architectures — those are
 open columns, intended to ride on CI runners rather than bespoke local
 infrastructure.
 
+Colored rendering: [matrix.html](matrix.html) (open in a browser).
+
 ## Matrix
 
 | Chart | Flag profile | Environment | TZ | Locale | Deterministic | Digest | Matches baseline env |

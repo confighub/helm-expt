@@ -28,6 +28,7 @@ const outputRoot = join(repoRoot, "data", "environment-matrix");
 const outputs = {
   summary: join(outputRoot, "summary.md"),
   matrix: join(outputRoot, "matrix.csv"),
+  html: join(outputRoot, "matrix.html"),
 };
 
 // Same render contract as generate-variant-proof.mjs and
@@ -72,10 +73,12 @@ if (mode === "--record") {
   const rows = recordMatrix();
   write(outputs.matrix, toCsv(rows));
   write(outputs.summary, summary(rows));
+  write(outputs.html, htmlReport(rows));
   console.log(`recorded environment matrix -> ${relativeRepo(outputRoot)}/ (${rows.length} cells)`);
 } else if (mode === "--generate") {
   const rows = readMatrix();
   write(outputs.summary, summary(rows));
+  write(outputs.html, htmlReport(rows));
   console.log(`wrote environment matrix summary for ${rows.length} cell(s)`);
 } else if (mode === "--verify") {
   for (const path of Object.values(outputs)) {
@@ -91,6 +94,7 @@ if (mode === "--record") {
     check(row.deterministic !== "true" || /^[0-9a-f]{64}$/.test(row.digest), `cell ${row.chart_path}/${row.flag_profile}/${row.env_id} is deterministic but has no well-formed digest`);
   }
   check(readFileSync(outputs.summary, "utf8") === summary(rows), `${relativeRepo(outputs.summary)} is stale; run npm run environment-matrix`);
+  check(existsSync(outputs.html) && readFileSync(outputs.html, "utf8") === htmlReport(rows), `${relativeRepo(outputs.html)} is stale; run npm run environment-matrix`);
   const variantCells = rows.filter((row) => row.matches_baseline_env === "false");
   console.log(`verified environment matrix: ${rows.length} cell(s), ${variantCells.length} env-variant cell(s)`);
 } else {
@@ -271,6 +275,8 @@ helm versions, or for other operating systems and architectures — those are
 open columns, intended to ride on CI runners rather than bespoke local
 infrastructure.
 
+Colored rendering: [matrix.html](matrix.html) (open in a browser).
+
 ## Matrix
 
 | Chart | Flag profile | Environment | TZ | Locale | Deterministic | Digest | Matches baseline env |
@@ -285,6 +291,57 @@ npm run environment-matrix          # offline: summary from committed matrix
 npm run environment-matrix:verify
 ~~~
 `;
+}
+
+
+function htmlReport(rows) {
+  const context = rows[0] ?? {};
+  const variant = rows.filter((row) => row.matches_baseline_env === "false").length;
+  const nonDeterministic = rows.filter((row) => row.deterministic === "false").length;
+  const cell = (kind) =>
+    kind === "yes" ? `<td class="s y">✓</td>` : kind === "no" ? `<td class="s n">✗</td>` : `<td class="s na">–</td>`;
+  const body = rows
+    .map((row) => {
+      const det = cell(row.deterministic === "true" ? "yes" : row.deterministic === "false" ? "no" : "");
+      const inv = cell(row.matches_baseline_env === "true" ? "yes" : row.matches_baseline_env === "false" ? "no" : "");
+      return `<tr><td class="chart">${escapeHtml(row.chart_path)}</td><td>${escapeHtml(row.base_variant ?? "")}</td><td>${escapeHtml(row.flag_profile)}</td><td>${escapeHtml(row.env_id)}</td><td>${escapeHtml(row.tz)}</td><td>${escapeHtml(row.locale)}</td>${det}<td><code>${escapeHtml((row.digest ?? "").slice(0, 12))}</code></td>${inv}</tr>`;
+    })
+    .join("\n");
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Environment-Determinism Matrix</title>
+<style>
+body{font:13px/1.45 -apple-system,Segoe UI,Helvetica,Arial,sans-serif;margin:24px;color:#202124}
+h1{font-size:20px;margin:0 0 4px}
+p.sub{color:#5f6368;margin:0 0 12px}
+table{border-collapse:collapse;margin-top:16px;width:100%}
+th,td{border:1px solid #dadce0;padding:3px 7px;text-align:left;vertical-align:top}
+thead th{position:sticky;top:0;background:#f1f3f4;z-index:1}
+td.chart{font-weight:600;white-space:nowrap}
+td.s{text-align:center;font-weight:700;width:28px}
+.y{background:#1e8e3e;color:#fff}
+.n{background:#d93025;color:#fff}
+.na{background:#fff;color:#9aa0a6}
+</style>
+</head>
+<body>
+<h1>Environment-Determinism Matrix</h1>
+<p class="sub">${rows.length} recorded cells · ${nonDeterministic} non-deterministic · ${variant} env-variant vs baseline. Platform: ${escapeHtml(context.os ?? "?")}/${escapeHtml(context.arch ?? "?")}, helm ${escapeHtml(context.helm_version ?? "?")}. "Matches baseline" compares each cell digest to the UTC/C cell for the same chart and flag profile; baseline rows show –. Re-record with <code>npm run environment-matrix:record</code>.</p>
+<table>
+<thead><tr><th>Chart</th><th>Base</th><th>Flag profile</th><th>Environment</th><th>TZ</th><th>Locale</th><th>Deterministic</th><th>Digest</th><th>Matches baseline</th></tr></thead>
+<tbody>
+${body}
+</tbody>
+</table>
+</body>
+</html>
+`;
+}
+
+function escapeHtml(text) {
+  return String(text).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
 }
 
 function toCsv(rows) {

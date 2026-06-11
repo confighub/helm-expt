@@ -7,7 +7,8 @@ right now": a doc is **review-due** when an evidence source it links to
 (under `data`, `scripts`, `tests`, `recipes`, `packages`, `CATALOG.md`)
 changed more recently than the doc itself.
 
-Snapshot as of 2026-06-11 (commit `b2a2accf`). Refresh with `npm run doc-freshness` — cheap, ride
+Colored rendering: [freshness.html](freshness.html) (open in a browser).
+Snapshot as of 2026-06-11 (commit `fe5d4324`). Refresh with `npm run doc-freshness` — cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
