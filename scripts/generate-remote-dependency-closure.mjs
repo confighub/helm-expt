@@ -169,7 +169,7 @@ function workstreamFor({ source, lock, closureStatus, topQuirk, dependencyRangeP
   if (!lock?.chartLockDigest && lock?.dependencies?.length > 0) return "chart-lock-digest";
   if (dependencyRangePolicy !== "not-needed" && dependencyRangePolicy !== "freeze-to-chart-lock") return "dependency-range-policy";
   if (dependencyRangePolicy === "freeze-to-chart-lock" && refreshSurvivalStatus === "not-in-refresh-survival-surface") return "dependency-range-policy";
-  if (topQuirk === "remote-dependencies") return "promote-closure-facts";
+  if (topQuirk === "remote-dependencies") return "keep-current";
   return "keep-current";
 }
 
@@ -242,7 +242,10 @@ function toSummary(rows) {
     row.dependency_range_policy === "freeze-to-chart-lock"
     && row.refresh_survival_status !== "not-in-refresh-survival-surface",
   ).length;
-  const p0Rows = rows.filter((row) => row.priority === "P0").slice(0, 20);
+  const p0SourceRows = rows.filter((row) => row.priority === "P0").length;
+  const activeP0WorkRows = rows.filter((row) => row.priority === "P0" && row.workstream !== "keep-current").length;
+  const keepCurrentRows = rows.filter((row) => row.workstream === "keep-current").length;
+  const activeP0Rows = rows.filter((row) => row.priority === "P0" && row.workstream !== "keep-current").slice(0, 20);
   const workstreamCounts = countBy(rows, "workstream");
   const workstreamTable = workstreamRows(workstreamCounts)
     .map(([workstream, count]) => `| \`${workstream}\` | ${count} | ${escapePipes(nextActionFor({ workstream }))} | ${escapePipes(doneWhenFor(workstream))} |`)
@@ -251,7 +254,7 @@ function toSummary(rows) {
     .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
     .map(([status, count]) => `| \`${status}\` | ${count} | ${statusMeaning(status)} |`)
     .join("\n");
-  const topTable = p0Rows.map((row) => `| ${row.source_rank} | \`${row.chart}@${row.source_version}\` | \`${row.lock_status}\` | ${row.lock_dependency_count} | ${escapePipes(row.next_action)} |`).join("\n");
+  const topTable = activeP0Rows.map((row) => `| ${row.source_rank} | \`${row.chart}@${row.source_version}\` | \`${row.workstream}\` | \`${row.lock_status}\` | ${row.lock_dependency_count} | ${escapePipes(row.next_action)} |`).join("\n");
   const repositoryCounts = countRepositories(rows);
   const repoTable = repositoryCounts.slice(0, 12).map(([repo, count]) => `| \`${repo}\` | ${count} |`).join("\n");
   return `# Remote Dependency Closure
@@ -279,9 +282,11 @@ source-only rows without a maintained recipe:                   ${sourceOnly}/${
 locked rows with dependencies but no Chart.lock digest:          ${noChartLockDigest}/${rows.length}
 non-exact dependency rows frozen to Chart.lock:                  ${frozenRangePolicies}/${rows.length}
 frozen range rows with refresh-survival evidence:                ${frozenRangePoliciesWithRefresh}/${frozenRangePolicies}
-P0:                                                             ${priorityCounts.get("P0") ?? 0}
-P1:                                                             ${priorityCounts.get("P1") ?? 0}
-P2:                                                             ${priorityCounts.get("P2") ?? 0}
+P0 source rows:                                                  ${p0SourceRows}
+active P0 work rows:                                             ${activeP0WorkRows}
+keep-current rows:                                               ${keepCurrentRows}
+P1 source rows:                                                  ${priorityCounts.get("P1") ?? 0}
+P2 source rows:                                                  ${priorityCounts.get("P2") ?? 0}
 ~~~
 
 ## Closure Status
@@ -296,10 +301,10 @@ ${statusTable}
 | --- | ---: | --- | --- |
 ${workstreamTable}
 
-## Highest Priority Rows
+## Highest Priority Active Work Rows
 
-| Source rank | Chart | Lock status | Locked dependencies | Next action |
-| ---: | --- | --- | ---: | --- |
+| Source rank | Chart | Workstream | Lock status | Locked dependencies | Next action |
+| ---: | --- | --- | --- | ---: | --- |
 ${topTable}
 
 ## Most Common Locked Repositories

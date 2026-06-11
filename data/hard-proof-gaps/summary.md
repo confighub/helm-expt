@@ -12,8 +12,8 @@ production claims are made.
 
 ~~~text
 shortlist rows: 25
-catalog-supported rows on shortlist: 8
-rows with remote dependency work: 24
+catalog-supported rows on shortlist: 6
+rows with remote dependency work: 21
 rows with hook route candidates: 8
 ~~~
 
@@ -21,26 +21,27 @@ rows with hook route candidates: 8
 
 | Gap | Rows |
 | --- | ---: |
-| remote-dependencies | 22 |
-| apiservice | 2 |
-| semver-compare | 1 |
+| create-recipe-import-candidate | 12 |
+| chart-lock-digest | 7 |
+| apiservice | 3 |
+| semver-compare | 3 |
 
 ## First Rows
 
 | Rank | Chart | Main gap | Why it matters | First action |
 | ---: | --- | --- | --- | --- |
-| 1 | `k8s-dashboard/kubernetes-dashboard@7.14.0` | apiservice | APIService aggregation can pass render parity while failing at API aggregation or TLS/runtime readiness. | add an APIService readiness model and runtime observation route |
-| 2 | `prometheus-community/kube-prometheus-stack@85.3.0` | remote-dependencies | remote subcharts can change provenance, hooks, CRDs, RBAC, and rendered objects outside the parent chart. | model remote dependency closure in chart facts and source/dependency lock evidence |
-| 3 | `gitlab/gitlab@10.0.0` | remote-dependencies | remote subcharts can change provenance, hooks, CRDs, RBAC, and rendered objects outside the parent chart. | model remote dependency closure in chart facts and source/dependency lock evidence |
-| 4 | `grafana/loki@7.0.0` | remote-dependencies | remote subcharts can change provenance, hooks, CRDs, RBAC, and rendered objects outside the parent chart. | model remote dependency closure in chart facts and source/dependency lock evidence |
-| 5 | `datadog/datadog@3.214.0` | apiservice | APIService aggregation can pass render parity while failing at API aggregation or TLS/runtime readiness. | add an APIService readiness model and runtime observation route |
-| 6 | `kyverno/kyverno@3.8.1` | remote-dependencies | remote subcharts can change provenance, hooks, CRDs, RBAC, and rendered objects outside the parent chart. | model remote dependency closure in chart facts and source/dependency lock evidence |
-| 7 | `kong/kong@3.2.0` | remote-dependencies | remote subcharts can change provenance, hooks, CRDs, RBAC, and rendered objects outside the parent chart. | model remote dependency closure in chart facts and source/dependency lock evidence |
-| 8 | `bitnami/kafka@32.4.3` | remote-dependencies | remote subcharts can change provenance, hooks, CRDs, RBAC, and rendered objects outside the parent chart. | model remote dependency closure in chart facts and source/dependency lock evidence |
-| 9 | `bitnami/minio@17.0.21` | remote-dependencies | remote subcharts can change provenance, hooks, CRDs, RBAC, and rendered objects outside the parent chart. | model remote dependency closure in chart facts and source/dependency lock evidence |
-| 10 | `bitnami/thanos@17.3.1` | remote-dependencies | remote subcharts can change provenance, hooks, CRDs, RBAC, and rendered objects outside the parent chart. | model remote dependency closure in chart facts and source/dependency lock evidence |
-| 11 | `apache-airflow/airflow@1.21.0` | remote-dependencies | remote subcharts can change provenance, hooks, CRDs, RBAC, and rendered objects outside the parent chart. | model remote dependency closure in chart facts and source/dependency lock evidence |
-| 12 | `bitnami/rabbitmq@16.0.14` | remote-dependencies | remote subcharts can change provenance, hooks, CRDs, RBAC, and rendered objects outside the parent chart. | model remote dependency closure in chart facts and source/dependency lock evidence |
+| 1 | `k8s-dashboard/kubernetes-dashboard@7.14.0` | apiservice | APIService aggregation can pass render parity while failing at API aggregation or TLS/runtime readiness. | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 2 | `gitlab/gitlab@10.0.0` | create-recipe-import-candidate | source-only charts have no maintained recipe path, so catalog claims would be disconnected from proof artifacts. | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 3 | `datadog/datadog@3.214.0` | apiservice | APIService aggregation can pass render parity while failing at API aggregation or TLS/runtime readiness. | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 4 | `kong/kong@3.2.0` | create-recipe-import-candidate | source-only charts have no maintained recipe path, so catalog claims would be disconnected from proof artifacts. | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 5 | `bitnami/kafka@32.4.3` | create-recipe-import-candidate | source-only charts have no maintained recipe path, so catalog claims would be disconnected from proof artifacts. | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 6 | `bitnami/minio@17.0.21` | create-recipe-import-candidate | source-only charts have no maintained recipe path, so catalog claims would be disconnected from proof artifacts. | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 7 | `bitnami/thanos@17.3.1` | create-recipe-import-candidate | source-only charts have no maintained recipe path, so catalog claims would be disconnected from proof artifacts. | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 8 | `prometheus-community/kube-prometheus-stack@85.3.0` | semver-compare | version-conditional templates can change rendered objects under a different Kubernetes, chart, or dependency version. | promote version-conditional rendering into chart facts and variant-path coverage |
+| 9 | `grafana/loki@7.0.0` | semver-compare | version-conditional templates can change rendered objects under a different Kubernetes, chart, or dependency version. | promote version-conditional rendering into chart facts and variant-path coverage |
+| 10 | `apache-airflow/airflow@1.21.0` | create-recipe-import-candidate | source-only charts have no maintained recipe path, so catalog claims would be disconnected from proof artifacts. | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 11 | `kyverno/kyverno@3.8.1` | chart-lock-digest | a dependency list without a digest leaves provenance and refresh-survival weaker than the rendered proof suggests. | record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived |
+| 12 | `bitnami/redis@25.5.3` | chart-lock-digest | a dependency list without a digest leaves provenance and refresh-survival weaker than the rendered proof suggests. | record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived |
 
 ## Catalog Rows On The Shortlist
 
@@ -49,14 +50,12 @@ strong proof surfaces. They should be kept honest first.
 
 | Chart | Main gap | Next artifact |
 | --- | --- | --- |
-| `prometheus-community/kube-prometheus-stack@85.3.0` | remote-dependencies | dependency closure facts plus refresh-survival check |
-| `grafana/loki@7.0.0` | remote-dependencies | dependency closure facts plus refresh-survival check |
-| `bitnami/rabbitmq@16.0.14` | remote-dependencies | dependency closure facts plus refresh-survival check |
-| `bitnami/mysql@14.0.3` | remote-dependencies | dependency closure facts plus refresh-survival check |
-| `prometheus-community/prometheus@29.8.0` | remote-dependencies | dependency closure facts plus refresh-survival check |
-| `bitnami/redis@25.5.3` | remote-dependencies | dependency closure facts plus refresh-survival check |
-| `bitnami/postgresql@18.6.7` | remote-dependencies | dependency closure facts plus refresh-survival check |
-| `bitnami/mongodb@19.0.3` | remote-dependencies | dependency closure facts plus refresh-survival check |
+| `prometheus-community/kube-prometheus-stack@85.3.0` | semver-compare | chart facts axis plus capability/version matrix row |
+| `grafana/loki@7.0.0` | semver-compare | chart facts axis plus capability/version matrix row |
+| `bitnami/redis@25.5.3` | chart-lock-digest | data/remote-dependency-closure/top100.csv |
+| `bitnami/postgresql@18.6.7` | chart-lock-digest | data/remote-dependency-closure/top100.csv |
+| `bitnami/mongodb@19.0.3` | chart-lock-digest | data/remote-dependency-closure/top100.csv |
+| `metrics-server/metrics-server@3.13.0` | apiservice | chart facts axis plus lifecycle observation receipt |
 
 ## How To Use This
 
