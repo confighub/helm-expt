@@ -7,7 +7,7 @@ right now": a doc is **review-due** when an evidence source it links to
 (under `data`, `scripts`, `tests`, `recipes`, `packages`, `CATALOG.md`)
 changed more recently than the doc itself.
 
-Snapshot as of 2026-06-11 (commit `d3c7236e`). Refresh with `npm run doc-freshness` — cheap, ride
+Snapshot as of 2026-06-11 (commit `b2a2accf`). Refresh with `npm run doc-freshness` — cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -22,10 +22,10 @@ cosmetic edit.
 
 | Metric | Count |
 | --- | ---: |
-| Authored docs tracked | 156 |
-| Fresh (no linked source newer than the doc) | 11 |
-| **Review-due** | 30 |
-| No linked evidence sources (cannot auto-trigger) | 115 |
+| Authored docs tracked | 157 |
+| Fresh (no linked source newer than the doc) | 13 |
+| **Review-due** | 28 |
+| No linked evidence sources (cannot auto-trigger) | 116 |
 
 ## Review queue
 
@@ -42,8 +42,6 @@ most recently changed triggers.
 | [docs/user/product-support-tiers.md](../../docs/user/product-support-tiers.md) | user | 2026-06-09 | 2 | `data/image-digest-workdown/summary.md (2026-06-10)` |
 | [docs/user/tutorial-sequence.md](../../docs/user/tutorial-sequence.md) | user | 2026-06-09 | 2 | `recipes/prometheus-community/prometheus/29.8.0/CATALOG.md (2026-06-11)` |
 | [docs/user/verification-lanes.md](../../docs/user/verification-lanes.md) | user | 2026-06-10 | 2 | `data/lane-test-matrix/summary.md (2026-06-11)`<br>`data/outcome-coverage/summary.md (2026-06-11)`<br>`tests/npm-scripts.md (2026-06-10)` |
-| [README.md](../../README.md) | root | 2026-06-11 | 1 | `data/status-dashboard/summary.md (2026-06-11)`<br>`CATALOG.md (2026-06-11)` |
-| [docs/README.md](../../docs/README.md) | docs | 2026-06-11 | 1 | `data/claims-register/summary.md (2026-06-11)`<br>`CATALOG.md (2026-06-11)` |
 | [docs/planning/current-handover.md](../../docs/planning/current-handover.md) | planning | 2026-06-10 | 1 | `CATALOG.md (2026-06-11)`<br>`data/lane-test-matrix/summary.md (2026-06-11)`<br>`data/chart-facts/summary.md (2026-06-11)` |
 | [docs/planning/helm-community-persona-plan.md](../../docs/planning/helm-community-persona-plan.md) | planning | 2026-06-10 | 1 | `data/live-kind-parity/summary.md (2026-06-11)` |
 | [docs/planning/next-20-tasks.md](../../docs/planning/next-20-tasks.md) | planning | 2026-06-10 | 1 | `data/claims-register/summary.md (2026-06-11)`<br>`data/blast-radius-accuracy/summary.md (2026-06-11)`<br>`data/lane-test-matrix/summary.md (2026-06-11)` |
@@ -121,6 +119,7 @@ into this freshness model.
 - [docs/planning/blog-posts.md](../../docs/planning/blog-posts.md)
 - [docs/planning/catalog-promotion-next-candidates.md](../../docs/planning/catalog-promotion-next-candidates.md)
 - [docs/planning/catalog-promotion-review.md](../../docs/planning/catalog-promotion-review.md)
+- [docs/planning/corpus-rationalization-plan.md](../../docs/planning/corpus-rationalization-plan.md)
 - [docs/planning/dedicated-website-plan.md](../../docs/planning/dedicated-website-plan.md)
 - [docs/planning/helm-community-persona-prd.md](../../docs/planning/helm-community-persona-prd.md)
 - [docs/planning/independent-review-brief.md](../../docs/planning/independent-review-brief.md)
