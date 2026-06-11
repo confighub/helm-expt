@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "istio-gateway-1.30.0-default-local-kind"
+spec:
+  variantRevision: "recipes/istio/gateway/1.30.0/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "07b3cb11d265a7b857b231a347be2c71742e5bc1eeb02efddd7ce71ecc1c7afc"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-istio-gateway"
+    context: "kind-claude-helm-expt-codex-istio-gateway"
+    namespace: "default"
+  observedAt: "2026-06-11T13:22:17.342Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "5cdfb623f73d64112fe3135e4a697ee1db51dc80b98859ca94232ab9d09c3ce7"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "6 object(s) from recipes/istio/gateway/1.30.0/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|default|gateway"
+      reason: "image-pull-blocked: gateway-7c598dffd4-jlxxc[ImagePullBackOff ready=false restarts=0;]"
+  blockedReasons:
+    - "deployment/gateway: image-pull-blocked (gateway-7c598dffd4-jlxxc[ImagePullBackOff ready=false restarts=0;])"
