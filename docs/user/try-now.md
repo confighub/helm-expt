@@ -113,7 +113,8 @@ Read [Chain Of Proof](./chain-of-proof.md) for the boundary between render
 proof, ConfigHub desired state, GitOps handoff, and live observation. Read
 [Prometheus High-Fanout Example](./prometheus-high-fanout.md) for the
 kube-prometheus-stack base choices, prerequisites, and current production proof
-plan.
+plan. Read [Serious Chart Proof](./serious-chart-proof.md) for the shortest
+explanation of why this chart is the hard public example.
 
 ## Next
 

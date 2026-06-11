@@ -26,6 +26,7 @@ Public entry points:
 - [Chart use guide](./data/chart-use-guide/summary.md): one short answer per top-100 chart for whether to use it now, promote it, improve its base variant, or decide a limitation first.
 - [Current proof status](./docs/user/current-proof-status.md): what is proven, watch, blocked, or still backlog.
 - [Top-100 status](./docs/user/top100-status.md): plain-English groups for Helm users.
+- [Serious chart proof](./docs/user/serious-chart-proof.md): the kube-prometheus-stack proof path and its limits.
 - [Chain of proof](./docs/user/chain-of-proof.md): which tool proves which boundary.
 
 If you have a public Helm chart that breaks this model, or a chart where the
