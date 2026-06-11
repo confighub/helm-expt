@@ -11,10 +11,10 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-next80"
-    context: "kind-claude-helm-expt-next80"
+    name: "claude-helm-expt-codex-crd-prereq"
+    context: "kind-claude-helm-expt-codex-crd-prereq"
     namespace: "default"
-  observedAt: "2026-06-11T15:12:53.961Z"
+  observedAt: "2026-06-11T17:18:56.232Z"
   freshnessTTL: "1h"
   result: "blocked"
   clusterStatus: "existing"
@@ -22,18 +22,16 @@ spec:
   workloads: 1
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "9b09b23b54aed714cf03875e3269d7930e7525b25b747859313bba3dd541f8fc"
+    sha256: "579000a50a6ea53371184e7547933fa661495ec517b2f793c30448dcfd0a41a0"
   checks:
     -
       name: "rendered-objects-applied"
-      result: "blocked"
+      result: "pass"
       object: "13 object(s) from recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/no-crds/r001/rendered/release-objects.yaml"
-      reason: "apply-blocked: resource mapping not found for name: \"opentelemetry-operator-serving-cert\" namespace: \"default\" from \"STDIN\": no matches for kind \"Certificate\" in version \"cert-manager.io/v1\" ensure CRDs are installe"
     -
       name: "workload-converged"
       result: "blocked"
       object: "Deployment|default|opentelemetry-operator"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): opentelemetry-operator-7b79f764b-z49wm[ContainerCreating ready=false restarts=0;]"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): node-collector-df9b9bcd9-nnjs4[Completed ready=false restarts=0;] opentelemetry-operator-7b79f764b-kfcxt[ContainerCreating ready=false restarts=0;] scan-vulnerabilityreport-578fc5b667-79lfn[Completed ready=false restarts=0;] scan-vulnerabilityreport-586849b65-s792c[Completed ready=false restarts=0;]"
   blockedReasons:
-    - "apply: resource mapping not found for name: \"opentelemetry-operator-serving-cert\" namespace: \"default\" from \"STDIN\": no matches for kind \"Certificate\" in version \"cert-manager.io/v1\" ensure CRDs are installe"
-    - "deployment/opentelemetry-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (opentelemetry-operator-7b79f764b-z49wm[ContainerCreating ready=false restarts=0;])"
+    - "deployment/opentelemetry-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (node-collector-df9b9bcd9-nnjs4[Completed ready=false restarts=0;] opentelemetry-operator-7b79f764b-kfcxt[ContainerCreating ready=false restarts=0;] scan-vulnera)"

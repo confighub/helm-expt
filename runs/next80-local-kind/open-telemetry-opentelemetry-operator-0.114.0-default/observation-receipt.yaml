@@ -11,18 +11,18 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-codex-otel"
-    context: "kind-claude-helm-expt-codex-otel"
+    name: "claude-helm-expt-codex-crd-prereq"
+    context: "kind-claude-helm-expt-codex-crd-prereq"
     namespace: "default"
-  observedAt: "2026-06-11T11:57:25.257Z"
+  observedAt: "2026-06-11T17:11:55.460Z"
   freshnessTTL: "1h"
   result: "blocked"
-  clusterStatus: "created-by-test"
+  clusterStatus: "existing"
   variant: "default"
   workloads: 1
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "efd013ec10eac40510c90f52d1ecc4ada74086d1160a4a60ca251c3932c53149"
+    sha256: "3f6296de5f77c54741fb7ad8fb9235d9622f0745089db0b99c08df802925ecfa"
   checks:
     -
       name: "crds-applied-and-established"
@@ -30,14 +30,12 @@ spec:
       object: "4 CustomResourceDefinition(s)"
     -
       name: "rendered-objects-applied"
-      result: "blocked"
+      result: "pass"
       object: "17 object(s) from recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/rendered/release-objects.yaml"
-      reason: "apply-blocked: resource mapping not found for name: \"opentelemetry-operator-serving-cert\" namespace: \"default\" from \"STDIN\": no matches for kind \"Certificate\" in version \"cert-manager.io/v1\" ensure CRDs are installe"
     -
       name: "workload-converged"
       result: "blocked"
       object: "Deployment|default|opentelemetry-operator"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): opentelemetry-operator-7b79f764b-s8qbf[ContainerCreating ready=false restarts=0;]"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): node-collector-df9b9bcd9-nnjs4[Completed ready=false restarts=0;] opentelemetry-operator-7b79f764b-dzb92[ContainerCreating ready=false restarts=0;] scan-vulnerabilityreport-578fc5b667-79lfn[Completed ready=false restarts=0;] scan-vulnerabilityreport-586849b65-s792c[Completed ready=false restarts=0;]"
   blockedReasons:
-    - "apply: resource mapping not found for name: \"opentelemetry-operator-serving-cert\" namespace: \"default\" from \"STDIN\": no matches for kind \"Certificate\" in version \"cert-manager.io/v1\" ensure CRDs are installe"
-    - "deployment/opentelemetry-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (opentelemetry-operator-7b79f764b-s8qbf[ContainerCreating ready=false restarts=0;])"
+    - "deployment/opentelemetry-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (node-collector-df9b9bcd9-nnjs4[Completed ready=false restarts=0;] opentelemetry-operator-7b79f764b-dzb92[ContainerCreating ready=false restarts=0;] scan-vulnera)"

@@ -11,18 +11,18 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-codex-rook-cluster"
-    context: "kind-claude-helm-expt-codex-rook-cluster"
+    name: "claude-helm-expt-codex-crd-prereq"
+    context: "kind-claude-helm-expt-codex-crd-prereq"
     namespace: "default"
-  observedAt: "2026-06-11T13:23:10.206Z"
+  observedAt: "2026-06-11T16:36:48.849Z"
   freshnessTTL: "1h"
-  result: "blocked"
-  clusterStatus: "created-by-test"
+  result: "pass"
+  clusterStatus: "existing"
   variant: "default"
   workloads: 0
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "528ba38edc3b4d1c4b5e489af1a30e3eb4c88660f7f9b230c3592e0fc66460ac"
+    sha256: "6d77ad383b67df58e2b9f831cc8c93a3fa4f4380ae74a15cffc6362b601fc4c7"
   checks:
     -
       name: "namespace-created"
@@ -30,8 +30,5 @@ spec:
       object: "v1|Namespace||rook-ceph"
     -
       name: "rendered-objects-applied"
-      result: "blocked"
+      result: "pass"
       object: "27 object(s) from recipes/rook-release/rook-ceph-cluster/v1.19.5/revisions/default/r001/rendered/release-objects.yaml"
-      reason: "apply-blocked: resource mapping not found for name: \"ceph-blockpool\" namespace: \"default\" from \"STDIN\": no matches for kind \"CephBlockPool\" in version \"ceph.rook.io/v1\" ensure CRDs are installed first resource mappi"
-  blockedReasons:
-    - "apply: resource mapping not found for name: \"ceph-blockpool\" namespace: \"default\" from \"STDIN\": no matches for kind \"CephBlockPool\" in version \"ceph.rook.io/v1\" ensure CRDs are installed first resource mappi"

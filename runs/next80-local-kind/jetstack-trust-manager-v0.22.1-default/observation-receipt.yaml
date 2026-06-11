@@ -11,18 +11,18 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-next80"
-    context: "kind-claude-helm-expt-next80"
+    name: "claude-helm-expt-codex-crd-prereq"
+    context: "kind-claude-helm-expt-codex-crd-prereq"
     namespace: "default"
-  observedAt: "2026-06-11T11:23:35.484Z"
+  observedAt: "2026-06-11T16:57:52.222Z"
   freshnessTTL: "1h"
   result: "fail"
-  clusterStatus: "created-by-test"
+  clusterStatus: "existing"
   variant: "default"
   workloads: 1
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "544b7d68089b39a4e8ded39463d4e5f529205f55f4f775aa97957ed4babe4548"
+    sha256: "37c45cdfa74bd7fbe890b312c6a7f9edd340eaab73c488e754dfd381900958c1"
   checks:
     -
       name: "namespace-created"
@@ -34,14 +34,12 @@ spec:
       object: "1 CustomResourceDefinition(s)"
     -
       name: "rendered-objects-applied"
-      result: "blocked"
+      result: "pass"
       object: "14 object(s) from recipes/jetstack/trust-manager/v0.22.1/revisions/default/r001/rendered/release-objects.yaml"
-      reason: "apply-blocked: resource mapping not found for name: \"trust-manager\" namespace: \"default\" from \"STDIN\": no matches for kind \"Certificate\" in version \"cert-manager.io/v1\" ensure CRDs are installed first resource mappi"
     -
       name: "workload-converged"
       result: "fail"
       object: "Deployment|default|trust-manager"
-      reason: "not-ready: trust-manager-6db9f66446-hxp8w[PodInitializing ready=false restarts=0;]"
+      reason: "not-ready: node-collector-df9b9bcd9-nnjs4[Completed ready=false restarts=0;] scan-vulnerabilityreport-578fc5b667-79lfn[Completed ready=false restarts=0;] scan-vulnerabilityreport-586849b65-s792c[Completed ready=false restarts=0;] scan-vulnerabilityreport-59d76d58d5-hq4jg[Completed ready=false restarts=0;] scan"
   blockedReasons:
-    - "apply: resource mapping not found for name: \"trust-manager\" namespace: \"default\" from \"STDIN\": no matches for kind \"Certificate\" in version \"cert-manager.io/v1\" ensure CRDs are installed first resource mappi"
-    - "deployment/trust-manager: not-ready (trust-manager-6db9f66446-hxp8w[PodInitializing ready=false restarts=0;])"
+    - "deployment/trust-manager: not-ready (node-collector-df9b9bcd9-nnjs4[Completed ready=false restarts=0;] scan-vulnerabilityreport-578fc5b667-79lfn[Completed ready=false restarts=0;] scan-vulnerabilit)"

@@ -1,12 +1,64 @@
 apiVersion: "v1"
 items:
   -
-    apiVersion: "rbac.authorization.k8s.io/v1"
-    kind: "ClusterRoleBinding"
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
     metadata:
       annotations:
-        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"server\",\"app.kubernetes.io/instance\":\"velero\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"velero\",\"helm.sh/chart\":\"velero-12.0.1\"},\"name\":\"velero-server\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"cluster-admin\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"velero-server\",\"namespace\":\"default\"}]}\n"
-      creationTimestamp: "2026-06-11T14:45:05Z"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"velero\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"velero\",\"helm.sh/chart\":\"velero-12.0.1\"},\"name\":\"velero-server\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T16:36:01Z"
+      labels:
+        app.kubernetes.io/instance: "velero"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "velero"
+        helm.sh/chart: "velero-12.0.1"
+      name: "velero-server"
+      namespace: "default"
+      resourceVersion: "3722"
+      uid: "92df56f5-c9e9-41df-b517-600d9543151f"
+  -
+    apiVersion: "v1"
+    kind: "Secret"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "redacted: live Secret last-applied-configuration is not committed"
+      creationTimestamp: "2026-06-11T16:36:01Z"
+      labels:
+        app.kubernetes.io/instance: "velero"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "velero"
+        helm.sh/chart: "velero-12.0.1"
+      name: "velero"
+      namespace: "default"
+      resourceVersion: "3723"
+      uid: "592f2a88-7804-4724-b912-99f32f1ed82b"
+    type: "Opaque"
+  -
+    apiVersion: "v1"
+    data:
+      global: "{\n  \"keepLatestMaintenanceJobs\": 3\n}\n"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"global\":\"{\\n  \\\"keepLatestMaintenanceJobs\\\": 3\\n}\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"velero\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"velero\",\"helm.sh/chart\":\"velero-12.0.1\"},\"name\":\"velero-repo-maintenance\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T16:36:01Z"
+      labels:
+        app.kubernetes.io/instance: "velero"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "velero"
+        helm.sh/chart: "velero-12.0.1"
+      name: "velero-repo-maintenance"
+      namespace: "default"
+      resourceVersion: "3724"
+      uid: "320bd468-a852-404d-84bc-adcdd669a9f5"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"server\",\"app.kubernetes.io/instance\":\"velero\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"velero\",\"helm.sh/chart\":\"velero-12.0.1\"},\"name\":\"velero-server\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"*\"],\"resources\":[\"*\"],\"verbs\":[\"*\"]}]}\n"
+      creationTimestamp: "2026-06-11T16:36:01Z"
       labels:
         app.kubernetes.io/component: "server"
         app.kubernetes.io/instance: "velero"
@@ -14,8 +66,269 @@ items:
         app.kubernetes.io/name: "velero"
         helm.sh/chart: "velero-12.0.1"
       name: "velero-server"
-      resourceVersion: "25501"
-      uid: "d2068a58-e1c6-408f-9f95-bdc6a86ab43a"
+      namespace: "default"
+      resourceVersion: "3725"
+      uid: "465d399f-d91f-4681-9ef4-2265ed37ef90"
+    rules:
+      -
+        apiGroups:
+          - "*"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"server\",\"app.kubernetes.io/instance\":\"velero\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"velero\",\"helm.sh/chart\":\"velero-12.0.1\"},\"name\":\"velero-server\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"velero-server\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"velero-server\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T16:36:01Z"
+      labels:
+        app.kubernetes.io/component: "server"
+        app.kubernetes.io/instance: "velero"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "velero"
+        helm.sh/chart: "velero-12.0.1"
+      name: "velero-server"
+      namespace: "default"
+      resourceVersion: "3726"
+      uid: "ad0eaee1-bdf5-4223-b95b-f4450d1a3696"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "velero-server"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "velero-server"
+        namespace: "default"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"velero\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"velero\",\"helm.sh/chart\":\"velero-12.0.1\"},\"name\":\"velero\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"http-monitoring\",\"port\":8085,\"targetPort\":\"http-monitoring\"}],\"selector\":{\"app.kubernetes.io/instance\":\"velero\",\"app.kubernetes.io/name\":\"velero\",\"name\":\"velero\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T16:36:01Z"
+      labels:
+        app.kubernetes.io/instance: "velero"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "velero"
+        helm.sh/chart: "velero-12.0.1"
+      name: "velero"
+      namespace: "default"
+      resourceVersion: "3728"
+      uid: "bc4749e2-1fee-44f0-b8bc-827d13834aa3"
+    spec:
+      clusterIP: "10.96.54.13"
+      clusterIPs:
+        - "10.96.54.13"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http-monitoring"
+          port: 8085
+          protocol: "TCP"
+          targetPort: "http-monitoring"
+      selector:
+        app.kubernetes.io/instance: "velero"
+        app.kubernetes.io/name: "velero"
+        name: "velero"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"velero\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"velero\",\"app.kubernetes.io/version\":\"1.18.0\",\"component\":\"velero\",\"helm.sh/chart\":\"velero-12.0.1\"},\"name\":\"velero\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"velero\",\"app.kubernetes.io/name\":\"velero\"}},\"strategy\":{\"type\":\"Recreate\"},\"template\":{\"metadata\":{\"annotations\":{\"checksum/secret\":\"b9754ca4d83dab2f2e3ce5d2f763c69ed92c2298dc2737084680716557250af3\",\"prometheus.io/path\":\"/metrics\",\"prometheus.io/port\":\"8085\",\"prometheus.io/scrape\":\"true\"},\"labels\":{\"app.kubernetes.io/instance\":\"velero\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"velero\",\"app.kubernetes.io/version\":\"1.18.0\",\"helm.sh/chart\":\"velero-12.0.1\",\"name\":\"velero\"}},\"spec\":{\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"server\",\"--uploader-type=kopia\",\"--repo-maintenance-job-configmap=velero-repo-maintenance\"],\"command\":[\"/velero\"],\"env\":[{\"name\":\"VELERO_SCRATCH_DIR\",\"value\":\"/scratch\"},{\"name\":\"VELERO_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"apiVersion\":\"v1\",\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"LD_LIBRARY_PATH\",\"value\":\"/plugins\"},{\"name\":\"AWS_SHARED_CREDENTIALS_FILE\",\"value\":\"/credentials/cloud\"},{\"name\":\"GOOGLE_APPLICATION_CREDENTIALS\",\"value\":\"/credentials/cloud\"},{\"name\":\"AZURE_CREDENTIALS_FILE\",\"value\":\"/credentials/cloud\"},{\"name\":\"ALIBABA_CLOUD_CREDENTIALS_FILE\",\"value\":\"/credentials/cloud\"}],\"image\":\"docker.io/velero/velero:v1.18.0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":5,\"httpGet\":{\"path\":\"/metrics\",\"port\":\"http-monitoring\",\"scheme\":\"HTTP\"},\"initialDelaySeconds\":10,\"periodSeconds\":30,\"successThreshold\":1,\"timeoutSeconds\":5},\"name\":\"velero\",\"ports\":[{\"containerPort\":8085,\"name\":\"http-monitoring\"}],\"readinessProbe\":{\"failureThreshold\":5,\"httpGet\":{\"path\":\"/metrics\",\"port\":\"http-monitoring\",\"scheme\":\"HTTP\"},\"initialDelaySeconds\":10,\"periodSeconds\":30,\"successThreshold\":1,\"timeoutSeconds\":5},\"volumeMounts\":[{\"mountPath\":\"/plugins\",\"name\":\"plugins\"},{\"mountPath\":\"/credentials\",\"name\":\"cloud-credentials\"},{\"mountPath\":\"/scratch\",\"name\":\"scratch\"}]}],\"dnsPolicy\":\"ClusterFirst\",\"restartPolicy\":\"Always\",\"serviceAccountName\":\"velero-server\",\"terminationGracePeriodSeconds\":3600,\"volumes\":[{\"name\":\"cloud-credentials\",\"secret\":{\"secretName\":\"velero\"}},{\"emptyDir\":{},\"name\":\"plugins\"},{\"emptyDir\":{},\"name\":\"scratch\"}]}}}}\n"
+      creationTimestamp: "2026-06-11T16:36:01Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "velero"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "velero"
+        app.kubernetes.io/version: "1.18.0"
+        component: "velero"
+        helm.sh/chart: "velero-12.0.1"
+      name: "velero"
+      namespace: "default"
+      resourceVersion: "3865"
+      uid: "6982f7c9-6eb3-4761-9ade-a5fada1db01e"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "velero"
+          app.kubernetes.io/name: "velero"
+      strategy:
+        type: "Recreate"
+      template:
+        metadata:
+          annotations:
+            checksum/secret: "b9754ca4d83dab2f2e3ce5d2f763c69ed92c2298dc2737084680716557250af3"
+            prometheus.io/path: "/metrics"
+            prometheus.io/port: "8085"
+            prometheus.io/scrape: "true"
+          labels:
+            app.kubernetes.io/instance: "velero"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "velero"
+            app.kubernetes.io/version: "1.18.0"
+            helm.sh/chart: "velero-12.0.1"
+            name: "velero"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "server"
+                - "--uploader-type=kopia"
+                - "--repo-maintenance-job-configmap=velero-repo-maintenance"
+              command:
+                - "/velero"
+              env:
+                -
+                  name: "VELERO_SCRATCH_DIR"
+                  value: "/scratch"
+                -
+                  name: "VELERO_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "LD_LIBRARY_PATH"
+                  value: "/plugins"
+                -
+                  name: "AWS_SHARED_CREDENTIALS_FILE"
+                  value: "/credentials/cloud"
+                -
+                  name: "GOOGLE_APPLICATION_CREDENTIALS"
+                  value: "/credentials/cloud"
+                -
+                  name: "AZURE_CREDENTIALS_FILE"
+                  value: "/credentials/cloud"
+                -
+                  name: "ALIBABA_CLOUD_CREDENTIALS_FILE"
+                  value: "/credentials/cloud"
+              image: "docker.io/velero/velero:v1.18.0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: "/metrics"
+                  port: "http-monitoring"
+                  scheme: "HTTP"
+                initialDelaySeconds: 10
+                periodSeconds: 30
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: "velero"
+              ports:
+                -
+                  containerPort: 8085
+                  name: "http-monitoring"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 5
+                httpGet:
+                  path: "/metrics"
+                  port: "http-monitoring"
+                  scheme: "HTTP"
+                initialDelaySeconds: 10
+                periodSeconds: 30
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                {}
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/plugins"
+                  name: "plugins"
+                -
+                  mountPath: "/credentials"
+                  name: "cloud-credentials"
+                -
+                  mountPath: "/scratch"
+                  name: "scratch"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "velero-server"
+          serviceAccountName: "velero-server"
+          terminationGracePeriodSeconds: 3600
+          volumes:
+            -
+              name: "cloud-credentials"
+              secret:
+                defaultMode: 420
+                secretName: "velero"
+            -
+              emptyDir:
+                {}
+              name: "plugins"
+            -
+              emptyDir:
+                {}
+              name: "scratch"
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T16:36:47Z"
+          lastUpdateTime: "2026-06-11T16:36:47Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T16:36:01Z"
+          lastUpdateTime: "2026-06-11T16:36:47Z"
+          message: "ReplicaSet \"velero-597c95894b\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"server\",\"app.kubernetes.io/instance\":\"velero\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"velero\",\"helm.sh/chart\":\"velero-12.0.1\"},\"name\":\"velero-server\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"cluster-admin\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"velero-server\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T16:36:01Z"
+      labels:
+        app.kubernetes.io/component: "server"
+        app.kubernetes.io/instance: "velero"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "velero"
+        helm.sh/chart: "velero-12.0.1"
+      name: "velero-server"
+      resourceVersion: "3744"
+      uid: "bcdd525d-c00a-45d1-8051-25afe1b649ea"
     roleRef:
       apiGroup: "rbac.authorization.k8s.io"
       kind: "ClusterRole"
