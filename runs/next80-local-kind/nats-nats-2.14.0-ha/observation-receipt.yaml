@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "nats-nats-2.14.0-ha-local-kind"
+spec:
+  variantRevision: "recipes/nats/nats/2.14.0/revisions/ha/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "2d8fcfe5bea7f482e322fdba1cf800faedf835a13eef32d042e43ae6254d0a96"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-nats-ha"
+    context: "kind-claude-helm-expt-codex-nats-ha"
+    namespace: "default"
+  observedAt: "2026-06-11T14:53:17.758Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "ha"
+  workloads: 2
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "d40d253d06ca1300442fd479ab2e81ea894d95b4ac1f129376c1e1bee93ba988"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "7 object(s) from recipes/nats/nats/2.14.0/revisions/ha/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|nats-box"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "StatefulSet|default|nats"
