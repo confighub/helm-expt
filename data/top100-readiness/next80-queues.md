@@ -57,7 +57,7 @@ spreadsheet.
 | `bitnami/spark@10.0.3` | `default`<br>`ha` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 | `bitnami/zookeeper@13.8.7` | `default`<br>`ha` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 | `bitnami/contour@21.1.4` | `default`<br>`no-crds` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
-| `grafana/pyroscope@2.0.2` | `default`<br>`ha`<br>`no-crds` | `render-parity` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
+| `grafana/pyroscope@2.0.2` | `default`<br>`ha`<br>`no-crds` | `local-kubernetes-live` | existing-secret (chart ships no Secret toggle) | review limitation before promotion: existing-secret (chart ships no Secret toggle) |
 
 ### User-Shaped Variant Work
 
@@ -65,12 +65,12 @@ spreadsheet.
 | --- | --- | --- | --- | --- |
 | `gitlab/gitlab-runner@0.89.0` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
 | `fluent/fluent-bit@0.57.6` | `default` | `local-kubernetes-live` | - | add at least one user-shaped variant before catalog promotion |
-| `runix/pgadmin4@1.62.0` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
+| `runix/pgadmin4@1.62.0` | `default` | `local-kubernetes-live` | - | add at least one user-shaped variant before catalog promotion |
 | `nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
 | `prometheus-community/kube-state-metrics@7.4.0` | `default` | `local-kubernetes-live` | - | add at least one user-shaped variant before catalog promotion |
 | `elastic/kibana@8.5.1` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
 | `descheduler/descheduler@0.36.0` | `default` | `local-kubernetes-live` | - | add at least one user-shaped variant before catalog promotion |
-| `prometheus-community/prometheus-blackbox-exporter@11.10.0` | `default` | `render-parity` | - | add at least one user-shaped variant before catalog promotion |
+| `prometheus-community/prometheus-blackbox-exporter@11.10.0` | `default` | `local-kubernetes-live` | - | add at least one user-shaped variant before catalog promotion |
 
 ## How This Relates To Top100
 

@@ -1,0 +1,256 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"alertmanager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"alertmanager\",\"app.kubernetes.io/version\":\"v0.32.1\",\"helm.sh/chart\":\"alertmanager-1.37.0\"},\"name\":\"alertmanager\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T11:33:49Z"
+      labels:
+        app.kubernetes.io/instance: "alertmanager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "alertmanager"
+        app.kubernetes.io/version: "v0.32.1"
+        helm.sh/chart: "alertmanager-1.37.0"
+      name: "alertmanager"
+      namespace: "default"
+      resourceVersion: "473"
+      uid: "a88576e1-78c5-4ab8-b86f-0555b08c9820"
+  -
+    apiVersion: "v1"
+    data:
+      alertmanager.yml: "global: {}\nreceivers:\n- name: default-receiver\nroute:\n  group_interval: 5m\n  group_wait: 10s\n  receiver: default-receiver\n  repeat_interval: 3h\ntemplates:\n- /etc/alertmanager/*.tmpl\n"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"alertmanager.yml\":\"global: {}\\nreceivers:\\n- name: default-receiver\\nroute:\\n  group_interval: 5m\\n  group_wait: 10s\\n  receiver: default-receiver\\n  repeat_interval: 3h\\ntemplates:\\n- /etc/alertmanager/*.tmpl\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"alertmanager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"alertmanager\",\"app.kubernetes.io/version\":\"v0.32.1\",\"helm.sh/chart\":\"alertmanager-1.37.0\"},\"name\":\"alertmanager\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T11:33:49Z"
+      labels:
+        app.kubernetes.io/instance: "alertmanager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "alertmanager"
+        app.kubernetes.io/version: "v0.32.1"
+        helm.sh/chart: "alertmanager-1.37.0"
+      name: "alertmanager"
+      namespace: "default"
+      resourceVersion: "474"
+      uid: "6107825a-bff7-4a36-a9c1-d9482ca34b39"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"alertmanager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"alertmanager\",\"app.kubernetes.io/version\":\"v0.32.1\",\"helm.sh/chart\":\"alertmanager-1.37.0\"},\"name\":\"alertmanager\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":9093,\"protocol\":\"TCP\",\"targetPort\":\"http\"}],\"selector\":{\"app.kubernetes.io/instance\":\"alertmanager\",\"app.kubernetes.io/name\":\"alertmanager\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T11:33:49Z"
+      labels:
+        app.kubernetes.io/instance: "alertmanager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "alertmanager"
+        app.kubernetes.io/version: "v0.32.1"
+        helm.sh/chart: "alertmanager-1.37.0"
+      name: "alertmanager"
+      namespace: "default"
+      resourceVersion: "476"
+      uid: "03320a82-f546-4633-a8b6-b0b584ba6e94"
+    spec:
+      clusterIP: "10.96.12.69"
+      clusterIPs:
+        - "10.96.12.69"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http"
+          port: 9093
+          protocol: "TCP"
+          targetPort: "http"
+      selector:
+        app.kubernetes.io/instance: "alertmanager"
+        app.kubernetes.io/name: "alertmanager"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"alertmanager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"alertmanager\",\"app.kubernetes.io/version\":\"v0.32.1\",\"helm.sh/chart\":\"alertmanager-1.37.0\"},\"name\":\"alertmanager-headless\",\"namespace\":\"default\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"name\":\"http\",\"port\":9093,\"protocol\":\"TCP\",\"targetPort\":\"http\"}],\"selector\":{\"app.kubernetes.io/instance\":\"alertmanager\",\"app.kubernetes.io/name\":\"alertmanager\"}}}\n"
+      creationTimestamp: "2026-06-11T11:33:49Z"
+      labels:
+        app.kubernetes.io/instance: "alertmanager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "alertmanager"
+        app.kubernetes.io/version: "v0.32.1"
+        helm.sh/chart: "alertmanager-1.37.0"
+      name: "alertmanager-headless"
+      namespace: "default"
+      resourceVersion: "479"
+      uid: "6d0b7b62-6278-465e-97ea-b602d23fdfbe"
+    spec:
+      clusterIP: "None"
+      clusterIPs:
+        - "None"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http"
+          port: 9093
+          protocol: "TCP"
+          targetPort: "http"
+      selector:
+        app.kubernetes.io/instance: "alertmanager"
+        app.kubernetes.io/name: "alertmanager"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "StatefulSet"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"StatefulSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"alertmanager\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"alertmanager\",\"app.kubernetes.io/version\":\"v0.32.1\",\"helm.sh/chart\":\"alertmanager-1.37.0\"},\"name\":\"alertmanager\",\"namespace\":\"default\"},\"spec\":{\"minReadySeconds\":0,\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"alertmanager\",\"app.kubernetes.io/name\":\"alertmanager\"}},\"serviceName\":\"alertmanager-headless\",\"template\":{\"metadata\":{\"annotations\":{\"checksum/config\":\"e8e99b892770fd5bd8758df2faad150815bf8c02b024758a4f321f312d847cb3\"},\"labels\":{\"app.kubernetes.io/instance\":\"alertmanager\",\"app.kubernetes.io/name\":\"alertmanager\"}},\"spec\":{\"automountServiceAccountToken\":true,\"containers\":[{\"args\":[\"--storage.path=/alertmanager\",\"--config.file=/etc/alertmanager/alertmanager.yml\"],\"env\":[{\"name\":\"POD_IP\",\"valueFrom\":{\"fieldRef\":{\"apiVersion\":\"v1\",\"fieldPath\":\"status.podIP\"}}}],\"image\":\"quay.io/prometheus/alertmanager:v0.32.1\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"httpGet\":{\"path\":\"/\",\"port\":\"http\"}},\"name\":\"alertmanager\",\"ports\":[{\"containerPort\":9093,\"name\":\"http\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/\",\"port\":\"http\"}},\"resources\":{},\"securityContext\":{\"runAsGroup\":65534,\"runAsNonRoot\":true,\"runAsUser\":65534},\"volumeMounts\":[{\"mountPath\":\"/etc/alertmanager\",\"name\":\"config\"},{\"mountPath\":\"/alertmanager\",\"name\":\"storage\"}]}],\"securityContext\":{\"fsGroup\":65534},\"serviceAccountName\":\"alertmanager\",\"volumes\":[{\"configMap\":{\"name\":\"alertmanager\"},\"name\":\"config\"}]}},\"volumeClaimTemplates\":[{\"metadata\":{\"name\":\"storage\"},\"spec\":{\"accessModes\":[\"ReadWriteOnce\"],\"resources\":{\"requests\":{\"storage\":\"50Mi\"}}}}]}}\n"
+      creationTimestamp: "2026-06-11T11:33:49Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/instance: "alertmanager"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "alertmanager"
+        app.kubernetes.io/version: "v0.32.1"
+        helm.sh/chart: "alertmanager-1.37.0"
+      name: "alertmanager"
+      namespace: "default"
+      resourceVersion: "571"
+      uid: "f5297b2a-6e4c-4046-811a-32b9ee1343a5"
+    spec:
+      persistentVolumeClaimRetentionPolicy:
+        whenDeleted: "Retain"
+        whenScaled: "Retain"
+      podManagementPolicy: "OrderedReady"
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "alertmanager"
+          app.kubernetes.io/name: "alertmanager"
+      serviceName: "alertmanager-headless"
+      template:
+        metadata:
+          annotations:
+            checksum/config: "e8e99b892770fd5bd8758df2faad150815bf8c02b024758a4f321f312d847cb3"
+          labels:
+            app.kubernetes.io/instance: "alertmanager"
+            app.kubernetes.io/name: "alertmanager"
+        spec:
+          automountServiceAccountToken: true
+          containers:
+            -
+              args:
+                - "--storage.path=/alertmanager"
+                - "--config.file=/etc/alertmanager/alertmanager.yml"
+              env:
+                -
+                  name: "POD_IP"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "status.podIP"
+              image: "quay.io/prometheus/alertmanager:v0.32.1"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/"
+                  port: "http"
+                  scheme: "HTTP"
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              name: "alertmanager"
+              ports:
+                -
+                  containerPort: 9093
+                  name: "http"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/"
+                  port: "http"
+                  scheme: "HTTP"
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                {}
+              securityContext:
+                runAsGroup: 65534
+                runAsNonRoot: true
+                runAsUser: 65534
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/etc/alertmanager"
+                  name: "config"
+                -
+                  mountPath: "/alertmanager"
+                  name: "storage"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 65534
+          serviceAccount: "alertmanager"
+          serviceAccountName: "alertmanager"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              configMap:
+                defaultMode: 420
+                name: "alertmanager"
+              name: "config"
+      updateStrategy:
+        rollingUpdate:
+          maxUnavailable: 1
+          partition: 0
+        type: "RollingUpdate"
+      volumeClaimTemplates:
+        -
+          apiVersion: "v1"
+          kind: "PersistentVolumeClaim"
+          metadata:
+            name: "storage"
+          spec:
+            accessModes:
+              - "ReadWriteOnce"
+            resources:
+              requests:
+                storage: "50Mi"
+            volumeMode: "Filesystem"
+          status:
+            phase: "Pending"
+    status:
+      availableReplicas: 1
+      collisionCount: 0
+      currentReplicas: 1
+      currentRevision: "alertmanager-766755799d"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      updateRevision: "alertmanager-766755799d"
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""

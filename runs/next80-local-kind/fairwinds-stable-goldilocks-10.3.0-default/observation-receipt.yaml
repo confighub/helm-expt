@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "fairwinds-stable-goldilocks-10.3.0-default-local-kind"
+spec:
+  variantRevision: "recipes/fairwinds-stable/goldilocks/10.3.0/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "5939f53dfe4e6c888630fc4c30fcc478e4786a56cb0092139c418510da17d7a5"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-goldilocks"
+    context: "kind-claude-helm-expt-codex-goldilocks"
+    namespace: "default"
+  observedAt: "2026-06-11T12:00:56.286Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 2
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "81cff066777874b209ebca59f48f9a4337b27bd423c336250b5e80140d053d76"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "9 object(s) from recipes/fairwinds-stable/goldilocks/10.3.0/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|goldilocks-controller"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|goldilocks-dashboard"

@@ -1,0 +1,42 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "grafana-pyroscope-2.0.2-default-local-kind"
+spec:
+  variantRevision: "recipes/grafana/pyroscope/2.0.2/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "24d78308d5476731eefba9ac71cee442cf9aeb21f16443557d9a6d9574449df5"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-pyroscope"
+    context: "kind-claude-helm-expt-codex-pyroscope"
+    namespace: "default"
+  observedAt: "2026-06-11T12:05:49.692Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 2
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "e195340d286c4e4856029fb48cce362ac3bab434361436bb14034e9436c74f96"
+  checks:
+    -
+      name: "crds-applied-and-established"
+      result: "pass"
+      object: "1 CustomResourceDefinition(s)"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "18 object(s) from recipes/grafana/pyroscope/2.0.2/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "StatefulSet|default|pyroscope-alloy"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "StatefulSet|default|pyroscope"

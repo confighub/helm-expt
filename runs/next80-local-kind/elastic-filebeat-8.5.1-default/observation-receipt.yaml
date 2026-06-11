@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "elastic-filebeat-8.5.1-default-local-kind"
+spec:
+  variantRevision: "recipes/elastic/filebeat/8.5.1/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "690fcc3d2e2d1019f35b7d9ec64ba0783b4dc445a2060c400d49dae6a251e020"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-filebeat"
+    context: "kind-claude-helm-expt-codex-filebeat"
+    namespace: "default"
+  observedAt: "2026-06-11T11:48:04.446Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "04ef3b49527f75e663c26e4eba10347804740243f6eb82c1855333a07ac4f619"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "7 object(s) from recipes/elastic/filebeat/8.5.1/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "DaemonSet|default|filebeat-filebeat"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): filebeat-filebeat-z6hc6[ContainerCreating ready=false restarts=0;]"
+  blockedReasons:
+    - "daemonset/filebeat-filebeat: prerequisite-blocked (stuck creating: missing mount/secret/config) (filebeat-filebeat-z6hc6[ContainerCreating ready=false restarts=0;])"

@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "prometheus-community-prometheus-adapter-5.3.0-default-local-kind"
+spec:
+  variantRevision: "recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "50e586691867cf7be3f14a7c3e71839f3f8b6cae32b64a10f01362d68add983a"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T11:35:06.010Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "52f6596bcbe24a6c1e1e9135ff1d328acdc27445547f08a3caaf02a211932105"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "blocked"
+      object: "11 object(s) from recipes/prometheus-community/prometheus-adapter/5.3.0/revisions/default/r001/rendered/release-objects.yaml"
+      reason: "apply-blocked: error: resource mapping not found for name: \"v1beta1.custom.metrics.k8s.io\" namespace: \"\" from \"STDIN\": no matches for kind \"APIService\" in version \"apiregistration.k8s.io/v1beta1\" ensure CRDs are ins"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|prometheus-adapter"
+  blockedReasons:
+    - "apply: error: resource mapping not found for name: \"v1beta1.custom.metrics.k8s.io\" namespace: \"\" from \"STDIN\": no matches for kind \"APIService\" in version \"apiregistration.k8s.io/v1beta1\" ensure CRDs are ins"

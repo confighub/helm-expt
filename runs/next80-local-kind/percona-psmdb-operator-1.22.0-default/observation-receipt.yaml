@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "percona-psmdb-operator-1.22.0-default-local-kind"
+spec:
+  variantRevision: "recipes/percona/psmdb-operator/1.22.0/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "a9ae26e197ef3e108ecab8c30f630ce24004a29b670916169ae6634198b96936"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T11:29:10.508Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "7077fae0426caae5d09bae9b8bc9ed113700bbd45a97dbcba27c19ac2724fc0a"
+  checks:
+    -
+      name: "crds-applied-and-established"
+      result: "pass"
+      object: "3 CustomResourceDefinition(s)"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "7 object(s) from recipes/percona/psmdb-operator/1.22.0/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|psmdb-operator"

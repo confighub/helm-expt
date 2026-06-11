@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "percona-pxc-operator-1.19.1-default-local-kind"
+spec:
+  variantRevision: "recipes/percona/pxc-operator/1.19.1/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "769b3b65e8543cd4ae04c498b6793f5f9e84b611bff8ec07b7fbaa5efaac8dc6"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    context: "kind-claude-helm-expt-next80"
+    namespace: "default"
+  observedAt: "2026-06-11T11:29:59.812Z"
+  freshnessTTL: "1h"
+  result: "pass"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "e163f3c14f3565e7fc8a38f7286c39384771088ee8cbc66413fe8ea5bc7e240a"
+  checks:
+    -
+      name: "crds-applied-and-established"
+      result: "pass"
+      object: "3 CustomResourceDefinition(s)"
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "7 object(s) from recipes/percona/pxc-operator/1.19.1/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "Deployment|default|pxc-operator"

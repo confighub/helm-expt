@@ -1,0 +1,39 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "nfs-subdir-external-provisioner-nfs-subdir-external-provisioner-4.0.18-default-local-kind"
+spec:
+  variantRevision: "recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "448129b8cf526e0fb240e23fc1cbddd1b6cd994158faa60904f7db5b1c10eb28"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-nfs"
+    context: "kind-claude-helm-expt-codex-nfs"
+    namespace: "default"
+  observedAt: "2026-06-11T12:10:43.411Z"
+  freshnessTTL: "1h"
+  result: "fail"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "e5a2db70ec8195fc4665cbbefa3ade8e787dbaff385de367549fcb42c9ff0000"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "blocked"
+      object: "7 object(s) from recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/revisions/default/r001/rendered/release-objects.yaml"
+      reason: "apply-blocked: The Deployment \"nfs-subdir-external-provisioner\" is invalid:  * spec.template.spec.volumes[0].nfs.server: Required value * spec.template.spec.containers[0].volumeMounts[0].name: Not found: \"nfs-subdir"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "Deployment|default|nfs-subdir-external-provisioner"
+      reason: "not-ready: did not converge within the budget"
+  blockedReasons:
+    - "apply: The Deployment \"nfs-subdir-external-provisioner\" is invalid:  * spec.template.spec.volumes[0].nfs.server: Required value * spec.template.spec.containers[0].volumeMounts[0].name: Not found: \"nfs-subdir"
+    - "deployment/nfs-subdir-external-provisioner: not-ready ()"

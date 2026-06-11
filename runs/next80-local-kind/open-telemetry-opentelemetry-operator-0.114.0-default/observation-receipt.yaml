@@ -1,0 +1,43 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "open-telemetry-opentelemetry-operator-0.114.0-default-local-kind"
+spec:
+  variantRevision: "recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "68dd01565796d137e5dea26e1db02ef3e0d99bbbafd000ec3663680b5bbda873"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-otel"
+    context: "kind-claude-helm-expt-codex-otel"
+    namespace: "default"
+  observedAt: "2026-06-11T11:57:25.257Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "efd013ec10eac40510c90f52d1ecc4ada74086d1160a4a60ca251c3932c53149"
+  checks:
+    -
+      name: "crds-applied-and-established"
+      result: "pass"
+      object: "4 CustomResourceDefinition(s)"
+    -
+      name: "rendered-objects-applied"
+      result: "blocked"
+      object: "17 object(s) from recipes/open-telemetry/opentelemetry-operator/0.114.0/revisions/default/r001/rendered/release-objects.yaml"
+      reason: "apply-blocked: resource mapping not found for name: \"opentelemetry-operator-serving-cert\" namespace: \"default\" from \"STDIN\": no matches for kind \"Certificate\" in version \"cert-manager.io/v1\" ensure CRDs are installe"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "Deployment|default|opentelemetry-operator"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): opentelemetry-operator-7b79f764b-s8qbf[ContainerCreating ready=false restarts=0;]"
+  blockedReasons:
+    - "apply: resource mapping not found for name: \"opentelemetry-operator-serving-cert\" namespace: \"default\" from \"STDIN\": no matches for kind \"Certificate\" in version \"cert-manager.io/v1\" ensure CRDs are installe"
+    - "deployment/opentelemetry-operator: prerequisite-blocked (stuck creating: missing mount/secret/config) (opentelemetry-operator-7b79f764b-s8qbf[ContainerCreating ready=false restarts=0;])"
