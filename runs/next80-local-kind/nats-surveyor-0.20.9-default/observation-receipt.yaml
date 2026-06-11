@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "nats-surveyor-0.20.9-default-local-kind"
+spec:
+  variantRevision: "recipes/nats/surveyor/0.20.9/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "c39b6dd56b5c2dfaedd3860e71d1eaaed9083354b35e4cef70eae6f9b982a7b1"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-surveyor"
+    context: "kind-claude-helm-expt-codex-surveyor"
+    namespace: "default"
+  observedAt: "2026-06-11T11:44:08.916Z"
+  freshnessTTL: "1h"
+  result: "fail"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "dec17518f3e8be77d113e6369b422d09d31463da075c9011d7bf06814b879677"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "3 object(s) from recipes/nats/surveyor/0.20.9/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "Deployment|default|surveyor"
+      reason: "not-ready: surveyor-c4759d87-fx675[CrashLoopBackOff ready=false restarts=5;]"
+  blockedReasons:
+    - "deployment/surveyor: not-ready (surveyor-c4759d87-fx675[CrashLoopBackOff ready=false restarts=5;])"

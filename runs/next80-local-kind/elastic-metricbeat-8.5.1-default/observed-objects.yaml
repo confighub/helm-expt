@@ -1,0 +1,983 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"imagePullSecrets\":[],\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"metrics\",\"app.kubernetes.io/instance\":\"metricbeat\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kube-state-metrics\",\"app.kubernetes.io/part-of\":\"kube-state-metrics\",\"app.kubernetes.io/version\":\"2.4.1\",\"helm.sh/chart\":\"kube-state-metrics-4.7.0\"},\"name\":\"metricbeat-kube-state-metrics\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T11:48:28Z"
+      labels:
+        app.kubernetes.io/component: "metrics"
+        app.kubernetes.io/instance: "metricbeat"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kube-state-metrics"
+        app.kubernetes.io/part-of: "kube-state-metrics"
+        app.kubernetes.io/version: "2.4.1"
+        helm.sh/chart: "kube-state-metrics-4.7.0"
+      name: "metricbeat-kube-state-metrics"
+      namespace: "default"
+      resourceVersion: "467"
+      uid: "5f2095c5-7525-4328-b492-4f3bab29e974"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{\"prometheus.io/scrape\":\"true\"},\"labels\":{\"app.kubernetes.io/component\":\"metrics\",\"app.kubernetes.io/instance\":\"metricbeat\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kube-state-metrics\",\"app.kubernetes.io/part-of\":\"kube-state-metrics\",\"app.kubernetes.io/version\":\"2.4.1\",\"helm.sh/chart\":\"kube-state-metrics-4.7.0\"},\"name\":\"metricbeat-kube-state-metrics\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"name\":\"http\",\"port\":8080,\"protocol\":\"TCP\",\"targetPort\":8080}],\"selector\":{\"app.kubernetes.io/instance\":\"metricbeat\",\"app.kubernetes.io/name\":\"kube-state-metrics\"},\"type\":\"ClusterIP\"}}\n"
+        prometheus.io/scrape: "true"
+      creationTimestamp: "2026-06-11T11:48:28Z"
+      labels:
+        app.kubernetes.io/component: "metrics"
+        app.kubernetes.io/instance: "metricbeat"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kube-state-metrics"
+        app.kubernetes.io/part-of: "kube-state-metrics"
+        app.kubernetes.io/version: "2.4.1"
+        helm.sh/chart: "kube-state-metrics-4.7.0"
+      name: "metricbeat-kube-state-metrics"
+      namespace: "default"
+      resourceVersion: "469"
+      uid: "42b97322-4db0-48aa-ad8c-d6c83785654e"
+    spec:
+      clusterIP: "10.96.34.14"
+      clusterIPs:
+        - "10.96.34.14"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "http"
+          port: 8080
+          protocol: "TCP"
+          targetPort: 8080
+      selector:
+        app.kubernetes.io/instance: "metricbeat"
+        app.kubernetes.io/name: "kube-state-metrics"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"metrics\",\"app.kubernetes.io/instance\":\"metricbeat\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kube-state-metrics\",\"app.kubernetes.io/part-of\":\"kube-state-metrics\",\"app.kubernetes.io/version\":\"2.4.1\",\"helm.sh/chart\":\"kube-state-metrics-4.7.0\"},\"name\":\"metricbeat-kube-state-metrics\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"metricbeat\",\"app.kubernetes.io/name\":\"kube-state-metrics\"}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"metrics\",\"app.kubernetes.io/instance\":\"metricbeat\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kube-state-metrics\",\"app.kubernetes.io/part-of\":\"kube-state-metrics\",\"app.kubernetes.io/version\":\"2.4.1\",\"helm.sh/chart\":\"kube-state-metrics-4.7.0\"}},\"spec\":{\"containers\":[{\"args\":[\"--port=8080\",\"--resources=certificatesigningrequests,configmaps,cronjobs,daemonsets,deployments,endpoints,horizontalpodautoscalers,ingresses,jobs,limitranges,mutatingwebhookconfigurations,namespaces,networkpolicies,nodes,persistentvolumeclaims,persistentvolumes,poddisruptionbudgets,pods,replicasets,replicationcontrollers,resourcequotas,secrets,services,statefulsets,storageclasses,validatingwebhookconfigurations,volumeattachments\",\"--telemetry-port=8081\"],\"image\":\"k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.4.1\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"httpGet\":{\"path\":\"/healthz\",\"port\":8080},\"initialDelaySeconds\":5,\"timeoutSeconds\":5},\"name\":\"kube-state-metrics\",\"ports\":[{\"containerPort\":8080,\"name\":\"http\"}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/\",\"port\":8080},\"initialDelaySeconds\":5,\"timeoutSeconds\":5}}],\"hostNetwork\":false,\"securityContext\":{\"fsGroup\":65534,\"runAsGroup\":65534,\"runAsUser\":65534},\"serviceAccountName\":\"metricbeat-kube-state-metrics\"}}}}\n"
+      creationTimestamp: "2026-06-11T11:48:29Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "metrics"
+        app.kubernetes.io/instance: "metricbeat"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kube-state-metrics"
+        app.kubernetes.io/part-of: "kube-state-metrics"
+        app.kubernetes.io/version: "2.4.1"
+        helm.sh/chart: "kube-state-metrics-4.7.0"
+      name: "metricbeat-kube-state-metrics"
+      namespace: "default"
+      resourceVersion: "583"
+      uid: "56a1cc7d-faca-468d-ac0f-4da762e22993"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "metricbeat"
+          app.kubernetes.io/name: "kube-state-metrics"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/component: "metrics"
+            app.kubernetes.io/instance: "metricbeat"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "kube-state-metrics"
+            app.kubernetes.io/part-of: "kube-state-metrics"
+            app.kubernetes.io/version: "2.4.1"
+            helm.sh/chart: "kube-state-metrics-4.7.0"
+        spec:
+          containers:
+            -
+              args:
+                - "--port=8080"
+                - "--resources=certificatesigningrequests,configmaps,cronjobs,daemonsets,deployments,endpoints,horizontalpodautoscalers,ingresses,jobs,limitranges,mutatingwebhookconfigurations,namespaces,networkpolicies,nodes,persistentvolumeclaims,persistentvolumes,poddisruptionbudgets,pods,replicasets,replicationcontrollers,resourcequotas,secrets,services,statefulsets,storageclasses,validatingwebhookconfigurations,volumeattachments"
+                - "--telemetry-port=8081"
+              image: "k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.4.1"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: 8080
+                  scheme: "HTTP"
+                initialDelaySeconds: 5
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: "kube-state-metrics"
+              ports:
+                -
+                  containerPort: 8080
+                  name: "http"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/"
+                  port: 8080
+                  scheme: "HTTP"
+                initialDelaySeconds: 5
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                {}
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 65534
+            runAsGroup: 65534
+            runAsUser: 65534
+          serviceAccount: "metricbeat-kube-state-metrics"
+          serviceAccountName: "metricbeat-kube-state-metrics"
+          terminationGracePeriodSeconds: 30
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T11:48:43Z"
+          lastUpdateTime: "2026-06-11T11:48:43Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T11:48:29Z"
+          lastUpdateTime: "2026-06-11T11:48:43Z"
+          message: "ReplicaSet \"metricbeat-kube-state-metrics-658dd9bbbc\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"metricbeat-metricbeat\",\"chart\":\"metricbeat-8.5.1\",\"heritage\":\"Helm\",\"release\":\"metricbeat\"},\"name\":\"metricbeat-metricbeat\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T11:48:29Z"
+      labels:
+        app: "metricbeat-metricbeat"
+        chart: "metricbeat-8.5.1"
+        heritage: "Helm"
+        release: "metricbeat"
+      name: "metricbeat-metricbeat"
+      namespace: "default"
+      resourceVersion: "485"
+      uid: "7cffb453-c102-4eba-bd50-81b8815ec435"
+  -
+    apiVersion: "v1"
+    data:
+      metricbeat.yml: "metricbeat.modules:\n- module: kubernetes\n  metricsets:\n    - container\n    - node\n    - pod\n    - system\n    - volume\n  period: 10s\n  host: \"${NODE_NAME}\"\n  hosts: [\"https://${NODE_NAME}:10250\"]\n  bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token\n  ssl.verification_mode: \"none\"\n  # If using Red Hat OpenShift remove ssl.verification_mode entry and\n  # uncomment these settings:\n  #ssl.certificate_authorities:\n    #- /var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt\n  processors:\n  - add_kubernetes_metadata: ~\n- module: kubernetes\n  enabled: true\n  metricsets:\n    - event\n- module: system\n  period: 10s\n  metricsets:\n    - cpu\n    - load\n    - memory\n    - network\n    - process\n    - process_summary\n  processes: ['.*']\n  process.include_top_n:\n    by_cpu: 5\n    by_memory: 5\n- module: system\n  period: 1m\n  metricsets:\n    - filesystem\n    - fsstat\n  processors:\n  - drop_event.when.regexp:\n      system.filesystem.mount_point: '^/(sys|cgroup|proc|dev|etc|host|lib)($|/)'\noutput.elasticsearch:\n  hosts: '[\"https://${ELASTICSEARCH_HOSTS:elasticsearch-master:9200}\"]'\n  ssl.enabled: true\n  ssl.certificate_authorities: [\"/usr/share/metricbeat/certs/ca.crt\"]\n  username: '${ELASTICSEARCH_USERNAME}'\n  password: '${ELASTICSEARCH_PASSWORD}'\n"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"metricbeat.yml\":\"metricbeat.modules:\\n- module: kubernetes\\n  metricsets:\\n    - container\\n    - node\\n    - pod\\n    - system\\n    - volume\\n  period: 10s\\n  host: \\\"${NODE_NAME}\\\"\\n  hosts: [\\\"https://${NODE_NAME}:10250\\\"]\\n  bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token\\n  ssl.verification_mode: \\\"none\\\"\\n  # If using Red Hat OpenShift remove ssl.verification_mode entry and\\n  # uncomment these settings:\\n  #ssl.certificate_authorities:\\n    #- /var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt\\n  processors:\\n  - add_kubernetes_metadata: ~\\n- module: kubernetes\\n  enabled: true\\n  metricsets:\\n    - event\\n- module: system\\n  period: 10s\\n  metricsets:\\n    - cpu\\n    - load\\n    - memory\\n    - network\\n    - process\\n    - process_summary\\n  processes: ['.*']\\n  process.include_top_n:\\n    by_cpu: 5\\n    by_memory: 5\\n- module: system\\n  period: 1m\\n  metricsets:\\n    - filesystem\\n    - fsstat\\n  processors:\\n  - drop_event.when.regexp:\\n      system.filesystem.mount_point: '^/(sys|cgroup|proc|dev|etc|host|lib)($|/)'\\noutput.elasticsearch:\\n  hosts: '[\\\"https://${ELASTICSEARCH_HOSTS:elasticsearch-master:9200}\\\"]'\\n  ssl.enabled: true\\n  ssl.certificate_authorities: [\\\"/usr/share/metricbeat/certs/ca.crt\\\"]\\n  username: '${ELASTICSEARCH_USERNAME}'\\n  password: '${ELASTICSEARCH_PASSWORD}'\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"metricbeat-metricbeat\",\"chart\":\"metricbeat-8.5.1\",\"heritage\":\"Helm\",\"release\":\"metricbeat\"},\"name\":\"metricbeat-metricbeat-daemonset-config\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T11:48:29Z"
+      labels:
+        app: "metricbeat-metricbeat"
+        chart: "metricbeat-8.5.1"
+        heritage: "Helm"
+        release: "metricbeat"
+      name: "metricbeat-metricbeat-daemonset-config"
+      namespace: "default"
+      resourceVersion: "486"
+      uid: "caf9c235-256b-45f3-8f02-022f42051b60"
+  -
+    apiVersion: "v1"
+    data:
+      metricbeat.yml: "metricbeat.modules:\n- module: kubernetes\n  enabled: true\n  metricsets:\n    - state_node\n    - state_deployment\n    - state_replicaset\n    - state_pod\n    - state_container\n  period: 10s\n  hosts: [\"${KUBE_STATE_METRICS_HOSTS}\"]\noutput.elasticsearch:\n  hosts: '[\"https://${ELASTICSEARCH_HOSTS:elasticsearch-master:9200}\"]'\n  username: '${ELASTICSEARCH_USERNAME}'\n  password: '${ELASTICSEARCH_PASSWORD}'\n  ssl.enabled: true\n  ssl.certificate_authorities: [\"/usr/share/metricbeat/certs/ca.crt\"]\n"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"metricbeat.yml\":\"metricbeat.modules:\\n- module: kubernetes\\n  enabled: true\\n  metricsets:\\n    - state_node\\n    - state_deployment\\n    - state_replicaset\\n    - state_pod\\n    - state_container\\n  period: 10s\\n  hosts: [\\\"${KUBE_STATE_METRICS_HOSTS}\\\"]\\noutput.elasticsearch:\\n  hosts: '[\\\"https://${ELASTICSEARCH_HOSTS:elasticsearch-master:9200}\\\"]'\\n  username: '${ELASTICSEARCH_USERNAME}'\\n  password: '${ELASTICSEARCH_PASSWORD}'\\n  ssl.enabled: true\\n  ssl.certificate_authorities: [\\\"/usr/share/metricbeat/certs/ca.crt\\\"]\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"metricbeat-metricbeat\",\"chart\":\"metricbeat-8.5.1\",\"heritage\":\"Helm\",\"release\":\"metricbeat\"},\"name\":\"metricbeat-metricbeat-deployment-config\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T11:48:29Z"
+      labels:
+        app: "metricbeat-metricbeat"
+        chart: "metricbeat-8.5.1"
+        heritage: "Helm"
+        release: "metricbeat"
+      name: "metricbeat-metricbeat-deployment-config"
+      namespace: "default"
+      resourceVersion: "487"
+      uid: "8e50d867-2d85-4593-829e-e8c4cdbabe09"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"metrics\",\"app.kubernetes.io/instance\":\"metricbeat\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kube-state-metrics\",\"app.kubernetes.io/part-of\":\"kube-state-metrics\",\"app.kubernetes.io/version\":\"2.4.1\",\"helm.sh/chart\":\"kube-state-metrics-4.7.0\"},\"name\":\"metricbeat-kube-state-metrics\"},\"rules\":[{\"apiGroups\":[\"certificates.k8s.io\"],\"resources\":[\"certificatesigningrequests\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"cronjobs\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"extensions\",\"apps\"],\"resources\":[\"daemonsets\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"extensions\",\"apps\"],\"resources\":[\"deployments\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"endpoints\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"autoscaling\"],\"resources\":[\"horizontalpodautoscalers\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"extensions\",\"networking.k8s.io\"],\"resources\":[\"ingresses\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"jobs\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"limitranges\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"admissionregistration.k8s.io\"],\"resources\":[\"mutatingwebhookconfigurations\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"networking.k8s.io\"],\"resources\":[\"networkpolicies\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"nodes\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"persistentvolumeclaims\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"persistentvolumes\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"policy\"],\"resources\":[\"poddisruptionbudgets\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"extensions\",\"apps\"],\"resources\":[\"replicasets\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"replicationcontrollers\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"resourcequotas\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"services\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"statefulsets\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"storage.k8s.io\"],\"resources\":[\"storageclasses\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"admissionregistration.k8s.io\"],\"resources\":[\"validatingwebhookconfigurations\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"storage.k8s.io\"],\"resources\":[\"volumeattachments\"],\"verbs\":[\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T11:48:29Z"
+      labels:
+        app.kubernetes.io/component: "metrics"
+        app.kubernetes.io/instance: "metricbeat"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kube-state-metrics"
+        app.kubernetes.io/part-of: "kube-state-metrics"
+        app.kubernetes.io/version: "2.4.1"
+        helm.sh/chart: "kube-state-metrics-4.7.0"
+      name: "metricbeat-kube-state-metrics"
+      resourceVersion: "488"
+      uid: "b83553ab-9a7e-4e5e-84f6-47b4c54e4c3c"
+    rules:
+      -
+        apiGroups:
+          - "certificates.k8s.io"
+        resources:
+          - "certificatesigningrequests"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "batch"
+        resources:
+          - "cronjobs"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "extensions"
+          - "apps"
+        resources:
+          - "daemonsets"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "extensions"
+          - "apps"
+        resources:
+          - "deployments"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "endpoints"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "autoscaling"
+        resources:
+          - "horizontalpodautoscalers"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "extensions"
+          - "networking.k8s.io"
+        resources:
+          - "ingresses"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "batch"
+        resources:
+          - "jobs"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "limitranges"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "admissionregistration.k8s.io"
+        resources:
+          - "mutatingwebhookconfigurations"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "namespaces"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "networking.k8s.io"
+        resources:
+          - "networkpolicies"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "nodes"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "persistentvolumeclaims"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "persistentvolumes"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "policy"
+        resources:
+          - "poddisruptionbudgets"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "extensions"
+          - "apps"
+        resources:
+          - "replicasets"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "replicationcontrollers"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "resourcequotas"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "services"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "statefulsets"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "storage.k8s.io"
+        resources:
+          - "storageclasses"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "admissionregistration.k8s.io"
+        resources:
+          - "validatingwebhookconfigurations"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "storage.k8s.io"
+        resources:
+          - "volumeattachments"
+        verbs:
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"metricbeat-metricbeat\",\"chart\":\"metricbeat-8.5.1\",\"heritage\":\"Helm\",\"release\":\"metricbeat\"},\"name\":\"metricbeat-metricbeat-cluster-role\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"nodes\",\"namespaces\",\"events\",\"pods\",\"services\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"extensions\"],\"resources\":[\"replicasets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"statefulsets\",\"deployments\",\"replicasets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"nodes/stats\"],\"verbs\":[\"get\"]},{\"apiGroups\":[\"\"],\"resources\":[\"nodes/stats\"],\"verbs\":[\"get\"]},{\"nonResourceURLs\":[\"/metrics\"],\"verbs\":[\"get\"]}]}\n"
+      creationTimestamp: "2026-06-11T11:48:29Z"
+      labels:
+        app: "metricbeat-metricbeat"
+        chart: "metricbeat-8.5.1"
+        heritage: "Helm"
+        release: "metricbeat"
+      name: "metricbeat-metricbeat-cluster-role"
+      resourceVersion: "489"
+      uid: "6aef8ce8-6fb0-4d61-9132-312a7b84f8ba"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "nodes"
+          - "namespaces"
+          - "events"
+          - "pods"
+          - "services"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "extensions"
+        resources:
+          - "replicasets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "statefulsets"
+          - "deployments"
+          - "replicasets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "nodes/stats"
+        verbs:
+          - "get"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "nodes/stats"
+        verbs:
+          - "get"
+      -
+        nonResourceURLs:
+          - "/metrics"
+        verbs:
+          - "get"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"metrics\",\"app.kubernetes.io/instance\":\"metricbeat\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"kube-state-metrics\",\"app.kubernetes.io/part-of\":\"kube-state-metrics\",\"app.kubernetes.io/version\":\"2.4.1\",\"helm.sh/chart\":\"kube-state-metrics-4.7.0\"},\"name\":\"metricbeat-kube-state-metrics\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"metricbeat-kube-state-metrics\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"metricbeat-kube-state-metrics\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T11:48:29Z"
+      labels:
+        app.kubernetes.io/component: "metrics"
+        app.kubernetes.io/instance: "metricbeat"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "kube-state-metrics"
+        app.kubernetes.io/part-of: "kube-state-metrics"
+        app.kubernetes.io/version: "2.4.1"
+        helm.sh/chart: "kube-state-metrics-4.7.0"
+      name: "metricbeat-kube-state-metrics"
+      resourceVersion: "491"
+      uid: "48fdfdc6-74c1-4f30-a048-2b74722b437c"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "metricbeat-kube-state-metrics"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "metricbeat-kube-state-metrics"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"metricbeat-metricbeat\",\"chart\":\"metricbeat-8.5.1\",\"heritage\":\"Helm\",\"release\":\"metricbeat\"},\"name\":\"metricbeat-metricbeat-cluster-role-binding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"metricbeat-metricbeat-cluster-role\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"metricbeat-metricbeat\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T11:48:29Z"
+      labels:
+        app: "metricbeat-metricbeat"
+        chart: "metricbeat-8.5.1"
+        heritage: "Helm"
+        release: "metricbeat"
+      name: "metricbeat-metricbeat-cluster-role-binding"
+      resourceVersion: "492"
+      uid: "6c564d40-75f3-49cd-aa6c-dd89909a47f5"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "metricbeat-metricbeat-cluster-role"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "metricbeat-metricbeat"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"metricbeat-metricbeat\"},\"name\":\"metricbeat-metricbeat-role\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"get\",\"create\",\"update\"]}]}\n"
+      creationTimestamp: "2026-06-11T11:48:29Z"
+      labels:
+        app: "metricbeat-metricbeat"
+      name: "metricbeat-metricbeat-role"
+      namespace: "default"
+      resourceVersion: "494"
+      uid: "ff3bcd73-1c04-4d19-8f0f-0fe1973ddd3f"
+    rules:
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "get"
+          - "create"
+          - "update"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"metricbeat-metricbeat\",\"chart\":\"metricbeat-8.5.1\",\"heritage\":\"Helm\",\"release\":\"metricbeat\"},\"name\":\"metricbeat-metricbeat-role-binding\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"metricbeat-metricbeat-role\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"metricbeat-metricbeat\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T11:48:29Z"
+      labels:
+        app: "metricbeat-metricbeat"
+        chart: "metricbeat-8.5.1"
+        heritage: "Helm"
+        release: "metricbeat"
+      name: "metricbeat-metricbeat-role-binding"
+      namespace: "default"
+      resourceVersion: "496"
+      uid: "7f30100b-a540-4688-94ed-e01c33f9f6fe"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "metricbeat-metricbeat-role"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "metricbeat-metricbeat"
+        namespace: "default"
+  -
+    apiVersion: "apps/v1"
+    kind: "DaemonSet"
+    metadata:
+      annotations:
+        deprecated.daemonset.template.generation: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"DaemonSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"metricbeat-metricbeat\",\"chart\":\"metricbeat-8.5.1\",\"heritage\":\"Helm\",\"release\":\"metricbeat\"},\"name\":\"metricbeat-metricbeat\",\"namespace\":\"default\"},\"spec\":{\"selector\":{\"matchLabels\":{\"app\":\"metricbeat-metricbeat\",\"release\":\"metricbeat\"}},\"template\":{\"metadata\":{\"annotations\":{\"configChecksum\":\"6f110f5ec7f649873ae4d0a93d60f20155932eb45624bca7822f7aac07b03e3\"},\"labels\":{\"app\":\"metricbeat-metricbeat\",\"chart\":\"metricbeat-8.5.1\",\"heritage\":\"Helm\",\"release\":\"metricbeat\"},\"name\":\"metricbeat-metricbeat\"},\"spec\":{\"affinity\":{},\"containers\":[{\"args\":[\"-e\",\"-E\",\"http.enabled=true\",\"--system.hostfs=/hostfs\"],\"env\":[{\"name\":\"POD_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"NODE_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"spec.nodeName\"}}},{\"name\":\"ELASTICSEARCH_USERNAME\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"username\",\"name\":\"elasticsearch-master-credentials\"}}},{\"name\":\"ELASTICSEARCH_PASSWORD\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"password\",\"name\":\"elasticsearch-master-credentials\"}}}],\"envFrom\":[],\"image\":\"docker.elastic.co/beats/metricbeat:8.5.1\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"exec\":{\"command\":[\"sh\",\"-c\",\"#!/usr/bin/env bash -e\\ncurl --fail 127.0.0.1:5066\\n\"]},\"failureThreshold\":3,\"initialDelaySeconds\":10,\"periodSeconds\":10,\"timeoutSeconds\":5},\"name\":\"metricbeat\",\"readinessProbe\":{\"exec\":{\"command\":[\"sh\",\"-c\",\"#!/usr/bin/env bash -e\\nmetricbeat test output\\n\"]},\"failureThreshold\":3,\"initialDelaySeconds\":10,\"periodSeconds\":10,\"timeoutSeconds\":5},\"resources\":{\"limits\":{\"cpu\":\"1000m\",\"memory\":\"200Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"100Mi\"}},\"securityContext\":{\"privileged\":false,\"runAsUser\":0},\"volumeMounts\":[{\"mountPath\":\"/usr/share/metricbeat/certs/\",\"name\":\"elasticsearch-master-certs\"},{\"mountPath\":\"/usr/share/metricbeat/metricbeat.yml\",\"name\":\"metricbeat-config\",\"readOnly\":true,\"subPath\":\"metricbeat.yml\"},{\"mountPath\":\"/usr/share/metricbeat/data\",\"name\":\"data\"},{\"mountPath\":\"/var/run/docker.sock\",\"name\":\"varrundockersock\",\"readOnly\":true},{\"mountPath\":\"/hostfs/proc\",\"name\":\"proc\",\"readOnly\":true},{\"mountPath\":\"/hostfs/sys/fs/cgroup\",\"name\":\"cgroup\",\"readOnly\":true}]}],\"nodeSelector\":{},\"serviceAccountName\":\"metricbeat-metricbeat\",\"terminationGracePeriodSeconds\":30,\"tolerations\":[],\"volumes\":[{\"name\":\"elasticsearch-master-certs\",\"secret\":{\"secretName\":\"elasticsearch-master-certs\"}},{\"configMap\":{\"defaultMode\":384,\"name\":\"metricbeat-metricbeat-daemonset-config\"},\"name\":\"metricbeat-config\"},{\"hostPath\":{\"path\":\"/var/lib/metricbeat-metricbeat-default-data\",\"type\":\"DirectoryOrCreate\"},\"name\":\"data\"},{\"hostPath\":{\"path\":\"/var/run/docker.sock\"},\"name\":\"varrundockersock\"},{\"hostPath\":{\"path\":\"/proc\"},\"name\":\"proc\"},{\"hostPath\":{\"path\":\"/sys/fs/cgroup\"},\"name\":\"cgroup\"}]}},\"updateStrategy\":{\"type\":\"RollingUpdate\"}}}\n"
+      creationTimestamp: "2026-06-11T11:48:29Z"
+      generation: 1
+      labels:
+        app: "metricbeat-metricbeat"
+        chart: "metricbeat-8.5.1"
+        heritage: "Helm"
+        release: "metricbeat"
+      name: "metricbeat-metricbeat"
+      namespace: "default"
+      resourceVersion: "507"
+      uid: "27c8f881-fc97-4aa2-b7e5-dcee9bea7624"
+    spec:
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app: "metricbeat-metricbeat"
+          release: "metricbeat"
+      template:
+        metadata:
+          annotations:
+            configChecksum: "6f110f5ec7f649873ae4d0a93d60f20155932eb45624bca7822f7aac07b03e3"
+          labels:
+            app: "metricbeat-metricbeat"
+            chart: "metricbeat-8.5.1"
+            heritage: "Helm"
+            release: "metricbeat"
+          name: "metricbeat-metricbeat"
+        spec:
+          affinity:
+            {}
+          containers:
+            -
+              args:
+                - "-e"
+                - "-E"
+                - "http.enabled=true"
+                - "--system.hostfs=/hostfs"
+              env:
+                -
+                  name: "POD_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "NODE_NAME"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "spec.nodeName"
+                -
+                  name: "ELASTICSEARCH_USERNAME"
+                  valueFrom:
+                    secretKeyRef:
+                      key: "username"
+                      name: "elasticsearch-master-credentials"
+                -
+                  name: "ELASTICSEARCH_PASSWORD"
+                  valueFrom:
+                    secretKeyRef:
+                      key: "password"
+                      name: "elasticsearch-master-credentials"
+              image: "docker.elastic.co/beats/metricbeat:8.5.1"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                exec:
+                  command:
+                    - "sh"
+                    - "-c"
+                    - "#!/usr/bin/env bash -e\ncurl --fail 127.0.0.1:5066\n"
+                failureThreshold: 3
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: "metricbeat"
+              readinessProbe:
+                exec:
+                  command:
+                    - "sh"
+                    - "-c"
+                    - "#!/usr/bin/env bash -e\nmetricbeat test output\n"
+                failureThreshold: 3
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                limits:
+                  cpu: "1"
+                  memory: "200Mi"
+                requests:
+                  cpu: "100m"
+                  memory: "100Mi"
+              securityContext:
+                privileged: false
+                runAsUser: 0
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/usr/share/metricbeat/certs/"
+                  name: "elasticsearch-master-certs"
+                -
+                  mountPath: "/usr/share/metricbeat/metricbeat.yml"
+                  name: "metricbeat-config"
+                  readOnly: true
+                  subPath: "metricbeat.yml"
+                -
+                  mountPath: "/usr/share/metricbeat/data"
+                  name: "data"
+                -
+                  mountPath: "/var/run/docker.sock"
+                  name: "varrundockersock"
+                  readOnly: true
+                -
+                  mountPath: "/hostfs/proc"
+                  name: "proc"
+                  readOnly: true
+                -
+                  mountPath: "/hostfs/sys/fs/cgroup"
+                  name: "cgroup"
+                  readOnly: true
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "metricbeat-metricbeat"
+          serviceAccountName: "metricbeat-metricbeat"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              name: "elasticsearch-master-certs"
+              secret:
+                defaultMode: 420
+                secretName: "elasticsearch-master-certs"
+            -
+              configMap:
+                defaultMode: 384
+                name: "metricbeat-metricbeat-daemonset-config"
+              name: "metricbeat-config"
+            -
+              hostPath:
+                path: "/var/lib/metricbeat-metricbeat-default-data"
+                type: "DirectoryOrCreate"
+              name: "data"
+            -
+              hostPath:
+                path: "/var/run/docker.sock"
+                type: ""
+              name: "varrundockersock"
+            -
+              hostPath:
+                path: "/proc"
+                type: ""
+              name: "proc"
+            -
+              hostPath:
+                path: "/sys/fs/cgroup"
+                type: ""
+              name: "cgroup"
+      updateStrategy:
+        rollingUpdate:
+          maxSurge: 0
+          maxUnavailable: 1
+        type: "RollingUpdate"
+    status:
+      currentNumberScheduled: 1
+      desiredNumberScheduled: 1
+      numberMisscheduled: 0
+      numberReady: 0
+      numberUnavailable: 1
+      observedGeneration: 1
+      updatedNumberScheduled: 1
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"metricbeat-metricbeat-metrics\",\"chart\":\"metricbeat-8.5.1\",\"heritage\":\"Helm\",\"release\":\"metricbeat\"},\"name\":\"metricbeat-metricbeat-metrics\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app\":\"metricbeat-metricbeat-metrics\",\"release\":\"metricbeat\"}},\"template\":{\"metadata\":{\"annotations\":{\"configChecksum\":\"6f110f5ec7f649873ae4d0a93d60f20155932eb45624bca7822f7aac07b03e3\"},\"labels\":{\"app\":\"metricbeat-metricbeat-metrics\",\"chart\":\"metricbeat-8.5.1\",\"release\":\"metricbeat\"}},\"spec\":{\"affinity\":{},\"containers\":[{\"args\":[\"-e\",\"-E\",\"http.enabled=true\"],\"env\":[{\"name\":\"POD_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"KUBE_STATE_METRICS_HOSTS\",\"value\":\"$(METRICBEAT_KUBE_STATE_METRICS_SERVICE_HOST):$(METRICBEAT_KUBE_STATE_METRICS_SERVICE_PORT_HTTP)\"},{\"name\":\"ELASTICSEARCH_USERNAME\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"username\",\"name\":\"elasticsearch-master-credentials\"}}},{\"name\":\"ELASTICSEARCH_PASSWORD\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"password\",\"name\":\"elasticsearch-master-credentials\"}}}],\"envFrom\":[],\"image\":\"docker.elastic.co/beats/metricbeat:8.5.1\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"exec\":{\"command\":[\"sh\",\"-c\",\"#!/usr/bin/env bash -e\\ncurl --fail 127.0.0.1:5066\\n\"]},\"failureThreshold\":3,\"initialDelaySeconds\":10,\"periodSeconds\":10,\"timeoutSeconds\":5},\"name\":\"metricbeat\",\"readinessProbe\":{\"exec\":{\"command\":[\"sh\",\"-c\",\"#!/usr/bin/env bash -e\\nmetricbeat test output\\n\"]},\"failureThreshold\":3,\"initialDelaySeconds\":10,\"periodSeconds\":10,\"timeoutSeconds\":5},\"resources\":{\"limits\":{\"cpu\":\"1000m\",\"memory\":\"200Mi\"},\"requests\":{\"cpu\":\"100m\",\"memory\":\"100Mi\"}},\"securityContext\":{\"privileged\":false,\"runAsUser\":0},\"volumeMounts\":[{\"mountPath\":\"/usr/share/metricbeat/certs/\",\"name\":\"elasticsearch-master-certs\"},{\"mountPath\":\"/usr/share/metricbeat/metricbeat.yml\",\"name\":\"metricbeat-config\",\"readOnly\":true,\"subPath\":\"metricbeat.yml\"}]}],\"nodeSelector\":{},\"serviceAccountName\":\"metricbeat-metricbeat\",\"terminationGracePeriodSeconds\":30,\"tolerations\":[],\"volumes\":[{\"name\":\"elasticsearch-master-certs\",\"secret\":{\"secretName\":\"elasticsearch-master-certs\"}},{\"configMap\":{\"defaultMode\":384,\"name\":\"metricbeat-metricbeat-deployment-config\"},\"name\":\"metricbeat-config\"}]}}}}\n"
+      creationTimestamp: "2026-06-11T11:48:29Z"
+      generation: 1
+      labels:
+        app: "metricbeat-metricbeat-metrics"
+        chart: "metricbeat-8.5.1"
+        heritage: "Helm"
+        release: "metricbeat"
+      name: "metricbeat-metricbeat-metrics"
+      namespace: "default"
+      resourceVersion: "517"
+      uid: "5fc534bc-f062-4e68-8f96-7a10065a1db9"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app: "metricbeat-metricbeat-metrics"
+          release: "metricbeat"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          annotations:
+            configChecksum: "6f110f5ec7f649873ae4d0a93d60f20155932eb45624bca7822f7aac07b03e3"
+          labels:
+            app: "metricbeat-metricbeat-metrics"
+            chart: "metricbeat-8.5.1"
+            release: "metricbeat"
+        spec:
+          affinity:
+            {}
+          containers:
+            -
+              args:
+                - "-e"
+                - "-E"
+                - "http.enabled=true"
+              env:
+                -
+                  name: "POD_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "KUBE_STATE_METRICS_HOSTS"
+                  value: "$(METRICBEAT_KUBE_STATE_METRICS_SERVICE_HOST):$(METRICBEAT_KUBE_STATE_METRICS_SERVICE_PORT_HTTP)"
+                -
+                  name: "ELASTICSEARCH_USERNAME"
+                  valueFrom:
+                    secretKeyRef:
+                      key: "username"
+                      name: "elasticsearch-master-credentials"
+                -
+                  name: "ELASTICSEARCH_PASSWORD"
+                  valueFrom:
+                    secretKeyRef:
+                      key: "password"
+                      name: "elasticsearch-master-credentials"
+              image: "docker.elastic.co/beats/metricbeat:8.5.1"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                exec:
+                  command:
+                    - "sh"
+                    - "-c"
+                    - "#!/usr/bin/env bash -e\ncurl --fail 127.0.0.1:5066\n"
+                failureThreshold: 3
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              name: "metricbeat"
+              readinessProbe:
+                exec:
+                  command:
+                    - "sh"
+                    - "-c"
+                    - "#!/usr/bin/env bash -e\nmetricbeat test output\n"
+                failureThreshold: 3
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                limits:
+                  cpu: "1"
+                  memory: "200Mi"
+                requests:
+                  cpu: "100m"
+                  memory: "100Mi"
+              securityContext:
+                privileged: false
+                runAsUser: 0
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/usr/share/metricbeat/certs/"
+                  name: "elasticsearch-master-certs"
+                -
+                  mountPath: "/usr/share/metricbeat/metricbeat.yml"
+                  name: "metricbeat-config"
+                  readOnly: true
+                  subPath: "metricbeat.yml"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "metricbeat-metricbeat"
+          serviceAccountName: "metricbeat-metricbeat"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              name: "elasticsearch-master-certs"
+              secret:
+                defaultMode: 420
+                secretName: "elasticsearch-master-certs"
+            -
+              configMap:
+                defaultMode: 384
+                name: "metricbeat-metricbeat-deployment-config"
+              name: "metricbeat-config"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T11:48:29Z"
+          lastUpdateTime: "2026-06-11T11:48:29Z"
+          message: "Deployment does not have minimum availability."
+          reason: "MinimumReplicasUnavailable"
+          status: "False"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T11:48:29Z"
+          lastUpdateTime: "2026-06-11T11:48:29Z"
+          message: "ReplicaSet \"metricbeat-metricbeat-metrics-746dc864\" is progressing."
+          reason: "ReplicaSetUpdated"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      replicas: 1
+      terminatingReplicas: 0
+      unavailableReplicas: 1
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
