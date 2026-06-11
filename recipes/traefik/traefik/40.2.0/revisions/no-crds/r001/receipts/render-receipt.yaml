@@ -8,6 +8,9 @@ metadata:
     confighub.io/variant: "no-crds"
 spec:
   renderer: "helm"
+  inputs:
+    sourceLockSHA256: "68963fa8e66f1578367c06b6375d6e4ba718fd98e2f772bb03f95bcb6367665a"
+    dependencyLockSHA256: "0d48bf71da384f653d15ca3122157991aa012b4fdad8b1c00508e4c56c25bd2c"
   outputs:
     renderedObjectSetSHA256: "9db056bdffd213bbce847b96122b40e879d0e47f7b8d57074f62a020ed89c9ce"
     objectCount: 6

@@ -8,6 +8,9 @@ metadata:
     confighub.io/variant: "dry-run-txt-registry"
 spec:
   renderer: "helm"
+  inputs:
+    sourceLockSHA256: "7c8ff22575d223a0d6daec1c599a511d5617c17e7a261e7bb234221d825fad36"
+    dependencyLockSHA256: "f514cdf3edd9962983ab64788d303cdf8872ea3d65d8f9f0daac15719cfc665c"
   outputs:
     renderedObjectSetSHA256: "8e3b831abefa8ca2b8754e4beb16fbc1e369965dc95b8f83e1de76cd8f2a3e62"
     objectCount: 4
