@@ -232,6 +232,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `live-helm-confighub-compare` | [live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md) | strict live Helm-vs-ConfigHub parity |
 | `live-kind-parity` | [live-kind-parity/summary.md](./live-kind-parity/summary.md) | two-cluster kind parity receipts |
 | `live-parity-rerun-plan` | [live-parity-rerun-plan/summary.md](./live-parity-rerun-plan/summary.md) | rerun queue for non-pass live parity rows |
+| `master-catalog-matrix` | [master-catalog-matrix/summary.md](./master-catalog-matrix/summary.md) | supporting generated evidence |
 | `model-completeness` | [model-completeness/summary.md](./model-completeness/summary.md) | chart-level model support criteria |
 | `next-ten-waves` | [next-ten-waves/summary.md](./next-ten-waves/summary.md) | compact next work queues |
 | `next80-full-proofs` | [next80-full-proofs/summary.md](./next80-full-proofs/summary.md) | 80 additional full proof-grade chart artifacts |
@@ -272,7 +273,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 114 CSV files. Each row records the path, audience,
+It includes 115 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
