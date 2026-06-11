@@ -7,6 +7,10 @@ happy path. Use kube-prometheus-stack when you want to inspect a serious Helm
 chart with CRDs, webhooks, RBAC, generated facts, dependencies, extension
 slots, and target prerequisites.
 
+If you are deciding between `cub helm template`, `cub helm install`, public
+`cub installer` packages, and ConfigHub-managed operations, start with
+[Choose Your Path](./choose-your-path.md).
+
 ## Setup
 
 Clone the repo and run the lightweight checks:
@@ -119,6 +123,7 @@ explanation of why this chart is the hard public example.
 ## Next
 
 - [Tutorial Sequence](./tutorial-sequence.md)
+- [Choose Your Path](./choose-your-path.md)
 - [Chain Of Proof](./chain-of-proof.md)
 - [Current Proof Status](./current-proof-status.md)
 - [Chart Use Guide](../../data/chart-use-guide/summary.md)

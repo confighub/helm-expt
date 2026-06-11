@@ -46,6 +46,10 @@ The public lane is for low-friction use of public chart bases:
 The first path should feel closer to `helm install redis` than to a platform
 migration.
 
+For the short route picker across direct render, one-shot upload, public
+catalog packages, and ConfigHub-managed operations, see
+[Choose Your Path](./choose-your-path.md).
+
 ## When ConfigHub Matters
 
 Use ConfigHub-managed workflows when you need:
@@ -107,6 +111,7 @@ belong in managed ConfigHub workflows.
 - [Catalog dashboard](../../site/index.html)
 - [Chart Use Guide](../../data/chart-use-guide/summary.md)
 - [Static offering page](../../site/offering.html)
+- [Choose Your Path](./choose-your-path.md)
 - [What You Get](./what-you-get.md)
 - [Choosing Commands](./choosing-commands.md)
 - [Current Proof Status](./current-proof-status.md)

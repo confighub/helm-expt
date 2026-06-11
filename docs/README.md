@@ -19,6 +19,7 @@ whole repo. For the single serial order through `docs/user/*.md`, start with
 | [user/README.md](./user/README.md) | Serial reading order for the manual user docs. |
 | [offering.md](./user/offering.md) | Public offering overview: why visible Helm stages matter, what is free to try, and where managed ConfigHub workflows begin. |
 | [try-now.md](./user/try-now.md) | Short Redis and kube-prometheus-stack paths for first public use. |
+| [choose-your-path.md](./user/choose-your-path.md) | Quick route picker for direct render, one-shot upload, public catalog packages, and ConfigHub-managed variants/operations. |
 | [serious-chart-proof.md](./user/serious-chart-proof.md) | Concise kube-prometheus-stack proof path for the serious chart example. |
 | [what-you-get.md](./user/what-you-get.md) | Compact product model: what ConfigHub adds around Helm output, what is proven, and what remains product work. |
 | [choosing-commands.md](./user/choosing-commands.md) | Short guide for choosing `cub helm template`, `cub helm install`, `cub installer`, `cub variant create`, or repo verifiers. |
@@ -102,6 +103,7 @@ Do not hand-edit generated Markdown unless the generator is also updated.
 | [seven-stage-helm-lifecycle.md](./reference/seven-stage-helm-lifecycle.md) | Doctrine for render parity and for routing hooks, CRDs, target facts, generated values, overlays, GitOps, and observations. |
 | [offering.md](./user/offering.md) | Public overview of the Helm catalog offering and the free-to-managed adoption path. |
 | [try-now.md](./user/try-now.md) | Short first-run path for Redis and kube-prometheus-stack. |
+| [choose-your-path.md](./user/choose-your-path.md) | Short first-run route picker across direct Helm, public catalog, and managed ConfigHub workflows. |
 | [tutorial-sequence.md](./user/tutorial-sequence.md) | Sequential tutorial flow with commands and expected results. |
 | [current-proof-status.md](./user/current-proof-status.md) | User-facing entry point for current proof status. |
 | [what-we-refuse-to-claim.md](./user/what-we-refuse-to-claim.md) | User-facing trust boundary for strict witness blocks, watchlist rows, and normalization rules. |

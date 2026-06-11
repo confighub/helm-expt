@@ -459,7 +459,7 @@ function html(catalog) {
 </head>
 <body>
   <header>
-    <nav><a href="./offering.html">Offering</a> · <a href="./try.html">Try now</a> · <a href="./charts/index.html">Charts</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
+    <nav><a href="./offering.html">Offering</a> · <a href="./try.html">Try now</a> · <a href="../docs/user/choose-your-path.md">Choose path</a> · <a href="./charts/index.html">Charts</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
     <h1>Use Helm charts. Ship ConfigHub variants.</h1>
     <p class="tagline">The catalog turns popular public Helm charts into reviewed cub installer packages, named variants, rendered objects, checks, and proof receipts.</p>
     <pre>cub installer setup --pull packages/bitnami/redis/25.5.3 \\
@@ -789,6 +789,13 @@ function offeringHtml(catalog) {
     ["SRE/operator", "Wants receipts for what was applied, observed, promoted, upgraded, or rolled back."],
     ["Catalog maintainer", "Wants to know which charts are ready, watch, blocked, or need better variants."],
   ];
+  const pathRows = [
+    ["Quick render", "See what a chart renders without ConfigHub state.", "cub helm template", "Free/direct"],
+    ["One-shot upload", "Load one Helm render into ConfigHub Units quickly.", "cub helm install", "ConfigHub account"],
+    ["Public catalog package", "Use a maintained base with render parity, receipts, scans, and proof.", "cub installer setup --pull <package> --base <base>", "Free for public packages"],
+    ["Reviewed ConfigHub base", "Upload a reviewed rendered base before variants or approvals.", "cub installer upload", "ConfigHub account"],
+    ["Derived operations", "Create environment, region, customer, or target variants after upload.", "cub variant create", "ConfigHub-managed"],
+  ];
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -808,7 +815,7 @@ function offeringHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav><a href="./offering.html">Offering</a> · <a href="./try.html">Try now</a> · <a href="./charts/index.html">Charts</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
+    <nav><a href="./offering.html">Offering</a> · <a href="./try.html">Try now</a> · <a href="../docs/user/choose-your-path.md">Choose path</a> · <a href="./charts/index.html">Charts</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
     <h1>Public Helm charts, in visible and verifiable stages.</h1>
     <p class="tagline">We port popular public Helm charts to ConfigHub without changing the intended end-to-end semantics of the supported bases.</p>
     <p>Helm is still the renderer. ConfigHub turns the result into reviewed packages, named variants, rendered objects, scans, gates, receipts, and live evidence.</p>
@@ -848,15 +855,12 @@ function offeringHtml(catalog) {
 
     <section aria-labelledby="stages">
       <h2 id="stages">Start At Your Stage</h2>
-      <p>Each stage asks for more trust and gives more value. Stages 1 and 2 are direct fast paths that skip the catalog; stage 3 is the maintained catalog path; stage 4 lets you check the claims yourself before relying on them.</p>
+      <p>Each stage asks for more trust and gives more value. Direct Helm paths answer immediate render or upload questions; the public catalog adds maintained bases and proof; ConfigHub-managed workflows add private inputs, teams, approvals, variants, and operations.</p>
       ${markdownLikeTable([
-        ["Stage", "Command or surface", "ConfigHub account?"],
-        ["1. Curious: see exactly what a chart renders", "cub helm template", "No"],
-        ["2. Fast adoption: one Helm render into ConfigHub Units", "cub helm install", "Yes"],
-        ["3. Supported catalog: maintained base with receipts and live evidence", "cub installer setup --pull <package> --base <base>", "No, for public packages"],
-        ["4. Trust proof: check the claims on your own machine", "repo verifiers and kind parity lanes", "No"],
-        ["5. Operations: variants, scans, approvals, OCI/GitOps, observations", "cub variant create, cub unit diff, changesets", "Yes"],
+        ["Path", "Use it when", "Command or surface", "Boundary"],
+        ...pathRows,
       ])}
+      <p><a href="../docs/user/choose-your-path.md">Open the full route picker</a> for tutorial links, free/public boundaries, and ConfigHub-managed operations.</p>
     </section>
 
     <section aria-labelledby="two-uses">
@@ -936,6 +940,7 @@ function offeringHtml(catalog) {
         <div class="card"><h3>Browse the catalog</h3><p><a href="./index.html">Open the generated catalog dashboard</a>.</p></div>
         <div class="card"><h3>Check a chart</h3><p><a href="../data/chart-use-guide/summary.md">Open the chart-use guide</a>.</p></div>
         <div class="card"><h3>Try it</h3><p><a href="./try.html">Open the short try-now page</a>.</p></div>
+        <div class="card"><h3>Choose a path</h3><p><a href="../docs/user/choose-your-path.md">Open the route picker</a>.</p></div>
         <div class="card"><h3>Pick a base variant</h3><p><a href="../data/top20-base-readiness/summary.md">Open top-20 base readiness</a>.</p></div>
         <div class="card"><h3>Read current proof status</h3><p><a href="../docs/user/current-proof-status.md">Open current proof status</a>.</p></div>
         <div class="card"><h3>Check the trust boundary</h3><p><a href="../docs/user/what-we-refuse-to-claim.md">Open what we refuse to claim</a>.</p></div>
@@ -961,8 +966,10 @@ function tryHtml(catalog) {
   );
   const redisReadiness = catalog.baseReadiness.find((row) => row.chart === "bitnami/redis@25.5.3" && row.base === "default");
   const quickRows = [
-    ["No account", "Browse catalog, inspect proof, run repository checks, and render public packages locally."],
-    ["ConfigHub account", "Upload rendered objects as Units, inspect labels, create derived variants, and use managed proof workflows."],
+    ["Quick render", "Use cub helm template when you only need to inspect one chart render."],
+    ["One-shot ConfigHub load", "Use cub helm install when you want one render as ConfigHub Units right away."],
+    ["Public catalog package", "Use cub installer when you want a maintained public base with proof."],
+    ["ConfigHub account", "Upload rendered objects as Units, create derived variants, and use managed proof workflows."],
     ["Live cluster", "Apply generated manifests or run the live lanes when you want Kubernetes evidence."],
   ];
   return `<!doctype html>
@@ -981,13 +988,14 @@ function tryHtml(catalog) {
 </head>
 <body>
   <header class="hero">
-    <nav><a href="./offering.html">Offering</a> · <a href="./try.html">Try now</a> · <a href="./charts/index.html">Charts</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
+    <nav><a href="./offering.html">Offering</a> · <a href="./try.html">Try now</a> · <a href="../docs/user/choose-your-path.md">Choose path</a> · <a href="./charts/index.html">Charts</a> · <a href="./index.html">Catalog dashboard</a> · <a href="../README.md">Repository</a></nav>
     <h1>Try the catalog in three short paths.</h1>
     <p class="tagline">Start without a big commitment. Use Redis for the simplest happy path, then inspect kube-prometheus-stack to see the model on a serious Helm chart.</p>
     ${markdownLikeTable([
       ["Path", "What it proves"],
       ...quickRows,
     ])}
+    <p><a href="../docs/user/choose-your-path.md">Open the route picker</a> if you are deciding between direct Helm commands, public catalog packages, and ConfigHub-managed operations.</p>
   </header>
   <main>
     <section aria-labelledby="setup">
@@ -1132,7 +1140,7 @@ function chartIndexHtml(catalog) {
 </head>
 <body>
   <header>
-    <nav><a href="../offering.html">Offering</a> · <a href="../try.html">Try now</a> · <a href="../index.html">Catalog dashboard</a> · <a href="../../README.md">Repository</a></nav>
+    <nav><a href="../offering.html">Offering</a> · <a href="../try.html">Try now</a> · <a href="../../docs/user/choose-your-path.md">Choose path</a> · <a href="../index.html">Catalog dashboard</a> · <a href="../../README.md">Repository</a></nav>
     <h1>Catalog Chart Pages</h1>
     <p class="tagline">One public page per catalog-supported chart: base variants, proof lanes, production boundary, quirks, and artifact links.</p>
   </header>
@@ -1200,7 +1208,7 @@ function chartPageHtml(catalog, entry) {
 </head>
 <body>
   <header>
-    <nav><a href="./index.html">All chart pages</a> · <a href="../index.html">Catalog dashboard</a> · <a href="../try.html">Try now</a> · <a href="../../README.md">Repository</a></nav>
+    <nav><a href="./index.html">All chart pages</a> · <a href="../index.html">Catalog dashboard</a> · <a href="../try.html">Try now</a> · <a href="../../docs/user/choose-your-path.md">Choose path</a> · <a href="../../README.md">Repository</a></nav>
     <h1>${escapeHtml(entry.chart)}</h1>
     <p class="tagline">Public catalog page for ${escapeHtml(entry.chart)}@${escapeHtml(entry.version)}.</p>
     <pre>${escapeHtml(entry.start_command || `cub installer setup --pull ${entry.package_path} --base ${entry.start_variant} --work-dir <tmp> --non-interactive`)}</pre>
@@ -1639,6 +1647,8 @@ npm run site:verify
 
 Open \`site/offering.html\` directly in a browser for the public offering page.
 Open \`site/try.html\` for the short try-now page.
+Open \`docs/user/choose-your-path.md\` for the direct render, one-shot upload,
+public catalog, and ConfigHub operations route picker.
 Open \`site/index.html\` for the static catalog and status dashboard.
 Open \`site/charts/index.html\` for the generated per-chart catalog pages.
 Open \`docs/user/production-support-decisions.md\` for the plain-English
