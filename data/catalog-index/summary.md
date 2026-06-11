@@ -17,6 +17,7 @@ listed CSV as the authoritative spreadsheet row source.
 | --- | --- | --- | --- | --- |
 | Current headline status | [status-dashboard/summary.md](../status-dashboard/summary.md) | [status-dashboard/status.csv](../status-dashboard/status.csv) | `section`, `metric`, `value`, `status`, `source` | Use for counts and the current dashboard rollup. Follow `source` for drill-down. Owner verify: `npm run status:dashboard:verify`. |
 | Can I use a specific top-100 chart? | [chart-use-guide/summary.md](../chart-use-guide/summary.md) | [chart-use-guide/chart-use-guide.csv](../chart-use-guide/chart-use-guide.csv) | `answer`, `first_action`, `recommended_base_or_variant`, `catalog_path` | Best first user-facing yes/no route. Does not replace per-chart receipts. Owner verify: `npm run chart-use:guide:verify`. |
+| For a chart, where are the catalog path, bases, receipts, quirks, and decisions? | [chart-evidence-router/summary.md](../chart-evidence-router/summary.md) | [chart-evidence-router/router.csv](../chart-evidence-router/router.csv) | `catalog_path`, `proof_lane_rows`, `variant_revisions`, receipt and route fields | Use when you know the chart name and need links into the authoritative evidence files. Owner verify: `npm run chart:evidence-router:verify`. |
 | What works, what needs prerequisites, and what is not ready? | [top100-user-readiness/summary.md](../top100-user-readiness/summary.md) | [top100-user-readiness/readiness.csv](../top100-user-readiness/readiness.csv) | `bucket`, `user_must_provide`, `current_proof`, `next_action` | Best single top-100 chart row for user-language status. Owner verify: `npm run top100:user-readiness:verify`. |
 | Which top-100 rows need a better base? | [useful-base-design-queue/summary.md](../useful-base-design-queue/summary.md) | [useful-base-design-queue/queue.csv](../useful-base-design-queue/queue.csv) | `proposed_base`, `user_job`, `render_choices`, `proof_required` | Use for default-shaped proof rows that should not be promoted as-is. Owner verify: `npm run top100:useful-base-queue:verify`. |
 | Which useful bases have already been made real? | [useful-base-realization-wave/summary.md](../useful-base-realization-wave/summary.md) | [useful-base-realization-wave/wave.csv](../useful-base-realization-wave/wave.csv) | `chart`, `base`, `strategy`, `remaining_proof_work` | Use after the design queue to see realized recipe/package bases. Owner verify: `npm run top100:useful-base-realization:verify`. |
@@ -45,13 +46,13 @@ Use existing fields before adding another label.
 ## Maintenance Rule
 
 When a routed CSV changes, run that CSV's owner generator and verifier first.
-Then regenerate this page and the root data index:
+Then regenerate the root data index and this page:
 
 ~~~sh
-node scripts/generate-catalog-index.mjs --generate
 npm run data:index
-node scripts/generate-catalog-index.mjs --verify
+node scripts/generate-catalog-index.mjs --generate
 npm run data:index:verify
+node scripts/generate-catalog-index.mjs --verify
 ~~~
 
 No live tests are required for this routing page.

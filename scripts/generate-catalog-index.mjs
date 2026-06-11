@@ -24,6 +24,13 @@ const ROUTES = [
     note: "Best first user-facing yes/no route. Does not replace per-chart receipts.",
   },
   {
+    question: "For a chart, where are the catalog path, bases, receipts, quirks, and decisions?",
+    openFirst: "data/chart-evidence-router/summary.md",
+    csv: "data/chart-evidence-router/router.csv",
+    field: "`catalog_path`, `proof_lane_rows`, `variant_revisions`, receipt and route fields",
+    note: "Use when you know the chart name and need links into the authoritative evidence files.",
+  },
+  {
     question: "What works, what needs prerequisites, and what is not ready?",
     openFirst: "data/top100-user-readiness/summary.md",
     csv: "data/top100-user-readiness/readiness.csv",
@@ -176,13 +183,13 @@ ${STATUS_FIELDS.map(([field, values]) => `| ${field} | ${values} |`).join("\n")}
 ## Maintenance Rule
 
 When a routed CSV changes, run that CSV's owner generator and verifier first.
-Then regenerate this page and the root data index:
+Then regenerate the root data index and this page:
 
 ~~~sh
-node scripts/generate-catalog-index.mjs --generate
 npm run data:index
-node scripts/generate-catalog-index.mjs --verify
+node scripts/generate-catalog-index.mjs --generate
 npm run data:index:verify
+node scripts/generate-catalog-index.mjs --verify
 ~~~
 
 No live tests are required for this routing page.

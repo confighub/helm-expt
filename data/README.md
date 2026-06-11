@@ -20,6 +20,7 @@ smallest generated surface that answers it.
 | I want the compact catalog data routing index. | [catalog-index/summary.md](./catalog-index/summary.md) |
 | I want the current headline status. | [status-dashboard/summary.md](./status-dashboard/summary.md) |
 | I want to know if I can use a specific chart. | [chart-use-guide/summary.md](./chart-use-guide/summary.md)<br>[chart-use-guide/chart-use-guide.csv](./chart-use-guide/chart-use-guide.csv) |
+| I know the chart name and need paths to bases, receipts, hook routes, quirk routes, and decisions. | [chart-evidence-router/summary.md](./chart-evidence-router/summary.md)<br>[chart-evidence-router/router.csv](./chart-evidence-router/router.csv) |
 | I want to know what outcomes are actually promised and proven. | [outcome-evidence-contract/summary.md](./outcome-evidence-contract/summary.md)<br>[outcome-evidence-contract/outcomes.csv](./outcome-evidence-contract/outcomes.csv) |
 | I want the next work queues. | [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv)<br>[status-dashboard/active-proof-queue.csv](./status-dashboard/active-proof-queue.csv) |
 | I want to know which catalog base to try first. | [top20-base-readiness/start-here.md](./top20-base-readiness/start-here.md) |
@@ -51,6 +52,7 @@ smallest generated surface that answers it.
 | [catalog-index/summary.md](./catalog-index/summary.md) | Compact question-to-source router for top100/top500 catalog status, prerequisites, base gaps, blockers, and evidence. |
 | [status-dashboard/summary.md](./status-dashboard/summary.md) | Start here for a one-page status dashboard: top100, top500 evidence, proof lanes, hooks, quirks, GitOps, and live parity. |
 | [chart-use-guide/summary.md](./chart-use-guide/summary.md) | Chart-use guide: one short answer per top-100 chart for whether to use it now, promote it, design a better base, or decide a limitation first. |
+| [chart-evidence-router/summary.md](./chart-evidence-router/summary.md) | Per-chart evidence router: chart-use answer, first base, catalog path, proof lanes, variant revisions, receipts, hooks, quirks, production decisions, and next action. |
 | [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv) | Machine-readable next work queues for top100 catalog work, top20 production support, live parity, and hook/lifecycle work. |
 | [status-dashboard/active-proof-queue.csv](./status-dashboard/active-proof-queue.csv) | Current non-pass live parity rows with the exact support artifact that should be handled before rerun. |
 | [status-dashboard/top20-status.csv](./status-dashboard/top20-status.csv) | Compact chart-by-chart status for the top-20 public catalog: recommended base, setup command, base-readiness mix, evidence strength, proof lanes, feature summary, gaps, next action. |
@@ -201,6 +203,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `blast-radius-accuracy` | [blast-radius-accuracy/summary.md](./blast-radius-accuracy/summary.md) | front-door measured blast-radius accuracy seed and backlog |
 | `catalog-promotion-review` | [catalog-promotion-review/summary.md](./catalog-promotion-review/summary.md) | catalog promotion worksheet for the 100-chart corpus |
 | `catalog-promotion-wave2` | [catalog-promotion-wave2/summary.md](./catalog-promotion-wave2/summary.md) | older user-shaped variant work-order worksheet |
+| `chart-evidence-router` | [chart-evidence-router/summary.md](./chart-evidence-router/summary.md) | front-door per-chart evidence router across bases, receipts, hooks, quirks, and decisions |
 | `chart-facts` | [chart-facts/summary.md](./chart-facts/summary.md) | per-chart feature, quirk, and hard-gap facts |
 | `chart-use-guide` | [chart-use-guide/summary.md](./chart-use-guide/summary.md) | front-door can-I-use-this-chart guide |
 | `claims-register` | [claims-register/summary.md](./claims-register/summary.md) | front-door public claim-to-evidence register |

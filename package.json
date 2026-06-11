@@ -178,6 +178,8 @@
     "catalog:review:verify": "node scripts/run-catalog-promotion-review.mjs --verify",
     "chart-use:guide": "node scripts/generate-chart-use-guide.mjs --generate",
     "chart-use:guide:verify": "node scripts/generate-chart-use-guide.mjs --verify",
+    "chart:evidence-router": "node scripts/generate-chart-evidence-router.mjs --generate",
+    "chart:evidence-router:verify": "node scripts/generate-chart-evidence-router.mjs --verify",
     "completeness:generate": "node scripts/generate-model-completeness.mjs --generate",
     "completeness:verify": "node scripts/generate-model-completeness.mjs --verify",
     "variant-backlog:generate": "node scripts/generate-variant-backlog.mjs --generate",
