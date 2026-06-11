@@ -16,6 +16,9 @@ top100,fast-track top100 promotion candidates,2,8,partial,data/top100-promotion-
 top100,fast-track promotion review packets,2,2,partial,data/top100-promotion-wave/fast-track-reviews/review-packets.csv,Review-input packets for low-residue candidates. These are not support decisions.
 top100,fast-track storage rollback reviews,2,2,partial,data/top100-promotion-wave/fast-track-reviews/storage-rollback/storage-reviews.csv,"Rendered storage-shape and rollback-boundary review inputs for low-residue candidates. These are not backup, restore, or support decisions."
 top100,top100 user-shaped variant queue,46,80,partial,data/top100-coverage/work-queue.csv,Partial top100 rows whose proof exists but whose current base is not yet a useful catalog offer.
+top100,useful-base proposal rows,46,46,partial,data/useful-base-design-queue/queue.csv,Proposed base shapes for default-shaped proof-grade charts. These are not supported bases until rendered and proved.
+top100,useful-base proposal families,7,7,partial,data/useful-base-design-queue/families.csv,Grouped proposal families used to assign related base-design work.
+top100,useful-base proposals not yet built,46,46,gap,data/useful-base-design-queue/queue.csv,Rows where the proposed base shape still needs recipe/package artifacts and proof before catalog promotion.
 top100,top100 limitation-decision queue,7,80,partial,data/top100-coverage/work-queue.csv,"Partial top100 rows needing a support, disclosure, defer, or block decision before promotion."
 refresh,top20 proofs still current,13,20,partial,data/refresh-survival/refreshes.csv,Supported top-20 chart versions that still match the latest upstream Helm version in the retained refresh snapshot.
 refresh,top20 upstream update candidates,7,20,partial,data/refresh-survival/refreshes.csv,Supported top-20 charts with newer upstream Helm versions that must not be promoted until the full lane reruns.

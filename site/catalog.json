@@ -274,6 +274,33 @@
     },
     {
       "section": "top100",
+      "metric": "useful-base proposal rows",
+      "value": "46",
+      "total": "46",
+      "status": "partial",
+      "source": "data/useful-base-design-queue/queue.csv",
+      "note": "Proposed base shapes for default-shaped proof-grade charts. These are not supported bases until rendered and proved."
+    },
+    {
+      "section": "top100",
+      "metric": "useful-base proposal families",
+      "value": "7",
+      "total": "7",
+      "status": "partial",
+      "source": "data/useful-base-design-queue/families.csv",
+      "note": "Grouped proposal families used to assign related base-design work."
+    },
+    {
+      "section": "top100",
+      "metric": "useful-base proposals not yet built",
+      "value": "46",
+      "total": "46",
+      "status": "gap",
+      "source": "data/useful-base-design-queue/queue.csv",
+      "note": "Rows where the proposed base shape still needs recipe/package artifacts and proof before catalog promotion."
+    },
+    {
+      "section": "top100",
       "metric": "top100 limitation-decision queue",
       "value": "7",
       "total": "80",
