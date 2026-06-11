@@ -1,0 +1,498 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "networking.k8s.io/v1"
+    kind: "NetworkPolicy"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"NetworkPolicy\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"mongodb\",\"app.kubernetes.io/instance\":\"mongodb\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"mongodb\",\"app.kubernetes.io/version\":\"8.3.2\",\"helm.sh/chart\":\"mongodb-19.1.0\"},\"name\":\"mongodb\",\"namespace\":\"mongodb\"},\"spec\":{\"egress\":[{}],\"ingress\":[{\"ports\":[{\"port\":27017}]}],\"podSelector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"mongodb\",\"app.kubernetes.io/name\":\"mongodb\"}},\"policyTypes\":[\"Ingress\",\"Egress\"]}}\n"
+      creationTimestamp: "2026-06-11T12:38:09Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "mongodb"
+        app.kubernetes.io/instance: "mongodb"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "mongodb"
+        app.kubernetes.io/version: "8.3.2"
+        helm.sh/chart: "mongodb-19.1.0"
+      name: "mongodb"
+      namespace: "mongodb"
+      resourceVersion: "434"
+      uid: "1c2488d2-1d97-47fb-abdf-9e9370ac3bad"
+    spec:
+      egress:
+        -
+          {}
+      ingress:
+        -
+          ports:
+            -
+              port: 27017
+              protocol: "TCP"
+      podSelector:
+        matchLabels:
+          app.kubernetes.io/instance: "mongodb"
+          app.kubernetes.io/name: "mongodb"
+      policyTypes:
+        - "Ingress"
+        - "Egress"
+  -
+    apiVersion: "policy/v1"
+    kind: "PodDisruptionBudget"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"policy/v1\",\"kind\":\"PodDisruptionBudget\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"mongodb\",\"app.kubernetes.io/instance\":\"mongodb\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"mongodb\",\"app.kubernetes.io/version\":\"8.3.2\",\"helm.sh/chart\":\"mongodb-19.1.0\"},\"name\":\"mongodb\",\"namespace\":\"mongodb\"},\"spec\":{\"maxUnavailable\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"mongodb\",\"app.kubernetes.io/instance\":\"mongodb\",\"app.kubernetes.io/name\":\"mongodb\"}}}}\n"
+      creationTimestamp: "2026-06-11T12:38:09Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "mongodb"
+        app.kubernetes.io/instance: "mongodb"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "mongodb"
+        app.kubernetes.io/version: "8.3.2"
+        helm.sh/chart: "mongodb-19.1.0"
+      name: "mongodb"
+      namespace: "mongodb"
+      resourceVersion: "597"
+      uid: "3e472bfd-7fd1-400d-9c80-32dc61336310"
+    spec:
+      maxUnavailable: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "mongodb"
+          app.kubernetes.io/instance: "mongodb"
+          app.kubernetes.io/name: "mongodb"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T12:39:02Z"
+          message: ""
+          observedGeneration: 1
+          reason: "SufficientPods"
+          status: "True"
+          type: "DisruptionAllowed"
+      currentHealthy: 1
+      desiredHealthy: 0
+      disruptionsAllowed: 1
+      expectedPods: 1
+      observedGeneration: 1
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: false
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":false,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"mongodb\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"mongodb\",\"app.kubernetes.io/version\":\"8.3.2\",\"helm.sh/chart\":\"mongodb-19.1.0\"},\"name\":\"mongodb\",\"namespace\":\"mongodb\"},\"secrets\":[{\"name\":\"mongodb\"}]}\n"
+      creationTimestamp: "2026-06-11T12:38:09Z"
+      labels:
+        app.kubernetes.io/instance: "mongodb"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "mongodb"
+        app.kubernetes.io/version: "8.3.2"
+        helm.sh/chart: "mongodb-19.1.0"
+      name: "mongodb"
+      namespace: "mongodb"
+      resourceVersion: "436"
+      uid: "c89a7ec7-22b5-4be2-8abc-95b10cf1973d"
+    secrets:
+      -
+        name: "mongodb"
+  -
+    apiVersion: "v1"
+    data:
+      redacted: "live Secret data is not committed"
+    kind: "Secret"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "redacted: live Secret last-applied-configuration is not committed"
+      creationTimestamp: "2026-06-11T12:38:09Z"
+      labels:
+        app.kubernetes.io/component: "mongodb"
+        app.kubernetes.io/instance: "mongodb"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "mongodb"
+        app.kubernetes.io/version: "8.3.2"
+        helm.sh/chart: "mongodb-19.1.0"
+      name: "mongodb"
+      namespace: "mongodb"
+      resourceVersion: "439"
+      uid: "483ee9aa-15b5-4db6-ade6-983d555f4484"
+    type: "Opaque"
+  -
+    apiVersion: "v1"
+    data:
+      ping-mongodb.sh: "#!/bin/bash\nexec mongosh  $TLS_OPTIONS --port $MONGODB_PORT_NUMBER --eval \"db.adminCommand('ping')\"\n"
+      readiness-probe.sh: "#!/bin/bash\n# Run the proper check depending on the version\n[[ $(mongod -version | grep \"db version\") =~ ([0-9]+\\.[0-9]+\\.[0-9]+) ]] && VERSION=${BASH_REMATCH[1]}\n. /opt/bitnami/scripts/libversion.sh\nVERSION_MAJOR=\"$(get_sematic_version \"$VERSION\" 1)\"\nVERSION_MINOR=\"$(get_sematic_version \"$VERSION\" 2)\"\nVERSION_PATCH=\"$(get_sematic_version \"$VERSION\" 3)\"\nreadiness_test='db.isMaster().ismaster || db.isMaster().secondary'\nif [[ ( \"$VERSION_MAJOR\" -ge 5 ) || ( \"$VERSION_MAJOR\" -ge 4 && \"$VERSION_MINOR\" -ge 4 && \"$VERSION_PATCH\" -ge 2 ) ]]; then\n    readiness_test='db.hello().isWritablePrimary || db.hello().secondary'\nfi\nexec mongosh  $TLS_OPTIONS --port $MONGODB_PORT_NUMBER --eval \"if (!(${readiness_test})) { throw new Error(\\\"Not ready\\\") }\"\n"
+      startup-probe.sh: "#!/bin/bash\nexec mongosh  $TLS_OPTIONS --port $MONGODB_PORT_NUMBER --eval 'if (!(db.hello().isWritablePrimary || db.hello().secondary)) { throw new Error(\"Not ready\") }'\n"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"ping-mongodb.sh\":\"#!/bin/bash\\nexec mongosh  $TLS_OPTIONS --port $MONGODB_PORT_NUMBER --eval \\\"db.adminCommand('ping')\\\"\\n\",\"readiness-probe.sh\":\"#!/bin/bash\\n# Run the proper check depending on the version\\n[[ $(mongod -version | grep \\\"db version\\\") =~ ([0-9]+\\\\.[0-9]+\\\\.[0-9]+) ]] \\u0026\\u0026 VERSION=${BASH_REMATCH[1]}\\n. /opt/bitnami/scripts/libversion.sh\\nVERSION_MAJOR=\\\"$(get_sematic_version \\\"$VERSION\\\" 1)\\\"\\nVERSION_MINOR=\\\"$(get_sematic_version \\\"$VERSION\\\" 2)\\\"\\nVERSION_PATCH=\\\"$(get_sematic_version \\\"$VERSION\\\" 3)\\\"\\nreadiness_test='db.isMaster().ismaster || db.isMaster().secondary'\\nif [[ ( \\\"$VERSION_MAJOR\\\" -ge 5 ) || ( \\\"$VERSION_MAJOR\\\" -ge 4 \\u0026\\u0026 \\\"$VERSION_MINOR\\\" -ge 4 \\u0026\\u0026 \\\"$VERSION_PATCH\\\" -ge 2 ) ]]; then\\n    readiness_test='db.hello().isWritablePrimary || db.hello().secondary'\\nfi\\nexec mongosh  $TLS_OPTIONS --port $MONGODB_PORT_NUMBER --eval \\\"if (!(${readiness_test})) { throw new Error(\\\\\\\"Not ready\\\\\\\") }\\\"\\n\",\"startup-probe.sh\":\"#!/bin/bash\\nexec mongosh  $TLS_OPTIONS --port $MONGODB_PORT_NUMBER --eval 'if (!(db.hello().isWritablePrimary || db.hello().secondary)) { throw new Error(\\\"Not ready\\\") }'\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"mongodb\",\"app.kubernetes.io/instance\":\"mongodb\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"mongodb\",\"app.kubernetes.io/version\":\"8.3.2\",\"helm.sh/chart\":\"mongodb-19.1.0\"},\"name\":\"mongodb-common-scripts\",\"namespace\":\"mongodb\"}}\n"
+      creationTimestamp: "2026-06-11T12:38:09Z"
+      labels:
+        app.kubernetes.io/component: "mongodb"
+        app.kubernetes.io/instance: "mongodb"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "mongodb"
+        app.kubernetes.io/version: "8.3.2"
+        helm.sh/chart: "mongodb-19.1.0"
+      name: "mongodb-common-scripts"
+      namespace: "mongodb"
+      resourceVersion: "441"
+      uid: "a69663de-c811-4c2d-b8fb-4789400693ed"
+  -
+    apiVersion: "v1"
+    kind: "PersistentVolumeClaim"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"PersistentVolumeClaim\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"mongodb\",\"app.kubernetes.io/instance\":\"mongodb\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"mongodb\",\"app.kubernetes.io/version\":\"8.3.2\",\"helm.sh/chart\":\"mongodb-19.1.0\"},\"name\":\"mongodb\",\"namespace\":\"mongodb\"},\"spec\":{\"accessModes\":[\"ReadWriteOnce\"],\"resources\":{\"requests\":{\"storage\":\"8Gi\"}}}}\n"
+        pv.kubernetes.io/bind-completed: "yes"
+        pv.kubernetes.io/bound-by-controller: "yes"
+        volume.beta.kubernetes.io/storage-provisioner: "rancher.io/local-path"
+        volume.kubernetes.io/selected-node: "claude-helm-expt-codex-mongo191-control-plane"
+        volume.kubernetes.io/storage-provisioner: "rancher.io/local-path"
+      creationTimestamp: "2026-06-11T12:38:09Z"
+      finalizers:
+        - "kubernetes.io/pvc-protection"
+      labels:
+        app.kubernetes.io/component: "mongodb"
+        app.kubernetes.io/instance: "mongodb"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "mongodb"
+        app.kubernetes.io/version: "8.3.2"
+        helm.sh/chart: "mongodb-19.1.0"
+      name: "mongodb"
+      namespace: "mongodb"
+      resourceVersion: "516"
+      uid: "9042ce17-a658-4447-bb2a-3b6982ac293c"
+    spec:
+      accessModes:
+        - "ReadWriteOnce"
+      resources:
+        requests:
+          storage: "8Gi"
+      storageClassName: "standard"
+      volumeMode: "Filesystem"
+      volumeName: "pvc-9042ce17-a658-4447-bb2a-3b6982ac293c"
+    status:
+      accessModes:
+        - "ReadWriteOnce"
+      capacity:
+        storage: "8Gi"
+      phase: "Bound"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"mongodb\",\"app.kubernetes.io/instance\":\"mongodb\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"mongodb\",\"app.kubernetes.io/version\":\"8.3.2\",\"helm.sh/chart\":\"mongodb-19.1.0\"},\"name\":\"mongodb\",\"namespace\":\"mongodb\"},\"spec\":{\"ports\":[{\"name\":\"mongodb\",\"nodePort\":null,\"port\":27017,\"targetPort\":\"mongodb\"}],\"publishNotReadyAddresses\":false,\"selector\":{\"app.kubernetes.io/component\":\"mongodb\",\"app.kubernetes.io/instance\":\"mongodb\",\"app.kubernetes.io/name\":\"mongodb\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T12:38:09Z"
+      labels:
+        app.kubernetes.io/component: "mongodb"
+        app.kubernetes.io/instance: "mongodb"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "mongodb"
+        app.kubernetes.io/version: "8.3.2"
+        helm.sh/chart: "mongodb-19.1.0"
+      name: "mongodb"
+      namespace: "mongodb"
+      resourceVersion: "445"
+      uid: "7eeb23af-d6c4-44ed-983b-c21cd5cb747d"
+    spec:
+      clusterIP: "10.96.237.56"
+      clusterIPs:
+        - "10.96.237.56"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          name: "mongodb"
+          port: 27017
+          protocol: "TCP"
+          targetPort: "mongodb"
+      selector:
+        app.kubernetes.io/component: "mongodb"
+        app.kubernetes.io/instance: "mongodb"
+        app.kubernetes.io/name: "mongodb"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"mongodb\",\"app.kubernetes.io/instance\":\"mongodb\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"mongodb\",\"app.kubernetes.io/version\":\"8.3.2\",\"helm.sh/chart\":\"mongodb-19.1.0\"},\"name\":\"mongodb\",\"namespace\":\"mongodb\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"mongodb\",\"app.kubernetes.io/instance\":\"mongodb\",\"app.kubernetes.io/name\":\"mongodb\"}},\"strategy\":{\"type\":\"RollingUpdate\"},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"mongodb\",\"app.kubernetes.io/instance\":\"mongodb\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"mongodb\",\"app.kubernetes.io/version\":\"8.3.2\",\"helm.sh/chart\":\"mongodb-19.1.0\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":null,\"podAffinity\":null,\"podAntiAffinity\":{\"preferredDuringSchedulingIgnoredDuringExecution\":[{\"podAffinityTerm\":{\"labelSelector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"mongodb\",\"app.kubernetes.io/instance\":\"mongodb\",\"app.kubernetes.io/name\":\"mongodb\"}},\"topologyKey\":\"kubernetes.io/hostname\"},\"weight\":1}]}},\"automountServiceAccountToken\":false,\"containers\":[{\"env\":[{\"name\":\"BITNAMI_DEBUG\",\"value\":\"false\"},{\"name\":\"MONGODB_ROOT_USER\",\"value\":\"root\"},{\"name\":\"MONGODB_ROOT_PASSWORD_FILE\",\"value\":\"/opt/bitnami/mongodb/secrets/mongodb-root-password\"},{\"name\":\"OPENSSL_FIPS\",\"value\":\"yes\"},{\"name\":\"ALLOW_EMPTY_PASSWORD\",\"value\":\"no\"},{\"name\":\"MONGODB_SYSTEM_LOG_VERBOSITY\",\"value\":\"0\"},{\"name\":\"MONGODB_DISABLE_SYSTEM_LOG\",\"value\":\"no\"},{\"name\":\"MONGODB_DISABLE_JAVASCRIPT\",\"value\":\"no\"},{\"name\":\"MONGODB_ENABLE_JOURNAL\",\"value\":\"yes\"},{\"name\":\"MONGODB_PORT_NUMBER\",\"value\":\"27017\"},{\"name\":\"MONGODB_ENABLE_IPV6\",\"value\":\"no\"},{\"name\":\"MONGODB_ENABLE_DIRECTORY_PER_DB\",\"value\":\"no\"}],\"image\":\"registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"exec\":{\"command\":[\"/bitnami/scripts/ping-mongodb.sh\"]},\"failureThreshold\":6,\"initialDelaySeconds\":30,\"periodSeconds\":20,\"successThreshold\":1,\"timeoutSeconds\":10},\"name\":\"mongodb\",\"ports\":[{\"containerPort\":27017,\"name\":\"mongodb\"}],\"readinessProbe\":{\"exec\":{\"command\":[\"/bitnami/scripts/readiness-probe.sh\"]},\"failureThreshold\":6,\"initialDelaySeconds\":5,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":5},\"resources\":{\"limits\":{\"cpu\":\"750m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"768Mi\"},\"requests\":{\"cpu\":\"500m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"512Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"empty-dir\",\"subPath\":\"tmp-dir\"},{\"mountPath\":\"/opt/bitnami/mongodb/conf\",\"name\":\"empty-dir\",\"subPath\":\"app-conf-dir\"},{\"mountPath\":\"/opt/bitnami/mongodb/tmp\",\"name\":\"empty-dir\",\"subPath\":\"app-tmp-dir\"},{\"mountPath\":\"/opt/bitnami/mongodb/logs\",\"name\":\"empty-dir\",\"subPath\":\"app-logs-dir\"},{\"mountPath\":\"/.mongodb\",\"name\":\"empty-dir\",\"subPath\":\"mongosh-home\"},{\"mountPath\":\"/bitnami/mongodb\",\"name\":\"datadir\",\"subPath\":null},{\"mountPath\":\"/bitnami/scripts\",\"name\":\"common-scripts\"},{\"mountPath\":\"/opt/bitnami/mongodb/secrets\",\"name\":\"mongodb-secrets\"}]}],\"enableServiceLinks\":true,\"initContainers\":[{\"args\":[\"-ec\",\"ln -sf /dev/stdout \\\"/opt/bitnami/mongodb/logs/mongodb.log\\\"\\n\"],\"command\":[\"/bin/bash\"],\"env\":[{\"name\":\"OPENSSL_FIPS\",\"value\":\"yes\"}],\"image\":\"registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e\",\"imagePullPolicy\":\"IfNotPresent\",\"name\":\"log-dir\",\"resources\":{\"limits\":{\"cpu\":\"750m\",\"ephemeral-storage\":\"2Gi\",\"memory\":\"768Mi\"},\"requests\":{\"cpu\":\"500m\",\"ephemeral-storage\":\"50Mi\",\"memory\":\"512Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"privileged\":false,\"readOnlyRootFilesystem\":true,\"runAsGroup\":1001,\"runAsNonRoot\":true,\"runAsUser\":1001,\"seLinuxOptions\":{},\"seccompProfile\":{\"type\":\"RuntimeDefault\"}},\"volumeMounts\":[{\"mountPath\":\"/opt/bitnami/mongodb/logs\",\"name\":\"empty-dir\",\"subPath\":\"app-logs-dir\"}]}],\"securityContext\":{\"fsGroup\":1001,\"fsGroupChangePolicy\":\"Always\",\"supplementalGroups\":[],\"sysctls\":[]},\"serviceAccountName\":\"mongodb\",\"volumes\":[{\"emptyDir\":{},\"name\":\"empty-dir\"},{\"configMap\":{\"defaultMode\":360,\"name\":\"mongodb-common-scripts\"},\"name\":\"common-scripts\"},{\"name\":\"mongodb-secrets\",\"secret\":{\"secretName\":\"mongodb\"}},{\"name\":\"datadir\",\"persistentVolumeClaim\":{\"claimName\":\"mongodb\"}}]}}}}\n"
+      creationTimestamp: "2026-06-11T12:38:09Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "mongodb"
+        app.kubernetes.io/instance: "mongodb"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "mongodb"
+        app.kubernetes.io/version: "8.3.2"
+        helm.sh/chart: "mongodb-19.1.0"
+      name: "mongodb"
+      namespace: "mongodb"
+      resourceVersion: "601"
+      uid: "c237b7fc-72e6-4a11-a6a9-55b8cf50de9e"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "mongodb"
+          app.kubernetes.io/instance: "mongodb"
+          app.kubernetes.io/name: "mongodb"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/component: "mongodb"
+            app.kubernetes.io/instance: "mongodb"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "mongodb"
+            app.kubernetes.io/version: "8.3.2"
+            helm.sh/chart: "mongodb-19.1.0"
+        spec:
+          affinity:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                -
+                  podAffinityTerm:
+                    labelSelector:
+                      matchLabels:
+                        app.kubernetes.io/component: "mongodb"
+                        app.kubernetes.io/instance: "mongodb"
+                        app.kubernetes.io/name: "mongodb"
+                    topologyKey: "kubernetes.io/hostname"
+                  weight: 1
+          automountServiceAccountToken: false
+          containers:
+            -
+              env:
+                -
+                  name: "BITNAMI_DEBUG"
+                  value: "false"
+                -
+                  name: "MONGODB_ROOT_USER"
+                  value: "root"
+                -
+                  name: "MONGODB_ROOT_PASSWORD_FILE"
+                  value: "/opt/bitnami/mongodb/secrets/mongodb-root-password"
+                -
+                  name: "OPENSSL_FIPS"
+                  value: "yes"
+                -
+                  name: "ALLOW_EMPTY_PASSWORD"
+                  value: "no"
+                -
+                  name: "MONGODB_SYSTEM_LOG_VERBOSITY"
+                  value: "0"
+                -
+                  name: "MONGODB_DISABLE_SYSTEM_LOG"
+                  value: "no"
+                -
+                  name: "MONGODB_DISABLE_JAVASCRIPT"
+                  value: "no"
+                -
+                  name: "MONGODB_ENABLE_JOURNAL"
+                  value: "yes"
+                -
+                  name: "MONGODB_PORT_NUMBER"
+                  value: "27017"
+                -
+                  name: "MONGODB_ENABLE_IPV6"
+                  value: "no"
+                -
+                  name: "MONGODB_ENABLE_DIRECTORY_PER_DB"
+                  value: "no"
+              image: "registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                exec:
+                  command:
+                    - "/bitnami/scripts/ping-mongodb.sh"
+                failureThreshold: 6
+                initialDelaySeconds: 30
+                periodSeconds: 20
+                successThreshold: 1
+                timeoutSeconds: 10
+              name: "mongodb"
+              ports:
+                -
+                  containerPort: 27017
+                  name: "mongodb"
+                  protocol: "TCP"
+              readinessProbe:
+                exec:
+                  command:
+                    - "/bitnami/scripts/readiness-probe.sh"
+                failureThreshold: 6
+                initialDelaySeconds: 5
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 5
+              resources:
+                limits:
+                  cpu: "750m"
+                  ephemeral-storage: "2Gi"
+                  memory: "768Mi"
+                requests:
+                  cpu: "500m"
+                  ephemeral-storage: "50Mi"
+                  memory: "512Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/tmp"
+                  name: "empty-dir"
+                  subPath: "tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/mongodb/conf"
+                  name: "empty-dir"
+                  subPath: "app-conf-dir"
+                -
+                  mountPath: "/opt/bitnami/mongodb/tmp"
+                  name: "empty-dir"
+                  subPath: "app-tmp-dir"
+                -
+                  mountPath: "/opt/bitnami/mongodb/logs"
+                  name: "empty-dir"
+                  subPath: "app-logs-dir"
+                -
+                  mountPath: "/.mongodb"
+                  name: "empty-dir"
+                  subPath: "mongosh-home"
+                -
+                  mountPath: "/bitnami/mongodb"
+                  name: "datadir"
+                -
+                  mountPath: "/bitnami/scripts"
+                  name: "common-scripts"
+                -
+                  mountPath: "/opt/bitnami/mongodb/secrets"
+                  name: "mongodb-secrets"
+          dnsPolicy: "ClusterFirst"
+          enableServiceLinks: true
+          initContainers:
+            -
+              args:
+                - "-ec"
+                - "ln -sf /dev/stdout \"/opt/bitnami/mongodb/logs/mongodb.log\"\n"
+              command:
+                - "/bin/bash"
+              env:
+                -
+                  name: "OPENSSL_FIPS"
+                  value: "yes"
+              image: "registry-1.docker.io/bitnami/mongodb@sha256:594309a857f5254bc2ee6b5e538f680696f9c7e2bf20279ca3fec49f682de44e"
+              imagePullPolicy: "IfNotPresent"
+              name: "log-dir"
+              resources:
+                limits:
+                  cpu: "750m"
+                  ephemeral-storage: "2Gi"
+                  memory: "768Mi"
+                requests:
+                  cpu: "500m"
+                  ephemeral-storage: "50Mi"
+                  memory: "512Mi"
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                privileged: false
+                readOnlyRootFilesystem: true
+                runAsGroup: 1001
+                runAsNonRoot: true
+                runAsUser: 1001
+                seLinuxOptions:
+                  {}
+                seccompProfile:
+                  type: "RuntimeDefault"
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/opt/bitnami/mongodb/logs"
+                  name: "empty-dir"
+                  subPath: "app-logs-dir"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            fsGroup: 1001
+            fsGroupChangePolicy: "Always"
+          serviceAccount: "mongodb"
+          serviceAccountName: "mongodb"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              emptyDir:
+                {}
+              name: "empty-dir"
+            -
+              configMap:
+                defaultMode: 360
+                name: "mongodb-common-scripts"
+              name: "common-scripts"
+            -
+              name: "mongodb-secrets"
+              secret:
+                defaultMode: 420
+                secretName: "mongodb"
+            -
+              name: "datadir"
+              persistentVolumeClaim:
+                claimName: "mongodb"
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T12:39:02Z"
+          lastUpdateTime: "2026-06-11T12:39:02Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T12:38:09Z"
+          lastUpdateTime: "2026-06-11T12:39:02Z"
+          message: "ReplicaSet \"mongodb-7dd75bfd84\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""

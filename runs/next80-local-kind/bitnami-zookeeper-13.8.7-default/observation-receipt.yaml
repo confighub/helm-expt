@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "bitnami-zookeeper-13.8.7-default-local-kind"
+spec:
+  variantRevision: "recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "67672a9bfa85db38f8485736cd19f80ccec599fc17c2c5bb154e3c2feeb54bdb"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-zk"
+    context: "kind-claude-helm-expt-codex-zk"
+    namespace: "default"
+  observedAt: "2026-06-11T12:43:28.554Z"
+  freshnessTTL: "1h"
+  result: "blocked"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 1
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "9f5cd46371ac5a78c8247c0249f1251cda659432d822d86eb7c8d87373a3b202"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "7 object(s) from recipes/bitnami/zookeeper/13.8.7/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "blocked"
+      object: "StatefulSet|default|zookeeper"
+      reason: "image-pull-blocked: zookeeper-0[ImagePullBackOff ready=false restarts=0;]"
+  blockedReasons:
+    - "statefulset/zookeeper: image-pull-blocked (zookeeper-0[ImagePullBackOff ready=false restarts=0;])"

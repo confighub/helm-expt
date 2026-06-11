@@ -23,13 +23,13 @@ ConfigHub variant, or an upgrade/customization path.
 
 ## Rows By Live Status
 
-- blocked: 19
-- fail: 10
-- missing: 85
+- blocked: 20
+- fail: 13
+- missing: 77
 - not-attempted: 10
 - not-tested: 4
 - not-tested-by-diff: 2
-- pass: 73
+- pass: 77
 - watch: 2
 
 ## Live Status Meanings
@@ -55,11 +55,11 @@ ConfigHub variant, or an upgrade/customization path.
 | `argo-cd/argo-workflows@1.0.14` | `controller-default-reviewed` | base-variant | fail | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `argo-cd/argo-workflows@1.0.14` | `default` | base-variant | fail | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `autoscaler/vertical-pod-autoscaler@0.9.0` | `default` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
+| `aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1` | `default` | base-variant | fail | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `bitnami/apache@11.4.29` | `default` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
+| `bitnami/elasticsearch@22.1.6` | `default` | base-variant | fail | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
 | `bitnami/nginx@24.0.2` | `customer-acme-prod` | derived-confighub-variant | not-attempted | target/live evidence may be separate |
 | `bitnami/nginx@24.0.2` | `prod-us-east` | derived-confighub-variant | not-attempted | target/live evidence may be separate |
-| `bitnami/phpmyadmin@20.0.0` | `default` | base-variant | blocked | confighub_upload_variant_scan_safe_ops;local_kind_kubectl_apply;confighub_oci_argo_live;live_helm_vs_confighub_dual_compare |
-| `bitnami/redis@25.5.3` | `bitnami-redis-default-to-reuse-existing-secret` | base-to-base-diff | not-tested-by-diff | target facts must be satisfied before delivery |
 
 ## How To Use This Matrix
 

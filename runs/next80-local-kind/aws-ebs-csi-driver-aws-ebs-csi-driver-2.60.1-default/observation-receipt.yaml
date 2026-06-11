@@ -1,0 +1,47 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "aws-ebs-csi-driver-aws-ebs-csi-driver-2.60.1-default-local-kind"
+spec:
+  variantRevision: "recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/revisions/default/r001/variant-revision.yaml"
+  renderedObjectSetSHA256: "ae9f0b30339870e7bab818ea4eb299e5393416b5efd5053dd5800017373bb3a7"
+  observer:
+    name: "next80-local-live"
+    version: "0.1.0"
+    method: "kubectl-kind"
+  target:
+    kind: "kind"
+    name: "claude-helm-expt-codex-ebs"
+    context: "kind-claude-helm-expt-codex-ebs"
+    namespace: "default"
+  observedAt: "2026-06-11T12:33:33.602Z"
+  freshnessTTL: "1h"
+  result: "fail"
+  clusterStatus: "created-by-test"
+  variant: "default"
+  workloads: 3
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "38c38abd7d4fe6d41c18ff211d39903c36a06766a8beb94422b3932a05b2d9f3"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      result: "pass"
+      object: "19 object(s) from recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/revisions/default/r001/rendered/release-objects.yaml"
+    -
+      name: "workload-converged"
+      result: "pass"
+      object: "DaemonSet|default|ebs-csi-node-windows"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "DaemonSet|default|ebs-csi-node"
+      reason: "not-ready: ebs-csi-controller-8d8878fb7-24jf4[ ready=true restarts=3;Error ready=false restarts=3; ready=true restarts=3;CrashLoopBackOff ready=false restarts=4; ready=true restarts=0;] ebs-csi-controller-8d8878fb7-zph9t[ ready=true restarts=3;Error ready=false restarts=3; ready=true restarts=3;CrashLoopBackOf"
+    -
+      name: "workload-converged"
+      result: "fail"
+      object: "Deployment|default|ebs-csi-controller"
+      reason: "not-ready: ebs-csi-controller-8d8878fb7-24jf4[Error ready=false restarts=3;CrashLoopBackOff ready=false restarts=3; ready=true restarts=3;CrashLoopBackOff ready=false restarts=4; ready=true restarts=0;] ebs-csi-controller-8d8878fb7-zph9t[Error ready=false restarts=3;CrashLoopBackOff ready=false restarts=3; rea"
+  blockedReasons:
+    - "daemonset/ebs-csi-node: not-ready (ebs-csi-controller-8d8878fb7-24jf4[ ready=true restarts=3;Error ready=false restarts=3; ready=true restarts=3;CrashLoopBackOff ready=false restarts=4; ready=tru)"
+    - "deployment/ebs-csi-controller: not-ready (ebs-csi-controller-8d8878fb7-24jf4[Error ready=false restarts=3;CrashLoopBackOff ready=false restarts=3; ready=true restarts=3;CrashLoopBackOff ready=false rest)"
