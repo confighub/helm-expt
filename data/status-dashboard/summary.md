@@ -86,6 +86,7 @@ Which detailed CSV should I open next?
 | quirks | source-scanned but not surfaced axes | 5/26 | gap | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
 | quirks | not-scanned axes | 6/26 | gap | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
 | quirks | P0 source quirk work queue rows | 51/95 | gap | [data/quirk-work-queue/top100-queue.csv](../../data/quirk-work-queue/top100-queue.csv) |
+| quirks | hard proof gap shortlist rows | 25/51 | gap | [data/hard-proof-gaps/shortlist.csv](../../data/hard-proof-gaps/shortlist.csv) |
 | remote dependencies | top100 dependency-risk rows with maintained locks | 19/49 | partial | [data/remote-dependency-closure/top100.csv](../../data/remote-dependency-closure/top100.csv) |
 | remote dependencies | P0 dependency closure work rows | 33/49 | gap | [data/remote-dependency-closure/top100.csv](../../data/remote-dependency-closure/top100.csv) |
 | extension slots | top20 charts with extension slots | 13/20 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
@@ -120,6 +121,19 @@ evidence work before it becomes production-supported for a target scope.
 | Fast-track low-residue promotion rows | 2 | Write storage/rollback policy, complete missing live and ConfigHub lanes, then record target-scoped support decisions. |
 | Design useful base variants | 46 | Create the first user-shaped base before treating the chart as a catalog offer. |
 | Resolve limitation decisions | 7 | Decide whether the named gap is supported, disclosed, deferred, or blocked. |
+
+### Hard Proof Gap Work
+
+These rows are the top assignment queue for public charts where source-scan
+quirks, dependency closure, or hook routing could damage trust if overclaimed.
+
+| Queue | Rows | Next action |
+| --- | ---: | --- |
+| Shortlist | 25 | Assign the first rows to modeled facts, route receipts, runtime observations, better bases, or explicit blockers. |
+| Catalog-visible hard gaps | 8 | Handle visible catalog rows first so public claims stay narrow and backed. |
+| Hook-route hard gaps | 8 | Promote candidate routes into maintained receipts, runtime observations, or explicit blockers. |
+| Remote dependency hard gaps | 24 | Close dependency provenance and refresh-survival facts before stronger catalog claims. |
+| APIService hard gaps | 2 | Add APIService readiness modeling and runtime observation routes. |
 
 ### Remote Dependency Closure Work
 

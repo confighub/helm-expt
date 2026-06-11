@@ -28,6 +28,7 @@ smallest generated surface that answers it.
 | I want the top-100 coverage contract. | [top100-coverage/summary.md](./top100-coverage/summary.md)<br>[top100-coverage/coverage.csv](./top100-coverage/coverage.csv) |
 | I want the strict top-100 work queue. | [top100-coverage/work-queue.md](./top100-coverage/work-queue.md)<br>[top100-coverage/work-queue.csv](./top100-coverage/work-queue.csv)<br>[top100-coverage/decisions-needed.md](./top100-coverage/decisions-needed.md) |
 | I want the source-scan quirk work queue. | [quirk-work-queue/summary.md](./quirk-work-queue/summary.md)<br>[quirk-work-queue/top100-queue.csv](./quirk-work-queue/top100-queue.csv) |
+| I want the hardest top-100 proof gaps to assign next. | [hard-proof-gaps/summary.md](./hard-proof-gaps/summary.md)<br>[hard-proof-gaps/shortlist.csv](./hard-proof-gaps/shortlist.csv) |
 | I want remote dependency closure status. | [remote-dependency-closure/summary.md](./remote-dependency-closure/summary.md)<br>[remote-dependency-closure/top100.csv](./remote-dependency-closure/top100.csv) |
 | I want the first strict top-100 promotion wave. | [top100-promotion-wave/summary.md](./top100-promotion-wave/summary.md)<br>[top100-promotion-wave/wave.csv](./top100-promotion-wave/wave.csv)<br>[top100-promotion-wave/fast-track.md](./top100-promotion-wave/fast-track.md)<br>[top100-promotion-wave/fast-track-reviews/README.md](./top100-promotion-wave/fast-track-reviews/README.md)<br>[top100-promotion-wave/fast-track-reviews/storage-rollback/README.md](./top100-promotion-wave/fast-track-reviews/storage-rollback/README.md)<br>[top100-promotion-wave/work-orders.md](./top100-promotion-wave/work-orders.md) |
 | I want to know how upstream chart updates are handled. | [refresh-survival/summary.md](./refresh-survival/summary.md)<br>[latest-top20-refresh/action-queue/summary.md](./latest-top20-refresh/action-queue/summary.md)<br>[latest-top20-refresh/replacement-decisions/summary.md](./latest-top20-refresh/replacement-decisions/summary.md) |
@@ -111,6 +112,7 @@ smallest generated surface that answers it.
 | [variant-path-coverage/summary.md](./variant-path-coverage/summary.md) | Per chart/base/path matrix for base variants, diffs, operations, and derived ConfigHub variants. |
 | [quirk-coverage/summary.md](./quirk-coverage/summary.md) | Coverage audit for Helm quirks: tracked, partly tracked, source-scanned only, or not scanned. |
 | [quirk-work-queue/summary.md](./quirk-work-queue/summary.md) | Chart-level work queue for converting public top-100 source-scan quirks into modeled, reviewable, and eventually provable catalog facts. |
+| [hard-proof-gaps/summary.md](./hard-proof-gaps/summary.md) | Short assignment surface for the top-100 source-quirk rows most likely to damage trust if overclaimed. |
 | [remote-dependency-closure/summary.md](./remote-dependency-closure/summary.md) | Top-100 remote dependency closure map: source-scan dependency risk joined to maintained recipe dependency locks. |
 | [high-fanout-demo/summary.md](./high-fanout-demo/summary.md) | Prometheus/kube-prometheus-stack example showing how one base choice changes many objects and prerequisites. |
 | [high-fanout-demo/operation-preview.md](./high-fanout-demo/operation-preview.md) | Pre-ship operation preview for kube-prometheus-stack high-fanout inputs: route, reach, guardrail, and next proof. |
@@ -193,6 +195,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `edge-recovery` | [edge-recovery/summary.md](./edge-recovery/summary.md) | recovered desired-state graph fragments |
 | `extension-slots` | [extension-slots/summary.md](./extension-slots/summary.md) | NGINX-like extension-slot coverage and routing |
 | `external-scan-lane` | [external-scan-lane/summary.md](./external-scan-lane/summary.md) | external scanner lane review output |
+| `hard-proof-gaps` | [hard-proof-gaps/summary.md](./hard-proof-gaps/summary.md) | hard top-100 proof gaps joined across quirk, hook, and dependency queues |
 | `high-fanout-demo` | [high-fanout-demo/summary.md](./high-fanout-demo/summary.md) | Prometheus base-variant fanout and prerequisite example |
 | `hook-lifecycle` | [hook-lifecycle/summary.md](./hook-lifecycle/summary.md) | hook-bearing charts and required lifecycle receipt paths |
 | `hook-lifecycle-review` | [hook-lifecycle-review/summary.md](./hook-lifecycle-review/summary.md) | supporting generated evidence |
@@ -244,7 +247,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 100 CSV files. Each row records the path, audience,
+It includes 101 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration
