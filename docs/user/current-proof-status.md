@@ -313,16 +313,15 @@ observation lane. In the generated two-cluster summary, that row is explicit:
 
 Production support decisions are now explicit for the top-20 catalog:
 
-- 16 of 20 top-20 charts have supported target-scoped proof scopes.
+- 17 of 20 top-20 charts have supported target-scoped proof scopes.
 - 2 of 20 top-20 charts are superseded deprecated source charts and remain
   catalog proof evidence only.
 - 1 of 20 top-20 charts has a rejected target-scoped proof scope with a
-  concrete target-fit or runtime reason.
-- 1 of 20 top-20 charts has a draft support decision after a fresh
-  runtime/GitOps rehearsal exposed a separated Secret delivery gap.
-- 19 of 20 are production-review-ready by pre-review disposition receipt.
-- 1 of 20 still has a blocked pre-review production disposition.
-- 104 production-disposition receipts are accepted across 20 charts.
+  concrete production-boundary reason.
+- 0 of 20 top-20 charts have draft support decisions.
+- 20 of 20 are production-review-ready by pre-review disposition receipt.
+- 0 of 20 still have blocked pre-review production dispositions.
+- 105 production-disposition receipts are accepted across 20 charts.
 - external scan work has 0 remaining mutable-image rows after the current
   supported-base image pinning pass.
 - the remaining high-priority scan rows are routed to explicit privileged
@@ -330,19 +329,19 @@ Production support decisions are now explicit for the top-20 catalog:
 - A supported target scope is still narrow: it covers the named chart, base,
   target, delivery path, accepted risks, and live evidence rule only.
 
-The top-20 production queue is mostly through pre-review disposition. Vault
-dev-mode remains blocked as a production boundary and is rejected by the
-target-scoped support decision. The active support view is grouped from the
-current target-scoped decisions.
+The top-20 production queue has no remaining pre-review disposition blockers.
+Vault `dev-mode` remains rejected as a production support boundary because it
+is a local/demo base. The active support view is grouped from the current
+target-scoped decisions.
 Workstreams can overlap: one chart can need image, scan, lifecycle, and fresh
 evidence work before it becomes production-supported for a target scope.
 
 | Decision group | Charts | Meaning |
 | --- | ---: | --- |
-| Supported scope evidence | 16 | Keep target-scoped evidence fresh before using the supported scope as a production example. |
+| Supported scope evidence | 17 | Keep target-scoped evidence fresh before using the supported scope as a production example. |
 | Superseded source chart | 2 | Keep the existing proof as evidence, but review a maintained chart source before making a production-support claim. |
 | Rejected default base | 1 | Keep parity evidence, then create a better production base or target scope before support. |
-| Draft support decision | 1 | External-secrets needs its rendered webhook Secret modeled as deliverable or prerequisite before final support. |
+| Draft support decision | 0 | No current top-20 support decisions are draft. |
 
 Use the target-scoped decision table for exact blockers and next actions:
 [Production Support Decisions](../../data/production-support-decisions/summary.md).
@@ -375,8 +374,8 @@ Lifecycle observation proof has started:
 
 - 11 public top-100 source-scan rows contain Helm hooks.
 - 5 maintained hook queue rows now have hook route receipts.
-- 3 of those 5 queue rows have lifecycle observation receipts, and 2 have
-  partial install-lifecycle observations with another phase pending.
+- 5 of those 5 queue rows have lifecycle observation receipts.
+- 0 of those 5 queue rows have only partial install-lifecycle observations.
 - cert-manager `default` and `crds-enabled` pass lifecycle checks for its
   `startupapicheck` hook route, CRD ownership policy, startup API readiness,
   webhook CA bundle injection, and server dry-run.
