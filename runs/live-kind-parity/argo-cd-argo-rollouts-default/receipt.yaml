@@ -1,0 +1,177 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmInstallerKindParityReceipt
+metadata:
+  name: argo-cd-argo-rollouts-2.40.9-default-kind-parity-20260606
+spec:
+  chart: argo-cd/argo-rollouts
+  version: 2.40.9
+  base: default
+  result: pass
+  observedAt: '2026-06-11T09:51:36Z'
+  package:
+    path: packages/argo-cd/argo-rollouts/2.40.9
+  recipe:
+    path: recipes/argo-cd/argo-rollouts/2.40.9
+  variantRevision: recipes/argo-cd/argo-rollouts/2.40.9/revisions/default/r001/variant-revision.yaml
+  run:
+    mode: two-vanilla-kind-clusters
+    helmCluster: hx-argoro-83842-iqp3-helm
+    installerCluster: hx-argoro-83842-iqp3-installer
+    namespace: default
+    cleanup:
+      result: pass
+      clusters:
+      - cluster: hx-argoro-83842-iqp3-helm
+        leg: helm
+        result: pass
+        detail: 'Deleting cluster "hx-argoro-83842-iqp3-helm" ...
+
+          Deleted nodes: ["hx-argoro-83842-iqp3-helm-control-plane"]'
+      - cluster: hx-argoro-83842-iqp3-installer
+        leg: installer
+        result: pass
+        detail: 'Deleting cluster "hx-argoro-83842-iqp3-installer" ...
+
+          Deleted nodes: ["hx-argoro-83842-iqp3-installer-control-plane"]'
+    targetTopology:
+      minimumSchedulableNodes: 1
+      purpose: ''
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install argo-rollouts argo-rollouts --repo https://argoproj.github.io/argo-helm
+        --version 2.40.9 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-kind-parity/argo-cd-argo-rollouts-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      namespace: default
+      manifestSHA256: cd696130d24a1a676d5bc1abb9978ff10d6d4e6e072655c6ef275453b1e85e47
+      objectCount: 14
+      liveHelmManifestSHA256: cd696130d24a1a676d5bc1abb9978ff10d6d4e6e072655c6ef275453b1e85e47
+      liveHelmManifestObjectCount: 14
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          deployment.apps/argo-rollouts   2/2   2     2     27s'
+        pods: '# default
+
+          argo-rollouts-59bc98ffdc-7wqzt   1/1   Running   0     27s
+
+          argo-rollouts-59bc98ffdc-tbnv7   1/1   Running   0     27s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+      stderr: ''
+      getManifestError: ''
+    cubInstallerApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/argo-cd/argo-rollouts/2.40.9
+        --base default --work-dir /tmp/helm-expt-kind-parity-hx-argoro-83842-iqp3-argo-rollouts
+        --non-interactive --namespace default
+      applyMode: two-cluster vanilla-kind; namespace-first kubectl apply; separated
+        secrets staged when present
+      namespace: default
+      manifestSHA256: a271c3a6fc3f03745a35754397fe77cdb2f62b5630198719c1578ec2ac708174
+      objectCount: 15
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          deployment.apps/argo-rollouts   2/2   2     2     31s'
+        pods: '# default
+
+          argo-rollouts-59bc98ffdc-dzb4z   1/1   Running   0     31s
+
+          argo-rollouts-59bc98ffdc-tclpj   1/1   Running   0     31s'
+        notReady: []
+        diagnostics: []
+        apiServices:
+          result: pass
+          items: []
+  semanticComparison:
+    allowedExtraInstallerObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsCubInstallerApply:
+      result: pass
+      helmObjectCount: 14
+      installerObjectCount: 15
+      missingFromInstaller: []
+      extraInInstaller:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: kind-create-helm
+    result: pass
+    detail: helm kind cluster created
+  - name: kind-create-installer
+    result: pass
+    detail: installer kind cluster created
+  - name: target-facts-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: target-facts-installer
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-operating-policy
+    result: pass
+    detail: none
+  - name: regular-helm-live
+    result: pass
+    detail: 'Release "argo-rollouts" does not exist. Installing it now.
+
+      NAME: argo-rollouts
+
+      LAST DEPLOYED: Thu Jun 11 10:52:27 2026
+
+      NAMESPACE: default
+
+      STATUS: deployed
+
+      REVISION: 1
+
+      DESCRIPTION: Install complete
+
+      TEST SUITE: None'
+  - name: cub-installer-operating-policy
+    result: pass
+    detail: none
+  - name: cub-installer-apply-live
+    result: pass
+    detail: '# default
+
+      deployment.apps/argo-rollouts   2/2   2     2     31s'
+  - name: semantic-object-parity
+    result: pass
+    detail: missing=0 extra=['v1|Namespace||default'] diffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    cubInstallerApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+      stagedObjectStores: []
+    requiredValues: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    cubInstallerApply:
+      result: pass
+      operation: none

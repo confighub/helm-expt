@@ -11,10 +11,10 @@ the same live outcome as cub installer output?
 ```
 
 ```text
-pass: 52
+pass: 54
 watch: 0
 blocked: 2
-semantic parity pass: 53
+semantic parity pass: 55
 semantic parity defects: 0
 non-pass rows where semantic parity passed: 1
 non-pass rows with related lifecycle evidence: 1
@@ -60,6 +60,8 @@ records the chart-specific startup API check route.
 | `argo-cd/argo-cd@9.5.15` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-cd-no-crds/receipt.yaml |
 | `argo-cd/argo-events@2.4.21` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-events-default/receipt.yaml |
 | `argo-cd/argo-events@2.4.21` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-events-no-crds/receipt.yaml |
+| `argo-cd/argo-rollouts@2.40.9` | default | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-rollouts-default/receipt.yaml |
+| `argo-cd/argo-rollouts@2.40.9` | no-crds | pass | pass |  |  | live parity passed | runs/live-kind-parity/argo-cd-argo-rollouts-no-crds/receipt.yaml |
 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mongodb-existing-secret-replicaset/receipt.yaml |
 | `bitnami/mongodb@19.0.7` | generated-passwords | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mongodb-generated-passwords/receipt.yaml |
 | `bitnami/mysql@14.0.3` | existing-secret | pass | pass |  |  | live parity passed | runs/live-kind-parity/bitnami-mysql-existing-secret/receipt.yaml |
