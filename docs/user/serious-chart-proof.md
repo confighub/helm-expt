@@ -52,6 +52,12 @@ explicitly, the config-only path can converge in the tested local targets. That
 does not make certificate rotation or CRD upgrade policy automatic. It proves
 the target contract can be made visible, staged, observed, and bounded.
 
+That is the important part of the proof. YAML/render parity is the baseline.
+kube-prometheus-stack is useful because it forces the hidden install contract
+into the open: which CRDs are owned by the package, which CRDs are target facts,
+which admission certificate material is generated or staged, which evidence is
+live, and which claims remain per-target.
+
 ## Why This Matters
 
 Small charts can make the catalog look easy. kube-prometheus-stack tests the
@@ -109,6 +115,12 @@ Check the live CRD upgrade rehearsal:
 
 ```sh
 npm run kps:crd-upgrade-live:verify
+```
+
+Check the staged CRD and webhook certificate evidence:
+
+```sh
+npm run webhook-cert:lifecycle:verify
 ```
 
 Check the current production-support artifacts:

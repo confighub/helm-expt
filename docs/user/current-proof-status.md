@@ -164,6 +164,12 @@ checks that rendered YAML alone cannot prove:
 
 [Cert-Manager And External Secrets Lifecycle Observations](../../data/lifecycle-observations/cert-manager-eso/summary.md)
 
+The webhook certificate lifecycle summary tracks staged generated certificate
+material and staged CRDs for bases where render parity is not enough to prove
+the install contract:
+
+[Webhook Certificate Lifecycle Evidence](../../data/webhook-cert-lifecycle/summary.md)
+
 The cub-scout live witness watchlist records cases where ordinary live checks
 pass but strict rendered-object/live parity finds a target capability issue:
 
