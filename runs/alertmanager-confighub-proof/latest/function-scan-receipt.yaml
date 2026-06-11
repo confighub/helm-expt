@@ -1,0 +1,71 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ConfigHubFunctionScanReceipt"
+metadata:
+  name: "alertmanager-function-scan-20260527"
+spec:
+  observedAt: "2026-05-27"
+  context:
+    organization: "Kubara"
+    server: "https://hub.confighub.com"
+    space: "helm-alertmanager-confighub-proof"
+    selector: "Labels.Proof = 'alertmanager-confighub-proof'"
+  subject:
+    chart: "prometheus-community/alertmanager"
+    chartVersion: "1.37.0"
+    packagePath: "packages/prometheus-community/alertmanager/1.37.0"
+    variant: "default"
+    configHubUnitCount: 6
+  unitRevisionBindings:
+    -
+      slug: "configmap-default-alertmanager"
+      headRevisionNum: 1
+      dataHash: "d1c6e1d172e30cfe331470069d0dedf144b7e49ac4b45af569113d2ab2b4928c"
+    -
+      slug: "namespace-default"
+      headRevisionNum: 1
+      dataHash: "933b135fc165c49bab289ed9fb14eec1492f82344b8cc2354251311fc791289c"
+    -
+      slug: "serviceaccount-default-alertmanager"
+      headRevisionNum: 1
+      dataHash: "8cc9dfc036d628d8d6ab3697ed2af1d45fe217272bab812355800781e4df085f"
+    -
+      slug: "service-default-alertmanager"
+      headRevisionNum: 2
+      dataHash: "0c862b9dcb0962d74d94172b47a45bdb6c0795cbe07fefc65f1ad1a2e2de7acf"
+    -
+      slug: "service-default-alertmanager-headless"
+      headRevisionNum: 2
+      dataHash: "251edfb26772b6ecef00ddbf1d9e3c75b64a0733e7fd444f0425f4cf8f895236"
+    -
+      slug: "statefulset-default-alertmanager"
+      headRevisionNum: 2
+      dataHash: "389002c8b404d00f5adcc8166f981e98b3d8a69e57f975d43b1adb3b6cec4bad"
+  validations:
+    -
+      function: "vet-format"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 6
+      failedUnits: 0
+    -
+      function: "vet-placeholders"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 6
+      failedUnits: 0
+    -
+      function: "vet-merge-keys"
+      toolchain: "Kubernetes/YAML"
+      hermetic: true
+      idempotent: true
+      result: "pass"
+      scannedUnits: 6
+      failedUnits: 0
+  result: "pass"
+  limitations:
+    - "This is a ConfigHub-native validation receipt, not a full external vulnerability scan."
+    - "Production readiness still depends on policy disposition in the recipe scan and install gate."
