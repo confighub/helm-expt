@@ -13,7 +13,7 @@ chart/base rows:                     189
 complete core lane rows:             20/189
 render parity rows:                  189/189
 in-ConfigHub proof rows:             20/189
-local live rows:                     127/189
+local live rows:                     129/189
 GitOps/OCI live pass rows:           23/189
 GitOps/OCI non-pass receipts:        6
 live Helm-vs-ConfigHub pass rows:    20/189
@@ -72,7 +72,7 @@ related lifecycle observations:      4/4
 | `grafana/tempo@1.24.4` | local-persistent;s3-query-observability | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (tempo single-binary chart; HA is the separate tempo-distributed chart) |
 | `hashicorp/consul@2.0.0` | default-control-plane;secure-mesh-existing-secrets | yes | 1/2 | 1/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `hashicorp/vault@0.32.0` | dev-mode;default;ha-raft-ui | yes | 1/3 | 2/3 | 1/3 | 1/3 | 3/3 | - |
-| `ingress-nginx/ingress-nginx@4.15.1` | default;admission-disabled;internal-clusterip | yes | 1/3 | 2/3 | 1/3 | 1/3 | 3/3 | - |
+| `ingress-nginx/ingress-nginx@4.15.1` | default;admission-disabled;internal-clusterip | yes | 1/3 | 3/3 | 1/3 | 1/3 | 3/3 | - |
 | `jetstack/cert-manager@v1.20.2` | default;crds-enabled | no | 1/2 | 2/2 | 1/2 | 1/2 | 1/2 | - |
 | `longhorn/longhorn@1.11.2` | default;ui-ingress | yes | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | - |
 | `metrics-server/metrics-server@3.13.0` | default;external-tls-ca | yes | 1/2 | 2/2 | 1/2 | 1/2 | 2/2 | existing-secret (chart ships no Secret toggle) |

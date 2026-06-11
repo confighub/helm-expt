@@ -74,7 +74,7 @@ function readme(rows) {
     ["I want the top-100 or top-500 planning picture.", "data/top100-readiness/summary.md; data/top100-readiness/next80-queues.md; data/top500-catalog-analysis/review.csv"],
     ["I want live parity status.", "data/live-kind-parity/summary.md; data/live-helm-confighub-compare/summary.md"],
     ["I want to understand local live non-pass rows.", "data/local-live-triage/summary.md; data/local-live-triage/triage.csv"],
-    ["I want hook, APIService, CRD, webhook, or lifecycle status.", "data/hook-coverage/summary.md; data/apiservice-coverage/summary.md; data/apiservice-coverage/work-orders.md; data/lifecycle-boundary/summary.md; data/outcome-coverage/feature-outcomes.csv"],
+    ["I want hook, APIService, CRD, webhook, or lifecycle status.", "data/hook-coverage/summary.md; data/apiservice-coverage/summary.md; data/apiservice-coverage/work-orders.md; data/lifecycle-boundary/summary.md; data/webhook-cert-lifecycle/summary.md; data/outcome-coverage/feature-outcomes.csv"],
     ["I want candidate routes for hook-bearing source charts.", "data/hook-route-candidates/summary.md; data/hook-route-candidates/candidates.csv; data/hook-route-candidates/work-orders.md"],
     ["I want extension-slot or custom-config risk.", "data/extension-slots/summary.md; data/nginx-config-checks/summary.md"],
     ["I want production support status and next actions.", "data/status-dashboard/next-work-queues.csv; data/production-support-decisions/summary.md; data/production-support-decisions/work-items.csv; data/production-support-decisions/decisions.csv; data/hard-chart-production-packets/summary.md"],
@@ -102,6 +102,7 @@ function readme(rows) {
     ["data/extension-slots/extension-slots.csv", "One row per chart with NGINX-like extension slots: scope, built variants, surfaces, route, evidence."],
     ["data/nginx-config-checks/checks.csv", "NGINX supported-base checks for empty config extension slots, sidecars, metrics, raw objects, and ingress shape."],
     ["data/lifecycle-boundary/summary.md", "Hook and hook-like lifecycle boundary: hook queue rows, lifecycle observations, evidence, and current limits."],
+    ["data/webhook-cert-lifecycle/summary.md", "Webhook certificate lifecycle evidence: rows where explicit staged certificate material makes a local live workload converge."],
     ["data/hook-coverage/summary.md", "Top-100 hook coverage bridge: joins source-scan hook rows to maintained hook lifecycle rows and candidate route plans."],
     ["data/apiservice-coverage/summary.md", "Top-100 APIService coverage bridge: separates rendered APIService object evidence from aggregated API availability evidence."],
     ["data/apiservice-coverage/work-orders.md", "Assignable APIService proof-wave work orders: KEDA first, source-only import rows next, and Metrics Server keep-fresh pattern."],
@@ -325,6 +326,7 @@ function audienceFor(path) {
   if (path.startsWith("data/hook-coverage/")) return "user/front-door";
   if (path.startsWith("data/apiservice-coverage/")) return "user/front-door";
   if (path.startsWith("data/lifecycle-boundary/")) return "user/front-door";
+  if (path.startsWith("data/webhook-cert-lifecycle/")) return "user/front-door";
   if (path.startsWith("data/high-fanout-demo/")) return "user/front-door";
   if (path.startsWith("data/edge-recovery/")) return "corpus";
   if (path.includes("lane-test") || path.includes("live") || path.includes("runtime") || path.includes("derived-variant-target-bound")) return "verification";
@@ -383,6 +385,7 @@ function roleFor(path) {
   if (path === "data/extension-slots/extension-slots.csv") return "one row per chart with NGINX-like extension slots and the route for populated slots";
   if (path === "data/nginx-config-checks/checks.csv") return "NGINX supported-base checks for config extension slots and rendered object shape";
   if (path === "data/lifecycle-boundary/lifecycle-boundary.csv") return "one row per hook queue item or hook-like lifecycle observation";
+  if (path === "data/webhook-cert-lifecycle/evidence.csv") return "one row per staged webhook certificate route: Secret, paired live observation, and proof boundary";
   if (path === "data/hook-coverage/top100-hook-coverage.csv") return "one row per source top-100 hook chart joined to maintained lifecycle coverage or candidate route coverage";
   if (path === "data/apiservice-coverage/top100-apiservice-coverage.csv") return "one row per source top-100 APIService chart: source signal, modeled status, object/workload evidence, parity evidence, aggregation evidence, and next action";
   if (path === "data/hook-route-candidates/candidates.csv") return "one row per source-top-100 hook route candidate: pattern, dependency source, candidate route, and promotion step";
@@ -443,6 +446,7 @@ function familyRole(family) {
     "extension-slots": "NGINX-like extension-slot coverage and routing",
     "nginx-config-checks": "NGINX supported-base config extension checks",
     "lifecycle-boundary": "hook queue and hook-like lifecycle observation boundary",
+    "webhook-cert-lifecycle": "webhook serving certificate lifecycle evidence and proof boundaries",
     "hook-coverage": "top-100 source hook coverage joined across maintained lifecycle rows and candidate route plans",
     "apiservice-coverage": "top-100 APIService coverage joined across source scan, modeled recipe rows, parity evidence, and runtime observations",
     "high-fanout-demo": "Prometheus base-variant fanout and prerequisite example",
@@ -544,6 +548,7 @@ function commandMap() {
     "extension-slots": { generate: "npm run extension-slots", verify: "npm run extension-slots:verify" },
     "nginx-config-checks": { generate: "npm run nginx:config-checks", verify: "npm run nginx:config-checks:verify" },
     "lifecycle-boundary": { generate: "npm run lifecycle:boundary", verify: "npm run lifecycle:boundary:verify" },
+    "webhook-cert-lifecycle": { generate: "npm run webhook-cert:lifecycle", verify: "npm run webhook-cert:lifecycle:verify" },
     "high-fanout-demo": { generate: "npm run high-fanout:generate", verify: "npm run high-fanout:verify" },
     "data-index": { generate: "npm run data:index", verify: "npm run data:index:verify" },
     adversarial10: { generate: "npm run adversarial10:generate", verify: "npm run adversarial10:verify" },

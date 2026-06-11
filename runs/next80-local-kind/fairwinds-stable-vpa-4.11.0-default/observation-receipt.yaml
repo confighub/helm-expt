@@ -11,18 +11,18 @@ spec:
     method: "kubectl-kind"
   target:
     kind: "kind"
-    name: "claude-helm-expt-codex-vpa"
-    context: "kind-claude-helm-expt-codex-vpa"
+    name: "claude-helm-expt-codex-cert-vpa"
+    context: "kind-claude-helm-expt-codex-cert-vpa"
     namespace: "default"
-  observedAt: "2026-06-11T12:04:22.744Z"
+  observedAt: "2026-06-11T17:59:31.787Z"
   freshnessTTL: "1h"
-  result: "blocked"
-  clusterStatus: "created-by-test"
+  result: "pass"
+  clusterStatus: "existing"
   variant: "default"
   workloads: 3
   kubectlObjects:
     path: "observed-objects.yaml"
-    sha256: "eb4be8654c9cbe42c43f90b00ed8ee27c0bcadf3567ce470c89d40872b5a9135"
+    sha256: "29531fafc18ac6d94bb6aceeab6d344b6e9423616f4ec0f4861c3570a0297dd4"
   checks:
     -
       name: "crds-applied-and-established"
@@ -34,9 +34,8 @@ spec:
       object: "28 object(s) from recipes/fairwinds-stable/vpa/4.11.0/revisions/default/r001/rendered/release-objects.yaml"
     -
       name: "workload-converged"
-      result: "blocked"
+      result: "pass"
       object: "Deployment|default|vpa-admission-controller"
-      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): vpa-admission-controller-5894d5d68b-cdd9k[ContainerCreating ready=false restarts=0;] vpa-recommender-6f8f7c9979-zn8tx[ ready=true restarts=0;] vpa-updater-5478968bdf-m5xgx[ ready=true restarts=0;]"
     -
       name: "workload-converged"
       result: "pass"
@@ -45,5 +44,3 @@ spec:
       name: "workload-converged"
       result: "pass"
       object: "Deployment|default|vpa-updater"
-  blockedReasons:
-    - "deployment/vpa-admission-controller: prerequisite-blocked (stuck creating: missing mount/secret/config) (vpa-admission-controller-5894d5d68b-cdd9k[ContainerCreating ready=false restarts=0;] vpa-recommender-6f8f7c9979-zn8tx[ ready=true restarts=0;] vpa-updater-54789)"

@@ -40,7 +40,7 @@ smallest generated surface that answers it.
 | I want the top-100 or top-500 planning picture. | [top100-readiness/summary.md](./top100-readiness/summary.md)<br>[top100-readiness/next80-queues.md](./top100-readiness/next80-queues.md)<br>[top500-catalog-analysis/review.csv](./top500-catalog-analysis/review.csv) |
 | I want live parity status. | [live-kind-parity/summary.md](./live-kind-parity/summary.md)<br>[live-helm-confighub-compare/summary.md](./live-helm-confighub-compare/summary.md) |
 | I want to understand local live non-pass rows. | [local-live-triage/summary.md](./local-live-triage/summary.md)<br>[local-live-triage/triage.csv](./local-live-triage/triage.csv) |
-| I want hook, APIService, CRD, webhook, or lifecycle status. | [hook-coverage/summary.md](./hook-coverage/summary.md)<br>[apiservice-coverage/summary.md](./apiservice-coverage/summary.md)<br>[apiservice-coverage/work-orders.md](./apiservice-coverage/work-orders.md)<br>[lifecycle-boundary/summary.md](./lifecycle-boundary/summary.md)<br>[outcome-coverage/feature-outcomes.csv](./outcome-coverage/feature-outcomes.csv) |
+| I want hook, APIService, CRD, webhook, or lifecycle status. | [hook-coverage/summary.md](./hook-coverage/summary.md)<br>[apiservice-coverage/summary.md](./apiservice-coverage/summary.md)<br>[apiservice-coverage/work-orders.md](./apiservice-coverage/work-orders.md)<br>[lifecycle-boundary/summary.md](./lifecycle-boundary/summary.md)<br>[webhook-cert-lifecycle/summary.md](./webhook-cert-lifecycle/summary.md)<br>[outcome-coverage/feature-outcomes.csv](./outcome-coverage/feature-outcomes.csv) |
 | I want candidate routes for hook-bearing source charts. | [hook-route-candidates/summary.md](./hook-route-candidates/summary.md)<br>[hook-route-candidates/candidates.csv](./hook-route-candidates/candidates.csv)<br>[hook-route-candidates/work-orders.md](./hook-route-candidates/work-orders.md) |
 | I want extension-slot or custom-config risk. | [extension-slots/summary.md](./extension-slots/summary.md)<br>[nginx-config-checks/summary.md](./nginx-config-checks/summary.md) |
 | I want production support status and next actions. | [status-dashboard/next-work-queues.csv](./status-dashboard/next-work-queues.csv)<br>[production-support-decisions/summary.md](./production-support-decisions/summary.md)<br>[production-support-decisions/work-items.csv](./production-support-decisions/work-items.csv)<br>[production-support-decisions/decisions.csv](./production-support-decisions/decisions.csv)<br>[hard-chart-production-packets/summary.md](./hard-chart-production-packets/summary.md) |
@@ -71,6 +71,7 @@ smallest generated surface that answers it.
 | [extension-slots/extension-slots.csv](./extension-slots/extension-slots.csv) | One row per chart with NGINX-like extension slots: scope, built variants, surfaces, route, evidence. |
 | [nginx-config-checks/checks.csv](./nginx-config-checks/checks.csv) | NGINX supported-base checks for empty config extension slots, sidecars, metrics, raw objects, and ingress shape. |
 | [lifecycle-boundary/summary.md](./lifecycle-boundary/summary.md) | Hook and hook-like lifecycle boundary: hook queue rows, lifecycle observations, evidence, and current limits. |
+| [webhook-cert-lifecycle/summary.md](./webhook-cert-lifecycle/summary.md) | Webhook certificate lifecycle evidence: rows where explicit staged certificate material makes a local live workload converge. |
 | [hook-coverage/summary.md](./hook-coverage/summary.md) | Top-100 hook coverage bridge: joins source-scan hook rows to maintained hook lifecycle rows and candidate route plans. |
 | [apiservice-coverage/summary.md](./apiservice-coverage/summary.md) | Top-100 APIService coverage bridge: separates rendered APIService object evidence from aggregated API availability evidence. |
 | [apiservice-coverage/work-orders.md](./apiservice-coverage/work-orders.md) | Assignable APIService proof-wave work orders: KEDA first, source-only import rows next, and Metrics Server keep-fresh pattern. |
@@ -268,6 +269,7 @@ Use `npm run verify` only as the broad release gate after scoped checks pass.
 | `variant-backlog` | [variant-backlog/summary.md](./variant-backlog/summary.md) | candidate base-variant expansion backlog |
 | `variant-goldens` | - | golden work orders for derived-variant examples |
 | `variant-path-coverage` | [variant-path-coverage/summary.md](./variant-path-coverage/summary.md) | chart/base/path proof status matrix |
+| `webhook-cert-lifecycle` | [webhook-cert-lifecycle/summary.md](./webhook-cert-lifecycle/summary.md) | webhook serving certificate lifecycle evidence and proof boundaries |
 
 ## Every CSV
 
@@ -277,7 +279,7 @@ The complete CSV list is generated at:
 data/csv-index.csv
 ~~~
 
-It includes 119 CSV files. Each row records the path, audience,
+It includes 120 CSV files. Each row records the path, audience,
 purpose, summary, and regenerate/verify command where known.
 
 ## Regeneration

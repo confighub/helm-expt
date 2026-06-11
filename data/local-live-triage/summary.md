@@ -10,9 +10,9 @@ clear without turning every non-pass row into a product defect.
 ~~~text
 chart/base rows:          189
 local live observed rows: 189
-local live pass rows:     127
-local live non-pass rows: 62
-classified non-pass rows: 62
+local live pass rows:     129
+local live non-pass rows: 60
+classified non-pass rows: 60
 needs manual inspection:  0
 ~~~
 
@@ -21,7 +21,7 @@ needs manual inspection:  0
 | Route class | Rows | Meaning | Next action |
 | --- | ---: | --- | --- |
 | `runtime-readiness` | 25 | The objects applied, but a controller or workload did not become healthy in the observation budget. | Inspect pod logs/events, decide whether the issue is target policy, lifecycle, chart configuration, or a better base, then rerun. |
-| `webhook-cert-lifecycle` | 14 | A webhook or admission controller needs certificate material or a cert-generation lifecycle step before the workload can become ready. | Model the serving certificate as a generated fact, target fact, cert-manager dependency, preflight, or explicit lifecycle action, then rerun. |
+| `webhook-cert-lifecycle` | 12 | A webhook or admission controller needs certificate material or a cert-generation lifecycle step before the workload can become ready. | Model the serving certificate as a generated fact, target fact, cert-manager dependency, preflight, or explicit lifecycle action, then rerun. |
 | `target-prerequisite` | 9 | The workload reached Kubernetes but one or more pods were waiting for target-provided config, mounts, certificates, or setup. | Turn the missing target condition into a target fact, preflight, lifecycle route, or better base variant. |
 | `image-dependency` | 6 | The target could not pull at least one rendered image, so the row is testing image availability rather than ConfigHub parity. | Pin, mirror, override, or document the image dependency, then rerun against a target that can pull it. |
 | `admission-or-rbac` | 3 | Kubernetes rejected an object because of permissions, admission, immutability, or API validation. | Decide whether the base needs a permission/admission preflight, a different target scope, or a rejected support boundary. |
