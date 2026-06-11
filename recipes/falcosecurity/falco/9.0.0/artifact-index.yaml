@@ -59,7 +59,7 @@ spec:
       localLive: "0/1"
       gitopsLive: "0/1"
       liveParity: "0/1"
-    featureSummary: "required-values;extension-slots"
+    featureSummary: "required-values;extension-slots;remote-dependencies"
     hardGap: "-"
     nextAction: "add at least one user-shaped variant before catalog promotion"
   installerPackage:

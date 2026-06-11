@@ -32,7 +32,7 @@ for exact base-variant evidence.
 | User status | catalog-supported-with-live-evidence |
 | Strongest evidence | live-helm-vs-confighub-parity |
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 1/2; live parity 1/2 |
-| Feature summary | hooks;generated-secrets;crds;webhooks;required-values;install-vs-upgrade;extension-slots |
+| Feature summary | hooks;generated-secrets;crds;webhooks;required-values;install-vs-upgrade;extension-slots;remote-dependencies;dependency-range-frozen |
 | Hard gap | existing-secret (chart ships no Secret toggle) |
 | Next action | choose the supported production base, then record explicit security acceptance or create a hardened base before claiming production support |
 

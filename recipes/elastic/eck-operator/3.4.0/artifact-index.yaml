@@ -64,7 +64,7 @@ spec:
       localLive: "0/3"
       gitopsLive: "0/3"
       liveParity: "0/3"
-    featureSummary: "crds;webhooks;required-values;extension-slots"
+    featureSummary: "crds;webhooks;required-values;extension-slots;remote-dependencies"
     hardGap: "-"
     nextAction: "run catalog promotion review"
   installerPackage:

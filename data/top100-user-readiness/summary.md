@@ -21,7 +21,7 @@ One row per top-100 chart, in Helm-user language: can I try it, what must I prov
 
 | Chart | First base | You provide | Next action |
 | --- | --- | --- | --- |
-| argo-cd/argo-cd@9.5.15 | default | a CRD ownership choice (crds vs no-crds base) | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
+| argo-cd/argo-cd@9.5.15 | default | an existing Secret for some bases (buildable — not yet run); a CRD ownership choice (crds vs no-crds base) | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | bitnami/mongodb@19.0.7 | generated-passwords | a StorageClass / storage decision; target facts at variant time; mandatory chart inputs | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
 | bitnami/mysql@14.0.3 | generated-passwords | an existing Secret for some bases (built); a StorageClass / storage decision; target facts at variant time; mandatory chart inputs | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 | bitnami/nginx@24.0.2 | http-clusterip | an existing Secret for some bases (NOT built - chart ships no Secret toggle); target facts at variant time | choose the supported production base and target scope, refresh live/e2e evidence, and record the final support decision |

@@ -23,9 +23,11 @@ source-only rows without a maintained recipe:                   30/49
 locked rows with dependencies but no Chart.lock digest:          11/49
 non-exact dependency rows frozen to Chart.lock:                  4/49
 frozen range rows with refresh-survival evidence:                4/4
-P0:                                                             33
-P1:                                                             14
-P2:                                                             2
+P0 source rows:                                                  33
+active P0 work rows:                                             25
+keep-current rows:                                               8
+P1 source rows:                                                  14
+P2 source rows:                                                  2
 ~~~
 
 ## Closure Status
@@ -42,32 +44,32 @@ P2:                                                             2
 | --- | ---: | --- | --- |
 | `create-recipe-import-candidate` | 30 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer | recipe candidate exists with source lock, dependency lock, first base variant, render parity, and an explicit catalog decision |
 | `chart-lock-digest` | 11 | record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived | dependency lock records a Chart.lock digest or explains the source of the locked dependency list |
-| `promote-closure-facts` | 8 | promote dependency closure facts into chart facts and keep refresh-survival evidence current | chart facts and status surfaces expose dependency closure, remote repositories, and refresh-survival expectation |
+| `keep-current` | 8 | keep dependency lock evidence current with the supported recipe version | dependency evidence is still current for the supported recipe version |
 
-## Highest Priority Rows
+## Highest Priority Active Work Rows
 
-| Source rank | Chart | Lock status | Locked dependencies | Next action |
-| ---: | --- | --- | ---: | --- |
-| 1 | `prometheus-community/kube-prometheus-stack@85.3.0` | `modeled-version-lock-present` | 5 | promote dependency closure facts into chart facts and keep refresh-survival evidence current |
-| 4 | `argo/argo-cd@9.5.15` | `source-version-lock-present` | 1 | promote dependency closure facts into chart facts and keep refresh-survival evidence current |
-| 5 | `prometheus-community/prometheus@29.8.0` | `source-version-lock-present` | 4 | promote dependency closure facts into chart facts and keep refresh-survival evidence current |
-| 6 | `bitnami/redis@25.5.3` | `source-version-lock-present` | 1 | record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived |
-| 7 | `bitnami/postgresql@18.6.7` | `source-version-lock-present` | 1 | record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived |
-| 9 | `k8s-dashboard/kubernetes-dashboard@7.14.0` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
-| 10 | `grafana/loki@7.0.0` | `source-version-lock-present` | 3 | promote dependency closure facts into chart facts and keep refresh-survival evidence current |
-| 13 | `gitlab/gitlab@10.0.0` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
-| 15 | `bitnami/keycloak@25.2.0` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
-| 17 | `external-secrets-operator/external-secrets@2.5.0` | `source-version-lock-present` | 1 | promote dependency closure facts into chart facts and keep refresh-survival evidence current |
-| 20 | `bitnami/rabbitmq@16.0.14` | `source-version-lock-present` | 1 | promote dependency closure facts into chart facts and keep refresh-survival evidence current |
-| 23 | `bitnami/kafka@32.4.3` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
-| 24 | `bitnami/mysql@14.0.3` | `source-version-lock-present` | 1 | promote dependency closure facts into chart facts and keep refresh-survival evidence current |
-| 25 | `bitnami/external-dns@9.0.3` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
-| 26 | `apache-airflow/airflow@1.21.0` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
-| 28 | `bitnami/mongodb@19.0.3` | `modeled-version-lock-present` | 1 | record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived |
-| 29 | `nextcloud/nextcloud@9.1.0` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
-| 32 | `bitnami/minio@17.0.21` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
-| 34 | `metallb/metallb@0.16.0` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
-| 38 | `kyverno/kyverno@3.8.1` | `source-version-lock-present` | 5 | record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived |
+| Source rank | Chart | Workstream | Lock status | Locked dependencies | Next action |
+| ---: | --- | --- | --- | ---: | --- |
+| 6 | `bitnami/redis@25.5.3` | `chart-lock-digest` | `source-version-lock-present` | 1 | record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived |
+| 7 | `bitnami/postgresql@18.6.7` | `chart-lock-digest` | `source-version-lock-present` | 1 | record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived |
+| 9 | `k8s-dashboard/kubernetes-dashboard@7.14.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 13 | `gitlab/gitlab@10.0.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 15 | `bitnami/keycloak@25.2.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 23 | `bitnami/kafka@32.4.3` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 25 | `bitnami/external-dns@9.0.3` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 26 | `apache-airflow/airflow@1.21.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 28 | `bitnami/mongodb@19.0.3` | `chart-lock-digest` | `modeled-version-lock-present` | 1 | record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived |
+| 29 | `nextcloud/nextcloud@9.1.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 32 | `bitnami/minio@17.0.21` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 34 | `metallb/metallb@0.16.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 38 | `kyverno/kyverno@3.8.1` | `chart-lock-digest` | `source-version-lock-present` | 5 | record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived |
+| 39 | `gitea/gitea@12.6.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 40 | `sonarqube/sonarqube@2026.3.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 41 | `cloudnative-pg/cloudnative-pg@0.28.2` | `chart-lock-digest` | `source-version-lock-present` | 1 | record Chart.lock digest or explain why the dependency lock is source-derived rather than Chart.lock-derived |
+| 43 | `datadog/datadog@3.214.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 44 | `bitnami/thanos@17.3.1` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 46 | `oauth2-proxy/oauth2-proxy@10.6.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
+| 47 | `bitnami/wordpress@31.0.0` | `create-recipe-import-candidate` | `source-only-no-maintained-recipe` | 0 | create recipe/import candidate and write dependency-lock.yaml before treating the chart as a catalog offer |
 
 ## Most Common Locked Repositories
 

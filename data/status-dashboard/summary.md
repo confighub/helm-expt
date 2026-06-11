@@ -88,7 +88,7 @@ Which detailed CSV should I open next?
 | quirks | P0 source quirk work queue rows | 51/95 | gap | [data/quirk-work-queue/top100-queue.csv](../../data/quirk-work-queue/top100-queue.csv) |
 | quirks | hard proof gap shortlist rows | 25/51 | gap | [data/hard-proof-gaps/shortlist.csv](../../data/hard-proof-gaps/shortlist.csv) |
 | remote dependencies | top100 dependency-risk rows with maintained locks | 19/49 | partial | [data/remote-dependency-closure/top100.csv](../../data/remote-dependency-closure/top100.csv) |
-| remote dependencies | P0 dependency closure work rows | 33/49 | gap | [data/remote-dependency-closure/top100.csv](../../data/remote-dependency-closure/top100.csv) |
+| remote dependencies | active P0 dependency closure work rows | 25/49 | gap | [data/remote-dependency-closure/top100.csv](../../data/remote-dependency-closure/top100.csv) |
 | extension slots | top20 charts with extension slots | 13/20 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
 | extension slots | top100 charts with extension slots | 82/100 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
 | extension slots | top500 source rows using tpl | 362/500 | partial | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
@@ -130,10 +130,10 @@ quirks, dependency closure, or hook routing could damage trust if overclaimed.
 | Queue | Rows | Next action |
 | --- | ---: | --- |
 | Shortlist | 25 | Assign the first rows to modeled facts, route receipts, runtime observations, better bases, or explicit blockers. |
-| Catalog-visible hard gaps | 8 | Handle visible catalog rows first so public claims stay narrow and backed. |
+| Catalog-visible hard gaps | 6 | Handle visible catalog rows first so public claims stay narrow and backed. |
 | Hook-route hard gaps | 8 | Promote candidate routes into maintained receipts, runtime observations, or explicit blockers. |
-| Remote dependency hard gaps | 24 | Close dependency provenance and refresh-survival facts before stronger catalog claims. |
-| APIService hard gaps | 2 | Add APIService readiness modeling and runtime observation routes. |
+| Remote dependency hard gaps | 21 | Close dependency provenance and refresh-survival facts before stronger catalog claims. |
+| APIService hard gaps | 3 | Add APIService readiness modeling and runtime observation routes. |
 
 ### Remote Dependency Closure Work
 
@@ -146,7 +146,7 @@ pull remote, vendored, or non-exact dependencies.
 | Add dependency locks | 0 | Add dependency-lock.yaml or record that the dependency closure is intentionally empty. |
 | Record dependency range policy | 0 | Record non-exact dependency policy and refresh-survival evidence before promotion or upgrade. |
 | Backfill Chart.lock digest | 11 | Record a Chart.lock digest or explain why the dependency lock is source-derived. |
-| Promote closure facts | 8 | Expose dependency closure facts in chart facts and status surfaces. |
+| Promote closure facts | 0 | Expose dependency closure facts in chart facts and status surfaces. |
 
 ### Top20 Production Support Work
 

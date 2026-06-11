@@ -32,7 +32,7 @@ for exact base-variant evidence.
 | User status | catalog-supported-with-live-evidence |
 | Strongest evidence | live-helm-vs-confighub-parity |
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 2/2; live parity 1/2 |
-| Feature summary | generated-secrets;required-values;install-vs-upgrade |
+| Feature summary | generated-secrets;required-values;install-vs-upgrade;remote-dependencies |
 | Hard gap | ha (curated proof lane - bespoke teaching needed) |
 | Next action | record the target-scoped lifecycle support decision, then refresh live/e2e evidence for that scope |
 

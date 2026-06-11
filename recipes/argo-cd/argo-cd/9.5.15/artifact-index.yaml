@@ -60,7 +60,7 @@ spec:
       localLive: "1/2"
       gitopsLive: "1/2"
       liveParity: "1/2"
-    featureSummary: "crds;extension-slots"
+    featureSummary: "crds;extension-slots;remote-dependencies"
     hardGap: "ha (curated proof lane - bespoke teaching needed)"
     nextAction: "image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes"
   installerPackage:

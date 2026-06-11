@@ -59,7 +59,7 @@ spec:
       localLive: "0/2"
       gitopsLive: "0/2"
       liveParity: "0/2"
-    featureSummary: "crds;required-values;extension-slots"
+    featureSummary: "crds;required-values;extension-slots;remote-dependencies"
     hardGap: "-"
     nextAction: "run catalog promotion review"
   installerPackage:

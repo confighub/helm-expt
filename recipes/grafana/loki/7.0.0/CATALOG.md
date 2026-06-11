@@ -32,7 +32,7 @@ for exact base-variant evidence.
 | User status | catalog-supported-with-live-evidence |
 | Strongest evidence | live-helm-vs-confighub-parity |
 | Proof lanes | render parity 2/2; ConfigHub 1/2; local live 1/2; GitOps live 1/2; live parity 1/2 |
-| Feature summary | generated-secrets;crds;webhooks;required-values;values-schema;extension-slots |
+| Feature summary | generated-secrets;crds;webhooks;required-values;values-schema;extension-slots;remote-dependencies |
 | Hard gap | - |
 | Next action | image policy decision recorded for a target scope; create digest-pinned bases or overrides for stricter scopes |
 
