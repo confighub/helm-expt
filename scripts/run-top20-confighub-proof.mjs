@@ -28,6 +28,7 @@ const all = args.includes("--all");
 const cleanupSpaces = args.includes("--cleanup-spaces");
 const latestCandidates = args.includes("--latest-candidates");
 const chartsArg = optionValue("--charts");
+const baseOverride = optionValue("--base");
 const smoke = args.includes("--smoke");
 const proofDate = process.env.PROOF_DATE ?? "2026-05-27";
 const proofDateCompact = proofDate.replaceAll("-", "");
@@ -54,6 +55,7 @@ function usage() {
   console.log(`Usage:
   node scripts/run-top20-confighub-proof.mjs
   node scripts/run-top20-confighub-proof.mjs --charts ingress-nginx,rabbitmq
+  node scripts/run-top20-confighub-proof.mjs --charts kube-prometheus-stack --base no-crds --cleanup-spaces
   node scripts/run-top20-confighub-proof.mjs --all --force
   node scripts/run-top20-confighub-proof.mjs --latest-candidates --charts nginx --cleanup-spaces
   node scripts/run-top20-confighub-proof.mjs --cleanup-spaces
@@ -61,6 +63,8 @@ function usage() {
 Default: run top-20 charts whose ConfigHub proof receipt is missing.
 --latest-candidates runs against generated latest-version candidate packages
 under data/latest-top20-refresh/candidates/.
+--base selects one explicit package base for one selected chart and writes a
+base-specific proof run without replacing the chart's default proof receipt.
 --cleanup-spaces deletes the live proof spaces after receipts are written so
 large chart runs can stay inside the demo org quota.
 --smoke selects the first missing chart only.`);
@@ -97,7 +101,30 @@ function selectCharts() {
   } else {
     charts = sourceCharts.filter((chart) => force || !existsSync(configHubProofReceiptPath(chart)));
   }
-  return smoke ? charts.slice(0, 1) : charts;
+  charts = smoke ? charts.slice(0, 1) : charts;
+  if (baseOverride) {
+    check(charts.length === 1, "--base requires exactly one selected chart");
+    charts = [withBaseOverride(charts[0], baseOverride)];
+  }
+  return charts;
+}
+
+function withBaseOverride(chart, base) {
+  const baseSlug = versionSlug(base);
+  return {
+    ...chart,
+    defaultBase: base,
+    runRoot: join("runs", `${chart.slug}-${baseSlug}-confighub-proof`, "latest"),
+    workDir: join(".tmp", "confighub-proof", `${chart.slug}-${baseSlug}`),
+    archiveRoot: join(".tmp", "confighub-proof", `${chart.slug}-${baseSlug}-archives`),
+    space: `helm-${chart.slug}-${baseSlug}-confighub-proof`,
+    stagingSpace: `${chart.component}-${baseSlug}-staging`,
+    spaceNamePattern: `template:${chart.component}-${baseSlug}-{{.Labels.Variant}}`,
+    proofLabel: `${chart.slug}-${baseSlug}-confighub-proof`,
+    skipDemoDocs: true,
+    baseOverride: true,
+    postUploadPlanTimeoutMs: 60_000,
+  };
 }
 
 function latestCandidateCharts() {
@@ -254,29 +281,30 @@ function runChart(chart) {
   const postPlanRun = run("cub", ["installer", "plan", "--work-dir", relativeRepo(workDir)], {
     logRoot,
     name: "09-install-plan-post-upload",
+    allowFailure: Boolean(chart.baseOverride),
+    timeout: chart.postUploadPlanTimeoutMs,
   });
-  check(postPlanRun.status === 0, `${chart.slug} post-upload cub installer plan failed`);
+  if (!chart.baseOverride) {
+    check(postPlanRun.status === 0, `${chart.slug} post-upload cub installer plan failed`);
+  }
 
-  const variantRun = run(
-    "cub",
-    [
-      "variant",
-      "create",
-      stagingVariant,
-      space,
-      "--environment",
-      "Staging",
-      "--region",
-      "local",
-      "--space-name-pattern",
-      spaceNamePattern,
-      "--allow-exists",
-      "--wait",
-      "--timeout",
-      "10m",
-    ],
-    { logRoot, name: "10-variant-create" },
-  );
+  const variantArgs = [
+    "variant",
+    "create",
+    stagingVariant,
+    space,
+    "--environment",
+    "Staging",
+    "--region",
+    "local",
+    "--space-name-pattern",
+    spaceNamePattern,
+    "--allow-exists",
+    "--wait",
+    "--timeout",
+    "10m",
+  ];
+  const variantRun = run("cub", variantArgs, { logRoot, name: "10-variant-create" });
   check(variantRun.status === 0, `${chart.slug} cub variant create failed`);
 
   const proofUnits = unitList(space, selector, logRoot, "11-unit-list-proof");
@@ -374,23 +402,11 @@ function runChart(chart) {
           result: prePlanRun.status === 0 ? "pass" : "expected-missing-upload-state",
         },
         command: "cub installer plan --work-dir " + relativeRepo(workDir),
-        result: "pass",
-        summary: shortSummary(postPlanRun.stdout),
+        result: postPlanRun.status === 0 ? "pass" : postPlanRun.timedOut ? "timeout" : "fail",
+        summary: shortSummary(postPlanRun.stdout || postPlanRun.stderr || ""),
       },
       serverSideVariant: {
-        command: commandText("cub", [
-      "variant",
-      "create",
-      stagingVariant,
-      space,
-          "--environment",
-          "Staging",
-          "--region",
-          "local",
-          "--space-name-pattern",
-          spaceNamePattern,
-          "--allow-exists",
-        ]),
+        command: commandText("cub", variantArgs),
         result: "pass",
         upstreamSpace: space,
         downstreamSpace: stagingSpace,
@@ -414,7 +430,7 @@ function runChart(chart) {
             liveSpacesDeletedAfterProof: false,
             spaces: [space, stagingSpace],
           },
-      observedFriction: observedFriction({ separatedSecrets, prePlanRun }),
+      observedFriction: observedFriction({ separatedSecrets, prePlanRun, postPlanRun }),
     },
   };
 
@@ -733,13 +749,14 @@ function chooseRepresentativeUnit(units) {
   return units[0];
 }
 
-function run(command, commandArgs, { logRoot, name, allowFailure = false }) {
+function run(command, commandArgs, { logRoot, name, allowFailure = false, timeout } = {}) {
   mkdirSync(logRoot, { recursive: true });
   const result = spawnSync(command, commandArgs, {
     cwd: repoRoot,
     env: command === "cub" ? commandEnv : process.env,
     encoding: "utf8",
     maxBuffer: 1024 * 1024 * 500,
+    timeout,
   });
   const stdout = result.stdout ?? "";
   const stderr = result.stderr ?? "";
@@ -747,12 +764,13 @@ function run(command, commandArgs, { logRoot, name, allowFailure = false }) {
   writeFileSync(join(logRoot, `${name}.stdout.log`), stdout);
   writeFileSync(join(logRoot, `${name}.stderr.log`), stderr);
   writeFileSync(join(logRoot, `${name}.status.txt`), String(result.status ?? 1));
+  const timedOut = result.error?.code === "ETIMEDOUT" || result.signal === "SIGTERM";
   if (!allowFailure && result.status !== 0) {
     throw new Error(
       `${commandText(command, commandArgs)} failed with status ${result.status}\n${shortSummary(stderr || stdout)}`,
     );
   }
-  return { status: result.status ?? 1, stdout, stderr };
+  return { status: result.status ?? 1, stdout, stderr, timedOut };
 }
 
 function commandText(command, commandArgs) {
@@ -787,10 +805,15 @@ function runContext() {
   };
 }
 
-function observedFriction({ separatedSecrets, prePlanRun }) {
+function observedFriction({ separatedSecrets, prePlanRun, postPlanRun }) {
   const friction = [`cub installer upload needs explicit CUB_CONFIG in this local setup (${cubConfig}).`];
   if (prePlanRun.status !== 0) {
     friction.push("pre-upload cub installer plan is expected to fail until upload state exists.");
+  }
+  if (postPlanRun?.timedOut) {
+    friction.push("post-upload cub installer plan timed out for this base-specific proof run; upload, variant, scan, and safe-ops were still checked.");
+  } else if (postPlanRun && postPlanRun.status !== 0) {
+    friction.push("post-upload cub installer plan did not pass for this base-specific proof run.");
   }
   if (separatedSecrets.length > 0) {
     friction.push("rendered Secret resources are separated from ConfigHub Units and must be managed out-of-band.");
