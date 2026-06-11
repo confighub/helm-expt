@@ -39,27 +39,55 @@ export function runCubScoutLiveReceipts({
 
   const checks = [];
   const failures = [];
-  const cubScoutRenderedPath = prepareCubScoutDesiredManifest(runDir, renderedPath);
+  // With a chain-capable binary (v2.5.0+), normalization moves in-tool via
+  // --normalization-profile and is recorded on the receipt, so the desired
+  // manifest is passed unpruned. Older binaries keep the legacy local prune.
+  const cubScoutRenderedPath = prepareCubScoutDesiredManifest(runDir, renderedPath, {
+    skipPrune: resolved.supportsNormalizationProfile,
+  });
   const cubScoutWorkloadsPath = prepareCubScoutWorkloadManifest(runDir, renderedPath);
   const restore = context ? switchKubeContext(context) : () => {};
+  let canonicalDigest = null;
   try {
     const baseArgs = ["receipt", "verify", "--scope", `namespace/${namespace}`, "--format", "json"];
     const maybeTtl = resolved.supportsTtl ? ["--ttl", ttl] : [];
+    const maybeProfile = resolved.supportsNormalizationProfile
+      ? ["--normalization-profile", "k8s-zero-defaults/v1"]
+      : [];
     const objectSet = runPredicate({
       bin: resolved.bin,
       runDir,
       label: "object-set",
-      args: [...baseArgs, "--file", cubScoutRenderedPath, "--predicate", "object-set-matches", ...maybeTtl],
+      args: [...baseArgs, "--file", cubScoutRenderedPath, "--predicate", "object-set-matches", ...maybeProfile, ...maybeTtl],
     });
     checks.push(checkForPredicate("cub-scout-object-set-matches", objectSet));
     collectFailure(objectSet, failures);
+    // Chain later receipts to the object-set receipt by fingerprint, when the
+    // binary supports chain construction and the receipt exists.
+    const maybeChain =
+      resolved.supportsNormalizationProfile && existsSync(objectSet.receiptPath)
+        ? ["--input-attestation", objectSet.receiptPath]
+        : [];
+
+    if (resolved.supportsNormalizationProfile) {
+      canonicalDigest = computeCanonicalDigest(resolved.bin, runDir, cubScoutRenderedPath, maybeProfile);
+      if (canonicalDigest) {
+        checks.push({
+          name: "cub-scout-canonical-rendered-set-digest",
+          result: "pass",
+          digest: canonicalDigest,
+          evidencePath: "cub-scout.digest.json",
+          evidenceSHA256: sha256File(join(runDir, "cub-scout.digest.json")),
+        });
+      }
+    }
 
     if (resolved.supportsNoExtras) {
       const closedWorld = runPredicate({
         bin: resolved.bin,
         runDir,
         label: "closed-world",
-        args: [...baseArgs, "--file", cubScoutRenderedPath, "--predicate", "object-set-matches", "--no-extras", ...maybeTtl],
+        args: [...baseArgs, "--file", cubScoutRenderedPath, "--predicate", "object-set-matches", "--no-extras", ...maybeProfile, ...maybeTtl, ...maybeChain],
       });
       checks.push(checkForPredicate("cub-scout-closed-world-object-set", closedWorld, { allowWatch: true }));
       collectFailure(closedWorld, failures, { allowWatch: true });
@@ -79,6 +107,7 @@ export function runCubScoutLiveReceipts({
           "--grace-window",
           graceWindow,
           ...maybeTtl,
+          ...maybeChain,
         ],
       });
       checks.push(checkForPredicate("cub-scout-workloads-converged", workloads));
@@ -119,8 +148,33 @@ export function runCubScoutLiveReceipts({
     source: resolved.source,
     supportsTtl: resolved.supportsTtl,
     supportsNoExtras: resolved.supportsNoExtras,
+    supportsNormalizationProfile: resolved.supportsNormalizationProfile,
+    canonicalDigest,
     checks,
   };
+}
+
+// computeCanonicalDigest runs `cub-scout receipt digest` over the same
+// manifest set and profile the receipts used, writes the JSON to the run
+// dir, and returns the canonical rendered-object-set digest. The value is
+// contract-locked (cub-scout side) to equal the object-set receipt's
+// rendered-object-set subject digest, which is what lets external artifacts
+// chain to the receipts by digest equality. Best-effort: a failure returns
+// null rather than failing the witness.
+function computeCanonicalDigest(bin, runDir, renderedPath, profileArgs) {
+  const result = spawnSync(bin, ["receipt", "digest", "--file", renderedPath, ...profileArgs], {
+    cwd: repoRoot,
+    encoding: "utf8",
+    maxBuffer: 1024 * 1024 * 20,
+  });
+  if (result.status !== 0 || !result.stdout) return null;
+  try {
+    const parsed = JSON.parse(result.stdout);
+    writeFileSync(join(runDir, "cub-scout.digest.json"), result.stdout);
+    return parsed.renderedObjectSetDigest ?? null;
+  } catch {
+    return null;
+  }
 }
 
 export function loadTargetFactsForRevision(revisionPath) {
@@ -152,9 +206,10 @@ export function targetFactsToPrerequisites(targetFacts = {}, namespace = "defaul
   };
 }
 
-function prepareCubScoutDesiredManifest(runDir, renderedPath) {
+function prepareCubScoutDesiredManifest(runDir, renderedPath, { skipPrune = false } = {}) {
   const desiredPath = join(runDir, "cub-scout.desired.yaml");
-  const docs = parseDocs(readFileSync(renderedPath, "utf8")).map((doc) => pruneApiDroppedNoops(doc));
+  const parsed = parseDocs(readFileSync(renderedPath, "utf8"));
+  const docs = skipPrune ? parsed : parsed.map((doc) => pruneApiDroppedNoops(doc));
   writeFileSync(desiredPath, `${docs.map((doc) => toYaml(doc)).join("\n---\n")}\n`);
   return desiredPath;
 }
@@ -266,6 +321,7 @@ function resolveCubScout(runDir) {
           bin: candidate.bin,
           source: candidate.source,
           supportsTtl: support.supportsTtl,
+          supportsNormalizationProfile: support.supportsNormalizationProfile,
           supportsNoExtras: support.supportsNoExtras,
         };
       }
@@ -291,7 +347,12 @@ function cubScoutSupport(bin) {
   const text = `${result.stdout}\n${result.stderr}`;
   const missing = REQUIRED_PREDICATES.filter((predicate) => !text.includes(predicate));
   if (missing.length) return { supported: false, reason: `missing predicate(s): ${missing.join(", ")}` };
-  return { supported: true, supportsTtl: text.includes("--ttl"), supportsNoExtras: text.includes("--no-extras") };
+  return {
+    supported: true,
+    supportsTtl: text.includes("--ttl"),
+    supportsNoExtras: text.includes("--no-extras"),
+    supportsNormalizationProfile: text.includes("--normalization-profile"),
+  };
 }
 
 function runPredicate({ bin, runDir, label, args }) {
