@@ -13,7 +13,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
+import { check, readYaml, relativeRepo, repoRoot, write } from "./lib/proof-common.mjs";
 
 const mode = process.argv[2] ?? "--generate";
 const outputRoot = join(repoRoot, "data", "apiservice-coverage");
@@ -32,6 +32,7 @@ const knownReceipts = {
       "runs/live-kind-parity/metrics-server-metrics-server-default/receipt.yaml",
       "runs/live-kind-parity/metrics-server-metrics-server-external-tls-ca/receipt.yaml",
     ],
+    runtimeGitOps: "data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml",
   },
   "kedacore/keda@2.19.0": {
     kindParity: [
@@ -72,8 +73,8 @@ function buildReport() {
   const rows = sourceRows.map((source) => rowFor(source, reviewByChart.get(source.chart), quirkByRef.get(`${source.chart}@${source.version}`)));
   const aggregationRows = rows.filter((row) => row.api_aggregation_observed === "yes");
 
-  check(rows.some((row) => row.coverage_status === "object-and-workload-observed"), "expected Metrics Server object/workload observation row");
-  check(aggregationRows.length === 0, "unexpected API aggregation availability claim; add a receipt before changing this status");
+  check(rows.some((row) => row.coverage_status === "api-aggregation-observed"), "expected Metrics Server API aggregation observation row");
+  check(aggregationRows.length === 1, `expected exactly one API aggregation availability row; found ${aggregationRows.length}`);
 
   return {
     rows,
@@ -90,8 +91,9 @@ function rowFor(source, review, quirk) {
   const workload = receiptExists(receipts.workload) && receiptVerdict(receipts.workload) === "PASS";
   const liveParity = receiptExists(receipts.liveParity);
   const kindParity = (receipts.kindParity ?? []).filter(receiptExists);
+  const apiAggregation = runtimeGitOpsHasAPIAggregation(receipts.runtimeGitOps);
   const hasRecipe = Boolean(review?.recipe_path);
-  const coverageStatus = coverageStatusFor({ hasRecipe, local, objectSet, workload, liveParity, kindParity });
+  const coverageStatus = coverageStatusFor({ hasRecipe, local, objectSet, workload, liveParity, kindParity, apiAggregation });
   return {
     rank: source.rank,
     chart: source.chart,
@@ -105,14 +107,15 @@ function rowFor(source, review, quirk) {
     workload_observed: workload ? "yes" : "no",
     live_parity_observed: liveParity ? "yes" : "no",
     two_cluster_parity_observed: kindParity.length > 0 ? "yes" : "no",
-    api_aggregation_observed: "no",
+    api_aggregation_observed: apiAggregation ? "yes" : "no",
     evidence: evidenceFor({ review, quirk, receipts, kindParity }),
     next_action: nextActionFor({ ref, hasRecipe, coverageStatus }),
     limitation: "APIService object evidence is not the same as Kubernetes API aggregation availability. Close this with an explicit Available=True or aggregated API query receipt.",
   };
 }
 
-function coverageStatusFor({ hasRecipe, local, objectSet, workload, liveParity, kindParity }) {
+function coverageStatusFor({ hasRecipe, local, objectSet, workload, liveParity, kindParity, apiAggregation }) {
+  if (apiAggregation && local && objectSet && workload && liveParity && kindParity.length > 0) return "api-aggregation-observed";
   if (local && objectSet && workload && liveParity && kindParity.length > 0) return "object-and-workload-observed";
   if (hasRecipe && kindParity.length > 0) return "two-cluster-parity-only";
   if (hasRecipe) return "modeled-needs-runtime-observation";
@@ -121,7 +124,7 @@ function coverageStatusFor({ hasRecipe, local, objectSet, workload, liveParity, 
 
 function nextActionFor({ ref, hasRecipe, coverageStatus }) {
   if (ref === "metrics-server/metrics-server@3.13.0") {
-    return "add API aggregation availability receipt for v1beta1.metrics.k8s.io, then remove the catalog-visible APIService hard gap if the receipt passes";
+    return "keep the runtime/GitOps APIService receipt fresh; use this pattern for the next APIService chart";
   }
   if (coverageStatus === "two-cluster-parity-only") {
     return "add local/APIService observation and aggregated API availability receipt before catalog promotion or stronger runtime claims";
@@ -141,6 +144,7 @@ function evidenceFor({ review, quirk, receipts, kindParity }) {
     receipts.objectSet,
     receipts.workload,
     receipts.liveParity,
+    receipts.runtimeGitOps,
     ...kindParity,
   ].filter(Boolean).join(";");
 }
@@ -149,6 +153,7 @@ function summaryMarkdown(rows) {
   const counts = countBy(rows, (row) => row.coverage_status);
   const catalogRows = rows.filter((row) => row.catalog_status === "catalog-supported");
   const sourceOnlyRows = rows.filter((row) => row.coverage_status === "source-detected-needs-recipe");
+  const objectWorkloadRows = rows.filter((row) => row.api_object_observed === "yes" && row.workload_observed === "yes");
   const aggregationRows = rows.filter((row) => row.api_aggregation_observed === "yes");
   const statusRows = [...counts.entries()].sort((a, b) => a[0].localeCompare(b[0]));
   return `# Top-100 APIService Coverage
@@ -173,15 +178,16 @@ aggregated API availability observed
 ~~~text
 source top-100 APIService rows:          ${rows.length}
 catalog-supported APIService rows:       ${catalogRows.length}
-rows with object/workload observation:   ${rows.filter((row) => row.coverage_status === "object-and-workload-observed").length}
+rows with API aggregation observation:   ${aggregationRows.length}
+rows with object/workload observation:   ${objectWorkloadRows.length}
 rows with two-cluster parity only:       ${rows.filter((row) => row.coverage_status === "two-cluster-parity-only").length}
 rows still source-detected only:         ${sourceOnlyRows.length}
 aggregated API availability receipts:    ${aggregationRows.length}
 ~~~
 
-No row currently claims aggregated API availability. That is intentional. Add a
-receipt that proves an \`Available=True\` APIService condition or a successful
-query against the aggregated API before changing that claim.
+Only rows with both an \`Available=True\` APIService condition and a successful
+aggregated API query receipt claim aggregated API availability. Today that
+evidence exists for Metrics Server.
 
 ## Coverage Status
 
@@ -197,6 +203,8 @@ ${rows.map((row) => `| ${row.rank} | \`${row.chart}\` | ${row.source_version} | 
 
 ## How To Use This
 
+- \`api-aggregation-observed\` means committed runtime evidence records both
+  APIService \`Available=True\` and a successful aggregated API query.
 - \`object-and-workload-observed\` means the APIService object and backing
   workload were observed in committed receipts. It is still not an aggregated
   API availability claim.
@@ -214,6 +222,7 @@ ${rows.map((row) => `| ${row.rank} | \`${row.chart}\` | ${row.source_version} | 
 | \`top100-apiservice-coverage.csv\` | One row per source top-100 chart that renders APIService objects. |
 | \`data/quirk-work-queue/top100-queue.csv\` | Source quirk queue that currently carries the APIService hard gap. |
 | \`runs/top20-local-kind/metrics-server-default/observation-receipt.json\` | Metrics Server object/workload observation evidence. |
+| \`data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml\` | Metrics Server APIService Available=True and \`kubectl top nodes\` evidence. |
 | \`runs/live-kind-parity/*/receipt.yaml\` | Two-cluster Helm-vs-\`cub installer\` parity evidence. |
 
 Regenerate:
@@ -247,6 +256,14 @@ function receiptVerdict(path) {
   if (!receiptExists(path)) return "";
   const receipt = JSON.parse(readFileSync(join(repoRoot, path), "utf8"));
   return String(receipt.predicate?.verdict ?? "");
+}
+
+function runtimeGitOpsHasAPIAggregation(path) {
+  if (!receiptExists(path)) return false;
+  const receipt = readYaml(join(repoRoot, path));
+  const apiServiceAvailable = receipt.spec?.runtime?.apiService?.available === true;
+  const metricsApiPass = (receipt.spec?.checks ?? []).some((checkItem) => checkItem.name === "metrics-api" && checkItem.result === "pass");
+  return apiServiceAvailable && metricsApiPass;
 }
 
 function parseCsvFile(path) {
