@@ -8,7 +8,7 @@ right now": a doc is **review-due** when an evidence source it links to
 changed more recently than the doc itself.
 
 Colored rendering: [freshness.html](freshness.html) (open in a browser).
-Snapshot as of 2026-06-11 (commit `63ea9d24`). Refresh with `npm run doc-freshness` — cheap, ride
+Snapshot as of 2026-06-11 (commit `008e9bd0`). Refresh with `npm run doc-freshness` — cheap, ride
 it on any docs PR. The verifier gates completeness (every authored doc is in
 the snapshot) without breaking the build as history moves.
 
@@ -24,9 +24,9 @@ cosmetic edit.
 | Metric | Count |
 | --- | ---: |
 | Authored docs tracked | 157 |
-| Fresh (no linked source newer than the doc) | 19 |
-| **Review-due** | 22 |
-| No linked evidence sources (cannot auto-trigger) | 116 |
+| Fresh (no linked source newer than the doc) | 18 |
+| **Review-due** | 24 |
+| No linked evidence sources (cannot auto-trigger) | 115 |
 
 ## Review queue
 
@@ -45,14 +45,16 @@ most recently changed triggers.
 | [docs/planning/next-execution-plan.md](../../docs/planning/next-execution-plan.md) | planning | 2026-06-11 | 1 | `data/outcome-coverage/summary.md (2026-06-11)`<br>`data/status-dashboard/summary.md (2026-06-11)`<br>`data/production-support-decisions/work-items.csv (2026-06-11)` |
 | [docs/planning/outside-user-test.md](../../docs/planning/outside-user-test.md) | planning | 2026-06-10 | 1 | `data/top100-coverage/summary.md (2026-06-10)` |
 | [docs/planning/upgrade-story-plan.md](../../docs/planning/upgrade-story-plan.md) | planning | 2026-06-10 | 1 | `data/refresh-survival/kube-prometheus-stack-upgrade-seed.md (2026-06-10)` |
-| [docs/reference/top100-user-readiness.md](../../docs/reference/top100-user-readiness.md) | reference | 2026-06-10 | 1 | `data/top100-readiness/readiness.csv (2026-06-11)`<br>`data/top100-readiness/summary.md (2026-06-11)`<br>`data/top20-base-readiness/base-readiness.csv (2026-06-11)` |
-| [docs/user/current-proof-status.md](../../docs/user/current-proof-status.md) | user | 2026-06-11 | 1 | `data/outcome-coverage/summary.md (2026-06-11)`<br>`data/status-dashboard/summary.md (2026-06-11)`<br>`data/top100-readiness/summary.md (2026-06-11)` |
+| [docs/reference/top100-user-readiness.md](../../docs/reference/top100-user-readiness.md) | reference | 2026-06-10 | 1 | `data/top100-readiness/readiness.csv (2026-06-11)`<br>`data/top100-user-readiness/readiness.csv (2026-06-11)`<br>`data/top20-base-readiness/base-readiness.csv (2026-06-11)` |
+| [docs/user/README.md](../../docs/user/README.md) | user | 2026-06-11 | 1 | `data/chart-use-guide/summary.md (2026-06-11)` |
+| [docs/user/chain-of-proof.md](../../docs/user/chain-of-proof.md) | user | 2026-06-11 | 1 | `data/webhook-cert-lifecycle/summary.md (2026-06-11)` |
 | [docs/user/hook-lifecycle-strategy.md](../../docs/user/hook-lifecycle-strategy.md) | user | 2026-06-10 | 1 | `data/lifecycle-boundary/summary.md (2026-06-11)` |
 | [docs/user/live-parity.md](../../docs/user/live-parity.md) | user | 2026-06-11 | 1 | `data/live-kind-parity/summary.md (2026-06-11)` |
-| [docs/user/outcomes-and-tests.md](../../docs/user/outcomes-and-tests.md) | user | 2026-06-11 | 1 | `data/outcome-coverage/base-outcomes.csv (2026-06-11)`<br>`data/outcome-coverage/chart-outcomes.csv (2026-06-11)`<br>`data/outcome-coverage/summary.md (2026-06-11)` |
+| [docs/user/offering.md](../../docs/user/offering.md) | user | 2026-06-11 | 1 | `data/chart-use-guide/summary.md (2026-06-11)` |
 | [docs/user/production-support-decisions.md](../../docs/user/production-support-decisions.md) | user | 2026-06-11 | 1 | `data/production-support-decisions/decisions.csv (2026-06-11)`<br>`data/production-support-decisions/summary.md (2026-06-11)`<br>`data/production-support-decisions/work-items.csv (2026-06-11)` |
-| [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 1 | `data/outcome-coverage/base-outcomes.csv (2026-06-11)`<br>`data/top100-readiness/next80-queues.csv (2026-06-11)`<br>`data/top100-readiness/readiness.csv (2026-06-11)` |
+| [docs/user/top100-readiness.md](../../docs/user/top100-readiness.md) | user | 2026-06-10 | 1 | `data/outcome-coverage/base-outcomes.csv (2026-06-11)`<br>`data/chart-use-guide/summary.md (2026-06-11)`<br>`data/top100-readiness/readiness.csv (2026-06-11)` |
 | [docs/user/top100-status.md](../../docs/user/top100-status.md) | user | 2026-06-10 | 1 | `data/top100-readiness/summary.md (2026-06-11)`<br>`data/top20-base-readiness/start-here.md (2026-06-11)`<br>`data/top100-user-readiness/summary.md (2026-06-11)` |
+| [docs/user/try-now.md](../../docs/user/try-now.md) | user | 2026-06-11 | 1 | `data/chart-use-guide/summary.md (2026-06-11)` |
 | [docs/user/verification-lanes.md](../../docs/user/verification-lanes.md) | user | 2026-06-11 | 1 | `data/outcome-coverage/summary.md (2026-06-11)` |
 | [docs/user/what-we-refuse-to-claim.md](../../docs/user/what-we-refuse-to-claim.md) | user | 2026-06-10 | 1 | `data/live-e2e/cub-scout-watchlist.md (2026-06-11)`<br>`data/live-e2e/normalization-rules.md (2026-06-10)` |
 | [docs/user/what-you-get.md](../../docs/user/what-you-get.md) | user | 2026-06-10 | 1 | `data/edge-recovery/summary.md (2026-06-11)` |
@@ -161,7 +163,6 @@ into this freshness model.
 - [docs/reference/variant-promotion-worked-example.md](../../docs/reference/variant-promotion-worked-example.md)
 - [docs/reference/verification-properties.md](../../docs/reference/verification-properties.md)
 - [docs/user/adopting-existing-apps.md](../../docs/user/adopting-existing-apps.md)
-- [docs/user/chain-of-proof.md](../../docs/user/chain-of-proof.md)
 - [docs/user/change-routing-before-oci.md](../../docs/user/change-routing-before-oci.md)
 - [docs/user/choose-your-path.md](../../docs/user/choose-your-path.md)
 - [docs/user/creating-variants.md](../../docs/user/creating-variants.md)

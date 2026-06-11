@@ -35,6 +35,7 @@ Lane summary: local:1/2 gitops:1/2 live-parity:1/2 two-cluster:2/2. Authoritativ
 - Render-level CRD upgrade delta (6/10 CRDs change; all additive) ([evidence](../../../data/serious-chart-reviews/kps-crd-upgrade-delta-85.3.3-to-86.1.0.yaml))
 - Regular Helm workload upgrade rehearsal 85.3.3 -> 86.1.0 (install, workloads Ready, upgrade, workloads Ready) ([evidence](../../../runs/serious-chart-reviews/kube-prometheus-stack/workload-upgrade-live/latest/receipt.yaml))
 - No-CRDs two-cluster live parity with explicit CRD and admission Secret target facts staged ([evidence](../../../runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml))
+- No-CRDs ConfigHub OCI/Argo live parity with the same target facts staged ([evidence](../../../runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml))
 
 ## What is only watch, per-target, or manual?
 
@@ -52,9 +53,10 @@ Current work item: supported-scope-evidence - [work items](../../../data/product
 - "ConfigHub upgrades are proven" - the workload-upgrade receipt exercises regular Helm on one kind profile, not ConfigHub upgrade orchestration
 - "all upgrades are proven" - no rollback, soak, private overlay, no-crds, or production target upgrade has been receipted
 - "webhook runtime lifecycle is proven for this chart" - the observed pattern lives on cert-manager/external-secrets; this chart's own operator webhook lifecycle has no receipt
+- "no-crds is production-supported" - it has live target-fact proof, but still needs a target-scoped production support decision
 - "production-supported beyond the named target scope" - support is a per-scope decision
 - "works on any Kubernetes" - live claims are bounded to the tested capability profile
 
 ## The exact next test
 
-a ConfigHub-managed upgrade or target-scoped no-crds GitOps/OCI evidence showing how compatible external CRDs and the admission Secret are supplied.
+a ConfigHub-managed upgrade or a target-scoped no-crds production-support decision that applies the proven target-fact OCI path to the chosen production target.

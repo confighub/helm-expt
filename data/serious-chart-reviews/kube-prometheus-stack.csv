@@ -2,7 +2,7 @@ dimension,status,evidence,limit
 render parity,proven (2/2 bases),data/status-dashboard/top20-status.csv,pinned chart + values profiles + capability profile 1.30
 local live e2e,pass with strict witness observed (3/4 checks on committed row),data/live-e2e/top20-local-kind.csv,default base; per-check detail in the run observation receipt
 two-cluster kind parity,pass (default and no-crds),data/live-kind-parity/summary.csv,install-time semantic parity on kind 1.30; not any-cluster
-live Helm-vs-ConfigHub comparison,pass (default),data/live-helm-confighub-compare/,selected lane; one base
+live Helm-vs-ConfigHub comparison,pass (default and no-crds),data/live-helm-confighub-compare/,selected lanes; pinned values and staged target facts only
 hook lifecycle,lifecycle-observed with committed receipt,data/hook-lifecycle/top100-hooks.csv;data/hook-lifecycle/receipt-index.csv,one chart's hooks on one base/profile; keep-fresh next action standing
 CRD install,covered (live lanes + explicit no-crds base),data/top20-base-readiness/base-readiness.csv,CRD ownership is a recorded user decision
 CRD upgrade,render-level delta plus live API-server CRD upgrade rehearsal committed (85.3.3 to 86.1.0),data/serious-chart-reviews/kps-crd-upgrade-delta-85.3.3-to-86.1.0.yaml;runs/serious-chart-reviews/kube-prometheus-stack/crd-upgrade-live/latest/receipt.yaml,full workload upgrade, controller compatibility, and stored-object behavior still not claimed
@@ -10,4 +10,4 @@ webhook runtime lifecycle,pattern demonstrated on other charts only,data/lifecyc
 blast radius,measured for crds.enabled pair (accuracy 1.000),data/blast-radius-accuracy/,grafana.adminPassword recorded not-measured-yet
 security/scan,accepted for declared target scope,data/production-support-decisions/prometheus-community-kube-prometheus-stack/security-decision.yaml,stricter scopes may still require a hardened base
 image digests,digest-resolution receipts plus mutable-image exception,data/production-support-decisions/prometheus-community-kube-prometheus-stack/image-policy-decision.yaml,rendered manifests are not digest-pinned; rerun if tags move
-production support,default base supported for declared target scope,data/production-support-decisions/prometheus-community-kube-prometheus-stack/support-decision.yaml,not a blanket support claim for no-crds, other clusters, private overlays, or future versions
+production support,default base supported for declared target scope,data/production-support-decisions/prometheus-community-kube-prometheus-stack/support-decision.yaml,no-crds has live target-fact proof but not yet a production support decision; not a blanket support claim for other clusters, private overlays, or future versions

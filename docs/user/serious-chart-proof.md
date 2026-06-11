@@ -41,15 +41,15 @@ render parity: pass
 two-cluster kind parity: pass
 target facts staged in live proof: 10 CRDs + monitoring/kube-prometheus-stack-admission Secret
 runtime outcome: regular Helm and cub installer workloads both become Ready
-GitOps/OCI runtime wave: blocked unless the target provides the same prerequisites
+ConfigHub OCI/Argo runtime path: pass when the same prerequisites are staged
 ```
 
-That block is good evidence. It shows that removing CRDs from the rendered
-object set creates a target prerequisite. The model does not hide that
-prerequisite or pretend the install is complete. A fresh two-cluster kind run
-on 2026-06-11 proved the positive path: stage the compatible CRDs and the
-admission Secret, then regular Helm and the `cub installer` path both converge
-with semantic parity.
+The earlier blocked runtime evidence was useful because it showed that
+removing CRDs from the rendered object set creates a target prerequisite. The
+model did not hide that prerequisite or pretend the install was complete. Fresh
+live runs on 2026-06-11 then proved the positive path: stage the compatible
+CRDs and the admission Secret, and both the two-cluster kind lane and the
+ConfigHub OCI/Argo lane converge with semantic parity.
 
 The current lifecycle evidence also shows the productive path forward: when
 compatible CRDs and the admission webhook certificate Secret are staged
@@ -172,8 +172,8 @@ route and receipt.
 Do not claim that `no-crds` is a simpler install. It is a different contract:
 the target must already provide compatible CRDs and required admission
 prerequisites. The repo now has a fresh live proof of that contract on kind;
-it still needs a target-scoped production decision and GitOps/OCI target-fact
-delivery evidence before it becomes a supported production path.
+it still needs a target-scoped production decision, freshness policy, and
+production target review before it becomes a supported production path.
 
 ## The Short Version
 

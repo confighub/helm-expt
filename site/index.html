@@ -107,8 +107,8 @@
         <div class="metric"><strong>80/100</strong><span>Proof-grade non-catalog</span></div>
         <div class="metric"><strong>7/20</strong><span>Top20 update candidates</span></div>
         <div class="metric"><strong>10/10</strong><span>Derived create receipts</span></div>
-        <div class="metric"><strong>23/189</strong><span>GitOps/OCI live pass</span></div>
-        <div class="metric"><strong>20/189</strong><span>Live parity pass</span></div>
+        <div class="metric"><strong>24/189</strong><span>GitOps/OCI live pass</span></div>
+        <div class="metric"><strong>21/189</strong><span>Live parity pass</span></div>
         <div class="metric"><strong>54/59</strong><span>Two-cluster parity pass</span></div>
       </div>
     </section>
@@ -132,7 +132,7 @@
       <p>Redis is the teaching chart. kube-prometheus-stack is the larger proof path because it combines object fanout, CRDs, webhooks, RBAC, generated facts, extension slots, target prerequisites, GitOps, and live observation boundaries.</p>
       <div class="card"><table>
         <thead><tr><th>Base</th><th>User choice</th><th>Render</th><th>Two-cluster kind</th><th>OCI/GitOps</th><th>Production</th><th>Next hard work</th></tr></thead>
-        <tbody><tr><td>default</td><td>install the stack including Prometheus Operator CRDs</td><td>pass</td><td>pass</td><td>pass</td><td>supported-for-declared-target-scope</td><td>Keep the target-scoped evidence fresh before using this supported scope as a production-support example.</td></tr><tr><td>no-crds</td><td>install the stack without creating CRDs</td><td>pass</td><td>pass</td><td>blocked</td><td>separate-support-decision-needed</td><td>stage CRDs and admission Secret for the target, then rerun GitOps/OCI and record a target-scoped support decision</td></tr></tbody>
+        <tbody><tr><td>default</td><td>install the stack including Prometheus Operator CRDs</td><td>pass</td><td>pass</td><td>pass</td><td>supported-for-declared-target-scope</td><td>Keep the target-scoped evidence fresh before using this supported scope as a production-support example.</td></tr><tr><td>no-crds</td><td>install the stack without creating CRDs</td><td>pass</td><td>pass</td><td>pass</td><td>separate-support-decision-needed</td><td>record a target-scoped production support decision that reuses the proven staged-CRD and admission-Secret OCI path</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
@@ -175,7 +175,7 @@
       <p>The site uses the generated status dashboard. A partial or gap status means the exact lane still needs receipts, not that render parity failed.</p>
       <div class="card"><table>
         <thead><tr><th>Metric</th><th>Value</th><th>Status</th></tr></thead>
-        <tbody><tr><td>in-ConfigHub proof rows</td><td>20/189</td><td>partial</td></tr><tr><td>local live rows</td><td>133/189</td><td>partial</td></tr><tr><td>GitOps/OCI live pass rows</td><td>23/189</td><td>partial</td></tr><tr><td>live Helm-vs-ConfigHub parity pass rows</td><td>20/189</td><td>partial</td></tr><tr><td>two-cluster kind parity pass rows</td><td>54/59</td><td>partial</td></tr><tr><td>two-cluster semantic parity defect receipts</td><td>0/59</td><td>good</td></tr><tr><td>derived variant live create receipts</td><td>10/10</td><td>good</td></tr><tr><td>target-bound derived variant receipts</td><td>6/10</td><td>partial</td></tr><tr><td>hook route receipts present</td><td>5/5</td><td>partial</td></tr><tr><td>hook lifecycle observations present</td><td>5/5</td><td>good</td></tr><tr><td>related lifecycle observation receipts passing</td><td>4/4</td><td>good</td></tr><tr><td>hook routes still needing execution or observation</td><td>0/5</td><td>good</td></tr><tr><td>not-scanned axes</td><td>6/26</td><td>gap</td></tr></tbody>
+        <tbody><tr><td>in-ConfigHub proof rows</td><td>20/189</td><td>partial</td></tr><tr><td>local live rows</td><td>133/189</td><td>partial</td></tr><tr><td>GitOps/OCI live pass rows</td><td>24/189</td><td>partial</td></tr><tr><td>live Helm-vs-ConfigHub parity pass rows</td><td>21/189</td><td>partial</td></tr><tr><td>two-cluster kind parity pass rows</td><td>54/59</td><td>partial</td></tr><tr><td>two-cluster semantic parity defect receipts</td><td>0/59</td><td>good</td></tr><tr><td>derived variant live create receipts</td><td>10/10</td><td>good</td></tr><tr><td>target-bound derived variant receipts</td><td>6/10</td><td>partial</td></tr><tr><td>hook route receipts present</td><td>5/5</td><td>partial</td></tr><tr><td>hook lifecycle observations present</td><td>5/5</td><td>good</td></tr><tr><td>related lifecycle observation receipts passing</td><td>4/4</td><td>good</td></tr><tr><td>hook routes still needing execution or observation</td><td>0/5</td><td>good</td></tr><tr><td>not-scanned axes</td><td>6/26</td><td>gap</td></tr></tbody>
       </table></div>
       <style>
         table { border-collapse: collapse; width: 100%; }
