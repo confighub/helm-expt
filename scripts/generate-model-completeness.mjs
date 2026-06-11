@@ -228,7 +228,7 @@ when all 6 support criteria pass — every Helm quirk modeled or explicitly disc
 / \`blocked\` are honest dispositions, not gaps).
 
 This is a model-support report, not the whole live outcome. Full chart-choice support still needs the
-lane-test matrix: Helm-equivalence, ConfigHub proof, local live observation, ConfigHub OCI/Argo or Flux,
+outcome coverage: Helm-equivalence, ConfigHub proof, local live observation, ConfigHub OCI/Argo or Flux,
 and live Helm-vs-ConfigHub parity for each supported default or declared main choice.
 
 **Variant richness is a separate enhancement metric** until a choice is declared supported. Once declared

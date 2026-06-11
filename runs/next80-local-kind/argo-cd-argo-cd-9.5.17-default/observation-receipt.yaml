@@ -1,0 +1,79 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "argo-cd-argo-cd-9.5.17-default-local-kind"
+spec:
+  blockedReasons:
+    - "apply: Error from server (Forbidden): error when creating \"STDIN\": serviceaccounts \"argocd-application-controller\" is forbidden: unable to create new content in namespace argocd because it is being terminate"
+    - "deployment/argo-cd-argocd-applicationset-controller: not-ready ()"
+    - "deployment/argo-cd-argocd-notifications-controller: not-ready ()"
+    - "deployment/argo-cd-argocd-repo-server: not-ready ()"
+    - "deployment/argo-cd-argocd-server: not-ready ()"
+    - "deployment/argo-cd-argocd-dex-server: not-ready ()"
+    - "deployment/argo-cd-argocd-redis: not-ready ()"
+    - "statefulset/argo-cd-argocd-application-controller: not-ready ()"
+  checks:
+    -
+      name: "crds-applied-and-established"
+      object: "3 CustomResourceDefinition(s)"
+      result: "pass"
+    -
+      name: "rendered-objects-applied"
+      object: "49 object(s) from recipes/argo-cd/argo-cd/9.5.17/revisions/default/r001/rendered/release-objects.yaml"
+      reason: "apply-blocked: Error from server (Forbidden): error when creating \"STDIN\": serviceaccounts \"argocd-application-controller\" is forbidden: unable to create new content in namespace argocd because it is being terminate"
+      result: "blocked"
+    -
+      name: "workload-converged"
+      object: "Deployment|argocd|argo-cd-argocd-applicationset-controller"
+      reason: "not-ready: did not converge within the budget"
+      result: "fail"
+    -
+      name: "workload-converged"
+      object: "Deployment|argocd|argo-cd-argocd-notifications-controller"
+      reason: "not-ready: did not converge within the budget"
+      result: "fail"
+    -
+      name: "workload-converged"
+      object: "Deployment|argocd|argo-cd-argocd-repo-server"
+      reason: "not-ready: did not converge within the budget"
+      result: "fail"
+    -
+      name: "workload-converged"
+      object: "Deployment|argocd|argo-cd-argocd-server"
+      reason: "not-ready: did not converge within the budget"
+      result: "fail"
+    -
+      name: "workload-converged"
+      object: "Deployment|argocd|argo-cd-argocd-dex-server"
+      reason: "not-ready: did not converge within the budget"
+      result: "fail"
+    -
+      name: "workload-converged"
+      object: "Deployment|argocd|argo-cd-argocd-redis"
+      reason: "not-ready: did not converge within the budget"
+      result: "fail"
+    -
+      name: "workload-converged"
+      object: "StatefulSet|argocd|argo-cd-argocd-application-controller"
+      reason: "not-ready: did not converge within the budget"
+      result: "fail"
+  clusterStatus: "existing"
+  freshnessTTL: "1h"
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "7c40bb12838b2d7cb3b08803d4b94ecb679161a1bf6172abe5ecdfb9e1d27611"
+  observedAt: "2026-06-11T10:18:26.396Z"
+  observer:
+    method: "kubectl-kind"
+    name: "next80-local-live"
+    version: "0.1.0"
+  renderedObjectSetSHA256: "e79d4daf30498e893d2dc41c736de2de1fe3ff3a4dc396212a86336143f80fa7"
+  result: "fail"
+  target:
+    context: "kind-claude-helm-expt-next80"
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    namespace: "argocd"
+  variant: "default"
+  variantRevision: "recipes/argo-cd/argo-cd/9.5.17/revisions/default/r001/variant-revision.yaml"
+  workloads: 7

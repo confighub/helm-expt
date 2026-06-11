@@ -26,14 +26,14 @@ The repo has useful proof. It does not yet have complete live proof.
 
 ## Current Honest State
 
-Use [data/lane-test-matrix/summary.md](../../data/lane-test-matrix/summary.md)
+Use [data/outcome-coverage/summary.md](../../data/outcome-coverage/summary.md)
 as the chart-recipe-variant truth source.
 
 The generated status dashboard is the front door for current counts:
 
 ```text
 data/status-dashboard/summary.md
-data/lane-test-matrix/summary.md
+data/outcome-coverage/summary.md
 data/outcome-coverage/base-outcomes.csv
 ```
 

@@ -1,0 +1,1006 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"workflow-controller\",\"app.kubernetes.io/component\":\"workflow-controller\",\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-workflows-workflow-controller\",\"app.kubernetes.io/part-of\":\"argo-workflows\",\"helm.sh/chart\":\"argo-workflows-1.0.14\"},\"name\":\"argo-workflows-workflow-controller\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T09:53:02Z"
+      labels:
+        app: "workflow-controller"
+        app.kubernetes.io/component: "workflow-controller"
+        app.kubernetes.io/instance: "argo-workflows"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-workflows-workflow-controller"
+        app.kubernetes.io/part-of: "argo-workflows"
+        helm.sh/chart: "argo-workflows-1.0.14"
+      name: "argo-workflows-workflow-controller"
+      namespace: "default"
+      resourceVersion: "5865"
+      uid: "4d82691c-7d65-4178-b9f3-67389af0cc3c"
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"server\",\"app.kubernetes.io/component\":\"server\",\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-workflows-server\",\"app.kubernetes.io/part-of\":\"argo-workflows\",\"helm.sh/chart\":\"argo-workflows-1.0.14\"},\"name\":\"argo-workflows-server\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T09:53:02Z"
+      labels:
+        app: "server"
+        app.kubernetes.io/component: "server"
+        app.kubernetes.io/instance: "argo-workflows"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-workflows-server"
+        app.kubernetes.io/part-of: "argo-workflows"
+        helm.sh/chart: "argo-workflows-1.0.14"
+      name: "argo-workflows-server"
+      namespace: "default"
+      resourceVersion: "5866"
+      uid: "e7e1bf46-96d2-4f7d-9657-aedc975b1441"
+  -
+    apiVersion: "v1"
+    data:
+      config: "nodeEvents:\n  enabled: true\nworkflowEvents:\n  enabled: true\nfailedPodRestart:\n  enabled: false\n  maxRestarts: 3\n"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"config\":\"nodeEvents:\\n  enabled: true\\nworkflowEvents:\\n  enabled: true\\nfailedPodRestart:\\n  enabled: false\\n  maxRestarts: 3\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"workflow-controller\",\"app.kubernetes.io/component\":\"workflow-controller\",\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-workflows-cm\",\"app.kubernetes.io/part-of\":\"argo-workflows\",\"helm.sh/chart\":\"argo-workflows-1.0.14\"},\"name\":\"argo-workflows-workflow-controller-configmap\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T09:53:02Z"
+      labels:
+        app: "workflow-controller"
+        app.kubernetes.io/component: "workflow-controller"
+        app.kubernetes.io/instance: "argo-workflows"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-workflows-cm"
+        app.kubernetes.io/part-of: "argo-workflows"
+        helm.sh/chart: "argo-workflows-1.0.14"
+      name: "argo-workflows-workflow-controller-configmap"
+      namespace: "default"
+      resourceVersion: "5867"
+      uid: "dd79d60f-6b70-4f6a-a304-853331c4cf00"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"workflow-controller\",\"app.kubernetes.io/component\":\"workflow-controller\",\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-workflows-workflow-controller\",\"app.kubernetes.io/part-of\":\"argo-workflows\",\"helm.sh/chart\":\"argo-workflows-1.0.14\"},\"name\":\"argo-workflows-workflow\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"argoproj.io\"],\"resources\":[\"workflowtaskresults\"],\"verbs\":[\"create\",\"patch\"]}]}\n"
+      creationTimestamp: "2026-06-11T09:53:02Z"
+      labels:
+        app: "workflow-controller"
+        app.kubernetes.io/component: "workflow-controller"
+        app.kubernetes.io/instance: "argo-workflows"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-workflows-workflow-controller"
+        app.kubernetes.io/part-of: "argo-workflows"
+        helm.sh/chart: "argo-workflows-1.0.14"
+      name: "argo-workflows-workflow"
+      namespace: "default"
+      resourceVersion: "5868"
+      uid: "0d67b198-5de7-473a-a15e-4da8d98c2e25"
+    rules:
+      -
+        apiGroups:
+          - "argoproj.io"
+        resources:
+          - "workflowtaskresults"
+        verbs:
+          - "create"
+          - "patch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"workflow-controller\",\"app.kubernetes.io/component\":\"workflow-controller\",\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-workflows-workflow-controller\",\"app.kubernetes.io/part-of\":\"argo-workflows\",\"helm.sh/chart\":\"argo-workflows-1.0.14\"},\"name\":\"argo-workflows-workflow\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"argo-workflows-workflow\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"argo-workflow\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T09:53:02Z"
+      labels:
+        app: "workflow-controller"
+        app.kubernetes.io/component: "workflow-controller"
+        app.kubernetes.io/instance: "argo-workflows"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-workflows-workflow-controller"
+        app.kubernetes.io/part-of: "argo-workflows"
+        helm.sh/chart: "argo-workflows-1.0.14"
+      name: "argo-workflows-workflow"
+      namespace: "default"
+      resourceVersion: "5869"
+      uid: "4bbfd2c8-21cf-429f-a50d-0e94ab9b745e"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "argo-workflows-workflow"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "argo-workflow"
+        namespace: "default"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"server\",\"app.kubernetes.io/component\":\"server\",\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-workflows-server\",\"app.kubernetes.io/part-of\":\"argo-workflows\",\"app.kubernetes.io/version\":\"v4.0.5\",\"helm.sh/chart\":\"argo-workflows-1.0.14\"},\"name\":\"argo-workflows-server\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"port\":2746,\"targetPort\":2746}],\"selector\":{\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/name\":\"argo-workflows-server\"},\"sessionAffinity\":\"None\",\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T09:53:02Z"
+      labels:
+        app: "server"
+        app.kubernetes.io/component: "server"
+        app.kubernetes.io/instance: "argo-workflows"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-workflows-server"
+        app.kubernetes.io/part-of: "argo-workflows"
+        app.kubernetes.io/version: "v4.0.5"
+        helm.sh/chart: "argo-workflows-1.0.14"
+      name: "argo-workflows-server"
+      namespace: "default"
+      resourceVersion: "5871"
+      uid: "9335889d-7942-4f40-aec8-bbc652590f73"
+    spec:
+      clusterIP: "10.96.8.28"
+      clusterIPs:
+        - "10.96.8.28"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          port: 2746
+          protocol: "TCP"
+          targetPort: 2746
+      selector:
+        app.kubernetes.io/instance: "argo-workflows"
+        app.kubernetes.io/name: "argo-workflows-server"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"workflow-controller\",\"app.kubernetes.io/component\":\"workflow-controller\",\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-workflows-workflow-controller\",\"app.kubernetes.io/part-of\":\"argo-workflows\",\"app.kubernetes.io/version\":\"v4.0.5\",\"helm.sh/chart\":\"argo-workflows-1.0.14\"},\"name\":\"argo-workflows-workflow-controller\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/name\":\"argo-workflows-workflow-controller\"}},\"strategy\":{\"type\":\"Recreate\"},\"template\":{\"metadata\":{\"labels\":{\"app\":\"workflow-controller\",\"app.kubernetes.io/component\":\"workflow-controller\",\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-workflows-workflow-controller\",\"app.kubernetes.io/part-of\":\"argo-workflows\",\"app.kubernetes.io/version\":\"v4.0.5\",\"helm.sh/chart\":\"argo-workflows-1.0.14\"}},\"spec\":{\"containers\":[{\"args\":[\"--configmap\",\"argo-workflows-workflow-controller-configmap\",\"--executor-image\",\"quay.io/argoproj/argoexec:v4.0.5\",\"--loglevel\",\"info\",\"--gloglevel\",\"0\",\"--log-format\",\"text\"],\"command\":[\"workflow-controller\"],\"env\":[{\"name\":\"ARGO_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"apiVersion\":\"v1\",\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"LEADER_ELECTION_IDENTITY\",\"valueFrom\":{\"fieldRef\":{\"apiVersion\":\"v1\",\"fieldPath\":\"metadata.name\"}}},{\"name\":\"LEADER_ELECTION_DISABLE\",\"value\":\"true\"}],\"image\":\"quay.io/argoproj/workflow-controller:v4.0.5\",\"imagePullPolicy\":\"Always\",\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/healthz\",\"port\":6060},\"initialDelaySeconds\":90,\"periodSeconds\":60,\"timeoutSeconds\":30},\"name\":\"controller\",\"ports\":[{\"containerPort\":9090,\"name\":\"metrics\"},{\"containerPort\":6060}],\"resources\":{},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true,\"runAsNonRoot\":true}}],\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"serviceAccountName\":\"argo-workflows-workflow-controller\"}}}}\n"
+      creationTimestamp: "2026-06-11T09:53:02Z"
+      generation: 1
+      labels:
+        app: "workflow-controller"
+        app.kubernetes.io/component: "workflow-controller"
+        app.kubernetes.io/instance: "argo-workflows"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-workflows-workflow-controller"
+        app.kubernetes.io/part-of: "argo-workflows"
+        app.kubernetes.io/version: "v4.0.5"
+        helm.sh/chart: "argo-workflows-1.0.14"
+      name: "argo-workflows-workflow-controller"
+      namespace: "default"
+      resourceVersion: "5897"
+      uid: "672f5521-730d-4582-9005-1fcf59462846"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "argo-workflows"
+          app.kubernetes.io/name: "argo-workflows-workflow-controller"
+      strategy:
+        type: "Recreate"
+      template:
+        metadata:
+          labels:
+            app: "workflow-controller"
+            app.kubernetes.io/component: "workflow-controller"
+            app.kubernetes.io/instance: "argo-workflows"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "argo-workflows-workflow-controller"
+            app.kubernetes.io/part-of: "argo-workflows"
+            app.kubernetes.io/version: "v4.0.5"
+            helm.sh/chart: "argo-workflows-1.0.14"
+        spec:
+          containers:
+            -
+              args:
+                - "--configmap"
+                - "argo-workflows-workflow-controller-configmap"
+                - "--executor-image"
+                - "quay.io/argoproj/argoexec:v4.0.5"
+                - "--loglevel"
+                - "info"
+                - "--gloglevel"
+                - "0"
+                - "--log-format"
+                - "text"
+              command:
+                - "workflow-controller"
+              env:
+                -
+                  name: "ARGO_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "LEADER_ELECTION_IDENTITY"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.name"
+                -
+                  name: "LEADER_ELECTION_DISABLE"
+                  value: "true"
+              image: "quay.io/argoproj/workflow-controller:v4.0.5"
+              imagePullPolicy: "Always"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: 6060
+                  scheme: "HTTP"
+                initialDelaySeconds: 90
+                periodSeconds: 60
+                successThreshold: 1
+                timeoutSeconds: 30
+              name: "controller"
+              ports:
+                -
+                  containerPort: 9090
+                  name: "metrics"
+                  protocol: "TCP"
+                -
+                  containerPort: 6060
+                  protocol: "TCP"
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          dnsPolicy: "ClusterFirst"
+          nodeSelector:
+            kubernetes.io/os: "linux"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "argo-workflows-workflow-controller"
+          serviceAccountName: "argo-workflows-workflow-controller"
+          terminationGracePeriodSeconds: 30
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T09:53:02Z"
+          lastUpdateTime: "2026-06-11T09:53:02Z"
+          message: "Deployment does not have minimum availability."
+          reason: "MinimumReplicasUnavailable"
+          status: "False"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T09:53:02Z"
+          lastUpdateTime: "2026-06-11T09:53:02Z"
+          message: "ReplicaSet \"argo-workflows-workflow-controller-5f7944bc8f\" is progressing."
+          reason: "ReplicaSetUpdated"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      replicas: 1
+      terminatingReplicas: 0
+      unavailableReplicas: 1
+      updatedReplicas: 1
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"server\",\"app.kubernetes.io/component\":\"server\",\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-workflows-server\",\"app.kubernetes.io/part-of\":\"argo-workflows\",\"app.kubernetes.io/version\":\"v4.0.5\",\"helm.sh/chart\":\"argo-workflows-1.0.14\"},\"name\":\"argo-workflows-server\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/name\":\"argo-workflows-server\"}},\"template\":{\"metadata\":{\"annotations\":{\"checksum/cm\":\"fccfa543f9d05c12d1d39fe2927155011f901595334c59ab19cac5b1de5390fe\"},\"labels\":{\"app\":\"server\",\"app.kubernetes.io/component\":\"server\",\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-workflows-server\",\"app.kubernetes.io/part-of\":\"argo-workflows\",\"app.kubernetes.io/version\":\"v4.0.5\",\"helm.sh/chart\":\"argo-workflows-1.0.14\"}},\"spec\":{\"containers\":[{\"args\":[\"server\",\"--configmap=argo-workflows-workflow-controller-configmap\",\"--secure=false\",\"--loglevel\",\"info\",\"--gloglevel\",\"0\",\"--log-format\",\"text\"],\"env\":[{\"name\":\"IN_CLUSTER\",\"value\":\"true\"},{\"name\":\"ARGO_NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"apiVersion\":\"v1\",\"fieldPath\":\"metadata.namespace\"}}},{\"name\":\"ARGO_BASE_HREF\",\"value\":\"/\"}],\"image\":\"quay.io/argoproj/argocli:v4.0.5\",\"imagePullPolicy\":\"Always\",\"name\":\"argo-server\",\"ports\":[{\"containerPort\":2746,\"name\":\"web\"}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/\",\"port\":2746,\"scheme\":\"HTTP\"},\"initialDelaySeconds\":10,\"periodSeconds\":20},\"resources\":{},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":false,\"runAsNonRoot\":true},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"tmp\"}]}],\"nodeSelector\":{\"kubernetes.io/os\":\"linux\"},\"serviceAccountName\":\"argo-workflows-server\",\"terminationGracePeriodSeconds\":30,\"volumes\":[{\"emptyDir\":{},\"name\":\"tmp\"}]}}}}\n"
+      creationTimestamp: "2026-06-11T09:53:02Z"
+      generation: 1
+      labels:
+        app: "server"
+        app.kubernetes.io/component: "server"
+        app.kubernetes.io/instance: "argo-workflows"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-workflows-server"
+        app.kubernetes.io/part-of: "argo-workflows"
+        app.kubernetes.io/version: "v4.0.5"
+        helm.sh/chart: "argo-workflows-1.0.14"
+      name: "argo-workflows-server"
+      namespace: "default"
+      resourceVersion: "5898"
+      uid: "e14a4bef-8d52-4001-b60f-a15120879d8a"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "argo-workflows"
+          app.kubernetes.io/name: "argo-workflows-server"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          annotations:
+            checksum/cm: "fccfa543f9d05c12d1d39fe2927155011f901595334c59ab19cac5b1de5390fe"
+          labels:
+            app: "server"
+            app.kubernetes.io/component: "server"
+            app.kubernetes.io/instance: "argo-workflows"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "argo-workflows-server"
+            app.kubernetes.io/part-of: "argo-workflows"
+            app.kubernetes.io/version: "v4.0.5"
+            helm.sh/chart: "argo-workflows-1.0.14"
+        spec:
+          containers:
+            -
+              args:
+                - "server"
+                - "--configmap=argo-workflows-workflow-controller-configmap"
+                - "--secure=false"
+                - "--loglevel"
+                - "info"
+                - "--gloglevel"
+                - "0"
+                - "--log-format"
+                - "text"
+              env:
+                -
+                  name: "IN_CLUSTER"
+                  value: "true"
+                -
+                  name: "ARGO_NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+                -
+                  name: "ARGO_BASE_HREF"
+                  value: "/"
+              image: "quay.io/argoproj/argocli:v4.0.5"
+              imagePullPolicy: "Always"
+              name: "argo-server"
+              ports:
+                -
+                  containerPort: 2746
+                  name: "web"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/"
+                  port: 2746
+                  scheme: "HTTP"
+                initialDelaySeconds: 10
+                periodSeconds: 20
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+                readOnlyRootFilesystem: false
+                runAsNonRoot: true
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/tmp"
+                  name: "tmp"
+          dnsPolicy: "ClusterFirst"
+          nodeSelector:
+            kubernetes.io/os: "linux"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "argo-workflows-server"
+          serviceAccountName: "argo-workflows-server"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              emptyDir:
+                {}
+              name: "tmp"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T09:53:02Z"
+          lastUpdateTime: "2026-06-11T09:53:02Z"
+          message: "Deployment does not have minimum availability."
+          reason: "MinimumReplicasUnavailable"
+          status: "False"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T09:53:02Z"
+          lastUpdateTime: "2026-06-11T09:53:02Z"
+          message: "ReplicaSet \"argo-workflows-server-68dc849dd4\" is progressing."
+          reason: "ReplicaSetUpdated"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      replicas: 1
+      terminatingReplicas: 0
+      unavailableReplicas: 1
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"workflow-controller\",\"app.kubernetes.io/component\":\"workflow-controller\",\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-workflows-workflow-controller\",\"app.kubernetes.io/part-of\":\"argo-workflows\",\"helm.sh/chart\":\"argo-workflows-1.0.14\",\"rbac.authorization.k8s.io/aggregate-to-view\":\"true\"},\"name\":\"argo-workflows-view\"},\"rules\":[{\"apiGroups\":[\"argoproj.io\"],\"resources\":[\"workflows\",\"workflows/finalizers\",\"workfloweventbindings\",\"workfloweventbindings/finalizers\",\"workflowtemplates\",\"workflowtemplates/finalizers\",\"cronworkflows\",\"cronworkflows/finalizers\",\"clusterworkflowtemplates\",\"clusterworkflowtemplates/finalizers\",\"workflowtasksets\",\"workflowtasksets/finalizers\",\"workflowtaskresults\",\"workflowtaskresults/finalizers\",\"workflowartifactgctasks\",\"workflowartifactgctasks/finalizers\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T09:53:02Z"
+      labels:
+        app: "workflow-controller"
+        app.kubernetes.io/component: "workflow-controller"
+        app.kubernetes.io/instance: "argo-workflows"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-workflows-workflow-controller"
+        app.kubernetes.io/part-of: "argo-workflows"
+        helm.sh/chart: "argo-workflows-1.0.14"
+        rbac.authorization.k8s.io/aggregate-to-view: "true"
+      name: "argo-workflows-view"
+      resourceVersion: "5900"
+      uid: "fb5c0044-330e-4658-8687-0c6907b8345d"
+    rules:
+      -
+        apiGroups:
+          - "argoproj.io"
+        resources:
+          - "workflows"
+          - "workflows/finalizers"
+          - "workfloweventbindings"
+          - "workfloweventbindings/finalizers"
+          - "workflowtemplates"
+          - "workflowtemplates/finalizers"
+          - "cronworkflows"
+          - "cronworkflows/finalizers"
+          - "clusterworkflowtemplates"
+          - "clusterworkflowtemplates/finalizers"
+          - "workflowtasksets"
+          - "workflowtasksets/finalizers"
+          - "workflowtaskresults"
+          - "workflowtaskresults/finalizers"
+          - "workflowartifactgctasks"
+          - "workflowartifactgctasks/finalizers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"server\",\"app.kubernetes.io/component\":\"server\",\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-workflows-server\",\"app.kubernetes.io/part-of\":\"argo-workflows\",\"helm.sh/chart\":\"argo-workflows-1.0.14\",\"rbac.authorization.k8s.io/aggregate-to-edit\":\"true\"},\"name\":\"argo-workflows-edit\"},\"rules\":[{\"apiGroups\":[\"argoproj.io\"],\"resources\":[\"workflows\",\"workflows/finalizers\",\"workfloweventbindings\",\"workfloweventbindings/finalizers\",\"workflowtemplates\",\"workflowtemplates/finalizers\",\"cronworkflows\",\"cronworkflows/finalizers\",\"clusterworkflowtemplates\",\"clusterworkflowtemplates/finalizers\",\"workflowtasksets\",\"workflowtasksets/finalizers\",\"workflowtaskresults\",\"workflowtaskresults/finalizers\",\"workflowartifactgctasks\",\"workflowartifactgctasks/finalizers\"],\"verbs\":[\"create\",\"delete\",\"deletecollection\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T09:53:02Z"
+      labels:
+        app: "server"
+        app.kubernetes.io/component: "server"
+        app.kubernetes.io/instance: "argo-workflows"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-workflows-server"
+        app.kubernetes.io/part-of: "argo-workflows"
+        helm.sh/chart: "argo-workflows-1.0.14"
+        rbac.authorization.k8s.io/aggregate-to-edit: "true"
+      name: "argo-workflows-edit"
+      resourceVersion: "5902"
+      uid: "9ae5a033-f2f3-483b-87a3-fe584a2c9bcf"
+    rules:
+      -
+        apiGroups:
+          - "argoproj.io"
+        resources:
+          - "workflows"
+          - "workflows/finalizers"
+          - "workfloweventbindings"
+          - "workfloweventbindings/finalizers"
+          - "workflowtemplates"
+          - "workflowtemplates/finalizers"
+          - "cronworkflows"
+          - "cronworkflows/finalizers"
+          - "clusterworkflowtemplates"
+          - "clusterworkflowtemplates/finalizers"
+          - "workflowtasksets"
+          - "workflowtasksets/finalizers"
+          - "workflowtaskresults"
+          - "workflowtaskresults/finalizers"
+          - "workflowartifactgctasks"
+          - "workflowartifactgctasks/finalizers"
+        verbs:
+          - "create"
+          - "delete"
+          - "deletecollection"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"server\",\"app.kubernetes.io/component\":\"server\",\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-workflows-server\",\"app.kubernetes.io/part-of\":\"argo-workflows\",\"helm.sh/chart\":\"argo-workflows-1.0.14\",\"rbac.authorization.k8s.io/aggregate-to-admin\":\"true\"},\"name\":\"argo-workflows-admin\"},\"rules\":[{\"apiGroups\":[\"argoproj.io\"],\"resources\":[\"workflows\",\"workflows/finalizers\",\"workfloweventbindings\",\"workfloweventbindings/finalizers\",\"workflowtemplates\",\"workflowtemplates/finalizers\",\"cronworkflows\",\"cronworkflows/finalizers\",\"clusterworkflowtemplates\",\"clusterworkflowtemplates/finalizers\",\"workflowtasksets\",\"workflowtasksets/finalizers\",\"workflowtaskresults\",\"workflowtaskresults/finalizers\",\"workflowartifactgctasks\",\"workflowartifactgctasks/finalizers\"],\"verbs\":[\"create\",\"delete\",\"deletecollection\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T09:53:02Z"
+      labels:
+        app: "server"
+        app.kubernetes.io/component: "server"
+        app.kubernetes.io/instance: "argo-workflows"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-workflows-server"
+        app.kubernetes.io/part-of: "argo-workflows"
+        helm.sh/chart: "argo-workflows-1.0.14"
+        rbac.authorization.k8s.io/aggregate-to-admin: "true"
+      name: "argo-workflows-admin"
+      resourceVersion: "5905"
+      uid: "ba00a441-9732-48ea-b865-ab9c65f57963"
+    rules:
+      -
+        apiGroups:
+          - "argoproj.io"
+        resources:
+          - "workflows"
+          - "workflows/finalizers"
+          - "workfloweventbindings"
+          - "workfloweventbindings/finalizers"
+          - "workflowtemplates"
+          - "workflowtemplates/finalizers"
+          - "cronworkflows"
+          - "cronworkflows/finalizers"
+          - "clusterworkflowtemplates"
+          - "clusterworkflowtemplates/finalizers"
+          - "workflowtasksets"
+          - "workflowtasksets/finalizers"
+          - "workflowtaskresults"
+          - "workflowtaskresults/finalizers"
+          - "workflowartifactgctasks"
+          - "workflowartifactgctasks/finalizers"
+        verbs:
+          - "create"
+          - "delete"
+          - "deletecollection"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"workflow-controller\",\"app.kubernetes.io/component\":\"workflow-controller\",\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-workflows-workflow-controller\",\"app.kubernetes.io/part-of\":\"argo-workflows\",\"helm.sh/chart\":\"argo-workflows-1.0.14\"},\"name\":\"argo-workflows-workflow-controller\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"pods\"],\"verbs\":[\"create\",\"get\",\"list\",\"watch\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods/exec\"],\"verbs\":[\"create\"]},{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\",\"namespaces\"],\"verbs\":[\"get\",\"watch\",\"list\"]},{\"apiGroups\":[\"\"],\"resources\":[\"persistentvolumeclaims\",\"persistentvolumeclaims/finalizers\"],\"verbs\":[\"create\",\"update\",\"delete\",\"get\"]},{\"apiGroups\":[\"argoproj.io\"],\"resources\":[\"workflows\",\"workflows/finalizers\",\"workflowtasksets\",\"workflowtasksets/finalizers\",\"workflowtasksets/status\",\"workflowartifactgctasks\"],\"verbs\":[\"get\",\"list\",\"watch\",\"update\",\"patch\",\"delete\",\"create\"]},{\"apiGroups\":[\"argoproj.io\"],\"resources\":[\"workflowtemplates\",\"workflowtemplates/finalizers\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"argoproj.io\"],\"resources\":[\"workflowtaskresults\",\"workflowtaskresults/finalizers\"],\"verbs\":[\"list\",\"watch\",\"deletecollection\"]},{\"apiGroups\":[\"argoproj.io\"],\"resources\":[\"cronworkflows\",\"cronworkflows/finalizers\"],\"verbs\":[\"get\",\"list\",\"watch\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"patch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"serviceaccounts\"],\"verbs\":[\"get\",\"list\"]},{\"apiGroups\":[\"policy\"],\"resources\":[\"poddisruptionbudgets\"],\"verbs\":[\"create\",\"get\",\"delete\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"create\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resourceNames\":[\"workflow-controller\",\"workflow-controller-lease\"],\"resources\":[\"leases\"],\"verbs\":[\"get\",\"watch\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"\"],\"resourceNames\":[\"argo-workflows-agent-ca-certificates\"],\"resources\":[\"secrets\"],\"verbs\":[\"get\"]}]}\n"
+      creationTimestamp: "2026-06-11T09:53:02Z"
+      labels:
+        app: "workflow-controller"
+        app.kubernetes.io/component: "workflow-controller"
+        app.kubernetes.io/instance: "argo-workflows"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-workflows-workflow-controller"
+        app.kubernetes.io/part-of: "argo-workflows"
+        helm.sh/chart: "argo-workflows-1.0.14"
+      name: "argo-workflows-workflow-controller"
+      resourceVersion: "5907"
+      uid: "73f2579a-f793-4e07-8899-8d6ff8e321b3"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+        verbs:
+          - "create"
+          - "get"
+          - "list"
+          - "watch"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods/exec"
+        verbs:
+          - "create"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+          - "namespaces"
+        verbs:
+          - "get"
+          - "watch"
+          - "list"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "persistentvolumeclaims"
+          - "persistentvolumeclaims/finalizers"
+        verbs:
+          - "create"
+          - "update"
+          - "delete"
+          - "get"
+      -
+        apiGroups:
+          - "argoproj.io"
+        resources:
+          - "workflows"
+          - "workflows/finalizers"
+          - "workflowtasksets"
+          - "workflowtasksets/finalizers"
+          - "workflowtasksets/status"
+          - "workflowartifactgctasks"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "update"
+          - "patch"
+          - "delete"
+          - "create"
+      -
+        apiGroups:
+          - "argoproj.io"
+        resources:
+          - "workflowtemplates"
+          - "workflowtemplates/finalizers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "argoproj.io"
+        resources:
+          - "workflowtaskresults"
+          - "workflowtaskresults/finalizers"
+        verbs:
+          - "list"
+          - "watch"
+          - "deletecollection"
+      -
+        apiGroups:
+          - "argoproj.io"
+        resources:
+          - "cronworkflows"
+          - "cronworkflows/finalizers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "patch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "serviceaccounts"
+        verbs:
+          - "get"
+          - "list"
+      -
+        apiGroups:
+          - "policy"
+        resources:
+          - "poddisruptionbudgets"
+        verbs:
+          - "create"
+          - "get"
+          - "delete"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "create"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resourceNames:
+          - "workflow-controller"
+          - "workflow-controller-lease"
+        resources:
+          - "leases"
+        verbs:
+          - "get"
+          - "watch"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resourceNames:
+          - "argo-workflows-agent-ca-certificates"
+        resources:
+          - "secrets"
+        verbs:
+          - "get"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"workflow-controller\",\"app.kubernetes.io/component\":\"workflow-controller\",\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-workflows-workflow-controller\",\"app.kubernetes.io/part-of\":\"argo-workflows\",\"helm.sh/chart\":\"argo-workflows-1.0.14\"},\"name\":\"argo-workflows-workflow-controller-cluster-template\"},\"rules\":[{\"apiGroups\":[\"argoproj.io\"],\"resources\":[\"clusterworkflowtemplates\",\"clusterworkflowtemplates/finalizers\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T09:53:02Z"
+      labels:
+        app: "workflow-controller"
+        app.kubernetes.io/component: "workflow-controller"
+        app.kubernetes.io/instance: "argo-workflows"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-workflows-workflow-controller"
+        app.kubernetes.io/part-of: "argo-workflows"
+        helm.sh/chart: "argo-workflows-1.0.14"
+      name: "argo-workflows-workflow-controller-cluster-template"
+      resourceVersion: "5909"
+      uid: "e18ffbcf-099c-455d-a6ea-c62e4d49a895"
+    rules:
+      -
+        apiGroups:
+          - "argoproj.io"
+        resources:
+          - "clusterworkflowtemplates"
+          - "clusterworkflowtemplates/finalizers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"server\",\"app.kubernetes.io/component\":\"server\",\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-workflows-server\",\"app.kubernetes.io/part-of\":\"argo-workflows\",\"helm.sh/chart\":\"argo-workflows-1.0.14\"},\"name\":\"argo-workflows-server\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\",\"events\"],\"verbs\":[\"get\",\"watch\",\"list\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods\"],\"verbs\":[\"get\",\"list\",\"watch\",\"delete\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods/log\"],\"verbs\":[\"get\",\"list\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"get\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"watch\",\"create\",\"patch\"]},{\"apiGroups\":[\"argoproj.io\"],\"resources\":[\"eventsources\",\"sensors\",\"workflows\",\"workfloweventbindings\",\"workflowtemplates\",\"cronworkflows\"],\"verbs\":[\"create\",\"get\",\"list\",\"watch\",\"update\",\"patch\",\"delete\"]}]}\n"
+      creationTimestamp: "2026-06-11T09:53:02Z"
+      labels:
+        app: "server"
+        app.kubernetes.io/component: "server"
+        app.kubernetes.io/instance: "argo-workflows"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-workflows-server"
+        app.kubernetes.io/part-of: "argo-workflows"
+        helm.sh/chart: "argo-workflows-1.0.14"
+      name: "argo-workflows-server"
+      resourceVersion: "5910"
+      uid: "54c4f818-74bd-4d94-8a01-8ae9a16db851"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+          - "events"
+        verbs:
+          - "get"
+          - "watch"
+          - "list"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods/log"
+        verbs:
+          - "get"
+          - "list"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "get"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "watch"
+          - "create"
+          - "patch"
+      -
+        apiGroups:
+          - "argoproj.io"
+        resources:
+          - "eventsources"
+          - "sensors"
+          - "workflows"
+          - "workfloweventbindings"
+          - "workflowtemplates"
+          - "cronworkflows"
+        verbs:
+          - "create"
+          - "get"
+          - "list"
+          - "watch"
+          - "update"
+          - "patch"
+          - "delete"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"server\",\"app.kubernetes.io/component\":\"server\",\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-workflows-server\",\"app.kubernetes.io/part-of\":\"argo-workflows\",\"helm.sh/chart\":\"argo-workflows-1.0.14\"},\"name\":\"argo-workflows-server-cluster-template\"},\"rules\":[{\"apiGroups\":[\"argoproj.io\"],\"resources\":[\"clusterworkflowtemplates\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\"]}]}\n"
+      creationTimestamp: "2026-06-11T09:53:02Z"
+      labels:
+        app: "server"
+        app.kubernetes.io/component: "server"
+        app.kubernetes.io/instance: "argo-workflows"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-workflows-server"
+        app.kubernetes.io/part-of: "argo-workflows"
+        helm.sh/chart: "argo-workflows-1.0.14"
+      name: "argo-workflows-server-cluster-template"
+      resourceVersion: "5911"
+      uid: "88b336c5-45c1-4334-8cd9-02c8cfc9a961"
+    rules:
+      -
+        apiGroups:
+          - "argoproj.io"
+        resources:
+          - "clusterworkflowtemplates"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"workflow-controller\",\"app.kubernetes.io/component\":\"workflow-controller\",\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-workflows-workflow-controller\",\"app.kubernetes.io/part-of\":\"argo-workflows\",\"helm.sh/chart\":\"argo-workflows-1.0.14\"},\"name\":\"argo-workflows-workflow-controller\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"argo-workflows-workflow-controller\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"argo-workflows-workflow-controller\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T09:53:02Z"
+      labels:
+        app: "workflow-controller"
+        app.kubernetes.io/component: "workflow-controller"
+        app.kubernetes.io/instance: "argo-workflows"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-workflows-workflow-controller"
+        app.kubernetes.io/part-of: "argo-workflows"
+        helm.sh/chart: "argo-workflows-1.0.14"
+      name: "argo-workflows-workflow-controller"
+      resourceVersion: "5912"
+      uid: "8479ab65-c568-409b-8fdc-e68cfc4a8d0b"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "argo-workflows-workflow-controller"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "argo-workflows-workflow-controller"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"workflow-controller\",\"app.kubernetes.io/component\":\"workflow-controller\",\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-workflows-workflow-controller\",\"app.kubernetes.io/part-of\":\"argo-workflows\",\"helm.sh/chart\":\"argo-workflows-1.0.14\"},\"name\":\"argo-workflows-workflow-controller-cluster-template\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"argo-workflows-workflow-controller-cluster-template\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"argo-workflows-workflow-controller\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T09:53:02Z"
+      labels:
+        app: "workflow-controller"
+        app.kubernetes.io/component: "workflow-controller"
+        app.kubernetes.io/instance: "argo-workflows"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-workflows-workflow-controller"
+        app.kubernetes.io/part-of: "argo-workflows"
+        helm.sh/chart: "argo-workflows-1.0.14"
+      name: "argo-workflows-workflow-controller-cluster-template"
+      resourceVersion: "5913"
+      uid: "ade16c4c-1313-49aa-bbcb-16369a7654a2"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "argo-workflows-workflow-controller-cluster-template"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "argo-workflows-workflow-controller"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"server\",\"app.kubernetes.io/component\":\"server\",\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-workflows-server\",\"app.kubernetes.io/part-of\":\"argo-workflows\",\"helm.sh/chart\":\"argo-workflows-1.0.14\"},\"name\":\"argo-workflows-server\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"argo-workflows-server\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"argo-workflows-server\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T09:53:02Z"
+      labels:
+        app: "server"
+        app.kubernetes.io/component: "server"
+        app.kubernetes.io/instance: "argo-workflows"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-workflows-server"
+        app.kubernetes.io/part-of: "argo-workflows"
+        helm.sh/chart: "argo-workflows-1.0.14"
+      name: "argo-workflows-server"
+      resourceVersion: "5914"
+      uid: "54eeaa0d-0c7b-4c34-a63e-75bf8988c23c"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "argo-workflows-server"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "argo-workflows-server"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app\":\"server\",\"app.kubernetes.io/component\":\"server\",\"app.kubernetes.io/instance\":\"argo-workflows\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-workflows-server\",\"app.kubernetes.io/part-of\":\"argo-workflows\",\"helm.sh/chart\":\"argo-workflows-1.0.14\"},\"name\":\"argo-workflows-server-cluster-template\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"argo-workflows-server-cluster-template\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"argo-workflows-server\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T09:53:02Z"
+      labels:
+        app: "server"
+        app.kubernetes.io/component: "server"
+        app.kubernetes.io/instance: "argo-workflows"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-workflows-server"
+        app.kubernetes.io/part-of: "argo-workflows"
+        helm.sh/chart: "argo-workflows-1.0.14"
+      name: "argo-workflows-server-cluster-template"
+      resourceVersion: "5915"
+      uid: "6639676b-1d93-40c2-b600-a7e8f6311926"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "argo-workflows-server-cluster-template"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "argo-workflows-server"
+        namespace: "default"
+kind: "List"
+metadata:
+  resourceVersion: ""

@@ -45,7 +45,7 @@ The generated control surface is:
 
 ```text
 data/lane-test-matrix/variant-lanes.csv
-data/lane-test-matrix/summary.md
+data/outcome-coverage/summary.md
 ```
 
 Regenerate or verify it with:

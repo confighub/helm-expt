@@ -23,7 +23,7 @@ import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { check, parseDocs, readYaml, relativeRepo, repoRoot, sha256, writeYaml } from "./lib/proof-common.mjs";
+import { check, parseDocs, readYaml, relativeRepo, repoRoot, sha256, toYaml, writeYaml } from "./lib/proof-common.mjs";
 
 const args = process.argv.slice(2);
 const chartPath = optionValue("--chart");
@@ -158,7 +158,7 @@ try {
   };
   getBack(docs.filter((doc) => doc.metadata?.namespace), []);
   getBack(docs.filter((doc) => !doc.metadata?.namespace), ["-n", namespace]);
-  observedPayload = observedParts.join("\n---\n");
+  observedPayload = sanitizeObservedPayload(observedParts.join("\n---\n"));
 } finally {
   // Per-chart cleanup: applied objects (namespace-faithfully), then ONLY the
   // namespaces this run created.
@@ -280,4 +280,35 @@ function tryCapture(cmd, cmdArgs) {
 function optionValue(flag) {
   const index = args.indexOf(flag);
   return index === -1 ? undefined : args[index + 1];
+}
+
+function sanitizeObservedPayload(payload) {
+  if (!payload.trim()) return "";
+  return `${parseDocs(payload).map((doc) => toYaml(sanitizeObservedDoc(doc))).join("\n---\n")}\n`;
+}
+
+function sanitizeObservedDoc(doc) {
+  if (!doc || typeof doc !== "object") return doc;
+  if (Array.isArray(doc)) return doc.map((item) => sanitizeObservedDoc(item));
+
+  const result = { ...doc };
+  if (Array.isArray(result.items)) {
+    result.items = result.items.map((item) => sanitizeObservedDoc(item));
+  }
+  if (result.kind === "Secret") {
+    if ("data" in result) result.data = { redacted: "live Secret data is not committed" };
+    if ("binaryData" in result) result.binaryData = { redacted: "live Secret binaryData is not committed" };
+    if ("stringData" in result) result.stringData = { redacted: "live Secret stringData is not committed" };
+    const annotations = result.metadata?.annotations;
+    if (annotations && typeof annotations === "object" && "kubectl.kubernetes.io/last-applied-configuration" in annotations) {
+      result.metadata = {
+        ...result.metadata,
+        annotations: {
+          ...annotations,
+          "kubectl.kubernetes.io/last-applied-configuration": "redacted: live Secret last-applied-configuration is not committed",
+        },
+      };
+    }
+  }
+  return result;
 }

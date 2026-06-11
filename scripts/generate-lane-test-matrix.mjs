@@ -12,7 +12,6 @@ import {
 
 const outputRoot = join(repoRoot, "data", "lane-test-matrix");
 const csvPath = join(outputRoot, "variant-lanes.csv");
-const summaryPath = join(outputRoot, "summary.md");
 const mode = process.argv[2] ?? "--generate";
 
 const CORE_LANES = [
@@ -27,17 +26,13 @@ if (mode === "--generate") {
   const report = buildReport();
   mkdirSync(outputRoot, { recursive: true });
   write(csvPath, report.csv);
-  write(summaryPath, report.summary);
   console.log(`wrote ${relativeRepo(csvPath)}`);
-  console.log(`wrote ${relativeRepo(summaryPath)}`);
   console.log(`lane matrix: ${report.rows.length} chart-recipe-variant row(s)`);
 } else if (mode === "--verify") {
   const report = buildReport();
-  check(existsSync(csvPath), "missing lane-test matrix; run npm run lane-tests:generate");
-  check(existsSync(summaryPath), "missing lane-test summary; run npm run lane-tests:generate");
-  check(readFileSync(csvPath, "utf8") === report.csv, "lane-test matrix is stale; run npm run lane-tests:generate");
-  check(readFileSync(summaryPath, "utf8") === report.summary, "lane-test summary is stale; run npm run lane-tests:generate");
-  console.log(`verified lane-test matrix for ${report.rows.length} chart-recipe-variant row(s)`);
+  check(existsSync(csvPath), "missing lane-test CSV; run npm run lane-tests:generate");
+  check(readFileSync(csvPath, "utf8") === report.csv, "lane-test CSV is stale; run npm run lane-tests:generate");
+  console.log(`verified lane-test CSV for ${report.rows.length} chart-recipe-variant row(s)`);
 } else {
   console.log(`Usage:
   node scripts/generate-lane-test-matrix.mjs --generate
@@ -52,7 +47,7 @@ function buildReport() {
   const rows = recipeRoots()
     .flatMap((root) => variantRows(root, { confighubProofs, localKind, ociArgo, liveDual }))
     .sort((left, right) => `${left.chart}@${left.version}/${left.variant}`.localeCompare(`${right.chart}@${right.version}/${right.variant}`));
-  return { rows, csv: toCsv(rows), summary: toSummary(rows) };
+  return { rows, csv: toCsv(rows) };
 }
 
 function recipeRoots() {
@@ -262,92 +257,6 @@ function toCsv(rows) {
     "lane_notes",
   ];
   return `${[headers.join(","), ...rows.map((row) => headers.map((header) => csvEscape(row[header])).join(","))].join("\n")}\n`;
-}
-
-function toSummary(rows) {
-  const total = rows.length;
-  const counts = Object.fromEntries(
-    CORE_LANES.map((lane) => [
-      lane,
-      {
-        pass: rows.filter((row) => row[lane] === "pass").length,
-        missing: rows.filter((row) => row[lane] === "missing").length,
-        fail: rows.filter((row) => row[lane] === "fail").length,
-        watch: rows.filter((row) => row[lane] === "watch").length,
-        blocked: rows.filter((row) => row[lane] === "blocked").length,
-      },
-    ]),
-  );
-  const complete = rows.filter((row) => row.complete_core_lane_set === "yes").length;
-  const missingLive = rows.filter((row) => row.live_helm_vs_confighub_dual_compare !== "pass").slice(0, 25);
-  const missingConfigHub = rows.filter((row) => row.confighub_upload_variant_scan_safe_ops !== "pass").slice(0, 25);
-  const missingLocal = rows.filter((row) => row.local_kind_kubectl_apply !== "pass").slice(0, 25);
-  const liveDual = counts.live_helm_vs_confighub_dual_compare;
-  const liveDualStatus =
-    liveDual.pass === 0
-      ? "The live Helm-vs-ConfigHub dual comparison lane has no PASS receipts yet."
-      : `The live Helm-vs-ConfigHub dual comparison lane has ${liveDual.pass} PASS receipt(s), ${liveDual.watch} WATCH receipt(s), ${liveDual.blocked} BLOCKED receipt(s), ${liveDual.fail} FAIL receipt(s), and ${liveDual.missing} missing row(s).`;
-
-  return `# Lane Test Matrix
-
-Generated from recipe variants, proof receipts, ConfigHub proof receipts, local-kind
-observation receipts, and live-test receipt locations.
-
-This is a corpus control surface. A lane can be \`missing\` without making this
-generated report stale; the missing state is the backlog.
-
-A lane marked \`fail\`, \`watch\`, or \`blocked\` means a committed receipt
-exists and the lane did not pass as-is. For live lanes, this can be a useful
-target-fit finding such as missing CRDs, separated Secret delivery, a
-LoadBalancer requirement on a local kind cluster, or an infrastructure block
-that must be rerun before judging parity.
-
-## Headline
-
-\`\`\`text
-chart-recipe-variant rows: ${total}
-complete core lane set: ${complete}
-incomplete core lane set: ${total - complete}
-\`\`\`
-
-## Core Lane Counts
-
-| Lane | Pass | Missing | Fail | Watch | Blocked |
-| --- | ---: | ---: | ---: | ---: | ---: |
-${CORE_LANES.map((lane) => `| ${lane} | ${counts[lane].pass} | ${counts[lane].missing} | ${counts[lane].fail} | ${counts[lane].watch} | ${counts[lane].blocked} |`).join("\n")}
-
-## Lane Definitions
-
-| Lane | Evidence |
-| --- | --- |
-| \`helm_template_vs_installer_setup\` | \`revisions/<variant>/r001/receipts/helm-equivalence-receipt.yaml\` plus matching \`publication/installer-package-receipt.yaml.spec.setupChecks[]\`. |
-| \`confighub_upload_variant_scan_safe_ops\` | \`runs/<slug>-confighub-proof/latest/confighub-proof-receipt.yaml\`, function scan receipt, and safe-ops receipt. |
-| \`local_kind_kubectl_apply\` | \`runs/top20-local-kind/<chart>-<variant>/observation-receipt.json\` or equivalent Redis local-kind receipt. |
-| \`confighub_oci_argo_live\` | \`data/runtime-gitops/receipts/**/latest.yaml\` or \`tests/chart-install-test\` / \`tests/chart-install-sweep\` receipt proving ConfigHub Units were applied to OCI and reconciled by Argo. |
-| \`live_helm_vs_confighub_dual_compare\` | Receipt comparing a live \`helm install\` deployment against live ConfigHub delivery paths: OCI/GitOps and kubectl/apply. |
-
-## Current Gaps
-
-${liveDualStatus} The ConfigHub OCI/Argo live lane has a harness, but this repo
-currently has no committed PASS receipts for every chart-recipe-variant row.
-
-### First Non-Pass Or Missing ConfigHub Proof Rows
-
-${rowList(missingConfigHub)}
-
-### First Non-Pass Or Missing Local Kind Rows
-
-${rowList(missingLocal)}
-
-### First Non-Pass Or Missing Live Helm Vs ConfigHub Rows
-
-${rowList(missingLive)}
-`;
-}
-
-function rowList(rows) {
-  if (!rows.length) return "none\n";
-  return `${rows.map((row) => `- ${row.chart}@${row.version} / ${row.variant}`).join("\n")}\n`;
 }
 
 function csvEscape(value) {

@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "sealed-secrets-sealed-secrets-2.18.6-default-local-kind"
+spec:
+  checks:
+    -
+      name: "crds-applied-and-established"
+      object: "1 CustomResourceDefinition(s)"
+      result: "pass"
+    -
+      name: "rendered-objects-applied"
+      object: "11 object(s) from recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/default/r001/rendered/release-objects.yaml"
+      result: "pass"
+    -
+      name: "workload-converged"
+      object: "Deployment|default|sealed-secrets"
+      result: "pass"
+  clusterStatus: "existing"
+  freshnessTTL: "1h"
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "be4e115c8906455607d435fd68f96373615bd999a4f1db2cb59c652b74052f27"
+  observedAt: "2026-06-11T10:02:59.196Z"
+  observer:
+    method: "kubectl-kind"
+    name: "next80-local-live"
+    version: "0.1.0"
+  renderedObjectSetSHA256: "096c66f4ea312aa7c3a4fc2be815b64271c3f1c829c8914b5c96c190aa22a83e"
+  result: "pass"
+  target:
+    context: "kind-claude-helm-expt-next80"
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    namespace: "default"
+  variant: "default"
+  variantRevision: "recipes/sealed-secrets/sealed-secrets/2.18.6/revisions/default/r001/variant-revision.yaml"
+  workloads: 1

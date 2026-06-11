@@ -1,0 +1,50 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "kyverno-kyverno-3.8.1-default-local-kind"
+spec:
+  checks:
+    -
+      name: "crds-applied-and-established"
+      object: "22 CustomResourceDefinition(s)"
+      result: "pass"
+    -
+      name: "rendered-objects-applied"
+      object: "69 object(s) from recipes/kyverno/kyverno/3.8.1/revisions/default/r001/rendered/release-objects.yaml"
+      result: "pass"
+    -
+      name: "workload-converged"
+      object: "Deployment|default|kyverno-admission-controller"
+      result: "pass"
+    -
+      name: "workload-converged"
+      object: "Deployment|default|kyverno-background-controller"
+      result: "pass"
+    -
+      name: "workload-converged"
+      object: "Deployment|default|kyverno-cleanup-controller"
+      result: "pass"
+    -
+      name: "workload-converged"
+      object: "Deployment|default|kyverno-reports-controller"
+      result: "pass"
+  clusterStatus: "existing"
+  freshnessTTL: "1h"
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "8b5e823ccefeb2ffd4e454ae219741261055e44e58966cb96dc7b09fd82cc2d6"
+  observedAt: "2026-06-11T10:02:57.265Z"
+  observer:
+    method: "kubectl-kind"
+    name: "next80-local-live"
+    version: "0.1.0"
+  renderedObjectSetSHA256: "00df8d584a2b69683a7895eff47d5a2bd6c1947827272bc518b0b79bbba80884"
+  result: "pass"
+  target:
+    context: "kind-claude-helm-expt-next80"
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    namespace: "default"
+  variant: "default"
+  variantRevision: "recipes/kyverno/kyverno/3.8.1/revisions/default/r001/variant-revision.yaml"
+  workloads: 4

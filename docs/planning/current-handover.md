@@ -63,7 +63,7 @@ For chart-recipe-variant lane coverage, use the generated lane matrix instead
 of chart-level shorthand:
 
 ```text
-data/lane-test-matrix/summary.md
+data/outcome-coverage/summary.md
 ```
 
 As of the current matrix, all 156 chart-recipe-variant rows have
@@ -145,7 +145,7 @@ The latest generated queues for the next proof stages are:
 | Cert-manager / External Secrets lifecycle observations | [data/lifecycle-observations/cert-manager-eso/summary.md](../../data/lifecycle-observations/cert-manager-eso/summary.md) |
 | Image digest workdown | [data/image-digest-workdown/summary.md](../../data/image-digest-workdown/summary.md) |
 | Compact next-ten waves | [data/next-ten-waves/summary.md](../../data/next-ten-waves/summary.md) |
-| Lane-test matrix | [data/lane-test-matrix/summary.md](../../data/lane-test-matrix/summary.md) |
+| Lane-test matrix | [data/outcome-coverage/summary.md](../../data/outcome-coverage/summary.md) |
 | Live parity rerun queue | [data/live-parity-rerun-plan/summary.md](../../data/live-parity-rerun-plan/summary.md) |
 | Refresh survival and upgrade seed | [data/refresh-survival/summary.md](../../data/refresh-survival/summary.md) |
 

@@ -143,7 +143,7 @@ support.
 
 The generated lane matrix is the authority for exact chart/version/base status:
 
-[Lane Test Matrix](../../data/lane-test-matrix/summary.md)
+[Outcome Coverage](../../data/outcome-coverage/summary.md)
 
 The generated outcome coverage is the easiest spreadsheet-oriented entry
 point for chart, base, derived variant, and feature status:
@@ -246,7 +246,7 @@ live_helm_vs_confighub_dual_compare:      20 pass, 2 watch, 0 blocked, 157 missi
 ```
 
 Those counts come from the generated lane matrix:
-[Lane Test Matrix](../../data/lane-test-matrix/summary.md).
+[Outcome Coverage](../../data/outcome-coverage/summary.md).
 
 The missing rows are backlog. They are not failed rows. `watch` and `blocked`
 mean a committed receipt exists and the lane found a target, lifecycle, or

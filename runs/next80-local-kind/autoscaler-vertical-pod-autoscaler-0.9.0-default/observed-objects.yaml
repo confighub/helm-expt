@@ -1,0 +1,2463 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "policy/v1"
+    kind: "PodDisruptionBudget"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"policy/v1\",\"kind\":\"PodDisruptionBudget\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-admission-controller\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-admission-controller\",\"namespace\":\"default\"},\"spec\":{\"minAvailable\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\"}}}}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "admission-controller"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-admission-controller"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-admission-controller"
+      namespace: "default"
+      resourceVersion: "6404"
+      uid: "0796b62f-dcae-41cd-9e52-f1777027c327"
+    spec:
+      minAvailable: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "admission-controller"
+          app.kubernetes.io/instance: "vertical-pod-autoscaler"
+          app.kubernetes.io/name: "vertical-pod-autoscaler"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T09:57:18Z"
+          message: ""
+          observedGeneration: 1
+          reason: "InsufficientPods"
+          status: "False"
+          type: "DisruptionAllowed"
+      currentHealthy: 0
+      desiredHealthy: 1
+      disruptionsAllowed: 0
+      expectedPods: 2
+      observedGeneration: 1
+  -
+    apiVersion: "policy/v1"
+    kind: "PodDisruptionBudget"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"policy/v1\",\"kind\":\"PodDisruptionBudget\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"recommender\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-recommender\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-recommender\",\"namespace\":\"default\"},\"spec\":{\"minAvailable\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"recommender\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\"}}}}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "recommender"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-recommender"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-recommender"
+      namespace: "default"
+      resourceVersion: "6521"
+      uid: "585826b9-075c-4d0a-b5cd-ec3afc03e9a7"
+    spec:
+      minAvailable: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "recommender"
+          app.kubernetes.io/instance: "vertical-pod-autoscaler"
+          app.kubernetes.io/name: "vertical-pod-autoscaler"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T09:57:29Z"
+          message: ""
+          observedGeneration: 1
+          reason: "SufficientPods"
+          status: "True"
+          type: "DisruptionAllowed"
+      currentHealthy: 2
+      desiredHealthy: 1
+      disruptionsAllowed: 1
+      expectedPods: 2
+      observedGeneration: 1
+  -
+    apiVersion: "policy/v1"
+    kind: "PodDisruptionBudget"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"policy/v1\",\"kind\":\"PodDisruptionBudget\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"updater\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-updater\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-updater\",\"namespace\":\"default\"},\"spec\":{\"minAvailable\":1,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"updater\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\"}}}}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "updater"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-updater"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-updater"
+      namespace: "default"
+      resourceVersion: "6497"
+      uid: "ccfd2d97-59bb-47f6-8c23-f70e9586e288"
+    spec:
+      minAvailable: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "updater"
+          app.kubernetes.io/instance: "vertical-pod-autoscaler"
+          app.kubernetes.io/name: "vertical-pod-autoscaler"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T09:57:19Z"
+          message: ""
+          observedGeneration: 1
+          reason: "SufficientPods"
+          status: "True"
+          type: "DisruptionAllowed"
+      currentHealthy: 2
+      desiredHealthy: 1
+      disruptionsAllowed: 1
+      expectedPods: 2
+      observedGeneration: 1
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-admission-controller\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-admission-controller\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "admission-controller"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-admission-controller"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-admission-controller"
+      namespace: "default"
+      resourceVersion: "6369"
+      uid: "a936d2c8-6b7e-4bce-91e6-d8633f78273b"
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"recommender\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-recommender\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-recommender\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "recommender"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-recommender"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-recommender"
+      namespace: "default"
+      resourceVersion: "6372"
+      uid: "4fbef36e-0acd-4994-8ee0-42689b689955"
+  -
+    apiVersion: "v1"
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"updater\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-updater\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-updater\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "updater"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-updater"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-updater"
+      namespace: "default"
+      resourceVersion: "6374"
+      uid: "d139c751-336a-4e9a-bf01-900903fa7323"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"recommender\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-recommender\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-recommender-leader-locking\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"create\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resourceNames\":[\"vpa-recommender-lease\"],\"resources\":[\"leases\"],\"verbs\":[\"get\",\"watch\",\"update\"]}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "recommender"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-recommender"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-recommender-leader-locking"
+      namespace: "default"
+      resourceVersion: "6375"
+      uid: "b6213eca-e16e-41bc-bc96-83a880b285f0"
+    rules:
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "create"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resourceNames:
+          - "vpa-recommender-lease"
+        resources:
+          - "leases"
+        verbs:
+          - "get"
+          - "watch"
+          - "update"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "Role"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"Role\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"updater\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-updater\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-updater-leader-locking\",\"namespace\":\"default\"},\"rules\":[{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"create\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resourceNames\":[\"vpa-updater-lease\"],\"resources\":[\"leases\"],\"verbs\":[\"get\",\"watch\",\"update\"]}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "updater"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-updater"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-updater-leader-locking"
+      namespace: "default"
+      resourceVersion: "6376"
+      uid: "6c65ee3b-7439-4dd3-a061-79e799d627d0"
+    rules:
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "create"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resourceNames:
+          - "vpa-updater-lease"
+        resources:
+          - "leases"
+        verbs:
+          - "get"
+          - "watch"
+          - "update"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"recommender\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-recommender\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-recommender-leader-locking\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"vertical-pod-autoscaler-recommender-leader-locking\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vertical-pod-autoscaler-recommender\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "recommender"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-recommender"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-recommender-leader-locking"
+      namespace: "default"
+      resourceVersion: "6377"
+      uid: "926f8236-7fab-4180-93d1-1dbdbf423b8d"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "vertical-pod-autoscaler-recommender-leader-locking"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "vertical-pod-autoscaler-recommender"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "RoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"RoleBinding\",\"metadata\":{\"annotations\":{},\"name\":\"vertical-pod-autoscaler-updater-leader-locking-binding\",\"namespace\":\"default\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"Role\",\"name\":\"vertical-pod-autoscaler-updater-leader-locking\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vertical-pod-autoscaler-updater\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      name: "vertical-pod-autoscaler-updater-leader-locking-binding"
+      namespace: "default"
+      resourceVersion: "6378"
+      uid: "513f112c-7e8e-4f43-a39a-14caad367b4b"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "Role"
+      name: "vertical-pod-autoscaler-updater-leader-locking"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "vertical-pod-autoscaler-updater"
+        namespace: "default"
+  -
+    apiVersion: "v1"
+    kind: "Service"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-admission-controller\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vpa-webhook\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"port\":443,\"protocol\":\"TCP\",\"targetPort\":8000}],\"selector\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\"},\"type\":\"ClusterIP\"}}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "admission-controller"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-admission-controller"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vpa-webhook"
+      namespace: "default"
+      resourceVersion: "6380"
+      uid: "e7c61e23-73a6-4f22-b1f8-7e9fe38cdb92"
+    spec:
+      clusterIP: "10.96.77.176"
+      clusterIPs:
+        - "10.96.77.176"
+      internalTrafficPolicy: "Cluster"
+      ipFamilies:
+        - "IPv4"
+      ipFamilyPolicy: "SingleStack"
+      ports:
+        -
+          port: 443
+          protocol: "TCP"
+          targetPort: 8000
+      selector:
+        app.kubernetes.io/component: "admission-controller"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+      sessionAffinity: "None"
+      type: "ClusterIP"
+    status:
+      loadBalancer:
+        {}
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-admission-controller\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-admission-controller\",\"namespace\":\"default\"},\"spec\":{\"replicas\":2,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\"}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\"}},\"spec\":{\"affinity\":{\"podAntiAffinity\":{\"preferredDuringSchedulingIgnoredDuringExecution\":[{\"podAffinityTerm\":{\"labelSelector\":{\"matchExpressions\":[{\"key\":\"app.kubernetes.io/component\",\"operator\":\"In\",\"values\":[\"admission-controller\"]}]},\"topologyKey\":\"kubernetes.io/hostname\"},\"weight\":100}]}},\"containers\":[{\"args\":[\"--v=4\",\"--stderrthreshold=info\",\"--register-webhook=false\",\"--webhook-service=vpa-webhook\"],\"env\":[{\"name\":\"NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}}],\"image\":\"registry.k8s.io/autoscaling/vpa-admission-controller:1.6.0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/health-check\",\"port\":\"prometheus\",\"scheme\":\"HTTP\"},\"initialDelaySeconds\":5,\"periodSeconds\":10},\"name\":\"admission-controller\",\"ports\":[{\"containerPort\":8000,\"protocol\":\"TCP\"},{\"containerPort\":8944,\"name\":\"prometheus\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/health-check\",\"port\":\"prometheus\",\"scheme\":\"HTTP\"},\"periodSeconds\":10},\"volumeMounts\":[{\"mountPath\":\"/etc/tls-certs\",\"name\":\"tls-certs\",\"readOnly\":true}]}],\"securityContext\":{\"runAsNonRoot\":true,\"runAsUser\":65534},\"serviceAccountName\":\"vertical-pod-autoscaler-admission-controller\",\"volumes\":[{\"name\":\"tls-certs\",\"secret\":{\"defaultMode\":420,\"items\":[{\"key\":\"ca\",\"path\":\"caCert.pem\"},{\"key\":\"cert\",\"path\":\"serverCert.pem\"},{\"key\":\"key\",\"path\":\"serverKey.pem\"}],\"secretName\":\"vpa-tls-certs\"}}]}}}}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "admission-controller"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-admission-controller"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-admission-controller"
+      namespace: "default"
+      resourceVersion: "6415"
+      uid: "fa31afe4-fcec-446f-99a7-e12e6be125ac"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 2
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "admission-controller"
+          app.kubernetes.io/instance: "vertical-pod-autoscaler"
+          app.kubernetes.io/name: "vertical-pod-autoscaler"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/component: "admission-controller"
+            app.kubernetes.io/instance: "vertical-pod-autoscaler"
+            app.kubernetes.io/name: "vertical-pod-autoscaler"
+        spec:
+          affinity:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                -
+                  podAffinityTerm:
+                    labelSelector:
+                      matchExpressions:
+                        -
+                          key: "app.kubernetes.io/component"
+                          operator: "In"
+                          values:
+                            - "admission-controller"
+                    topologyKey: "kubernetes.io/hostname"
+                  weight: 100
+          containers:
+            -
+              args:
+                - "--v=4"
+                - "--stderrthreshold=info"
+                - "--register-webhook=false"
+                - "--webhook-service=vpa-webhook"
+              env:
+                -
+                  name: "NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+              image: "registry.k8s.io/autoscaling/vpa-admission-controller:1.6.0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/health-check"
+                  port: "prometheus"
+                  scheme: "HTTP"
+                initialDelaySeconds: 5
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              name: "admission-controller"
+              ports:
+                -
+                  containerPort: 8000
+                  protocol: "TCP"
+                -
+                  containerPort: 8944
+                  name: "prometheus"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/health-check"
+                  port: "prometheus"
+                  scheme: "HTTP"
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                {}
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/etc/tls-certs"
+                  name: "tls-certs"
+                  readOnly: true
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+          serviceAccount: "vertical-pod-autoscaler-admission-controller"
+          serviceAccountName: "vertical-pod-autoscaler-admission-controller"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              name: "tls-certs"
+              secret:
+                defaultMode: 420
+                items:
+                  -
+                    key: "ca"
+                    path: "caCert.pem"
+                  -
+                    key: "cert"
+                    path: "serverCert.pem"
+                  -
+                    key: "key"
+                    path: "serverKey.pem"
+                secretName: "vpa-tls-certs"
+    status:
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T09:57:18Z"
+          lastUpdateTime: "2026-06-11T09:57:18Z"
+          message: "Deployment does not have minimum availability."
+          reason: "MinimumReplicasUnavailable"
+          status: "False"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T09:57:18Z"
+          lastUpdateTime: "2026-06-11T09:57:18Z"
+          message: "ReplicaSet \"vertical-pod-autoscaler-admission-controller-b7787b7f8\" is progressing."
+          reason: "ReplicaSetUpdated"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      replicas: 2
+      terminatingReplicas: 0
+      unavailableReplicas: 2
+      updatedReplicas: 2
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"recommender\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-recommender\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-recommender\",\"namespace\":\"default\"},\"spec\":{\"replicas\":2,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"recommender\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\"}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"recommender\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\"}},\"spec\":{\"affinity\":{\"podAntiAffinity\":{\"preferredDuringSchedulingIgnoredDuringExecution\":[{\"podAffinityTerm\":{\"labelSelector\":{\"matchExpressions\":[{\"key\":\"app.kubernetes.io/component\",\"operator\":\"In\",\"values\":[\"recommender\"]}]},\"topologyKey\":\"kubernetes.io/hostname\"},\"weight\":100}]}},\"containers\":[{\"args\":[\"--v=4\",\"--stderrthreshold=info\",\"--leader-elect=true\",\"--leader-elect-resource-namespace=default\",\"--leader-elect-resource-name=vpa-recommender-lease\",\"--leader-elect-lease-duration=15s\",\"--leader-elect-renew-deadline=10s\",\"--leader-elect-retry-period=2s\"],\"env\":[{\"name\":\"NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}}],\"image\":\"registry.k8s.io/autoscaling/vpa-recommender:1.6.0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/health-check\",\"port\":\"prometheus\",\"scheme\":\"HTTP\"},\"initialDelaySeconds\":5,\"periodSeconds\":10},\"name\":\"recommender\",\"ports\":[{\"containerPort\":8942,\"name\":\"prometheus\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/health-check\",\"port\":\"prometheus\",\"scheme\":\"HTTP\"},\"periodSeconds\":10}}],\"securityContext\":{\"runAsNonRoot\":true,\"runAsUser\":65534},\"serviceAccountName\":\"vertical-pod-autoscaler-recommender\"}}}}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "recommender"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-recommender"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-recommender"
+      namespace: "default"
+      resourceVersion: "6522"
+      uid: "6265e2c7-803e-4cd6-abca-923c660b3fbb"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 2
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "recommender"
+          app.kubernetes.io/instance: "vertical-pod-autoscaler"
+          app.kubernetes.io/name: "vertical-pod-autoscaler"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/component: "recommender"
+            app.kubernetes.io/instance: "vertical-pod-autoscaler"
+            app.kubernetes.io/name: "vertical-pod-autoscaler"
+        spec:
+          affinity:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                -
+                  podAffinityTerm:
+                    labelSelector:
+                      matchExpressions:
+                        -
+                          key: "app.kubernetes.io/component"
+                          operator: "In"
+                          values:
+                            - "recommender"
+                    topologyKey: "kubernetes.io/hostname"
+                  weight: 100
+          containers:
+            -
+              args:
+                - "--v=4"
+                - "--stderrthreshold=info"
+                - "--leader-elect=true"
+                - "--leader-elect-resource-namespace=default"
+                - "--leader-elect-resource-name=vpa-recommender-lease"
+                - "--leader-elect-lease-duration=15s"
+                - "--leader-elect-renew-deadline=10s"
+                - "--leader-elect-retry-period=2s"
+              env:
+                -
+                  name: "NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+              image: "registry.k8s.io/autoscaling/vpa-recommender:1.6.0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/health-check"
+                  port: "prometheus"
+                  scheme: "HTTP"
+                initialDelaySeconds: 5
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              name: "recommender"
+              ports:
+                -
+                  containerPort: 8942
+                  name: "prometheus"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/health-check"
+                  port: "prometheus"
+                  scheme: "HTTP"
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                {}
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+          serviceAccount: "vertical-pod-autoscaler-recommender"
+          serviceAccountName: "vertical-pod-autoscaler-recommender"
+          terminationGracePeriodSeconds: 30
+    status:
+      availableReplicas: 2
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T09:57:29Z"
+          lastUpdateTime: "2026-06-11T09:57:29Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T09:57:18Z"
+          lastUpdateTime: "2026-06-11T09:57:29Z"
+          message: "ReplicaSet \"vertical-pod-autoscaler-recommender-65cf99b9bd\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 2
+      replicas: 2
+      terminatingReplicas: 0
+      updatedReplicas: 2
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"updater\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-updater\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-updater\",\"namespace\":\"default\"},\"spec\":{\"replicas\":2,\"revisionHistoryLimit\":10,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/component\":\"updater\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\"}},\"template\":{\"metadata\":{\"labels\":{\"app.kubernetes.io/component\":\"updater\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\"}},\"spec\":{\"affinity\":{\"podAntiAffinity\":{\"preferredDuringSchedulingIgnoredDuringExecution\":[{\"podAffinityTerm\":{\"labelSelector\":{\"matchExpressions\":[{\"key\":\"app.kubernetes.io/component\",\"operator\":\"In\",\"values\":[\"updater\"]}]},\"topologyKey\":\"kubernetes.io/hostname\"},\"weight\":100}]}},\"containers\":[{\"args\":[\"--v=4\",\"--stderrthreshold=info\",\"--leader-elect=true\",\"--leader-elect-resource-namespace=default\",\"--leader-elect-resource-name=vpa-updater-lease\",\"--leader-elect-lease-duration=15s\",\"--leader-elect-renew-deadline=10s\",\"--leader-elect-retry-period=2s\"],\"env\":[{\"name\":\"NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}}],\"image\":\"registry.k8s.io/autoscaling/vpa-updater:1.6.0\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/health-check\",\"port\":\"prometheus\",\"scheme\":\"HTTP\"},\"initialDelaySeconds\":5,\"periodSeconds\":10},\"name\":\"updater\",\"ports\":[{\"containerPort\":8943,\"name\":\"prometheus\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/health-check\",\"port\":\"prometheus\",\"scheme\":\"HTTP\"},\"periodSeconds\":10}}],\"securityContext\":{\"runAsNonRoot\":true,\"runAsUser\":65534},\"serviceAccountName\":\"vertical-pod-autoscaler-updater\"}}}}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "updater"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-updater"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-updater"
+      namespace: "default"
+      resourceVersion: "6499"
+      uid: "6e9c84a5-bd86-4059-b6fd-a470c1b91866"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 2
+      revisionHistoryLimit: 10
+      selector:
+        matchLabels:
+          app.kubernetes.io/component: "updater"
+          app.kubernetes.io/instance: "vertical-pod-autoscaler"
+          app.kubernetes.io/name: "vertical-pod-autoscaler"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/component: "updater"
+            app.kubernetes.io/instance: "vertical-pod-autoscaler"
+            app.kubernetes.io/name: "vertical-pod-autoscaler"
+        spec:
+          affinity:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                -
+                  podAffinityTerm:
+                    labelSelector:
+                      matchExpressions:
+                        -
+                          key: "app.kubernetes.io/component"
+                          operator: "In"
+                          values:
+                            - "updater"
+                    topologyKey: "kubernetes.io/hostname"
+                  weight: 100
+          containers:
+            -
+              args:
+                - "--v=4"
+                - "--stderrthreshold=info"
+                - "--leader-elect=true"
+                - "--leader-elect-resource-namespace=default"
+                - "--leader-elect-resource-name=vpa-updater-lease"
+                - "--leader-elect-lease-duration=15s"
+                - "--leader-elect-renew-deadline=10s"
+                - "--leader-elect-retry-period=2s"
+              env:
+                -
+                  name: "NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+              image: "registry.k8s.io/autoscaling/vpa-updater:1.6.0"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/health-check"
+                  port: "prometheus"
+                  scheme: "HTTP"
+                initialDelaySeconds: 5
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              name: "updater"
+              ports:
+                -
+                  containerPort: 8943
+                  name: "prometheus"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/health-check"
+                  port: "prometheus"
+                  scheme: "HTTP"
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                {}
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+          serviceAccount: "vertical-pod-autoscaler-updater"
+          serviceAccountName: "vertical-pod-autoscaler-updater"
+          terminationGracePeriodSeconds: 30
+    status:
+      availableReplicas: 2
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T09:57:19Z"
+          lastUpdateTime: "2026-06-11T09:57:19Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T09:57:18Z"
+          lastUpdateTime: "2026-06-11T09:57:19Z"
+          message: "ReplicaSet \"vertical-pod-autoscaler-updater-6bd8467c99\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 2
+      replicas: 2
+      terminatingReplicas: 0
+      updatedReplicas: 2
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "apiextensions.k8s.io/v1"
+    kind: "CustomResourceDefinition"
+    metadata:
+      annotations:
+        api-approved.kubernetes.io: "https://github.com/kubernetes/kubernetes/pull/63797"
+        controller-gen.kubebuilder.io/version: "v0.16.5"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      generation: 1
+      name: "verticalpodautoscalercheckpoints.autoscaling.k8s.io"
+      resourceVersion: "6356"
+      uid: "d926448a-2d9f-40a6-aae5-56b97e26e89f"
+    spec:
+      conversion:
+        strategy: "None"
+      group: "autoscaling.k8s.io"
+      names:
+        kind: "VerticalPodAutoscalerCheckpoint"
+        listKind: "VerticalPodAutoscalerCheckpointList"
+        plural: "verticalpodautoscalercheckpoints"
+        shortNames:
+          - "vpacheckpoint"
+        singular: "verticalpodautoscalercheckpoint"
+      scope: "Namespaced"
+      versions:
+        -
+          name: "v1"
+          schema:
+            openAPIV3Schema:
+              description: "VerticalPodAutoscalerCheckpoint is the checkpoint of the internal state of VPA that\nis used for recovery after recommender's restart."
+              properties:
+                apiVersion:
+                  description: "APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
+                  type: "string"
+                kind:
+                  description: "Kind is a string value representing the REST resource this object represents.\nServers may infer this from the endpoint the client submits requests to.\nCannot be updated.\nIn CamelCase.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+                  type: "string"
+                metadata:
+                  type: "object"
+                spec:
+                  description: "Specification of the checkpoint.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status."
+                  properties:
+                    containerName:
+                      description: "Name of the checkpointed container."
+                      type: "string"
+                    vpaObjectName:
+                      description: "Name of the VPA object that stored VerticalPodAutoscalerCheckpoint object."
+                      type: "string"
+                  type: "object"
+                status:
+                  description: "Data of the checkpoint."
+                  properties:
+                    cpuHistogram:
+                      description: "Checkpoint of histogram for consumption of CPU."
+                      properties:
+                        bucketWeights:
+                          description: "Map from bucket index to bucket weight."
+                          type: "object"
+                          x-kubernetes-preserve-unknown-fields: true
+                        referenceTimestamp:
+                          description: "Reference timestamp for samples collected within this histogram."
+                          format: "date-time"
+                          nullable: true
+                          type: "string"
+                        totalWeight:
+                          description: "Sum of samples to be used as denominator for weights from BucketWeights."
+                          type: "number"
+                      type: "object"
+                    firstSampleStart:
+                      description: "Timestamp of the first sample from the histograms."
+                      format: "date-time"
+                      nullable: true
+                      type: "string"
+                    lastSampleStart:
+                      description: "Timestamp of the last sample from the histograms."
+                      format: "date-time"
+                      nullable: true
+                      type: "string"
+                    lastUpdateTime:
+                      description: "The time when the status was last refreshed."
+                      format: "date-time"
+                      nullable: true
+                      type: "string"
+                    memoryHistogram:
+                      description: "Checkpoint of histogram for consumption of memory."
+                      properties:
+                        bucketWeights:
+                          description: "Map from bucket index to bucket weight."
+                          type: "object"
+                          x-kubernetes-preserve-unknown-fields: true
+                        referenceTimestamp:
+                          description: "Reference timestamp for samples collected within this histogram."
+                          format: "date-time"
+                          nullable: true
+                          type: "string"
+                        totalWeight:
+                          description: "Sum of samples to be used as denominator for weights from BucketWeights."
+                          type: "number"
+                      type: "object"
+                    totalSamplesCount:
+                      description: "Total number of samples in the histograms."
+                      type: "integer"
+                    version:
+                      description: "Version of the format of the stored data."
+                      type: "string"
+                  type: "object"
+              type: "object"
+          served: true
+          storage: true
+        -
+          name: "v1beta2"
+          schema:
+            openAPIV3Schema:
+              description: "VerticalPodAutoscalerCheckpoint is the checkpoint of the internal state of VPA that\nis used for recovery after recommender's restart."
+              properties:
+                apiVersion:
+                  description: "APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
+                  type: "string"
+                kind:
+                  description: "Kind is a string value representing the REST resource this object represents.\nServers may infer this from the endpoint the client submits requests to.\nCannot be updated.\nIn CamelCase.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+                  type: "string"
+                metadata:
+                  type: "object"
+                spec:
+                  description: "Specification of the checkpoint.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status."
+                  properties:
+                    containerName:
+                      description: "Name of the checkpointed container."
+                      type: "string"
+                    vpaObjectName:
+                      description: "Name of the VPA object that stored VerticalPodAutoscalerCheckpoint object."
+                      type: "string"
+                  type: "object"
+                status:
+                  description: "Data of the checkpoint."
+                  properties:
+                    cpuHistogram:
+                      description: "Checkpoint of histogram for consumption of CPU."
+                      properties:
+                        bucketWeights:
+                          description: "Map from bucket index to bucket weight."
+                          type: "object"
+                          x-kubernetes-preserve-unknown-fields: true
+                        referenceTimestamp:
+                          description: "Reference timestamp for samples collected within this histogram."
+                          format: "date-time"
+                          nullable: true
+                          type: "string"
+                        totalWeight:
+                          description: "Sum of samples to be used as denominator for weights from BucketWeights."
+                          type: "number"
+                      type: "object"
+                    firstSampleStart:
+                      description: "Timestamp of the first sample from the histograms."
+                      format: "date-time"
+                      nullable: true
+                      type: "string"
+                    lastSampleStart:
+                      description: "Timestamp of the last sample from the histograms."
+                      format: "date-time"
+                      nullable: true
+                      type: "string"
+                    lastUpdateTime:
+                      description: "The time when the status was last refreshed."
+                      format: "date-time"
+                      nullable: true
+                      type: "string"
+                    memoryHistogram:
+                      description: "Checkpoint of histogram for consumption of memory."
+                      properties:
+                        bucketWeights:
+                          description: "Map from bucket index to bucket weight."
+                          type: "object"
+                          x-kubernetes-preserve-unknown-fields: true
+                        referenceTimestamp:
+                          description: "Reference timestamp for samples collected within this histogram."
+                          format: "date-time"
+                          nullable: true
+                          type: "string"
+                        totalWeight:
+                          description: "Sum of samples to be used as denominator for weights from BucketWeights."
+                          type: "number"
+                      type: "object"
+                    totalSamplesCount:
+                      description: "Total number of samples in the histograms."
+                      type: "integer"
+                    version:
+                      description: "Version of the format of the stored data."
+                      type: "string"
+                  type: "object"
+              type: "object"
+          served: false
+          storage: false
+    status:
+      acceptedNames:
+        kind: "VerticalPodAutoscalerCheckpoint"
+        listKind: "VerticalPodAutoscalerCheckpointList"
+        plural: "verticalpodautoscalercheckpoints"
+        shortNames:
+          - "vpacheckpoint"
+        singular: "verticalpodautoscalercheckpoint"
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T09:57:18Z"
+          message: "no conflicts found"
+          reason: "NoConflicts"
+          status: "True"
+          type: "NamesAccepted"
+        -
+          lastTransitionTime: "2026-06-11T09:57:18Z"
+          message: "the initial names have been accepted"
+          reason: "InitialNamesAccepted"
+          status: "True"
+          type: "Established"
+        -
+          lastTransitionTime: "2026-06-11T09:57:18Z"
+          message: "approved in https://github.com/kubernetes/kubernetes/pull/63797"
+          reason: "ApprovedAnnotation"
+          status: "True"
+          type: "KubernetesAPIApprovalPolicyConformant"
+      storedVersions:
+        - "v1"
+  -
+    apiVersion: "apiextensions.k8s.io/v1"
+    kind: "CustomResourceDefinition"
+    metadata:
+      annotations:
+        api-approved.kubernetes.io: "https://github.com/kubernetes/kubernetes/pull/63797"
+        controller-gen.kubebuilder.io/version: "v0.16.5"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      generation: 1
+      name: "verticalpodautoscalers.autoscaling.k8s.io"
+      resourceVersion: "6358"
+      uid: "513c2249-e184-45ae-885a-794498442b57"
+    spec:
+      conversion:
+        strategy: "None"
+      group: "autoscaling.k8s.io"
+      names:
+        kind: "VerticalPodAutoscaler"
+        listKind: "VerticalPodAutoscalerList"
+        plural: "verticalpodautoscalers"
+        shortNames:
+          - "vpa"
+        singular: "verticalpodautoscaler"
+      scope: "Namespaced"
+      versions:
+        -
+          additionalPrinterColumns:
+            -
+              jsonPath: ".spec.updatePolicy.updateMode"
+              name: "Mode"
+              type: "string"
+            -
+              jsonPath: ".status.recommendation.containerRecommendations[0].target.cpu"
+              name: "CPU"
+              type: "string"
+            -
+              jsonPath: ".status.recommendation.containerRecommendations[0].target.memory"
+              name: "Mem"
+              type: "string"
+            -
+              jsonPath: ".status.conditions[?(@.type=='RecommendationProvided')].status"
+              name: "Provided"
+              type: "string"
+            -
+              jsonPath: ".metadata.creationTimestamp"
+              name: "Age"
+              type: "date"
+            -
+              jsonPath: ".spec.updatePolicy.minReplicas"
+              name: "MinReplicas"
+              priority: 1
+              type: "integer"
+            -
+              jsonPath: ".spec.updatePolicy.evictAfterOOMSeconds"
+              name: "OOMSeconds"
+              priority: 1
+              type: "integer"
+          name: "v1"
+          schema:
+            openAPIV3Schema:
+              description: "VerticalPodAutoscaler is the configuration for a vertical pod\nautoscaler, which automatically manages pod resources based on historical and\nreal time resource utilization."
+              properties:
+                apiVersion:
+                  description: "APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
+                  type: "string"
+                kind:
+                  description: "Kind is a string value representing the REST resource this object represents.\nServers may infer this from the endpoint the client submits requests to.\nCannot be updated.\nIn CamelCase.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+                  type: "string"
+                metadata:
+                  type: "object"
+                spec:
+                  description: "Specification of the behavior of the autoscaler.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status."
+                  properties:
+                    recommenders:
+                      description: "Recommender responsible for generating recommendation for this object.\nList should be empty (then the default recommender will generate the\nrecommendation) or contain exactly one recommender."
+                      items:
+                        description: "VerticalPodAutoscalerRecommenderSelector points to a specific Vertical Pod Autoscaler recommender.\nIn the future it might pass parameters to the recommender."
+                        properties:
+                          name:
+                            description: "Name of the recommender responsible for generating recommendation for this object."
+                            type: "string"
+                        required:
+                          - "name"
+                        type: "object"
+                      type: "array"
+                    resourcePolicy:
+                      description: "Controls how the autoscaler computes recommended resources.\nThe resource policy may be used to set constraints on the recommendations\nfor individual containers.\nIf any individual containers need to be excluded from getting the VPA recommendations, then\nit must be disabled explicitly by setting mode to \"Off\" under containerPolicies.\nIf not specified, the autoscaler computes recommended resources for all containers in the pod,\nwithout additional constraints."
+                      properties:
+                        containerPolicies:
+                          description: "Per-container resource policies."
+                          items:
+                            description: "ContainerResourcePolicy controls how autoscaler computes the recommended\nresources for a specific container."
+                            properties:
+                              containerName:
+                                description: "Name of the container or DefaultContainerResourcePolicy, in which\ncase the policy is used by the containers that don't have their own\npolicy specified."
+                                type: "string"
+                              controlledResources:
+                                description: "Specifies the type of recommendations that will be computed\n(and possibly applied) by VPA.\nIf not specified, the default of [ResourceCPU, ResourceMemory] will be used."
+                                items:
+                                  description: "ResourceName is the name identifying various resources in a ResourceList."
+                                  type: "string"
+                                type: "array"
+                              controlledValues:
+                                description: "Specifies which resource values should be controlled.\nThe default is \"RequestsAndLimits\"."
+                                enum:
+                                  - "RequestsAndLimits"
+                                  - "RequestsOnly"
+                                type: "string"
+                              maxAllowed:
+                                additionalProperties:
+                                  anyOf:
+                                    -
+                                      type: "integer"
+                                    -
+                                      type: "string"
+                                  pattern: "^(\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))))?$"
+                                  x-kubernetes-int-or-string: true
+                                description: "Specifies the maximum amount of resources that will be recommended\nfor the container. The default is no maximum."
+                                type: "object"
+                              minAllowed:
+                                additionalProperties:
+                                  anyOf:
+                                    -
+                                      type: "integer"
+                                    -
+                                      type: "string"
+                                  pattern: "^(\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))))?$"
+                                  x-kubernetes-int-or-string: true
+                                description: "Specifies the minimal amount of resources that will be recommended\nfor the container. The default is no minimum."
+                                type: "object"
+                              mode:
+                                description: "Whether autoscaler is enabled for the container. The default is \"Auto\"."
+                                enum:
+                                  - "Auto"
+                                  - "Off"
+                                type: "string"
+                              oomBumpUpRatio:
+                                anyOf:
+                                  -
+                                    type: "integer"
+                                  -
+                                    type: "string"
+                                description: "oomBumpUpRatio is the ratio to increase memory when OOM is detected."
+                                pattern: "^(\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))))?$"
+                                x-kubernetes-int-or-string: true
+                              oomMinBumpUp:
+                                anyOf:
+                                  -
+                                    type: "integer"
+                                  -
+                                    type: "string"
+                                description: "oomMinBumpUp is the minimum increase in memory when OOM is detected."
+                                pattern: "^(\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))))?$"
+                                x-kubernetes-int-or-string: true
+                              startupBoost:
+                                description: "startupBoost specifies the startup boost policy for the container.\nThis overrides any pod-level startup boost policy.\nThe startup boost policy takes precedence over the rest of the fields in\nthis struct, except for ContainerName and ControlledValues."
+                                properties:
+                                  cpu:
+                                    description: "cpu specifies the CPU startup boost policy.\nIf this field is not set, no startup boost is applied."
+                                    properties:
+                                      durationSeconds:
+                                        description: "durationSeconds indicates for how long to keep the pod boosted after it goes to Ready.\nDefaults to 0."
+                                        format: "int32"
+                                        type: "integer"
+                                      factor:
+                                        description: "factor specifies the factor to apply to the resource request.\nThis field is required when Type is \"Factor\"."
+                                        format: "int32"
+                                        type: "integer"
+                                      quantity:
+                                        anyOf:
+                                          -
+                                            type: "integer"
+                                          -
+                                            type: "string"
+                                        description: "quantity specifies the absolute resource quantity to be used as the\nresource request and limit during the boost phase.\nThis field is required when Type is \"Quantity\"."
+                                        pattern: "^(\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))))?$"
+                                        x-kubernetes-int-or-string: true
+                                      type:
+                                        description: "type specifies the kind of boost to apply.\nSupported values are: \"Factor\", \"Quantity\".\nNo startupboost will be applied for unrecognized values."
+                                        enum:
+                                          - "Factor"
+                                          - "Quantity"
+                                        type: "string"
+                                    required:
+                                      - "type"
+                                    type: "object"
+                                    x-kubernetes-validations:
+                                      -
+                                        message: "factor is required when type is Factor and forbidden otherwise"
+                                        rule: "(self.type == 'Factor') == has(self.factor)"
+                                      -
+                                        message: "quantity is required when type is Quantity and forbidden otherwise"
+                                        rule: "(self.type == 'Quantity') == has(self.quantity)"
+                                type: "object"
+                            type: "object"
+                          type: "array"
+                      type: "object"
+                    startupBoost:
+                      description: "startupBoost specifies the startup boost policy for the pod."
+                      properties:
+                        cpu:
+                          description: "cpu specifies the CPU startup boost policy.\nIf this field is not set, no startup boost is applied."
+                          properties:
+                            durationSeconds:
+                              description: "durationSeconds indicates for how long to keep the pod boosted after it goes to Ready.\nDefaults to 0."
+                              format: "int32"
+                              type: "integer"
+                            factor:
+                              description: "factor specifies the factor to apply to the resource request.\nThis field is required when Type is \"Factor\"."
+                              format: "int32"
+                              type: "integer"
+                            quantity:
+                              anyOf:
+                                -
+                                  type: "integer"
+                                -
+                                  type: "string"
+                              description: "quantity specifies the absolute resource quantity to be used as the\nresource request and limit during the boost phase.\nThis field is required when Type is \"Quantity\"."
+                              pattern: "^(\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))))?$"
+                              x-kubernetes-int-or-string: true
+                            type:
+                              description: "type specifies the kind of boost to apply.\nSupported values are: \"Factor\", \"Quantity\".\nNo startupboost will be applied for unrecognized values."
+                              enum:
+                                - "Factor"
+                                - "Quantity"
+                              type: "string"
+                          required:
+                            - "type"
+                          type: "object"
+                          x-kubernetes-validations:
+                            -
+                              message: "factor is required when type is Factor and forbidden otherwise"
+                              rule: "(self.type == 'Factor') == has(self.factor)"
+                            -
+                              message: "quantity is required when type is Quantity and forbidden otherwise"
+                              rule: "(self.type == 'Quantity') == has(self.quantity)"
+                      type: "object"
+                    targetRef:
+                      description: "TargetRef points to the controller managing the set of pods for the\nautoscaler to control - e.g. Deployment, StatefulSet. VerticalPodAutoscaler\ncan be targeted at controller implementing scale subresource (the pod set is\nretrieved from the controller's ScaleStatus) or some well known controllers\n(e.g. for DaemonSet the pod set is read from the controller's spec).\nIf VerticalPodAutoscaler cannot use specified target it will report\nConfigUnsupported condition.\nNote that VerticalPodAutoscaler does not require full implementation\nof scale subresource - it will not use it to modify the replica count.\nThe only thing retrieved is a label selector matching pods grouped by\nthe target resource."
+                      properties:
+                        apiVersion:
+                          description: "apiVersion is the API version of the referent"
+                          type: "string"
+                        kind:
+                          description: "kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+                          type: "string"
+                        name:
+                          description: "name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+                          type: "string"
+                      required:
+                        - "kind"
+                        - "name"
+                      type: "object"
+                      x-kubernetes-map-type: "atomic"
+                    updatePolicy:
+                      description: "Describes the rules on how changes are applied to the pods.\nIf not specified, all fields in the `PodUpdatePolicy` are set to their\ndefault values."
+                      properties:
+                        evictAfterOOMSeconds:
+                          description: "evictAfterOOMSeconds specifies the time in seconds to wait after an OOM event before\nconsidering the pod for eviction. Pods that have OOMed in less than this time\nsince start will be evicted."
+                          format: "int32"
+                          minimum: 1
+                          type: "integer"
+                        evictionRequirements:
+                          description: "EvictionRequirements is a list of EvictionRequirements that need to\nevaluate to true in order for a Pod to be evicted. If more than one\nEvictionRequirement is specified, all of them need to be fulfilled to allow eviction."
+                          items:
+                            description: "EvictionRequirement defines a single condition which needs to be true in\norder to evict a Pod"
+                            properties:
+                              changeRequirement:
+                                description: "EvictionChangeRequirement refers to the relationship between the new target recommendation for a Pod and its current requests, what kind of change is necessary for the Pod to be evicted"
+                                enum:
+                                  - "TargetHigherThanRequests"
+                                  - "TargetLowerThanRequests"
+                                type: "string"
+                              resources:
+                                description: "Resources is a list of one or more resources that the condition applies\nto. If more than one resource is given, the EvictionRequirement is fulfilled\nif at least one resource meets `changeRequirement`."
+                                items:
+                                  description: "ResourceName is the name identifying various resources in a ResourceList."
+                                  type: "string"
+                                type: "array"
+                            required:
+                              - "changeRequirement"
+                              - "resources"
+                            type: "object"
+                          type: "array"
+                        minReplicas:
+                          description: "Minimal number of replicas which need to be alive for Updater to attempt\npod eviction (pending other checks like PDB). Only positive values are\nallowed. Overrides global '--min-replicas' flag."
+                          format: "int32"
+                          type: "integer"
+                        updateMode:
+                          description: "Controls when autoscaler applies changes to the pod resources.\nThe default is 'Recreate'."
+                          enum:
+                            - "Off"
+                            - "Initial"
+                            - "Recreate"
+                            - "InPlaceOrRecreate"
+                            - "Auto"
+                          type: "string"
+                      type: "object"
+                  required:
+                    - "targetRef"
+                  type: "object"
+                status:
+                  description: "Current information about the autoscaler."
+                  properties:
+                    conditions:
+                      description: "Conditions is the set of conditions required for this autoscaler to scale its target,\nand indicates whether or not those conditions are met."
+                      items:
+                        description: "VerticalPodAutoscalerCondition describes the state of\na VerticalPodAutoscaler at a certain point."
+                        properties:
+                          lastTransitionTime:
+                            description: "lastTransitionTime is the last time the condition transitioned from\none status to another"
+                            format: "date-time"
+                            type: "string"
+                          message:
+                            description: "message is a human-readable explanation containing details about\nthe transition"
+                            type: "string"
+                          reason:
+                            description: "reason is the reason for the condition's last transition."
+                            type: "string"
+                          status:
+                            description: "status is the status of the condition (True, False, Unknown)"
+                            type: "string"
+                          type:
+                            description: "type describes the current condition"
+                            type: "string"
+                        required:
+                          - "status"
+                          - "type"
+                        type: "object"
+                      type: "array"
+                    recommendation:
+                      description: "The most recently computed amount of resources recommended by the\nautoscaler for the controlled pods."
+                      properties:
+                        containerRecommendations:
+                          description: "Resources recommended by the autoscaler for each container."
+                          items:
+                            description: "RecommendedContainerResources is the recommendation of resources computed by\nautoscaler for a specific container. Respects the container resource policy\nif present in the spec. In particular the recommendation is not produced for\ncontainers with `ContainerScalingMode` set to 'Off'."
+                            properties:
+                              containerName:
+                                description: "Name of the container."
+                                type: "string"
+                              lowerBound:
+                                additionalProperties:
+                                  anyOf:
+                                    -
+                                      type: "integer"
+                                    -
+                                      type: "string"
+                                  pattern: "^(\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))))?$"
+                                  x-kubernetes-int-or-string: true
+                                description: "Minimum recommended amount of resources. Observes ContainerResourcePolicy.\nThis amount is not guaranteed to be sufficient for the application to operate in a stable way, however\nrunning with less resources is likely to have significant impact on performance/availability."
+                                type: "object"
+                              target:
+                                additionalProperties:
+                                  anyOf:
+                                    -
+                                      type: "integer"
+                                    -
+                                      type: "string"
+                                  pattern: "^(\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))))?$"
+                                  x-kubernetes-int-or-string: true
+                                description: "Recommended amount of resources. Observes ContainerResourcePolicy."
+                                type: "object"
+                              uncappedTarget:
+                                additionalProperties:
+                                  anyOf:
+                                    -
+                                      type: "integer"
+                                    -
+                                      type: "string"
+                                  pattern: "^(\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))))?$"
+                                  x-kubernetes-int-or-string: true
+                                description: "The most recent recommended resources target computed by the autoscaler\nfor the controlled pods, based only on actual resource usage, not taking\ninto account the ContainerResourcePolicy.\nMay differ from the Recommendation if the actual resource usage causes\nthe target to violate the ContainerResourcePolicy (lower than MinAllowed\nor higher that MaxAllowed).\nUsed only as status indication, will not affect actual resource assignment."
+                                type: "object"
+                              upperBound:
+                                additionalProperties:
+                                  anyOf:
+                                    -
+                                      type: "integer"
+                                    -
+                                      type: "string"
+                                  pattern: "^(\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))))?$"
+                                  x-kubernetes-int-or-string: true
+                                description: "Maximum recommended amount of resources. Observes ContainerResourcePolicy.\nAny resources allocated beyond this value are likely wasted. This value may be larger than the maximum\namount of application is actually capable of consuming."
+                                type: "object"
+                            required:
+                              - "target"
+                            type: "object"
+                          type: "array"
+                      type: "object"
+                  type: "object"
+              required:
+                - "spec"
+              type: "object"
+          served: true
+          storage: true
+          subresources:
+            status:
+              {}
+        -
+          deprecated: true
+          deprecationWarning: "autoscaling.k8s.io/v1beta2 API is deprecated"
+          name: "v1beta2"
+          schema:
+            openAPIV3Schema:
+              description: "VerticalPodAutoscaler is the configuration for a vertical pod\nautoscaler, which automatically manages pod resources based on historical and\nreal time resource utilization."
+              properties:
+                apiVersion:
+                  description: "APIVersion defines the versioned schema of this representation of an object.\nServers should convert recognized schemas to the latest internal value, and\nmay reject unrecognized values.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
+                  type: "string"
+                kind:
+                  description: "Kind is a string value representing the REST resource this object represents.\nServers may infer this from the endpoint the client submits requests to.\nCannot be updated.\nIn CamelCase.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+                  type: "string"
+                metadata:
+                  type: "object"
+                spec:
+                  description: "Specification of the behavior of the autoscaler.\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status."
+                  properties:
+                    resourcePolicy:
+                      description: "Controls how the autoscaler computes recommended resources.\nThe resource policy may be used to set constraints on the recommendations\nfor individual containers. If not specified, the autoscaler computes recommended\nresources for all containers in the pod, without additional constraints."
+                      properties:
+                        containerPolicies:
+                          description: "Per-container resource policies."
+                          items:
+                            description: "ContainerResourcePolicy controls how autoscaler computes the recommended\nresources for a specific container."
+                            properties:
+                              containerName:
+                                description: "Name of the container or DefaultContainerResourcePolicy, in which\ncase the policy is used by the containers that don't have their own\npolicy specified."
+                                type: "string"
+                              maxAllowed:
+                                additionalProperties:
+                                  anyOf:
+                                    -
+                                      type: "integer"
+                                    -
+                                      type: "string"
+                                  pattern: "^(\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))))?$"
+                                  x-kubernetes-int-or-string: true
+                                description: "Specifies the maximum amount of resources that will be recommended\nfor the container. The default is no maximum."
+                                type: "object"
+                              minAllowed:
+                                additionalProperties:
+                                  anyOf:
+                                    -
+                                      type: "integer"
+                                    -
+                                      type: "string"
+                                  pattern: "^(\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))))?$"
+                                  x-kubernetes-int-or-string: true
+                                description: "Specifies the minimal amount of resources that will be recommended\nfor the container. The default is no minimum."
+                                type: "object"
+                              mode:
+                                description: "Whether autoscaler is enabled for the container. The default is \"Auto\"."
+                                enum:
+                                  - "Auto"
+                                  - "Off"
+                                type: "string"
+                            type: "object"
+                          type: "array"
+                      type: "object"
+                    targetRef:
+                      description: "TargetRef points to the controller managing the set of pods for the\nautoscaler to control - e.g. Deployment, StatefulSet. VerticalPodAutoscaler\ncan be targeted at controller implementing scale subresource (the pod set is\nretrieved from the controller's ScaleStatus) or some well known controllers\n(e.g. for DaemonSet the pod set is read from the controller's spec).\nIf VerticalPodAutoscaler cannot use specified target it will report\nConfigUnsupported condition.\nNote that VerticalPodAutoscaler does not require full implementation\nof scale subresource - it will not use it to modify the replica count.\nThe only thing retrieved is a label selector matching pods grouped by\nthe target resource."
+                      properties:
+                        apiVersion:
+                          description: "apiVersion is the API version of the referent"
+                          type: "string"
+                        kind:
+                          description: "kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+                          type: "string"
+                        name:
+                          description: "name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names"
+                          type: "string"
+                      required:
+                        - "kind"
+                        - "name"
+                      type: "object"
+                      x-kubernetes-map-type: "atomic"
+                    updatePolicy:
+                      description: "Describes the rules on how changes are applied to the pods.\nIf not specified, all fields in the `PodUpdatePolicy` are set to their\ndefault values."
+                      properties:
+                        updateMode:
+                          description: "Controls when autoscaler applies changes to the pod resources.\nThe default is 'Auto'."
+                          enum:
+                            - "Off"
+                            - "Initial"
+                            - "Recreate"
+                            - "Auto"
+                          type: "string"
+                      type: "object"
+                  required:
+                    - "targetRef"
+                  type: "object"
+                status:
+                  description: "Current information about the autoscaler."
+                  properties:
+                    conditions:
+                      description: "Conditions is the set of conditions required for this autoscaler to scale its target,\nand indicates whether or not those conditions are met."
+                      items:
+                        description: "VerticalPodAutoscalerCondition describes the state of\na VerticalPodAutoscaler at a certain point."
+                        properties:
+                          lastTransitionTime:
+                            description: "lastTransitionTime is the last time the condition transitioned from\none status to another"
+                            format: "date-time"
+                            type: "string"
+                          message:
+                            description: "message is a human-readable explanation containing details about\nthe transition"
+                            type: "string"
+                          reason:
+                            description: "reason is the reason for the condition's last transition."
+                            type: "string"
+                          status:
+                            description: "status is the status of the condition (True, False, Unknown)"
+                            type: "string"
+                          type:
+                            description: "type describes the current condition"
+                            type: "string"
+                        required:
+                          - "status"
+                          - "type"
+                        type: "object"
+                      type: "array"
+                    recommendation:
+                      description: "The most recently computed amount of resources recommended by the\nautoscaler for the controlled pods."
+                      properties:
+                        containerRecommendations:
+                          description: "Resources recommended by the autoscaler for each container."
+                          items:
+                            description: "RecommendedContainerResources is the recommendation of resources computed by\nautoscaler for a specific container. Respects the container resource policy\nif present in the spec. In particular the recommendation is not produced for\ncontainers with `ContainerScalingMode` set to 'Off'."
+                            properties:
+                              containerName:
+                                description: "Name of the container."
+                                type: "string"
+                              lowerBound:
+                                additionalProperties:
+                                  anyOf:
+                                    -
+                                      type: "integer"
+                                    -
+                                      type: "string"
+                                  pattern: "^(\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))))?$"
+                                  x-kubernetes-int-or-string: true
+                                description: "Minimum recommended amount of resources. Observes ContainerResourcePolicy.\nThis amount is not guaranteed to be sufficient for the application to operate in a stable way, however\nrunning with less resources is likely to have significant impact on performance/availability."
+                                type: "object"
+                              target:
+                                additionalProperties:
+                                  anyOf:
+                                    -
+                                      type: "integer"
+                                    -
+                                      type: "string"
+                                  pattern: "^(\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))))?$"
+                                  x-kubernetes-int-or-string: true
+                                description: "Recommended amount of resources. Observes ContainerResourcePolicy."
+                                type: "object"
+                              uncappedTarget:
+                                additionalProperties:
+                                  anyOf:
+                                    -
+                                      type: "integer"
+                                    -
+                                      type: "string"
+                                  pattern: "^(\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))))?$"
+                                  x-kubernetes-int-or-string: true
+                                description: "The most recent recommended resources target computed by the autoscaler\nfor the controlled pods, based only on actual resource usage, not taking\ninto account the ContainerResourcePolicy.\nMay differ from the Recommendation if the actual resource usage causes\nthe target to violate the ContainerResourcePolicy (lower than MinAllowed\nor higher that MaxAllowed).\nUsed only as status indication, will not affect actual resource assignment."
+                                type: "object"
+                              upperBound:
+                                additionalProperties:
+                                  anyOf:
+                                    -
+                                      type: "integer"
+                                    -
+                                      type: "string"
+                                  pattern: "^(\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\\+|-)?(([0-9]+(\\.[0-9]*)?)|(\\.[0-9]+))))?$"
+                                  x-kubernetes-int-or-string: true
+                                description: "Maximum recommended amount of resources. Observes ContainerResourcePolicy.\nAny resources allocated beyond this value are likely wasted. This value may be larger than the maximum\namount of application is actually capable of consuming."
+                                type: "object"
+                            required:
+                              - "target"
+                            type: "object"
+                          type: "array"
+                      type: "object"
+                  type: "object"
+              required:
+                - "spec"
+              type: "object"
+          served: false
+          storage: false
+          subresources:
+            status:
+              {}
+    status:
+      acceptedNames:
+        kind: "VerticalPodAutoscaler"
+        listKind: "VerticalPodAutoscalerList"
+        plural: "verticalpodautoscalers"
+        shortNames:
+          - "vpa"
+        singular: "verticalpodautoscaler"
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T09:57:18Z"
+          message: "no conflicts found"
+          reason: "NoConflicts"
+          status: "True"
+          type: "NamesAccepted"
+        -
+          lastTransitionTime: "2026-06-11T09:57:18Z"
+          message: "the initial names have been accepted"
+          reason: "InitialNamesAccepted"
+          status: "True"
+          type: "Established"
+        -
+          lastTransitionTime: "2026-06-11T09:57:18Z"
+          message: "approved in https://github.com/kubernetes/kubernetes/pull/63797"
+          reason: "ApprovedAnnotation"
+          status: "True"
+          type: "KubernetesAPIApprovalPolicyConformant"
+      storedVersions:
+        - "v1"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-admission-controller\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-admission-controller\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"pods\",\"configmaps\",\"nodes\",\"limitranges\",\"replicationcontrollers\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"deployments\",\"replicasets\",\"daemonsets\",\"statefulsets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"jobs\",\"cronjobs\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"autoscaling.k8s.io\"],\"resources\":[\"verticalpodautoscalers\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"create\",\"update\",\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"*\"],\"resources\":[\"*/scale\"],\"verbs\":[\"get\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "admission-controller"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-admission-controller"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-admission-controller"
+      resourceVersion: "6436"
+      uid: "dcd4300d-a300-40f0-9a85-293b24f51e9b"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+          - "configmaps"
+          - "nodes"
+          - "limitranges"
+          - "replicationcontrollers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "deployments"
+          - "replicasets"
+          - "daemonsets"
+          - "statefulsets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "batch"
+        resources:
+          - "jobs"
+          - "cronjobs"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "autoscaling.k8s.io"
+        resources:
+          - "verticalpodautoscalers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "create"
+          - "update"
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "*"
+        resources:
+          - "*/scale"
+        verbs:
+          - "get"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"recommender\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-recommender\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-recommender-metrics-reader\"},\"rules\":[{\"apiGroups\":[\"metrics.k8s.io\"],\"resources\":[\"pods\"],\"verbs\":[\"get\",\"list\"]}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "recommender"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-recommender"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-recommender-metrics-reader"
+      resourceVersion: "6440"
+      uid: "2b3e8029-38ee-4682-b64a-63bc27746066"
+    rules:
+      -
+        apiGroups:
+          - "metrics.k8s.io"
+        resources:
+          - "pods"
+        verbs:
+          - "get"
+          - "list"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"recommender\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-recommender\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-recommender-actor\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"pods\",\"nodes\",\"limitranges\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\",\"events.k8s.io\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"get\",\"list\",\"watch\",\"patch\",\"update\"]},{\"apiGroups\":[\"poc.autoscaling.k8s.io\"],\"resources\":[\"verticalpodautoscalers\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"autoscaling.k8s.io\"],\"resources\":[\"verticalpodautoscalers\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "recommender"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-recommender"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-recommender-actor"
+      resourceVersion: "6445"
+      uid: "8b1f66a6-f72e-43d6-a94d-0c70e6fda6fb"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+          - "nodes"
+          - "limitranges"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+          - "events.k8s.io"
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "get"
+          - "list"
+          - "watch"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "poc.autoscaling.k8s.io"
+        resources:
+          - "verticalpodautoscalers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "autoscaling.k8s.io"
+        resources:
+          - "verticalpodautoscalers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"recommender\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-recommender\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-recommender-status-actor\"},\"rules\":[{\"apiGroups\":[\"autoscaling.k8s.io\"],\"resources\":[\"verticalpodautoscalers/status\"],\"verbs\":[\"get\",\"patch\"]}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "recommender"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-recommender"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-recommender-status-actor"
+      resourceVersion: "6447"
+      uid: "62a389e5-c3bf-45c1-a49a-eb5ea470a5e9"
+    rules:
+      -
+        apiGroups:
+          - "autoscaling.k8s.io"
+        resources:
+          - "verticalpodautoscalers/status"
+        verbs:
+          - "get"
+          - "patch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"recommender\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-recommender\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-recommender-checkpoint-actor\"},\"rules\":[{\"apiGroups\":[\"poc.autoscaling.k8s.io\"],\"resources\":[\"verticalpodautoscalercheckpoints\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"patch\",\"delete\"]},{\"apiGroups\":[\"autoscaling.k8s.io\"],\"resources\":[\"verticalpodautoscalercheckpoints\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"patch\",\"delete\"]},{\"apiGroups\":[\"\"],\"resources\":[\"namespaces\"],\"verbs\":[\"get\",\"list\"]}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "recommender"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-recommender"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-recommender-checkpoint-actor"
+      resourceVersion: "6449"
+      uid: "311b80bb-b8af-4f73-aa09-3e0bccfc714f"
+    rules:
+      -
+        apiGroups:
+          - "poc.autoscaling.k8s.io"
+        resources:
+          - "verticalpodautoscalercheckpoints"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "autoscaling.k8s.io"
+        resources:
+          - "verticalpodautoscalercheckpoints"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "namespaces"
+        verbs:
+          - "get"
+          - "list"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"recommender\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-recommender\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-recommender-target-reader\"},\"rules\":[{\"apiGroups\":[\"*\"],\"resources\":[\"*/scale\"],\"verbs\":[\"get\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"replicationcontrollers\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"daemonsets\",\"deployments\",\"replicasets\",\"statefulsets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"jobs\",\"cronjobs\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "recommender"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-recommender"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-recommender-target-reader"
+      resourceVersion: "6450"
+      uid: "e8c93f86-f738-476d-945f-86426a8a619a"
+    rules:
+      -
+        apiGroups:
+          - "*"
+        resources:
+          - "*/scale"
+        verbs:
+          - "get"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "replicationcontrollers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "daemonsets"
+          - "deployments"
+          - "replicasets"
+          - "statefulsets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "batch"
+        resources:
+          - "jobs"
+          - "cronjobs"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"updater\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-updater\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-updater-in-place\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"pods/resize\",\"pods\"],\"verbs\":[\"patch\"]}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "updater"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-updater"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-updater-in-place"
+      resourceVersion: "6452"
+      uid: "7e1cedb4-6dbb-490d-a4c0-0be2249defb4"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods/resize"
+          - "pods"
+        verbs:
+          - "patch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"name\":\"vertical-pod-autoscaler-updater-actor\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"pods\",\"nodes\",\"limitranges\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"\",\"events.k8s.io\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"get\",\"list\",\"watch\",\"patch\",\"update\"]},{\"apiGroups\":[\"poc.autoscaling.k8s.io\"],\"resources\":[\"verticalpodautoscalers\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"autoscaling.k8s.io\"],\"resources\":[\"verticalpodautoscalers\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      name: "vertical-pod-autoscaler-updater-actor"
+      resourceVersion: "6454"
+      uid: "e5934047-03c9-4cc4-90e5-b5f3a5946d3e"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+          - "nodes"
+          - "limitranges"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+          - "events.k8s.io"
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "get"
+          - "list"
+          - "watch"
+          - "patch"
+          - "update"
+      -
+        apiGroups:
+          - "poc.autoscaling.k8s.io"
+        resources:
+          - "verticalpodautoscalers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "autoscaling.k8s.io"
+        resources:
+          - "verticalpodautoscalers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"name\":\"vertical-pod-autoscaler-updater-evictioner\"},\"rules\":[{\"apiGroups\":[\"apps\",\"extensions\"],\"resources\":[\"replicasets\"],\"verbs\":[\"get\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods/eviction\"],\"verbs\":[\"create\"]}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      name: "vertical-pod-autoscaler-updater-evictioner"
+      resourceVersion: "6455"
+      uid: "07b4e874-2241-4ba3-8db0-bbb721a6681d"
+    rules:
+      -
+        apiGroups:
+          - "apps"
+          - "extensions"
+        resources:
+          - "replicasets"
+        verbs:
+          - "get"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods/eviction"
+        verbs:
+          - "create"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"name\":\"vertical-pod-autoscaler-updater-target-reader\"},\"rules\":[{\"apiGroups\":[\"*\"],\"resources\":[\"*/scale\"],\"verbs\":[\"get\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"replicationcontrollers\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"daemonsets\",\"deployments\",\"replicasets\",\"statefulsets\"],\"verbs\":[\"get\",\"list\",\"watch\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"jobs\",\"cronjobs\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      name: "vertical-pod-autoscaler-updater-target-reader"
+      resourceVersion: "6456"
+      uid: "4ee7a94f-6f92-4e5c-8d33-c1e159d24995"
+    rules:
+      -
+        apiGroups:
+          - "*"
+        resources:
+          - "*/scale"
+        verbs:
+          - "get"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "replicationcontrollers"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "daemonsets"
+          - "deployments"
+          - "replicasets"
+          - "statefulsets"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - "batch"
+        resources:
+          - "jobs"
+          - "cronjobs"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"name\":\"vertical-pod-autoscaler-updater-status-reader\"},\"rules\":[{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"get\",\"list\",\"watch\"]}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      name: "vertical-pod-autoscaler-updater-status-reader"
+      resourceVersion: "6457"
+      uid: "730d3b56-e986-40d0-9163-5414bc34c064"
+    rules:
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-admission-controller\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-admission-controller\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"vertical-pod-autoscaler-admission-controller\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vertical-pod-autoscaler-admission-controller\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "admission-controller"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-admission-controller"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-admission-controller"
+      resourceVersion: "6458"
+      uid: "20978389-9efc-40bc-9901-56f56c348c94"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "vertical-pod-autoscaler-admission-controller"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "vertical-pod-autoscaler-admission-controller"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"recommender\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-recommender\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-recommender-metrics-reader\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"vertical-pod-autoscaler-recommender-metrics-reader\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vertical-pod-autoscaler-recommender\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "recommender"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-recommender"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-recommender-metrics-reader"
+      resourceVersion: "6459"
+      uid: "dcbf77c8-d33a-49ba-96f5-24ada46fb051"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "vertical-pod-autoscaler-recommender-metrics-reader"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "vertical-pod-autoscaler-recommender"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"recommender\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-recommender\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-recommender-actor\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"vertical-pod-autoscaler-recommender-actor\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vertical-pod-autoscaler-recommender\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "recommender"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-recommender"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-recommender-actor"
+      resourceVersion: "6461"
+      uid: "f6ba652a-db9c-4353-b9dc-9367f36a3f0d"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "vertical-pod-autoscaler-recommender-actor"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "vertical-pod-autoscaler-recommender"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"recommender\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-recommender\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-recommender-status-actor\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"vertical-pod-autoscaler-recommender-status-actor\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vertical-pod-autoscaler-recommender\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "recommender"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-recommender"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-recommender-status-actor"
+      resourceVersion: "6462"
+      uid: "2435280f-2544-4f3e-ac0c-e667530b52e5"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "vertical-pod-autoscaler-recommender-status-actor"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "vertical-pod-autoscaler-recommender"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"recommender\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-recommender\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-recommender-checkpoint-actor\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"vertical-pod-autoscaler-recommender-checkpoint-actor\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vertical-pod-autoscaler-recommender\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "recommender"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-recommender"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-recommender-checkpoint-actor"
+      resourceVersion: "6463"
+      uid: "5215fef2-f487-4e04-b8a4-a2e88263a2de"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "vertical-pod-autoscaler-recommender-checkpoint-actor"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "vertical-pod-autoscaler-recommender"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"recommender\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-recommender\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-recommender-target-reader\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"vertical-pod-autoscaler-recommender-target-reader\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vertical-pod-autoscaler-recommender\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "recommender"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-recommender"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-recommender-target-reader"
+      resourceVersion: "6464"
+      uid: "6cfd16e1-2666-449a-829f-27e04d3d2ffb"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "vertical-pod-autoscaler-recommender-target-reader"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "vertical-pod-autoscaler-recommender"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"updater\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-updater\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-updater-in-place-binding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"vertical-pod-autoscaler-updater-in-place\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vertical-pod-autoscaler-updater\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "updater"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-updater"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-updater-in-place-binding"
+      resourceVersion: "6465"
+      uid: "f19cfabb-662f-4fdc-aaf6-caf0ba50b40d"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "vertical-pod-autoscaler-updater-in-place"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "vertical-pod-autoscaler-updater"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"updater\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-updater\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-updater-actor-binding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"vertical-pod-autoscaler-updater-actor\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vertical-pod-autoscaler-updater\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "updater"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-updater"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-updater-actor-binding"
+      resourceVersion: "6466"
+      uid: "3dfbe02f-c1b6-4062-bace-23f5010a969c"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "vertical-pod-autoscaler-updater-actor"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "vertical-pod-autoscaler-updater"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"updater\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-updater\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-updater-target-reader-binding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"vertical-pod-autoscaler-updater-target-reader\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vertical-pod-autoscaler-updater\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "updater"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-updater"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-updater-target-reader-binding"
+      resourceVersion: "6467"
+      uid: "35060a9f-c1e2-445a-bed6-1ba02016009b"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "vertical-pod-autoscaler-updater-target-reader"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "vertical-pod-autoscaler-updater"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"updater\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-updater\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-updater-evictioner-binding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"vertical-pod-autoscaler-updater-evictioner\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vertical-pod-autoscaler-updater\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "updater"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-updater"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-updater-evictioner-binding"
+      resourceVersion: "6468"
+      uid: "bcde4c1c-dd9e-4a62-a4af-b318417e0a1b"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "vertical-pod-autoscaler-updater-evictioner"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "vertical-pod-autoscaler-updater"
+        namespace: "default"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"updater\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-updater\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-updater-status-reader-binding\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"vertical-pod-autoscaler-updater-status-reader\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"vertical-pod-autoscaler-updater\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      labels:
+        app.kubernetes.io/component: "updater"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-updater"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-updater-status-reader-binding"
+      resourceVersion: "6469"
+      uid: "27426bd5-ccdb-4c69-8fd9-54f319527e68"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "vertical-pod-autoscaler-updater-status-reader"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "vertical-pod-autoscaler-updater"
+        namespace: "default"
+  -
+    apiVersion: "admissionregistration.k8s.io/v1"
+    kind: "MutatingWebhookConfiguration"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"admissionregistration.k8s.io/v1\",\"kind\":\"MutatingWebhookConfiguration\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"admission-controller\",\"app.kubernetes.io/component-instance\":\"vertical-pod-autoscaler-admission-controller\",\"app.kubernetes.io/instance\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"vertical-pod-autoscaler\",\"app.kubernetes.io/version\":\"1.6.0\",\"helm.sh/chart\":\"vertical-pod-autoscaler-0.9.0\"},\"name\":\"vertical-pod-autoscaler-webhook-config\"},\"webhooks\":[{\"admissionReviewVersions\":[\"v1\"],\"clientConfig\":{\"service\":{\"name\":\"vpa-webhook\",\"namespace\":\"default\",\"port\":443}},\"failurePolicy\":\"Ignore\",\"matchPolicy\":\"Equivalent\",\"name\":\"vpa.k8s.io\",\"namespaceSelector\":{},\"objectSelector\":{},\"reinvocationPolicy\":\"Never\",\"rules\":[{\"apiGroups\":[\"\"],\"apiVersions\":[\"v1\"],\"operations\":[\"CREATE\"],\"resources\":[\"pods\"],\"scope\":\"*\"},{\"apiGroups\":[\"autoscaling.k8s.io\"],\"apiVersions\":[\"*\"],\"operations\":[\"CREATE\",\"UPDATE\"],\"resources\":[\"verticalpodautoscalers\"],\"scope\":\"*\"}],\"sideEffects\":\"None\",\"timeoutSeconds\":5}]}\n"
+      creationTimestamp: "2026-06-11T09:57:18Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "admission-controller"
+        app.kubernetes.io/component-instance: "vertical-pod-autoscaler-admission-controller"
+        app.kubernetes.io/instance: "vertical-pod-autoscaler"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "vertical-pod-autoscaler"
+        app.kubernetes.io/version: "1.6.0"
+        helm.sh/chart: "vertical-pod-autoscaler-0.9.0"
+      name: "vertical-pod-autoscaler-webhook-config"
+      resourceVersion: "6470"
+      uid: "b7acd984-4e98-4a3d-86e5-b78ff7c49225"
+    webhooks:
+      -
+        admissionReviewVersions:
+          - "v1"
+        clientConfig:
+          service:
+            name: "vpa-webhook"
+            namespace: "default"
+            port: 443
+        failurePolicy: "Ignore"
+        matchPolicy: "Equivalent"
+        name: "vpa.k8s.io"
+        namespaceSelector:
+          {}
+        objectSelector:
+          {}
+        reinvocationPolicy: "Never"
+        rules:
+          -
+            apiGroups:
+              - ""
+            apiVersions:
+              - "v1"
+            operations:
+              - "CREATE"
+            resources:
+              - "pods"
+            scope: "*"
+          -
+            apiGroups:
+              - "autoscaling.k8s.io"
+            apiVersions:
+              - "*"
+            operations:
+              - "CREATE"
+              - "UPDATE"
+            resources:
+              - "verticalpodautoscalers"
+            scope: "*"
+        sideEffects: "None"
+        timeoutSeconds: 5
+kind: "List"
+metadata:
+  resourceVersion: ""

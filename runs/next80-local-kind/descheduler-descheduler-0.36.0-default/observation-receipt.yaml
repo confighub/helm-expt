@@ -1,0 +1,30 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "descheduler-descheduler-0.36.0-default-local-kind"
+spec:
+  checks:
+    -
+      name: "rendered-objects-applied"
+      object: "5 object(s) from recipes/descheduler/descheduler/0.36.0/revisions/default/r001/rendered/release-objects.yaml"
+      result: "pass"
+  clusterStatus: "existing"
+  freshnessTTL: "1h"
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "d42116836087f65a04b1b5d9461ff00bfe27dcd8cf20020040b4462a4037b41a"
+  observedAt: "2026-06-11T10:01:52.157Z"
+  observer:
+    method: "kubectl-kind"
+    name: "next80-local-live"
+    version: "0.1.0"
+  renderedObjectSetSHA256: "23cfd1f815897db367d88feb42f54c765ed17f435cb779cd8dec5ecb196da707"
+  result: "pass"
+  target:
+    context: "kind-claude-helm-expt-next80"
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    namespace: "default"
+  variant: "default"
+  variantRevision: "recipes/descheduler/descheduler/0.36.0/revisions/default/r001/variant-revision.yaml"
+  workloads: 0

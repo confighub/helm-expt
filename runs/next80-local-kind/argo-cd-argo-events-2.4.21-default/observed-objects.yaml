@@ -1,0 +1,554 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"controller-manager\",\"app.kubernetes.io/instance\":\"argo-events\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-events-controller-manager\",\"app.kubernetes.io/part-of\":\"argo-events\",\"helm.sh/chart\":\"argo-events-2.4.21\"},\"name\":\"argo-events-controller-manager\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T09:52:31Z"
+      labels:
+        app.kubernetes.io/component: "controller-manager"
+        app.kubernetes.io/instance: "argo-events"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-events-controller-manager"
+        app.kubernetes.io/part-of: "argo-events"
+        helm.sh/chart: "argo-events-2.4.21"
+      name: "argo-events-controller-manager"
+      namespace: "default"
+      resourceVersion: "5670"
+      uid: "20b8ddc1-d13b-47cd-8277-d127e25ea9b0"
+  -
+    apiVersion: "v1"
+    automountServiceAccountToken: true
+    kind: "ServiceAccount"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"automountServiceAccountToken\":true,\"kind\":\"ServiceAccount\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"events-webhook\",\"app.kubernetes.io/instance\":\"argo-events\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-events-events-webhook\",\"app.kubernetes.io/part-of\":\"argo-events\",\"helm.sh/chart\":\"argo-events-2.4.21\"},\"name\":\"argo-events-events-webhook\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T09:52:31Z"
+      labels:
+        app.kubernetes.io/component: "events-webhook"
+        app.kubernetes.io/instance: "argo-events"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-events-events-webhook"
+        app.kubernetes.io/part-of: "argo-events"
+        helm.sh/chart: "argo-events-2.4.21"
+      name: "argo-events-events-webhook"
+      namespace: "default"
+      resourceVersion: "5671"
+      uid: "80a4a990-63cb-4db7-9c04-0d27ab668d00"
+  -
+    apiVersion: "v1"
+    data:
+      controller-config.yaml: "eventBus:\n  nats:\n    versions:\n    - version: latest\n      natsStreamingImage: nats-streaming:latest\n      metricsExporterImage: natsio/prometheus-nats-exporter:latest\n    - version: 0.22.1\n      natsStreamingImage: nats-streaming:0.22.1\n      metricsExporterImage: natsio/prometheus-nats-exporter:0.8.0\n  jetstream:\n    # Default JetStream settings, could be overridden by EventBus JetStream specs\n    settings: |\n      # https://docs.nats.io/running-a-nats-service/configuration#jetstream\n      # Only configure \"max_memory_store\" or \"max_file_store\", do not set \"store_dir\" as it has been hardcoded.\n      max_memory_store: -1\n      max_file_store: -1\n    # The default properties of the streams to be created in this JetStream service\n    streamConfig: |\n      maxMsgs: 1e+06\n      maxAge: 72h\n      maxBytes: 1GB\n      replicas: 3\n      duplicates: 300s\n      retention: 0\n      discard: 0\n    versions:\n    - version: latest\n      natsImage: nats:2.10.10\n      metricsExporterImage: natsio/prometheus-nats-exporter:0.14.0\n      configReloaderImage: natsio/nats-server-config-reloader:0.14.0\n      startCommand: /nats-server\n    - version: 2.8.1\n      natsImage: nats:2.8.1\n      metricsExporterImage: natsio/prometheus-nats-exporter:0.9.1\n      configReloaderImage: natsio/nats-server-config-reloader:0.7.0\n      startCommand: /nats-server\n    - version: 2.8.1-alpine\n      natsImage: nats:2.8.1-alpine\n      metricsExporterImage: natsio/prometheus-nats-exporter:0.9.1\n      configReloaderImage: natsio/nats-server-config-reloader:0.7.0\n      startCommand: nats-server\n    - version: 2.8.2\n      natsImage: nats:2.8.2\n      metricsExporterImage: natsio/prometheus-nats-exporter:0.9.1\n      configReloaderImage: natsio/nats-server-config-reloader:0.7.0\n      startCommand: /nats-server\n    - version: 2.8.2-alpine\n      natsImage: nats:2.8.2-alpine\n      metricsExporterImage: natsio/prometheus-nats-exporter:0.9.1\n      configReloaderImage: natsio/nats-server-config-reloader:0.7.0\n      startCommand: nats-server\n    - version: 2.9.1\n      natsImage: nats:2.9.1\n      metricsExporterImage: natsio/prometheus-nats-exporter:0.9.1\n      configReloaderImage: natsio/nats-server-config-reloader:0.7.0\n      startCommand: /nats-server\n    - version: 2.9.12\n      natsImage: nats:2.9.12\n      metricsExporterImage: natsio/prometheus-nats-exporter:0.9.1\n      configReloaderImage: natsio/nats-server-config-reloader:0.7.0\n      startCommand: /nats-server\n    - version: 2.9.16\n      natsImage: nats:2.9.16\n      metricsExporterImage: natsio/prometheus-nats-exporter:0.9.1\n      configReloaderImage: natsio/nats-server-config-reloader:0.7.0\n      startCommand: /nats-server\n    - version: 2.10.10\n      natsImage: nats:2.10.10\n      metricsExporterImage: natsio/prometheus-nats-exporter:0.14.0\n      configReloaderImage: natsio/nats-server-config-reloader:0.14.0\n      startCommand: /nats-server\n"
+    kind: "ConfigMap"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"v1\",\"data\":{\"controller-config.yaml\":\"eventBus:\\n  nats:\\n    versions:\\n    - version: latest\\n      natsStreamingImage: nats-streaming:latest\\n      metricsExporterImage: natsio/prometheus-nats-exporter:latest\\n    - version: 0.22.1\\n      natsStreamingImage: nats-streaming:0.22.1\\n      metricsExporterImage: natsio/prometheus-nats-exporter:0.8.0\\n  jetstream:\\n    # Default JetStream settings, could be overridden by EventBus JetStream specs\\n    settings: |\\n      # https://docs.nats.io/running-a-nats-service/configuration#jetstream\\n      # Only configure \\\"max_memory_store\\\" or \\\"max_file_store\\\", do not set \\\"store_dir\\\" as it has been hardcoded.\\n      max_memory_store: -1\\n      max_file_store: -1\\n    # The default properties of the streams to be created in this JetStream service\\n    streamConfig: |\\n      maxMsgs: 1e+06\\n      maxAge: 72h\\n      maxBytes: 1GB\\n      replicas: 3\\n      duplicates: 300s\\n      retention: 0\\n      discard: 0\\n    versions:\\n    - version: latest\\n      natsImage: nats:2.10.10\\n      metricsExporterImage: natsio/prometheus-nats-exporter:0.14.0\\n      configReloaderImage: natsio/nats-server-config-reloader:0.14.0\\n      startCommand: /nats-server\\n    - version: 2.8.1\\n      natsImage: nats:2.8.1\\n      metricsExporterImage: natsio/prometheus-nats-exporter:0.9.1\\n      configReloaderImage: natsio/nats-server-config-reloader:0.7.0\\n      startCommand: /nats-server\\n    - version: 2.8.1-alpine\\n      natsImage: nats:2.8.1-alpine\\n      metricsExporterImage: natsio/prometheus-nats-exporter:0.9.1\\n      configReloaderImage: natsio/nats-server-config-reloader:0.7.0\\n      startCommand: nats-server\\n    - version: 2.8.2\\n      natsImage: nats:2.8.2\\n      metricsExporterImage: natsio/prometheus-nats-exporter:0.9.1\\n      configReloaderImage: natsio/nats-server-config-reloader:0.7.0\\n      startCommand: /nats-server\\n    - version: 2.8.2-alpine\\n      natsImage: nats:2.8.2-alpine\\n      metricsExporterImage: natsio/prometheus-nats-exporter:0.9.1\\n      configReloaderImage: natsio/nats-server-config-reloader:0.7.0\\n      startCommand: nats-server\\n    - version: 2.9.1\\n      natsImage: nats:2.9.1\\n      metricsExporterImage: natsio/prometheus-nats-exporter:0.9.1\\n      configReloaderImage: natsio/nats-server-config-reloader:0.7.0\\n      startCommand: /nats-server\\n    - version: 2.9.12\\n      natsImage: nats:2.9.12\\n      metricsExporterImage: natsio/prometheus-nats-exporter:0.9.1\\n      configReloaderImage: natsio/nats-server-config-reloader:0.7.0\\n      startCommand: /nats-server\\n    - version: 2.9.16\\n      natsImage: nats:2.9.16\\n      metricsExporterImage: natsio/prometheus-nats-exporter:0.9.1\\n      configReloaderImage: natsio/nats-server-config-reloader:0.7.0\\n      startCommand: /nats-server\\n    - version: 2.10.10\\n      natsImage: nats:2.10.10\\n      metricsExporterImage: natsio/prometheus-nats-exporter:0.14.0\\n      configReloaderImage: natsio/nats-server-config-reloader:0.14.0\\n      startCommand: /nats-server\\n\"},\"kind\":\"ConfigMap\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/instance\":\"argo-events\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-events-controller-manager\",\"app.kubernetes.io/part-of\":\"argo-events\",\"helm.sh/chart\":\"argo-events-2.4.21\"},\"name\":\"argo-events-controller-manager\",\"namespace\":\"default\"}}\n"
+      creationTimestamp: "2026-06-11T09:52:31Z"
+      labels:
+        app.kubernetes.io/instance: "argo-events"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-events-controller-manager"
+        app.kubernetes.io/part-of: "argo-events"
+        helm.sh/chart: "argo-events-2.4.21"
+      name: "argo-events-controller-manager"
+      namespace: "default"
+      resourceVersion: "5672"
+      uid: "37db19b6-0334-4abc-a6c1-5009f061d91e"
+  -
+    apiVersion: "apps/v1"
+    kind: "Deployment"
+    metadata:
+      annotations:
+        deployment.kubernetes.io/revision: "1"
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"controller-manager\",\"app.kubernetes.io/instance\":\"argo-events\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-events-controller-manager\",\"app.kubernetes.io/part-of\":\"argo-events\",\"app.kubernetes.io/version\":\"v1.9.10\",\"helm.sh/chart\":\"argo-events-2.4.21\"},\"name\":\"argo-events-controller-manager\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"revisionHistoryLimit\":5,\"selector\":{\"matchLabels\":{\"app.kubernetes.io/instance\":\"argo-events\",\"app.kubernetes.io/name\":\"argo-events-controller-manager\"}},\"template\":{\"metadata\":{\"annotations\":{\"checksum/config\":\"2523b7d6294a9d07c3e70252174aaab0a93a82c91ebe3488d71229d9fd33e060\"},\"labels\":{\"app.kubernetes.io/component\":\"controller-manager\",\"app.kubernetes.io/instance\":\"argo-events\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-events-controller-manager\",\"app.kubernetes.io/part-of\":\"argo-events\",\"app.kubernetes.io/version\":\"v1.9.10\",\"helm.sh/chart\":\"argo-events-2.4.21\"}},\"spec\":{\"containers\":[{\"args\":[\"controller\"],\"env\":[{\"name\":\"ARGO_EVENTS_IMAGE\",\"value\":\"quay.io/argoproj/argo-events:v1.9.10\"},{\"name\":\"NAMESPACE\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.namespace\"}}}],\"image\":\"quay.io/argoproj/argo-events:v1.9.10\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/healthz\",\"port\":\"probe\"},\"initialDelaySeconds\":10,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":1},\"name\":\"controller-manager\",\"ports\":[{\"containerPort\":7777,\"name\":\"metrics\",\"protocol\":\"TCP\"},{\"containerPort\":8081,\"name\":\"probe\",\"protocol\":\"TCP\"}],\"readinessProbe\":{\"failureThreshold\":3,\"httpGet\":{\"path\":\"/readyz\",\"port\":\"probe\"},\"initialDelaySeconds\":10,\"periodSeconds\":10,\"successThreshold\":1,\"timeoutSeconds\":1},\"volumeMounts\":[{\"mountPath\":\"/etc/argo-events\",\"name\":\"config\"}]}],\"serviceAccountName\":\"argo-events-controller-manager\",\"volumes\":[{\"configMap\":{\"name\":\"argo-events-controller-manager\"},\"name\":\"config\"}]}}}}\n"
+      creationTimestamp: "2026-06-11T09:52:31Z"
+      generation: 1
+      labels:
+        app.kubernetes.io/component: "controller-manager"
+        app.kubernetes.io/instance: "argo-events"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-events-controller-manager"
+        app.kubernetes.io/part-of: "argo-events"
+        app.kubernetes.io/version: "v1.9.10"
+        helm.sh/chart: "argo-events-2.4.21"
+      name: "argo-events-controller-manager"
+      namespace: "default"
+      resourceVersion: "5709"
+      uid: "f4f20242-bcea-4382-841b-489baa9a0aab"
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 1
+      revisionHistoryLimit: 5
+      selector:
+        matchLabels:
+          app.kubernetes.io/instance: "argo-events"
+          app.kubernetes.io/name: "argo-events-controller-manager"
+      strategy:
+        rollingUpdate:
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+        type: "RollingUpdate"
+      template:
+        metadata:
+          annotations:
+            checksum/config: "2523b7d6294a9d07c3e70252174aaab0a93a82c91ebe3488d71229d9fd33e060"
+          labels:
+            app.kubernetes.io/component: "controller-manager"
+            app.kubernetes.io/instance: "argo-events"
+            app.kubernetes.io/managed-by: "Helm"
+            app.kubernetes.io/name: "argo-events-controller-manager"
+            app.kubernetes.io/part-of: "argo-events"
+            app.kubernetes.io/version: "v1.9.10"
+            helm.sh/chart: "argo-events-2.4.21"
+        spec:
+          containers:
+            -
+              args:
+                - "controller"
+              env:
+                -
+                  name: "ARGO_EVENTS_IMAGE"
+                  value: "quay.io/argoproj/argo-events:v1.9.10"
+                -
+                  name: "NAMESPACE"
+                  valueFrom:
+                    fieldRef:
+                      apiVersion: "v1"
+                      fieldPath: "metadata.namespace"
+              image: "quay.io/argoproj/argo-events:v1.9.10"
+              imagePullPolicy: "IfNotPresent"
+              livenessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/healthz"
+                  port: "probe"
+                  scheme: "HTTP"
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              name: "controller-manager"
+              ports:
+                -
+                  containerPort: 7777
+                  name: "metrics"
+                  protocol: "TCP"
+                -
+                  containerPort: 8081
+                  name: "probe"
+                  protocol: "TCP"
+              readinessProbe:
+                failureThreshold: 3
+                httpGet:
+                  path: "/readyz"
+                  port: "probe"
+                  scheme: "HTTP"
+                initialDelaySeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                timeoutSeconds: 1
+              resources:
+                {}
+              terminationMessagePath: "/dev/termination-log"
+              terminationMessagePolicy: "File"
+              volumeMounts:
+                -
+                  mountPath: "/etc/argo-events"
+                  name: "config"
+          dnsPolicy: "ClusterFirst"
+          restartPolicy: "Always"
+          schedulerName: "default-scheduler"
+          securityContext:
+            {}
+          serviceAccount: "argo-events-controller-manager"
+          serviceAccountName: "argo-events-controller-manager"
+          terminationGracePeriodSeconds: 30
+          volumes:
+            -
+              configMap:
+                defaultMode: 420
+                name: "argo-events-controller-manager"
+              name: "config"
+    status:
+      availableReplicas: 1
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T09:52:42Z"
+          lastUpdateTime: "2026-06-11T09:52:42Z"
+          message: "Deployment has minimum availability."
+          reason: "MinimumReplicasAvailable"
+          status: "True"
+          type: "Available"
+        -
+          lastTransitionTime: "2026-06-11T09:52:31Z"
+          lastUpdateTime: "2026-06-11T09:52:42Z"
+          message: "ReplicaSet \"argo-events-controller-manager-6b4c999c9c\" has successfully progressed."
+          reason: "NewReplicaSetAvailable"
+          status: "True"
+          type: "Progressing"
+      observedGeneration: 1
+      readyReplicas: 1
+      replicas: 1
+      terminatingReplicas: 0
+      updatedReplicas: 1
+kind: "List"
+metadata:
+  resourceVersion: ""
+---
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "apiextensions.k8s.io/v1"
+    kind: "CustomResourceDefinition"
+    metadata:
+      annotations:
+        helm.sh/resource-policy: "keep"
+      creationTimestamp: "2026-06-11T09:52:30Z"
+      generation: 1
+      name: "eventbus.argoproj.io"
+      resourceVersion: "5663"
+      uid: "3d26a74c-1ac9-4c8b-8d12-bb0b4b944f50"
+    spec:
+      conversion:
+        strategy: "None"
+      group: "argoproj.io"
+      names:
+        kind: "EventBus"
+        listKind: "EventBusList"
+        plural: "eventbus"
+        shortNames:
+          - "eb"
+        singular: "eventbus"
+      scope: "Namespaced"
+      versions:
+        -
+          name: "v1alpha1"
+          schema:
+            openAPIV3Schema:
+              properties:
+                apiVersion:
+                  type: "string"
+                kind:
+                  type: "string"
+                metadata:
+                  type: "object"
+                spec:
+                  type: "object"
+                  x-kubernetes-preserve-unknown-fields: true
+                status:
+                  type: "object"
+                  x-kubernetes-preserve-unknown-fields: true
+              required:
+                - "metadata"
+                - "spec"
+              type: "object"
+          served: true
+          storage: true
+          subresources:
+            status:
+              {}
+    status:
+      acceptedNames:
+        kind: "EventBus"
+        listKind: "EventBusList"
+        plural: "eventbus"
+        shortNames:
+          - "eb"
+        singular: "eventbus"
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T09:52:30Z"
+          message: "no conflicts found"
+          reason: "NoConflicts"
+          status: "True"
+          type: "NamesAccepted"
+        -
+          lastTransitionTime: "2026-06-11T09:52:30Z"
+          message: "the initial names have been accepted"
+          reason: "InitialNamesAccepted"
+          status: "True"
+          type: "Established"
+      storedVersions:
+        - "v1alpha1"
+  -
+    apiVersion: "apiextensions.k8s.io/v1"
+    kind: "CustomResourceDefinition"
+    metadata:
+      annotations:
+        helm.sh/resource-policy: "keep"
+      creationTimestamp: "2026-06-11T09:52:30Z"
+      generation: 1
+      name: "eventsources.argoproj.io"
+      resourceVersion: "5666"
+      uid: "4a17ea1b-2aac-43e8-a1c1-714cd16c2df8"
+    spec:
+      conversion:
+        strategy: "None"
+      group: "argoproj.io"
+      names:
+        kind: "EventSource"
+        listKind: "EventSourceList"
+        plural: "eventsources"
+        shortNames:
+          - "es"
+        singular: "eventsource"
+      scope: "Namespaced"
+      versions:
+        -
+          name: "v1alpha1"
+          schema:
+            openAPIV3Schema:
+              properties:
+                apiVersion:
+                  type: "string"
+                kind:
+                  type: "string"
+                metadata:
+                  type: "object"
+                spec:
+                  type: "object"
+                  x-kubernetes-preserve-unknown-fields: true
+                status:
+                  type: "object"
+                  x-kubernetes-preserve-unknown-fields: true
+              required:
+                - "metadata"
+                - "spec"
+              type: "object"
+          served: true
+          storage: true
+          subresources:
+            status:
+              {}
+    status:
+      acceptedNames:
+        kind: "EventSource"
+        listKind: "EventSourceList"
+        plural: "eventsources"
+        shortNames:
+          - "es"
+        singular: "eventsource"
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T09:52:30Z"
+          message: "no conflicts found"
+          reason: "NoConflicts"
+          status: "True"
+          type: "NamesAccepted"
+        -
+          lastTransitionTime: "2026-06-11T09:52:30Z"
+          message: "the initial names have been accepted"
+          reason: "InitialNamesAccepted"
+          status: "True"
+          type: "Established"
+      storedVersions:
+        - "v1alpha1"
+  -
+    apiVersion: "apiextensions.k8s.io/v1"
+    kind: "CustomResourceDefinition"
+    metadata:
+      annotations:
+        helm.sh/resource-policy: "keep"
+      creationTimestamp: "2026-06-11T09:52:30Z"
+      generation: 1
+      name: "sensors.argoproj.io"
+      resourceVersion: "5668"
+      uid: "b0f7818f-fb4f-4aa5-a3ca-99e57c8832c9"
+    spec:
+      conversion:
+        strategy: "None"
+      group: "argoproj.io"
+      names:
+        kind: "Sensor"
+        listKind: "SensorList"
+        plural: "sensors"
+        shortNames:
+          - "sn"
+        singular: "sensor"
+      scope: "Namespaced"
+      versions:
+        -
+          name: "v1alpha1"
+          schema:
+            openAPIV3Schema:
+              properties:
+                apiVersion:
+                  type: "string"
+                kind:
+                  type: "string"
+                metadata:
+                  type: "object"
+                spec:
+                  type: "object"
+                  x-kubernetes-preserve-unknown-fields: true
+                status:
+                  type: "object"
+                  x-kubernetes-preserve-unknown-fields: true
+              required:
+                - "metadata"
+                - "spec"
+              type: "object"
+          served: true
+          storage: true
+          subresources:
+            status:
+              {}
+    status:
+      acceptedNames:
+        kind: "Sensor"
+        listKind: "SensorList"
+        plural: "sensors"
+        shortNames:
+          - "sn"
+        singular: "sensor"
+      conditions:
+        -
+          lastTransitionTime: "2026-06-11T09:52:30Z"
+          message: "no conflicts found"
+          reason: "NoConflicts"
+          status: "True"
+          type: "NamesAccepted"
+        -
+          lastTransitionTime: "2026-06-11T09:52:30Z"
+          message: "the initial names have been accepted"
+          reason: "InitialNamesAccepted"
+          status: "True"
+          type: "Established"
+      storedVersions:
+        - "v1alpha1"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"controller-manager\",\"app.kubernetes.io/instance\":\"argo-events\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-events-controller-manager\",\"app.kubernetes.io/part-of\":\"argo-events\",\"helm.sh/chart\":\"argo-events-2.4.21\"},\"name\":\"argo-events-controller-manager\"},\"rules\":[{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"create\",\"patch\"]},{\"apiGroups\":[\"coordination.k8s.io\"],\"resources\":[\"leases\"],\"verbs\":[\"get\",\"list\",\"watch\",\"create\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"argoproj.io\"],\"resources\":[\"sensors\",\"sensors/finalizers\",\"sensors/status\",\"eventsources\",\"eventsources/finalizers\",\"eventsources/status\",\"eventbus\",\"eventbus/finalizers\",\"eventbus/status\"],\"verbs\":[\"create\",\"delete\",\"deletecollection\",\"get\",\"list\",\"patch\",\"update\",\"watch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods\",\"pods/exec\",\"configmaps\",\"services\",\"persistentvolumeclaims\"],\"verbs\":[\"create\",\"get\",\"list\",\"watch\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"\"],\"resources\":[\"secrets\"],\"verbs\":[\"create\",\"get\",\"list\",\"update\",\"patch\",\"delete\"]},{\"apiGroups\":[\"apps\"],\"resources\":[\"deployments\",\"statefulsets\"],\"verbs\":[\"create\",\"get\",\"list\",\"watch\",\"update\",\"patch\",\"delete\"]}]}\n"
+      creationTimestamp: "2026-06-11T09:52:31Z"
+      labels:
+        app.kubernetes.io/component: "controller-manager"
+        app.kubernetes.io/instance: "argo-events"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-events-controller-manager"
+        app.kubernetes.io/part-of: "argo-events"
+        helm.sh/chart: "argo-events-2.4.21"
+      name: "argo-events-controller-manager"
+      resourceVersion: "5686"
+      uid: "36999379-d3d4-4913-a27d-96506e717214"
+    rules:
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "create"
+          - "patch"
+      -
+        apiGroups:
+          - "coordination.k8s.io"
+        resources:
+          - "leases"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "create"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "argoproj.io"
+        resources:
+          - "sensors"
+          - "sensors/finalizers"
+          - "sensors/status"
+          - "eventsources"
+          - "eventsources/finalizers"
+          - "eventsources/status"
+          - "eventbus"
+          - "eventbus/finalizers"
+          - "eventbus/status"
+        verbs:
+          - "create"
+          - "delete"
+          - "deletecollection"
+          - "get"
+          - "list"
+          - "patch"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+          - "pods/exec"
+          - "configmaps"
+          - "services"
+          - "persistentvolumeclaims"
+        verbs:
+          - "create"
+          - "get"
+          - "list"
+          - "watch"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "secrets"
+        verbs:
+          - "create"
+          - "get"
+          - "list"
+          - "update"
+          - "patch"
+          - "delete"
+      -
+        apiGroups:
+          - "apps"
+        resources:
+          - "deployments"
+          - "statefulsets"
+        verbs:
+          - "create"
+          - "get"
+          - "list"
+          - "watch"
+          - "update"
+          - "patch"
+          - "delete"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"controller-manager\",\"app.kubernetes.io/instance\":\"argo-events\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argo-events-controller-manager\",\"app.kubernetes.io/part-of\":\"argo-events\",\"helm.sh/chart\":\"argo-events-2.4.21\"},\"name\":\"argo-events-controller-manager\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"argo-events-controller-manager\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"argo-events-controller-manager\",\"namespace\":\"default\"}]}\n"
+      creationTimestamp: "2026-06-11T09:52:31Z"
+      labels:
+        app.kubernetes.io/component: "controller-manager"
+        app.kubernetes.io/instance: "argo-events"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argo-events-controller-manager"
+        app.kubernetes.io/part-of: "argo-events"
+        helm.sh/chart: "argo-events-2.4.21"
+      name: "argo-events-controller-manager"
+      resourceVersion: "5687"
+      uid: "c39c328f-e56b-4dd4-b9d9-5516c8b7106d"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "argo-events-controller-manager"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "argo-events-controller-manager"
+        namespace: "default"
+kind: "List"
+metadata:
+  resourceVersion: ""

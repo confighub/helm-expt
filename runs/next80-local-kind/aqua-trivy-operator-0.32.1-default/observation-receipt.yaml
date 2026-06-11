@@ -1,0 +1,38 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "aqua-trivy-operator-0.32.1-default-local-kind"
+spec:
+  checks:
+    -
+      name: "crds-applied-and-established"
+      object: "12 CustomResourceDefinition(s)"
+      result: "pass"
+    -
+      name: "rendered-objects-applied"
+      object: "33 object(s) from recipes/aqua/trivy-operator/0.32.1/revisions/default/r001/rendered/release-objects.yaml"
+      result: "pass"
+    -
+      name: "workload-converged"
+      object: "Deployment|default|trivy-operator"
+      result: "pass"
+  clusterStatus: "existing"
+  freshnessTTL: "1h"
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "7eba621cc4ee8d28822f3e8916ceede67411d41ba3b7f7c0d1f078e0b11ce7c7"
+  observedAt: "2026-06-11T10:12:54.435Z"
+  observer:
+    method: "kubectl-kind"
+    name: "next80-local-live"
+    version: "0.1.0"
+  renderedObjectSetSHA256: "4728643a42924d6af2c0b2b4f1f616938c31b6271ed7e32bac2ce36e5e339a25"
+  result: "pass"
+  target:
+    context: "kind-claude-helm-expt-next80"
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    namespace: "default"
+  variant: "default"
+  variantRevision: "recipes/aqua/trivy-operator/0.32.1/revisions/default/r001/variant-revision.yaml"
+  workloads: 1

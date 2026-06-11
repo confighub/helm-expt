@@ -1,0 +1,49 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "autoscaler-vertical-pod-autoscaler-0.9.0-default-local-kind"
+spec:
+  blockedReasons:
+    - "deployment/vertical-pod-autoscaler-admission-controller: prerequisite-blocked (stuck creating: missing mount/secret/config) (vertical-pod-autoscaler-admission-controller-b7787b7f8-4bj9g[ContainerCreating ready=false restarts=0;] vertical-pod-autoscaler-admission-controller-b7787b7f8-q)"
+  checks:
+    -
+      name: "crds-applied-and-established"
+      object: "2 CustomResourceDefinition(s)"
+      result: "pass"
+    -
+      name: "rendered-objects-applied"
+      object: "39 object(s) from recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/rendered/release-objects.yaml"
+      result: "pass"
+    -
+      name: "workload-converged"
+      object: "Deployment|default|vertical-pod-autoscaler-admission-controller"
+      reason: "prerequisite-blocked (stuck creating: missing mount/secret/config): vertical-pod-autoscaler-admission-controller-b7787b7f8-4bj9g[ContainerCreating ready=false restarts=0;] vertical-pod-autoscaler-admission-controller-b7787b7f8-q6wz5[ContainerCreating ready=false restarts=0;] vertical-pod-autoscaler-recommender-65cf99b9bd-crgkx[ ready=true restarts=0;] vertical-pod-a"
+      result: "blocked"
+    -
+      name: "workload-converged"
+      object: "Deployment|default|vertical-pod-autoscaler-recommender"
+      result: "pass"
+    -
+      name: "workload-converged"
+      object: "Deployment|default|vertical-pod-autoscaler-updater"
+      result: "pass"
+  clusterStatus: "existing"
+  freshnessTTL: "1h"
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "066fe8b0659fb41757bf29a435522e822a5f269656f344fa6f81a4393cb68198"
+  observedAt: "2026-06-11T10:01:19.323Z"
+  observer:
+    method: "kubectl-kind"
+    name: "next80-local-live"
+    version: "0.1.0"
+  renderedObjectSetSHA256: "9d7307f629bdc478fa0c9bc6646359976b96d0cfd549bd66c13442facfa57490"
+  result: "blocked"
+  target:
+    context: "kind-claude-helm-expt-next80"
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    namespace: "default"
+  variant: "default"
+  variantRevision: "recipes/autoscaler/vertical-pod-autoscaler/0.9.0/revisions/default/r001/variant-revision.yaml"
+  workloads: 3

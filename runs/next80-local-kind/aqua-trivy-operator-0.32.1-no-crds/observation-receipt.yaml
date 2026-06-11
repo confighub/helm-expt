@@ -1,0 +1,37 @@
+apiVersion: "helm-expt.confighub.com/v1alpha1"
+kind: "ObservationReceipt"
+metadata:
+  name: "aqua-trivy-operator-0.32.1-no-crds-local-kind"
+spec:
+  blockedReasons:
+    - "apply: Error from server (NotFound): error when creating \"STDIN\": the server could not find the requested resource (post clustercompliancereports.aquasecurity.github.io) Error from server (NotFound): error w"
+  checks:
+    -
+      name: "rendered-objects-applied"
+      object: "21 object(s) from recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/rendered/release-objects.yaml"
+      reason: "apply-blocked: Error from server (NotFound): error when creating \"STDIN\": the server could not find the requested resource (post clustercompliancereports.aquasecurity.github.io) Error from server (NotFound): error w"
+      result: "blocked"
+    -
+      name: "workload-converged"
+      object: "Deployment|default|trivy-operator"
+      result: "pass"
+  clusterStatus: "existing"
+  freshnessTTL: "1h"
+  kubectlObjects:
+    path: "observed-objects.yaml"
+    sha256: "469d2ad37d6b2a819acb7bb22d0697a6482cffd1eaea8275d63107b9440e6cfc"
+  observedAt: "2026-06-11T10:13:07.282Z"
+  observer:
+    method: "kubectl-kind"
+    name: "next80-local-live"
+    version: "0.1.0"
+  renderedObjectSetSHA256: "875c8aa838c2841aeda6fbd5ffe95e4f7e2c6a36d64194715bb4039aff0ed492"
+  result: "blocked"
+  target:
+    context: "kind-claude-helm-expt-next80"
+    kind: "kind"
+    name: "claude-helm-expt-next80"
+    namespace: "default"
+  variant: "no-crds"
+  variantRevision: "recipes/aqua/trivy-operator/0.32.1/revisions/no-crds/r001/variant-revision.yaml"
+  workloads: 1

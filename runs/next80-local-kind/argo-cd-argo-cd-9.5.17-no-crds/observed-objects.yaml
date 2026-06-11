@@ -1,0 +1,244 @@
+apiVersion: "v1"
+items:
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"application-controller\",\"app.kubernetes.io/instance\":\"argo-cd\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argocd-application-controller\",\"app.kubernetes.io/part-of\":\"argocd\",\"app.kubernetes.io/version\":\"v3.4.3\",\"helm.sh/chart\":\"argo-cd-9.5.17\"},\"name\":\"argo-cd-argocd-application-controller\"},\"rules\":[{\"apiGroups\":[\"*\"],\"resources\":[\"*\"],\"verbs\":[\"*\"]},{\"nonResourceURLs\":[\"*\"],\"verbs\":[\"*\"]}]}\n"
+      creationTimestamp: "2026-06-11T10:18:26Z"
+      labels:
+        app.kubernetes.io/component: "application-controller"
+        app.kubernetes.io/instance: "argo-cd"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argocd-application-controller"
+        app.kubernetes.io/part-of: "argocd"
+        app.kubernetes.io/version: "v3.4.3"
+        helm.sh/chart: "argo-cd-9.5.17"
+      name: "argo-cd-argocd-application-controller"
+      resourceVersion: "10657"
+      uid: "b47cebf9-a75f-41b6-8aeb-4e32ccc6d4a3"
+    rules:
+      -
+        apiGroups:
+          - "*"
+        resources:
+          - "*"
+        verbs:
+          - "*"
+      -
+        nonResourceURLs:
+          - "*"
+        verbs:
+          - "*"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"notifications-controller\",\"app.kubernetes.io/instance\":\"argo-cd\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argocd-notifications-controller\",\"app.kubernetes.io/part-of\":\"argocd\",\"app.kubernetes.io/version\":\"v3.4.3\",\"helm.sh/chart\":\"argo-cd-9.5.17\"},\"name\":\"argo-cd-argocd-notifications-controller\"},\"rules\":[{\"apiGroups\":[\"argoproj.io\"],\"resources\":[\"applications\",\"appprojects\"],\"verbs\":[\"get\",\"list\",\"watch\",\"update\",\"patch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"configmaps\",\"secrets\"],\"verbs\":[\"list\",\"watch\"]},{\"apiGroups\":[\"\"],\"resourceNames\":[\"argocd-notifications-cm\"],\"resources\":[\"configmaps\"],\"verbs\":[\"get\"]},{\"apiGroups\":[\"\"],\"resourceNames\":[\"argocd-notifications-secret\"],\"resources\":[\"secrets\"],\"verbs\":[\"get\"]}]}\n"
+      creationTimestamp: "2026-06-11T10:18:26Z"
+      labels:
+        app.kubernetes.io/component: "notifications-controller"
+        app.kubernetes.io/instance: "argo-cd"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argocd-notifications-controller"
+        app.kubernetes.io/part-of: "argocd"
+        app.kubernetes.io/version: "v3.4.3"
+        helm.sh/chart: "argo-cd-9.5.17"
+      name: "argo-cd-argocd-notifications-controller"
+      resourceVersion: "10658"
+      uid: "9df7d75a-41fd-41c1-954c-f3311677d9ec"
+    rules:
+      -
+        apiGroups:
+          - "argoproj.io"
+        resources:
+          - "applications"
+          - "appprojects"
+        verbs:
+          - "get"
+          - "list"
+          - "watch"
+          - "update"
+          - "patch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "configmaps"
+          - "secrets"
+        verbs:
+          - "list"
+          - "watch"
+      -
+        apiGroups:
+          - ""
+        resourceNames:
+          - "argocd-notifications-cm"
+        resources:
+          - "configmaps"
+        verbs:
+          - "get"
+      -
+        apiGroups:
+          - ""
+        resourceNames:
+          - "argocd-notifications-secret"
+        resources:
+          - "secrets"
+        verbs:
+          - "get"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRole"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRole\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"server\",\"app.kubernetes.io/instance\":\"argo-cd\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argocd-server\",\"app.kubernetes.io/part-of\":\"argocd\",\"app.kubernetes.io/version\":\"v3.4.3\",\"helm.sh/chart\":\"argo-cd-9.5.17\"},\"name\":\"argo-cd-argocd-server\"},\"rules\":[{\"apiGroups\":[\"*\"],\"resources\":[\"*\"],\"verbs\":[\"delete\",\"get\",\"patch\"]},{\"apiGroups\":[\"\"],\"resources\":[\"events\"],\"verbs\":[\"list\",\"create\"]},{\"apiGroups\":[\"\"],\"resources\":[\"pods\",\"pods/log\"],\"verbs\":[\"get\"]},{\"apiGroups\":[\"argoproj.io\"],\"resources\":[\"applications\",\"applicationsets\"],\"verbs\":[\"get\",\"list\",\"update\",\"watch\"]},{\"apiGroups\":[\"batch\"],\"resources\":[\"jobs\"],\"verbs\":[\"create\"]},{\"apiGroups\":[\"argoproj.io\"],\"resources\":[\"workflows\"],\"verbs\":[\"create\"]}]}\n"
+      creationTimestamp: "2026-06-11T10:18:26Z"
+      labels:
+        app.kubernetes.io/component: "server"
+        app.kubernetes.io/instance: "argo-cd"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argocd-server"
+        app.kubernetes.io/part-of: "argocd"
+        app.kubernetes.io/version: "v3.4.3"
+        helm.sh/chart: "argo-cd-9.5.17"
+      name: "argo-cd-argocd-server"
+      resourceVersion: "10659"
+      uid: "fdaf732b-a86f-48cf-88e4-4097661a94a5"
+    rules:
+      -
+        apiGroups:
+          - "*"
+        resources:
+          - "*"
+        verbs:
+          - "delete"
+          - "get"
+          - "patch"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "events"
+        verbs:
+          - "list"
+          - "create"
+      -
+        apiGroups:
+          - ""
+        resources:
+          - "pods"
+          - "pods/log"
+        verbs:
+          - "get"
+      -
+        apiGroups:
+          - "argoproj.io"
+        resources:
+          - "applications"
+          - "applicationsets"
+        verbs:
+          - "get"
+          - "list"
+          - "update"
+          - "watch"
+      -
+        apiGroups:
+          - "batch"
+        resources:
+          - "jobs"
+        verbs:
+          - "create"
+      -
+        apiGroups:
+          - "argoproj.io"
+        resources:
+          - "workflows"
+        verbs:
+          - "create"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"application-controller\",\"app.kubernetes.io/instance\":\"argo-cd\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argocd-application-controller\",\"app.kubernetes.io/part-of\":\"argocd\",\"app.kubernetes.io/version\":\"v3.4.3\",\"helm.sh/chart\":\"argo-cd-9.5.17\"},\"name\":\"argo-cd-argocd-application-controller\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"argo-cd-argocd-application-controller\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"argocd-application-controller\",\"namespace\":\"argocd\"}]}\n"
+      creationTimestamp: "2026-06-11T10:18:26Z"
+      labels:
+        app.kubernetes.io/component: "application-controller"
+        app.kubernetes.io/instance: "argo-cd"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argocd-application-controller"
+        app.kubernetes.io/part-of: "argocd"
+        app.kubernetes.io/version: "v3.4.3"
+        helm.sh/chart: "argo-cd-9.5.17"
+      name: "argo-cd-argocd-application-controller"
+      resourceVersion: "10660"
+      uid: "3d1a977c-b1ce-4bb3-93d2-4bb2b3dc811d"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "argo-cd-argocd-application-controller"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "argocd-application-controller"
+        namespace: "argocd"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"notifications-controller\",\"app.kubernetes.io/instance\":\"argo-cd\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argocd-notifications-controller\",\"app.kubernetes.io/part-of\":\"argocd\",\"app.kubernetes.io/version\":\"v3.4.3\",\"helm.sh/chart\":\"argo-cd-9.5.17\"},\"name\":\"argo-cd-argocd-notifications-controller\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"argo-cd-argocd-notifications-controller\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"argocd-notifications-controller\",\"namespace\":\"argocd\"}]}\n"
+      creationTimestamp: "2026-06-11T10:18:26Z"
+      labels:
+        app.kubernetes.io/component: "notifications-controller"
+        app.kubernetes.io/instance: "argo-cd"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argocd-notifications-controller"
+        app.kubernetes.io/part-of: "argocd"
+        app.kubernetes.io/version: "v3.4.3"
+        helm.sh/chart: "argo-cd-9.5.17"
+      name: "argo-cd-argocd-notifications-controller"
+      resourceVersion: "10661"
+      uid: "7359defa-bfa6-4e28-b0c3-3ab68147d227"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "argo-cd-argocd-notifications-controller"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "argocd-notifications-controller"
+        namespace: "argocd"
+  -
+    apiVersion: "rbac.authorization.k8s.io/v1"
+    kind: "ClusterRoleBinding"
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/last-applied-configuration: "{\"apiVersion\":\"rbac.authorization.k8s.io/v1\",\"kind\":\"ClusterRoleBinding\",\"metadata\":{\"annotations\":{},\"labels\":{\"app.kubernetes.io/component\":\"server\",\"app.kubernetes.io/instance\":\"argo-cd\",\"app.kubernetes.io/managed-by\":\"Helm\",\"app.kubernetes.io/name\":\"argocd-server\",\"app.kubernetes.io/part-of\":\"argocd\",\"app.kubernetes.io/version\":\"v3.4.3\",\"helm.sh/chart\":\"argo-cd-9.5.17\"},\"name\":\"argo-cd-argocd-server\"},\"roleRef\":{\"apiGroup\":\"rbac.authorization.k8s.io\",\"kind\":\"ClusterRole\",\"name\":\"argo-cd-argocd-server\"},\"subjects\":[{\"kind\":\"ServiceAccount\",\"name\":\"argocd-server\",\"namespace\":\"argocd\"}]}\n"
+      creationTimestamp: "2026-06-11T10:18:26Z"
+      labels:
+        app.kubernetes.io/component: "server"
+        app.kubernetes.io/instance: "argo-cd"
+        app.kubernetes.io/managed-by: "Helm"
+        app.kubernetes.io/name: "argocd-server"
+        app.kubernetes.io/part-of: "argocd"
+        app.kubernetes.io/version: "v3.4.3"
+        helm.sh/chart: "argo-cd-9.5.17"
+      name: "argo-cd-argocd-server"
+      resourceVersion: "10662"
+      uid: "549cf9f0-07b8-481e-9b47-59d448312149"
+    roleRef:
+      apiGroup: "rbac.authorization.k8s.io"
+      kind: "ClusterRole"
+      name: "argo-cd-argocd-server"
+    subjects:
+      -
+        kind: "ServiceAccount"
+        name: "argocd-server"
+        namespace: "argocd"
+kind: "List"
+metadata:
+  resourceVersion: ""
