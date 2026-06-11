@@ -1,0 +1,59 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: HookLifecycleRouteCandidate
+metadata:
+  name: airflow-helm-airflow-hook-route-candidate
+spec:
+  chart: airflow-helm/airflow
+  version: 8.9.0
+  base: none-yet (no maintained recipe; source-scan candidate)
+  result: candidate-route-plan
+  reviewedAt: "2026-06-11"
+  hooks:
+    count: 5
+    phases: [post-install, post-upgrade]
+    deletePolicies: present on the hook templates
+    weights: present on the hook templates
+    templates:
+      - airflow/templates/db-migrations/db-migrations-job.yaml
+      - airflow/templates/sync/sync-connections-job.yaml
+      - airflow/templates/sync/sync-pools-job.yaml
+  dependencySource: chart-own templates
+  targetDependencies:
+    - Airflow metadata database, migration state, and scheduler/webserver
+      readiness for the selected base
+    - target-specific secrets, executor mode, and storage choices selected by
+      the supported base
+  route:
+    summary: The chart uses post-install/post-upgrade hooks for database
+      migration and synchronization work. These jobs are operational lifecycle
+      actions, not ordinary render parity evidence. A supported base must
+      decide whether the jobs are run by an explicit managed action, GitOps
+      lifecycle step, or refused for targets that cannot satisfy prerequisites.
+    phases:
+      - hookTypes: [post-install, post-upgrade]
+        action: explicit-managed-action
+        reason: Database migrations and synchronization jobs need ordered
+          execution, outcome capture, and failure handling outside the rendered
+          object set.
+    gitopsMapping: Argo CD PostSync or Flux post-deploy Job when the selected
+      base enables these lifecycle jobs. If a base disables them, record a
+      hook-inert-under-supported-values fact for that base.
+  evidence:
+    - path: data/hook-lifecycle/source-top100-hooks.csv
+      claim: Source top-100 hook inventory records the Airflow migration and
+        synchronization hook jobs at the pinned chart version.
+    - path: data/top500-catalog-analysis/source/source-feature-scan.raw.json
+      claim: Static source scan found hook phases, delete policies, and hook
+        weights for the pinned chart.
+  execution:
+    helmHooksExecutedByHarness: false
+    runtimeObserved: false
+  promotionNextStep: Create a maintained recipe, choose a supported base, and
+    decide whether the migration/sync hooks are enabled. If they render, admit
+    the base to the maintained hook queue with an explicit managed-action
+    receipt and a live observation or execution receipt. If they do not render,
+    record a hook-inert fact for that base.
+  notClaimed:
+    - production readiness
+    - runtime hook behavior
+    - that every Airflow values profile renders or skips the hooks the same way

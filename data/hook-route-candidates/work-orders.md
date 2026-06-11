@@ -9,10 +9,10 @@ queue, or claim production readiness.
 ## Summary
 
 ~~~text
-candidate charts: 8
-work orders: 60
+candidate charts: 9
+work orders: 66
 dependency-closure hook rows: 5
-target/preflight rows: 7
+target/preflight rows: 8
 ~~~
 
 ## Pattern Mix
@@ -23,6 +23,7 @@ target/preflight rows: 7
 | `database-migration-pair` | 2 |
 | `environment-conditional-hooks` | 1 |
 | `hook-like-migration-jobs` | 1 |
+| `migration-and-sync-hooks` | 1 |
 | `vendored-traefik-lifecycle-hook` | 1 |
 
 ## Work Orders By Chart
@@ -78,6 +79,22 @@ Candidate route: `argocd-or-flux-lifecycle-hook`
 | 6 | gitops-lifecycle-mapping | operator reviewer | The route records whether Argo CD, Flux, a ConfigHub action, or an operator-run action owns the lifecycle step. |
 | 7 | runtime-observation-or-execution | operator reviewer | The selected path has an execution receipt, a fresh observation receipt, or a named reason why runtime proof is deferred. |
 | 8 | maintained-queue-admission | catalog owner | The row is admitted to the maintained hook queue or remains in candidates with the missing evidence named. |
+
+### airflow-helm/airflow@8.9.0
+
+Pattern: `migration-and-sync-hooks`<br>
+Phases: `post-install, post-upgrade`<br>
+Dependency source: `chart-own`<br>
+Candidate route: `explicit-managed-action`
+
+| Order | Work type | Reviewer | Done when |
+| ---: | --- | --- | --- |
+| 1 | base-rendering-review | catalog reviewer | The selected recipe/base records whether the hook renders, is intentionally inert, or requires a separate supported base. |
+| 2 | target-preflight | platform reviewer | Target facts or preflight checks exist for the selected route, or the target prerequisite is explicitly out of scope. |
+| 3 | maintained-route-receipt | catalog reviewer | A HookLifecycleRouteReceipt or explicit blocker exists in the maintained hook lifecycle area for the selected base. |
+| 4 | gitops-lifecycle-mapping | operator reviewer | The route records whether Argo CD, Flux, a ConfigHub action, or an operator-run action owns the lifecycle step. |
+| 5 | runtime-observation-or-execution | operator reviewer | The selected path has an execution receipt, a fresh observation receipt, or a named reason why runtime proof is deferred. |
+| 6 | maintained-queue-admission | catalog owner | The row is admitted to the maintained hook queue or remains in candidates with the missing evidence named. |
 
 ### bitnami/kafka@32.4.3
 

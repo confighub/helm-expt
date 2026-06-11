@@ -93,10 +93,11 @@ Which detailed CSV should I open next?
 | extension slots | top100 charts with extension slots | 82/100 | partial | [data/extension-slots/extension-slots.csv](../../data/extension-slots/extension-slots.csv) |
 | extension slots | top500 source rows using tpl | 362/500 | partial | [data/quirk-coverage/coverage.csv](../../data/quirk-coverage/coverage.csv) |
 | hooks | top100 source-scan hook charts | 11/100 | partial | [data/hook-lifecycle/source-top100-hooks.csv](../../data/hook-lifecycle/source-top100-hooks.csv) |
+| hooks | top100 source hook rows still uncovered | 0/11 | good | [data/hook-coverage/top100-hook-coverage.csv](../../data/hook-coverage/top100-hook-coverage.csv) |
 | hooks | maintained hook queue rows | 5/11 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
 | hooks | source-reviewed hook rows not yet maintained | 8/11 | gap | [data/hook-lifecycle-review/top100-source-hook-route-review.csv](../../data/hook-lifecycle-review/top100-source-hook-route-review.csv) |
-| hooks | source-reviewed hook rows with candidate route plans | 8/8 | partial | [data/hook-route-candidates/candidates.csv](../../data/hook-route-candidates/candidates.csv) |
-| hooks | hook candidate route work orders | 60/60 | partial | [data/hook-route-candidates/work-orders.csv](../../data/hook-route-candidates/work-orders.csv) |
+| hooks | source-reviewed hook rows with candidate route plans | 9/8 | partial | [data/hook-route-candidates/candidates.csv](../../data/hook-route-candidates/candidates.csv) |
+| hooks | hook candidate route work orders | 66/66 | partial | [data/hook-route-candidates/work-orders.csv](../../data/hook-route-candidates/work-orders.csv) |
 | hooks | hook route receipts present | 5/5 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
 | hooks | hook lifecycle observations present | 3/5 | gap | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
 | hooks | hook partial lifecycle observations present | 2/5 | partial | [data/hook-lifecycle/maintained-hook-queue.csv](../../data/hook-lifecycle/maintained-hook-queue.csv) |
@@ -131,7 +132,7 @@ quirks, dependency closure, or hook routing could damage trust if overclaimed.
 | --- | ---: | --- |
 | Shortlist | 25 | Assign the first rows to modeled facts, route receipts, runtime observations, better bases, or explicit blockers. |
 | Catalog-visible hard gaps | 3 | Handle visible catalog rows first so public claims stay narrow and backed. |
-| Hook-route hard gaps | 8 | Promote candidate routes into maintained receipts, runtime observations, or explicit blockers. |
+| Hook-route hard gaps | 9 | Promote candidate routes into maintained receipts, runtime observations, or explicit blockers. |
 | Remote dependency hard gaps | 20 | Close dependency range policy, refresh-survival, and recipe-import gaps before stronger catalog claims. |
 | APIService hard gaps | 4 | Add APIService readiness modeling and runtime observation routes. |
 
@@ -188,8 +189,8 @@ lifecycle route, target fit, or operating policy.
 
 | Queue | Rows | Next action |
 | --- | ---: | --- |
-| Hook candidate route plans | 8 | Use these as reviewed inputs; do not treat them as maintained receipts or runtime proof. |
-| Hook candidate work orders | 60 | Assign base rendering, dependency closure, target preflight, GitOps mapping, receipt, and observation tasks from the generated work-order list. |
+| Hook candidate route plans | 9 | Use these as reviewed inputs; do not treat them as maintained receipts or runtime proof. |
+| Hook candidate work orders | 66 | Assign base rendering, dependency closure, target preflight, GitOps mapping, receipt, and observation tasks from the generated work-order list. |
 | Hook candidates not yet maintained | 8 | Promote each candidate into a maintained lifecycle receipt, runtime observation path, or explicit blocker before support claims. |
 | Hook route selected, observation pending | 0 | Run the selected lifecycle path and commit execution or observation receipts. |
 | Hook install lifecycle observed, remaining phase pending | 2 | Run the remaining lifecycle phase, such as upgrade, and commit the execution or observation receipt. |
@@ -513,6 +514,7 @@ lifecycle observation.
 | Which Helm quirk axes are still blind spots? | [quirk-coverage/coverage.csv](../quirk-coverage/coverage.csv) |
 | Which source-scan quirk gaps should move first? | [quirk-work-queue/summary.md](../quirk-work-queue/summary.md) |
 | Which remote dependency closures are locked? | [remote-dependency-closure/summary.md](../remote-dependency-closure/summary.md) |
+| Which top-100 source rows contain Helm hooks, and are they covered? | [hook-coverage/summary.md](../hook-coverage/summary.md) |
 | Which top-100 source rows contain Helm hooks? | [hook-lifecycle/source-top100-hooks.csv](../hook-lifecycle/source-top100-hooks.csv) |
 | Which maintained hook rows need lifecycle receipts? | [hook-lifecycle/maintained-hook-queue.csv](../hook-lifecycle/maintained-hook-queue.csv) |
 | Which hook route candidates have assignable next work? | [hook-route-candidates/work-orders.md](../hook-route-candidates/work-orders.md) |

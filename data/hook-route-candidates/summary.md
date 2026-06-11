@@ -11,25 +11,29 @@ behavior, or claims production readiness.
 
 Per-chart plans: [kong](./kong-kong.yaml) ·
 [kubernetes-dashboard](./k8s-dashboard-kubernetes-dashboard.yaml) ·
-[gitlab](./gitlab-gitlab.yaml) · [kafka](./bitnami-kafka.yaml) ·
-[minio](./bitnami-minio.yaml) · [datadog](./datadog-datadog.yaml) ·
-[thanos](./bitnami-thanos.yaml) ·
+[gitlab](./gitlab-gitlab.yaml) ·
+[airflow-helm](./airflow-helm-airflow.yaml) ·
+[kafka](./bitnami-kafka.yaml) · [minio](./bitnami-minio.yaml) ·
+[datadog](./datadog-datadog.yaml) · [thanos](./bitnami-thanos.yaml) ·
 [airflow](./apache-airflow-airflow.yaml).
 Compact table: [candidates.csv](./candidates.csv).
 Assignable next work: [work-orders.md](./work-orders.md) ·
 [work-orders.csv](./work-orders.csv).
 
-## Why These Eight
+## Why These Nine
 
 The source top-100 has 11 hook-bearing charts; the maintained queue models 5.
 The reviewed delta is in
 [`data/hook-lifecycle-review/`](../hook-lifecycle-review/summary.md). These
-eight rows cover the reviewed source-hook and hook-like routes that are not yet
-maintained lifecycle receipts:
+nine rows cover the reviewed source-hook and hook-like routes that are not yet
+maintained lifecycle receipts. Eight rows cover source top-100 hook charts; the
+apache-airflow row covers hook-like migration jobs even though the source scan
+did not find Helm hook annotations for that chart row.
 
 | Pattern | Charts here | Route |
 | --- | --- | --- |
 | Database migration pair (`pre-upgrade` + `post-upgrade`, delete policies) | kong; kubernetes-dashboard (vendored kong) | upgrade action with receipt; Argo CD PreSync/PostSync for GitOps |
+| Migration and sync hooks (`post-install` + `post-upgrade`, weights/delete policies) | airflow-helm | explicit managed action with receipt; Argo CD PostSync for GitOps |
 | Provisioning Job (`post-install, post-upgrade`, values-conditional) | kafka; minio (and thanos via its vendored minio) | explicit managed action with receipt; Argo CD PostSync for GitOps |
 | Vendored lifecycle hook | gitlab (vendored traefik) | Argo/Flux lifecycle hook after serious-chart review decides the supported base |
 | Environment-conditional hook set | datadog | target-class preflight plus upgrade/install action with receipt |
@@ -55,18 +59,22 @@ closure undercounts hooks.
 3. **bitnami/kafka** — recipe with a provisioning-off default base
    (hook-free render) and a provisioning-enabled base; route the Job as an
    explicit managed post-install action with a receipt.
-4. **gitlab/gitlab** — treat as a serious-chart review first; confirm whether
+4. **airflow-helm/airflow** — create the recipe and decide whether the
+   migration/sync hooks render for the supported base. If they render, route
+   them as explicit managed actions with receipts; if they do not render,
+   record a hook-inert fact for that base.
+5. **gitlab/gitlab** — treat as a serious-chart review first; confirm whether
    the vendored Traefik lifecycle hook renders in the supported base; then
    write a maintained route receipt or a hook-inert fact for that base.
-5. **bitnami/minio** — same as kafka, reusing one shared route receipt shape
+6. **bitnami/minio** — same as kafka, reusing one shared route receipt shape
    for the whole bitnami provisioning pattern.
-6. **datadog/datadog** — split target scopes: normal targets where the GKE
+7. **datadog/datadog** — split target scopes: normal targets where the GKE
    Autopilot hooks are inert, GKE Autopilot targets where the allowlist work is
    preflight, and upgrade paths where the migration Job gets a receipt.
-7. **bitnami/thanos** — record the vendored MinIO provisioning hook as
+8. **bitnami/thanos** — record the vendored MinIO provisioning hook as
    dependency-provided and reuse the MinIO provisioning route shape when a
    provisioning-enabled base renders it.
-8. **apache-airflow/airflow** — verify values-conditional lifecycle Jobs at
+9. **apache-airflow/airflow** — verify values-conditional lifecycle Jobs at
    recipe time. A zero Helm-hook annotation count is not a hook-free claim.
 
 ## Boundaries

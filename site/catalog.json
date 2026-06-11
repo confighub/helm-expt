@@ -802,6 +802,15 @@
     },
     {
       "section": "hooks",
+      "metric": "top100 source hook rows still uncovered",
+      "value": "0",
+      "total": "11",
+      "status": "good",
+      "source": "data/hook-coverage/top100-hook-coverage.csv",
+      "note": "Source top-100 hook rows with no maintained lifecycle row and no candidate route plan."
+    },
+    {
+      "section": "hooks",
       "metric": "maintained hook queue rows",
       "value": "5",
       "total": "11",
@@ -821,7 +830,7 @@
     {
       "section": "hooks",
       "metric": "source-reviewed hook rows with candidate route plans",
-      "value": "8",
+      "value": "9",
       "total": "8",
       "status": "partial",
       "source": "data/hook-route-candidates/candidates.csv",
@@ -830,8 +839,8 @@
     {
       "section": "hooks",
       "metric": "hook candidate route work orders",
-      "value": "60",
-      "total": "60",
+      "value": "66",
+      "total": "66",
       "status": "partial",
       "source": "data/hook-route-candidates/work-orders.csv",
       "note": "Assignable work orders for turning candidate routes into maintained route receipts, runtime observations, or explicit blockers."
