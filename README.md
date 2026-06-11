@@ -22,6 +22,7 @@ Public entry points:
 - [Static HTML offering page](./site/offering.html): generated page for a public site.
 - [Try now](./docs/user/try-now.md): short Redis and kube-prometheus-stack paths.
 - [Static HTML try page](./site/try.html): generated try-now page for a public site.
+- [Choose your path](./docs/user/choose-your-path.md): quick routing for direct Helm render, one-shot upload, public catalog packages, and ConfigHub-managed operations.
 - [Catalog dashboard](./site/index.html): generated status, catalog, and proof data.
 - [Chart use guide](./data/chart-use-guide/summary.md): one short answer per top-100 chart for whether to use it now, promote it, improve its base variant, or decide a limitation first.
 - [Current proof status](./docs/user/current-proof-status.md): what is proven, watch, blocked, or still backlog.
