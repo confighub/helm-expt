@@ -225,6 +225,19 @@ const claims = [
     limit: "Measured coverage is still a small slice of the catalog (current counts are in data/blast-radius-accuracy/summary.md). Whole-release identity paths are measured with rename-aware pairing and currently fail, recording that the source maps under-predict them; the route is exhaustive enumeration or a declared whole-release impact scope.",
   },
   {
+    id: "environment-determinism",
+    area: "sceptic-tests",
+    status: "partial",
+    claim: "Rendering is recorded as environment-invariant across timezone and locale variations for the measured corpus, per flag profile.",
+    evidence: [
+      "data/environment-matrix/summary.md",
+      "data/environment-matrix/matrix.csv",
+      "docs/planning/robust-sceptic-plan.md",
+    ],
+    verify: "npm run environment-matrix:verify",
+    limit: "The matrix covers the proof-grade corpus on one operating system, architecture, and helm version; other platforms and helm versions are open columns intended for CI runners. A divergent cell is recorded, not hidden.",
+  },
+  {
     id: "refused-blanket-verification",
     area: "refusals",
     status: "refused",
