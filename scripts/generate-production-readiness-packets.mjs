@@ -73,13 +73,18 @@ const CHARTS = [
         "CRD/webhook/controller runtime lifecycle observations",
         "data/lifecycle-observations/cert-manager-eso/summary.md",
       ],
+      [
+        "ConfigHub OCI default-base rehearsal: Argo synced, runtime blocked on separated webhook Secret delivery",
+        "data/runtime-gitops/receipts/external-secrets-external-secrets/default/latest.yaml",
+      ],
     ],
     mustNot: [
       "\"strict rendered-object/live parity holds on Kubernetes 1.30\" - same selectableFields watchlist row as cert-manager; not claimed for that profile",
+      "\"external-secrets/default is live-ready through workload-only OCI\" - the 2026-06-11 rehearsal blocks because the rendered external-secrets-webhook Secret is staged under out/secrets and is not delivered through the workload OCI path",
       "\"secrets reconcile end to end\" - no receipt exercises a real external provider; live evidence covers the controller, not a provider round-trip",
     ],
     nextTest:
-      "a provider round-trip rehearsal against a disposable secrets backend, plus the 1.31+ capability-profile witness re-run",
+      "model the generated external-secrets-webhook Secret as a deliverable unit or explicit secret prerequisite, re-run the default-base Argo OCI rehearsal, then run a provider round-trip rehearsal against a disposable secrets backend plus the 1.31+ capability-profile witness",
   },
 ];
 
