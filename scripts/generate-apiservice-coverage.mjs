@@ -20,6 +20,8 @@ const outputRoot = join(repoRoot, "data", "apiservice-coverage");
 const outputs = {
   csv: join(outputRoot, "top100-apiservice-coverage.csv"),
   maintainedCsv: join(outputRoot, "maintained-apiservice-coverage.csv"),
+  renderPathCsv: join(outputRoot, "render-path-notes.csv"),
+  renderPathMd: join(outputRoot, "render-path-notes.md"),
   summary: join(outputRoot, "summary.md"),
   workOrdersCsv: join(outputRoot, "work-orders.csv"),
   workOrdersMd: join(outputRoot, "work-orders.md"),
@@ -54,6 +56,8 @@ if (mode === "--generate") {
   const report = buildReport();
   write(outputs.csv, report.outputs.csv);
   write(outputs.maintainedCsv, report.outputs.maintainedCsv);
+  write(outputs.renderPathCsv, report.outputs.renderPathCsv);
+  write(outputs.renderPathMd, report.outputs.renderPathMd);
   write(outputs.summary, report.outputs.summary);
   write(outputs.workOrdersCsv, report.outputs.workOrdersCsv);
   write(outputs.workOrdersMd, report.outputs.workOrdersMd);
@@ -65,6 +69,8 @@ if (mode === "--generate") {
   }
   check(readFileSync(outputs.csv, "utf8") === report.outputs.csv, `${relativeRepo(outputs.csv)} is stale; run npm run apiservice:coverage`);
   check(readFileSync(outputs.maintainedCsv, "utf8") === report.outputs.maintainedCsv, `${relativeRepo(outputs.maintainedCsv)} is stale; run npm run apiservice:coverage`);
+  check(readFileSync(outputs.renderPathCsv, "utf8") === report.outputs.renderPathCsv, `${relativeRepo(outputs.renderPathCsv)} is stale; run npm run apiservice:coverage`);
+  check(readFileSync(outputs.renderPathMd, "utf8") === report.outputs.renderPathMd, `${relativeRepo(outputs.renderPathMd)} is stale; run npm run apiservice:coverage`);
   check(readFileSync(outputs.summary, "utf8") === report.outputs.summary, `${relativeRepo(outputs.summary)} is stale; run npm run apiservice:coverage`);
   check(readFileSync(outputs.workOrdersCsv, "utf8") === report.outputs.workOrdersCsv, `${relativeRepo(outputs.workOrdersCsv)} is stale; run npm run apiservice:coverage`);
   check(readFileSync(outputs.workOrdersMd, "utf8") === report.outputs.workOrdersMd, `${relativeRepo(outputs.workOrdersMd)} is stale; run npm run apiservice:coverage`);
@@ -98,10 +104,14 @@ function buildReport() {
     .sort((left, right) => Number(left.rank) - Number(right.rank));
   const maintainedExtraRows = maintainedRows.filter((row) => !sourceRefs.has(`${row.chart}@${row.source_version}`));
   const aggregationRows = rows.filter((row) => row.api_aggregation_observed === "yes");
+  const renderPathRows = renderPathNotesFor(maintainedRows);
 
   check(rows.some((row) => row.chart === "metrics-server/metrics-server" && row.coverage_status === "api-aggregation-observed"), "expected Metrics Server API aggregation observation row");
   check(rows.some((row) => row.chart === "kedacore/keda" && row.coverage_status === "api-aggregation-observed"), "expected KEDA ConfigHub OCI/API aggregation observation row");
   check(maintainedExtraRows.some((row) => row.chart === "prometheus-community/prometheus-adapter" && row.coverage_status === "target-api-version-blocked"), "expected Prometheus Adapter target API-version blocked maintained row");
+  check(renderPathRows.length === 2, `expected two APIService render-path note rows; found ${renderPathRows.length}`);
+  check(renderPathRows.some((row) => row.chart === "fairwinds-stable/goldilocks" && row.conditional_dependencies.includes("metrics-server.enabled")), "expected Goldilocks metrics-server render-path note");
+  check(renderPathRows.some((row) => row.chart === "fairwinds-stable/vpa" && row.conditional_dependencies.includes("metrics-server.enabled")), "expected VPA metrics-server render-path note");
   check(aggregationRows.length === 2, `expected exactly two API aggregation availability rows; found ${aggregationRows.length}`);
   for (const row of aggregationRows) {
     check(row.api_condition_observed === "yes", `${row.chart}@${row.source_version} aggregation row missing APIService condition evidence`);
@@ -122,6 +132,8 @@ function buildReport() {
     outputs: {
       csv: toCsv(rows),
       maintainedCsv: toCsv(maintainedRows),
+      renderPathCsv: toCsv(renderPathRows),
+      renderPathMd: renderPathMarkdown(renderPathRows),
       summary: summaryMarkdown(rows, workOrders, maintainedRows, maintainedExtraRows),
       workOrdersCsv: toCsv(workOrders),
       workOrdersMd: workOrdersMarkdown(workOrders),
@@ -252,7 +264,7 @@ function nextActionFor({ ref, hasRecipe, coverageStatus }) {
     return "choose a supported chart version, compatibility base, or target Kubernetes profile before rerunning live APIService observation";
   }
   if (coverageStatus === "source-signal-not-rendered-in-maintained-bases") {
-    return "record which values or subcharts would render APIService objects before requiring runtime aggregation evidence";
+    return "render path recorded: current maintained bases do not render APIService objects; require runtime aggregation evidence only for a future APIService-enabled base";
   }
   if (hasRecipe) {
     return "add runtime APIService observation route and aggregated API availability receipt for the selected base";
@@ -280,6 +292,56 @@ function workOrdersFor(rows, maintainedExtraRows) {
     .map((row) => workOrderFor(row))
     .sort((left, right) => Number(left.priority) - Number(right.priority));
   return orders;
+}
+
+function renderPathNotesFor(maintainedRows) {
+  return maintainedRows
+    .filter((row) => row.coverage_status === "source-signal-not-rendered-in-maintained-bases")
+    .map((row) => {
+      const recipeDir = dirname(row.evidence_recipe_path);
+      const dependencyInfo = dependencyRenderPathInfo(recipeDir);
+      return {
+        chart: row.chart,
+        version: row.source_version,
+        source_api_service_count: row.api_service_count,
+        rendered_api_service_count: row.rendered_api_service_count,
+        maintained_bases: maintainedBasesFor(recipeDir),
+        conditional_dependencies: dependencyInfo.conditionalDependencies,
+        dependency_sources: dependencyInfo.dependencySources,
+        conclusion: "source APIService signal is conditional or vendored and is not active in maintained bases",
+        next_action: "only require runtime API aggregation evidence after a maintained base intentionally enables one of these render paths",
+        evidence: [
+          "data/top500-catalog-analysis/source/source-feature-scan.raw.json",
+          `${recipeDir}/dependency-lock.yaml`,
+          row.rendered_api_service_evidence || `${recipeDir}/revisions`,
+        ].join(";"),
+      };
+    });
+}
+
+function dependencyRenderPathInfo(recipeDir) {
+  const dependencyLockPath = join(repoRoot, recipeDir, "dependency-lock.yaml");
+  if (!existsSync(dependencyLockPath)) {
+    return { conditionalDependencies: "", dependencySources: "" };
+  }
+  const lock = readYaml(dependencyLockPath);
+  const dependencies = lock.spec?.dependencies ?? [];
+  const conditionalDependencies = dependencies
+    .filter((dependency) => dependency.condition)
+    .map((dependency) => dependency.condition)
+    .sort()
+    .join(";");
+  const dependencySources = dependencies
+    .map((dependency) => `${dependency.name}${dependency.alias ? ` as ${dependency.alias}` : ""}@${dependency.version}${dependency.condition ? ` when ${dependency.condition}` : ""}`)
+    .sort()
+    .join(";");
+  return { conditionalDependencies, dependencySources };
+}
+
+function maintainedBasesFor(recipeDir) {
+  const revisionRoot = join(repoRoot, recipeDir, "revisions");
+  if (!existsSync(revisionRoot)) return "";
+  return readDirNames(revisionRoot).join(";");
 }
 
 function workOrderFor(row) {
@@ -356,15 +418,15 @@ function workOrderFor(row) {
   }
   if (row.coverage_status === "source-signal-not-rendered-in-maintained-bases") {
     return {
-      priority: 6,
+      priority: 9,
       chart: row.chart,
       version: row.source_version,
       current_state: row.coverage_status,
-      work_type: "render-path-analysis",
+      work_type: "render-path-recorded",
       owner_hint: "catalog-review",
-      first_task: "record which values or subcharts would render APIService objects before requiring runtime aggregation evidence",
-      receipts_to_add: "render-path note or values-path receipt showing whether the APIService source signal is reachable from supported bases",
-      done_when: "the source APIService signal is either tied to a supported base with runtime evidence, or recorded as not rendered for maintained bases",
+      first_task: "no runtime APIService test is owed for the current maintained bases; create an APIService-enabled base only if product chooses to support that path",
+      receipts_to_add: "none for current maintained bases; add runtime aggregation receipt if a future base enables the APIService render path",
+      done_when: "render-path notes record the conditional dependency path and the current bases remain APIService-free",
       evidence: row.evidence,
     };
   }
@@ -389,7 +451,7 @@ function summaryMarkdown(rows, workOrders, maintainedRows, maintainedExtraRows) 
   const objectWorkloadRows = rows.filter((row) => row.api_object_observed === "yes" && row.workload_observed === "yes");
   const aggregationRows = rows.filter((row) => row.api_aggregation_observed === "yes");
   const maintainedCounts = countBy(maintainedRows, (row) => row.coverage_status);
-  const activeWorkOrders = workOrders.filter((row) => row.work_type !== "keep-fresh-pattern");
+  const activeWorkOrders = workOrders.filter((row) => !["keep-fresh-pattern", "render-path-recorded"].includes(row.work_type));
   const statusRows = [...counts.entries()].sort((a, b) => a[0].localeCompare(b[0]));
   return `# Top-100 APIService Coverage
 
@@ -499,6 +561,8 @@ ${rows.map((row) => `| \`${row.chart}@${row.source_version}\` | ${row.aggregatio
 | --- | --- |
 | \`top100-apiservice-coverage.csv\` | One row per source top-100 chart that renders APIService objects. |
 | \`maintained-apiservice-coverage.csv\` | Maintained recipe/package rows with APIService source signals, including rows outside the source top-100 slice. |
+| \`render-path-notes.md\` | Maintained rows where APIService source signals are conditional or vendored but not rendered by current bases. |
+| \`render-path-notes.csv\` | Spreadsheet-ready render-path decisions. |
 | \`work-orders.md\` | Human next-proof queue for APIService charts. |
 | \`work-orders.csv\` | Spreadsheet-ready next-proof queue for assignment and reruns. |
 | \`data/quirk-work-queue/top100-queue.csv\` | Source quirk queue that currently carries the APIService hard gap. |
@@ -548,9 +612,9 @@ catalog-supported entry for a named target profile, or keep it proof-grade.
 Kubernetes Dashboard, Datadog, and Bitnami Metrics Server need import/catalog
 decisions before a runtime aggregation receipt can close the gap. Prometheus
 Adapter has a maintained recipe and ConfigHub proof, but the tested target does
-not serve the rendered APIService version. Goldilocks and VPA have source
-APIService signals, but the maintained bases do not render APIService objects;
-those rows need render-path analysis before a runtime aggregation test is owed.
+not serve the rendered APIService version. Goldilocks and VPA have render-path
+notes: their current maintained bases do not render APIService objects, so they
+do not owe runtime aggregation evidence unless a future base enables that path.
 
 ## Files
 
@@ -558,8 +622,56 @@ those rows need render-path analysis before a runtime aggregation test is owed.
 | --- | --- |
 | \`top100-apiservice-coverage.csv\` | Current APIService state per top-100 source row. |
 | \`work-orders.csv\` | Same queue in spreadsheet form. |
+| \`render-path-notes.md\` | Render-path decisions for maintained rows whose APIService source signals are not active in current bases. |
 | \`data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml\` | Existing Metrics Server pattern receipt. |
 | \`data/runtime-gitops/receipts/kedacore-keda/default/latest.yaml\` | KEDA ConfigHub OCI/Argo APIService receipt. |
+
+Regenerate:
+
+~~~sh
+npm run apiservice:coverage
+npm run apiservice:coverage:verify
+~~~
+`;
+}
+
+function renderPathMarkdown(rows) {
+  return `# APIService Render-Path Notes
+
+This generated note covers maintained charts where the source scan finds
+APIService-capable templates, but the maintained recipe bases render zero
+APIService objects. These rows should not be treated as runtime API aggregation
+failures. They are render-path decisions.
+
+## Current Rows
+
+| Chart | Version | Source APIService count | Rendered APIService count | Maintained bases | Conditional dependencies | Conclusion |
+| --- | --- | ---: | ---: | --- | --- | --- |
+${rows.map((row) => `| \`${row.chart}\` | ${row.version} | ${row.source_api_service_count} | ${row.rendered_api_service_count} | ${escapePipes(row.maintained_bases)} | ${escapePipes(row.conditional_dependencies || "-")} | ${escapePipes(row.conclusion)} |`).join("\n")}
+
+## How To Use This
+
+When a row appears here, the chart still contains APIService-related source
+paths, usually inside optional vendored dependencies. The maintained bases do
+not render those objects, so live API aggregation evidence is not required for
+the current support claim.
+
+If a future base enables one of the listed dependency conditions, that base
+must move out of this note and into the runtime APIService contract:
+
+~~~text
+rendered APIService object observed
+backing workload observed
+APIService Available=True observed
+aggregated API query observed
+freshness timestamp recorded
+~~~
+
+## Evidence
+
+| Chart | Dependency sources | Evidence |
+| --- | --- | --- |
+${rows.map((row) => `| \`${row.chart}@${row.version}\` | ${escapePipes(row.dependency_sources || "-")} | ${escapePipes(row.evidence)} |`).join("\n")}
 
 Regenerate:
 
