@@ -49,8 +49,8 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: "needs-useful-variant"
-    userStatus: "proof-grade-needs-user-shaped-variant"
+    adoptionBucket: "promote-after-review"
+    userStatus: "proof-grade-ready-for-promotion-review"
     strongestEvidence: "local-kubernetes-live"
     proofLanes:
       renderParity: "2/2"
@@ -60,7 +60,7 @@ spec:
       liveParity: "0/2"
     featureSummary: "extension-slots"
     hardGap: "-"
-    nextAction: "add at least one user-shaped variant before catalog promotion"
+    nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/vm/victoria-metrics-single/0.39.0"
     installer: "packages/vm/victoria-metrics-single/0.39.0/installer.yaml"

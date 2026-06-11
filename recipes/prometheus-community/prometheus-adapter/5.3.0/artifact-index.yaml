@@ -50,8 +50,8 @@ spec:
     deferredVariants:
       []
   proofSummary:
-    adoptionBucket: "needs-useful-variant"
-    userStatus: "proof-grade-needs-user-shaped-variant"
+    adoptionBucket: "promote-after-review"
+    userStatus: "proof-grade-ready-for-promotion-review"
     strongestEvidence: "render-parity"
     proofLanes:
       renderParity: "2/2"
@@ -61,7 +61,7 @@ spec:
       liveParity: "0/2"
     featureSummary: "extension-slots"
     hardGap: "-"
-    nextAction: "add at least one user-shaped variant before catalog promotion"
+    nextAction: "run catalog promotion review"
   installerPackage:
     path: "packages/prometheus-community/prometheus-adapter/5.3.0"
     installer: "packages/prometheus-community/prometheus-adapter/5.3.0/installer.yaml"

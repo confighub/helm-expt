@@ -1054,9 +1054,9 @@ need catalog promotion review before support is claimed.
 | argo-cd/argo-cd@9.5.17 | catalog-candidate | - | - | default | - | [CATALOG.md](recipes/argo-cd/argo-cd/9.5.17/CATALOG.md) |
 | argo-cd/argo-events@2.4.21 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/argo-cd/argo-events/2.4.21/CATALOG.md) |
 | argo-cd/argo-rollouts@2.40.9 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/argo-cd/argo-rollouts/2.40.9/CATALOG.md) |
-| argo-cd/argo-workflows@1.0.14 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/argo-cd/argo-workflows/1.0.14/CATALOG.md) |
+| argo-cd/argo-workflows@1.0.14 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/argo-cd/argo-workflows/1.0.14/CATALOG.md) |
 | argo-cd/argocd-image-updater@1.2.2 | proof-grade | needs-useful-variant | local-kubernetes-live | default | no-crds (template-baked CRDs; no clean chart toggle yet) | [CATALOG.md](recipes/argo-cd/argocd-image-updater/1.2.2/CATALOG.md) |
-| autoscaler/cluster-autoscaler@9.57.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/autoscaler/cluster-autoscaler/9.57.0/CATALOG.md) |
+| autoscaler/cluster-autoscaler@9.57.0 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/autoscaler/cluster-autoscaler/9.57.0/CATALOG.md) |
 | autoscaler/vertical-pod-autoscaler@0.9.0 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/autoscaler/vertical-pod-autoscaler/0.9.0/CATALOG.md) |
 | aws-ebs-csi-driver/aws-ebs-csi-driver@2.60.1 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/aws-ebs-csi-driver/aws-ebs-csi-driver/2.60.1/CATALOG.md) |
 | bitnami/apache@11.4.29 | proof-grade | needs-useful-variant | render-parity | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/bitnami/apache/11.4.29/CATALOG.md) |
@@ -1080,7 +1080,7 @@ need catalog promotion review before support is claimed.
 | descheduler/descheduler@0.36.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/descheduler/descheduler/0.36.0/CATALOG.md) |
 | dex/dex@0.24.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/dex/dex/0.24.0/CATALOG.md) |
 | elastic/eck-operator@3.4.0 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/elastic/eck-operator/3.4.0/CATALOG.md) |
-| elastic/filebeat@8.5.1 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/elastic/filebeat/8.5.1/CATALOG.md) |
+| elastic/filebeat@8.5.1 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/elastic/filebeat/8.5.1/CATALOG.md) |
 | elastic/kibana@8.5.1 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/elastic/kibana/8.5.1/CATALOG.md) |
 | elastic/logstash@8.5.1 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/elastic/logstash/8.5.1/CATALOG.md) |
 | elastic/metricbeat@8.5.1 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/elastic/metricbeat/8.5.1/CATALOG.md) |
@@ -1099,13 +1099,13 @@ need catalog promotion review before support is claimed.
 | grafana/rollout-operator@0.49.0 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/grafana/rollout-operator/0.49.0/CATALOG.md) |
 | haproxytech/kubernetes-ingress@1.52.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/haproxytech/kubernetes-ingress/1.52.0/CATALOG.md) |
 | hashicorp/terraform@1.1.2 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/hashicorp/terraform/1.1.2/CATALOG.md) |
-| istio/gateway@1.30.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/istio/gateway/1.30.0/CATALOG.md) |
+| istio/gateway@1.30.0 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/istio/gateway/1.30.0/CATALOG.md) |
 | istio/istiod@1.30.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/istio/istiod/1.30.0/CATALOG.md) |
 | jaegertracing/jaeger-operator@2.57.0 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/jaegertracing/jaeger-operator/2.57.0/CATALOG.md) |
 | jaegertracing/jaeger@4.8.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/jaegertracing/jaeger/4.8.0/CATALOG.md) |
 | jetstack/cert-manager-csi-driver@v0.14.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/jetstack/cert-manager-csi-driver/v0.14.0/CATALOG.md) |
 | jetstack/trust-manager@v0.22.1 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/jetstack/trust-manager/v0.22.1/CATALOG.md) |
-| kedacore/keda@2.19.0 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/kedacore/keda/2.19.0/CATALOG.md) |
+| kedacore/keda@2.19.0 | proof-grade | promote-after-review | live-helm-vs-confighub-parity | default | - | [CATALOG.md](recipes/kedacore/keda/2.19.0/CATALOG.md) |
 | kyverno/kyverno-policies@3.8.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/kyverno/kyverno-policies/3.8.0/CATALOG.md) |
 | kyverno/kyverno@3.8.1 | proof-grade | limitation-decision-first | local-kubernetes-live | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/kyverno/kyverno/3.8.1/CATALOG.md) |
 | linkerd/linkerd-crds@1.8.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/linkerd/linkerd-crds/1.8.0/CATALOG.md) |
@@ -1113,7 +1113,7 @@ need catalog promotion review before support is claimed.
 | minio-operator/tenant@7.1.1 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/minio-operator/tenant/7.1.1/CATALOG.md) |
 | nats/nack@0.34.0 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/nats/nack/0.34.0/CATALOG.md) |
 | nats/nats@2.14.0 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/nats/nats/2.14.0/CATALOG.md) |
-| nats/surveyor@0.20.9 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/nats/surveyor/0.20.9/CATALOG.md) |
+| nats/surveyor@0.20.9 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/nats/surveyor/0.20.9/CATALOG.md) |
 | nfs-subdir-external-provisioner/nfs-subdir-external-provisioner@4.0.18 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/nfs-subdir-external-provisioner/nfs-subdir-external-provisioner/4.0.18/CATALOG.md) |
 | open-telemetry/opentelemetry-operator@0.114.0 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/open-telemetry/opentelemetry-operator/0.114.0/CATALOG.md) |
 | opencost/opencost@2.5.21 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/opencost/opencost/2.5.21/CATALOG.md) |
@@ -1123,9 +1123,9 @@ need catalog promotion review before support is claimed.
 | projectcalico/tigera-operator@v3.32.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/projectcalico/tigera-operator/v3.32.0/CATALOG.md) |
 | prometheus-community/alertmanager@1.37.0 | proof-grade | promote-after-review | two-cluster-kind-parity | default | - | [CATALOG.md](recipes/prometheus-community/alertmanager/1.37.0/CATALOG.md) |
 | prometheus-community/kube-prometheus-stack@86.1.0 | catalog-candidate | - | - | default | - | [CATALOG.md](recipes/prometheus-community/kube-prometheus-stack/86.1.0/CATALOG.md) |
-| prometheus-community/kube-state-metrics@7.4.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/prometheus-community/kube-state-metrics/7.4.0/CATALOG.md) |
-| prometheus-community/prometheus-adapter@5.3.0 | proof-grade | needs-useful-variant | render-parity | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md) |
-| prometheus-community/prometheus-blackbox-exporter@11.10.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/CATALOG.md) |
+| prometheus-community/kube-state-metrics@7.4.0 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/prometheus-community/kube-state-metrics/7.4.0/CATALOG.md) |
+| prometheus-community/prometheus-adapter@5.3.0 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-adapter/5.3.0/CATALOG.md) |
+| prometheus-community/prometheus-blackbox-exporter@11.10.0 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-blackbox-exporter/11.10.0/CATALOG.md) |
 | prometheus-community/prometheus-node-exporter@4.55.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-node-exporter/4.55.0/CATALOG.md) |
 | prometheus-community/prometheus-operator-crds@29.0.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-operator-crds/29.0.0/CATALOG.md) |
 | prometheus-community/prometheus-pushgateway@3.6.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/prometheus-community/prometheus-pushgateway/3.6.0/CATALOG.md) |
@@ -1134,9 +1134,9 @@ need catalog promotion review before support is claimed.
 | rook-release/rook-ceph@v1.19.5 | proof-grade | needs-useful-variant | local-kubernetes-live | default | no-crds (template-baked CRDs; no clean chart toggle yet) | [CATALOG.md](recipes/rook-release/rook-ceph/v1.19.5/CATALOG.md) |
 | runix/pgadmin4@1.62.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/runix/pgadmin4/1.62.0/CATALOG.md) |
 | sealed-secrets/sealed-secrets@2.18.6 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/sealed-secrets/sealed-secrets/2.18.6/CATALOG.md) |
-| stakater/reloader@2.2.12 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/stakater/reloader/2.2.12/CATALOG.md) |
+| stakater/reloader@2.2.12 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/stakater/reloader/2.2.12/CATALOG.md) |
 | strimzi/strimzi-kafka-operator@1.0.0 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/strimzi/strimzi-kafka-operator/1.0.0/CATALOG.md) |
 | traefik/traefik@40.2.0 | proof-grade | limitation-decision-first | local-kubernetes-live | default | existing-secret (chart ships no Secret toggle) | [CATALOG.md](recipes/traefik/traefik/40.2.0/CATALOG.md) |
 | velero/velero@12.0.1 | proof-grade | promote-after-review | render-parity | default | - | [CATALOG.md](recipes/velero/velero/12.0.1/CATALOG.md) |
 | vm/victoria-logs-single@0.12.5 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/vm/victoria-logs-single/0.12.5/CATALOG.md) |
-| vm/victoria-metrics-single@0.39.0 | proof-grade | needs-useful-variant | local-kubernetes-live | default | - | [CATALOG.md](recipes/vm/victoria-metrics-single/0.39.0/CATALOG.md) |
+| vm/victoria-metrics-single@0.39.0 | proof-grade | promote-after-review | local-kubernetes-live | default | - | [CATALOG.md](recipes/vm/victoria-metrics-single/0.39.0/CATALOG.md) |
