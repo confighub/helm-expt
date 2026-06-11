@@ -7,8 +7,8 @@ belong in reviewed base variants instead of ad hoc post-render edits.
 
 | Base | User choice | Helm objects | CRDs | Webhook configs | Monitoring custom resources | Current proof chain |
 | --- | --- | ---: | ---: | ---: | ---: | --- |
-| `default` | install the stack including Prometheus Operator CRDs | 124 | 10 | 2 | 50 | render `pass`; two-cluster kind `pass`; strict ConfigHub OCI/Argo `pass`; production `production-review-ready` |
-| `no-crds` | install the stack without creating CRDs | 114 | 0 | 2 | 50 | render `pass`; two-cluster kind `pass`; runtime GitOps wave `blocked`; production `production-review-ready` |
+| `default` | install the stack including Prometheus Operator CRDs | 124 | 10 | 2 | 50 | render `pass`; two-cluster kind `pass`; strict ConfigHub OCI/Argo `pass`; production `supported-for-declared-target-scope` |
+| `no-crds` | install the stack without creating CRDs | 114 | 0 | 2 | 50 | render `pass`; two-cluster kind `pass`; runtime GitOps wave `blocked`; production `separate-support-decision-needed` |
 
 The `no-crds` base changes one render-time choice:
 
@@ -30,7 +30,7 @@ the target cluster did not have the required CRDs.
 | ConfigHub proof | chart-level `pass` | chart-level `pass` | `runs/kube-prometheus-stack-confighub-proof/latest/`. |
 | Two-cluster kind parity | `pass` | `pass` | `runs/live-kind-parity/prometheus-community-kube-prometheus-stack-*/receipt.yaml`. |
 | ConfigHub OCI/GitOps | strict live `pass` | runtime wave `blocked` without pre-existing CRDs | `runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml` and `data/runtime-gitops/receipts/prometheus-community-kube-prometheus-stack/no-crds/latest.yaml`. |
-| Production support | `production-review-ready` | `production-review-ready` | `data/production-disposition/top20.csv` and the KPS production-disposition receipts. |
+| Production support | `supported-for-declared-target-scope` | `separate-support-decision-needed` | `data/production-support-decisions/prometheus-community-kube-prometheus-stack/support-decision.yaml` and `data/production-disposition/top20.csv`. |
 
 This is the chain-of-proof lesson. The `no-crds` base is not semantically
 wrong: it passes two-cluster kind parity when CRDs and the admission Secret are
@@ -88,10 +88,11 @@ the CRDs. The other assumes the target already provides them.
 
 | Base | Next action |
 | --- | --- |
-| `default` | record final target-scoped support decision and refresh live/e2e evidence for that scope. |
-| `no-crds` | stage CRDs and admission Secret for the target, then rerun GitOps/OCI and record a target-scoped support decision. |
+| `default` | Keep the target-scoped evidence fresh before using this supported scope as a production-support example. |
+| `no-crds` | stage CRDs and admission Secret for the target, then rerun GitOps/OCI and record a target-scoped support decision |
 
-For production support, the target-scoped decision still has to choose CRD
+For production support, the `default` base has a narrow target-scoped
+supported decision. Broader environments still need their own decision for CRD
 ownership, admission Secret source, webhook freshness checks, RBAC and scrape
 scope, storage posture, and the supported delivery path.
 
@@ -99,7 +100,7 @@ scope, storage posture, and the supported delivery path.
 
 This chart is the serious-chart proof path. The current evidence makes the
 base choices reviewable; it does not mark either base production-supported for
-all targets. A production support decision is still target-scoped.
+all targets. Production support remains target-scoped.
 
 | Decision | `default` | `no-crds` | Evidence |
 | --- | --- | --- | --- |
@@ -108,7 +109,7 @@ all targets. A production support decision is still target-scoped.
 | Webhook freshness | Observe webhook, operator, and caBundle readiness after apply. | Same, after CRDs are established. | `data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/webhook-readiness-and-failure-policy.yaml` |
 | RBAC and scrape scope | Approve the rendered cluster RBAC and monitoring blast radius for the target. | Same RBAC family; target CRD ownership does not narrow scrape scope by itself. | `data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/cluster-rbac-review.yaml` |
 | Scan and image posture | Accept the scan findings for this infrastructure scope or create a hardened base. | Same, plus prerequisite evidence for external CRDs. | `data/production-disposition/receipts/prometheus-community-kube-prometheus-stack/scan-gate-warning-disposition.yaml` |
-| Final live evidence | Refresh target-scoped live parity, GitOps/OCI, and observation receipts for the supported target. | Rerun GitOps/OCI after staging CRDs and the admission Secret. | `runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml`; `runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml` |
+| Final live evidence | Keep target-scoped live parity, GitOps/OCI, and observation receipts fresh for the supported target. | Rerun GitOps/OCI after staging CRDs and the admission Secret. | `runs/live-helm-confighub-compare/prometheus-community-kube-prometheus-stack-default/receipt.yaml`; `runs/live-kind-parity/prometheus-community-kube-prometheus-stack-no-crds/receipt.yaml` |
 
 Use `default` when the catalog package should own the CRDs. Use `no-crds`
 only when CRDs are a target prerequisite with their own owner, version, and

@@ -78,24 +78,29 @@ version changes." It does not generalize to other charts' hooks.
   kube-prometheus-stack upgrade footgun; the **runtime** half (live upgrade,
   controller compatibility, stored objects) still has no receipt.
 
-## What Production Support Still Needs
+## Production Support State
 
-From `data/production-disposition/` (state: `production-review-ready`,
-7 dispositions accepted, 0 open) and the support-decision queue (state:
-`not-production-supported`, focus `security-acceptance-or-hardened-base`):
+From `data/production-disposition/` the chart is `production-review-ready`
+with 7 dispositions accepted and 0 open. From
+`data/production-support-decisions/prometheus-community-kube-prometheus-stack/support-decision.yaml`,
+the `default` base is supported for one declared target scope:
+`cub-lk-kind-vanilla`, namespace `monitoring`, ConfigHub OCI delivery, and
+Argo.
 
-- **Security acceptance or a hardened base** — 54 external scan findings need
-  recorded acceptance or a hardened base variant; scan priority `high`.
-- **Image digest work** — rendered image references need digest resolution or
-  overrides for reproducible production OCI support
-  (`data/image-digest-workdown/`).
-- **Target-scoped decision** — production support is per target scope; none
-  is recorded as supported yet.
+That support decision records a mutable-image exception, scan/security
+acceptance, lifecycle decision, target-fact decision, and fresh ConfigHub
+OCI/Argo evidence for the declared scope. Stricter environments may still need
+a hardened or digest-pinned base.
+
+The `no-crds` base remains a separate support decision. Its GitOps/OCI runtime
+receipt is valuable because it blocks when target CRDs are missing; support for
+that base requires compatible external CRDs, the admission Secret, and fresh
+target evidence.
 
 ## Claims That Must Not Be Made Yet
 
-- "Production-supported" — it is production-review-ready with a named
-  security decision outstanding; those are different states.
+- "Production-supported for every target" — the supported decision is
+  target-scoped to one declared kind/namespace/OCI/Argo path.
 - "Upgrades are proven" — the committed CRD upgrade receipt is a
   desired-state delta between two renders. No live upgrade has been run; the
   runtime claim stays unmade.
@@ -110,8 +115,10 @@ From `data/production-disposition/` (state: `production-review-ready`,
 
 ## Suggested Next Receipts
 
-In value order: (1) the security acceptance / hardened-base decision (it
-gates the support state); (2) a **live** upgrade receipt 85.3.3 → 86.1.0 on
-kind — the committed render-level CRD delta (all-additive) is the input that
-makes that run well-scoped; (3) runtime webhook lifecycle observation for
-this chart's own operator, reusing the cert-manager/External Secrets pattern.
+In value order: (1) a **live** upgrade receipt 85.3.3 → 86.1.0 on kind — the
+committed render-level CRD delta (all-additive) is the input that makes that
+run well-scoped; (2) a `no-crds` support receipt with compatible external CRDs
+and the admission Secret staged; (3) runtime webhook lifecycle observation for
+this chart's own operator, reusing the cert-manager/External Secrets pattern;
+(4) a hardened or digest-pinned base for stricter environments that should not
+reuse the public proof scope's mutable-image and scan exceptions.

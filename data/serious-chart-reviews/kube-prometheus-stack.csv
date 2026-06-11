@@ -8,6 +8,6 @@ CRD install,covered (live lanes + explicit no-crds base),data/top20-base-readine
 CRD upgrade,render-level delta receipt committed (85.3.3 to 86.1.0: 6/10 CRDs change; all additive schema paths; no version or conversion changes),data/serious-chart-reviews/kps-crd-upgrade-delta-85.3.3-to-86.1.0.yaml,desired-state delta only; runtime upgrade and stored-object behavior not claimed
 webhook runtime lifecycle,pattern demonstrated on other charts only,data/lifecycle-observations/cert-manager-eso/,not yet receipted for this chart's operator/webhook pair
 blast radius,measured for crds.enabled pair (accuracy 1.000),data/blast-radius-accuracy/,grafana.adminPassword recorded not-measured-yet
-security/scan,decision outstanding (54 findings; priority high),data/production-disposition/next-actions.csv,security acceptance or hardened base required
-image digests,workdown open,data/image-digest-workdown/,digest resolution needed for reproducible production OCI
-production support,production-review-ready; not production-supported,data/production-disposition/support-decision-queue.csv,per-target decision; none recorded supported
+security/scan,accepted for declared target scope,data/production-support-decisions/prometheus-community-kube-prometheus-stack/security-decision.yaml,stricter scopes may still require a hardened base
+image digests,digest-resolution receipts plus mutable-image exception,data/production-support-decisions/prometheus-community-kube-prometheus-stack/image-policy-decision.yaml,rendered manifests are not digest-pinned; rerun if tags move
+production support,default base supported for declared target scope,data/production-support-decisions/prometheus-community-kube-prometheus-stack/support-decision.yaml,not a blanket support claim for no-crds, other clusters, private overlays, or future versions
