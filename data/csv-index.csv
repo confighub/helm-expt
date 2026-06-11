@@ -2,6 +2,7 @@ path,family,audience,use_for,summary,regenerate,verify
 data/adversarial10/control-point-summary.csv,adversarial10,supporting,machine-readable summary,data/adversarial10/summary.md,npm run adversarial10:generate,npm run adversarial10:verify
 data/adversarial10/proof-readiness.csv,adversarial10,supporting,supporting generated CSV,data/adversarial10/summary.md,npm run adversarial10:generate,npm run adversarial10:verify
 data/apiservice-coverage/top100-apiservice-coverage.csv,apiservice-coverage,user/front-door,"one row per source top-100 APIService chart: source signal, modeled status, object/workload evidence, parity evidence, aggregation evidence, and next action",data/apiservice-coverage/summary.md,npm run apiservice:coverage,npm run apiservice:coverage:verify
+data/apiservice-coverage/work-orders.csv,apiservice-coverage,user/front-door,generated work orders,data/apiservice-coverage/summary.md,npm run apiservice:coverage,npm run apiservice:coverage:verify
 data/attack-plan-workdown/crd-gap-workdown.csv,attack-plan-workdown,supporting,supporting generated CSV,data/attack-plan-workdown/summary.md,npm run attack-plan:generate,npm run attack-plan:verify
 data/attack-plan-workdown/helm-import-contract.csv,attack-plan-workdown,supporting,supporting generated CSV,data/attack-plan-workdown/summary.md,npm run attack-plan:generate,npm run attack-plan:verify
 data/attack-plan-workdown/image-digest-review.csv,attack-plan-workdown,corpus,review or promotion worksheet,data/attack-plan-workdown/summary.md,npm run attack-plan:generate,npm run attack-plan:verify

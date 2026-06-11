@@ -25,6 +25,7 @@ rows with object/workload observation:   1
 rows with two-cluster parity only:       1
 rows still source-detected only:         3
 aggregated API availability receipts:    1
+active proof/import work orders:          4
 ~~~
 
 Only rows with both an `Available=True` APIService condition and a successful
@@ -68,6 +69,8 @@ evidence exists for Metrics Server.
 | File | Purpose |
 | --- | --- |
 | `top100-apiservice-coverage.csv` | One row per source top-100 chart that renders APIService objects. |
+| `work-orders.md` | Human next-proof queue for APIService charts. |
+| `work-orders.csv` | Spreadsheet-ready next-proof queue for assignment and reruns. |
 | `data/quirk-work-queue/top100-queue.csv` | Source quirk queue that currently carries the APIService hard gap. |
 | `runs/top20-local-kind/metrics-server-default/observation-receipt.json` | Metrics Server object/workload observation evidence. |
 | `data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml` | Metrics Server APIService Available=True and `kubectl top nodes` evidence. |

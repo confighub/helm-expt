@@ -20,6 +20,8 @@ const outputRoot = join(repoRoot, "data", "apiservice-coverage");
 const outputs = {
   csv: join(outputRoot, "top100-apiservice-coverage.csv"),
   summary: join(outputRoot, "summary.md"),
+  workOrdersCsv: join(outputRoot, "work-orders.csv"),
+  workOrdersMd: join(outputRoot, "work-orders.md"),
 };
 
 const knownReceipts = {
@@ -43,15 +45,20 @@ const knownReceipts = {
 
 if (mode === "--generate") {
   const report = buildReport();
-  write(outputs.csv, report.csv);
-  write(outputs.summary, report.summary);
+  write(outputs.csv, report.outputs.csv);
+  write(outputs.summary, report.outputs.summary);
+  write(outputs.workOrdersCsv, report.outputs.workOrdersCsv);
+  write(outputs.workOrdersMd, report.outputs.workOrdersMd);
   console.log(`wrote ${relativeRepo(outputRoot)}/`);
 } else if (mode === "--verify") {
   const report = buildReport();
-  check(existsSync(outputs.csv), `${relativeRepo(outputs.csv)} is missing; run npm run apiservice:coverage`);
-  check(existsSync(outputs.summary), `${relativeRepo(outputs.summary)} is missing; run npm run apiservice:coverage`);
-  check(readFileSync(outputs.csv, "utf8") === report.csv, `${relativeRepo(outputs.csv)} is stale; run npm run apiservice:coverage`);
-  check(readFileSync(outputs.summary, "utf8") === report.summary, `${relativeRepo(outputs.summary)} is stale; run npm run apiservice:coverage`);
+  for (const path of Object.values(outputs)) {
+    check(existsSync(path), `${relativeRepo(path)} is missing; run npm run apiservice:coverage`);
+  }
+  check(readFileSync(outputs.csv, "utf8") === report.outputs.csv, `${relativeRepo(outputs.csv)} is stale; run npm run apiservice:coverage`);
+  check(readFileSync(outputs.summary, "utf8") === report.outputs.summary, `${relativeRepo(outputs.summary)} is stale; run npm run apiservice:coverage`);
+  check(readFileSync(outputs.workOrdersCsv, "utf8") === report.outputs.workOrdersCsv, `${relativeRepo(outputs.workOrdersCsv)} is stale; run npm run apiservice:coverage`);
+  check(readFileSync(outputs.workOrdersMd, "utf8") === report.outputs.workOrdersMd, `${relativeRepo(outputs.workOrdersMd)} is stale; run npm run apiservice:coverage`);
   console.log(`verified APIService coverage for ${report.rows.length} top100 source row(s)`);
 } else {
   console.log(`Usage:
@@ -76,10 +83,20 @@ function buildReport() {
   check(rows.some((row) => row.coverage_status === "api-aggregation-observed"), "expected Metrics Server API aggregation observation row");
   check(aggregationRows.length === 1, `expected exactly one API aggregation availability row; found ${aggregationRows.length}`);
 
+  const workOrders = workOrdersFor(rows);
+
+  check(workOrders.length === rows.length, `expected one APIService work order per source row; found ${workOrders.length}`);
+  check(workOrders[0]?.chart === "kedacore/keda", "expected KEDA as first APIService proof-wave work order");
+
   return {
     rows,
-    csv: toCsv(rows),
-    summary: summaryMarkdown(rows),
+    workOrders,
+    outputs: {
+      csv: toCsv(rows),
+      summary: summaryMarkdown(rows, workOrders),
+      workOrdersCsv: toCsv(workOrders),
+      workOrdersMd: workOrdersMarkdown(workOrders),
+    },
   };
 }
 
@@ -149,12 +166,92 @@ function evidenceFor({ review, quirk, receipts, kindParity }) {
   ].filter(Boolean).join(";");
 }
 
-function summaryMarkdown(rows) {
+function workOrdersFor(rows) {
+  const orders = rows
+    .map((row) => workOrderFor(row))
+    .sort((left, right) => Number(left.priority) - Number(right.priority));
+  return orders;
+}
+
+function workOrderFor(row) {
+  const ref = `${row.chart}@${row.source_version}`;
+  if (ref === "kedacore/keda@2.19.0") {
+    return {
+      priority: 1,
+      chart: row.chart,
+      version: row.source_version,
+      current_state: row.coverage_status,
+      work_type: "runtime-aggregation-proof",
+      owner_hint: "proof-lane",
+      first_task: "run an APIService observation lane for the existing keda/default recipe base",
+      receipts_to_add: "object-set APIService receipt; workload convergence receipt; APIService Available=True receipt; aggregated API query receipt",
+      done_when: "keda row becomes api-aggregation-observed, or records a named target prerequisite/refusal",
+      evidence: row.evidence,
+    };
+  }
+  if (ref === "metrics-server/metrics-server@3.13.0") {
+    return {
+      priority: 5,
+      chart: row.chart,
+      version: row.source_version,
+      current_state: row.coverage_status,
+      work_type: "keep-fresh-pattern",
+      owner_hint: "support-lane",
+      first_task: "keep the Metrics Server runtime/GitOps aggregation receipt fresh and reuse its checks as the next chart pattern",
+      receipts_to_add: "fresh runtime/GitOps receipt when chart, base, cluster profile, or controller changes",
+      done_when: "existing api-aggregation-observed row remains fresh and reproducible",
+      evidence: row.evidence,
+    };
+  }
+  if (ref === "bitnami/metrics-server@7.4.12") {
+    return {
+      priority: 4,
+      chart: row.chart,
+      version: row.source_version,
+      current_state: row.coverage_status,
+      work_type: "duplicate-chart-decision",
+      owner_hint: "catalog-review",
+      first_task: "decide whether Bitnami Metrics Server should be imported separately or routed to the existing upstream Metrics Server catalog entry",
+      receipts_to_add: "recipe/import candidate if supported separately; otherwise a catalog refusal/routing note",
+      done_when: "the row is either modeled with APIService readiness or intentionally refused as a duplicate package route",
+      evidence: row.evidence,
+    };
+  }
+  if (ref === "k8s-dashboard/kubernetes-dashboard@7.14.0") {
+    return {
+      priority: 2,
+      chart: row.chart,
+      version: row.source_version,
+      current_state: row.coverage_status,
+      work_type: "recipe-import-plus-runtime-proof",
+      owner_hint: "catalog-import",
+      first_task: "create the recipe/import candidate, then add APIService readiness and runtime aggregation checks",
+      receipts_to_add: "source lock; dependency lock; base render receipt; APIService object/workload receipts; APIService Available=True or dashboard API query receipt",
+      done_when: "the chart has a maintained recipe row plus a pass/watch/refused aggregation receipt",
+      evidence: row.evidence,
+    };
+  }
+  return {
+    priority: 3,
+    chart: row.chart,
+    version: row.source_version,
+    current_state: row.coverage_status,
+    work_type: "recipe-import-plus-runtime-proof",
+    owner_hint: "catalog-import",
+    first_task: "create the recipe/import candidate, then add APIService readiness and runtime aggregation checks",
+    receipts_to_add: "source lock; dependency lock; base render receipt; APIService object/workload receipts; APIService Available=True or target-specific API query receipt",
+    done_when: "the chart has a maintained recipe row plus a pass/watch/refused aggregation receipt",
+    evidence: row.evidence,
+  };
+}
+
+function summaryMarkdown(rows, workOrders) {
   const counts = countBy(rows, (row) => row.coverage_status);
   const catalogRows = rows.filter((row) => row.catalog_status === "catalog-supported");
   const sourceOnlyRows = rows.filter((row) => row.coverage_status === "source-detected-needs-recipe");
   const objectWorkloadRows = rows.filter((row) => row.api_object_observed === "yes" && row.workload_observed === "yes");
   const aggregationRows = rows.filter((row) => row.api_aggregation_observed === "yes");
+  const activeWorkOrders = workOrders.filter((row) => row.work_type !== "keep-fresh-pattern");
   const statusRows = [...counts.entries()].sort((a, b) => a[0].localeCompare(b[0]));
   return `# Top-100 APIService Coverage
 
@@ -183,6 +280,7 @@ rows with object/workload observation:   ${objectWorkloadRows.length}
 rows with two-cluster parity only:       ${rows.filter((row) => row.coverage_status === "two-cluster-parity-only").length}
 rows still source-detected only:         ${sourceOnlyRows.length}
 aggregated API availability receipts:    ${aggregationRows.length}
+active proof/import work orders:          ${activeWorkOrders.length}
 ~~~
 
 Only rows with both an \`Available=True\` APIService condition and a successful
@@ -220,10 +318,60 @@ ${rows.map((row) => `| ${row.rank} | \`${row.chart}\` | ${row.source_version} | 
 | File | Purpose |
 | --- | --- |
 | \`top100-apiservice-coverage.csv\` | One row per source top-100 chart that renders APIService objects. |
+| \`work-orders.md\` | Human next-proof queue for APIService charts. |
+| \`work-orders.csv\` | Spreadsheet-ready next-proof queue for assignment and reruns. |
 | \`data/quirk-work-queue/top100-queue.csv\` | Source quirk queue that currently carries the APIService hard gap. |
 | \`runs/top20-local-kind/metrics-server-default/observation-receipt.json\` | Metrics Server object/workload observation evidence. |
 | \`data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml\` | Metrics Server APIService Available=True and \`kubectl top nodes\` evidence. |
 | \`runs/live-kind-parity/*/receipt.yaml\` | Two-cluster Helm-vs-\`cub installer\` parity evidence. |
+
+Regenerate:
+
+~~~sh
+npm run apiservice:coverage
+npm run apiservice:coverage:verify
+~~~
+`;
+}
+
+function workOrdersMarkdown(rows) {
+  return `# APIService Proof Work Orders
+
+This generated queue turns the APIService coverage report into assignable
+proof work. APIService rows are high value because a rendered object can match
+regular Helm while Kubernetes API aggregation still fails after apply.
+
+## Work Queue
+
+| Priority | Chart | Version | Current state | Work type | First task | Done when |
+| ---: | --- | --- | --- | --- | --- | --- |
+${rows.map((row) => `| ${row.priority} | \`${row.chart}\` | ${row.version} | \`${row.current_state}\` | \`${row.work_type}\` | ${escapePipes(row.first_task)} | ${escapePipes(row.done_when)} |`).join("\n")}
+
+## Receipt Contract
+
+For a row to become \`api-aggregation-observed\`, it needs committed evidence
+for the selected chart/base:
+
+~~~text
+rendered APIService object observed
+backing workload observed
+APIService Available=True observed
+aggregated API query or target-specific equivalent observed
+freshness timestamp recorded
+~~~
+
+KEDA is the first proof-wave target because it already has a maintained
+recipe row and two-cluster parity. Kubernetes Dashboard, Datadog, and Bitnami
+Metrics Server need import/catalog decisions before a runtime aggregation
+receipt can close the gap.
+
+## Files
+
+| File | Purpose |
+| --- | --- |
+| \`top100-apiservice-coverage.csv\` | Current APIService state per top-100 source row. |
+| \`work-orders.csv\` | Same queue in spreadsheet form. |
+| \`data/runtime-gitops/receipts/metrics-server-metrics-server/default/latest.yaml\` | Existing Metrics Server pattern receipt. |
 
 Regenerate:
 
