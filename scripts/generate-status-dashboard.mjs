@@ -50,6 +50,7 @@ function buildReport() {
   const top100CoverageWorkRows = readCsv("data/top100-coverage/work-queue.csv");
   const top100PromotionWaveRows = readCsv("data/top100-promotion-wave/wave.csv");
   const top100PromotionFastTrackRows = readCsv("data/top100-promotion-wave/fast-track.csv");
+  const top100PromotionFastTrackReviewRows = readCsv("data/top100-promotion-wave/fast-track-reviews/review-packets.csv");
   const refreshSurvivalRows = readCsv("data/refresh-survival/refreshes.csv");
   const latestRefreshActionRows = readCsv("data/latest-top20-refresh/action-queue/queue.csv");
   const top500Rows = readCsv("data/top500-catalog-analysis/review.csv");
@@ -97,6 +98,7 @@ function buildReport() {
   rows.push(metric("top100", "top100 promotion-review queue", count(top100CoverageWorkRows, "queue", "promotion-review"), top100CoverageWorkRows.length, "partial", "data/top100-coverage/work-queue.csv", "Partial top100 rows ready for catalog promotion review under the strict coverage contract."));
   rows.push(metric("top100", "first strict top100 promotion wave", top100PromotionWaveRows.length, count(top100CoverageWorkRows, "queue", "promotion-review"), "partial", "data/top100-promotion-wave/wave.csv", "Promotion-review rows with two-cluster kind parity selected for the first strict top100 promotion wave."));
   rows.push(metric("top100", "fast-track top100 promotion candidates", top100PromotionFastTrackRows.length, top100PromotionWaveRows.length, "partial", "data/top100-promotion-wave/fast-track.csv", "Low-residue promotion-review rows with clean scan/gate state and no hook/CRD/webhook lifecycle class."));
+  rows.push(metric("top100", "fast-track promotion review packets", top100PromotionFastTrackReviewRows.length, top100PromotionFastTrackRows.length, "partial", "data/top100-promotion-wave/fast-track-reviews/review-packets.csv", "Review-input packets for low-residue candidates. These are not support decisions."));
   rows.push(metric("top100", "top100 user-shaped variant queue", count(top100CoverageWorkRows, "queue", "user-shaped-variant"), top100CoverageWorkRows.length, "partial", "data/top100-coverage/work-queue.csv", "Partial top100 rows whose proof exists but whose current base is not yet a useful catalog offer."));
   rows.push(metric("top100", "top100 limitation-decision queue", count(top100CoverageWorkRows, "queue", "limitation-decision"), top100CoverageWorkRows.length, "partial", "data/top100-coverage/work-queue.csv", "Partial top100 rows needing a support, disclosure, defer, or block decision before promotion."));
   rows.push(metric("refresh", "top20 proofs still current", count(refreshSurvivalRows, "refresh_state", "current-proof-still-current"), refreshSurvivalRows.length, "partial", "data/refresh-survival/refreshes.csv", "Supported top-20 chart versions that still match the latest upstream Helm version in the retained refresh snapshot."));
@@ -179,7 +181,7 @@ function buildReport() {
 
   const chartByName = new Map(chartRows.map((row) => [row.chart, row]));
   const top20Rows = top20StatusRows(top100Rows, chartByName, top20BaseReadinessRows, productionSupportDecisionRows);
-  const nextWorkQueues = nextWorkQueueRows({ top100Rows, top100CoverageWorkRows, top100PromotionFastTrackRows, remoteDependencyRows, hookRows, hookReviewRows, hookCandidateRows, hookCandidateWorkOrderRows, lifecycleObservationRows, liveParityRerunRows, productionSupportDecisionRows, latestRefreshActionRows });
+  const nextWorkQueues = nextWorkQueueRows({ top100Rows, top100CoverageWorkRows, top100PromotionFastTrackRows, top100PromotionFastTrackReviewRows, remoteDependencyRows, hookRows, hookReviewRows, hookCandidateRows, hookCandidateWorkOrderRows, lifecycleObservationRows, liveParityRerunRows, productionSupportDecisionRows, latestRefreshActionRows });
   const activeProofQueue = activeProofQueueRows(liveParityRerunRows);
   return {
     rows,
@@ -190,7 +192,7 @@ function buildReport() {
     nextWorkQueuesCsv: nextWorkQueuesToCsv(nextWorkQueues),
     activeProofQueue,
     activeProofQueueCsv: activeProofQueueToCsv(activeProofQueue),
-    summary: summary(rows, { chartRows, baseRows, chartUseRows, top100Rows, top100CoverageWorkRows, top100PromotionFastTrackRows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, hookReviewRows, hookCandidateRows, hookCandidateWorkOrderRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, productionSupportDecisionRows, scanDispositionRows, latestRefreshActionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues, activeProofQueue }),
+    summary: summary(rows, { chartRows, baseRows, chartUseRows, top100Rows, top100CoverageWorkRows, top100PromotionFastTrackRows, top100PromotionFastTrackReviewRows, top500Rows, top20Rows, quirkRows, extensionRows, hookRows, hookReviewRows, hookCandidateRows, hookCandidateWorkOrderRows, lifecycleBoundaryRows, lifecycleObservationRows, edgeRows, liveRows, kindParityRows, liveParityRerunRows, runtimeRows, productionRows, productionSupportDecisionRows, scanDispositionRows, latestRefreshActionRows, derivedWorkOrders, derivedLiveReceiptCount, targetBoundDerivedReceiptCount, nextWorkQueues, activeProofQueue }),
   };
 }
 

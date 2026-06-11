@@ -62,7 +62,7 @@ function readme(rows) {
     ["I want the strict top-100 work queue.", "data/top100-coverage/work-queue.md; data/top100-coverage/work-queue.csv; data/top100-coverage/decisions-needed.md"],
     ["I want the source-scan quirk work queue.", "data/quirk-work-queue/summary.md; data/quirk-work-queue/top100-queue.csv"],
     ["I want remote dependency closure status.", "data/remote-dependency-closure/summary.md; data/remote-dependency-closure/top100.csv"],
-    ["I want the first strict top-100 promotion wave.", "data/top100-promotion-wave/summary.md; data/top100-promotion-wave/wave.csv; data/top100-promotion-wave/fast-track.md; data/top100-promotion-wave/work-orders.md"],
+    ["I want the first strict top-100 promotion wave.", "data/top100-promotion-wave/summary.md; data/top100-promotion-wave/wave.csv; data/top100-promotion-wave/fast-track.md; data/top100-promotion-wave/fast-track-reviews/README.md; data/top100-promotion-wave/work-orders.md"],
     ["I want to know how upstream chart updates are handled.", "data/refresh-survival/summary.md; data/latest-top20-refresh/action-queue/summary.md; data/latest-top20-refresh/replacement-decisions/summary.md"],
     ["I want the top-100 or top-500 planning picture.", "data/top100-readiness/summary.md; data/top100-readiness/next80-queues.md; data/top500-catalog-analysis/review.csv"],
     ["I want live parity status.", "data/live-kind-parity/summary.md; data/live-helm-confighub-compare/summary.md"],
@@ -320,6 +320,7 @@ function roleFor(path) {
   if (path === "data/top100-coverage/work-queue.csv") return "one row per partial top-100 chart: strict coverage queue, priority, missing items, first step, and done-when rule";
   if (path === "data/top100-promotion-wave/wave.csv") return "one row per selected strict top-100 promotion wave chart";
   if (path === "data/top100-promotion-wave/fast-track.csv") return "one row per low-residue top-100 promotion candidate with clean scan/gate state";
+  if (path === "data/top100-promotion-wave/fast-track-reviews/review-packets.csv") return "one row per fast-track promotion review packet";
   if (path === "data/top100-promotion-wave/work-orders.csv") return "one row per promotion-review task for the first strict top-100 wave";
   if (path === "data/refresh-survival/refreshes.csv") return "one row per top-20 latest-version refresh: current proof, latest upstream version, retained candidate state, and promotion route";
   if (path === "data/latest-top20-refresh/action-queue/queue.csv") return "one row per top-20 upstream update row: action, priority, first step, command, evidence, and done-when rule";
@@ -437,6 +438,7 @@ function verifyFor(family) {
 function commandForPath(path, family) {
   if (path === "data/production-disposition/next-actions.csv") return "npm run production:disposition:details";
   if (path === "data/live-e2e/cub-scout-watchlist.csv") return "manual update after strict cub-scout live witness rerun";
+  if (path.startsWith("data/top100-promotion-wave/fast-track")) return "npm run top100:promotion-fast-track";
   if (path.startsWith("data/latest-top20-refresh/replacement-decisions/")) return "npm run top20:latest-replacement-decisions";
   if (path.startsWith("data/latest-top20-refresh/action-queue/")) return "npm run top20:latest-action-queue";
   return commandFor(family);
@@ -445,6 +447,7 @@ function commandForPath(path, family) {
 function verifyForPath(path, family) {
   if (path === "data/production-disposition/next-actions.csv") return "npm run production:disposition:details:verify";
   if (path === "data/live-e2e/cub-scout-watchlist.csv") return "npm run data:index:verify";
+  if (path.startsWith("data/top100-promotion-wave/fast-track")) return "npm run top100:promotion-fast-track:verify";
   if (path.startsWith("data/latest-top20-refresh/replacement-decisions/")) return "npm run top20:latest-replacement-decisions:verify";
   if (path.startsWith("data/latest-top20-refresh/action-queue/")) return "npm run top20:latest-action-queue:verify";
   return verifyFor(family);
