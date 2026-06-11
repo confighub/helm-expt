@@ -125,7 +125,7 @@ The newer sceptic plan adds two cross-cutting outcomes:
     distinctions, prod-only gates/targets/observation policy, and no confusing preview treatment.
 16. **Argo/OCI GitOps tutorial positioning** (#153) - make Tutorial 6 bridge-independent, Argo/OCI-oriented,
     and honest about which runtime/GitOps receipts exist. Use the generated
-    [lane-test matrix](../../data/lane-test-matrix/summary.md) as the corpus
+    [outcome coverage](../../data/outcome-coverage/summary.md) as the corpus
     source of truth, and add the missing live Helm-vs-ConfigHub dual-deploy
     comparison lane: live `helm install` compared with ConfigHub via controller
     OCI and ConfigHub via kubectl/apply.

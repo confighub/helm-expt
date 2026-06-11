@@ -149,7 +149,7 @@
     {
       "section": "outcome coverage",
       "metric": "variant-rich maintained chart rows",
-      "value": "64",
+      "value": "74",
       "total": "110",
       "status": "partial",
       "source": "data/outcome-coverage/chart-outcomes.csv",
@@ -437,7 +437,7 @@
     {
       "section": "proof lanes",
       "metric": "GitOps/OCI live pass rows",
-      "value": "22",
+      "value": "23",
       "total": "189",
       "status": "partial",
       "source": "data/outcome-coverage/base-outcomes.csv",
@@ -977,7 +977,7 @@
     {
       "section": "apiservice",
       "metric": "APIService rows with object/workload observation",
-      "value": "1",
+      "value": "2",
       "total": "5",
       "status": "partial",
       "source": "data/apiservice-coverage/top100-apiservice-coverage.csv",
