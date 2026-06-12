@@ -14,12 +14,12 @@ complete core lane rows:             30/190
 render parity rows:                  190/190
 in-ConfigHub proof rows:             85/190
 local live rows:                     134/190
-GitOps/OCI live pass rows:           33/190
-GitOps/OCI non-pass receipts:        8
-live Helm-vs-ConfigHub pass rows:    33/190
-live Helm-vs-ConfigHub non-pass receipts: 5
+GitOps/OCI live pass rows:           34/190
+GitOps/OCI non-pass receipts:        7
+live Helm-vs-ConfigHub pass rows:    34/190
+live Helm-vs-ConfigHub non-pass receipts: 4
 lifecycle observation rows:          10/10
-selected live parity receipts:       33 pass, 5 watch, 0 blocked
+selected live parity receipts:       34 pass, 4 watch, 0 blocked
 two-cluster kind parity receipts:    70 pass, 0 watch, 0 blocked
 derived intended-state pass rows:    10
 target-bound derived pass rows:      5
@@ -79,7 +79,7 @@ related lifecycle observations:      10/10
 | `longhorn/longhorn@1.11.2` | default;ui-ingress | yes | 1/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | - |
 | `metrics-server/metrics-server@3.13.0` | default;external-tls-ca | yes | 1/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
 | `prometheus-community/kube-prometheus-stack@85.3.3` | default;no-crds | yes | 2/2 | 2/2 | 1/2 | 2/2 | 2/2 | 2/2 | existing-secret (chart ships no Secret toggle) |
-| `prometheus-community/prometheus@29.8.0` | default;server-only-ephemeral | yes | 1/2 | 2/2 | 0/2 | 1/2 | 1/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
+| `prometheus-community/prometheus@29.8.0` | default;server-only-ephemeral | yes | 1/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | ha (curated proof lane - bespoke teaching needed) |
 | `secrets-store-csi-driver/secrets-store-csi-driver@1.6.0` | default;sync-secret-rotation | yes | 2/2 | 2/2 | 0/2 | 2/2 | 2/2 | 2/2 | - |
 
 ## How To Read This
