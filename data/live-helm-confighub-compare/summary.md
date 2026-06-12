@@ -6,7 +6,7 @@ completed row has a receipt under
 `runs/live-helm-confighub-compare/`.
 
 ```text
-pass: 36
+pass: 37
 watch: 1
 blocked: 1
 not-started: 0
@@ -57,4 +57,5 @@ infra: target profile requires sudo: 1
 | 16 | `bitnami/mysql@14.0.3` | existing-secret | pass | - | runs/live-helm-confighub-compare/bitnami-mysql-existing-secret/receipt.yaml |
 | 17 | `bitnami/mongodb@19.0.7` | existing-secret-replicaset | pass | - | runs/live-helm-confighub-compare/bitnami-mongodb-existing-secret-replicaset/receipt.yaml |
 | 18 | `bitnami/nginx@24.0.2` | existing-tls-ingress | pass | - | runs/live-helm-confighub-compare/bitnami-nginx-existing-tls-ingress/receipt.yaml |
+|  | `elastic/logstash@8.5.1` | default | pass | - | runs/live-helm-confighub-compare/elastic-logstash-default/receipt.yaml |
 |  | `kedacore/keda@2.19.0` | default | pass | - | runs/live-helm-confighub-compare/kedacore-keda-default/receipt.yaml |

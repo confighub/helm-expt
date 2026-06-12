@@ -1,0 +1,216 @@
+apiVersion: helm-expt.confighub.com/v1alpha1
+kind: LiveHelmConfigHubParityReceipt
+metadata:
+  name: elastic-logstash-8.5.1-default-live-parity-20260605
+spec:
+  chart: elastic/logstash
+  version: 8.5.1
+  base: default
+  result: pass
+  observedAt: '2026-06-12T19:48:44Z'
+  package:
+    path: packages/elastic/logstash/8.5.1
+  recipe:
+    path: recipes/elastic/logstash/8.5.1
+  variantRevision: recipes/elastic/logstash/8.5.1/revisions/default/r001/variant-revision.yaml
+  targetProfile:
+    name: none
+    result: pass
+    resources: []
+  gitOpsCanonicalizationProfile:
+    name: none
+    result: pass
+    changes: []
+  run:
+    rig: helm-expt-parity-logstash-1781293723
+    kubeContext: kind-helm-expt-parity-logstash-1781293723
+    namespace: default
+    legNamespaces:
+      regularHelm: default
+      configHubKubectlApply: default
+      configHubOciArgo: default
+    clusterLifecycle: cleaned-up
+    cleanup:
+      command: cub lk down --name helm-expt-parity-logstash-1781293723 --force
+      result: pass
+      detail: 'Deleting kind cluster "helm-expt-parity-logstash-1781293723"...
+
+        Deleting cluster "helm-expt-parity-logstash-1781293723" ...
+
+        Deleted nodes: ["helm-expt-parity-logstash-1781293723-control-plane"]
+
+        Deleting Space "helm-expt-parity-logstash-1781293723-cluster" (recursive:
+        cascades to Unit, Target, Worker)...
+
+
+        Done.'
+  legs:
+    regularHelm:
+      result: pass
+      command: helm upgrade --install logstash logstash --repo https://helm.elastic.co
+        --version 8.5.1 --namespace default --create-namespace --values /Users/alexis/code/helm-expt/runs/live-helm-confighub-compare/elastic-logstash-default/regular-helm-values.yaml
+        --wait --timeout 8m
+      manifestSHA256: 1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd
+      objectCount: 3
+      liveHelmManifestSHA256: 1bb5971d54f2bb9fd05ffe69b339261a9c31e8b81eeba48064a9dbc337fe5ecd
+      liveHelmManifestObjectCount: 3
+      namespace: default
+      runtime:
+        result: pass
+        workloads: statefulset.apps/logstash-logstash   1/1   2m21s
+        pods: logstash-logstash-0   1/1   Running   0     2m21s
+        notReady: []
+      stderr: ''
+      getManifestError: ''
+    configHubKubectlApply:
+      result: pass
+      renderCommand: cub installer setup --pull /Users/alexis/code/helm-expt/packages/elastic/logstash/8.5.1
+        --base default --work-dir /tmp/helm-expt-live-parity-helm-expt-parity-logstash-1781293723-logstash
+        --non-interactive --namespace default
+      applyMode: namespace-first kubectl apply; separated secrets staged when present
+      manifestSHA256: a48b3d496d9d9867c813f734db15680fa902f2b5db7ecb816f3aebaf21ae898d
+      objectCount: 4
+      namespace: default
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id001
+      - default
+      runtime:
+        result: pass
+        namespaces: *id001
+        workloads: '# default
+
+          statefulset.apps/logstash-logstash   0/1   10s'
+        pods: '# default'
+        notReady: []
+      cleanupBeforeOci:
+        namespaces: []
+        retainedNamespaces: []
+        reason: isolate the OCI/Argo leg from direct-apply workloads in single-cluster
+          parity rigs
+    configHubOciArgo:
+      result: pass
+      workloadSpace: helm-expt-parity-logstash-1781293723-logstash
+      controller: Argo CD OCI
+      app: logstash-parity
+      manifestSHA256: a48b3d496d9d9867c813f734db15680fa902f2b5db7ecb816f3aebaf21ae898d
+      objectCount: 4
+      namespace: default
+      manifestNamespaces:
+      - default
+      runtimeNamespaces: &id002
+      - default
+      ociRevision: sha256:80fa20039e9b100fe8b5776ebaf2e8a5f4a89821c0d564f62cc33f866f9ab0d9
+      sync: Synced
+      health: Healthy
+      separatedSecrets: []
+      runtime:
+        result: pass
+        namespaces: *id002
+        workloads: '# default
+
+          statefulset.apps/logstash-logstash   1/1   93s'
+        pods: '# default
+
+          logstash-logstash-0   1/1   Running   0     82s'
+        notReady: []
+  semanticComparison:
+    allowedExtraConfigHubObjects:
+    - v1|Namespace||default
+    semanticNormalizations: &id003
+    - prune-null-fields
+    helmVsConfigHubKubectlApply:
+      result: pass
+      helmObjectCount: 3
+      configHubObjectCount: 4
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations: *id003
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+    helmVsConfigHubOciArgo:
+      result: pass
+      helmObjectCount: 3
+      configHubObjectCount: 4
+      missingFromConfigHub: []
+      extraInConfigHub:
+      - v1|Namespace||default
+      semanticDiffs: []
+      semanticNormalizations:
+      - prune-null-fields
+      comparisonSHA256: c90ccd49553545d990093d205a77069ff9881faac63f0338fd802eefca910e4f
+  checks:
+  - name: live-lane-lock
+    result: pass
+    detail: acquired /Users/alexis/.confighub/locks/helm-expt-live-parity.lock
+  - name: cub-lk-up
+    result: pass
+    detail: "Creating kind cluster \"helm-expt-parity-logstash-1781293723\" (kubeconfig:\
+      \ /Users/alexis/.confighub/lk/helm-expt-parity-logstash-1781293723.kubeconfig)...\n\
+      Creating cluster \"helm-expt-parity-logstash-1781293723\" ...\n \u2022 Ensuring\
+      \ node image (kindest/node:v1.35.0) \U0001F5BC  ...\n \u2713 Ensuring node image\
+      \ (kindest/node:v1.35.0) \U0001F5BC\n \u2022 Preparing nodes \U0001F4E6   ...\n\
+      \ \u2713 Preparing nodes \U0001F4E6 \n \u2022 Writing configuration \U0001F4DC\
+      \  ...\n \u2713 Writing configuration \U0001F4DC\n \u2022 Starting control-plane\
+      \ \U0001F579\uFE0F  ...\n \u2713 Starting control-plane \U0001F579\uFE0F\n \u2022\
+      \ Installing CNI \U0001F50C  ...\n \u2713 Installing CNI \U0001F50C\n \u2022\
+      \ Installing StorageClass \U0001F4BE  ...\n \u2713 Installing StorageClass \U0001F4BE\
+      \nSet kubectl context to \"kind-helm-expt-parity-logstash-1781293723\"\nYou\
+      \ can now use your cluster with:\n\nkubectl cluster-info --context kind-helm-expt-parity-logstash-1781293723\
+      \ --kubeconfig /Users/alexis/.confighub/lk/helm-expt-parity-logstash-1781293723.kubeconfig\n\
+      \nHave a nice day! \U0001F44B\nInstalling Argo CD...\nCreating namespace \"\
+      argocd\"...\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: argocd\nspec:\
+      \ {}\nsta"
+  - name: target-facts-regular-helm
+    result: pass
+    detail: secrets=0 crds=0
+  - name: regular-helm-live
+    result: pass
+    detail: "Release \"logstash\" does not exist. Installing it now.\nNAME: logstash\n\
+      LAST DEPLOYED: Fri Jun 12 20:50:14 2026\nNAMESPACE: default\nSTATUS: deployed\n\
+      REVISION: 1\nDESCRIPTION: Install complete\nTEST SUITE: None\nNOTES:\n1. Watch\
+      \ all cluster members come up.\n  $ kubectl get pods --namespace=default -l\
+      \ app=logstash-logstash -w"
+  - name: target-facts-confighub-apply
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-kubectl-apply-live
+    result: pass
+    detail: '# default
+
+      statefulset.apps/logstash-logstash   0/1   10s'
+  - name: target-facts-confighub-oci
+    result: pass
+    detail: secrets=0 crds=0
+  - name: confighub-oci-argo-live
+    result: pass
+    detail: sync=Synced health=Healthy after 50s
+  - name: semantic-object-parity
+    result: pass
+    detail: apply=pass argo=pass applyDiffs=0 argoDiffs=0
+  targetFacts:
+    regularHelm:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubKubectlApply:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+    configHubOciArgo:
+      result: pass
+      stagedSecrets: []
+      stagedCRDs: []
+  operatingPolicy:
+    regularHelm:
+      result: pass
+      operation: none
+    configHubKubectlApply:
+      result: pass
+      operation: none
+      namespace: default
+    configHubOciArgo:
+      result: pass
+      operation: none
+      namespace: default
