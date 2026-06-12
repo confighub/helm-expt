@@ -38,6 +38,8 @@ if yaml:
         lambda loader, node: loader.construct_scalar(node),
     )
 
+TARGET_PROFILE_PROCESSES: list[subprocess.Popen] = []
+
 
 def sh(cmd: list[str], timeout: int = 120, env: dict[str, str] | None = None) -> tuple[int, str, str]:
     try:
@@ -54,6 +56,13 @@ def helm_chart_command_args(chart: str, repo_url: str) -> list[str]:
         chart_ref = repo if repo.rsplit("/", 1)[-1] == chart_name else f"{repo}/{chart_name}"
         return [chart_ref]
     return [chart_name, "--repo", repo_url]
+
+
+def kind_clusters() -> list[str]:
+    rc, clusters, _ = sh(["kind", "get", "clusters"], timeout=60)
+    if rc != 0:
+        return []
+    return [line.strip() for line in clusters.splitlines() if line.strip()]
 
 
 def prune_parity_leaks() -> None:
@@ -798,6 +807,8 @@ def delete_namespace_if_safe(namespace: str, kubeconfig: Path, context: str) -> 
 def install_target_profile(profile: str, kubeconfig: Path, context: str, run_root: Path) -> dict:
     if profile in ("", "none"):
         return {"name": "none", "result": "pass", "resources": []}
+    if profile == "kind-loadbalancer":
+        return install_kind_loadbalancer_profile(kubeconfig, context, run_root)
     if profile != "kind-ingress-nginx":
         raise RuntimeError(f"unsupported target profile: {profile}")
 
@@ -833,6 +844,85 @@ def install_target_profile(profile: str, kubeconfig: Path, context: str, run_roo
         "spec": profile_receipt,
     })
     return profile_receipt
+
+
+def install_kind_loadbalancer_profile(kubeconfig: Path, context: str, run_root: Path) -> dict:
+    # cloud-provider-kind is the upstream-recommended way to make
+    # Service.type=LoadBalancer work on kind. It observes all kind clusters on
+    # the host, so this profile refuses to run unless the current proof rig is
+    # the only kind cluster present.
+    binary = shutil.which("cloud-provider-kind")
+    if not binary:
+        raise RuntimeError("target profile kind-loadbalancer requires cloud-provider-kind on PATH")
+
+    rig = context.removeprefix("kind-")
+    clusters = kind_clusters()
+    unexpected = [cluster for cluster in clusters if cluster != rig]
+    if unexpected:
+        raise RuntimeError(
+            "target profile kind-loadbalancer refused to start because cloud-provider-kind "
+            f"would observe other kind clusters: {', '.join(unexpected)}"
+        )
+
+    node_name = f"{rig}-control-plane"
+    label_rc, label_out, label_err = kubectl(
+        ["label", "node", node_name, "node.kubernetes.io/exclude-from-external-load-balancers-"],
+        kubeconfig,
+        context,
+        timeout=60,
+    )
+    if label_rc != 0 and "not labeled" not in (label_err or label_out):
+        raise RuntimeError(f"target profile kind-loadbalancer node label update failed: {(label_err or label_out)[:1000]}")
+
+    log_path = run_root / "target-profile-kind-loadbalancer.log"
+    log = log_path.open("w")
+    proc = subprocess.Popen(
+        [binary, "--enable-lb-port-mapping"],
+        text=True,
+        stdout=log,
+        stderr=subprocess.STDOUT,
+    )
+    TARGET_PROFILE_PROCESSES.append(proc)
+    time.sleep(5)
+    if proc.poll() is not None:
+        log.close()
+        detail = ""
+        try:
+            detail = log_path.read_text()[-2000:]
+        except Exception:
+            pass
+        raise RuntimeError(f"target profile kind-loadbalancer exited early: {detail}")
+
+    profile_receipt = {
+        "name": "kind-loadbalancer",
+        "result": "pass",
+        "binary": binary,
+        "process": {"pid": proc.pid, "log": str(log_path)},
+        "resources": [
+            f"node/{node_name}",
+            "host-process/cloud-provider-kind",
+        ],
+        "observedBehavior": "Service.type=LoadBalancer objects receive a local external address on kind through cloud-provider-kind.",
+    }
+    write_yaml(run_root / "target-profile-kind-loadbalancer.yaml", {
+        "apiVersion": "helm-expt.confighub.com/v1alpha1",
+        "kind": "TargetProfileReceipt",
+        "spec": profile_receipt,
+    })
+    return profile_receipt
+
+
+def stop_target_profile_processes() -> None:
+    while TARGET_PROFILE_PROCESSES:
+        proc = TARGET_PROFILE_PROCESSES.pop()
+        if proc.poll() is not None:
+            continue
+        proc.terminate()
+        try:
+            proc.wait(timeout=15)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+            proc.wait(timeout=15)
 
 
 def canonicalize_gitops_doc(doc: dict, profile: str) -> tuple[dict, list[str]]:
@@ -1162,7 +1252,7 @@ def main() -> int:
     parser.add_argument("--rig", required=True)
     parser.add_argument("--out", required=True)
     parser.add_argument("--wait", default="8m")
-    parser.add_argument("--target-profile", default="none", choices=["none", "kind-ingress-nginx"])
+    parser.add_argument("--target-profile", default="none", choices=["none", "kind-ingress-nginx", "kind-loadbalancer"])
     parser.add_argument("--gitops-canonicalization-profile", default="none", choices=["none", "k8s-zero-defaults"])
     parser.add_argument(
         "--lock-timeout-seconds",
@@ -1686,6 +1776,7 @@ def main() -> int:
         check_item("failure", "blocked", str(exc))
         receipt["spec"]["failure"] = {"message": str(exc)}
     finally:
+        stop_target_profile_processes()
         if not args.keep:
             mark_stage("cleanup")
             for cmd in [

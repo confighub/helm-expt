@@ -60,6 +60,7 @@ function printUsage() {
   node scripts/run-top20-live-parity.mjs --run --chart metrics-server --base external-tls-ca --gitops-canonicalization-profile k8s-zero-defaults
   node scripts/run-top20-live-parity.mjs --run --chart nginx --base existing-tls-ingress
   node scripts/run-top20-live-parity.mjs --run --chart nginx --base existing-tls-ingress --target-profile kind-ingress-nginx
+  node scripts/run-top20-live-parity.mjs --run --chart ingress-nginx --base default --target-profile kind-loadbalancer
   node scripts/run-top20-live-parity.mjs --run --chart nginx --repo-url oci://registry-1.docker.io/bitnamicharts
   node scripts/run-top20-live-parity.mjs --run --from-rank 2 --to-rank 5 --continue-on-fail
   node scripts/run-top20-live-parity.mjs --run --all --continue-on-fail
